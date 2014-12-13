@@ -1,27 +1,31 @@
 <?php
 /*
-Plugin Name: WP-RETS 
+Plugin Name: WP-Rets
 Description: A Wordpress plugin for Reichert Brothers Retsd server.
+Copyright (c) Reichert Brothers 2014
 */
 
 /* Code starts here */
 
 
 // Admin Panel Settings Page
-function rets_admin_menu() {
-    add_options_page('RetsD Settings', 'RetsD', 'manage_options', 'rets-admin.php', 'retsd_admin_page');
+function add_to_admin_menu() {
+    add_options_page('RetsD Settings', 'RetsD', 'manage_options', 'rets-admin.php', 'admin_page');
 }
 
-function retsd_admin_page() {
+function admin_page() {
     global $wpdb;
     ?>
     <div class="wrap">
       <h2>RetsD Admin Settings</h2>
+      <hr>
+      <form method="post" action="options.php">
+      </form>
     </div>
     <?php
 }
 
-add_action('admin_menu', 'rets_admin_menu');
+add_action('admin_menu', 'add_to_admin_menu');
 
 
 
