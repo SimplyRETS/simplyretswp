@@ -77,12 +77,50 @@ function retsd_residential() {
     $response_json = json_decode( $response );
     // ^ decodes response into an array of objects
 
+    foreach ( $response_json as $listing ) {
+        // mls information
+        $mlsStatus  = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationStatus;
+        $mlsArea    = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationArea;
+        $mlsServing = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationServingName;
+
+        // listing information
+        $listing_modified = $listing->residentialPropertyListing->listingModificationTimestamp; // TODO: format date
+        $listing_office   = $listing->residentialPropertyListing->{"listingData'"}->listingDataOffice;
+        $listing_agent    = $listing->residentialPropertyListing->{"listingData'"}->listingDataAgent;
+        $listing_date     = $listing->residentialPropertyListing->{"listingData'"}->listingDataListDate;
+        $listing_price    = $listing->residentialPropertyListing->{"listingData'"}->listingDataListPrice;
+        $listing_remarks  = $listing->residentialPropertyListing->{"listingData'"}->listingDataRemarks;
+
+        // Amenities
+        $beds  = "{$listing->residentialPropertyBedrooms}";
+        $baths = "{$listing->residentialPropertyBathsFull}";
+
+
+        echo '<div>';
+
+        echo '<p>Status: '; echo $mlsStatus; echo '</p>';
+        echo '<p>Mls Area: '; echo $mlsArea; echo '</p>';
+        echo '<p>Serving Name: '; echo $mlsServing; echo '</p>';
+
+        echo '<p>Listing Modified: '; echo $listing_modified; echo '</p>';
+        echo '<p>Listing Office: '; echo $listing_office; echo '</p>';
+        echo '<p>Listing Agent: '; echo $listing_agent; echo '</p>';
+        echo '<p>Listing Date: '; echo $listing_date; echo '</p>';
+        echo '<p>Listing Price: '; echo $listing_price; echo '</p>';
+        echo '<p>Listing Remarks: '; echo $listing_remarks; echo '</p>';
+
+        echo '<p>Beds: '; echo $beds; echo '</p>';
+        echo '<p>Baths: '; echo $baths; echo '</p>';
+
+        echo '</div>';
+        echo '<hr>';
+    }
+
     echo '<p>Status: '; print_r( $response_json[0]
                                      ->residentialPropertyListing
                                      ->listingMlsInformation
                                      ->mlsInformationStatus
                                    ); echo '</p>';
-    echo '<p>Beds: '; print_r( $response_json[0]->residentialPropertyBedrooms ); echo '</p>';
     echo '<pre><code>'; print_r( $response_json[0] ); echo '</pre></code>';
 
     ?>
@@ -98,7 +136,6 @@ function retsd_residential() {
         }
 
     </script>
-    <hr>
     <?php
 }
 
