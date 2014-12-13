@@ -8,6 +8,7 @@ Copyright (c) Reichert Brothers 2014
 /* Code starts here */
 
 
+
 // Admin Panel Settings Page
 function add_to_admin_menu() {
     add_options_page('RetsD Settings', 'RetsD', 'manage_options', 'rets-admin.php', 'admin_page');
@@ -73,14 +74,38 @@ function retsd_residential_shortcode() {
 // retsd_residential to get all residential listings
 function retsd_residential() {
     $response = wp_remote_retrieve_body( wp_remote_get( 'http://54.187.230.155/properties/res' ) );
-    echo $response;
-    //var_dump(json_decode($response));
+    $response_json = json_decode( $response );
+    // ^ decodes response into an array of objects
+
+    echo '<p>Status: '; print_r( $response_json[0]
+                                     ->residentialPropertyListing
+                                     ->listingMlsInformation
+                                     ->mlsInformationStatus
+                                   ); echo '</p>';
+    echo '<p>Beds: '; print_r( $response_json[0]->residentialPropertyBedrooms ); echo '</p>';
+    echo '<pre><code>'; print_r( $response_json[0] ); echo '</pre></code>';
+
+    ?>
+    <script type="text/javascript">
+        var residentialProperties = <?php echo $response ?>
+
+        console.log(residentialProperties);
+        for (var i = 0; i < residentialProperties.length; i++) {
+            var property = residentialProperties[i];
+            var div = document.getElementById('residential-properties')
+            console.log(property);
+            div.innerHTML = div.innerHTML + '<br>' + property + '<br>';
+        }
+
+    </script>
+    <hr>
+    <?php
 }
 
 
 // initialize any javascript we need here
 function init_js() {
-    wp_enqueue_script('retsd', plugins_url('/retsd.js',__FILE__) );
+    wp_enqueue_script('retsd', plugins_url('/js/retsd.js',__FILE__) );
 }
 
 add_action('wp_head', 'init_js');
