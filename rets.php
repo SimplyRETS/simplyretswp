@@ -53,11 +53,11 @@ add_action('admin_menu', 'add_to_admin_menu');
 
 
 
-// Residential Properties Shortocde
+// Residential Properties Shortcode
 //
 // use this short code [rests_residential] on any page to get
 // all listings on that page.
-add_shortcode('test', 'retsd_residential_shortcode');
+add_shortcode('retsd_residential', 'retsd_residential_shortcode');
 
 function retsd_residential_shortcode() {
     ?>
