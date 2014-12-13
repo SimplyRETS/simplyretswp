@@ -60,9 +60,9 @@ add_shortcode('test', 'retsd_residential_shortcode');
 
 function retsd_residential_shortcode() {
     ?>
-    <p>
+    <div id="residential-properties">
       <?php retsd_residential(); ?>
-    </p>
+    </div>
     <?php
 }
 
