@@ -135,17 +135,48 @@ function retsd_residential() {
     ?>
     <script type="text/javascript">
         var residentialProperties = <?php echo $response ?>
-
         console.log(residentialProperties);
         for (var i = 0; i < residentialProperties.length; i++) {
             var property = residentialProperties[i];
-            var div = document.getElementById('residential-properties')
             console.log(property);
-            div.innerHTML = div.innerHTML + '<br>' + property + '<br>';
         }
 
     </script>
     <?php
+}
+
+function retsd_openhouses() {
+    $response = wp_remote_retrieve_body( wp_remote_get( 'http://54.187.230.155/openhouse' ) );
+    $response_json = json_decode( $response );
+    // ^ decodes response into an array of objects
+
+    foreach ( $response_json as $openhouse ) {
+
+        $start_date   = $openhouse->openHouseFromDate;
+        $end_date     = $openhouse->openHouseToDate;
+        $input_date   = $openhouse->openHouseInputDate;
+        $uid          = $openhouse->openHouseUid;
+        $input_id     = $openhouse->openHouseInputId;
+        $showing_type = $openhouse->openHouseType;
+        $refreshments = $openhouse->openHouseRefreshements;
+        $description  = $openhouse->openHouseDescription;
+
+        echo '<div>';
+
+        echo '<p>Start Date: '; echo $start_date; echo '</p>';
+        echo '<p>End Date: '; echo $end_date; echo '</p>';
+        echo '<p>Listing Date: '; echo $input_date; echo '</p>';
+        echo '<p>Uid: '; echo $uid; echo '</p>';
+        echo '<p>Input Id: '; echo $input_id; echo '</p>';
+        echo '<p>Showing Type: '; echo $showing_type; echo '</p>';
+        echo '<p>Refreshments: '; echo $refreshments; echo '</p>';
+        echo '<p>Description: '; echo $description; echo '</p>';
+
+        echo '</div>';
+        echo '<hr>';
+    }
+
+    echo '<pre><code>'; print_r( $response_json[0] ); echo '</pre></code>';
 }
 
 
