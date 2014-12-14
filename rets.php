@@ -53,29 +53,39 @@ add_action('admin_menu', 'add_to_admin_menu');
 
 
 
-// Residential Properties Shortcode
+// Shortcodes
 //
-// use this short code [rests_residential] on any page to get
-// all listings on that page.
+// [retsd_residential] for all residential listings
 function retsd_residential_shortcode() {
     ?>
     <div id="residential-properties">
-      <p>RetsD Residential Listings</p>
+      <h2>RetsD Residential Listings</h2>
       <?php retsd_residential(); ?>
     </div>
     <?php
 }
 add_shortcode('retsd_residential', 'retsd_residential_shortcode');
 
+// [retsd_openhouses] for all open houses
 function retsd_openhouses_shortcode() {
     ?>
     <div id="openhouses">
-      <p>RetsD Open Houses</p>
+      <h2>RetsD Open Houses</h2>
       <?php retsd_openhouses(); ?>
     </div>
     <?php
 }
 add_shortcode('retsd_openhouses', 'retsd_openhouses_shortcode');
+
+// [retsd_search_form] to display a form for search filtering
+function retsd_search_form_shortcode() {
+    ?>
+    <div id="retsd-search-form">
+      <h2>RetsD Search Form</h2>
+    </div>
+    <?php
+}
+add_shortcode('retsd_search_form', 'retsd_search_form_shortcode');
 
 
 // RetsD API Wrappers
