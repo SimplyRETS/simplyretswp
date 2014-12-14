@@ -88,9 +88,9 @@ function retsd_residential() {
 
     foreach ( $response_json as $listing ) {
         // mls information
-        $mlsStatus  = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationStatus;
-        $mlsArea    = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationArea;
-        $mlsServing = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationServingName;
+        $mls_status  = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationStatus;
+        $mls_area    = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationArea;
+        $mls_serving = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationServingName;
 
         // listing information
         $listing_modified = $listing->residentialPropertyListing->listingModificationTimestamp; // TODO: format date
@@ -107,9 +107,9 @@ function retsd_residential() {
 
         echo '<div>';
 
-        echo '<p>Status: '; echo $mlsStatus; echo '</p>';
-        echo '<p>Mls Area: '; echo $mlsArea; echo '</p>';
-        echo '<p>Serving Name: '; echo $mlsServing; echo '</p>';
+        echo '<p>Status: '; echo $mls_status; echo '</p>';
+        echo '<p>Mls Area: '; echo $mls_area; echo '</p>';
+        echo '<p>Serving Name: '; echo $mls_serving; echo '</p>';
 
         echo '<p>Listing Modified: '; echo $listing_modified; echo '</p>';
         echo '<p>Listing Office: '; echo $listing_office; echo '</p>';
@@ -125,11 +125,6 @@ function retsd_residential() {
         echo '<hr>';
     }
 
-    echo '<p>Status: '; print_r( $response_json[0]
-                                     ->residentialPropertyListing
-                                     ->listingMlsInformation
-                                     ->mlsInformationStatus
-                                   ); echo '</p>';
     echo '<pre><code>'; print_r( $response_json[0] ); echo '</pre></code>';
 
     ?>
