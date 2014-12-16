@@ -38,7 +38,7 @@ function admin_page() {
         <br>
 
         <!-- api password -->
-        <strong>Api Key:</strong>
+        <strong>Api Key: </strong>
         <input type="text" name="api_key" value="<?php echo esc_attr( get_option('api_key') ); ?>" />
         <span>(current: <?php echo esc_attr( get_option('api_key') ); ?>)</span>
         <?php submit_button(); ?>

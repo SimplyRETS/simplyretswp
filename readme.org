@@ -1,17 +1,16 @@
+#+OPTIONS: H:1
+#+TODO: TODO(t) IN-PROGRESS(i) TESTING(t) WISHLIST(s) WAITING(w) DONE(d)
+#+TAGS: ADMIN_PANEL(a) FEATURE(f) BUG(b) DOCUMENTATION(d) RESEARCH(r) TEMPLATE(t) REFACTOR(c)
+
+
 * WP Rets
   A Wordpress plugin for integrating the Reichert Brothers RetsD API into your
   wordpress site.
 
 ** Installation
-   Put this repo in any Wordpress site's =wp-content/plugins/= directory.
+   Clone this repo in any Wordpress site's =wp-content/plugins/= directory
+   and activate it through the admin panel.
 
-*** Using Git
-    Run this from the very top level of your wordpress site.
-    (e.g. where the wp-config.php file is)
-    #+BEGIN_SRC bash
-    git clone git@git.reichertbrothers.com:cody/wpretsd wp-content/plugins/WP-RetsD
-    #+END_SRC
-    
 ** Features and Usage
 *** Admin Settings
     Set your api credentials in the admin panel (=Options -> RetsD=)
@@ -19,5 +18,18 @@
     - api key
 
 *** Displaying Properties
-    You can put a list of all the residential properties on any page by using the
-    shortcode =[restd_residential]=
+    - [retsd_residential]
+      View all residential listings
+    - [restd_openhouses]
+      View all open houses.
+
+
+* ============================================================================ *
+
+
+* TODO *
+
+*** TODO Build out search form and make it send a request           :FEATURE:
+*** TODO Add options for 'registered' search fields     :ADMIN_PANEL:FEATURE:
+    The admin should be able to choose which fields the user is able to search with.
+    It could be any easy way to make construcable and custom search forms for any page.
