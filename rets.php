@@ -9,6 +9,49 @@ Copyright (c) Reichert Brothers 2014
 
 
 
+// Custom Post Type Taxonomy
+function retsd_custom_post_type() {
+    $labels = array(
+        'name'          => __( 'Rets Pages' ),
+        'singular_name' => __( 'Rets Page' ),
+        'add_new_item'  => __( 'New Rets Page' ),
+        'edit_item'     => __( 'Edit Rets Page' ),
+        'new_item'      => __( 'New Rets Page' ),
+        'view_item'     => __( 'View Rets Page' ),
+        'all_items'     => __( 'All Rets Pages' ),
+        'search_items'  => __( 'Search Rets Pages' ),
+    );
+    $args = array(
+        'labels'          => $labels,
+        'description'     => 'SimplyRets property listings pages',
+        'public'          => true,
+        'has_archive'     => false,
+        'menu_positions'  => '15',
+        'capability_type' => 'page',
+        'supports'        => array( 'title', 'editor', 'thumbnail' ),
+    );
+    register_post_type( 'retsd-listings', $args );
+}
+add_action( 'init', 'retsd_custom_post_type' );
+
+// a filter to remove comments from property pages
+// TODO - set title and other meta fields on client side pages because some themes
+// use incorrect data if not explicitly set.
+function remove_retsd_comments() {
+    global $post;
+    if ( !( is_singular() && ( have_comments() || 'open' == $post->comment_status ) ) ) {
+        return;
+    }
+    if ( $post->post_type == 'retsd-listings') {
+        return dirname(__FILE__) . '/comments-template.php';
+    }
+}
+add_filter( 'comments_template', 'remove_retsd_comments' );
+
+
+
+
+
 // Admin Panel Settings Page
 function add_to_admin_menu() {
     add_options_page('RetsD Settings', 'RetsD', 'manage_options', 'rets-admin.php', 'admin_page');
