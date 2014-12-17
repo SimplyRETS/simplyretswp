@@ -100,33 +100,45 @@ add_action('admin_menu', 'add_to_admin_menu');
 //
 // [retsd_residential] for all residential listings
 function retsd_residential_shortcode() {
-    ?>
+    ob_start();
+
+    ?> <!-- shortcode template here -->
     <div id="residential-properties">
       <h2>RetsD Residential Listings</h2>
       <?php retsd_residential(); ?>
     </div>
     <?php
+
+    return ob_get_clean();
 }
 add_shortcode('retsd_residential', 'retsd_residential_shortcode');
 
 // [retsd_openhouses] for all open houses
 function retsd_openhouses_shortcode() {
-    ?>
+    ob_start();
+
+    ?> <!-- shortcode template here -->
     <div id="openhouses">
       <h2>RetsD Open Houses</h2>
       <?php retsd_openhouses(); ?>
     </div>
     <?php
+
+    return ob_get_clean();
 }
 add_shortcode('retsd_openhouses', 'retsd_openhouses_shortcode');
 
 // [retsd_search_form] to display a form for search filtering
 function retsd_search_form_shortcode() {
+    ob_start();
+
     ?>
     <div id="retsd-search-form">
       <h2>RetsD Search Form</h2>
     </div>
     <?php
+
+    return ob_get_clean();
 }
 add_shortcode('retsd_search_form', 'retsd_search_form_shortcode');
 
