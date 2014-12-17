@@ -38,3 +38,18 @@
 *** TODO Ability to create custom searches                          :FEATURE:
     The admin can basically create a shortcode that stores a list of search
     parameters. Then they can embed the results of specific searches on any page
+*** TODO Provide a Search Form Widget to be put anywhere
+*** TODO 
+
+The plugin should have the following features:
+- The ability to plug a short code in anywhere that will yeild the result of
+  a search. Whether that's one listing or many, but these shortcodes are not
+  searches, just results
+- The ability for the admin to specify which page is the main search listings
+  page. They'll do this by picking SimpleRets Search Page template on the
+  'Create a New Page' page. This page will by default have a search form on it
+  that can be used to search all properties.
+- Add two widgets. One is a search form that, when searched, redirects to the
+  specified 'search listings page' and another widget that takes one of the
+  shortcodes mentioed above and creates a property(ies) widget.
+- Ability to set css for all of the above, with a couple of default layouts.
