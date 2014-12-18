@@ -39,7 +39,6 @@
     The admin can basically create a shortcode that stores a list of search
     parameters. Then they can embed the results of specific searches on any page
 *** TODO Provide a Search Form Widget to be put anywhere
-*** TODO 
 
 The plugin should have the following features:
 - The ability to plug a short code in anywhere that will yeild the result of
