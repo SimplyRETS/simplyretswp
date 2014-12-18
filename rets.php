@@ -194,7 +194,7 @@ function retsd_residential() {
 
     ?>
     <script type="text/javascript">
-        var residentialProperties = <?php echo $response ?>
+        var residentialProperties = <?php echo $response ?>;
         console.log(residentialProperties);
         for (var i = 0; i < residentialProperties.length; i++) {
             var property = residentialProperties[i];
