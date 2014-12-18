@@ -25,6 +25,7 @@ function retsd_custom_post_type() {
         'labels'          => $labels,
         'description'     => 'SimplyRets property listings pages',
         'public'          => true,
+        'query_var'       => true,
         'has_archive'     => false,
         'menu_positions'  => '15',
         'capability_type' => 'page',
@@ -48,6 +49,14 @@ function remove_retsd_comments() {
 }
 add_filter( 'comments_template', 'remove_retsd_comments' );
 
+// Custom Query variables we'll use to load the correct template and retrieve
+// data from RetsD
+function add_query_vars_filter( $vars ){
+    global $wp_query;
+    $vars[] = "listing_id";
+    return $vars;
+}
+add_filter( 'query_vars', 'add_query_vars_filter' );
 
 
 
