@@ -147,10 +147,12 @@ add_shortcode('retsd_search_form', 'retsd_search_form_shortcode');
 //
 // retsd_residential to get all residential listings
 function retsd_residential() {
+
     $response = wp_remote_retrieve_body( wp_remote_get( 'http://54.187.230.155/properties/res' ) );
     $response_json = json_decode( $response );
     // ^ decodes response into an array of objects
 
+    // TODO: create requests all for all fields when the API is stable
     foreach ( $response_json as $listing ) {
         // mls information
         $mls_status  = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationStatus;
@@ -165,12 +167,20 @@ function retsd_residential() {
         $listing_price    = $listing->residentialPropertyListing->{"listingData'"}->listingDataListPrice;
         $listing_remarks  = $listing->residentialPropertyListing->{"listingData'"}->listingDataRemarks;
 
+        $listing_uid      = $listing->residentialPropertyListing->listingId;
+
         // Amenities
         $beds  = "{$listing->residentialPropertyBedrooms}";
         $baths = "{$listing->residentialPropertyBathsFull}";
 
 
         echo '<div>';
+
+        $listing_link = add_query_arg( 'listing_id', $listing_uid );
+        echo $listing_link;
+        echo <<<HTML
+          <h4>Listing Id: <a href="{$listing_link}">{$listing_uid}</a></h4>
+HTML;
 
         echo '<p>Status: '; echo $mls_status; echo '</p>';
         echo '<p>Mls Area: '; echo $mls_area; echo '</p>';
