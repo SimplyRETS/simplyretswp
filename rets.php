@@ -22,14 +22,17 @@ function retsd_custom_post_type() {
         'search_items'  => __( 'Search Rets Pages' ),
     );
     $args = array(
+        'public'          => true,
+        'has_archive'     => false,
         'labels'          => $labels,
         'description'     => 'SimplyRets property listings pages',
-        'public'          => true,
         'query_var'       => true,
-        'has_archive'     => false,
         'menu_positions'  => '15',
         'capability_type' => 'page',
+        'hierarchical'    => true,
+        'taxonomies'      => array(),
         'supports'        => array( 'title', 'editor', 'thumbnail' ),
+        'rewrite'         => true
     );
     register_post_type( 'retsd-listings', $args );
 }
@@ -57,7 +60,6 @@ function add_query_vars_filter( $vars ){
     return $vars;
 }
 add_filter( 'query_vars', 'add_query_vars_filter' );
-
 
 
 
