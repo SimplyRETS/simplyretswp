@@ -175,6 +175,56 @@ add_shortcode('retsd_search_form', 'retsd_search_form_shortcode');
 // RetsD API Wrappers
 //
 // retsd_residential to get all residential listings
+function retsd_residential_single($listing_id) {
+
+    $listing_id = $listing_id;
+    $retsd_url = 'http://54.187.230.155/properties/res/' . $listing_id;
+
+    $response = wp_remote_retrieve_body( wp_remote_get( $retsd_url ) );
+    $response_json = json_decode( $response );
+    $listing = $response_json;
+    // ^ decodes response into an array of objects
+
+    // TODO: create requests all for all fields when the API is stable
+    // mls information
+    $mls_status  = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationStatus;
+    $mls_area    = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationArea;
+    $mls_serving = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationServingName;
+
+    // listing information
+    $listing_modified = $listing->residentialPropertyListing->listingModificationTimestamp; // TODO: format date
+    $listing_office   = $listing->residentialPropertyListing->{"listingData'"}->listingDataOffice;
+    $listing_agent    = $listing->residentialPropertyListing->{"listingData'"}->listingDataAgent;
+    $listing_date     = $listing->residentialPropertyListing->{"listingData'"}->listingDataListDate;
+    $listing_price    = $listing->residentialPropertyListing->{"listingData'"}->listingDataListPrice;
+    $listing_remarks  = $listing->residentialPropertyListing->{"listingData'"}->listingDataRemarks;
+
+    $listing_uid      = $listing->residentialPropertyListing->listingId;
+    // Amenities
+    $beds  = "{$listing->residentialPropertyBedrooms}";
+    $baths = "{$listing->residentialPropertyBathsFull}";
+
+    echo <<<HTML
+      <h4>Listing Id: <a href="/?retsd-listings=search&listing_id={$listing_uid}">{$listing_uid}</a></h4>
+HTML;
+
+    echo '<p>Status: ';       echo $mls_status;  echo '</p>';
+    echo '<p>Mls Area: ';     echo $mls_area;    echo '</p>';
+    echo '<p>Serving Name: '; echo $mls_serving; echo '</p>';
+
+    echo '<p>Listing Modified: '; echo $listing_modified; echo '</p>';
+    echo '<p>Listing Office: ';   echo $listing_office;   echo '</p>';
+    echo '<p>Listing Agent: ';    echo $listing_agent;    echo '</p>';
+    echo '<p>Listing Date: ';     echo $listing_date;     echo '</p>';
+    echo '<p>Listing Price: ';    echo $listing_price;    echo '</p>';
+    echo '<p>Listing Remarks: ';  echo $listing_remarks;  echo '</p>';
+
+    echo '<p>Beds: ';  echo $beds;  echo '</p>';
+    echo '<p>Baths: '; echo $baths; echo '</p>';
+
+    echo '<pre><code>'; print_r( $response_json ); echo '</pre></code>';
+}
+
 function retsd_residential() {
 
     $response = wp_remote_retrieve_body( wp_remote_get( 'http://54.187.230.155/properties/res' ) );
