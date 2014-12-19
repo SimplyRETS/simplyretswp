@@ -111,15 +111,33 @@ add_action('admin_menu', 'add_to_admin_menu');
 //
 // [retsd_residential] for all residential listings
 function retsd_residential_shortcode() {
+    global $wp_query;
     ob_start();
 
-    ?> <!-- shortcode template here -->
-    <div id="residential-properties">
-      <h2>RetsD Residential Listings</h2>
-      <?php retsd_residential(); ?>
-    </div>
-    <?php
+    if ( isset($wp_query->query_vars['listing_id']) && $wp_query->query_vars['listing_id'] != '' ) {
+        $listing_id = get_query_var( 'listing_id' );
+        echo '<strong>we captured a single listing query for property '; echo $listing_id; echo '</strong><br><br>';
 
+        ?> <!-- shortcode template here -->
+        <div id="residential-properties">
+          <h2>RetsD Residential Listing</h2>
+          <?php retsd_residential_single( $listing_id ); ?>
+        </div>
+
+    <?php
+    } else {
+        echo '<strong>This is not a search for a single listing</strong><br><br>';
+
+        ?> <!-- shortcode template here -->
+        <div id="residential-properties">
+          <h2>RetsD Residential Listings</h2>
+          <?php retsd_residential(); ?>
+        </div>
+        <?php
+
+    }
+
+    // print_r( $wp_query->query_vars );
     return ob_get_clean();
 }
 add_shortcode('retsd_residential', 'retsd_residential_shortcode');
