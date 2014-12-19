@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: WP-Rets
-Description: A Wordpress plugin for Reichert Brothers Retsd server.
-Copyright (c) Reichert Brothers 2014
+ * Plugin Name: WP-Rets
+ * Description: A Wordpress plugin for Reichert Brothers Retsd server.
+ * Copyright (c) Reichert Brothers 2014
 */
 
 /* Code starts here */
@@ -115,6 +115,8 @@ function retsd_residential_shortcode() {
     ob_start();
 
     if ( isset($wp_query->query_vars['listing_id']) && $wp_query->query_vars['listing_id'] != '' ) {
+        // ^ listing_id has to be set AND not empty to get redirected to a single listing template
+
         $listing_id = get_query_var( 'listing_id' );
         echo '<strong>we captured a single listing query for property '; echo $listing_id; echo '</strong><br><br>';
 
@@ -137,7 +139,7 @@ function retsd_residential_shortcode() {
 
     }
 
-    // print_r( $wp_query->query_vars );
+    // print_r( $wp_query->query_vars ); // returns an array of all the query variables in that request
     return ob_get_clean();
 }
 add_shortcode('retsd_residential', 'retsd_residential_shortcode');
