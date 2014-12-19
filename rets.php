@@ -188,7 +188,7 @@ function retsd_residential() {
         $listing_link = add_query_arg( 'listing_id', $listing_uid );
         echo $listing_link;
         echo <<<HTML
-          <h4>Listing Id: <a href="{$listing_link}">{$listing_uid}</a></h4>
+          <h4>Listing Id: <a href="/?retsd-listings=search&listing_id={$listing_uid}">{$listing_uid}</a></h4>
 HTML;
 
         echo '<p>Status: '; echo $mls_status; echo '</p>';
