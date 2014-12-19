@@ -11,9 +11,11 @@
 
 // Initialize admin panel pages and settings
 // see simple-rets-admin.php
-include( plugin_dir_path(__FILE__) . 'simple-rets-admin.php' );
-add_action('admin_init', 'register_admin_settings');
-add_action('admin_menu', 'add_to_admin_menu');
+if ( is_admin() ) {
+    include( plugin_dir_path(__FILE__) . 'simple-rets-admin.php' );
+    add_action( 'admin_init', 'register_admin_settings' );
+    add_action( 'admin_menu', 'add_to_admin_menu' );
+}
 
 
 

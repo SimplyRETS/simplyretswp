@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * simple-rets-admin.php - Copyright (C) 2014 Reichert Brothers
