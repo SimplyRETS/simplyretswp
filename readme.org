@@ -24,12 +24,68 @@
       View all open houses.
 
 
-* ============================================================================ *
+* How it works
+** Settings
+   Install the plugin and insert your API credentials on the settings
+   page.
+
+** Simple Rets Pages
+   A new page type is created called Simple Rets Pages. You can create
+   new Simple Rets pages to show results from listings searches.
+
+   By default, a new page will show all listings. You can add 'filters'
+   to the page to create more advanced pages that only show certain
+   listings (ie, only residential listings for sale that are more that
+   $500,000). These are basically just pages that you an have content
+   on and embed listings into.
+
+** Page Templates and Layout
+   Most themes come with a few different options for each page's
+   layout. Most common are "Right Sidebar", "Full-Width", etc. Simple
+   Rets allows you to use these same templates on Simple Rets Pages.
+
+   *Results Pages:* On Simple Rets Pages, you can choose the theme
+   template to use in the right sidebar just like any other page. This
+   allows the user to use pages with a sidebar, or other layouts their
+   theme may offer.
+
+   *Single Listing Details Pages:* Since single listing pages are
+   created dynamically, we don't have access to choose the template
+   like the other pages. Instead, you set this in the Settings
+   page. The same options apply, like sidebar and full-width. This
+   setting will take effect on all single listing details pages.
+
+** Widgets
+   Simple Rets provides two widgets you can use just like any other widget
+   on your site.
+
+   *Search Widget:* Use the Search Widget to embed a small search form in
+   your sidebar or elsewhere.
+
+   *Listing Widget:* Use the Listing Widget to embed a single Rets listing
+   in your sidebar or elsewhere.
+
+** ShortCodes
+   Shortcodes are provided to add additionally functionality or information
+   to any of your pages.
+
+   *Search Form Shortcode:* =[simple_rets_searchform]= Embed this shortcode
+   on any page or post in your Wordpress site to provide a search form
+   that will search all of your Rets listings. The best use of this is to
+   add it to the top of one of the Simple Rets Pages in order to make it
+   a fully featured search page.
+
+   *Results Shortcode:* You can compose a Results shortcode to embed the
+   results from any search into any post or page. An example would be:
+   =[simple_rets_results min_bed\"3" max_price\"500000"]=
+   Add a full list of parameters here
+
+   *Listing Shorcode:* You can compose a Listing Shortcode to embed a
+   single listing into any page or post. An example of this would be:
+   =[simple_rets_listing mls_id\"12345"]=.
 
 
-* TODO *
-  |FEATURE|BUG|DOCUMENTATION|RESEARCH|TEMPLATE|REFACTOR|
-
+* TODO-TRACKER
 *** TODO Create links to individual property pages         :FEATURE:RESEARCH:
 *** TODO Build out search form and make it send a request       :FEATURE:BUG:
 *** TODO Add options for 'registered' search fields                 :FEATURE:
@@ -39,16 +95,3 @@
     The admin can basically create a shortcode that stores a list of search
     parameters. Then they can embed the results of specific searches on any page
 *** TODO Provide a Search Form Widget to be put anywhere
-
-The plugin should have the following features:
-- The ability to plug a short code in anywhere that will yeild the result of
-  a search. Whether that's one listing or many, but these shortcodes are not
-  searches, just results
-- The ability for the admin to specify which page is the main search listings
-  page. They'll do this by picking SimpleRets Search Page template on the
-  'Create a New Page' page. This page will by default have a search form on it
-  that can be used to search all properties.
-- Add two widgets. One is a search form that, when searched, redirects to the
-  specified 'search listings page' and another widget that takes one of the
-  shortcodes mentioed above and creates a property(ies) widget.
-- Ability to set css for all of the above, with a couple of default layouts.
