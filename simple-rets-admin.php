@@ -1,11 +1,11 @@
 <?php
 
 /*
- *
  * simple-rets-admin.php - Copyright (C) 2014 Reichert Brothers
  * This file provides the logic for the simple-rets admin panel settings and features pages.
  *
 */
+
 
 /* Code starts here */
 

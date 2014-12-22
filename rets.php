@@ -9,44 +9,18 @@
 
 
 
-// Initialize admin panel pages and settings
-// see simple-rets-admin.php
+// Initialize admin panel pages and settings for admin only users
 if ( is_admin() ) {
     include( plugin_dir_path(__FILE__) . 'simple-rets-admin.php' );
     add_action( 'admin_init', 'register_admin_settings' );
     add_action( 'admin_menu', 'add_to_admin_menu' );
 }
 
+// initialize custom post type
+require_once( plugin_dir_path(__FILE__) . 'simple-rets-post-pages.php' );
 
 
-// Custom Post Type Taxonomy
-function retsd_custom_post_type() {
-    $labels = array(
-        'name'          => __( 'Rets Pages' ),
-        'singular_name' => __( 'Rets Page' ),
-        'add_new_item'  => __( 'New Rets Page' ),
-        'edit_item'     => __( 'Edit Rets Page' ),
-        'new_item'      => __( 'New Rets Page' ),
-        'view_item'     => __( 'View Rets Page' ),
-        'all_items'     => __( 'All Rets Pages' ),
-        'search_items'  => __( 'Search Rets Pages' ),
-    );
-    $args = array(
-        'public'          => true,
-        'has_archive'     => false,
-        'labels'          => $labels,
-        'description'     => 'SimplyRets property listings pages',
-        'query_var'       => true,
-        'menu_positions'  => '15',
-        'capability_type' => 'page',
-        'hierarchical'    => true,
-        'taxonomies'      => array(),
-        'supports'        => array( 'title', 'editor', 'thumbnail' ),
-        'rewrite'         => true
-    );
-    register_post_type( 'retsd-listings', $args );
-}
-add_action( 'init', 'retsd_custom_post_type' );
+
 
 // a filter to remove comments from property pages
 // TODO - set title and other meta fields on client side pages because some themes
