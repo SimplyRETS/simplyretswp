@@ -9,6 +9,7 @@
 /* Code starts here */
 add_action( 'init', array( 'simpleRetsCustomPostPages', 'simpleRetsPostType' ) );
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postFilterMetaBox' ) );
+add_action( 'save_post', array( 'simpleRetsCustomPostPages', 'postFilterMetaBoxSave' ) );
 
 
 class simpleRetsCustomPostPages {
@@ -43,8 +44,8 @@ class simpleRetsCustomPostPages {
 
     public static function postFilterMetaBox() {
         add_meta_box(
-             'filter-post-meta-box'
-           , 'Filter Results on This Page'
+             'sr_meta_box_filter'
+             , __( 'Filter Results on This Page', 'sr-textdomain')
            , array('simpleRetsCustomPostPages', 'postFilterMetaBoxMarkup')
            , 'retsd-listings'
            , 'normal'
@@ -52,16 +53,41 @@ class simpleRetsCustomPostPages {
         );
     }
 
-    public static function postFilterMetaBoxMarkup() {
-        echo <<<HTML
+    public static function postFilterMetaBoxMarkup( $post ) {
+        wp_nonce_field( basename(__FILE__), 'sr_meta_box_nonce' );
+        $sr_page_meta = get_post_meta( $post->ID );
+        $sr_filter_val = $sr_page_meta['sr-filter-val'];
 
-        <div id="filter-post-meta-box">
+        echo 'Current filter array: '; print_r( $sr_filter_val );
+        // ^TODO: Remove this debug
+        ?>
+        <div id="sr-post-meta-box">
           <h4>The markup for the Meta Box goes here.</h4>
-          <label>Add a filter: </label>
-          <input for="sr-filter" type="text" id="sr-filter-val" />
+          <label for="sr-filter-val"><?php _e( 'Example Filter Input', 'sr-textdomain' ) ?></label>
+          <input name="sr-filter-val" type="text" id="sr-filter-val"
+                 value="<?php if ( isset( $sr_filter_val ) ) echo $sr_filter_val[0]; ?>" />
         </div>
+        <?php
 
-HTML;
+    }
+
+    public static function postFilterMetaBoxSave( $post_id ) {
+        $current_nonce = $_POST['sr_meta_box_nonce'];
+        $is_autosaving = wp_is_post_autosave( $post_id );
+        $is_revision   = wp_is_post_revision( $post_id );
+        $valid_nonce   = ( isset( $current_nonce ) && wp_verify_nonce( $current_nonce, basename( __FILE__ ) ) ) ? 'true' : 'false';
+
+        if( $is_autosaving || $is_revision || !$valid_nonce ) {
+            die('save post meta failed');
+            // ^ TODO: make this just a return statement in production. We're dying right now to get a good
+            //         error message
+        }
+
+        // if there is text in our input box, nab it and save it
+        if( isset( $_POST['sr-filter-val'] ) ) {
+            update_post_meta( $post_id, 'sr-filter-val', sanitize_text_field( $_POST['sr-filter-val'] ) );
+        }
+
     }
 
 }
