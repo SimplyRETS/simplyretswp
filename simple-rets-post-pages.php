@@ -11,6 +11,8 @@ add_action( 'init', array( 'simpleRetsCustomPostPages', 'simpleRetsPostType' ) )
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postFilterMetaBox' ) );
 add_action( 'save_post', array( 'simpleRetsCustomPostPages', 'postFilterMetaBoxSave' ) );
 
+add_action( 'admin_enqueue_scripts', array( 'simpleRetsCustomPostPages', 'postFilterMetaBoxJs' ) );
+
 
 class simpleRetsCustomPostPages {
 
@@ -51,6 +53,11 @@ class simpleRetsCustomPostPages {
            , 'normal'
            , 'high'
         );
+    }
+
+    public static function postFilterMetaBoxJs() {
+        wp_register_script( 'simple-rets-admin-js', plugins_url( '/rets/js/simple-rets-admin.js' ), array( 'jquery' ) );
+        wp_enqueue_script( 'simple-rets-admin-js' );
     }
 
     public static function postFilterMetaBoxMarkup( $post ) {
