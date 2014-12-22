@@ -12,6 +12,10 @@ add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postFilterMet
 add_action( 'save_post', array( 'simpleRetsCustomPostPages', 'postFilterMetaBoxSave' ) );
 
 add_action( 'admin_enqueue_scripts', array( 'simpleRetsCustomPostPages', 'postFilterMetaBoxJs' ) );
+add_action( 'admin_init', array( 'simpleRetsCustomPostPages', 'postFilterMetaBoxCss' ) );
+// ^TODO: This should be conditioned to only load on our retsd-listings pages so it's not on
+// every page of the admin panel. We are using an 'sr-' prefix on all of our elements for
+// extra safety.
 
 
 class simpleRetsCustomPostPages {
@@ -58,6 +62,12 @@ class simpleRetsCustomPostPages {
     public static function postFilterMetaBoxJs() {
         wp_register_script( 'simple-rets-admin-js', plugins_url( '/rets/js/simple-rets-admin.js' ), array( 'jquery' ) );
         wp_enqueue_script( 'simple-rets-admin-js' );
+    }
+
+    public static function postFilterMetaBoxCss() {
+        wp_register_style( 'simple-rets-admin-css', plugins_url( '/rets/css/simple-rets-admin.css' ) );
+        wp_enqueue_style( 'simple-rets-admin-css' );
+
     }
 
     public static function postFilterMetaBoxMarkup( $post ) {
