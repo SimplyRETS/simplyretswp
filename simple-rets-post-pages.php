@@ -141,14 +141,15 @@ class simpleRetsCustomPostPages {
 
           <span id="filter-here"></span>
 
-          <script>
-          jQuery(document).ready(function() {
-          });
-          </script>
         </div>
         <?php
+
         echo '<hr>Current filters: <br>'; print_r( $sr_filters );
         echo '<br>';
+        // ^TODO: Remove degbug
+
+        // on page load, if there are any filters already saved, load them,
+        // show the input field, and remove the option from the dropdown
         foreach( $sr_filters as $key=>$val ) {
             if ( $val != '' ) {
                 ?>
@@ -176,9 +177,7 @@ class simpleRetsCustomPostPages {
         $valid_nonce   = ( isset( $current_nonce ) && wp_verify_nonce( $current_nonce, basename( __FILE__ ) ) ) ? 'true' : 'false';
 
         if ( $is_autosaving || $is_revision || !$valid_nonce ) {
-            die('save post meta failed');
-            // ^ TODO: make this just a return statement in production. We're dying right now to get a good
-            //         error message
+            return;
         }
 
         $sr_filters = $_POST['sr_filters'];

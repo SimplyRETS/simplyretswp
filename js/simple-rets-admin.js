@@ -11,7 +11,6 @@ jQuery(function() {
 
   console.log("This is simple-rets-admin.js");
 
-  var filterSelectBox = jQuery('#sr-filter-select');
   // create jquery objects for all of our different input boxes
   var minPriceFilterInput = jQuery('#sr-min-price-span');
   var maxPriceFilterInput = jQuery('#sr-max-price-span');
@@ -19,11 +18,14 @@ jQuery(function() {
   var maxBedFilterInput   = jQuery('#sr-max-bed-span');
   var agentFilterInput    = jQuery('#sr-listing-agent-span');
 
+  var filterSelectBox = jQuery('#sr-filter-select');
   filterSelectBox.change(function() {
 
     console.log('filter select box changed');
     var filterVal = filterSelectBox.val();
 
+    // when a new filter is selected, show the input box and remove the
+    // option from the dropdown menu
     switch(filterVal) {
       case "Minimum Price":
           filterSelectBox.after(minPriceFilterInput);
