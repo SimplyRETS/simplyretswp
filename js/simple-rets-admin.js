@@ -56,10 +56,11 @@ jQuery(function() {
 
     console.log(filterVal);
 
-    jQuery('.sr-remove-filter').click(function() {
-        jQuery(this).parent().remove();
-    });
+  });
 
+  jQuery('.sr-remove-filter').click(function() {
+      console.log('remove button cliked');
+      jQuery(this).parent().remove();
   });
 
 });

@@ -44,7 +44,4 @@ function admin_page() {
       </form>
 
     </div>
-    <?php
-}
-
-?>
+<?php } ?>

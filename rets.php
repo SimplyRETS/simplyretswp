@@ -15,10 +15,8 @@ if ( is_admin() ) {
     add_action( 'admin_init', 'register_admin_settings' );
     add_action( 'admin_menu', 'add_to_admin_menu' );
 }
-
 // initialize custom post type
 require_once( plugin_dir_path(__FILE__) . 'simple-rets-post-pages.php' );
-
 
 
 
