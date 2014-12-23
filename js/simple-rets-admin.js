@@ -62,7 +62,8 @@ jQuery(function() {
 
   jQuery('.sr-remove-filter').click(function() {
       console.log('remove button cliked');
-      jQuery(this).parent().remove();
+      jQuery(this).parent('.sr-filter-input').hide();
+      jQuery(this).prev('input').val("");
   });
 
 });
