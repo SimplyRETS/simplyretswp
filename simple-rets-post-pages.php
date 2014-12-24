@@ -72,20 +72,101 @@ class simpleRetsCustomPostPages {
 
     public static function postFilterMetaBoxMarkup( $post ) {
         wp_nonce_field( basename(__FILE__), 'sr_meta_box_nonce' );
-        $sr_page_meta = get_post_meta( $post->ID );
-        $sr_filter_val = $sr_page_meta['sr-filter-val'];
+        $min_price_filter = "";
+        $max_price_filter = "";
+        $min_bed_filter   = "";
+        $max_bed_filter   = "";
+        $agent_id_filter  = "";
 
-        echo 'Current filter array: '; print_r( $sr_filter_val );
-        // ^TODO: Remove this debug
+        $sr_filters = get_post_meta( $post->ID, 'sr_filters', true);
+
         ?>
-        <div id="sr-post-meta-box">
-          <h4>The markup for the Meta Box goes here.</h4>
-          <label for="sr-filter-val"><?php _e( 'Example Filter Input', 'sr-textdomain' ) ?></label>
-          <input name="sr-filter-val" type="text" id="sr-filter-val"
-                 value="<?php if ( isset( $sr_filter_val ) ) echo $sr_filter_val[0]; ?>" />
+        <div class="current-filters">
+            <span class="filter-add">
+              <?php _e( 'Add new Filter' ); ?>
+            </span>
+            <select name="sr-filter-select" id="sr-filter-select">
+                <option> -- Select a Filter -- </option>
+                <option val="minPrice-option"> Minimum Price  </option>
+                <option val="maxPrice-option"> Maximum Price  </option>
+                <option val="minBed-option">   Minimum Beds   </option>
+                <option val="maxBed-option">   Maximum Beds   </option>
+                <option val="agentId-option">  Listing Agent  </option>
+            </select>
+        </div>
+
+        <br>
+        <div class="sr-meta-inner">
+          <br>
+
+          <div class="sr-filter-input" id="sr-min-price-span">
+            <label for="sr-min-price-input">
+              <?php _e( 'Minimum Price', 'sr-textdomain' ) ?>
+            </label>
+            <input id="minPrice" type="text" name="sr_filters[minPrice]" value="<?php print_r( $min_price_filter ); ?>"/>
+            <span class="sr-remove-filter">Remove Filter</span>
+          </div>
+
+          <div class="sr-filter-input" id="sr-max-price-span">
+            <label for="sr-max-price-input">
+              Maximum Price:
+            </label>
+            <input id="maxPrice" type="text" name="sr_filters[maxPrice]" value="<?php print_r( $max_price_filter ); ?>"/>
+            <span class="sr-remove-filter">Remove Filter</span>
+          </div>
+
+          <div class="sr-filter-input" id="sr-min-bed-span">
+            <label for="sr-min-bed-input">
+              Minimum Bedrooms:
+            </label>
+            <input id="minBed" type="text" name="sr_filters[minBed]" value="<?php print_r( $min_bed_filter ); ?>"/>
+            <span class="sr-remove-filter">Remove Filter</span>
+          </div>
+
+          <div class="sr-filter-input" id="sr-max-bed-span">
+            <label for="sr-max-bed-input">
+              Maximum Bedrooms:
+            </label>
+            <input id="maxBed" type="text" name="sr_filters[maxBed]" value="<?php print_r( $max_bed_filter ); ?>"/>
+            <span class="sr-remove-filter">Remove Filter</span>
+          </div>
+
+          <div class="sr-filter-input" id="sr-listing-agent-span">
+            <label for="sr-listing-agent-input">
+              Listing Agent MLS Id:
+            </label>
+            <input id="agentId" type="text" name="sr_filters[agentId]" value="<?php print_r( $agent_id_filter ); ?>"/>
+            <span class="sr-remove-filter">Remove Filter</span>
+          </div>
+
+          <span id="filter-here"></span>
+
+          <script>
+          jQuery(document).ready(function() {
+          });
+          </script>
         </div>
         <?php
+        echo '<hr>Current filters: <br>'; print_r( $sr_filters );
+        echo '<br>';
+        foreach( $sr_filters as $key=>$val ) {
+            if ( $val != '' ) {
+                ?>
+                <script>
+                    var filterSelectBox = jQuery('#sr-filter-select');
+                    var key = jQuery(<?php print_r( $key ); ?>);
+                    var val = <?php print_r( $val ); ?>;
+                    var parent = key.parent();
 
+                    key.val(val); // set value to $key
+                    console.log(key.val());
+                    filterSelectBox.after(parent); //append div to filters area
+                    parent.show(); //display: block the div since it has a value
+
+                </script>
+                <?php
+            }
+        };
     }
 
     public static function postFilterMetaBoxSave( $post_id ) {
@@ -94,17 +175,14 @@ class simpleRetsCustomPostPages {
         $is_revision   = wp_is_post_revision( $post_id );
         $valid_nonce   = ( isset( $current_nonce ) && wp_verify_nonce( $current_nonce, basename( __FILE__ ) ) ) ? 'true' : 'false';
 
-        if( $is_autosaving || $is_revision || !$valid_nonce ) {
+        if ( $is_autosaving || $is_revision || !$valid_nonce ) {
             die('save post meta failed');
             // ^ TODO: make this just a return statement in production. We're dying right now to get a good
             //         error message
         }
 
-        // if there is text in our input box, nab it and save it
-        if( isset( $_POST['sr-filter-val'] ) ) {
-            update_post_meta( $post_id, 'sr-filter-val', sanitize_text_field( $_POST['sr-filter-val'] ) );
-        }
-
+        $sr_filters = $_POST['sr_filters'];
+        update_post_meta( $post_id, 'sr_filters', $sr_filters );
     }
-
 }
+?>
