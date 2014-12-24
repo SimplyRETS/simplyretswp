@@ -93,17 +93,17 @@ class simpleRetsCustomPostPages {
                 <option val="maxBed-option">   Maximum Beds   </option>
                 <option val="agentId-option">  Listing Agent  </option>
             </select>
+            <hr>
         </div>
 
-        <br>
         <div class="sr-meta-inner">
-          <br>
 
           <div class="sr-filter-input" id="sr-min-price-span">
             <label for="sr-min-price-input">
               <?php _e( 'Minimum Price', 'sr-textdomain' ) ?>
             </label>
-            <input id="minPrice" type="text" name="sr_filters[minPrice]" value="<?php print_r( $min_price_filter ); ?>"/>
+            <input id="minPrice" type="text" name="sr_filters[minPrice]"
+              value="<?php print_r( $min_price_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -111,7 +111,8 @@ class simpleRetsCustomPostPages {
             <label for="sr-max-price-input">
               Maximum Price:
             </label>
-            <input id="maxPrice" type="text" name="sr_filters[maxPrice]" value="<?php print_r( $max_price_filter ); ?>"/>
+            <input id="maxPrice" type="text" name="sr_filters[maxPrice]"
+              value="<?php print_r( $max_price_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -119,7 +120,8 @@ class simpleRetsCustomPostPages {
             <label for="sr-min-bed-input">
               Minimum Bedrooms:
             </label>
-            <input id="minBed" type="text" name="sr_filters[minBed]" value="<?php print_r( $min_bed_filter ); ?>"/>
+            <input id="minBed" type="text" name="sr_filters[minBed]"
+              value="<?php print_r( $min_bed_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -127,7 +129,8 @@ class simpleRetsCustomPostPages {
             <label for="sr-max-bed-input">
               Maximum Bedrooms:
             </label>
-            <input id="maxBed" type="text" name="sr_filters[maxBed]" value="<?php print_r( $max_bed_filter ); ?>"/>
+            <input id="maxBed" type="text" name="sr_filters[maxBed]"
+              value="<?php print_r( $max_bed_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -135,7 +138,8 @@ class simpleRetsCustomPostPages {
             <label for="sr-listing-agent-input">
               Listing Agent MLS Id:
             </label>
-            <input id="agentId" type="text" name="sr_filters[agentId]" value="<?php print_r( $agent_id_filter ); ?>"/>
+            <input id="agentId" type="text" name="sr_filters[agentId]"
+              value="<?php print_r( $agent_id_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
