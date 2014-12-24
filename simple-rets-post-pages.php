@@ -158,14 +158,14 @@ class simpleRetsCustomPostPages {
             if ( $val != '' ) {
                 ?>
                 <script>
-                    var filterSelectBox = jQuery('#sr-filter-select');
+                    var filterArea = jQuery('.current-filters');
                     var key = jQuery(<?php print_r( $key ); ?>);
                     var val = <?php print_r( $val ); ?>;
                     var parent = key.parent();
 
                     key.val(val); // set value to $key
                     console.log(key.val());
-                    filterSelectBox.after(parent); //append div to filters area
+                    filterArea.append(parent); //append div to filters area
                     parent.show(); //display: block the div since it has a value
 
                 </script>

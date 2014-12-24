@@ -18,6 +18,7 @@ jQuery(function() {
   var maxBedFilterInput   = jQuery('#sr-max-bed-span');
   var agentFilterInput    = jQuery('#sr-listing-agent-span');
 
+  var filterArea      = jQuery('.current-filters');
   var filterSelectBox = jQuery('#sr-filter-select');
   filterSelectBox.change(function() {
 
@@ -28,27 +29,27 @@ jQuery(function() {
     // option from the dropdown menu
     switch(filterVal) {
       case "Minimum Price":
-          filterSelectBox.after(minPriceFilterInput);
+          filterArea.append(minPriceFilterInput);
           minPriceFilterInput.show();
           jQuery(this).find("option:selected").remove();
           break;
       case "Maximum Price":
-          filterSelectBox.after(maxPriceFilterInput);
+          filterArea.append(maxPriceFilterInput);
           maxPriceFilterInput.show();
           jQuery(this).find("option:selected").remove();
           break;
       case "Minimum Beds":
-          filterSelectBox.after(minBedFilterInput);
+          filterArea.append(minBedFilterInput);
           minBedFilterInput.show();
           jQuery(this).find("option:selected").remove();
           break;
       case "Maximum Beds":
-          filterSelectBox.after(maxBedFilterInput);
+          filterArea.append(maxBedFilterInput);
           maxBedFilterInput.show();
           jQuery(this).find("option:selected").remove();
           break;
       case "Listing Agent":
-          filterSelectBox.after(agentFilterInput);
+          filterArea.append(agentFilterInput);
           agentFilterInput.show();
           jQuery(this).find("option:selected").remove();
           break;
