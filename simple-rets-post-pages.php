@@ -160,7 +160,7 @@ class simpleRetsCustomPostPages {
                 <script>
                     var filterArea = jQuery('.current-filters');
                     var key = jQuery(<?php print_r( $key ); ?>);
-                    var val = <?php print_r( $val ); ?>;
+                    var val = <?php echo json_encode( $val ); ?>;
                     var parent = key.parent();
 
                     key.val(val); // set value to $key
