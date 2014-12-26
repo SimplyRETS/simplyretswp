@@ -2,6 +2,7 @@
 
 /*
  *
+ * simple-rets-post-pages.php - Copyright (C) Reichert Brothers 2014
  * This file provides the logic for the simple-rets custom post type pages.
  *
 */
@@ -10,6 +11,8 @@
 add_action( 'init', array( 'simpleRetsCustomPostPages', 'simpleRetsPostType' ) );
 
 add_filter( 'single_template', array( 'simpleRetsCustomPostPages', 'loadSimpleRetsPostTemplate' ) );
+
+add_filter( 'the_content', array( 'simpleRetsCustomPostPages', 'simpleRetsDefaultContent' ) );
 
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postFilterMetaBox' ) );
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postTemplateMetaBox' ) );
@@ -267,6 +270,28 @@ class simpleRetsCustomPostPages {
         $new_template = locate_template( $default_templates, false );
         return $new_template;
     }
+
+    public static function simpleRetsDefaultContent( $content, $post ) {
+        $post_type = get_post_type();
+        $sr_post_type = 'retsd-listings';
+        $br = '<br>';
+
+        // only add listings for our CPT
+        if ( $post_type == $sr_post_type ) {
+
+            $query_object = get_queried_object();
+            $listing_params = get_post_meta( $query_object->ID, 'sr_filters', true );
+
+            if ( empty($listing_params) ) {
+                return 'no filter params' . $content;
+
+            }
+            foreach ( $listing_params as $key=>$value ) {
+                $content = 'param: ' . $key . ' value: ' . $value . $br . $content;
+            }
+            return $content;
+        }
+    } // ^TODO: content needs to be appended, not prepended.
 
 }
 ?>
