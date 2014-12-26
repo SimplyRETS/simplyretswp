@@ -46,7 +46,7 @@ class simpleRetsCustomPostPages {
             'capability_type' => 'page',
             'hierarchical'    => true,
             'taxonomies'      => array(),
-            'supports'        => array( 'title', 'editor', 'thumbnail' ),
+            'supports'        => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
             'rewrite'         => true
         );
         register_post_type( 'retsd-listings', $args );
