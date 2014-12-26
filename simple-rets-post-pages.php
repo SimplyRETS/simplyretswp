@@ -8,14 +8,18 @@
 
 /* Code starts here */
 add_action( 'init', array( 'simpleRetsCustomPostPages', 'simpleRetsPostType' ) );
+
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postFilterMetaBox' ) );
+add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postTemplateMetaBox' ) );
+
+
 add_action( 'save_post', array( 'simpleRetsCustomPostPages', 'postFilterMetaBoxSave' ) );
+add_action( 'save_post', array( 'simpleRetsCustomPostPages', 'postTemplateMetaBoxSave' ) );
+
 
 add_action( 'admin_enqueue_scripts', array( 'simpleRetsCustomPostPages', 'postFilterMetaBoxJs' ) );
 add_action( 'admin_init', array( 'simpleRetsCustomPostPages', 'postFilterMetaBoxCss' ) );
-// ^TODO: This should be conditioned to only load on our retsd-listings pages so it's not on
-// every page of the admin panel. We are using an 'sr-' prefix on all of our elements for
-// extra safety.
+// ^TODO: load css/js only on retsd-listings post type pages when admin
 
 
 class simpleRetsCustomPostPages {
@@ -50,12 +54,23 @@ class simpleRetsCustomPostPages {
 
     public static function postFilterMetaBox() {
         add_meta_box(
-             'sr_meta_box_filter'
-             , __( 'Filter Results on This Page', 'sr-textdomain')
-           , array('simpleRetsCustomPostPages', 'postFilterMetaBoxMarkup')
-           , 'retsd-listings'
-           , 'normal'
-           , 'high'
+            'sr-meta-box-filter'
+            , __( 'Filter Results on This Page', 'sr-textdomain')
+            , array('simpleRetsCustomPostPages', 'postFilterMetaBoxMarkup')
+            , 'retsd-listings'
+            , 'normal'
+            , 'high'
+        );
+    }
+
+    public static function postTemplateMetaBox() {
+        add_meta_box(
+             'sr-template-meta-box'
+             , __('Page Template', 'sr-textdomain')
+             , array( 'simpleRetsCustomPostPages', 'postTemplateMetaBoxMarkup' )
+             , 'retsd-listings'
+             , 'side'
+             , 'core'
         );
     }
 
@@ -186,6 +201,46 @@ class simpleRetsCustomPostPages {
 
         $sr_filters = $_POST['sr_filters'];
         update_post_meta( $post_id, 'sr_filters', $sr_filters );
+    }
+
+    public static function postTemplateMetaBoxMarkup( $post ) {
+        wp_nonce_field( basename(__FILE__), 'sr_template_meta_nonce' );
+
+        $current_template = get_post_meta( $post->ID, 'sr_page_template', true);
+        echo 'Current template: ' . $current_template . '<br>';
+        $template_options = get_page_templates();
+
+        $box_label = '<label class="sr-filter-meta-box" for="sr_page_template">Page Template</label>';
+        $box_select = '<select name="sr_page_template" id="sr-page-template-select">';
+        $box_option = '';
+
+        echo $box_label;
+
+        foreach (  $template_options as $name=>$file ) {
+            if ( $current_template == $file ) {
+                $box_option .= '<option value="' . $file . '" selected="selected">' . $name . '</option>';
+            } else {
+                $box_option .= '<option value="' . $file . '">' . $name . '</option>';
+            }
+        }
+
+        echo $box_select;
+        echo $box_option;
+        echo '</select>';
+    }
+
+    public static function postTemplateMetaBoxSave( $post_id ) {
+        $current_nonce = $_POST['sr_template_meta_nonce'];
+        $is_autosaving = wp_is_post_autosave( $post_id );
+        $is_revision   = wp_is_post_revision( $post_id );
+        $valid_nonce   = ( isset( $current_nonce ) && wp_verify_nonce( $current_nonce, basename( __FILE__ ) ) ) ? 'true' : 'false';
+
+        if ( $is_autosaving || $is_revision || !$valid_nonce ) {
+            return;
+        }
+
+        $sr_page_template = $_POST['sr_page_template'];
+        update_post_meta( $post_id, 'sr_page_template', $sr_page_template );
     }
 }
 ?>
