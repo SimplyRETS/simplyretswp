@@ -9,6 +9,8 @@
 /* Code starts here */
 add_action( 'init', array( 'simpleRetsCustomPostPages', 'simpleRetsPostType' ) );
 
+add_filter( 'single_template', array( 'simpleRetsCustomPostPages', 'loadSimpleRetsPostTemplate' ) );
+
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postFilterMetaBox' ) );
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postTemplateMetaBox' ) );
 
@@ -207,12 +209,12 @@ class simpleRetsCustomPostPages {
         wp_nonce_field( basename(__FILE__), 'sr_template_meta_nonce' );
 
         $current_template = get_post_meta( $post->ID, 'sr_page_template', true);
-        echo 'Current template: ' . $current_template . '<br>';
         $template_options = get_page_templates();
 
         $box_label = '<label class="sr-filter-meta-box" for="sr_page_template">Page Template</label>';
         $box_select = '<select name="sr_page_template" id="sr-page-template-select">';
         $box_option = '';
+        $box_default_option = '<option value="">Default Template</option>';
 
         echo $box_label;
 
@@ -225,6 +227,7 @@ class simpleRetsCustomPostPages {
         }
 
         echo $box_select;
+        echo $box_default_option;
         echo $box_option;
         echo '</select>';
     }
@@ -242,5 +245,28 @@ class simpleRetsCustomPostPages {
         $sr_page_template = $_POST['sr_page_template'];
         update_post_meta( $post_id, 'sr_page_template', $sr_page_template );
     }
+
+    public static function loadSimpleRetsPostTemplate() {
+        $query_object = get_queried_object();
+        $sr_post_type = 'retsd-listings';
+        $page_template = get_post_meta( $query_object->ID, 'sr_page_template', true );
+
+        $default_templates    = array();
+        $default_templates[]  = 'single-{$object->post_type}-{$object->post_name}.php';
+        $default_templates[]  = 'single-{$object->post_type}.php';
+        $default_templates[]  = 'single.php';
+
+        // only apply our template to our CPT pages
+        if ( $query_object->post_type == $sr_post_type ) {
+            if ( !empty( $page_template ) ) {
+                echo 'need to load ' .$page_template;
+                $default_templates = $page_template;
+            }
+        }
+
+        $new_template = locate_template( $default_templates, false );
+        return $new_template;
+    }
+
 }
 ?>
