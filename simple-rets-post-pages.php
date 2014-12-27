@@ -272,6 +272,8 @@ class simpleRetsCustomPostPages {
     }
 
     public static function simpleRetsDefaultContent( $content, $post ) {
+        require_once( plugin_dir_path(__FILE__) . 'simple-rets-api-helper.php' );
+
         $post_type = get_post_type();
         $sr_post_type = 'retsd-listings';
         $br = '<br>';
@@ -284,11 +286,14 @@ class simpleRetsCustomPostPages {
 
             if ( empty($listing_params) ) {
                 return 'no filter params' . $content;
-
             }
+
             foreach ( $listing_params as $key=>$value ) {
                 $content = 'param: ' . $key . ' value: ' . $value . $br . $content;
             }
+
+            $content = simpleRetsApiHelper::retrieveRetsListings( $listing_params ) . $br . $content;
+
             return $content;
         }
     } // ^TODO: content needs to be appended, not prepended.
