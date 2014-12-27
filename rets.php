@@ -11,7 +11,7 @@
 
 // Initialize admin panel pages and settings for admin only users
 if ( is_admin() ) {
-    include( plugin_dir_path(__FILE__) . 'simple-rets-admin.php' );
+    require_once( plugin_dir_path(__FILE__) . 'simple-rets-admin.php' );
     add_action( 'admin_init', 'register_admin_settings' );
     add_action( 'admin_menu', 'add_to_admin_menu' );
 }
