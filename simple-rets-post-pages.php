@@ -29,7 +29,7 @@ add_action( 'admin_init', array( 'simpleRetsCustomPostPages', 'postFilterMetaBox
 
 class simpleRetsCustomPostPages {
 
-    // Custom Post Type
+    // Create our Custom Post Type
     public static function simpleRetsPostType() {
         $labels = array(
             'name'          => __( 'Rets Pages' ),
@@ -100,6 +100,8 @@ class simpleRetsCustomPostPages {
 
         $sr_filters = get_post_meta( $post->ID, 'sr_filters', true);
 
+        // TODO: Once all the query parameters are finalized, we can generate
+        // most of the markup below.
         ?>
         <div class="current-filters">
             <span class="filter-add">
@@ -163,7 +165,7 @@ class simpleRetsCustomPostPages {
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
-          <span id="filter-here"></span>
+          <span id="filter-here">Probably remove this</span>
 
         </div>
         <?php
@@ -216,8 +218,8 @@ class simpleRetsCustomPostPages {
 
         $box_label = '<label class="sr-filter-meta-box" for="sr_page_template">Page Template</label>';
         $box_select = '<select name="sr_page_template" id="sr-page-template-select">';
-        $box_option = '';
         $box_default_option = '<option value="">Default Template</option>';
+        $box_option = '';
 
         echo $box_label;
 
@@ -272,15 +274,15 @@ class simpleRetsCustomPostPages {
     }
 
     public static function simpleRetsDefaultContent( $content, $post ) {
+        // require our api helper
         require_once( plugin_dir_path(__FILE__) . 'simple-rets-api-helper.php' );
 
         $post_type = get_post_type();
         $sr_post_type = 'retsd-listings';
         $br = '<br>';
 
-        // only add listings for our CPT
+        // only add listings for Simple Rets CPT
         if ( $post_type == $sr_post_type ) {
-
             $query_object = get_queried_object();
             $listing_params = get_post_meta( $query_object->ID, 'sr_filters', true );
 
