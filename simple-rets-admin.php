@@ -14,8 +14,8 @@ function add_to_admin_menu() {
 }
 
 function register_admin_settings() {
-    register_setting('rets_admin_settings', 'api_name');
-    register_setting('rets_admin_settings', 'api_key');
+    register_setting('rets_admin_settings', 'sr_api_name');
+    register_setting('rets_admin_settings', 'sr_api_key');
 }
 
 function admin_page() {
@@ -31,15 +31,15 @@ function admin_page() {
 
         <!-- api username -->
         <strong>Api Username: </strong>
-        <input type="text" name="api_name" value="<?php echo esc_attr( get_option('api_name') ); ?>" />
-        <span>(current: <?php echo esc_attr( get_option('api_name') ); ?>)</span>
+        <input type="text" name="sr_api_name" value="<?php echo esc_attr( get_option('sr_api_name') ); ?>" />
+        <span>(current: <?php echo esc_attr( get_option('sr_api_name') ); ?>)</span>
         <br>
         <br>
 
         <!-- api password -->
         <strong>Api Key: </strong>
-        <input type="text" name="api_key" value="<?php echo esc_attr( get_option('api_key') ); ?>" />
-        <span>(current: <?php echo esc_attr( get_option('api_key') ); ?>)</span>
+        <input type="text" name="sr_api_key" value="<?php echo esc_attr( get_option('sr_api_key') ); ?>" />
+        <span>(current: <?php echo esc_attr( get_option('sr_api_key') ); ?>)</span>
         <?php submit_button(); ?>
       </form>
 
