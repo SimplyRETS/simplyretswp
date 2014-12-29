@@ -291,10 +291,14 @@ class simpleRetsCustomPostPages {
             }
 
             foreach ( $listing_params as $key=>$value ) {
-                $content = 'param: ' . $key . ' value: ' . $value . $br . $content;
+                $filters = 'param: ' . $key . ' value: ' . $value . $br . $filters;
             }
 
-            $content = simpleRetsApiHelper::retrieveRetsListings( $listing_params ) . $br . $content;
+            // the simple rets api helper takes care of retrieving, parsing, and generating
+            // the markup for the listings to be shown on this page based off of the sr_filters
+            // saved for this post
+            $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $listing_params );
+            $content = $listings_content . $br . $filters . $br . $content;
 
             return $content;
         }
