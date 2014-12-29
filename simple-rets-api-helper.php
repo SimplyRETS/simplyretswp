@@ -58,7 +58,132 @@ class SimpleRetsApiHelper {
     }
 
     public static function srResidentialGenerator( $response ) {
-        echo 'we\'ll parse the property info here <br><br>';
+        ?>
+        <script>
+        console.log( <?php print_r ( json_encode( $response ) ); ?> );
+        </script>
+        <?php
+
+        $br = "<br>";
+        foreach ( $response as $listing ) {
+            // id
+            $listing_uid      = $listing->residentialPropertyListing->listingId;
+            echo "<h4>Listing Id: <a href=\"/?retsd-listings=search&listing_id={$listing_uid}\">{$listing_uid}</a></h4>";
+
+            // Amenities
+            $bedrooms    = $listing->residentialPropertyBedrooms;
+            $bathsFull   = $listing->residentialPropertyBathsFull;
+            $fireplaces  = $listing->residentialPropertyFireplaces;
+            $heating     = $listing->residentialPropertyHeating;
+            $lotSize     = $listing->residentialPropertyLotSize; // might be null
+            $roof        = $listing->residentialPropertyRoof;
+            $stories     = $listing->residentialPropertyStories;
+            $style       = $listing->residentialPropertyStyle;
+            $subdivision = $listing->residentialPropertySubdivision;
+            $yearBuilt   = $listing->residentialPropertyYearBuild;
+            $interiorFeatures = $listing->residentialPropertyInteriorFeatures;
+            $exteriorFeatures = $listing->residentialPropertyExteriorFeatures;
+            echo "<strong>Amenities</strong>"             . $br;
+            echo "Beds: {$bedrooms}"                      . $br;
+            echo "Bathrooms: {$bathsFull}"                . $br;
+            echo "Fireplaces: {$fireplaces}"              . $br;
+            echo "Heating: {$heating}"                    . $br;
+            echo "Lot Size: {$lotSize}"                   . $br;
+            echo "Roof: {$roof}"                          . $br;
+            echo "Stories: {$stories}"                    . $br;
+            echo "Style: {$style}"                        . $br;
+            echo "Subdivision: {$subdivision}"            . $br;
+            echo "Year Built: {$yearBuilt}"               . $br;
+            echo "Interior Features: {$interiorFeatures}" . $br;
+            echo "Exterior Features: {$exteriorFeatures}" . $br;
+
+            // listing meta information
+            $disclaimer       = $listing->residentialPropertyListing->listingDisclaimer;
+            $listing_id       = $listing->residentialPropertyListing->listingId;
+            $listing_modified = $listing->residentialPropertyListing->listingModificationTimestamp; // TODO: format date
+            $listing_parcel   = $listing->residentialPropertyListing->listingParcel; // probably don't need this
+            $real_account     = $listing->residentialPropertyListing->listingRealAccount; // probably don't need this
+            $sales_data       = $listing->residentialPropertyListing->listingSalesData; //probably empty
+            $school_data      = $listing->residentialPropertyListing->listingSchoolData;
+            $tax_data         = $listing->residentialPropertyListing->listingTaxData;
+            echo "<strong>Meta Info</strong>"            . $br;
+            echo "Disclaimer: {$disclaimer}"             . $br;
+            echo "Listing Id: {$listing_id}"             . $br;
+            echo "Listing Modified: {$listing_modified}" . $br;
+            echo "Listing Parcel: {$listing_parcel}"     . $br;
+            echo "Listing Real Account: {$real_account}" . $br;
+            echo "Listing Sales Data: {$sales_data}"     . $br;
+            echo "Listing School Data: {$school_data}"   . $br;
+            echo "Listing Tax Data: {$tax_data}"         . $br;
+
+            // listing data
+            $listing_agent    = $listing->residentialPropertyListing->listingData->listingDataAgent;
+            $list_date        = $listing->residentialPropertyListing->listingData->listingDataListDate;
+            $listing_price    = $listing->residentialPropertyListing->listingData->listingDataListPrice;
+            $listing_office   = $listing->residentialPropertyListing->listingData->listingDataOffice;
+            $listing_remarks  = $listing->residentialPropertyListing->listingData->listingDataRemarks;
+            $showing_instructions = $listing->residentialPropertyListing->listingData->listingDataShowingInstructions;
+            echo "<strong>Listing Data</strong>"                 . $br;
+            echo "Listing Agent: {$listing_agent}"               . $br;
+            echo "List Date: {$list_date}"                       . $br;
+            echo "Listing Price: {$listing_price}"               . $br;
+            echo "Listing Office: {$listing_office}"             . $br;
+            echo "Listing Remarks: {$listing_remarks}"           . $br;
+            echo "Showing Instructions: {$showing_instructions}" . $br;
+
+            // geographic data
+            $geo_county     = $listing->residentialPropertyListing->listingGeographicData->geographicDataCounty;
+            $geo_directions = $listing->residentialPropertyListing->listingGeographicData->geographicDataDirections;
+            $geo_latitude   = $listing->residentialPropertyListing->listingGeographicData->geographicDataLatitude;
+            $geo_longitude  = $listing->residentialPropertyListing->listingGeographicData->geographicDataLongitude;
+            echo "<strong>Geographic Info</strong>" . $br;
+            echo "County: {$geo_county}"            . $br;
+            echo "Directions: {$geo_directions}"        . $br;
+            echo "Latitude: {$geo_latitude}"          . $br;
+            echo "Longitude: {$geo_longitude}"         . $br;
+
+            // mls information
+            $mls_status  = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationStatus;
+            $mls_area    = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationArea;
+            $mls_serving = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationServingName;
+            $days_on_market = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationDaysOnMarket;
+            echo "<strong>Mls Info</strong>"         . $br;
+            echo "Mls Area: {$mls_area}"             . $br;
+            echo "Days on Market: {$days_on_market}" . $br;
+            echo "Serving Name: {$mls_serving}"      . $br;
+            echo "Mls Status: {$mls_status}"         . $br;
+
+            // street address info
+            $city          = $listing->residentialPropertyListing->listingStreetAddress->streetAddressCity;
+            $country       = $listing->residentialPropertyListing->listingStreetAddress->streetAddressCountry;
+            $postal_code   = $listing->residentialPropertyListing->listingStreetAddress->streetAddressPostalCode;
+            $street_name   = $listing->residentialPropertyListing->listingStreetAddress->streetAddressStreetName;
+            $street_number = $listing->residentialPropertyListing->listingStreetAddress->streetAddressStreetNumber;
+            echo "<strong>Street Address</strong>" . $br;
+            echo "City: {$city}"                   . $br;
+            echo "County: {$country}"              . $br;
+            echo "Postal Code: {$postal_code}"     . $br;
+            echo "Street Name: {$street_name}"     . $br;
+            echo "Street Number: {$street_number}" . $br;
+
+            // listing photos
+            $listingPhotos = $listing->residentialPropertyListing->listingPhotos;
+            echo "<strong>Listing Photos</strong>" . $br;
+
+            if( empty( $listingPhotos ) ) {
+                echo 'no photos for this listing';
+            } else {
+                echo $listingPhotos[0] . $br;
+                echo '<img src="' . $listingPhotos[0] . '" width="100%">' . $br;
+            }
+
+            echo '<hr>';
+        }
+
+        $cont = "here is your property listings markup: ";
+        $cont .= $response;
+
+        return $cont;
     }
 
 }
