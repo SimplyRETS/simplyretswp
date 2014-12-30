@@ -302,6 +302,7 @@ class simpleRetsCustomPostPages {
 
             return $content;
         }
+        return $content;
     } // ^TODO: content needs to be appended, not prepended.
 
 }
