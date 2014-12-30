@@ -87,8 +87,9 @@
 
 * TODO-TRACKER
 *** TODO Create links to individual property pages         :FEATURE:RESEARCH:
-*** TODO Build out search form and make it send a request       :FEATURE:BUG:
-*** TODO Add options for 'registered' search fields                 :FEATURE:
+    - this should be working for shortcodes, but needs to also be working on
+      Rets Pages (can use same code).
+*** WISHLIST Add options for 'registered' search fields             :FEATURE:
     The admin should be able to choose which fields the user is able to search with.
     It could be any easy way to make construcable and custom search forms for any page.
 *** TODO Ability to create custom searches                          :FEATURE:
