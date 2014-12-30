@@ -257,9 +257,9 @@ class simpleRetsCustomPostPages {
         $page_template = get_post_meta( $query_object->ID, 'sr_page_template', true );
 
         $default_templates    = array();
-        $default_templates[]  = 'single-{$object->post_type}-{$object->post_name}.php';
-        $default_templates[]  = 'single-{$object->post_type}.php';
-        $default_templates[]  = 'single.php';
+        $default_templates[]  = "single-{$query_object->post_type}-{$query_object->post_name}.php";
+        $default_templates[]  = "single-{$query_object->post_type}.php";
+        $default_templates[]  = "single.php";
 
         // only apply our template to our CPT pages
         if ( $query_object->post_type == $sr_post_type ) {
