@@ -302,7 +302,6 @@ class simpleRetsCustomPostPages {
     public static function simpleRetsDefaultContent( $content, $post ) {
         // require our api helper
         require_once( plugin_dir_path(__FILE__) . 'simple-rets-api-helper.php' );
-        add_action( 'wp_enqueue_scripts', array( 'SimpleRetsApiHelper', 'simpleRetsClientCss' ) );
 
         $post_type = get_post_type();
         $sr_post_type = 'retsd-listings';
