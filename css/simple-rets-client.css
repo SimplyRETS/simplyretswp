@@ -1,0 +1,41 @@
+/*
+ *
+ * simple-rets-client.css - Copyright (C) Reichert Brothers 2014
+ * This file provides the styles for markup generated on Simply Rets pages.
+ *
+*/
+
+.sr-listing {
+    position: relative;
+    display: block;
+    height: 200px;
+}
+
+.sr-photo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    max-height: 200px;
+    overflow: hidden;
+    width: 30%;
+}
+
+.sr-primary-data {
+    width: 100%;
+    padding-left: 31%;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #eee;
+}
+
+.sr-secondary-data {
+    width: 100%;
+    padding-left: 31%;
+    padding-top: 10px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.sr-data-column {
+    display: inline-block;
+}

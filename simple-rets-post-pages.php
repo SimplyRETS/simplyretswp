@@ -11,7 +11,6 @@
 add_action( 'init', array( 'simpleRetsCustomPostPages', 'simpleRetsPostType' ) );
 
 add_filter( 'single_template', array( 'simpleRetsCustomPostPages', 'loadSimpleRetsPostTemplate' ) );
-
 add_filter( 'the_content', array( 'simpleRetsCustomPostPages', 'simpleRetsDefaultContent' ) );
 
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postFilterMetaBox' ) );
@@ -303,6 +302,7 @@ class simpleRetsCustomPostPages {
     public static function simpleRetsDefaultContent( $content, $post ) {
         // require our api helper
         require_once( plugin_dir_path(__FILE__) . 'simple-rets-api-helper.php' );
+        add_action( 'wp_enqueue_scripts', array( 'SimpleRetsApiHelper', 'simpleRetsClientCss' ) );
 
         $post_type = get_post_type();
         $sr_post_type = 'retsd-listings';
