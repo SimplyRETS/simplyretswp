@@ -196,7 +196,7 @@ class simpleRetsCustomPostPages {
         </div>
         <?php
 
-        echo '<hr>Current filters: <br>'; print_r( $sr_filters );
+        echo '<br>Current filters: <br>'; print_r( $sr_filters );
         echo '<br>';
         // ^TODO: Remove degbug
 
@@ -300,14 +300,12 @@ class simpleRetsCustomPostPages {
     }
 
     public static function simpleRetsDefaultContent( $content, $post ) {
-        // require our api helper
         require_once( plugin_dir_path(__FILE__) . 'simple-rets-api-helper.php' );
 
         $post_type = get_post_type();
         $sr_post_type = 'retsd-listings';
         $br = '<br>';
 
-        // only add listings for Simple Rets CPT
         if ( $post_type == $sr_post_type ) {
             $query_object = get_queried_object();
             $listing_params = get_post_meta( $query_object->ID, 'sr_filters', true );
