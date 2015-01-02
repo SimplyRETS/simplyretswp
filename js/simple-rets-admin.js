@@ -16,6 +16,8 @@ jQuery(function() {
   var maxPriceFilterInput = jQuery('#sr-max-price-span');
   var minBedFilterInput   = jQuery('#sr-min-bed-span');
   var maxBedFilterInput   = jQuery('#sr-max-bed-span');
+  var minBathFilterInput  = jQuery('#sr-min-bath-span');
+  var maxBathFilterInput  = jQuery('#sr-max-bath-span');
   var agentFilterInput    = jQuery('#sr-listing-agent-span');
 
   var filterArea      = jQuery('.current-filters');
@@ -46,6 +48,16 @@ jQuery(function() {
       case "Maximum Beds":
           filterArea.append(maxBedFilterInput);
           maxBedFilterInput.show();
+          jQuery(this).find("option:selected").remove();
+          break;
+      case "Minimum Bathrooms":
+          filterArea.append(minBathFilterInput);
+          minBathFilterInput.show();
+          jQuery(this).find("option:selected").remove();
+          break;
+      case "Maximum Bathrooms":
+          filterArea.append(maxBathFilterInput);
+          maxBathFilterInput.show();
           jQuery(this).find("option:selected").remove();
           break;
       case "Listing Agent":

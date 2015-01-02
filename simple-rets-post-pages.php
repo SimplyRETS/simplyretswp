@@ -96,6 +96,8 @@ class simpleRetsCustomPostPages {
         $max_price_filter = "";
         $min_bed_filter   = "";
         $max_bed_filter   = "";
+        $min_bath_filter   = "";
+        $max_bath_filter   = "";
         $agent_id_filter  = "";
 
         $sr_filters = get_post_meta( $post->ID, 'sr_filters', true);
@@ -108,64 +110,89 @@ class simpleRetsCustomPostPages {
               <?php _e( 'Add new Filter' ); ?>
             </span>
             <select name="sr-filter-select" id="sr-filter-select">
-                <option> -- Select a Filter -- </option>
-                <option val="minPrice-option"> Minimum Price  </option>
-                <option val="maxPrice-option"> Maximum Price  </option>
-                <option val="minBed-option">   Minimum Beds   </option>
-                <option val="maxBed-option">   Maximum Beds   </option>
-                <option val="agentId-option">  Listing Agent  </option>
+                <option> -- Select a Filter --                    </option>
+                <option val="pricelow-option">  Minimum Price     </option>
+                <option val="pricehigh-option"> Maximum Price     </option>
+                <option val="minbed-option">    Minimum Beds      </option>
+                <option val="maxbed-option">    Maximum Beds      </option>
+                <option val="minbath-option">   Minimum Bathrooms </option>
+                <option val="maxbath-option">   Maximum Bathrooms </option>
+                <option val="agentid-option">   Listing Agent     </option>
             </select>
             <hr>
         </div>
 
         <div class="sr-meta-inner">
 
+          <!-- Min Price Filter -->
           <div class="sr-filter-input" id="sr-min-price-span">
             <label for="sr-min-price-input">
               <?php _e( 'Minimum Price', 'sr-textdomain' ) ?>
             </label>
-            <input id="minPrice" type="text" name="sr_filters[minPrice]"
+            <input id="pricelow" type="text" name="sr_filters[pricelow]"
               value="<?php print_r( $min_price_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
+          <!-- Max Price Filter -->
           <div class="sr-filter-input" id="sr-max-price-span">
             <label for="sr-max-price-input">
               Maximum Price:
             </label>
-            <input id="maxPrice" type="text" name="sr_filters[maxPrice]"
+            <input id="pricehigh" type="text" name="sr_filters[pricehigh]"
               value="<?php print_r( $max_price_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
+          <!-- Min Bed Filter -->
           <div class="sr-filter-input" id="sr-min-bed-span">
             <label for="sr-min-bed-input">
               Minimum Bedrooms:
             </label>
-            <input id="minBed" type="text" name="sr_filters[minBed]"
+            <input id="minbed" type="text" name="sr_filters[minbed]"
               value="<?php print_r( $min_bed_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
+          <!-- Max Bed Filter -->
           <div class="sr-filter-input" id="sr-max-bed-span">
             <label for="sr-max-bed-input">
               Maximum Bedrooms:
             </label>
-            <input id="maxBed" type="text" name="sr_filters[maxBed]"
+            <input id="maxbed" type="text" name="sr_filters[maxbed]"
               value="<?php print_r( $max_bed_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
+          <!-- Min Baths Filter -->
+          <div class="sr-filter-input" id="sr-min-bath-span">
+            <label for="sr-min-bath-input">
+              Minimum Bathrooms:
+            </label>
+            <input id="minbath" type="text" name="sr_filters[minbath]"
+              value="<?php print_r( $min_bath_filter ); ?>"/>
+            <span class="sr-remove-filter">Remove Filter</span>
+          </div>
+
+          <!-- Max Baths Filter -->
+          <div class="sr-filter-input" id="sr-max-bath-span">
+            <label for="sr-max-bath-input">
+              Maximum Bathrooms:
+            </label>
+            <input id="maxbath" type="text" name="sr_filters[maxbath]"
+              value="<?php print_r( $max_bath_filter ); ?>"/>
+            <span class="sr-remove-filter">Remove Filter</span>
+          </div>
+
+          <!-- Agent ID Filter -->
           <div class="sr-filter-input" id="sr-listing-agent-span">
             <label for="sr-listing-agent-input">
               Listing Agent MLS Id:
             </label>
-            <input id="agentId" type="text" name="sr_filters[agentId]"
+            <input id="agentid" type="text" name="sr_filters[agentid]"
               value="<?php print_r( $agent_id_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
-
-          <span id="filter-here">Probably remove this</span>
 
         </div>
         <?php
