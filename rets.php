@@ -1,6 +1,6 @@
 <?php
 /*
- * Plugin Name: Simple Rets
+ * Plugin Name: Simply Rets
  * Description: A Wordpress plugin for Reichert Brothers Retsd server.
  * Copyright (c) Reichert Brothers 2014
 */
