@@ -42,7 +42,7 @@ class simpleRetsCustomPostPages {
         );
         $args = array(
             'public'          => true,
-            'has_archive'     => false,
+            'has_archive'     => true,
             'labels'          => $labels,
             'description'     => 'SimplyRets property listings pages',
             'query_var'       => true,
