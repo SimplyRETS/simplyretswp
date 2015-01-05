@@ -39,3 +39,8 @@
 .sr-data-column {
     display: inline-block;
 }
+
+/* listing details */
+.sr-details th {
+    background-color: #eee;
+}

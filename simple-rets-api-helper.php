@@ -125,61 +125,160 @@ class SimpleRetsApiHelper {
         $mls_serving = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationServingName;
         $days_on_market = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationDaysOnMarket;
 
-        $cont .= "<div class='sr-details'>";
-        $cont .= "  <h4>Single Listing Details</h4>";
-        $cont .= "  <p>Beds: {$bedrooms}</p>";
-        $cont .= "  <p>Baths: {$bathsFull}</p>";
-        $cont .= "  <p>Interior: {$interiorFeatures}</p>";
-        $cont .= "  <p>Stlye: {$style}</p>";
-        $cont .= "  <p>Heating: {$heating}</p>";
-        $cont .= "  <p>Stories: {$stories}</p>";
-        $cont .= "  <p>Exterior: {$exteriorFeatures}</p>";
-        $cont .= "  <p>Year built: {$yearBuilt}</p>";
-        $cont .= "  <p>Lost Size: {$lotSize}</p>";
-        $cont .= "  <p>Fireplaces: {$fireplaces}</p>";
-        $cont .= "  <p>Subdivision: {$subdivision}</p>";
-        $cont .= "  <p>Roof: {$roof}</p>";
-
-        $cont .= "  <h4>Geographical</h4>";
-        $cont .= "  <p>Directions: {$geo_directions}</p>";
-        $cont .= "  <p>County: {$geo_county}</p>";
-        $cont .= "  <p>Latitude: {$geo_latitude}</p>";
-        $cont .= "  <p>Longitude: {$geo_longitude}</p>";
-
-        $cont .= "  <h4>Photos</h4>";
-        $cont .= "  <p>Photos: {$photos}</p>";
-
-        $cont .= "  <h4>Listing Meta Data</h4>";
-        $cont .= "  <p>Listing modified: {$listing_modified}</p>";
-        $cont .= "  <p>Listing Parcel: {$listing_parcel}</p>";
-        $cont .= "  <p>School Data: {$school_data}</p>";
-        $cont .= "  <p>Disclaimer: {$disclaimer}</p>";
-        $cont .= "  <p>Tax Data: {$tax_data}</p>";
-        $cont .= "  <p>Listing Id: {$listing_id}</p>";
-        $cont .= "  <p>Sales Data: {$sales_data}</p>";
-        $cont .= "  <p>Real Account: {$real_account}</p>";
-
-        $cont .= "  <h4>Street Address Info</h4>";
-        $cont .= "  <p>Postal Code: {$postal_code}</p>";
-        $cont .= "  <p>Country: {$country}</p>";
-        $cont .= "  <p>Street Number: {$street_number}</p>";
-        $cont .= "  <p>City: {$city}</p>";
-        $cont .= "  <p>Street Name: {$street_name}</p>";
-
-        $cont .= "  <h4>Listing Data</h4>";
-        $cont .= "  <p>Showing Instructions: {$showing_instructions}</p>";
-        $cont .= "  <p>Listing Office: {$listing_office}</p>";
-        $cont .= "  <p>Listing Agent: {$listing_agent}</p>";
-        $cont .= "  <p>List Date: {$listing_price}</p>";
-        $cont .= "  <p>Remarks: {$listing_remarks}</p>";
-
-        $cont .= "  <h4>Mls Information</h4>";
-        $cont .= "  <p>Days on Market: {$days_on_market}</p>";
-        $cont .= "  <p>Mls Status: {$mls_status}</p>";
-        $cont .= "  <p>Mls Area: {$mls_area}</p>";
-        $cont .= "  <p>Service Name: {$mls_serving}</p>";
-
-        $cont .= "</div>";
+        $main_photo = $photos[0];
+        $cont .= <<<HTML
+<div class="sr-details" style="text-align:left;">
+  <div class="sr-details-photos">
+    <img src="$main_photo" width="100%">
+  </div>
+  <table style="width:100%;">
+    <thead>
+      <tr>
+        <th colspan="2"><h5>Listing Details</h5></th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Bedrooms</td>
+        <td>$bedrooms</td></tr>
+      <tr>
+        <td>Full Bathrooms</td>
+        <td>$bathsFull</td></tr>
+      <tr>
+        <td>Interior Features</td>
+        <td>$interiorFeatures</td></tr>
+      <tr>
+        <td>Property Style</td>
+        <td>$style</td></tr>
+      <tr>
+        <td>Heating</td>
+        <td>$heating</td></tr>
+      <tr>
+        <td>Stories</td>
+        <td>$stories</td></tr>
+      <tr>
+        <td>Exterior Features</td>
+        <td>$exteriorFeatures</td></tr>
+      <tr>
+        <td>Year Built</td>
+        <td>$yearBuilt</td></tr>
+      <tr>
+        <td>Lot Size</td>
+        <td>$lotSize</td></tr>
+      <tr>
+        <td>Fireplaces</td>
+        <td>$fireplaces</td></tr>
+      <tr>
+        <td>Subdivision</td>
+        <td>$subdivision</td></tr>
+      <tr>
+        <td>Roof</td>
+        <td>$roof</td></tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th colspan="2"><h5>Geographical Data</h5></th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Directions</td>
+        <td>$geo_directions</td></tr>
+      <tr>
+        <td>County</td>
+        <td>$geo_county</td></tr>
+      <tr>
+        <td>Latitude</td>
+        <td>$geo_latitude</td></tr>
+      <tr>
+        <td>Longitude</td>
+        <td>$geo_longitude</td></tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th colspan="2"><h5>Listing Meta Data</h5></th></tr></thead>
+    <tbody>
+      <tr>
+        <td>List last modified</td>
+        <td>$listing_modified</td></tr>
+      <tr>
+        <td>Listing Parcel</td>
+        <td>$listing_parcel</td></tr>
+      <tr>
+        <td>School Data</td>
+        <td>$school_data</td></tr>
+      <tr>
+        <td>Disclaimer</td>
+        <td>$disclaimer</td></tr>
+      <tr>
+        <td>Tax Data</td>
+        <td>$tax_data</td></tr>
+      <tr>
+        <td>Listing Id</td>
+        <td>$listing_id</td></tr>
+      <tr>
+        <td>Sales Data</td>
+        <td>$sales_data</td></tr>
+      <tr>
+        <td>Real Account Data</td>
+        <td>$real_account</td></tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th colspan="2"><h5>Address Information</h5></th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Postal Code</td>
+        <td>$postal_code</td></tr>
+      <tr>
+        <td>Country Code</td>
+        <td>$country</td></tr>
+      <tr>
+        <td>Street Nummber</td>
+        <td>$street_number</td></tr>
+      <tr>
+        <td>Streen Name</td>
+        <td>$street_name</td></tr>
+      <tr>
+        <td>City</td>
+        <td>$city</td></tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th colspan="2"><h5>Listing Information</h5></th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Showing Instructions</td>
+        <td>$showing_instructions</td></tr>
+      <tr>
+        <td>Listing Office</td>
+        <td>$listing_office</td></tr>
+      <tr>
+        <td>Listing Agent</td>
+        <td>$listing_agent</td></tr>
+      <tr>
+        <td>Price</td>
+        <td>$listing_price</td></tr>
+      <tr>
+        <td>Remarks</td>
+        <td>$listing_remarks</td></tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th colspan="2"><h5>Mls Information</h5></th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Days on Market</td>
+        <td>$days_on_market</td></tr>
+      <tr>
+        <td>Mls Status</td>
+        <td>$mls_status</td></tr>
+      <tr>
+        <td>Mls Area</td>
+        <td>$mls_area</td></tr>
+      <tr>
+        <td>Mls Service Name</td>
+        <td>$mls_serving</td></tr>
+    </tbody>
+  </table>
+</div>
+HTML;
 
         return $cont;
     }
