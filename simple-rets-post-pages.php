@@ -15,7 +15,6 @@ add_filter( 'single_template', array( 'simpleRetsCustomPostPages', 'loadSimpleRe
 add_filter( 'the_content', array( 'simpleRetsCustomPostPages', 'simpleRetsDefaultContent' ) );
 
 add_filter( 'the_posts', array( 'simpleRetsCustomPostPages', 'simpleRetsThePosts' ) );
-add_filter( 'posts_request', array( 'simpleRetsCustomPostPages', 'simpleRetsSingleQuery' ) );
 
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postFilterMetaBox' ) );
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postTemplateMetaBox' ) );
@@ -323,8 +322,7 @@ class simpleRetsCustomPostPages {
             $listing_params = get_post_meta( $query_object->ID, 'sr_filters', true );
 
             if ( empty($listing_params) ) {
-                return 'no filter params' . $content;
-                // ^TODO: remove text here, just return content if listing_params aren't found
+                return $content;
             }
 
             foreach ( $listing_params as $key=>$value ) {
@@ -347,10 +345,11 @@ class simpleRetsCustomPostPages {
     public static function simpleRetsThePosts( $posts ) {
         global $wp_query;
 
+        // if we're getting a single listing query, create a post on the fly
+        // and return it, else just return the content
         if( isset($wp_query->query['retsd-listings']) && $wp_query->query['retsd-listings'] == "sr-single" ) {
-
             $post_id = get_query_var( 'listing_id' );
-            echo $post_id;
+
 		    $post = (object)array(
 		    	"ID"				=> $post_id,
 		    	"comment_count"		=> 0,
@@ -367,22 +366,10 @@ class simpleRetsCustomPostPages {
 		    );
 
 		    $posts = array( $post );
-
             return $posts;
         }
+
         return $posts;
-    }
-
-    public static function simpleRetsSingleQuery($query) {
-        global $wp_query;
-
-        if( isset($wp_query->query['retsd-listings']) && $wp_query->query['retsd-listings'] == "sr-single" ) {
-            $wp_query->is_page = 1;
-            $wp_query->post_type = 'retsd-listings';
-            return "";
-        }
-
-        return $query;
     }
 
 }
