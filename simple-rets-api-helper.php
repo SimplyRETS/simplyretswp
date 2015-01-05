@@ -322,12 +322,12 @@ HTML;
               <hr>
               <div class="sr-listing">
                 <div class="sr-photo">
-                  <a href="#">
+                  <a href="/?retsd-listings=sr-single&listing_id=$listing_uid&listing_title=$address">
                     <img src="$main_photo">
                   </a>
                 </div>
                 <div class="sr-primary-data">
-                  <a href="#">
+                  <a href="/?retsd-listings=sr-single&listing_id=$listing_uid&listing_title=$address">
                     <h4>$address
                     <span id="sr-price">$ $listing_price</span></h4>
                   </a>
