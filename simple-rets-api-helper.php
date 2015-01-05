@@ -289,8 +289,6 @@ HTML;
         $br = "<br>";
         $cont = "";
 
-        $cont .= '<div class="sr-results">';
-        $cont .= '  <div class="sr-listings">';
         foreach ( $response as $listing ) {
             // id
             $listing_uid      = $listing->residentialPropertyListing->listingId;
@@ -316,62 +314,60 @@ HTML;
             if( empty( $listingPhotos ) ) {
                 $listingPhotos[0] = 'http://placehold.it/350x350.jpg';
             }
+            $main_photo = $listingPhotos[0];
 
             $address = $street_name . ' ' . $street_number;
             // append markup for this listing to the content
-            $cont .= '<hr>';
-            $cont .= $listing_uid . $br;
-            $cont .= '<div class="sr-listing">';
-            $cont .= '  <div class="sr-photo">';
-            $cont .= '    <a href="#">';
-            $cont .= '      <img src="' . $listingPhotos[0] . '">';
-            $cont .= '    </a>';
-            $cont .= '  </div>';
-            $cont .= '  <div class="sr-primary-data">';
-            $cont .= '    <a href="#">';
-            $cont .= '      <h4>' . $address;
-            $cont .= '      <span id="sr-price">$' . $listing_price . '</span></h4>';
-            $cont .= '    </a>';
-            $cont .= '  </div>';
-            $cont .= '  <div class="sr-secondary-data">';
-            $cont .= '    <ul class="sr-data-column">';
-            $cont .= '      <li>';
-            $cont .= '        <span>' . $bedrooms . ' Bedrooms</span>';
-            $cont .= '      </li>';
-            $cont .= '      <li>';
-            $cont .= '        <span>' . $bathsFull . ' Full Baths</span>';
-            $cont .= '      </li>';
-            $cont .= '      <li>';
-            $cont .= '        <span>' . $lotSize . ' Sq Ft</span>';
-            $cont .= '      </li>';
-            $cont .= '      <li>';
-            $cont .= '        <span>Built in ' . $yearBuilt . '</span>';
-            $cont .= '      </li>';
-            $cont .= '    </ul>';
-            $cont .= '    <ul class="sr-data-column">';
-            $cont .= '      <li>';
-            $cont .= '        <span>In the ' . $subdivision . ' Subdivision</span>';
-            $cont .= '      </li>';
-            $cont .= '      <li>';
-            $cont .= '        <span>The City of ' . $city . '</span>';
-            $cont .= '      </li>';
-            $cont .= '      <li>';
-            $cont .= '        <span>Listed by ' . $listing_agent . '</span>';
-            $cont .= '      </li>';
-            $cont .= '      <li>';
-            $cont .= '        <span>Listed on {$list_date}</span>';
-            $cont .= '      </li>';
-            $cont .= '    </ul>';
-            $cont .= '  </div>';
-            $cont .= '  <div>';
-            $cont .= "    <a href=\"/?retsd-listings=sr-single&listing_id={$listing_uid}&listing_title={$address}\">More details</a>";
-            $cont .= '  </div>';
-            $cont .= '</div>';
+            $cont .= <<<HTML
+              <hr>
+              <div class="sr-listing">
+                <div class="sr-photo">
+                  <a href="#">
+                    <img src="$main_photo">
+                  </a>
+                </div>
+                <div class="sr-primary-data">
+                  <a href="#">
+                    <h4>$address
+                    <span id="sr-price">$ $listing_price</span></h4>
+                  </a>
+                </div>
+                <div class="sr-secondary-data">
+                  <ul class="sr-data-column">
+                    <li>
+                      <span>$bedrooms Bedrooms</span>
+                    </li>
+                    <li>
+                      <span>$bathsFull Full Baths</span>
+                    </li>
+                    <li>
+                      <span>$lotSize Sq Ft</span>
+                    </li>
+                    <li>
+                      <span>Built in $yearBuilt</span>
+                    </li>
+                  </ul>
+                  <ul class="sr-data-column">
+                    <li>
+                      <span>In the $subdivision Subdivision</span>
+                    </li>
+                    <li>
+                      <span>The City of $city</span>
+                    </li>
+                    <li>
+                      <span>Listed by $listing_agent</span>
+                    </li>
+                    <li>
+                      <span>Listed on $list_date</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <a href="/?retsd-listings=sr-single&listing_id=$listing_uid&listing_title=$address">More details</a>
+                </div>
+              </div>
+HTML;
         }
-
-
-    $cont .= '  </div>';
-    $cont .= '</div>';
 
     return $cont;
     }
