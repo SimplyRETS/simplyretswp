@@ -94,7 +94,7 @@ class SimpleRetsApiHelper {
 
             // append markup for this listing to the content
             $cont .= '<hr>';
-            $cont .= $listing_id . $br;
+            $cont .= $listing_uid . $br;
             $cont .= '<div class="sr-listing">';
             $cont .= '  <div class="sr-photo">';
             $cont .= '    <a href="#">';
@@ -136,6 +136,9 @@ class SimpleRetsApiHelper {
             $cont .= '        <span>Listed on {$list_date}</span>';
             $cont .= '      </li>';
             $cont .= '    </ul>';
+            $cont .= '  </div>';
+            $cont .= '  <div>';
+            $cont .= "    <a href=\"/?retsd-listings=sr-single&listing_id={$listing_uid}\">More details</a>";
             $cont .= '  </div>';
             $cont .= '</div>';
         }

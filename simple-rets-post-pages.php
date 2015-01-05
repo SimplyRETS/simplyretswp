@@ -7,11 +7,15 @@
  *
 */
 
+
 /* Code starts here */
 add_action( 'init', array( 'simpleRetsCustomPostPages', 'simpleRetsPostType' ) );
 
 add_filter( 'single_template', array( 'simpleRetsCustomPostPages', 'loadSimpleRetsPostTemplate' ) );
 add_filter( 'the_content', array( 'simpleRetsCustomPostPages', 'simpleRetsDefaultContent' ) );
+
+add_filter( 'the_posts', array( 'simpleRetsCustomPostPages', 'simpleRetsThePosts' ) );
+add_filter( 'posts_request', array( 'simpleRetsCustomPostPages', 'simpleRetsSingleQuery' ) );
 
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postFilterMetaBox' ) );
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postTemplateMetaBox' ) );
@@ -42,7 +46,7 @@ class simpleRetsCustomPostPages {
         );
         $args = array(
             'public'          => true,
-            'has_archive'     => true,
+            'has_archive'     => false,
             'labels'          => $labels,
             'description'     => 'SimplyRets property listings pages',
             'query_var'       => true,
@@ -95,8 +99,8 @@ class simpleRetsCustomPostPages {
         $max_price_filter = "";
         $min_bed_filter   = "";
         $max_bed_filter   = "";
-        $min_bath_filter   = "";
-        $max_bath_filter   = "";
+        $min_bath_filter  = "";
+        $max_bath_filter  = "";
         $agent_id_filter  = "";
 
         $sr_filters = get_post_meta( $post->ID, 'sr_filters', true);
@@ -282,6 +286,8 @@ class simpleRetsCustomPostPages {
         $sr_post_type = 'retsd-listings';
         $page_template = get_post_meta( $query_object->ID, 'sr_page_template', true );
 
+
+
         $default_templates    = array();
         $default_templates[]  = "single-{$query_object->post_type}-{$query_object->post_name}.php";
         $default_templates[]  = "single-{$query_object->post_type}.php";
@@ -306,12 +312,19 @@ class simpleRetsCustomPostPages {
         $sr_post_type = 'retsd-listings';
         $br = '<br>';
 
-        if ( $post_type == $sr_post_type ) {
+        if ( get_query_var( 'listing_id', 'none' ) != 'none' ) {
+            $qv = get_query_var( 'listing_id' );
+            $content .= 'here we are with listing ' . $qv;
+            return $content;
+        }
+
+        if( $post_type == $sr_post_type ) {
             $query_object = get_queried_object();
             $listing_params = get_post_meta( $query_object->ID, 'sr_filters', true );
 
             if ( empty($listing_params) ) {
                 return 'no filter params' . $content;
+                // ^TODO: remove text here, just return content if listing_params aren't found
             }
 
             foreach ( $listing_params as $key=>$value ) {
@@ -328,6 +341,49 @@ class simpleRetsCustomPostPages {
         }
         return $content;
     } // ^TODO: content needs to be appended, not prepended.
+
+
+
+    public static function simpleRetsThePosts( $posts ) {
+        global $wp_query;
+
+        if( isset($wp_query->query['retsd-listings']) && $wp_query->query['retsd-listings'] == "sr-single" ) {
+
+            $post_id = get_query_var( 'listing_id' );
+            echo $post_id;
+		    $post = (object)array(
+		    	"ID"				=> $post_id,
+		    	"comment_count"		=> 0,
+		    	"comment_status"	=> "closed",
+		    	"ping_status"		=> "closed",
+		    	"post_author"		=> 1,
+		    	"post_name"			=> $post_id,
+                "post_date"			=> date("c"),
+                "post_date_gmt"		=> gmdate("c"),
+		    	"post_parent"		=> 0,
+		    	"post_status"		=> "publish",
+		    	"post_title"		=> "Title",
+		    	"post_type"			=> "retsd-listings"
+		    );
+
+		    $posts = array( $post );
+
+            return $posts;
+        }
+        return $posts;
+    }
+
+    public static function simpleRetsSingleQuery($query) {
+        global $wp_query;
+
+        if( isset($wp_query->query['retsd-listings']) && $wp_query->query['retsd-listings'] == "sr-single" ) {
+            $wp_query->is_page = 1;
+            $wp_query->post_type = 'retsd-listings';
+            return "";
+        }
+
+        return $query;
+    }
 
 }
 ?>
