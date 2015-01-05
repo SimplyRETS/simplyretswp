@@ -290,12 +290,11 @@ class simpleRetsCustomPostPages {
         $default_templates    = array();
         $default_templates[]  = "single-{$query_object->post_type}-{$query_object->post_name}.php";
         $default_templates[]  = "single-{$query_object->post_type}.php";
-        $default_templates[]  = "single.php";
+        $default_templates[]  = "page.php";
 
         // only apply our template to our CPT pages
         if ( $query_object->post_type == $sr_post_type ) {
             if ( !empty( $page_template ) ) {
-                echo 'need to load ' .$page_template;
                 $default_templates = $page_template;
             }
         }
