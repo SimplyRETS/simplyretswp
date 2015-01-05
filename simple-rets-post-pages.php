@@ -347,7 +347,8 @@ class simpleRetsCustomPostPages {
         // if we're getting a single listing query, create a post on the fly
         // and return it, else just return the content
         if( isset($wp_query->query['retsd-listings']) && $wp_query->query['retsd-listings'] == "sr-single" ) {
-            $post_id = get_query_var( 'listing_id' );
+            $post_id    = get_query_var( 'listing_id' );
+            $post_title = get_query_var( 'listing_title', 'none' );
 
 		    $post = (object)array(
 		    	"ID"				=> $post_id,
@@ -360,7 +361,7 @@ class simpleRetsCustomPostPages {
                 "post_date_gmt"		=> gmdate("c"),
 		    	"post_parent"		=> 0,
 		    	"post_status"		=> "publish",
-		    	"post_title"		=> "Title",
+		    	"post_title"		=> $post_title,
 		    	"post_type"			=> "retsd-listings"
 		    );
 

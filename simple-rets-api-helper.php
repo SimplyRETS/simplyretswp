@@ -92,6 +92,7 @@ class SimpleRetsApiHelper {
                 $listingPhotos[0] = 'http://placehold.it/350x350.jpg';
             }
 
+            $address = $street_name . ' ' . $street_number;
             // append markup for this listing to the content
             $cont .= '<hr>';
             $cont .= $listing_uid . $br;
@@ -103,7 +104,7 @@ class SimpleRetsApiHelper {
             $cont .= '  </div>';
             $cont .= '  <div class="sr-primary-data">';
             $cont .= '    <a href="#">';
-            $cont .= '      <h4>' .$street_number . ' '. $street_name . '  ';
+            $cont .= '      <h4>' . $address;
             $cont .= '      <span id="sr-price">$' . $listing_price . '</span></h4>';
             $cont .= '    </a>';
             $cont .= '  </div>';
@@ -138,7 +139,7 @@ class SimpleRetsApiHelper {
             $cont .= '    </ul>';
             $cont .= '  </div>';
             $cont .= '  <div>';
-            $cont .= "    <a href=\"/?retsd-listings=sr-single&listing_id={$listing_uid}\">More details</a>";
+            $cont .= "    <a href=\"/?retsd-listings=sr-single&listing_id={$listing_uid}&listing_title={$address}\">More details</a>";
             $cont .= '  </div>';
             $cont .= '</div>';
         }

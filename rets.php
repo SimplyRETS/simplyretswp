@@ -47,6 +47,7 @@ add_filter( 'comments_template', 'remove_retsd_comments' );
 function add_query_vars_filter( $vars ){
     global $wp_query;
     $vars[] = "listing_id";
+    $vars[] = "listing_title";
     return $vars;
 }
 add_filter( 'query_vars', 'add_query_vars_filter' );
