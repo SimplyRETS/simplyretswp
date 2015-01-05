@@ -311,8 +311,8 @@ class simpleRetsCustomPostPages {
         $br = '<br>';
 
         if ( get_query_var( 'listing_id', 'none' ) != 'none' ) {
-            $qv = get_query_var( 'listing_id' );
-            $content .= 'here we are with listing ' . $qv;
+            $listing_id = get_query_var( 'listing_id' );
+            $content .= SimpleRetsApiHelper::retrieveListingDetails( $listing_id );
             return $content;
         }
 
@@ -344,8 +344,7 @@ class simpleRetsCustomPostPages {
     public static function simpleRetsThePosts( $posts ) {
         global $wp_query;
 
-        // if we're getting a single listing query, create a post on the fly
-        // and return it, else just return the content
+        // if we catch a singlelisting query, create a new post on the fly
         if( isset($wp_query->query['retsd-listings']) && $wp_query->query['retsd-listings'] == "sr-single" ) {
             $post_id    = get_query_var( 'listing_id' );
             $post_title = get_query_var( 'listing_title', 'none' );

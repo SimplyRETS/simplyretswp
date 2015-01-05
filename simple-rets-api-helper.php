@@ -23,23 +23,31 @@ class SimpleRetsApiHelper {
     }
 
 
+    public static function retrieveListingDetails( $listing_id ) {
+        $request_url      = SimpleRetsApiHelper::srRequestUrlBuilder( $listing_id );
+        $request_response = SimpleRetsApiHelper::srApiRequest( $request_url );
+        $response_markup  = SimpleRetsApiHelper::srResidentialDetailsGenerator( $request_response );
+
+        return $response_markup;
+    }
+
 
     public static function srRequestUrlBuilder( $params ) {
         // $base_url = 'http://localhost:3001/properties';
-
-        $base_url = 'http://mojo:mojo@54.187.230.155/properties';
         $authid   = get_option( 'sr_api_name' );
         $authkey  = get_option( 'sr_api_key' );
-        $prop_type = 'res';
-        // ^only residentials for now
+        $base_url = "http://{$authid}:{$authkey}@54.187.230.155/properties";
 
-        // build enough of the url to authorize api
-        $filters_query = http_build_query( array_filter( $params ) );
+        if( is_array( $params ) ) {
+            $filters_query = http_build_query( array_filter( $params ) );
+            $request_url = "{$base_url}?{$filters_query}";
+            return $request_url;
 
-        $request_url = "{$base_url}?{$filters_query}";
-        // ^TODO: Remove debug
+        } else {
+            $request_url = $base_url . '/' . $params;
+            return $request_url;
+        }
 
-        return $request_url;
     }
 
 
@@ -58,8 +66,126 @@ class SimpleRetsApiHelper {
         wp_enqueue_style( 'simple-rets-client-css' );
     }
 
+    // generate markup for a SINGLE listing's details page
+    public static function srResidentialDetailsGenerator( $listing ) {
+        $br = "<br>";
+        $cont = "";
+
+        // Amenities
+        $bedrooms         = $listing->residentialPropertyBedrooms;
+        $bathsFull        = $listing->residentialPropertyBathsFull;
+        $interiorFeatures = $listing->residentialPropertyInteriorFeatures;
+        $style            = $listing->residentialPropertyStyle;
+        $heating          = $listing->residentialPropertyHeating;
+        $stories          = $listing->residentialPropertyStories;
+        $exteriorFeatures = $listing->residentialPropertyExteriorFeatures;
+        $yearBuilt        = $listing->residentialPropertyYearBuild;
+        $lotSize          = $listing->residentialPropertyLotSize; // might be empty
+        $fireplaces       = $listing->residentialPropertyFireplaces;
+        $subdivision      = $listing->residentialPropertySubdivision;
+        $roof             = $listing->residentialPropertyRoof;
+
+        // geographic data
+        $geo_directions = $listing->residentialPropertyListing->listingGeographicData->geographicDataDirections;
+        $geo_longitude  = $listing->residentialPropertyListing->listingGeographicData->geographicDataLongitude;
+        $geo_latitude   = $listing->residentialPropertyListing->listingGeographicData->geographicDataLatitude;
+        $geo_county     = $listing->residentialPropertyListing->listingGeographicData->geographicDataCounty;
+
+        // photos data
+        $photos = $listing->residentialPropertyListing->listingPhotos;
+
+        // listing meta information
+        $listing_modified = $listing->residentialPropertyListing->listingModificationTimestamp; // TODO: format date
+        $listing_parcel   = $listing->residentialPropertyListing->listingParcel; // probably don't need this
+        $school_data      = $listing->residentialPropertyListing->listingSchoolData;
+        $disclaimer       = $listing->residentialPropertyListing->listingDisclaimer;
+        $tax_data         = $listing->residentialPropertyListing->listingTaxData;
+        $listing_id       = $listing->residentialPropertyListing->listingId;
+        $sales_data       = $listing->residentialPropertyListing->listingSalesData; //probably empty
+        $real_account     = $listing->residentialPropertyListing->listingRealAccount; // probably don't need this
+
+        // street address info
+        $postal_code   = $listing->residentialPropertyListing->listingStreetAddress->streetAddressPostalCode;
+        $country       = $listing->residentialPropertyListing->listingStreetAddress->streetAddressCountry;
+        $street_number = $listing->residentialPropertyListing->listingStreetAddress->streetAddressStreetNumber;
+        $city          = $listing->residentialPropertyListing->listingStreetAddress->streetAddressCity;
+        $street_name   = $listing->residentialPropertyListing->listingStreetAddress->streetAddressStreetName;
+
+        // Listing Data
+        $showing_instructions = $listing->residentialPropertyListing->listingData->listingDataShowingInstructions;
+        $listing_office   = $listing->residentialPropertyListing->listingData->listingDataOffice;
+        $listing_agent    = $listing->residentialPropertyListing->listingData->listingDataAgent;
+        $list_date        = $listing->residentialPropertyListing->listingData->listingDataListDate;
+        $listing_price    = $listing->residentialPropertyListing->listingData->listingDataListPrice;
+        $listing_remarks  = $listing->residentialPropertyListing->listingData->listingDataRemarks;
+
+        // mls information
+        $mls_status  = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationStatus;
+        $mls_area    = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationArea;
+        $mls_serving = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationServingName;
+        $days_on_market = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationDaysOnMarket;
+
+        $cont .= "<div class='sr-details'>";
+        $cont .= "  <h4>Single Listing Details</h4>";
+        $cont .= "  <p>Beds: {$bedrooms}</p>";
+        $cont .= "  <p>Baths: {$bathsFull}</p>";
+        $cont .= "  <p>Interior: {$interiorFeatures}</p>";
+        $cont .= "  <p>Stlye: {$style}</p>";
+        $cont .= "  <p>Heating: {$heating}</p>";
+        $cont .= "  <p>Stories: {$stories}</p>";
+        $cont .= "  <p>Exterior: {$exteriorFeatures}</p>";
+        $cont .= "  <p>Year built: {$yearBuilt}</p>";
+        $cont .= "  <p>Lost Size: {$lotSize}</p>";
+        $cont .= "  <p>Fireplaces: {$fireplaces}</p>";
+        $cont .= "  <p>Subdivision: {$subdivision}</p>";
+        $cont .= "  <p>Roof: {$roof}</p>";
+
+        $cont .= "  <h4>Geographical</h4>";
+        $cont .= "  <p>Directions: {$geo_directions}</p>";
+        $cont .= "  <p>County: {$geo_county}</p>";
+        $cont .= "  <p>Latitude: {$geo_latitude}</p>";
+        $cont .= "  <p>Longitude: {$geo_longitude}</p>";
+
+        $cont .= "  <h4>Photos</h4>";
+        $cont .= "  <p>Photos: {$photos}</p>";
+
+        $cont .= "  <h4>Listing Meta Data</h4>";
+        $cont .= "  <p>Listing modified: {$listing_modified}</p>";
+        $cont .= "  <p>Listing Parcel: {$listing_parcel}</p>";
+        $cont .= "  <p>School Data: {$school_data}</p>";
+        $cont .= "  <p>Disclaimer: {$disclaimer}</p>";
+        $cont .= "  <p>Tax Data: {$tax_data}</p>";
+        $cont .= "  <p>Listing Id: {$listing_id}</p>";
+        $cont .= "  <p>Sales Data: {$sales_data}</p>";
+        $cont .= "  <p>Real Account: {$real_account}</p>";
+
+        $cont .= "  <h4>Street Address Info</h4>";
+        $cont .= "  <p>Postal Code: {$postal_code}</p>";
+        $cont .= "  <p>Country: {$country}</p>";
+        $cont .= "  <p>Street Number: {$street_number}</p>";
+        $cont .= "  <p>City: {$city}</p>";
+        $cont .= "  <p>Street Name: {$street_name}</p>";
+
+        $cont .= "  <h4>Listing Data</h4>";
+        $cont .= "  <p>Showing Instructions: {$showing_instructions}</p>";
+        $cont .= "  <p>Listing Office: {$listing_office}</p>";
+        $cont .= "  <p>Listing Agent: {$listing_agent}</p>";
+        $cont .= "  <p>List Date: {$listing_price}</p>";
+        $cont .= "  <p>Remarks: {$listing_remarks}</p>";
+
+        $cont .= "  <h4>Mls Information</h4>";
+        $cont .= "  <p>Days on Market: {$days_on_market}</p>";
+        $cont .= "  <p>Mls Status: {$mls_status}</p>";
+        $cont .= "  <p>Mls Area: {$mls_area}</p>";
+        $cont .= "  <p>Service Name: {$mls_serving}</p>";
+
+        $cont .= "</div>";
+
+        return $cont;
+    }
 
 
+    // generate markup for a listings results page
     public static function srResidentialResultsGenerator( $response ) {
         $br = "<br>";
         $cont = "";
