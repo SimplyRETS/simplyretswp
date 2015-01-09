@@ -113,8 +113,8 @@ class simpleRetsCustomPostPages {
             </span>
             <select name="sr-filter-select" id="sr-filter-select">
                 <option> -- Select a Filter --                    </option>
-                <option val="pricelow-option">  Minimum Price     </option>
-                <option val="pricehigh-option"> Maximum Price     </option>
+                <option val="minprice-option">  Minimum Price     </option>
+                <option val="maxprice-option"> Maximum Price     </option>
                 <option val="minbed-option">    Minimum Beds      </option>
                 <option val="maxbed-option">    Maximum Beds      </option>
                 <option val="minbath-option">   Minimum Bathrooms </option>
@@ -131,7 +131,7 @@ class simpleRetsCustomPostPages {
             <label for="sr-min-price-input">
               <?php _e( 'Minimum Price', 'sr-textdomain' ) ?>
             </label>
-            <input id="pricelow" type="text" name="sr_filters[pricelow]"
+            <input id="minprice" type="text" name="sr_filters[minprice]"
               value="<?php print_r( $min_price_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
@@ -141,7 +141,7 @@ class simpleRetsCustomPostPages {
             <label for="sr-max-price-input">
               Maximum Price:
             </label>
-            <input id="pricehigh" type="text" name="sr_filters[pricehigh]"
+            <input id="maxprice" type="text" name="sr_filters[maxprice]"
               value="<?php print_r( $max_price_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>

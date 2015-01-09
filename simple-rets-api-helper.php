@@ -6,6 +6,7 @@
  * This file provides a class that has functions for retrieving and parsing
  * data from the remote retsd api.
  *
+ *
 */
 
 /* Code starts here */
@@ -71,9 +72,9 @@ class SimpleRetsApiHelper {
         $br = "<br>";
         $cont = "";
 
-        echo '<pre><code>';
-        var_dump( $listing );
-        echo '</pre></code>';
+        // echo '<pre><code>';
+        // var_dump( $listing );
+        // echo '</pre></code>';
         // Amenities
         $bedrooms         = $listing->property->bedrooms;
         $bathsFull        = $listing->property->bathsfull;
@@ -288,9 +289,9 @@ HTML;
         $br = "<br>";
         $cont = "";
 
-        echo '<pre><code>';
-        var_dump( $response[0] );
-        echo '</pre></code>';
+        // echo '<pre><code>';
+        // var_dump( $response[0] );
+        // echo '</pre></code>';
 
         foreach ( $response as $listing ) {
             // id
