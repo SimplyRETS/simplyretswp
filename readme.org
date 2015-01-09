@@ -86,12 +86,16 @@
 
 
 * TODO-TRACKER
-*** TESTING Create links to individual property pages      :FEATURE:RESEARCH:
-    - this should be working for shortcodes, but needs to also be working on
-      Rets Pages (can use same code).
-*** WISHLIST Add options for 'registered' search fields             :FEATURE:
-    The admin should be able to choose which fields the user is able to search with.
-    It could be any easy way to make construcable and custom search forms for any page.
+*** TODO Short code contraints to a certain listing id              :FEATURE:
+    Something like [sr_residential mlsid="22342"] or something
+    to that effect will be necessary.
+*** TODO Short code contraints to a certain amount of listings      :FEATURE:
+    Something like [sr_residential max_results="2"] or something
+    to that effect will be necessary.
+*** TODO Flush permalink settings when plugin is activated             :BUG:
+    If the permalinks aren't flushed when Simply Rets is activated
+    and the site has 'pretty permalinks' enabled, the Simply Rets
+    pages will 404. A good example of how to do this is in dsIDX
 *** TODO Ability to create custom searches                          :FEATURE:
     The admin can basically create a shortcode that stores a list of search
     parameters. Then they can embed the results of specific searches on any page
@@ -99,3 +103,10 @@
 *** TODO Translate Interior and Exterior features into actual words
     The response from rets is something like BCKYD, COVPT, SMOKE, etc
     Is there we can use to show better text with these?
+*** WISHLIST Add options for 'registered' search fields             :FEATURE:
+    The admin should be able to choose which fields the user is able to search with.
+    It could be any easy way to make construcable and custom search forms for any page.
+*** DONE Create links to individual property pages         :FEATURE:RESEARCH:
+    CLOSED: [2015-01-09 Fri 15:59]
+    - this should be working for shortcodes, but needs to also be working on
+      Rets Pages (can use same code).
