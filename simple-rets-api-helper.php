@@ -71,59 +71,61 @@ class SimpleRetsApiHelper {
         $br = "<br>";
         $cont = "";
 
+        echo '<pre><code>';
+        var_dump( $listing );
+        echo '</pre></code>';
         // Amenities
-        $bedrooms         = $listing->residentialPropertyBedrooms;
-        $bathsFull        = $listing->residentialPropertyBathsFull;
-        $interiorFeatures = $listing->residentialPropertyInteriorFeatures;
-        $style            = $listing->residentialPropertyStyle;
-        $heating          = $listing->residentialPropertyHeating;
-        $stories          = $listing->residentialPropertyStories;
-        $exteriorFeatures = $listing->residentialPropertyExteriorFeatures;
-        $yearBuilt        = $listing->residentialPropertyYearBuild;
-        $lotSize          = $listing->residentialPropertyLotSize; // might be empty
-        $fireplaces       = $listing->residentialPropertyFireplaces;
-        $subdivision      = $listing->residentialPropertySubdivision;
-        $roof             = $listing->residentialPropertyRoof;
+        $bedrooms         = $listing->property->bedrooms;
+        $bathsFull        = $listing->property->bathsfull;
+        $interiorFeatures = $listing->property->interiorfeatures;
+        $style            = $listing->property->style;
+        $heating          = $listing->property->heating;
+        $stories          = $listing->property->stories;
+        $exteriorFeatures = $listing->property->exteriorfeatures;
+        $yearBuilt        = $listing->property->yearbuild;
+        $lotSize          = $listing->property->lotsize; // might be empty
+        $fireplaces       = $listing->property->fireplaces;
+        $subdivision      = $listing->property->subdivision;
+        $roof             = $listing->property->roof;
 
         // geographic data
-        $geo_directions = $listing->residentialPropertyListing->listingGeographicData->geographicDataDirections;
-        $geo_longitude  = $listing->residentialPropertyListing->listingGeographicData->geographicDataLongitude;
-        $geo_latitude   = $listing->residentialPropertyListing->listingGeographicData->geographicDataLatitude;
-        $geo_county     = $listing->residentialPropertyListing->listingGeographicData->geographicDataCounty;
+        $geo_directions = $listing->geo->directions;
+        $geo_longitude  = $listing->geo->lng;
+        $geo_latitude   = $listing->geo->lat;
+        $geo_county     = $listing->geo->county;
 
         // photos data
-        $photos = $listing->residentialPropertyListing->listingPhotos;
+        $photos = $listing->photos;
 
         // listing meta information
-        $listing_modified = $listing->residentialPropertyListing->listingModificationTimestamp; // TODO: format date
-        $listing_parcel   = $listing->residentialPropertyListing->listingParcel; // probably don't need this
-        $school_data      = $listing->residentialPropertyListing->listingSchoolData;
-        $disclaimer       = $listing->residentialPropertyListing->listingDisclaimer;
-        $tax_data         = $listing->residentialPropertyListing->listingTaxData;
-        $listing_id       = $listing->residentialPropertyListing->listingId;
-        $sales_data       = $listing->residentialPropertyListing->listingSalesData; //probably empty
-        $real_account     = $listing->residentialPropertyListing->listingRealAccount; // probably don't need this
+        $listing_modified = $listing->modified; // TODO: format date
+        $listing_parcel   = $listing->parcel; // probably don't need this
+        $school_data      = $listing->school;
+        $disclaimer       = $listing->disclaimer;
+        $tax_data         = $listing->tax;
+        $listing_uid      = $listing->mlsid;
+        $sales_data       = $listing->sales; //probably empty
+        $real_account     = $listing->realaccount; // probably don't need this
 
         // street address info
-        $postal_code   = $listing->residentialPropertyListing->listingStreetAddress->streetAddressPostalCode;
-        $country       = $listing->residentialPropertyListing->listingStreetAddress->streetAddressCountry;
-        $street_number = $listing->residentialPropertyListing->listingStreetAddress->streetAddressStreetNumber;
-        $city          = $listing->residentialPropertyListing->listingStreetAddress->streetAddressCity;
-        $street_name   = $listing->residentialPropertyListing->listingStreetAddress->streetAddressStreetName;
+        $postal_code   = $listing->address->postalcode;
+        $country       = $listing->address->country;
+        $address       = $listing->address->address;
+        $city          = $listing->address->city;
 
         // Listing Data
-        $showing_instructions = $listing->residentialPropertyListing->listingData->listingDataShowingInstructions;
-        $listing_office   = $listing->residentialPropertyListing->listingData->listingDataOffice;
-        $listing_agent    = $listing->residentialPropertyListing->listingData->listingDataAgent;
-        $list_date        = $listing->residentialPropertyListing->listingData->listingDataListDate;
-        $listing_price    = $listing->residentialPropertyListing->listingData->listingDataListPrice;
-        $listing_remarks  = $listing->residentialPropertyListing->listingData->listingDataRemarks;
+        $showing_instructions = $listing->showinginstructions;
+        $listing_office   = $listing->office;
+        $listing_agent    = $listing->agent->id;
+        $list_date        = $listing->date;
+        $listing_price    = $listing->price;
+        $listing_remarks  = $listing->remarks;
 
         // mls information
-        $mls_status  = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationStatus;
-        $mls_area    = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationArea;
-        $mls_serving = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationServingName;
-        $days_on_market = $listing->residentialPropertyListing->listingMlsInformation->mlsInformationDaysOnMarket;
+        $mls_status     = $listing->mlsinfo->status;
+        $mls_area       = $listing->mlsinfo->area;
+        $mls_serving    = $listing->mlsinfo->servingname;
+        $days_on_market = $listing->mlsinfo->daysonmarket;
 
         $main_photo = $photos[0];
         $cont .= <<<HTML
@@ -211,7 +213,7 @@ class SimpleRetsApiHelper {
                   <td>$tax_data</td></tr>
                 <tr>
                   <td>Listing Id</td>
-                  <td>$listing_id</td></tr>
+                  <td>$listing_uid</td></tr>
                 <tr>
                   <td>Sales Data</td>
                   <td>$sales_data</td></tr>
@@ -230,11 +232,8 @@ class SimpleRetsApiHelper {
                   <td>Country Code</td>
                   <td>$country</td></tr>
                 <tr>
-                  <td>Street Nummber</td>
-                  <td>$street_number</td></tr>
-                <tr>
-                  <td>Streen Name</td>
-                  <td>$street_name</td></tr>
+                  <td>Address</td>
+                  <td>$address</td></tr>
                 <tr>
                   <td>City</td>
                   <td>$city</td></tr>
@@ -289,34 +288,38 @@ HTML;
         $br = "<br>";
         $cont = "";
 
+        echo '<pre><code>';
+        var_dump( $response[0] );
+        echo '</pre></code>';
+
         foreach ( $response as $listing ) {
             // id
-            $listing_uid      = $listing->residentialPropertyListing->listingId;
+            $listing_uid      = $listing->mlsid;
 
             // Amenities
-            $bedrooms    = $listing->residentialPropertyBedrooms;
-            $bathsFull   = $listing->residentialPropertyBathsFull;
-            $lotSize     = $listing->residentialPropertyLotSize; // might be empty
-            $subdivision = $listing->residentialPropertySubdivision;
-            $yearBuilt   = $listing->residentialPropertyYearBuild;
+            $bedrooms    = $listing->property->bedrooms;
+            $bathsFull   = $listing->property->bathsfull;
+            $lotSize     = $listing->property->lotsize; // might be empty
+            $subdivision = $listing->property->subdivision;
+            $yearBuilt   = $listing->property->yearbuild;
+
             // listing data
-            $listing_agent    = $listing->residentialPropertyListing->listingData->listingDataAgent;
-            $list_date        = $listing->residentialPropertyListing->listingData->listingDataListDate;
-            $listing_price    = $listing->residentialPropertyListing->listingData->listingDataListPrice;
+            $listing_agent    = $listing->agent->id;
+
+            $listing_price    = $listing->price;
+            $list_date        = $listing->date;
 
             // street address info
-            $city          = $listing->residentialPropertyListing->listingStreetAddress->streetAddressCity;
-            $street_name   = $listing->residentialPropertyListing->listingStreetAddress->streetAddressStreetName;
-            $street_number = $listing->residentialPropertyListing->listingStreetAddress->streetAddressStreetNumber;
+            $city    = $listing->address->city;
+            $address = $listing->address->address;
 
             // listing photos
-            $listingPhotos = $listing->residentialPropertyListing->listingPhotos;
+            $listingPhotos = $listing->photos;
             if( empty( $listingPhotos ) ) {
                 $listingPhotos[0] = 'http://placehold.it/350x350.jpg';
             }
             $main_photo = $listingPhotos[0];
 
-            $address = $street_name . ' ' . $street_number;
             // append markup for this listing to the content
             $cont .= <<<HTML
               <hr>
