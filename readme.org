@@ -86,6 +86,10 @@
 
 
 * TODO-TRACKER
+*** TODO Either default or optional contact form on details pages   :FEATURE:
+    There def needs to be a contact form on single listing details
+    pages. Either option or default I think will be ok. If it's
+    default we'll have to figure out how to send notifications maybe?
 *** TODO Short code contraints to a certain listing id              :FEATURE:
     Something like [sr_residential mlsid="22342"] or something
     to that effect will be necessary.
