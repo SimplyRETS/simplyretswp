@@ -342,9 +342,8 @@ class simpleRetsCustomPostPages {
 
 
     public static function simpleRetsThePosts( $posts ) {
-        global $wp_query;
-
         // if we catch a singlelisting query, create a new post on the fly
+        global $wp_query;
         if( isset($wp_query->query['retsd-listings']) && $wp_query->query['retsd-listings'] == "sr-single" ) {
             $post_id    = get_query_var( 'listing_id' );
             $post_title = get_query_var( 'listing_title', 'none' );
