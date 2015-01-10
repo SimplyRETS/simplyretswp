@@ -25,9 +25,9 @@ require_once( plugin_dir_path(__FILE__) . 'simple-rets-post-pages.php' );
 
 // initialize simply rets shortcodes
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-shortcode.php' );
-add_shortcode('retsd_residential', array( 'SimplyRetsShortcodes', 'retsd_residential_shortcode') );
-add_shortcode('retsd_openhouses',  array( 'SimplyRetsShortcodes', 'retsd_openhouses_shortcode')  );
-add_shortcode('retsd_search_form', array( 'SimplyRetsShortcodes', 'retsd_search_form_shortcode') );
+add_shortcode('sr_residential', array( 'SimplyRetsShortcodes', 'sr_residential_shortcode') );
+add_shortcode('sr_openhouses',  array( 'SimplyRetsShortcodes', 'sr_openhouses_shortcode')  );
+add_shortcode('sr_search_form', array( 'SimplyRetsShortcodes', 'sr_search_form_shortcode') );
 
 
 // a filter to remove comments from simply rets pages
@@ -125,7 +125,7 @@ HTML;
     echo '<pre><code>'; print_r( $response_json ); echo '</pre></code>';
 }
 
-function retsd_openhouses() {
+function sr_openhouses() {
     $response = wp_remote_retrieve_body( wp_remote_get( 'http://54.187.230.155/openhouse' ) );
     $response_json = json_decode( $response );
     // ^ decodes response into an array of objects

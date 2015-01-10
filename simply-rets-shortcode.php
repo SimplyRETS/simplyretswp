@@ -12,18 +12,17 @@
 
 class SimplyRetsShortcodes {
 
-    // [retsd_residential] for all residential listings
-    function retsd_residential_shortcode( $atts ) {
+    // [sr_residential] for all residential listings
+    function sr_residential_shortcode( $atts ) {
         global $wp_query;
         ob_start();
 
 
         if( !empty($atts['mlsid']) ) {
-            $q = $atts['mlsid'];
-            $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $q );
+            $mlsid = $atts['mlsid'];
+            $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $mlsid );
             return $listings_content;
         }
-
 
         $listing_params = array();
         $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $listing_params );
@@ -32,14 +31,14 @@ class SimplyRetsShortcodes {
     }
 
 
-    // [retsd_openhouses] for all residential listings
-    function retsd_openhouses_shortcode() {
+    // [sr_openhouses] for all residential listings
+    function sr_openhouses_shortcode() {
         ob_start();
 
         ?> <!-- shortcode template here -->
         <div id="openhouses">
           <h2>Simply Rets Open Houses</h2>
-          <?php retsd_openhouses(); ?>
+          <?php sr_openhouses(); ?>
         </div>
         <?php
 
@@ -47,8 +46,8 @@ class SimplyRetsShortcodes {
     }
 
 
-    // [retsd_search_form] to display a form for search filtering
-    function retsd_search_form_shortcode() {
+    // [sr_search_form] to display a form for search filtering
+    function sr_search_form_shortcode() {
         ob_start();
         $home_url = get_home_url();
 
