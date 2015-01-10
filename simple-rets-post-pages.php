@@ -324,15 +324,16 @@ class simpleRetsCustomPostPages {
                 return $content;
             }
 
-            foreach ( $listing_params as $key=>$value ) {
-                $filters = 'param: ' . $key . ' value: ' . $value . $br . $filters;
-            }
+            // debug for viewing the search filters saved from the custom post page
+            //foreach ( $listing_params as $key=>$value ) {
+            //    $filters = 'param: ' . $key . ' value: ' . $value . $br . $filters;
+            //}
 
             // the simple rets api helper takes care of retrieving, parsing, and generating
             // the markup for the listings to be shown on this page based off of the sr_filters
             // saved for this post
             $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $listing_params );
-            $content = $listings_content . $br . $filters . $br . $content;
+            $content = $content . $listings_content;
 
             return $content;
         }
