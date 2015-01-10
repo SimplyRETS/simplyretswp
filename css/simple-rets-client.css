@@ -5,6 +5,9 @@
  *
 */
 
+/* --------------- */
+/* Listing Results */
+/* --------------- */
 .sr-listing {
     position: relative;
     display: block;
@@ -40,7 +43,55 @@
     display: inline-block;
 }
 
+/* --------------- */
 /* listing details */
+/* --------------- */
 .sr-details th {
     background-color: #eee;
+}
+
+/* -------------------------- */
+/* search form from shortcode */
+/* -------------------------- */
+#sr-search-wrapper {
+}
+
+/* keywords */
+#sr-search-keywords {
+    width: 70%;
+}
+#sr-search-keywords input {
+    width: 100%;
+}
+
+/* property type */
+#sr-search-ptype {
+    text-align: right;
+    width: 25%;
+}
+#sr-search-ptype select {
+    width: 90%;
+}
+
+/* property type input */
+#sr-search-minprice,
+#sr-search-maxprice,
+#sr-search-minbath,
+#sr-search-maxbath,
+#sr-search-minbed,
+#sr-search-maxbed {
+    text-align: center;
+    width: 15%;
+}
+
+#sr-search-minprice input,
+#sr-search-maxprice input,
+#sr-search-minbath input,
+#sr-search-maxbath input,
+#sr-search-minbed input,
+#sr-search-maxbed input {
+    width: 90%;
+}
+.sr-search-field {
+    display: inline-block;
 }
