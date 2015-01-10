@@ -47,6 +47,7 @@ class SimpleRetsApiHelper {
         } else {
             $request_url = $base_url . '/' . $params;
             return $request_url;
+
         }
 
     }
@@ -288,10 +289,17 @@ HTML;
     public static function srResidentialResultsGenerator( $response ) {
         $br = "<br>";
         $cont = "";
+        $response_size = sizeof( $response );
 
         // echo '<pre><code>';
-        // var_dump( $response[0] );
+        // var_dump( $response );
         // echo '</pre></code>';
+
+        echo 'length: ' . $response_size;
+        if( $response_size == 1 ) {
+            echo 'one listing returned';
+            $response = array( $response );
+        }
 
         foreach ( $response as $listing ) {
             // id

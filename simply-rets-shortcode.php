@@ -13,38 +13,43 @@
 class SimplyRetsShortcodes {
 
     // [retsd_residential] for all residential listings
-    function retsd_residential_shortcode() {
+    function retsd_residential_shortcode( $atts ) {
         global $wp_query;
         ob_start();
+
+
+        if( !empty($atts['mlsid']) ) {
+            $q = $atts['mlsid'];
+            $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $q );
+            return $listings_content;
+        }
+
 
         $listing_params = array();
         $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $listing_params );
         return $listings_content;
 
-        // print_r( $wp_query->query_vars ); // returns an array of all the query variables in that request
-        return ob_get_clean();
     }
 
 
     // [retsd_openhouses] for all residential listings
     function retsd_openhouses_shortcode() {
         ob_start();
-    
+
         ?> <!-- shortcode template here -->
         <div id="openhouses">
           <h2>Simply Rets Open Houses</h2>
           <?php retsd_openhouses(); ?>
         </div>
         <?php
-    
+
         return ob_get_clean();
     }
 
-    
+
     // [retsd_search_form] to display a form for search filtering
     function retsd_search_form_shortcode() {
         ob_start();
-    
         $home_url = get_home_url();
 
         ?>
@@ -93,7 +98,7 @@ class SimplyRetsShortcodes {
           </form>
         </div>
         <?php
-    
+
         return ob_get_clean();
     }
 }
