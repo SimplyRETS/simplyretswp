@@ -50,33 +50,50 @@ class SimplyRetsShortcodes {
         $home_url = get_home_url();
 
         ?>
-        <div id="retsd-search-form">
-          <h2>Simply Rets Search</h2>
+        <div id="sr-search-wrapper">
+          <h4>Search Listings</h3>
+          <form method="get" class="sr-search" action="<?php echo $home_url; ?>">
+            <input type="hidden" name="retsd-listings" value="sr-search">
+
+            <div class="sr-search-field" id="sr-search-keywords">
+              <input name="sr_minprice" type="text" placeholder="Keywords" />
+            </div>
+
+            <div class="sr-search-field" id="sr-search-ptype">
+              <select name="sr_ptype">
+                <option value="">-- Property Type --</option>
+                <option value="res">Residential</option>
+                <option value="cnd">Condo</option>
+                <option value="rnt">Rental</option>
+              </select>
+            </div>
+
+            <div class="sr-search-field" id="sr-search-minprice">
+              <input name="sr_minprice" type="text" placeholder="Min Price.." />
+            </div>
+            <div class="sr-search-field" id="sr-search-maxprice">
+              <input name="sr_maxprice" type="text" placeholder="Max Price.." />
+            </div>
+
+            <div class="sr-search-field" id="sr-search-minbed">
+              <input name="sr_minbed" type="text" placeholder="Min Beds.." />
+            </div>
+            <div class="sr-search-field" id="sr-search-maxbed">
+              <input name="sr_maxbed" type="text" placeholder="Max Beds.." />
+            </div>
+
+            <div class="sr-search-field" id="sr-search-minbath">
+              <input name="sr_minbath" type="text" placeholder="Min Baths.." />
+            </div>
+            <div class="sr-search-field" id="sr-search-maxbath">
+              <input name="sr_maxbath" type="text" placeholder="Max Baths.." />
+            </div>
+
+            <br>
+            <input class="submit real-btn" type="submit" value="Seach Properties">
+
+          </form>
         </div>
-        <form method="get" action="<?php echo $home_url; ?>">
-
-          <input type="hidden" name="retsd-listings" value="sr-search">
-
-          <label for="sr-minprice">Minimum Price</label>
-          <input id="sr-minprice" name="sr_minprice" type="text" />
-          <label for="sr-maxprice">Maximum Price</label>
-          <input id="sr-maxprice" name="sr_maxprice" type="text" />
-
-          <label for="sr-minbed">Minimum Bedrooms</label>
-          <input id="sr-minbed" name="sr_minbed" type="text" />
-          <label for="sr-maxbed">Maximum Bedrooms</label>
-          <input id="sr-maxbed" name="sr_maxbed" type="text" />
-
-          <label for="sr-minbath">Minimum Bathrooms</label>
-          <input id="sr-minbath" name="sr_minbath" type="text" />
-          <label for="sr-maxbath">Maximum Bathrooms</label>
-          <input id="sr-maxbath" name="sr_maxbath" type="text" />
-
-
-          <br>
-          <input class="submit real-btn" type="submit" value="Seach Properties">
-
-        </form>
         <?php
     
         return ob_get_clean();

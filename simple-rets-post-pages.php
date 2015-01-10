@@ -318,12 +318,12 @@ class simpleRetsCustomPostPages {
         }
 
         if ( $page_name == 'sr-search' ) {
-            $minbed   = get_query_var( 'sr_minbed' );
-            $maxbed   = get_query_var( 'sr_maxbed' );
-            $minbath  = get_query_var( 'sr_minbath' );
-            $maxbath  = get_query_var( 'sr_maxbath' );
-            $minprice = get_query_var( 'sr_minprice' );
-            $maxprice = get_query_var( 'sr_maxprice' );
+            $minbed   = get_query_var( 'sr_minbed',   '' );
+            $maxbed   = get_query_var( 'sr_maxbed',   '' );
+            $minbath  = get_query_var( 'sr_minbath',  '' );
+            $maxbath  = get_query_var( 'sr_maxbath',  '' );
+            $minprice = get_query_var( 'sr_minprice', '' );
+            $maxprice = get_query_var( 'sr_maxprice', '' );
 
             $listing_params = array(
                 "minbed"   => $minbed,
