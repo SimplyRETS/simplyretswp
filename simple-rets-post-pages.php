@@ -305,14 +305,39 @@ class simpleRetsCustomPostPages {
 
     public static function simpleRetsDefaultContent( $content, $post ) {
         require_once( plugin_dir_path(__FILE__) . 'simple-rets-api-helper.php' );
-
         $post_type = get_post_type();
+        $page_name = get_query_var( 'retsd-listings' );
+
         $sr_post_type = 'retsd-listings';
         $br = '<br>';
 
-        if ( get_query_var( 'listing_id', 'none' ) != 'none' ) {
+        if ( $page_name == 'sr-single' ) {
             $listing_id = get_query_var( 'listing_id' );
             $content .= SimpleRetsApiHelper::retrieveListingDetails( $listing_id );
+            return $content;
+        }
+
+        if ( $page_name == 'sr-search' ) {
+            $minbed   = get_query_var( 'sr_minbed' );
+            $maxbed   = get_query_var( 'sr_maxbed' );
+            $minbath  = get_query_var( 'sr_minbath' );
+            $maxbath  = get_query_var( 'sr_maxbath' );
+            $minprice = get_query_var( 'sr_minprice' );
+            $maxprice = get_query_var( 'sr_maxprice' );
+
+            $listing_params = array(
+                "minbed"   => $minbed,
+                "maxbed"   => $maxbed,
+                "minbath"  => $minbath,
+                "maxbath"  => $maxbath,
+                "minprice" => $minprice,
+                "maxprice" => $maxprice
+            );
+
+            $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $listing_params );
+            $content .= print_r( $listing_params );
+            $content .= $listings_content;
+
             return $content;
         }
 
@@ -328,7 +353,6 @@ class simpleRetsCustomPostPages {
             //foreach ( $listing_params as $key=>$value ) {
             //    $filters = 'param: ' . $key . ' value: ' . $value . $br . $filters;
             //}
-
             // the simple rets api helper takes care of retrieving, parsing, and generating
             // the markup for the listings to be shown on this page based off of the sr_filters
             // saved for this post
@@ -371,8 +395,6 @@ class simpleRetsCustomPostPages {
         }
         // if we catch a search results query, create a new post on the fly
         if( $wp_query->query['retsd-listings'] == "sr-search" ) {
-
-            var_dump( $wp_query );
             $post_id    = get_query_var( 'sr_minprice' );
             $post_title = get_query_var( 'sr_minprice', 'none' );
 
