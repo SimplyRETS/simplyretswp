@@ -15,12 +15,13 @@
 }
 
 .sr-photo {
+    position: relative;
     display: inline-block;
     float: left;
-    position: relative;
-    max-height: 200px;
+    height: 175px;
     width: 30%;
     overflow: hidden;
+    background-size: cover;
 }
 
 .sr-primary-data {

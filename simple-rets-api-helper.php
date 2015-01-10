@@ -295,7 +295,6 @@ HTML;
         // var_dump( $response );
         // echo '</pre></code>';
 
-        echo 'length: ' . $response_size;
         if( $response_size == 1 ) {
             echo 'one listing returned';
             $response = array( $response );
@@ -333,11 +332,10 @@ HTML;
             $cont .= <<<HTML
               <hr>
               <div class="sr-listing">
-                <div class="sr-photo">
-                  <a href="/?retsd-listings=sr-single&listing_id=$listing_uid&listing_title=$address">
-                    <img src="$main_photo">
-                  </a>
-                </div>
+                <a href="/?retsd-listings=sr-single&listing_id=$listing_uid&listing_title=$address">
+                  <div class="sr-photo" style="background-image:url($main_photo);">
+                  </div>
+                </a>
                 <div class="sr-primary-data">
                   <a href="/?retsd-listings=sr-single&listing_id=$listing_uid&listing_title=$address">
                     <h4>$address
