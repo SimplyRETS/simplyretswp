@@ -327,6 +327,8 @@ class simpleRetsCustomPostPages {
             // TODO: make sure api helper supports these
             $keywords = get_query_var( 'sr_keywords', '');
             $type     = get_query_var( 'sr_ptype', '');
+            echo $keywords;
+            echo $type;
 
             $listing_params = array(
                 "minbed"   => $minbed,
@@ -412,7 +414,7 @@ class simpleRetsCustomPostPages {
                 "post_date_gmt"   => gmdate("c"),
                 "post_parent"     => 0,
                 "post_status"     => "publish",
-                "post_title"      => "Search Listings",
+                "post_title"      => "Listings",
                 "post_type"       => "retsd-listings"
             );
 

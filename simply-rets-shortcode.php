@@ -17,8 +17,6 @@ class SimplyRetsShortcodes {
         global $wp_query;
         ob_start();
 
-        echo '<strong>This is not a search for a single listing</strong><br><br>';
-    
         $listing_params = array();
         $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $listing_params );
         return $listings_content;
