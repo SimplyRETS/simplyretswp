@@ -14,7 +14,7 @@ add_action( 'init', array( 'simpleRetsCustomPostPages', 'simpleRetsPostType' ) )
 add_filter( 'single_template', array( 'simpleRetsCustomPostPages', 'loadSimpleRetsPostTemplate' ) );
 add_filter( 'the_content', array( 'simpleRetsCustomPostPages', 'simpleRetsDefaultContent' ) );
 
-add_filter( 'the_posts', array( 'simpleRetsCustomPostPages', 'simpleRetsThePosts' ) );
+add_filter( 'the_posts', array( 'simpleRetsCustomPostPages', 'srListingDetailsPost' ) );
 
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postFilterMetaBox' ) );
 add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postTemplateMetaBox' ) );
@@ -341,27 +341,54 @@ class simpleRetsCustomPostPages {
 
 
 
-    public static function simpleRetsThePosts( $posts ) {
+    public static function srListingDetailsPost( $posts ) {
+
+
         // if we catch a singlelisting query, create a new post on the fly
         global $wp_query;
         if( isset($wp_query->query['retsd-listings']) && $wp_query->query['retsd-listings'] == "sr-single" ) {
             $post_id    = get_query_var( 'listing_id' );
             $post_title = get_query_var( 'listing_title', 'none' );
 
-		    $post = (object)array(
-		    	"ID"				=> $post_id,
-		    	"comment_count"		=> 0,
-		    	"comment_status"	=> "closed",
-		    	"ping_status"		=> "closed",
-		    	"post_author"		=> 1,
-		    	"post_name"			=> $post_id,
-                "post_date"			=> date("c"),
-                "post_date_gmt"		=> gmdate("c"),
-		    	"post_parent"		=> 0,
-		    	"post_status"		=> "publish",
-		    	"post_title"		=> $post_title,
-		    	"post_type"			=> "retsd-listings"
-		    );
+            $post = (object)array(
+                "ID"             => $post_id,
+                "comment_count"  => 0,
+                "comment_status" => "closed",
+                "ping_status"    => "closed",
+                "post_author"    => 1,
+                "post_name"      => $post_id,
+                "post_date"      => date("c"),
+                "post_date_gmt"  => gmdate("c"),
+                "post_parent"    => 0,
+                "post_status"    => "publish",
+                "post_title"     => $post_title,
+                "post_type"      => "retsd-listings"
+            );
+
+		    $posts = array( $post );
+            return $posts;
+        }
+        // if we catch a search results query, create a new post on the fly
+        if( isset($wp_query->query['retsd-listings']) &&    $wp_query->query['retsd-listings'] == "sr-search" ) {
+
+            var_dump( $wp_query );
+            $post_id    = get_query_var( 'sr_minprice' );
+            $post_title = get_query_var( 'sr_minprice', 'none' );
+
+            $post = (object)array(
+                "ID"              => $post_id,
+                "comment_count"   => 0,
+                "comment_status"  => "closed",
+                "ping_status"     => "closed",
+                "post_author"     => 1,
+                "post_name"       => "Search Listings",
+                "post_date"       => date("c"),
+                "post_date_gmt"   => gmdate("c"),
+                "post_parent"     => 0,
+                "post_status"     => "publish",
+                "post_title"      => "Search Listings",
+                "post_type"       => "retsd-listings"
+            );
 
 		    $posts = array( $post );
             return $posts;
