@@ -324,6 +324,9 @@ class simpleRetsCustomPostPages {
             $maxbath  = get_query_var( 'sr_maxbath',  '' );
             $minprice = get_query_var( 'sr_minprice', '' );
             $maxprice = get_query_var( 'sr_maxprice', '' );
+            // TODO: make sure api helper supports these
+            $keywords = get_query_var( 'sr_keywords', '');
+            $type     = get_query_var( 'sr_ptype', '');
 
             $listing_params = array(
                 "minbed"   => $minbed,

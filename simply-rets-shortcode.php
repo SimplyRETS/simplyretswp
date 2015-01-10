@@ -56,7 +56,7 @@ class SimplyRetsShortcodes {
             <input type="hidden" name="retsd-listings" value="sr-search">
 
             <div class="sr-search-field" id="sr-search-keywords">
-              <input name="sr_minprice" type="text" placeholder="Keywords" />
+              <input name="sr_keywords" type="text" placeholder="Keywords" />
             </div>
 
             <div class="sr-search-field" id="sr-search-ptype">
