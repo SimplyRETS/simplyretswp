@@ -93,7 +93,7 @@
 *** TODO Short code contraints to a certain listing id              :FEATURE:
     Something like [sr_residential mlsid="22342"] or something
     to that effect will be necessary.
-*** TODO Short code contraints to a certain amount of listings      :FEATURE:
+*** TODO Short code contraints to a certain amount of results       :FEATURE:
     Something like [sr_residential max_results="2"] or something
     to that effect will be necessary.
 *** TODO Flush permalink settings when plugin is activated             :BUG:

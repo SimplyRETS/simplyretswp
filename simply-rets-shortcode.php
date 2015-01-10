@@ -34,7 +34,7 @@ class SimplyRetsShortcodes {
     
         ?> <!-- shortcode template here -->
         <div id="openhouses">
-          <h2>RetsD Open Houses</h2>
+          <h2>Simply Rets Open Houses</h2>
           <?php retsd_openhouses(); ?>
         </div>
         <?php
@@ -49,7 +49,7 @@ class SimplyRetsShortcodes {
     
         ?>
         <div id="retsd-search-form">
-          <h2>RetsD Search Form</h2>
+          <h2>Simply Rets Search Form</h2>
         </div>
         <?php
     

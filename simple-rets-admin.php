@@ -22,26 +22,46 @@ function admin_page() {
     global $wpdb;
     ?>
     <div class="wrap">
-      <h2>RetsD Admin Settings</h2>
+      <h2>Simply Rets Admin Settings</h2>
       <hr>
-
+      <p>
+        Enter your Simply Rets API credentials in the fields below.
+        For any issues, please contact support@simplyrets.com.
+        <i> Note: properties will not show up until these are correct.</i>
+      </p>
       <form method="post" action="options.php">
         <?php settings_fields( 'rets_admin_settings'); ?>
         <?php do_settings_sections( 'rets_admin_settings'); ?>
-
-        <!-- api username -->
-        <strong>Api Username: </strong>
-        <input type="text" name="sr_api_name" value="<?php echo esc_attr( get_option('sr_api_name') ); ?>" />
-        <span>(current: <?php echo esc_attr( get_option('sr_api_name') ); ?>)</span>
-        <br>
-        <br>
-
-        <!-- api password -->
-        <strong>Api Key: </strong>
-        <input type="text" name="sr_api_key" value="<?php echo esc_attr( get_option('sr_api_key') ); ?>" />
-        <span>(current: <?php echo esc_attr( get_option('sr_api_key') ); ?>)</span>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <strong>API Username</strong>
+              </td>
+              <td>
+                <input type="text" name="sr_api_key" value="<?php echo esc_attr( get_option('sr_api_key') ); ?>" />
+                <span>(current: <?php echo esc_attr( get_option('sr_api_name') ); ?>)</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>API Key</strong>
+              </td>
+              <td>
+                <input type="text" name="sr_api_name" value="<?php echo esc_attr( get_option('sr_api_name') ); ?>" />
+                <span>(current: <?php echo esc_attr( get_option('sr_api_key') ); ?>)</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <?php submit_button(); ?>
       </form>
-
+      <hr>
+      <div class="sr-doc-links">
+        <p>
+          <a href="http://simplyrets.com">Simply Rets Website</a> |
+          <a href="http://simplyrets.com">Simply Rets Wordpress Plugin Documentation</a> |
+          <a href="http://simplyrets.com">Simply Rets API Documentation</a> |
+          <a href="http://simplyrets.com">Simply Rets Support</a>
     </div>
 <?php } ?>
