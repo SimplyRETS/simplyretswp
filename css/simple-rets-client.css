@@ -15,28 +15,29 @@
 }
 
 .sr-photo {
-    position: absolute;
-    left: 0;
-    top: 0;
+    display: inline-block;
+    float: left;
+    position: relative;
     max-height: 200px;
-    overflow: hidden;
     width: 30%;
+    overflow: hidden;
 }
 
 .sr-primary-data {
-    width: 100%;
-    padding-left: 31%;
+    width: 70%;
     display: inline-block;
     vertical-align: top;
     background-color: #eee;
 }
+.sr-primary-data h4 {
+    padding-left: 15px;
+}
 
 .sr-secondary-data {
-    width: 100%;
-    padding-left: 31%;
-    padding-top: 10px;
     display: inline-block;
     vertical-align: top;
+    padding-top: 10px;
+    width: 70%;
 }
 
 .sr-data-column {

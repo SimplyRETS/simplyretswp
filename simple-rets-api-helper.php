@@ -374,7 +374,7 @@ HTML;
                     </li>
                   </ul>
                 </div>
-                <div>
+                <div style="clear:both;">
                   <a href="/?retsd-listings=sr-single&listing_id=$listing_uid&listing_title=$address">More details</a>
                 </div>
               </div>
