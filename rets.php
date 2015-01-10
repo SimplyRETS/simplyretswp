@@ -48,6 +48,13 @@ function add_query_vars_filter( $vars ){
     global $wp_query;
     $vars[] = "listing_id";
     $vars[] = "listing_title";
+    $vars[] = "sr_minprice";
+    $vars[] = "sr_maxprice";
+    $vars[] = "sr_minbed";
+    $vars[] = "sr_maxbed";
+    $vars[] = "sr_minbath";
+    $vars[] = "sr_maxbath";
+    $vars[] = "retsd-listings";
     return $vars;
 }
 add_filter( 'query_vars', 'add_query_vars_filter' );
@@ -64,8 +71,6 @@ add_action('wp_head', 'init_js');
 
 
 
-// RetsD API Wrappers
-//
 // retsd_residential to get all residential listings
 function retsd_residential_single($listing_id) {
 
