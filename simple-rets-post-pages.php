@@ -347,7 +347,7 @@ class simpleRetsCustomPostPages {
 
         // if we catch a singlelisting query, create a new post on the fly
         global $wp_query;
-        if( isset($wp_query->query['retsd-listings']) && $wp_query->query['retsd-listings'] == "sr-single" ) {
+        if( $wp_query->query['retsd-listings'] == "sr-single" ) {
             $post_id    = get_query_var( 'listing_id' );
             $post_title = get_query_var( 'listing_title', 'none' );
 
@@ -366,11 +366,11 @@ class simpleRetsCustomPostPages {
                 "post_type"      => "retsd-listings"
             );
 
-		    $posts = array( $post );
+            $posts = array( $post );
             return $posts;
         }
         // if we catch a search results query, create a new post on the fly
-        if( isset($wp_query->query['retsd-listings']) &&    $wp_query->query['retsd-listings'] == "sr-search" ) {
+        if( $wp_query->query['retsd-listings'] == "sr-search" ) {
 
             var_dump( $wp_query );
             $post_id    = get_query_var( 'sr_minprice' );
