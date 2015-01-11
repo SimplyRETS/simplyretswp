@@ -58,6 +58,8 @@
 .sr-primary-details {
   display: flex;
   justify-content: space-between;
+  clear: both;
+  padding-top: 15px;
 }
 
 .sr-primary-details .sr-detail {
@@ -191,6 +193,11 @@
     transform: scale(1);
 }
 
+.sr-details-links {
+    text-align: right;
+    margin-top: -15px !important;  /* these are both theme specific and should */
+    margin-bottom: 0px !important; /* be in the themese css, not the plugins   */
+}
 #sr-toggle-gallery {
     clear: both;
     cursor: pointer;

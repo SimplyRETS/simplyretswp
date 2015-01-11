@@ -135,13 +135,14 @@ class SimpleRetsApiHelper {
         // listing markup
         $cont .= <<<HTML
           <div class="sr-details" style="text-align:left;">
+            <p class="sr-details-links" style="clear:both;">
+              <span id="sr-toggle-gallery">See more photos</span> |
+              <span id="sr-listing-contact">Contact us about this listing</span>
+            </p>
             <div class="slider">
               <img class="sr-slider-img-act" src="$photos[0]">
               $photo_markup
             </div>
-            <p style="clear:both;">
-              <span id="sr-toggle-gallery">See more photos</span>
-            </p>
 
             <div class="sr-primary-details">
               <div class="sr-detail" id="sr-primary-details-beds">
@@ -157,10 +158,10 @@ class SimpleRetsApiHelper {
                 <h3>$mls_status</h3>
               </div>
             </div>
-
             <div class="sr-remarks-details">
               <p>$listing_remarks</p>
             </div>
+
             <table style="width:100%;">
               <thead>
                 <tr>
