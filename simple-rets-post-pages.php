@@ -378,7 +378,12 @@ class simpleRetsCustomPostPages {
         global $wp_query;
         if( $wp_query->query['retsd-listings'] == "sr-single" ) {
             $post_id    = get_query_var( 'listing_id' );
-            $post_title = get_query_var( 'listing_title', 'none' );
+            $post_addr = get_query_var( 'listing_title', 'none' );
+            $post_price = get_query_var( 'listing_price', '' );
+
+            $listing_USD = '$' . number_format( $post_price );
+            $title_normalize = "background-color:transparent;padding:0px;";
+            $post_title = "{$post_addr} - <span style='{$title_normalize}'>{$listing_USD}</span>";
 
             $post = (object)array(
                 "ID"             => $post_id,
