@@ -55,6 +55,33 @@
     background-color: #eee;
 }
 
+.sr-primary-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sr-primary-details .sr-detail {
+    text-align: center;
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-left: solid 1px #eee;
+    border-right: solid 1px #eee;
+    border-bottom: solid 1px #eee;
+}
+
+.sr-remarks-details {
+    border-left: solid 1px #eee;
+    border-right: solid 1px #eee;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+}
+
+.sr-remarks-details p {
+    line-height: 20px !important;
+}
+
 /* -------------------------- */
 /* search form from shortcode */
 /* -------------------------- */
@@ -119,7 +146,7 @@
     width: 650px;
     position: relative;
     padding-top: 420px;
-    margin: 25px auto;
+    margin: 10px auto;
     background-color: transparent;
     transition: all 0.5s;
 }

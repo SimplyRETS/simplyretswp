@@ -142,6 +142,25 @@ class SimpleRetsApiHelper {
             <p style="clear:both;">
               <span id="sr-toggle-gallery">See more photos</span>
             </p>
+
+            <div class="sr-primary-details">
+              <div class="sr-detail" id="sr-primary-details-beds">
+                <h3>$bedrooms <small>Beds</small></h3>
+              </div>
+              <div class="sr-detail" id="sr-primary-details-baths">
+                <h3>$bathsFull <small>Baths</small></h3>
+              </div>
+              <div class="sr-detail" id="sr-primary-details-size">
+                <h3>2500 <small>SqFt</small></h3>
+              </div>
+              <div class="sr-detail" id="sr-primary-details-status">
+                <h3>$mls_status</h3>
+              </div>
+            </div>
+
+            <div class="sr-remarks-details">
+              <p>$listing_remarks</p>
+            </div>
             <table style="width:100%;">
               <thead>
                 <tr>
