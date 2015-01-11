@@ -89,16 +89,22 @@ class SimpleRetsApiHelper {
         $fireplaces       = $listing->property->fireplaces;
         $subdivision      = $listing->property->subdivision;
         $roof             = $listing->property->roof;
-
         // geographic data
         $geo_directions = $listing->geo->directions;
         $geo_longitude  = $listing->geo->lng;
         $geo_latitude   = $listing->geo->lat;
         $geo_county     = $listing->geo->county;
-
-        // photos data
+        // photos data (and set up slideshow markup)
         $photos = $listing->photos;
-
+        $main_photo = $photos[0];
+        $photo_counter = 0;
+        foreach( $photos as $photo ) {
+            $photo_markup .= "<input class=\"sr-slider-input\" type=\"radio\" name=\"slide_switch\" id=\"id$photo_counter\" value=\"$photo\"/>";
+            $photo_markup .= "<label for='id$photo_counter'>";
+            $photo_markup .= "  <img src='$photo' width='100'>";
+            $photo_markup .= "</label>";
+            $photo_counter++;
+        }
         // listing meta information
         $listing_modified = $listing->modified; // TODO: format date
         $listing_parcel   = $listing->parcel; // probably don't need this
@@ -108,13 +114,11 @@ class SimpleRetsApiHelper {
         $listing_uid      = $listing->mlsid;
         $sales_data       = $listing->sales; //probably empty
         $real_account     = $listing->realaccount; // probably don't need this
-
         // street address info
         $postal_code   = $listing->address->postalcode;
         $country       = $listing->address->country;
         $address       = $listing->address->address;
         $city          = $listing->address->city;
-
         // Listing Data
         $showing_instructions = $listing->showinginstructions;
         $listing_office   = $listing->office;
@@ -122,24 +126,13 @@ class SimpleRetsApiHelper {
         $list_date        = $listing->date;
         $listing_price    = $listing->price;
         $listing_remarks  = $listing->remarks;
-
         // mls information
         $mls_status     = $listing->mlsinfo->status;
         $mls_area       = $listing->mlsinfo->area;
         $mls_serving    = $listing->mlsinfo->servingname;
         $days_on_market = $listing->mlsinfo->daysonmarket;
 
-        $pcount = count( $photos );
-        $photo_counter = 0;
-        foreach( $photos as $photo ) {
-            $photo_markup .= "<input class=\"sr-slider-input\" type=\"radio\" name=\"slide_switch\" id=\"id$photo_counter\" value=\"$photo\"/>";
-            $photo_markup .= "<label for='id$photo_counter'>";
-            $photo_markup .= "  <img src='$photo' width='100'>";
-            $photo_markup .= "</label>";
-            $photo_counter++;
-        }
-
-        $main_photo = $photos[0];
+        // listing markup
         $cont .= <<<HTML
           <div class="sr-details" style="text-align:left;">
             <div class="slider">
@@ -299,16 +292,14 @@ HTML;
     }
 
 
-    // generate markup for a listings results page
     public static function srResidentialResultsGenerator( $response ) {
         $br = "<br>";
         $cont = "";
-        $response_size = sizeof( $response );
 
         // echo '<pre><code>';
         // var_dump( $response );
         // echo '</pre></code>';
-
+        $response_size = sizeof( $response );
         if( $response_size <= 1 ) {
             $response = array( $response );
         }
@@ -316,33 +307,27 @@ HTML;
         foreach ( $response as $listing ) {
             // id
             $listing_uid      = $listing->mlsid;
-
             // Amenities
             $bedrooms    = $listing->property->bedrooms;
             $bathsFull   = $listing->property->bathsfull;
             $lotSize     = $listing->property->lotsize; // might be empty
             $subdivision = $listing->property->subdivision;
             $yearBuilt   = $listing->property->yearbuild;
-
             // listing data
             $listing_agent    = $listing->agent->id;
-
             $listing_price    = $listing->price;
             $list_date        = $listing->date;
-
+            $listing_USD = '$' . number_format( $listing_price );
+            $listing_link = "/?retsd-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
             // street address info
             $city    = $listing->address->city;
             $address = $listing->address->address;
-
             // listing photos
             $listingPhotos = $listing->photos;
             if( empty( $listingPhotos ) ) {
                 $listingPhotos[0] = 'http://placehold.it/250x175.jpg';
             }
             $main_photo = $listingPhotos[0];
-
-            $listing_USD = '$' . number_format( $listing_price );
-            $listing_link = "/?retsd-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
 
             // append markup for this listing to the content
             $cont .= <<<HTML
