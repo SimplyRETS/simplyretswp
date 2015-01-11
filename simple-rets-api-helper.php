@@ -146,6 +146,9 @@ class SimpleRetsApiHelper {
               <img class="sr-slider-img-act" src="$photos[0]">
               $photo_markup
             </div>
+            <p style="clear:both;">
+              <span id="sr-toggle-gallery">See more photos</span>
+            </p>
             <table style="width:100%;">
               <thead>
                 <tr>

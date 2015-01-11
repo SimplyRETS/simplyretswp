@@ -118,7 +118,7 @@
     width: 650px;
     position: relative;
     padding-top: 420px;
-    margin: 15px auto;
+    margin: 25px auto;
     background-color: transparent;
     transition: all 0.5s;
 }
@@ -130,7 +130,7 @@
     right: 0;
     margin: auto;
     height: 100%;
-    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.75);
+    box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.75);
 }
 
 .slider input[name='slide_switch'] {
@@ -147,6 +147,7 @@
     height: 65px;
     overflow: hidden;
     clear: right;
+    display: none;
 }
 
 .slider input[name='slide_switch']:checked+label {
@@ -160,4 +161,9 @@
 .slider input[name='slide_switch']:checked+label+img {
     opacity: 1;
     transform: scale(1);
+}
+
+#sr-toggle-gallery {
+    clear: both;
+    cursor: pointer;
 }
