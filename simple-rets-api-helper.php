@@ -324,7 +324,7 @@ HTML;
             // listing photos
             $listingPhotos = $listing->photos;
             if( empty( $listingPhotos ) ) {
-                $listingPhotos[0] = 'http://placehold.it/350x350.jpg';
+                $listingPhotos[0] = 'http://placehold.it/250x175.jpg';
             }
             $main_photo = $listingPhotos[0];
 
