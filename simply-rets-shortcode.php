@@ -53,45 +53,48 @@ class SimplyRetsShortcodes {
 
         ?>
         <div id="sr-search-wrapper">
-          <h4>Search Listings</h3>
+          <h3>Search Listings</h3>
           <form method="get" class="sr-search" action="<?php echo $home_url; ?>">
             <input type="hidden" name="retsd-listings" value="sr-search">
 
-            <div class="sr-search-field" id="sr-search-keywords">
-              <input name="sr_keywords" type="text" placeholder="Keywords" />
+            <div class="sr-minmax-filters">
+              <div class="sr-search-field" id="sr-search-keywords">
+                <input name="sr_keywords" type="text" placeholder="Keywords" />
+              </div>
+
+              <div class="sr-search-field" id="sr-search-ptype">
+                <select name="sr_ptype">
+                  <option value="">-- Property Type --</option>
+                  <option value="res">Residential</option>
+                  <option value="cnd">Condo</option>
+                  <option value="rnt">Rental</option>
+                </select>
+              </div>
             </div>
 
-            <div class="sr-search-field" id="sr-search-ptype">
-              <select name="sr_ptype">
-                <option value="">-- Property Type --</option>
-                <option value="res">Residential</option>
-                <option value="cnd">Condo</option>
-                <option value="rnt">Rental</option>
-              </select>
+            <div class="sr-minmax-filters">
+              <div class="sr-search-field" id="sr-search-minprice">
+                <input name="sr_minprice" type="text" placeholder="Min Price.." />
+              </div>
+              <div class="sr-search-field" id="sr-search-maxprice">
+                <input name="sr_maxprice" type="text" placeholder="Max Price.." />
+              </div>
+
+              <div class="sr-search-field" id="sr-search-minbed">
+                <input name="sr_minbed" type="text" placeholder="Min Beds.." />
+              </div>
+              <div class="sr-search-field" id="sr-search-maxbed">
+                <input name="sr_maxbed" type="text" placeholder="Max Beds.." />
+              </div>
+
+              <div class="sr-search-field" id="sr-search-minbath">
+                <input name="sr_minbath" type="text" placeholder="Min Baths.." />
+              </div>
+              <div class="sr-search-field" id="sr-search-maxbath">
+                <input name="sr_maxbath" type="text" placeholder="Max Baths.." />
+              </div>
             </div>
 
-            <div class="sr-search-field" id="sr-search-minprice">
-              <input name="sr_minprice" type="text" placeholder="Min Price.." />
-            </div>
-            <div class="sr-search-field" id="sr-search-maxprice">
-              <input name="sr_maxprice" type="text" placeholder="Max Price.." />
-            </div>
-
-            <div class="sr-search-field" id="sr-search-minbed">
-              <input name="sr_minbed" type="text" placeholder="Min Beds.." />
-            </div>
-            <div class="sr-search-field" id="sr-search-maxbed">
-              <input name="sr_maxbed" type="text" placeholder="Max Beds.." />
-            </div>
-
-            <div class="sr-search-field" id="sr-search-minbath">
-              <input name="sr_minbath" type="text" placeholder="Min Baths.." />
-            </div>
-            <div class="sr-search-field" id="sr-search-maxbath">
-              <input name="sr_maxbath" type="text" placeholder="Max Baths.." />
-            </div>
-
-            <br>
             <input class="submit real-btn" type="submit" value="Seach Properties">
 
           </form>

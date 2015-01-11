@@ -18,10 +18,12 @@
     position: relative;
     display: inline-block;
     float: left;
-    height: 175px;
+    height: 155px;
     width: 30%;
     overflow: hidden;
     background-size: cover;
+    background-position: center 0px;
+    background-repeat: no-repeat;
 }
 
 .sr-primary-data {
@@ -57,11 +59,22 @@
 /* search form from shortcode */
 /* -------------------------- */
 #sr-search-wrapper {
+    padding: 10px;
+    padding-top: 0px;
+}
+#sr-search-wrapper h3 {
+    margin-top: 0px;
+}
+
+.sr-minmax-filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 /* keywords */
 #sr-search-keywords {
-    width: 70%;
+    width: 75%;
 }
 #sr-search-keywords input {
     width: 100%;
@@ -69,8 +82,8 @@
 
 /* property type */
 #sr-search-ptype {
-    text-align: right;
     width: 25%;
+    text-align: right;
 }
 #sr-search-ptype select {
     width: 90%;
@@ -83,8 +96,7 @@
 #sr-search-maxbath,
 #sr-search-minbed,
 #sr-search-maxbed {
-    text-align: center;
-    width: 15%;
+    text-align: left;
 }
 
 #sr-search-minprice input,
