@@ -46,6 +46,7 @@ function add_query_vars_filter( $vars ){
     global $wp_query;
     $vars[] = "listing_id";
     $vars[] = "listing_title";
+    $vars[] = "listing_price";
     // sr prefixes are for the search form
     $vars[] = "sr_minprice";
     $vars[] = "sr_maxprice";

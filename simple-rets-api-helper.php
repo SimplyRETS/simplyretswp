@@ -341,6 +341,9 @@ HTML;
             }
             $main_photo = $listingPhotos[0];
 
+            $listing_USD = '$' . number_format( $listing_price );
+            $listing_link = "/?retsd-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
+
             // append markup for this listing to the content
             $cont .= <<<HTML
               <hr>
@@ -352,7 +355,7 @@ HTML;
                 <div class="sr-primary-data">
                   <a href="/?retsd-listings=sr-single&listing_id=$listing_uid&listing_title=$address">
                     <h4>$address
-                    <span id="sr-price">$ $listing_price</span></h4>
+                    <span id="sr-price"><i>$listing_USD</i></span></h4>
                   </a>
                 </div>
                 <div class="sr-secondary-data">
@@ -386,7 +389,7 @@ HTML;
                   </ul>
                 </div>
                 <div style="clear:both;">
-                  <a href="/?retsd-listings=sr-single&listing_id=$listing_uid&listing_title=$address">More details</a>
+                  <a href="$listing_link">More details</a>
                 </div>
               </div>
 HTML;
