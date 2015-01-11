@@ -129,11 +129,22 @@ class SimpleRetsApiHelper {
         $mls_serving    = $listing->mlsinfo->servingname;
         $days_on_market = $listing->mlsinfo->daysonmarket;
 
+        $pcount = count( $photos );
+        $photo_counter = 0;
+        foreach( $photos as $photo ) {
+            $photo_markup .= "<input class=\"sr-slider-input\" type=\"radio\" name=\"slide_switch\" id=\"id$photo_counter\" value=\"$photo\"/>";
+            $photo_markup .= "<label for='id$photo_counter'>";
+            $photo_markup .= "  <img src='$photo' width='100'>";
+            $photo_markup .= "</label>";
+            $photo_counter++;
+        }
+
         $main_photo = $photos[0];
         $cont .= <<<HTML
           <div class="sr-details" style="text-align:left;">
-            <div class="sr-details-photos">
-              <img src="$main_photo" width="100%">
+            <div class="slider">
+              <img class="sr-slider-img-act" src="$photos[0]">
+              $photo_markup
             </div>
             <table style="width:100%;">
               <thead>
@@ -295,8 +306,7 @@ HTML;
         // var_dump( $response );
         // echo '</pre></code>';
 
-        if( $response_size == 1 ) {
-            echo 'one listing returned';
+        if( $response_size <= 1 ) {
             $response = array( $response );
         }
 
