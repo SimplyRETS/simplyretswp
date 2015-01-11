@@ -22,7 +22,7 @@
     width: 30%;
     overflow: hidden;
     background-size: cover;
-    background-position: center 0px;
+    background-position: 0;
     background-repeat: no-repeat;
 }
 
@@ -59,8 +59,9 @@
 /* search form from shortcode */
 /* -------------------------- */
 #sr-search-wrapper {
-    padding: 10px;
+    padding: 0px;
     padding-top: 0px;
+    padding-bottom: 10px;
 }
 #sr-search-wrapper h3 {
     margin-top: 0px;
@@ -105,7 +106,7 @@
 #sr-search-maxbath input,
 #sr-search-minbed input,
 #sr-search-maxbed input {
-    width: 90%;
+    width: 80%;
 }
 .sr-search-field {
     display: inline-block;
