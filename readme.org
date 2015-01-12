@@ -8,81 +8,87 @@
   wordpress site.
 
 ** Installation
-   Clone this repo in any Wordpress site's =wp-content/plugins/= directory
-   and activate it through the admin panel.
+   1) Clone this repo in any Wordpress site's =wp-content/plugins/= directory
+   and activate it through Plugins page of the admin panel.
+   2) Enter your Simply Rets API Credentials in the WP Admin Panel.
+      (see *Admin Settings*)
 
-** Features and Usage
-*** Admin Settings
-    Set your api credentials in the admin panel (=Options -> RetsD=)
-    - api name
-    - api key
+** Admin Settings
+    Set your API credentials in the admin panel (=Options -> RetsD=)
+    - API name
+    - API key
 
-*** Displaying Properties
-    - [retsd_residential]
-      View all residential listings
-    - [restd_openhouses]
-      View all open houses.
+** Getting Started 
+
+*** Creating Simple Rets Pages
+    A new page type is created called Simple Rets Pages. You can create
+    new Simple Rets pages to show results from listings searches.
+
+    By default, a new page will show all listings. You can add 'filters'
+    to the page to create more advanced pages that only show certain
+    listings (ie, only residential listings for sale that are more that
+    $500,000). These are basically just pages that you an have content
+    on and embed listings into.
+**** Filters
+     1) Minimum Price
+     2) Maximum Price
+     3) Minimum Bedrooms
+     4) Maximum Bedrooms
+     5) Listing Agent Id
 
 
-* How it works
-** Settings
-   Install the plugin and insert your API credentials on the settings
-   page.
+*** Page Templates and Layout
+    Most themes come with a few different options for each page's
+    layout. Most common are "Right Sidebar", "Full-Width", etc. Simple
+    Rets allows you to use these same templates on Simple Rets Pages.
 
-** Simple Rets Pages
-   A new page type is created called Simple Rets Pages. You can create
-   new Simple Rets pages to show results from listings searches.
+    *Results Pages:* On Simple Rets Pages, you can choose the theme
+    template to use in the right sidebar just like any other page. This
+    allows the user to use pages with a sidebar, or other layouts their
+    theme may offer.
 
-   By default, a new page will show all listings. You can add 'filters'
-   to the page to create more advanced pages that only show certain
-   listings (ie, only residential listings for sale that are more that
-   $500,000). These are basically just pages that you an have content
-   on and embed listings into.
+    *Single Listing Details Pages:* Since single listing pages are
+    created dynamically, we don't have access to choose the template
+    like the other pages. Instead, you set this in the Settings
+    page. The same options apply, like sidebar and full-width. This
+    setting will take effect on all single listing details pages.
 
-** Page Templates and Layout
-   Most themes come with a few different options for each page's
-   layout. Most common are "Right Sidebar", "Full-Width", etc. Simple
-   Rets allows you to use these same templates on Simple Rets Pages.
 
-   *Results Pages:* On Simple Rets Pages, you can choose the theme
-   template to use in the right sidebar just like any other page. This
-   allows the user to use pages with a sidebar, or other layouts their
-   theme may offer.
+*** ShortCodes
+    Shortcodes are provided to add additionally functionality or information
+    to any of your posts or pages.
+**** Search Form Shortcode: [sr_search_form]
+    Embed this shortcode on any page or post in your Wordpress site to
+    provide a Simply Rets search form that will search all of your
+    listings. The best use of this is to add it to the top of one of
+    the Simple Rets Pages in order to make it a fully featured search
+    and results page.
 
-   *Single Listing Details Pages:* Since single listing pages are
-   created dynamically, we don't have access to choose the template
-   like the other pages. Instead, you set this in the Settings
-   page. The same options apply, like sidebar and full-width. This
-   setting will take effect on all single listing details pages.
+**** Residential Shortcode: [sr_residential]
+    The sr_residential shortcode allows you to embed one or more
+    listings into any page or post on your site. By default, it will
+    show 25 results from a search for all residential properties. Each
+    result from this shortcode will show the main photo and a few
+    details with a link to the listing's single page.
+***** Parameters
+     You can customise the listings that show up with this short code
+     by using the following parameters.
+     1) MLS Id (mlsid):
+        Use this parameter to insert a /specific/ listing by MLS Id.
+        Using this parameter will override any other parameters
+        within the same shortcode.
+        Example: [sr_residential mlsid="123456"]
 
-** Widgets
-   Simple Rets provides two widgets you can use just like any other widget
-   on your site.
 
-   *Search Widget:* Use the Search Widget to embed a small search form in
-   your sidebar or elsewhere.
+*** /COMING SOON/ Widgets
+    Simple Rets provides two widgets you can use just like any other widget
+    on your site.
 
-   *Listing Widget:* Use the Listing Widget to embed a single Rets listing
-   in your sidebar or elsewhere.
+    *Search Widget:* Use the Search Widget to embed a small search form in
+    your sidebar or elsewhere.
 
-** ShortCodes
-   Shortcodes are provided to add additionally functionality or information
-   to any of your pages.
-
-   *Search Form Shortcode:* =[simple_rets_searchform]= Embed this shortcode
-   on any page or post in your Wordpress site to provide a search form
-   that will search all of your Rets listings. The best use of this is to
-   add it to the top of one of the Simple Rets Pages in order to make it
-   a fully featured search page.
-
-   *Results Shortcode:* You can compose a Results shortcode to embed the
-   results from any search into any post or page. An example would be:
-   =[simple_rets_results min_bed\"3" max_price\"500000"]=
-   Add a full list of parameters here
-
-   *Listing Shorcode:* You can compose a Listing Shortcode to embed a
-   single listing into any page or post. An example of this would be:
-   =[simple_rets_listing mls_id\"12345"]=.
+    *Listing Widget:* Use the Listing Widget to embed a single Rets listing
+    in your sidebar or elsewhere.
 
 
 * TODO-TRACKER
