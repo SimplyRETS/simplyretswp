@@ -1,8 +1,8 @@
 <?php
 
 /*
- * simple-rets-admin.php - Copyright (C) 2014 Reichert Brothers
- * This file provides the logic for the simple-rets admin panel settings and features pages.
+ * simply-rets-admin.php - Copyright (C) 2014 Reichert Brothers
+ * This file provides the logic for the Simply Rets admin panel settings and features pages.
  *
 */
 
