@@ -10,15 +10,15 @@
 /* Code starts here */
 
 function add_to_admin_menu() {
-    add_options_page('RetsD Settings', 'RetsD', 'manage_options', 'rets-admin.php', 'admin_page');
+    add_options_page('Simply Rets Settings', 'Simply Rets', 'manage_options', 'simplyrets-admin.php', 'sr_admin_page');
 }
 
 function register_admin_settings() {
-    register_setting('rets_admin_settings', 'sr_api_name');
-    register_setting('rets_admin_settings', 'sr_api_key');
+    register_setting('sr_admin_settings', 'sr_api_name');
+    register_setting('sr_admin_settings', 'sr_api_key');
 }
 
-function admin_page() {
+function sr_admin_page() {
     global $wpdb;
     ?>
     <div class="wrap">
@@ -30,8 +30,8 @@ function admin_page() {
         <i> Note: properties will not show up until these are correct.</i>
       </p>
       <form method="post" action="options.php">
-        <?php settings_fields( 'rets_admin_settings'); ?>
-        <?php do_settings_sections( 'rets_admin_settings'); ?>
+        <?php settings_fields( 'sr_admin_settings'); ?>
+        <?php do_settings_sections( 'sr_admin_settings'); ?>
         <table>
           <tbody>
             <tr>
