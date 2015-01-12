@@ -73,9 +73,6 @@ class SimpleRetsApiHelper {
         $br = "<br>";
         $cont = "";
 
-        // echo '<pre><code>';
-        // var_dump( $listing );
-        // echo '</pre></code>';
         // Amenities
         $bedrooms         = $listing->property->bedrooms;
         $bathsFull        = $listing->property->bathsfull;
@@ -96,14 +93,18 @@ class SimpleRetsApiHelper {
         $geo_county     = $listing->geo->county;
         // photos data (and set up slideshow markup)
         $photos = $listing->photos;
-        $main_photo = $photos[0];
-        $photo_counter = 0;
-        foreach( $photos as $photo ) {
-            $photo_markup .= "<input class=\"sr-slider-input\" type=\"radio\" name=\"slide_switch\" id=\"id$photo_counter\" value=\"$photo\"/>";
-            $photo_markup .= "<label for='id$photo_counter'>";
-            $photo_markup .= "  <img src='$photo' width='100'>";
-            $photo_markup .= "</label>";
-            $photo_counter++;
+        if(empty($photos)) {
+            $main_photo = 'http://placehold.it/450x375.jpg';
+        } else {
+            $main_photo = $photos[0];
+            $photo_counter = 0;
+            foreach( $photos as $photo ) {
+                $photo_markup .= "<input class=\"sr-slider-input\" type=\"radio\" name=\"slide_switch\" id=\"id$photo_counter\" value=\"$photo\"/>";
+                $photo_markup .= "<label for='id$photo_counter'>";
+                $photo_markup .= "  <img src='$photo' width='100'>";
+                $photo_markup .= "</label>";
+                $photo_counter++;
+            }
         }
         // listing meta information
         $listing_modified = $listing->modified; // TODO: format date
@@ -121,7 +122,7 @@ class SimpleRetsApiHelper {
         $city          = $listing->address->city;
         // Listing Data
         $showing_instructions = $listing->showinginstructions;
-        $listing_office   = $listing->office;
+        $listing_office   = $listing->office->officename;
         $listing_agent    = $listing->agent->id;
         $list_date        = $listing->date;
         $listing_price    = $listing->price;
@@ -140,7 +141,7 @@ class SimpleRetsApiHelper {
               <span id="sr-listing-contact">Contact us about this listing</span>
             </p>
             <div class="slider">
-              <img class="sr-slider-img-act" src="$photos[0]">
+              <img class="sr-slider-img-act" src="$main_photo">
               $photo_markup
             </div>
 
