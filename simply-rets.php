@@ -17,7 +17,7 @@ if ( is_admin() ) {
 
 
 // initialize custom post type
-require_once( plugin_dir_path(__FILE__) . 'simple-rets-post-pages.php' );
+require_once( plugin_dir_path(__FILE__) . 'simply-rets-post-pages.php' );
 
 
 
