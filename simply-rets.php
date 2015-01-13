@@ -63,7 +63,7 @@ add_filter( 'query_vars', 'add_query_vars_filter' );
 
 
 // initialize any javascript and css files we need here
-require_once( plugin_dir_path(__FILE__) . 'simple-rets-api-helper.php' );
+require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
 add_action( 'wp_enqueue_scripts', array( 'SimpleRetsApiHelper', 'simpleRetsClientCss' ) );
 
 function init_js() {

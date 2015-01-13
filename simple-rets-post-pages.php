@@ -304,7 +304,7 @@ class simpleRetsCustomPostPages {
     }
 
     public static function simpleRetsDefaultContent( $content, $post ) {
-        require_once( plugin_dir_path(__FILE__) . 'simple-rets-api-helper.php' );
+        require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
         $post_type = get_post_type();
         $page_name = get_query_var( 'retsd-listings' );
 
