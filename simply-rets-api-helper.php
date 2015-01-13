@@ -64,8 +64,11 @@ class SimpleRetsApiHelper {
 
 
     public static function simpleRetsClientCss() {
-        wp_register_style( 'simple-rets-client-css', plugins_url( '/rets/css/simple-rets-client.css' ) );
-        wp_enqueue_style( 'simple-rets-client-css' );
+        // TODO We possibly might not want to have dependencies depent
+        // on the directory name - I think there's a better way.
+        $css_path = plugins_url( '/rets/css/simply-rets-client.css' );
+        wp_register_style( 'simply-rets-client-css', $css_path );
+        wp_enqueue_style( 'simply-rets-client-css' );
     }
 
     // generate markup for a SINGLE listing's details page
