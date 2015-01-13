@@ -1,6 +1,6 @@
 /*
  * 
- * simple-rets-admin.js
+ * simply-rets-admin.js
  * Javascript for the admin functionality of the Simple Rets plugin.
  * Copyright (c) Reichert Brothers 2014
  * 
@@ -9,7 +9,7 @@
 
 jQuery(function() {
 
-  console.log("This is simple-rets-admin.js");
+  console.log("This is simply-rets-admin.js");
 
   // create jquery objects for all of our different input boxes
   var minPriceFilterInput = jQuery('#sr-min-price-span');

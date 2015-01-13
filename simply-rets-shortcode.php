@@ -2,7 +2,7 @@
 
 /*
  *
- * simple-rets-api-helper.php - Copyright (C) Reichert Brothers 2014
+ * simply-rets-api-helper.php - Copyright (C) Reichert Brothers 2014
  * This file provides a class that has functions for retrieving and parsing
  * data from the remote retsd api.
  *
