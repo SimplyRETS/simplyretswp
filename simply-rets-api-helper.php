@@ -342,7 +342,6 @@ HTML;
             $listing_price    = $listing->price;
             $list_date        = $listing->date;
             $listing_USD = '$' . number_format( $listing_price );
-            $listing_link = "/?retsd-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
             // street address info
             $city    = $listing->address->city;
             $address = $listing->address->address;
@@ -353,16 +352,17 @@ HTML;
             }
             $main_photo = $listingPhotos[0];
 
+            $listing_link = "/?retsd-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
             // append markup for this listing to the content
             $cont .= <<<HTML
               <hr>
               <div class="sr-listing">
-                <a href="/?retsd-listings=sr-single&listing_id=$listing_uid&listing_title=$address">
+                <a href="$listing_link">
                   <div class="sr-photo" style="background-image:url($main_photo);">
                   </div>
                 </a>
                 <div class="sr-primary-data">
-                  <a href="/?retsd-listings=sr-single&listing_id=$listing_uid&listing_title=$address">
+                  <a href="$listing_link">
                     <h4>$address
                     <span id="sr-price"><i>$listing_USD</i></span></h4>
                   </a>
