@@ -63,7 +63,7 @@ class SimpleRetsApiHelper {
 
 
 
-    public static function simpleRetsClientCss() {
+    public static function simplyRetsClientCss() {
         // TODO We possibly might not want to have dependencies depent
         // on the directory name - I think there's a better way.
         $css_path = plugins_url( '/rets/css/simply-rets-client.css' );
