@@ -11,23 +11,23 @@
 
 /* Code starts here */
 
-class SimpleRetsApiHelper {
+class SimplyRetsApiHelper {
 
 
 
     public static function retrieveRetsListings( $params ) {
-        $request_url      = SimpleRetsApiHelper::srRequestUrlBuilder( $params );
-        $request_response = SimpleRetsApiHelper::srApiRequest( $request_url );
-        $response_markup  = SimpleRetsApiHelper::srResidentialResultsGenerator( $request_response );
+        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder( $params );
+        $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
+        $response_markup  = SimplyRetsApiHelper::srResidentialResultsGenerator( $request_response );
 
         return $response_markup;
     }
 
 
     public static function retrieveListingDetails( $listing_id ) {
-        $request_url      = SimpleRetsApiHelper::srRequestUrlBuilder( $listing_id );
-        $request_response = SimpleRetsApiHelper::srApiRequest( $request_url );
-        $response_markup  = SimpleRetsApiHelper::srResidentialDetailsGenerator( $request_response );
+        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder( $listing_id );
+        $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
+        $response_markup  = SimplyRetsApiHelper::srResidentialDetailsGenerator( $request_response );
 
         return $response_markup;
     }

@@ -313,7 +313,7 @@ class simpleRetsCustomPostPages {
 
         if ( $page_name == 'sr-single' ) {
             $listing_id = get_query_var( 'listing_id' );
-            $content .= SimpleRetsApiHelper::retrieveListingDetails( $listing_id );
+            $content .= SimplyRetsApiHelper::retrieveListingDetails( $listing_id );
             return $content;
         }
 
@@ -339,7 +339,7 @@ class simpleRetsCustomPostPages {
                 "maxprice" => $maxprice
             );
 
-            $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $listing_params );
+            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
             $content .= print_r( $listing_params );
             $content .= $listings_content;
 
@@ -361,7 +361,7 @@ class simpleRetsCustomPostPages {
             // the simple rets api helper takes care of retrieving, parsing, and generating
             // the markup for the listings to be shown on this page based off of the sr_filters
             // saved for this post
-            $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $listing_params );
+            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
             $content = $content . $listings_content;
 
             return $content;

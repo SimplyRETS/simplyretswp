@@ -20,12 +20,12 @@ class SimplyRetsShortcodes {
 
         if( !empty($atts['mlsid']) ) {
             $mlsid = $atts['mlsid'];
-            $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $mlsid );
+            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $mlsid );
             return $listings_content;
         }
 
         $listing_params = array();
-        $listings_content = SimpleRetsApiHelper::retrieveRetsListings( $listing_params );
+        $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
         return $listings_content;
 
     }
