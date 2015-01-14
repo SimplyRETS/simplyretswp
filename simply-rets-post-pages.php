@@ -101,6 +101,7 @@ class SimplyRetsCustomPostPages {
         $min_bath_filter  = "";
         $max_bath_filter  = "";
         $agent_id_filter  = "";
+        $listing_type_filter  = "";
 
         $sr_filters = get_post_meta( $post->ID, 'sr_filters', true);
 
@@ -112,14 +113,15 @@ class SimplyRetsCustomPostPages {
               <?php _e( 'Add new Filter' ); ?>
             </span>
             <select name="sr-filter-select" id="sr-filter-select">
-                <option> -- Select a Filter --                    </option>
-                <option val="minprice-option">  Minimum Price     </option>
+                <option> -- Select a Filter --                   </option>
+                <option val="minprice-option"> Minimum Price     </option>
                 <option val="maxprice-option"> Maximum Price     </option>
-                <option val="minbed-option">    Minimum Beds      </option>
-                <option val="maxbed-option">    Maximum Beds      </option>
-                <option val="minbath-option">   Minimum Bathrooms </option>
-                <option val="maxbath-option">   Maximum Bathrooms </option>
-                <option val="agentid-option">   Listing Agent     </option>
+                <option val="minbed-option">   Minimum Beds      </option>
+                <option val="maxbed-option">   Maximum Beds      </option>
+                <option val="minbath-option">  Minimum Bathrooms </option>
+                <option val="maxbath-option">  Maximum Bathrooms </option>
+                <option val="agentid-option">  Listing Agent     </option>
+                <option val="type-option">     Listing Type      </option>
             </select>
             <hr>
         </div>
@@ -182,7 +184,7 @@ class SimplyRetsCustomPostPages {
               Maximum Bathrooms:
             </label>
             <input id="maxbath" type="text" name="sr_filters[maxbath]"
-              value="<?php print_r( $max_bath_filter ); ?>"/>
+              value="<?php print_r( $max_bath_filisting_typelter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -193,6 +195,16 @@ class SimplyRetsCustomPostPages {
             </label>
             <input id="agentid" type="text" name="sr_filters[agentid]"
               value="<?php print_r( $agent_id_filter ); ?>"/>
+            <span class="sr-remove-filter">Remove Filter</span>
+          </div>
+
+          <!-- Listing Type Filter -->
+          <div class="sr-filter-input" id="sr-listing-type-span">
+            <label for="sr-listing-type-input">
+              Property Type:
+            </label>
+            <input id="type" type="text" name="sr_filters[type]"
+              value="<?php print_r( $listing_type_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -222,7 +234,7 @@ class SimplyRetsCustomPostPages {
                 </script>
                 <?php
             }
-        };
+        }
     }
 
     public static function postFilterMetaBoxSave( $post_id ) {
@@ -355,9 +367,9 @@ class SimplyRetsCustomPostPages {
             }
 
             // debug for viewing the search filters saved from the custom post page
-            //foreach ( $listing_params as $key=>$value ) {
-            //    $filters = 'param: ' . $key . ' value: ' . $value . $br . $filters;
-            //}
+            // foreach ( $listing_params as $key=>$value ) {
+            //     echo 'param: ' . $key . ' value: ' . $value . $br;
+            // }
             // the simply rets api helper takes care of retrieving, parsing, and generating
             // the markup for the listings to be shown on this page based off of the sr_filters
             // saved for this post
@@ -373,12 +385,11 @@ class SimplyRetsCustomPostPages {
 
     public static function srListingDetailsPost( $posts ) {
 
-
         // if we catch a singlelisting query, create a new post on the fly
         global $wp_query;
         if( $wp_query->query['retsd-listings'] == "sr-single" ) {
             $post_id    = get_query_var( 'listing_id' );
-            $post_addr = get_query_var( 'listing_title', 'none' );
+            $post_addr  = get_query_var( 'listing_title', 'none' );
             $post_price = get_query_var( 'listing_price', '' );
 
             $listing_USD = '$' . number_format( $post_price );
@@ -405,22 +416,21 @@ class SimplyRetsCustomPostPages {
         }
         // if we catch a search results query, create a new post on the fly
         if( $wp_query->query['retsd-listings'] == "sr-search" ) {
-            $post_id    = get_query_var( 'sr_minprice' );
-            $post_title = get_query_var( 'sr_minprice', 'none' );
+            $post_id = get_query_var( 'sr_minprice', '9998' );
 
             $post = (object)array(
-                "ID"              => $post_id,
-                "comment_count"   => 0,
-                "comment_status"  => "closed",
-                "ping_status"     => "closed",
-                "post_author"     => 1,
-                "post_name"       => "Search Listings",
-                "post_date"       => date("c"),
-                "post_date_gmt"   => gmdate("c"),
-                "post_parent"     => 0,
-                "post_status"     => "publish",
-                "post_title"      => "Listings",
-                "post_type"       => "retsd-listings"
+                "ID"             => $post_id,
+                "comment_count"  => 0,
+                "comment_status" => "closed",
+                "ping_status"    => "closed",
+                "post_author"    => 1,
+                "post_name"      => "Search Listings",
+                "post_date"      => date("c"),
+                "post_date_gmt"  => gmdate("c"),
+                "post_parent"    => 0,
+                "post_status"    => "publish",
+                "post_title"     => "Listings",
+                "post_type"      => "retsd-listings"
             );
 
 		    $posts = array( $post );
