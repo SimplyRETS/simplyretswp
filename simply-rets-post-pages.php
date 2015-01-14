@@ -9,30 +9,30 @@
 
 
 /* Code starts here */
-add_action( 'init', array( 'simpleRetsCustomPostPages', 'simpleRetsPostType' ) );
+add_action( 'init', array( 'SimplyRetsCustomPostPages', 'simplyRetsPostType' ) );
 
-add_filter( 'single_template', array( 'simpleRetsCustomPostPages', 'loadSimpleRetsPostTemplate' ) );
-add_filter( 'the_content', array( 'simpleRetsCustomPostPages', 'simpleRetsDefaultContent' ) );
+add_filter( 'single_template', array( 'SimplyRetsCustomPostPages', 'loadSimplyRetsPostTemplate' ) );
+add_filter( 'the_content', array( 'SimplyRetsCustomPostPages', 'simplyRetsDefaultContent' ) );
 
-add_filter( 'the_posts', array( 'simpleRetsCustomPostPages', 'srListingDetailsPost' ) );
+add_filter( 'the_posts', array( 'SimplyRetsCustomPostPages', 'srListingDetailsPost' ) );
 
-add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postFilterMetaBox' ) );
-add_action( 'add_meta_boxes', array( 'simpleRetsCustomPostPages', 'postTemplateMetaBox' ) );
-
-
-add_action( 'save_post', array( 'simpleRetsCustomPostPages', 'postFilterMetaBoxSave' ) );
-add_action( 'save_post', array( 'simpleRetsCustomPostPages', 'postTemplateMetaBoxSave' ) );
+add_action( 'add_meta_boxes', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBox' ) );
+add_action( 'add_meta_boxes', array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBox' ) );
 
 
-add_action( 'admin_enqueue_scripts', array( 'simpleRetsCustomPostPages', 'postFilterMetaBoxJs' ) );
-add_action( 'admin_init', array( 'simpleRetsCustomPostPages', 'postFilterMetaBoxCss' ) );
+add_action( 'save_post', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxSave' ) );
+add_action( 'save_post', array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBoxSave' ) );
+
+
+add_action( 'admin_enqueue_scripts', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxJs' ) );
+add_action( 'admin_init', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxCss' ) );
 // ^TODO: load css/js only on retsd-listings post type pages when admin
 
 
-class simpleRetsCustomPostPages {
+class SimplyRetsCustomPostPages {
 
     // Create our Custom Post Type
-    public static function simpleRetsPostType() {
+    public static function simplyRetsPostType() {
         $labels = array(
             'name'          => __( 'Rets Pages' ),
             'singular_name' => __( 'Rets Page' ),
@@ -47,7 +47,7 @@ class simpleRetsCustomPostPages {
             'public'          => true,
             'has_archive'     => false,
             'labels'          => $labels,
-            'description'     => 'SimplyRets property listings pages',
+            'description'     => 'Simply Rets property listings pages',
             'query_var'       => true,
             'menu_positions'  => '15',
             'capability_type' => 'page',
@@ -63,7 +63,7 @@ class simpleRetsCustomPostPages {
         add_meta_box(
             'sr-meta-box-filter'
             , __( 'Filter Results on This Page', 'sr-textdomain')
-            , array('simpleRetsCustomPostPages', 'postFilterMetaBoxMarkup')
+            , array('SimplyRetsCustomPostPages', 'postFilterMetaBoxMarkup')
             , 'retsd-listings'
             , 'normal'
             , 'high'
@@ -74,7 +74,7 @@ class simpleRetsCustomPostPages {
         add_meta_box(
              'sr-template-meta-box'
              , __('Page Template', 'sr-textdomain')
-             , array( 'simpleRetsCustomPostPages', 'postTemplateMetaBoxMarkup' )
+             , array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBoxMarkup' )
              , 'retsd-listings'
              , 'side'
              , 'core'
@@ -82,13 +82,13 @@ class simpleRetsCustomPostPages {
     }
 
     public static function postFilterMetaBoxJs() {
-        wp_register_script( 'simple-rets-admin-js', plugins_url( '/rets/js/simple-rets-admin.js' ), array( 'jquery' ) );
-        wp_enqueue_script( 'simple-rets-admin-js' );
+        wp_register_script( 'simply-rets-admin-js', plugins_url( '/rets/js/simply-rets-admin.js' ), array( 'jquery' ) );
+        wp_enqueue_script( 'simply-rets-admin-js' );
     }
 
     public static function postFilterMetaBoxCss() {
-        wp_register_style( 'simple-rets-admin-css', plugins_url( '/rets/css/simple-rets-admin.css' ) );
-        wp_enqueue_style( 'simple-rets-admin-css' );
+        wp_register_style( 'simply-rets-admin-css', plugins_url( '/rets/css/simply-rets-admin.css' ) );
+        wp_enqueue_style( 'simply-rets-admin-css' );
 
     }
 
@@ -280,7 +280,7 @@ class simpleRetsCustomPostPages {
         update_post_meta( $post_id, 'sr_page_template', $sr_page_template );
     }
 
-    public static function loadSimpleRetsPostTemplate() {
+    public static function loadSimplyRetsPostTemplate() {
         $query_object = get_queried_object();
         $sr_post_type = 'retsd-listings';
         $page_template = get_post_meta( $query_object->ID, 'sr_page_template', true );
@@ -303,7 +303,7 @@ class simpleRetsCustomPostPages {
         return $new_template;
     }
 
-    public static function simpleRetsDefaultContent( $content, $post ) {
+    public static function simplyRetsDefaultContent( $content, $post ) {
         require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
         $post_type = get_post_type();
         $page_name = get_query_var( 'retsd-listings' );
@@ -358,7 +358,7 @@ class simpleRetsCustomPostPages {
             //foreach ( $listing_params as $key=>$value ) {
             //    $filters = 'param: ' . $key . ' value: ' . $value . $br . $filters;
             //}
-            // the simple rets api helper takes care of retrieving, parsing, and generating
+            // the simply rets api helper takes care of retrieving, parsing, and generating
             // the markup for the listings to be shown on this page based off of the sr_filters
             // saved for this post
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
