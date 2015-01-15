@@ -84,6 +84,44 @@
     line-height: 20px !important;
 }
 
+/* --------------------- */
+/* single listing widget */
+/* --------------------- */
+.sr-listing-wdgt {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.sr-listing-wdgt hr {
+    border: solid 1px #dedede;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#sr-listing-wdgt-details {
+    text-align: center;
+    color: #333;
+    margin-top: 5px;
+    margin-bottom: -5px;
+}
+#sr-listing-wdgt-remarks {
+    line-height: 1.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 4.6em;
+}
+
+#sr-listing-wdgt-btn {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px !important;
+}
+
+#sr-listing-wdgt-btn a {
+    color: #f6f6f6;
+}
+
+
 /* -------------------------- */
 /* search form from shortcode */
 /* -------------------------- */
