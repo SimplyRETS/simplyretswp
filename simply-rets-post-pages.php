@@ -352,7 +352,7 @@ class SimplyRetsCustomPostPages {
             );
 
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
-            $content .= print_r( $listing_params );
+            $content .= do_shortcode( '[sr_search_form]' );
             $content .= $listings_content;
 
             return $content;
