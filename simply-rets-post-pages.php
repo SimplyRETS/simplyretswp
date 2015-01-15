@@ -429,7 +429,7 @@ class SimplyRetsCustomPostPages {
                 "post_date_gmt"  => gmdate("c"),
                 "post_parent"    => 0,
                 "post_status"    => "publish",
-                "post_title"     => "Listings",
+                "post_title"     => "Search Results",
                 "post_type"      => "retsd-listings"
             );
 
