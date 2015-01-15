@@ -32,6 +32,13 @@ class SimplyRetsApiHelper {
         return $response_markup;
     }
 
+    public static function retrieveWidgetListing( $listing_id ) {
+        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder( $listing_id );
+        $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
+        $response_markup  = SimplyRetsApiHelper::srWidgetListingGenerator( $request_response );
+
+        return $response_markup;
+    }
 
     public static function srRequestUrlBuilder( $params ) {
         // $base_url = 'http://localhost:3001/properties';
@@ -405,6 +412,79 @@ HTML;
         }
 
     return $cont;
+    }
+
+
+    public static function srWidgetListingGenerator( $response ) {
+        $br = "<br>";
+        $cont = "";
+
+        // echo '<pre><code>';
+        // var_dump( $response );
+        // echo '</pre></code>';
+        $response_size = sizeof( $response );
+        if( $response_size <= 1 ) {
+            $response = array( $response );
+        }
+
+        foreach ( $response as $listing ) {
+            $listing_uid      = $listing->mlsid;
+            // Amenities
+            $bedrooms    = $listing->property->bedrooms;
+            $bathsFull   = $listing->property->bathsfull;
+            $lotSize     = $listing->property->lotsize; // might be empty
+            $subdivision = $listing->property->subdivision;
+            $yearBuilt   = $listing->property->yearbuild;
+            // listing data
+            $listing_agent = $listing->agent->id;
+            $listing_price = $listing->price;
+            $list_date     = $listing->date;
+            $listing_USD   = '$' . number_format( $listing_price );
+            // street address info
+            $city    = $listing->address->city;
+            $address = $listing->address->address;
+            // listing photos
+            $listingPhotos = $listing->photos;
+            if( empty( $listingPhotos ) ) {
+                $listingPhotos[0] = 'http://placehold.it/250x175.jpg';
+            }
+            $main_photo = $listingPhotos[0];
+
+            $mls_status    = $listing->mlsinfo->status;
+            $listing_remarks  = $listing->remarks;
+            $listing_link = "/?retsd-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
+            // append markup for this listing to the content
+            $cont .= <<<HTML
+              <div class="sr-listing-wdgt">
+                <a href="$listing_link">
+                  <h5>$address
+                    <small> - $listing_USD </small>
+                  </h5>
+                </a>
+                <a href="$listing_link">
+                  <img src="$main_photo" width="100%" alt="$address">
+                </a>
+                <div class="sr-listing-wdgt-primary">
+                  <div id="sr-listing-wdgt-details">
+                    <span>$bedrooms Bed | $bathsFull Bath | $mls_status </span>
+                  </div>
+                  <hr>
+                  <div id="sr-listing-wdgt-remarks">
+                    <p>$listing_remarks</p>
+                  </div>
+                </div>
+                <div id="sr-listing-wdgt-btn">
+                  <a href="$listing_link">
+                    <button class="button real-btn">
+                      More about this listing
+                    </button>
+                  </a>
+                </div>
+              </div>
+HTML;
+
+        }
+        return $cont;
     }
 
 }
