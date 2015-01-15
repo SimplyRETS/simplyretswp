@@ -28,6 +28,15 @@ add_shortcode('sr_openhouses',  array( 'SimplyRetsShortcodes', 'sr_openhouses_sh
 add_shortcode('sr_search_form', array( 'SimplyRetsShortcodes', 'sr_search_form_shortcode') );
 
 
+// initialize simply rets shortcodes
+require_once( plugin_dir_path(__FILE__) . 'simply-rets-widgets.php' );
+add_action( 'widgets_init', 'srRegisterWidgets' );
+
+function srRegisterWidgets() {
+    register_widget('sr_listing_widget');
+}
+
+
 // a filter to remove comments from simply rets pages
 function remove_retsd_comments() {
     global $post;
