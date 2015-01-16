@@ -6,8 +6,11 @@
 */
 
 /* Code starts here */
+require_once( plugin_dir_path(__FILE__) . 'simply-rets-post-pages.php' );
+require_once( plugin_dir_path(__FILE__) . 'simply-rets-shortcode.php' );
+require_once( plugin_dir_path(__FILE__) . 'simply-rets-widgets.php' );
 
-// Initialize admin panel pages and settings for admin only users
+
 if ( is_admin() ) {
     require_once( plugin_dir_path(__FILE__) . 'simply-rets-admin.php' );
     add_action( 'admin_init', array( 'SrAdminSettings', 'register_admin_settings' ) );
@@ -15,39 +18,18 @@ if ( is_admin() ) {
 }
 
 
-
-// initialize custom post type
-require_once( plugin_dir_path(__FILE__) . 'simply-rets-post-pages.php' );
-
-
-
 // initialize simply rets shortcodes
-require_once( plugin_dir_path(__FILE__) . 'simply-rets-shortcode.php' );
 add_shortcode('sr_residential', array( 'SimplyRetsShortcodes', 'sr_residential_shortcode') );
 add_shortcode('sr_openhouses',  array( 'SimplyRetsShortcodes', 'sr_openhouses_shortcode')  );
 add_shortcode('sr_search_form', array( 'SimplyRetsShortcodes', 'sr_search_form_shortcode') );
 
 
 // initialize simply rets shortcodes
-require_once( plugin_dir_path(__FILE__) . 'simply-rets-widgets.php' );
 add_action( 'widgets_init', 'srRegisterWidgets' );
-
 function srRegisterWidgets() {
     register_widget('sr_listing_widget');
 }
 
-
-// a filter to remove comments from simply rets pages
-function remove_retsd_comments() {
-    global $post;
-    if ( !( is_singular() && ( have_comments() || 'open' == $post->comment_status ) ) ) {
-        return;
-    }
-    if ( $post->post_type == 'retsd-listings') {
-        return dirname(__FILE__) . '/comments-template.php';
-    }
-}
-add_filter( 'comments_template', 'remove_retsd_comments' );
 
 // Custom Query variables we'll use to load the correct template and retrieve
 // data from RetsD

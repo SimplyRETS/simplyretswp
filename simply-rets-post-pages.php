@@ -11,21 +11,19 @@
 /* Code starts here */
 add_action( 'init', array( 'SimplyRetsCustomPostPages', 'simplyRetsPostType' ) );
 
-add_filter( 'single_template', array( 'SimplyRetsCustomPostPages', 'loadSimplyRetsPostTemplate' ) );
-add_filter( 'the_content', array( 'SimplyRetsCustomPostPages', 'simplyRetsDefaultContent' ) );
-
-add_filter( 'the_posts', array( 'SimplyRetsCustomPostPages', 'srListingDetailsPost' ) );
+add_filter( 'comments_template', array( 'SimplyRetsCustomPostPages', 'srClearComments' ) );
+add_filter( 'single_template',   array( 'SimplyRetsCustomPostPages', 'srLoadPostTemplate' ) );
+add_filter( 'the_content',       array( 'SimplyRetsCustomPostPages', 'srPostDefaultContent' ) );
+add_filter( 'the_posts',         array( 'SimplyRetsCustomPostPages', 'srCreateDynamicPost' ) );
 
 add_action( 'add_meta_boxes', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBox' ) );
 add_action( 'add_meta_boxes', array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBox' ) );
 
-
 add_action( 'save_post', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxSave' ) );
 add_action( 'save_post', array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBoxSave' ) );
 
-
+add_action( 'admin_init',            array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxCss' ) );
 add_action( 'admin_enqueue_scripts', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxJs' ) );
-add_action( 'admin_init', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxCss' ) );
 // ^TODO: load css/js only on retsd-listings post type pages when admin
 
 
@@ -292,7 +290,21 @@ class SimplyRetsCustomPostPages {
         update_post_meta( $post_id, 'sr_page_template', $sr_page_template );
     }
 
-    public static function loadSimplyRetsPostTemplate() {
+
+    // TODO: not sure if this is entirely necessary...at one time it was
+    function srClearComments() {
+        return;
+        global $post;
+        if ( !( is_singular() && ( have_comments() || 'open' == $post->comment_status ) ) ) {
+            return;
+        }
+        if ( $post->post_type == 'retsd-listings') {
+            return dirname(__FILE__) . '/comments-template.php';
+        }
+    }
+
+
+    public static function srLoadPostTemplate() {
         $query_object = get_queried_object();
         $sr_post_type = 'retsd-listings';
         $page_template = get_post_meta( $query_object->ID, 'sr_page_template', true );
@@ -315,7 +327,7 @@ class SimplyRetsCustomPostPages {
         return $new_template;
     }
 
-    public static function simplyRetsDefaultContent( $content, $post ) {
+    public static function srPostDefaultContent( $content, $post ) {
         require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
         $post_type = get_post_type();
         $page_name = get_query_var( 'retsd-listings' );
@@ -383,7 +395,7 @@ class SimplyRetsCustomPostPages {
 
 
 
-    public static function srListingDetailsPost( $posts ) {
+    public static function srCreateDynamicPost( $posts ) {
 
         // if we catch a singlelisting query, create a new post on the fly
         global $wp_query;
