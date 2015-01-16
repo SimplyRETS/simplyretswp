@@ -23,7 +23,6 @@ if ( is_admin() ) {
 
 
 
-// initialize simply rets shortcodes
 add_shortcode( 'sr_residential', array( 'SimplyRetsShortcodes', 'sr_residential_shortcode' ) );
 add_shortcode( 'sr_openhouses',  array( 'SimplyRetsShortcodes', 'sr_openhouses_shortcode' ) );
 add_shortcode( 'sr_search_form', array( 'SimplyRetsShortcodes', 'sr_search_form_shortcode' ) );
@@ -37,12 +36,6 @@ add_filter( 'query_vars', array( 'SimplyRetsCustomPostPages', 'srQueryVarsInit' 
 
 
 
-// initialize simply rets shortcodes
-// Custom Query variables we'll use to load the correct template and retrieve
-// data from RetsD
-
-
-// initialize any javascript and css files we need here
 function init_js() {
     wp_enqueue_script('simply-rets-js', plugins_url('/js/simply-rets.js',__FILE__) );
 }
