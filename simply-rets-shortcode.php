@@ -38,7 +38,7 @@ class SimplyRetsShortcodes {
             "type" => "cnd"
         );
         $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
-        $listing_content = "Sorry we could not find any open houses that match your search."
+        $listings_content = "Sorry we could not find any open houses that match your search.";
         return $listings_content;
     }
 
