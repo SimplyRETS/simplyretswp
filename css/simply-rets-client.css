@@ -1,7 +1,11 @@
 /*
  *
  * simply-rets-client.css - Copyright (C) Reichert Brothers 2014
- * This file provides the styles for markup generated on Simply Rets pages.
+ *
+ * This file provides the stylesheets for all client side Simply
+ * Rets components, including Custom Post Pages, shortcode markup,
+ * and widgets. It does not, however, include styles for the admin
+ * panel.
  *
 */
 
