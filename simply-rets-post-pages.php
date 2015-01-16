@@ -54,6 +54,24 @@ class SimplyRetsCustomPostPages {
         register_post_type( 'retsd-listings', $args );
     }
 
+    public static function srQueryVarsInit( $vars ) {
+        global $wp_query;
+        $vars[] = "listing_id";
+        $vars[] = "listing_title";
+        $vars[] = "listing_price";
+        // sr prefixes are for the search form
+        $vars[] = "sr_minprice";
+        $vars[] = "sr_maxprice";
+        $vars[] = "sr_minbed";
+        $vars[] = "sr_maxbed";
+        $vars[] = "sr_minbath";
+        $vars[] = "sr_maxbath";
+        $vars[] = "sr_keywords";
+        $vars[] = "sr_ptype";
+        $vars[] = "retsd-listings";
+        return $vars;
+    }
+
     public static function postFilterMetaBox() {
         add_meta_box(
             'sr-meta-box-filter'

@@ -3,6 +3,7 @@
  * Plugin Name: Simply Rets
  * Description: A Wordpress plugin for Reichert Brothers Retsd server.
  * Copyright (c) Reichert Brothers 2014
+ *
 */
 
 /* Code starts here */
@@ -32,7 +33,7 @@ add_shortcode( 'sr_search_form', array( 'SimplyRetsShortcodes', 'sr_search_form_
 add_action( 'wp_head', 'init_js' );
 add_action( 'widgets_init', 'srRegisterWidgets' );
 add_action( 'wp_enqueue_scripts', array( 'SimplyRetsApiHelper', 'simplyRetsClientCss' ) );
-add_filter( 'query_vars', 'add_query_vars_filter' );
+add_filter( 'query_vars', array( 'SimplyRetsCustomPostPages', 'srQueryVarsInit' ) );
 
 
 
@@ -44,23 +45,6 @@ function srRegisterWidgets() {
 
 // Custom Query variables we'll use to load the correct template and retrieve
 // data from RetsD
-function add_query_vars_filter( $vars ){
-    global $wp_query;
-    $vars[] = "listing_id";
-    $vars[] = "listing_title";
-    $vars[] = "listing_price";
-    // sr prefixes are for the search form
-    $vars[] = "sr_minprice";
-    $vars[] = "sr_maxprice";
-    $vars[] = "sr_minbed";
-    $vars[] = "sr_maxbed";
-    $vars[] = "sr_minbath";
-    $vars[] = "sr_maxbath";
-    $vars[] = "sr_keywords";
-    $vars[] = "sr_ptype";
-    $vars[] = "retsd-listings";
-    return $vars;
-}
 
 
 // initialize any javascript and css files we need here
