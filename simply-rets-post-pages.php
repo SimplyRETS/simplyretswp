@@ -9,22 +9,19 @@
 
 
 /* Code starts here */
-add_action( 'init', array( 'SimplyRetsCustomPostPages', 'simplyRetsPostType' ) );
-
-add_filter( 'comments_template', array( 'SimplyRetsCustomPostPages', 'srClearComments' ) );
-add_filter( 'single_template',   array( 'SimplyRetsCustomPostPages', 'srLoadPostTemplate' ) );
-add_filter( 'the_content',       array( 'SimplyRetsCustomPostPages', 'srPostDefaultContent' ) );
-add_filter( 'the_posts',         array( 'SimplyRetsCustomPostPages', 'srCreateDynamicPost' ) );
-
-add_action( 'add_meta_boxes', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBox' ) );
-add_action( 'add_meta_boxes', array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBox' ) );
-
-add_action( 'save_post', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxSave' ) );
-add_action( 'save_post', array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBoxSave' ) );
-
+add_action( 'init',                  array( 'SimplyRetsCustomPostPages', 'simplyRetsPostType' ) );
+add_filter( 'comments_template',     array( 'SimplyRetsCustomPostPages', 'srClearComments' ) );
+add_filter( 'single_template',       array( 'SimplyRetsCustomPostPages', 'srLoadPostTemplate' ) );
+add_filter( 'the_content',           array( 'SimplyRetsCustomPostPages', 'srPostDefaultContent' ) );
+add_filter( 'the_posts',             array( 'SimplyRetsCustomPostPages', 'srCreateDynamicPost' ) );
+add_action( 'add_meta_boxes',        array( 'SimplyRetsCustomPostPages', 'postFilterMetaBox' ) );
+add_action( 'add_meta_boxes',        array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBox' ) );
+add_action( 'save_post',             array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxSave' ) );
+add_action( 'save_post',             array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBoxSave' ) );
 add_action( 'admin_init',            array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxCss' ) );
 add_action( 'admin_enqueue_scripts', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxJs' ) );
 // ^TODO: load css/js only on retsd-listings post type pages when admin
+//  and move these into a constructor
 
 
 class SimplyRetsCustomPostPages {
@@ -32,14 +29,14 @@ class SimplyRetsCustomPostPages {
     // Create our Custom Post Type
     public static function simplyRetsPostType() {
         $labels = array(
-            'name'          => __( 'Rets Pages' ),
-            'singular_name' => __( 'Rets Page' ),
-            'add_new_item'  => __( 'New Rets Page' ),
-            'edit_item'     => __( 'Edit Rets Page' ),
-            'new_item'      => __( 'New Rets Page' ),
-            'view_item'     => __( 'View Rets Page' ),
-            'all_items'     => __( 'All Rets Pages' ),
-            'search_items'  => __( 'Search Rets Pages' ),
+            'name'          => __( 'Simply Rets' ),
+            'singular_name' => __( 'Simply Rets Page' ),
+            'add_new_item'  => __( 'New Simply Rets Page' ),
+            'edit_item'     => __( 'Edit Simply Rets Page' ),
+            'new_item'      => __( 'New Simply Rets Page' ),
+            'view_item'     => __( 'View Simply Rets Page' ),
+            'all_items'     => __( 'All Simply Rets Pages' ),
+            'search_items'  => __( 'Search Simply Rets Pages' ),
         );
         $args = array(
             'public'          => true,
