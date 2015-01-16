@@ -107,26 +107,33 @@
     The admin can basically create a shortcode that stores a list of search
     parameters. Then they can embed the results of specific searches on any page
 *** TODO Provide a Search Form Widget to be put anywhere            :FEATURE:
-*** TODO Support for all propert types in search, pages, etc        :FEATURE:
-*** TODO Translate Interior and Exterior features into actual words :DOCUMENTATION:
+
+
+*** TESTING Support for all property types in search, pages, etc    :FEATURE:
+*** IN-PROGRESS Documentation for possible shortcode parameters     :DOCUMENTATION:
+
+*** WAITING  Translate Interior and Exterior features into words    :DOCUMENTATION:
     The response from rets is something like BCKYD, COVPT, SMOKE, etc
     Is there we can use to show better text with these?
+    [2015-01-15 Thu] - looks like this will be done server side and we'll
+    get a list of words
 
-*** TODO Documentation for possible shortcode parameters            :DOCUMENTATION:
 *** WISHLIST Add options for 'registered' search fields             :FEATURE:
     The admin should be able to choose which fields the user is able to search with.
     It could be any easy way to make construcable and custom search forms for any page.
 
+*** WISHLIST An admin panel option to display the search for on     :FEATURE:
+    search results pages
 
-*** TESTING Provide a Search Form Shortcode to be put anywhere
-*** TESTING Short code contraints to a certain listing id           :FEATURE:
+
+*** DONE Provide a Search Form Shortcode to be put anywhere
+*** DONE Short code contraints to a certain listing id              :FEATURE:
     Something like [sr_residential mlsid="22342"] or something
     to that effect will be necessary.
 
-
-*** DONE Create some slider to view all images on details page :FEATURE:TASK:
-*** DONE Format Price in results templates                             :TASK:
-*** DONE Create links to individual property pages         :FEATURE:RESEARCH:
+*** DONE Create some slider to view all images on details page      :FEATURE:TASK:
+*** DONE Format Price in results templates                          :TASK:
+*** DONE Create links to individual property pages                  :FEATURE:RESEARCH:
     CLOSED: [2015-01-09 Fri 15:59]
     - this should be working for shortcodes, but needs to also be working on
       Rets Pages (can use same code).
