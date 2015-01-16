@@ -128,8 +128,13 @@
 #sr-search-wrapper {
     padding: 0px;
     padding-top: 0px;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }
+
+#sr-search-wrapper form {
+    margin-bottom: 0px;
+}
+
 #sr-search-wrapper h3 {
     margin-top: 0px;
 }
