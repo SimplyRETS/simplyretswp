@@ -32,17 +32,14 @@ class SimplyRetsShortcodes {
 
 
     // [sr_openhouses] for all residential listings
+    // this is pulling condos and obviously needs to be pulling open houses
     function sr_openhouses_shortcode() {
-        ob_start();
-
-        ?> <!-- shortcode template here -->
-        <div id="openhouses">
-          <h2>Simply Rets Open Houses</h2>
-          <?php sr_openhouses(); ?>
-        </div>
-        <?php
-
-        return ob_get_clean();
+        $listing_params = array(
+            "type" => "cnd"
+        );
+        $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
+        $listing_content = "Sorry we could not find any open houses that match your search."
+        return $listings_content;
     }
 
 
