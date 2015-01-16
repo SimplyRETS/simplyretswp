@@ -11,6 +11,7 @@ require_once( plugin_dir_path(__FILE__) . 'simply-rets-shortcode.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-widgets.php' );
 
 
+
 if ( is_admin() ) {
     require_once( plugin_dir_path(__FILE__) . 'simply-rets-admin.php' );
     add_action( 'admin_init', array( 'SrAdminSettings', 'register_admin_settings' ) );
@@ -18,14 +19,17 @@ if ( is_admin() ) {
 }
 
 
+
 // initialize simply rets shortcodes
 add_shortcode('sr_residential', array( 'SimplyRetsShortcodes', 'sr_residential_shortcode') );
 add_shortcode('sr_openhouses',  array( 'SimplyRetsShortcodes', 'sr_openhouses_shortcode')  );
 add_shortcode('sr_search_form', array( 'SimplyRetsShortcodes', 'sr_search_form_shortcode') );
 
+add_action( 'widgets_init', 'srRegisterWidgets' );
+
+
 
 // initialize simply rets shortcodes
-add_action( 'widgets_init', 'srRegisterWidgets' );
 function srRegisterWidgets() {
     register_widget('sr_listing_widget');
 }
@@ -61,37 +65,3 @@ function init_js() {
     wp_enqueue_script('retsd', plugins_url('/js/retsd.js',__FILE__) );
 }
 add_action('wp_head', 'init_js');
-
-function sr_openhouses() {
-    $response = wp_remote_retrieve_body( wp_remote_get( 'http://54.187.230.155/openhouse' ) );
-    $response_json = json_decode( $response );
-    // ^ decodes response into an array of objects
-
-    foreach ( $response_json as $openhouse ) {
-
-        $start_date   = $openhouse->openHouseFromDate;
-        $end_date     = $openhouse->openHouseToDate;
-        $input_date   = $openhouse->openHouseInputDate;
-        $uid          = $openhouse->openHouseUid;
-        $input_id     = $openhouse->openHouseInputId;
-        $showing_type = $openhouse->openHouseType;
-        $refreshments = $openhouse->openHouseRefreshements;
-        $description  = $openhouse->openHouseDescription;
-
-        echo '<div>';
-
-        echo '<p>Start Date: '; echo $start_date; echo '</p>';
-        echo '<p>End Date: '; echo $end_date; echo '</p>';
-        echo '<p>Listing Date: '; echo $input_date; echo '</p>';
-        echo '<p>Uid: '; echo $uid; echo '</p>';
-        echo '<p>Input Id: '; echo $input_id; echo '</p>';
-        echo '<p>Showing Type: '; echo $showing_type; echo '</p>';
-        echo '<p>Refreshments: '; echo $refreshments; echo '</p>';
-        echo '<p>Description: '; echo $description; echo '</p>';
-
-        echo '</div>';
-        echo '<hr>';
-    }
-
-    echo '<pre><code>'; print_r( $response_json[0] ); echo '</pre></code>';
-}
