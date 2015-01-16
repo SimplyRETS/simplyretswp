@@ -7,7 +7,19 @@
  *
 */
 
+/*
+ * To add new widgets, extend the WP_Widget class  with a constructor,
+ * update, form, and widget function.
+ * To activate new widgets, simply add a line to register the widget
+ * in the srRegisterWidgets function - the rest is already initialized.
+*/
+
+
 /* Code starts here */
+function srRegisterWidgets() {
+    register_widget('sr_listing_widget');
+}
+
 
 class sr_listing_widget extends WP_Widget {
 

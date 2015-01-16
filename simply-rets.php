@@ -38,11 +38,6 @@ add_filter( 'query_vars', array( 'SimplyRetsCustomPostPages', 'srQueryVarsInit' 
 
 
 // initialize simply rets shortcodes
-function srRegisterWidgets() {
-    register_widget('sr_listing_widget');
-}
-
-
 // Custom Query variables we'll use to load the correct template and retrieve
 // data from RetsD
 
