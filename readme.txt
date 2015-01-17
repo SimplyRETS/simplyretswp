@@ -30,13 +30,13 @@ of your listings to show, and on which pages.
 
 The plugin also provides you extensions on many standard Wordpress features:
 * A custom 'Rets Listings' page type for creating pages with listing results.
-* Sidebar and footer widgets for Features Listings, Search, etc.
+* Sidebar and footer widgets for Featured Listings, Search, etc.
 * Plenty of short-codes for splicing your listings into any page or post.
 * Filters for searches, custom pages, etc.
 
 Simply Rets provides the fastest and most up-to-date solution for embedding your listings on your site. Simply Rets will update as frequently
-as every hour (or as frequent as your MLS provider allows). This means that your ahead of the competition and can have to fastest
-response time for dealing with interested prospects.
+as every hour (or as frequent as your MLS provider allows). This means that you're ahead of the competition and can have the fastest
+possible response time for dealing with interested prospects.
 
 This plugin is *fast*!. You don't have to worry about slowing down your website by pulling lots of data on every page load. The Simply
 Rets plugin is optimized to only load on the correct pages, and to only load the listings you choose. By doing this, you are able to
