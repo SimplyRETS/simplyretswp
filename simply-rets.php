@@ -28,12 +28,8 @@ add_action( 'widgets_init', 'srRegisterWidgets' );
 add_action( 'wp_enqueue_scripts', array( 'SimplyRetsApiHelper', 'simplyRetsClientCss' ) );
 add_filter( 'query_vars', array( 'SimplyRetsCustomPostPages', 'srQueryVarsInit' ) );
 
-register_activation_hook( __FILE__, 'srFlushRewriteRules' );
-register_deactivation_hook( __FILE__, 'srFlushRewriteRules' );
-
-function srFlushRewriteRules() {
-    flush_rewrite_rules();
-}
+register_activation_hook( __FILE__,   array('SimplyRetsCustomPostPages', 'srActivate' ) );
+register_deactivation_hook( __FILE__, array('SimplyRetsCustomPostPages', 'srDeactivate' ) );
 
 function init_js() {
     wp_enqueue_script('simply-rets-js', plugins_url('/js/simply-rets.js',__FILE__) );

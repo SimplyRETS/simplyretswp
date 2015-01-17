@@ -9,7 +9,7 @@
 
 
 /* Code starts here */
-add_action( 'init',                  array( 'SimplyRetsCustomPostPages', 'simplyRetsPostType' ) );
+add_action( 'init',                  array( 'SimplyRetsCustomPostPages', 'srRegisterPostType' ) );
 add_filter( 'comments_template',     array( 'SimplyRetsCustomPostPages', 'srClearComments' ) );
 add_filter( 'single_template',       array( 'SimplyRetsCustomPostPages', 'srLoadPostTemplate' ) );
 add_filter( 'the_content',           array( 'SimplyRetsCustomPostPages', 'srPostDefaultContent' ) );
@@ -26,8 +26,17 @@ add_action( 'admin_enqueue_scripts', array( 'SimplyRetsCustomPostPages', 'postFi
 
 class SimplyRetsCustomPostPages {
 
+    public static function srActivate() {
+        SimplyRetsCustomPostPages::srRegisterPostType();
+        flush_rewrite_rules();
+    }
+
+    public static function srDeactivate() {
+        flush_rewrite_rules();
+    }
+
     // Create our Custom Post Type
-    public static function simplyRetsPostType() {
+    public static function srRegisterPostType() {
         $labels = array(
             'name'          => __( 'Simply Rets' ),
             'singular_name' => __( 'Simply Rets Page' ),
