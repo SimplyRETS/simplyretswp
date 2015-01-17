@@ -80,7 +80,7 @@ class SimplyRetsApiHelper {
         $request = file_get_contents($url);
         $response_array = json_decode( $request );
 
-        if( $request === FALSE ) {
+        if( $request === FALSE || empty($response_array) ) {
             $error =
                 "Sorry, Simply Rets could not complete this search." .
                 "Please double check that your API credentials are valid " .
