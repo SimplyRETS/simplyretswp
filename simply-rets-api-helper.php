@@ -118,12 +118,12 @@ class SimplyRetsApiHelper {
         }
         // listing meta information
         $listing_modified = $listing->modified; // TODO: format date
-        $listing_parcel   = $listing->parcel; // probably don't need this
+        // $listing_parcel   = $listing->parcel; // probably don't need this
         $school_data      = $listing->school;
         $disclaimer       = $listing->disclaimer;
         $tax_data         = $listing->tax;
         $listing_uid      = $listing->mlsid;
-        $sales_data       = $listing->sales; //probably empty
+        // $sales_data       = $listing->sales; //probably empty
         $real_account     = $listing->realaccount; // probably don't need this
         // street address info
         $postal_code   = $listing->address->postalcode;
@@ -239,9 +239,11 @@ class SimplyRetsApiHelper {
                 <tr>
                   <td>List last modified</td>
                   <td>$listing_modified</td></tr>
+                <!--
                 <tr>
                   <td>Listing Parcel</td>
                   <td>$listing_parcel</td></tr>
+                -->
                 <tr>
                   <td>School Data</td>
                   <td>$school_data</td></tr>
@@ -254,9 +256,11 @@ class SimplyRetsApiHelper {
                 <tr>
                   <td>Listing Id</td>
                   <td>$listing_uid</td></tr>
+                <!--
                 <tr>
                   <td>Sales Data</td>
                   <td>$sales_data</td></tr>
+                -->
                 <tr>
                   <td>Real Account Data</td>
                   <td>$real_account</td></tr>
