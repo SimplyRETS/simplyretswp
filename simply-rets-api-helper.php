@@ -123,14 +123,14 @@ class SimplyRetsApiHelper {
 
         // Amenities
         $bedrooms         = $listing->property->bedrooms;
-        $bathsFull        = $listing->property->bathsfull;
-        $interiorFeatures = $listing->property->interiorfeatures;
+        $bathsFull        = $listing->property->bathsFull;
+        $interiorFeatures = $listing->property->interiorFeatures;
         $style            = $listing->property->style;
         $heating          = $listing->property->heating;
         $stories          = $listing->property->stories;
-        $exteriorFeatures = $listing->property->exteriorfeatures;
-        $yearBuilt        = $listing->property->yearbuild;
-        $lotSize          = $listing->property->lotsize; // might be empty
+        $exteriorFeatures = $listing->property->exteriorFeatures;
+        $yearBuilt        = $listing->property->yearBuilt;
+        $lotSize          = $listing->property->lotSize; // might be empty
         $fireplaces       = $listing->property->fireplaces;
         $subdivision      = $listing->property->subdivision;
         $roof             = $listing->property->roof;
@@ -156,30 +156,26 @@ class SimplyRetsApiHelper {
         }
         // listing meta information
         $listing_modified = $listing->modified; // TODO: format date
-        // $listing_parcel   = $listing->parcel; // probably don't need this
-        $school_data      = $listing->school;
+        $school_data      = $listing->school->name;
         $disclaimer       = $listing->disclaimer;
-        $tax_data         = $listing->tax;
-        $listing_uid      = $listing->mlsid;
-        // $sales_data       = $listing->sales; //probably empty
-        $real_account     = $listing->realaccount; // probably don't need this
+        $tax_data         = $listing->tax->id;
+        $listing_uid      = $listing->mlsId;
         // street address info
-        $postal_code   = $listing->address->postalcode;
+        $postal_code   = $listing->address->postalCode;
         $country       = $listing->address->country;
-        $address       = $listing->address->address;
+        $address       = $listing->address->full;
         $city          = $listing->address->city;
         // Listing Data
-        $showing_instructions = $listing->showinginstructions;
+        $showing_instructions = $listing->showingInstructions;
         $listing_office   = $listing->office->officename;
-        $listing_agent    = $listing->agent->id;
-        $list_date        = $listing->date;
-        $listing_price    = $listing->price;
+        $listing_agent    = $listing->listingAgent->mlsId;
+        $list_date        = $listing->listDate;
+        $listing_price    = $listing->listPrice;
         $listing_remarks  = $listing->remarks;
         // mls information
-        $mls_status     = $listing->mlsinfo->status;
-        $mls_area       = $listing->mlsinfo->area;
-        $mls_serving    = $listing->mlsinfo->servingname;
-        $days_on_market = $listing->mlsinfo->daysonmarket;
+        $mls_status     = $listing->mlsInformation->status;
+        $mls_area       = $listing->mlsInformation->area;
+        $days_on_market = $listing->mlsInformation->daysOnMarket;
 
         // listing markup
         $cont .= <<<HTML
@@ -277,11 +273,6 @@ class SimplyRetsApiHelper {
                 <tr>
                   <td>List last modified</td>
                   <td>$listing_modified</td></tr>
-                <!--
-                <tr>
-                  <td>Listing Parcel</td>
-                  <td>$listing_parcel</td></tr>
-                -->
                 <tr>
                   <td>School Data</td>
                   <td>$school_data</td></tr>
@@ -294,14 +285,6 @@ class SimplyRetsApiHelper {
                 <tr>
                   <td>Listing Id</td>
                   <td>$listing_uid</td></tr>
-                <!--
-                <tr>
-                  <td>Sales Data</td>
-                  <td>$sales_data</td></tr>
-                -->
-                <tr>
-                  <td>Real Account Data</td>
-                  <td>$real_account</td></tr>
               </tbody>
               <thead>
                 <tr>
@@ -353,9 +336,6 @@ class SimplyRetsApiHelper {
                 <tr>
                   <td>Mls Area</td>
                   <td>$mls_area</td></tr>
-                <tr>
-                  <td>Mls Service Name</td>
-                  <td>$mls_serving</td></tr>
               </tbody>
             </table>
           </div>
@@ -391,21 +371,21 @@ HTML;
 
         foreach ( $response as $listing ) {
             // id
-            $listing_uid      = $listing->mlsid;
+            $listing_uid      = $listing->mlsId;
             // Amenities
             $bedrooms    = $listing->property->bedrooms;
-            $bathsFull   = $listing->property->bathsfull;
-            $lotSize     = $listing->property->lotsize; // might be empty
+            $bathsFull   = $listing->property->bathsFull;
+            $lotSize     = $listing->property->lotSize; // might be empty
             $subdivision = $listing->property->subdivision;
-            $yearBuilt   = $listing->property->yearbuild;
+            $yearBuilt   = $listing->property->yearBuilt;
             // listing data
-            $listing_agent    = $listing->agent->id;
-            $listing_price    = $listing->price;
-            $list_date        = $listing->date;
+            $listing_agent    = $listing->listingAgent->mlsId;
+            $listing_price    = $listing->listPrice;
+            $list_date        = $listing->listDate;
             $listing_USD = '$' . number_format( $listing_price );
             // street address info
             $city    = $listing->address->city;
-            $address = $listing->address->address;
+            $address = $listing->address->full;
             // listing photos
             $listingPhotos = $listing->photos;
             if( empty( $listingPhotos ) ) {
@@ -494,21 +474,21 @@ HTML;
         }
 
         foreach ( $response as $listing ) {
-            $listing_uid      = $listing->mlsid;
+            $listing_uid      = $listing->mlsId;
             // Amenities
             $bedrooms    = $listing->property->bedrooms;
-            $bathsFull   = $listing->property->bathsfull;
-            $lotSize     = $listing->property->lotsize; // might be empty
+            $bathsFull   = $listing->property->bathsFull;
+            $lotSize     = $listing->property->lotSize; // might be empty
             $subdivision = $listing->property->subdivision;
-            $yearBuilt   = $listing->property->yearbuild;
+            $yearBuilt   = $listing->property->yearBuilt;
             // listing data
-            $listing_agent = $listing->agent->id;
-            $listing_price = $listing->price;
-            $list_date     = $listing->date;
+            $listing_agent = $listing->listingAgent->mlsId;
+            $listing_price = $listing->listPrice;
+            $list_date     = $listing->listDate;
             $listing_USD   = '$' . number_format( $listing_price );
             // street address info
             $city    = $listing->address->city;
-            $address = $listing->address->address;
+            $address = $listing->address->full;
             // listing photos
             $listingPhotos = $listing->photos;
             if( empty( $listingPhotos ) ) {
@@ -516,7 +496,7 @@ HTML;
             }
             $main_photo = $listingPhotos[0];
 
-            $mls_status    = $listing->mlsinfo->status;
+            $mls_status    = $listing->mlsInformation->status;
             $listing_remarks  = $listing->remarks;
             $listing_link = "/?retsd-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
             // append markup for this listing to the content
