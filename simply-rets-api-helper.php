@@ -156,7 +156,7 @@ class SimplyRetsApiHelper {
         }
         // listing meta information
         $listing_modified = $listing->modified; // TODO: format date
-        $school_data      = $listing->school->name;
+        $school_data      = $listing->school->district;
         $disclaimer       = $listing->disclaimer;
         $tax_data         = $listing->tax->id;
         $listing_uid      = $listing->mlsId;
@@ -167,15 +167,15 @@ class SimplyRetsApiHelper {
         $city          = $listing->address->city;
         // Listing Data
         $showing_instructions = $listing->showingInstructions;
-        $listing_office   = $listing->office->officename;
-        $listing_agent    = $listing->listingAgent->mlsId;
+        $listing_office   = $listing->office->name;
+        $listing_agent    = $listing->agent->id;
         $list_date        = $listing->listDate;
         $listing_price    = $listing->listPrice;
         $listing_remarks  = $listing->remarks;
         // mls information
-        $mls_status     = $listing->mlsInformation->status;
-        $mls_area       = $listing->mlsInformation->area;
-        $days_on_market = $listing->mlsInformation->daysOnMarket;
+        $mls_status     = $listing->mls->status;
+        $mls_area       = $listing->mls->area;
+        $days_on_market = $listing->mls->daysOnMarket;
 
         // listing markup
         $cont .= <<<HTML
@@ -379,7 +379,7 @@ HTML;
             $subdivision = $listing->property->subdivision;
             $yearBuilt   = $listing->property->yearBuilt;
             // listing data
-            $listing_agent    = $listing->listingAgent->mlsId;
+            $listing_agent    = $listing->agent->id;
             $listing_price    = $listing->listPrice;
             $list_date        = $listing->listDate;
             $listing_USD = '$' . number_format( $listing_price );
@@ -482,7 +482,7 @@ HTML;
             $subdivision = $listing->property->subdivision;
             $yearBuilt   = $listing->property->yearBuilt;
             // listing data
-            $listing_agent = $listing->listingAgent->mlsId;
+            $listing_agent = $listing->agent->id;
             $listing_price = $listing->listPrice;
             $list_date     = $listing->listDate;
             $listing_USD   = '$' . number_format( $listing_price );
@@ -496,7 +496,7 @@ HTML;
             }
             $main_photo = $listingPhotos[0];
 
-            $mls_status    = $listing->mlsInformation->status;
+            $mls_status    = $listing->mls->status;
             $listing_remarks  = $listing->remarks;
             $listing_link = "/?retsd-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
             // append markup for this listing to the content
