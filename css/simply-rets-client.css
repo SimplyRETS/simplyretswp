@@ -26,7 +26,7 @@
     width: 30%;
     overflow: hidden;
     background-size: cover;
-    background-position: 0;
+    background-position: center center;
     background-repeat: no-repeat;
 }
 
