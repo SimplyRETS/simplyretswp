@@ -40,8 +40,23 @@ class SimplyRetsApiHelper {
         return $response_markup;
     }
 
+
+    /*
+     * This function build a URL from a set of parameters that we'll use to
+     * requst our listings from the Simply Rets API.
+     *
+     * @params is either an associative array in the form of [filter] => "val"
+     * or it is a single listing id as a string, ie "123456".
+     *
+     * query variables for filtering will always come in as an array, so it
+     * this is true, we can build a query off the standard /properties URL.
+     *
+     * If we do /not/ get an array, thenw we know we are requesting a single
+     * listing, so we can just build the url with /properties/{ID}
+     *
+     * base url for local development: http://localhost:3001/properties
+    */
     public static function srRequestUrlBuilder( $params ) {
-        // $base_url = 'http://localhost:3001/properties';
         $authid   = get_option( 'sr_api_name' );
         $authkey  = get_option( 'sr_api_key' );
         $base_url = "http://{$authid}:{$authkey}@54.187.230.155/properties";
@@ -65,6 +80,18 @@ class SimplyRetsApiHelper {
         $request = file_get_contents($url);
         $response_array = json_decode( $request );
 
+        if( $request === FALSE ) {
+            $error =
+                "Sorry, Simply Rets could not complete this search." .
+                "Please double check that your API credentials are valid " .
+                "and that the search filters you used are correct. If this " .
+                "is a new listing, you may also try back later.";
+            $response_err = array(
+                "error" => $error
+            );
+            return  $response_err;
+        }
+
         return $response_array;
     }
 
@@ -82,6 +109,17 @@ class SimplyRetsApiHelper {
     public static function srResidentialDetailsGenerator( $listing ) {
         $br = "<br>";
         $cont = "";
+
+        /*
+         * check for an error code in the array first, if it's
+         * there, return it - no need to do anything else.
+         * The error code comes from the UrlBuilder function.
+        */
+        if( array_key_exists( "error", $listing ) ) {
+            $error = $listing['error'];
+            $cont .= "<hr><p>{$error}</p>";
+            return $cont;
+        }
 
         // Amenities
         $bedrooms         = $listing->property->bedrooms;
@@ -334,6 +372,18 @@ HTML;
         // echo '<pre><code>';
         // var_dump( $response );
         // echo '</pre></code>';
+
+        /*
+         * check for an error code in the array first, if it's
+         * there, return it - no need to do anything else.
+         * The error code comes from the UrlBuilder function.
+        */
+        if( array_key_exists( "error", $response ) ) {
+            $error = $response['error'];
+            $response_markup = "<hr><p>{$error}</p>";
+            return $response_markup;
+        }
+
         $response_size = sizeof( $response );
         if( $response_size <= 1 ) {
             $response = array( $response );
@@ -426,6 +476,18 @@ HTML;
         // echo '<pre><code>';
         // var_dump( $response );
         // echo '</pre></code>';
+
+        /*
+         * check for an error code in the array first, if it's
+         * there, return it - no need to do anything else.
+         * The error code comes from the UrlBuilder function.
+        */
+        if( array_key_exists( "error", $response ) ) {
+            $error = $response['error'];
+            $response_markup = "<hr><p>{$error}</p>";
+            return $response_markup;
+        }
+
         $response_size = sizeof( $response );
         if( $response_size <= 1 ) {
             $response = array( $response );
