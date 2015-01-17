@@ -323,7 +323,7 @@ class SimplyRetsCustomPostPages {
             return;
         }
         if ( $post->post_type == 'retsd-listings') {
-            return dirname(__FILE__) . '/comments-template.php';
+            return dirname(__FILE__) . '/simply-rets-comments-template.php';
         }
     }
 
