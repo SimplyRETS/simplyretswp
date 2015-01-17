@@ -92,10 +92,6 @@
 
 
 * TODO-TRACKER
-*** TODO Flush permalink settings when plugin is activated         :BUG:TASK:
-    If the permalinks aren't flushed when Simply Rets is activated
-    and the site has 'pretty permalinks' enabled, the Simply Rets
-    pages will 404. A good example of how to do this is in dsIDX
 *** TODO Either default or optional contact form on details pages   :FEATURE:
     There def needs to be a contact form on single listing details
     pages. Either option or default I think will be ok. If it's
@@ -109,6 +105,10 @@
 *** TODO Provide a Search Form Widget to be put anywhere            :FEATURE:
 
 
+*** TESTING Flush permalink settings when plugin is activated       :BUG:TASK:
+    If the permalinks aren't flushed when Simply Rets is activated
+    and the site has 'pretty permalinks' enabled, the Simply Rets
+    pages will 404. A good example of how to do this is in dsIDX
 *** TESTING Support for all property types in search, pages, etc    :FEATURE:
 *** IN-PROGRESS Documentation for possible shortcode parameters     :DOCUMENTATION:
 
