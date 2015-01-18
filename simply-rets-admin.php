@@ -77,6 +77,11 @@ class SrAdminSettings {
             <a href="http://simplyrets.com">Simply Rets Wordpress Plugin Documentation</a> |
             <a href="http://simplyrets.com">Simply Rets API Documentation</a> |
             <a href="http://simplyrets.com">Simply Rets Support</a>
+          </p>
+          <p>
+             For additional support, you can also email us at 
+             <a href="mailto:support@simplyrets.com">support@simplyrets.com</a>
+          </p>
       </div> <?php
   }
 } ?>
