@@ -279,7 +279,7 @@ class SimplyRetsCustomPostPages {
         $current_template = get_post_meta( $post->ID, 'sr_page_template', true);
         $template_options = get_page_templates();
 
-        $box_label = '<label class="sr-filter-meta-box" for="sr_page_template">Page Template</label>';
+        $box_label = '<label class="sr-filter-meta-box" for="sr_page_template">Page Template</label><br />';
         $box_select = '<select name="sr_page_template" id="sr-page-template-select">';
         $box_default_option = '<option value="">Default Template</option>';
         $box_option = '';
