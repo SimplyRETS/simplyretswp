@@ -1,23 +1,61 @@
 /*
- *
- * simply-rets-client.css - Copyright (C) Reichert Brothers 2014
- *
- * This file provides the stylesheets for all client side Simply
- * Rets components, including Custom Post Pages, shortcode markup,
- * and widgets. It does not, however, include styles for the admin
- * panel.
- *
+Simply Rets Client Stylesheet
+====
+
+*simply-rets-client.css - Copyright (C) Reichert Brothers 2014*
+*Licensed under the GNU GPL version 3 or later.*
+
+This file provides the stylesheets for all client side Simply
+Rets components, including Custom Post Pages, shortcode markup,
+and widgets. It does not, however, include styles for the admin
+panel.
+
+Below you can view the classes and id's used to style the output
+of the Simply Rets Wordpress plugin.  You can modify the base
+styles of any of these elements to your liking, and this should
+help you find what you need to change.
 */
 
-/* --------------- */
-/* Listing Results */
-/* --------------- */
+/*
+Listing Results
+===
+
+`sr-listing` is the main class wrapping each result on a page
+with mulitple listings (ie - search results pages).
+
+It only contains properties for size and display - and wraps classes
+with more specificity.You can change height, width, and other general
+sizes with this class.
+
+```
+    <div class="sr-listing" style="border:solid 1px black;">
+      Listing information
+    </div>
+```
+
+*/
 .sr-listing {
     position: relative;
     display: block;
-    height: 200px;
 }
 
+/*
+Result photo
+--- 
+
+`sr-photo` affects the properties of the thumbnail image
+shown for listing results.
+
+For any changes to the placement, size, animations, etc
+of the image, use this class.
+
+```
+    <div class="sr-listing">
+      <div class="sr-photo" style="background-image:url('http://placehold.it/350x350.jpg');">
+    </div>
+```
+
+*/
 .sr-photo {
     position: relative;
     display: inline-block;
@@ -30,6 +68,32 @@
     background-repeat: no-repeat;
 }
 
+/*
+Primary Data
+--- 
+
+`sr-primary-data` is that banner that displays the listing
+address and price.
+
+Utilizing this class is useful for changing colors, size, position,
+borders, etc for the primary listing data on results pages.
+
+The font and size will be handled by your theme.
+
+```
+    <div class="sr-listing">
+      <div class="sr-photo" style="background-image:url('http://placehold.it/350x350.jpg');">
+      </div>
+      <div class="sr-primary-data">
+        <a href="$listing_link">
+          <h4>1234 Listing Address
+          <span id="sr-price"><i>$1,000,000</i></span></h4>
+        </a>
+      </div>
+    </div>
+```
+
+*/
 .sr-primary-data {
     width: 70%;
     display: inline-block;
@@ -38,27 +102,134 @@
 }
 .sr-primary-data h4 {
     padding-left: 15px;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
 }
 
+/*
+Secondary Data
+--- 
+
+`sr-secondary-data` contains the additional listing details beneath
+the primary data banner.
+
+You can use this class to show or hide pieces of data, change the size,
+position or font. Amongts anything else you may want to do with this section.
+
+The font and size will be handled by your theme.
+
+```
+    <div class="sr-listing">
+      <div class="sr-photo" style="background-image:url('http://placehold.it/350x350.jpg');">
+      </div>
+      <div class="sr-primary-data">
+        <a href="$listing_link">
+          <h4>1234 Listing Address
+          <span id="sr-price"><i>$1,000,000</i></span></h4>
+        </a>
+      </div>
+      <div class="sr-secondary-data">
+        <ul class="sr-data-column">
+          <li>
+            <span>$bedrooms Bedrooms</span>
+          </li>
+          <li>
+            <span>$bathsFull Full Baths</span>
+          </li>
+          <li>
+            <span>$lotSize Sq Ft</span>
+          </li>
+          <li>
+            <span>Built in $yearBuilt</span>
+          </li>
+        </ul>
+        <ul class="sr-data-column">
+          <li>
+            <span>In the $subdivision Subdivision</span>
+          </li>
+          <li>
+            <span>The City of $city</span>
+          </li>
+          <li>
+            <span>Listed by $listing_agent</span>
+          </li>
+          <li>
+            <span>Listed on $list_date</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+```
+
+*/
 .sr-secondary-data {
     display: inline-block;
     vertical-align: top;
     padding-top: 10px;
     width: 70%;
 }
-
+/*
+Notice that we also provide you with `sr-data-column` for
+managing the spacing and margin between the two columns of
+secondary data. For example, set the `.sr-data-column` to 
+`display: block` to make the two columns into one.
+*/
 .sr-data-column {
     display: inline-block;
     margin: 0px 0px 10px 25px !important;
 }
 
-/* --------------- */
-/* listing details */
-/* --------------- */
+
+
+/*
+Listing Details
+===
+
+`sr-details` is the main class wrapping each **single** listing
+details. This class is only on single list pages.
+
+This class is also just a main wrapper that should only be used
+for manipulating size/display/color properties.
+The initial height is dependent on the content.
+
+```
+    <div class="sr-details">
+      Listing details
+    </div>
+```
+*/
+
 .sr-details th {
     background-color: #eee;
 }
 
+/*
+Listing Primary Details
+---
+
+`sr-primary-details` is the section on single listing pages just
+below the slider. It contains property information like Bedrooms,
+Baths, Lot Size, and MLS id. 
+
+You can show/hide or change any other properties about this area.
+
+```
+    <div class="sr-primary-details">
+      <div class="sr-detail" id="sr-primary-details-beds">
+        <h3>3 <small>Beds</small></h3>
+      </div>
+      <div class="sr-detail" id="sr-primary-details-baths">
+        <h3>2 <small>Baths</small></h3>
+      </div>
+      <div class="sr-detail" id="sr-primary-details-size">
+        <h3>2500 <small>SqFt</small></h3>
+      </div>
+      <div class="sr-detail" id="sr-primary-details-status">
+        <h3>active</h3>
+      </div>
+    </div>
+```
+*/
 .sr-primary-details {
   display: flex;
   justify-content: space-between;
@@ -66,6 +237,32 @@
   padding-top: 15px;
 }
 
+/*
+
+Within this class you can see that we even have a separate class to
+access the details individually. Modify these as you wish using either
+the class or the id, depending on the specificity you need.
+
+```
+    <div class="sr-primary-details">
+      <div class="sr-detail" id="sr-primary-details-beds">
+        <h3>3 <small>Beds</small></h3>
+      </div>
+      <div class="sr-detail" id="sr-primary-details-baths">
+        <h3>2 <small>Baths</small></h3>
+      </div>
+      <div class="sr-detail" id="sr-primary-details-size">
+        <h3>2500 <small>SqFt</small></h3>
+      </div>
+      <div class="sr-detail" id="sr-primary-details-status">
+        <h3>active</h3>
+      </div>
+    </div>
+    <div class="sr-remarks-details">
+      <p>Here's a long paragraph with more information about the listing.</p>
+    </div>
+```
+*/
 .sr-primary-details .sr-detail {
     text-align: center;
     width: 100%;
@@ -88,9 +285,44 @@
     line-height: 20px !important;
 }
 
-/* --------------------- */
-/* single listing widget */
-/* --------------------- */
+/*
+Featured Listing Widget
+===
+
+`sr-listing-wdgt` is the wrapper for the Featured Listing widget,
+which follows pretty much the same patters we've seen so far.
+
+Mostly it will inherit the styles your theme uses for Widgets.
+
+```
+    <div class="sr-listing-wdgt" style="max-width: 300px;">
+      <a href="$listing_link">
+        <h5>123 Test Widget
+          <small> - $500,000</small>
+        </h5>
+      </a>
+      <a href="">
+        <img src="http://placehold.it/350x350.jpg" width="100%" alt="">
+      </a>
+      <div class="sr-listing-wdgt-primary">
+        <div id="sr-listing-wdgt-details">
+          <span>2 Bed | 2 Bath | active</span>
+        </div>
+        <hr>
+        <div id="sr-listing-wdgt-remarks">
+          <p>Some lines about this listing</p>
+        </div>
+      </div>
+      <div id="sr-listing-wdgt-btn">
+        <a href="$listing_link">
+          <button class="button real-btn">
+            More about this listing
+          </button>
+        </a>
+      </div>
+    </div>
+```
+*/
 .sr-listing-wdgt {
     padding-left: 10px;
     padding-right: 10px;
@@ -126,9 +358,69 @@
 }
 
 
-/* -------------------------- */
-/* search form from shortcode */
-/* -------------------------- */
+/*
+Search Form
+===
+
+Much like a lot of the other components, your theme will handle most of
+the styling for this.
+
+However you can use any classes or id's insde of the `sr-search-form-wrapper`
+class to show/hide/move/etc any of the search form components.
+
+The backend search should still work with most search form modifications.
+
+```
+        <div id="sr-search-wrapper">
+          <h3>Search Listings</h3>
+          <form method="get" class="sr-search" action="<?php echo $home_url; ?>">
+            <input type="hidden" name="retsd-listings" value="sr-search">
+
+            <div class="sr-minmax-filters">
+              <div class="sr-search-field" id="sr-search-keywords">
+                <input name="sr_keywords" type="text" placeholder="Keywords" />
+              </div>
+
+              <div class="sr-search-field" id="sr-search-ptype">
+                <select name="sr_ptype">
+                  <option value="">-- Property Type --</option>
+                  <option value="res">Residential</option>
+                  <option value="cnd">Condo</option>
+                  <option value="rnt">Rental</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="sr-minmax-filters">
+              <div class="sr-search-field" id="sr-search-minprice">
+                <input name="sr_minprice" type="text" placeholder="Min Price.." />
+              </div>
+              <div class="sr-search-field" id="sr-search-maxprice">
+                <input name="sr_maxprice" type="text" placeholder="Max Price.." />
+              </div>
+
+              <div class="sr-search-field" id="sr-search-minbed">
+                <input name="sr_minbed" type="text" placeholder="Min Beds.." />
+              </div>
+              <div class="sr-search-field" id="sr-search-maxbed">
+                <input name="sr_maxbed" type="text" placeholder="Max Beds.." />
+              </div>
+
+              <div class="sr-search-field" id="sr-search-minbath">
+                <input name="sr_minbath" type="text" placeholder="Min Baths.." />
+              </div>
+              <div class="sr-search-field" id="sr-search-maxbath">
+                <input name="sr_maxbath" type="text" placeholder="Max Baths.." />
+              </div>
+            </div>
+
+            <input class="submit real-btn" type="submit" value="Seach Properties">
+
+          </form>
+        </div>
+```
+*/
+
 #sr-search-wrapper {
     padding: 0px;
     padding-top: 0px;
@@ -147,26 +439,25 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 10px;
 }
 
-/* keywords */
 #sr-search-keywords {
-    width: 75%;
+    width: 70%;
 }
 #sr-search-keywords input {
     width: 100%;
 }
 
-/* property type */
 #sr-search-ptype {
     width: 25%;
-    text-align: right;
+    text-align: left;
 }
 #sr-search-ptype select {
     width: 90%;
+    vertical-align: middle;
 }
 
-/* property type input */
 #sr-search-minprice,
 #sr-search-maxprice,
 #sr-search-minbath,
@@ -182,15 +473,28 @@
 #sr-search-maxbath input,
 #sr-search-minbed input,
 #sr-search-maxbed input {
-    width: 80%;
+    width: 90%;
 }
 .sr-search-field {
     display: inline-block;
 }
 
-/* ---------------------- */
-/* Listing Details Slider */
-/* ---------------------- */
+#sr-search-wrapper .submit {
+    margin-top: 10px;
+}
+
+/*
+Image Slider - Listing Details
+===
+
+The image slider on single listing pages is powered by
+pure css (meaning you can style it)!
+
+It's a bit more complicated, but it is idiomatic to the rest
+of the class structure used, so if you've already made changes
+elsewhere, this should be a breeze.
+
+*/
 .slider{
     width: 650px;
     position: relative;
