@@ -9,8 +9,6 @@
 
 jQuery(function() {
 
-  console.log("This is simply-rets-admin.js");
-
   // create jquery objects for all of our different input boxes
   var minPriceFilterInput = jQuery('#sr-min-price-span');
   var maxPriceFilterInput = jQuery('#sr-max-price-span');
