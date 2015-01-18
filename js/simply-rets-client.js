@@ -1,14 +1,16 @@
 /*
  *
- * simply-rets.js
- * A Javascript library for Reichert Brothers RETSD API
- * Copyright (c) Reichert Brothers 2014
+ * simply-rets-client.js - Copyright (c) Reichert Brothers 2014
+ *
+ * This file provides the (minimal) client side javascript for the
+ * Simply Rets Wordpress plugin. 
+ * 
+ * Author: Cody Reichert, Reichert Brothers
+ * License: GPLv3 (http://www.gnu.org/licenses/gpl.html)
  *
  */
 
 jQuery(document).ready(function() {
-
-  // jQuery('#id0').attr('checked', 'checked');
 
   // Single Listing Image Slider
   jQuery(".sr-slider-input").click(function() {

@@ -102,6 +102,11 @@ class SimplyRetsApiHelper {
         wp_enqueue_style( 'simply-rets-client-css' );
     }
 
+    public static function simplyRetsClientJs() {
+        wp_register_script( 'simply-rets-client-js', plugins_url( 'js/simply-rets-client.js', __FILE__ ) );
+        wp_enqueue_script( 'simply-rets-client-js' );
+    }
+
     // generate markup for a single listing's details page
     public static function srResidentialDetailsGenerator( $listing ) {
         $br = "<br>";

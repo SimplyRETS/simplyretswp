@@ -23,14 +23,10 @@ add_shortcode( 'sr_residential', array( 'SimplyRetsShortcodes', 'sr_residential_
 add_shortcode( 'sr_openhouses',  array( 'SimplyRetsShortcodes', 'sr_openhouses_shortcode' ) );
 add_shortcode( 'sr_search_form', array( 'SimplyRetsShortcodes', 'sr_search_form_shortcode' ) );
 
-add_action( 'wp_head', 'init_js' );
 add_action( 'widgets_init', 'srRegisterWidgets' );
 add_action( 'wp_enqueue_scripts', array( 'SimplyRetsApiHelper', 'simplyRetsClientCss' ) );
+add_action( 'wp_enqueue_scripts', array( 'SimplyRetsApiHelper', 'simplyRetsClientJs' ) );
 add_filter( 'query_vars', array( 'SimplyRetsCustomPostPages', 'srQueryVarsInit' ) );
 
 register_activation_hook( __FILE__,   array('SimplyRetsCustomPostPages', 'srActivate' ) );
 register_deactivation_hook( __FILE__, array('SimplyRetsCustomPostPages', 'srDeactivate' ) );
-
-function init_js() {
-    wp_enqueue_script('simply-rets-js', plugins_url('/js/simply-rets.js',__FILE__) );
-}
