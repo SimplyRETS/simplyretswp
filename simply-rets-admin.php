@@ -63,6 +63,13 @@ class SrAdminSettings {
           </table>
           <?php submit_button(); ?>
         </form>
+        <div>
+          <span>
+            <i>Note - to use the Simply Rets demo data, you can use these  API credentials: </i>
+            <strong>API Username: </strong><span>simplyrets</span>
+            <strong>API Key: </strong><span>simplyrets</span>
+          </span>
+        <div>
         <hr>
         <div class="sr-doc-links">
           <p>
