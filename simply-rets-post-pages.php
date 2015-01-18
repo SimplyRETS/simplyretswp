@@ -233,8 +233,8 @@ class SimplyRetsCustomPostPages {
         </div>
         <?php
 
-        echo '<br>Current filters: <br>'; print_r( $sr_filters );
-        echo '<br>';
+        // echo '<br>Current filters: <br>'; print_r( $sr_filters );
+        // echo '<br>';
         // ^TODO: Remove degbug
 
         // on page load, if there are any filters already saved, load them,
