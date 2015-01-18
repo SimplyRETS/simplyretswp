@@ -6,8 +6,6 @@
  *
  */
 
-console.log("This is RETSD");
-
 jQuery(document).ready(function() {
 
   // jQuery('#id0').attr('checked', 'checked');
