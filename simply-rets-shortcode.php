@@ -52,7 +52,7 @@ class SimplyRetsShortcodes {
         <div id="sr-search-wrapper">
           <h3>Search Listings</h3>
           <form method="get" class="sr-search" action="<?php echo $home_url; ?>">
-            <input type="hidden" name="retsd-listings" value="sr-search">
+            <input type="hidden" name="sr-listings" value="sr-search">
 
             <div class="sr-minmax-filters">
               <div class="sr-search-field" id="sr-search-keywords">

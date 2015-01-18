@@ -20,7 +20,7 @@ add_action( 'save_post',             array( 'SimplyRetsCustomPostPages', 'postFi
 add_action( 'save_post',             array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBoxSave' ) );
 add_action( 'admin_init',            array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxCss' ) );
 add_action( 'admin_enqueue_scripts', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxJs' ) );
-// ^TODO: load css/js only on retsd-listings post type pages when admin
+// ^TODO: load css/js only on sr-listings post type pages when admin
 //  and move these into a constructor
 
 
@@ -60,7 +60,7 @@ class SimplyRetsCustomPostPages {
             'supports'        => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
             'rewrite'         => true
         );
-        register_post_type( 'retsd-listings', $args );
+        register_post_type( 'sr-listings', $args );
     }
 
     public static function srQueryVarsInit( $vars ) {
@@ -77,7 +77,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_maxbath";
         $vars[] = "sr_keywords";
         $vars[] = "sr_ptype";
-        $vars[] = "retsd-listings";
+        $vars[] = "sr-listings";
         return $vars;
     }
 
@@ -86,7 +86,7 @@ class SimplyRetsCustomPostPages {
             'sr-meta-box-filter'
             , __( 'Filter Results on This Page', 'sr-textdomain')
             , array('SimplyRetsCustomPostPages', 'postFilterMetaBoxMarkup')
-            , 'retsd-listings'
+            , 'sr-listings'
             , 'normal'
             , 'high'
         );
@@ -97,7 +97,7 @@ class SimplyRetsCustomPostPages {
              'sr-template-meta-box'
              , __('Page Template', 'sr-textdomain')
              , array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBoxMarkup' )
-             , 'retsd-listings'
+             , 'sr-listings'
              , 'side'
              , 'core'
         );
@@ -325,7 +325,7 @@ class SimplyRetsCustomPostPages {
         if ( !( is_singular() && ( have_comments() || 'open' == $post->comment_status ) ) ) {
             return;
         }
-        if ( $post->post_type == 'retsd-listings') {
+        if ( $post->post_type == 'sr-listings') {
             return dirname(__FILE__) . '/simply-rets-comments-template.php';
         }
     }
@@ -333,7 +333,7 @@ class SimplyRetsCustomPostPages {
 
     public static function srLoadPostTemplate() {
         $query_object = get_queried_object();
-        $sr_post_type = 'retsd-listings';
+        $sr_post_type = 'sr-listings';
         $page_template = get_post_meta( $query_object->ID, 'sr_page_template', true );
 
 
@@ -357,9 +357,9 @@ class SimplyRetsCustomPostPages {
     public static function srPostDefaultContent( $content, $post ) {
         require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
         $post_type = get_post_type();
-        $page_name = get_query_var( 'retsd-listings' );
+        $page_name = get_query_var( 'sr-listings' );
 
-        $sr_post_type = 'retsd-listings';
+        $sr_post_type = 'sr-listings';
         $br = '<br>';
 
         if ( $page_name == 'sr-single' ) {
@@ -426,7 +426,7 @@ class SimplyRetsCustomPostPages {
 
         // if we catch a singlelisting query, create a new post on the fly
         global $wp_query;
-        if( $wp_query->query['retsd-listings'] == "sr-single" ) {
+        if( $wp_query->query['sr-listings'] == "sr-single" ) {
             $post_id    = get_query_var( 'listing_id' );
             $post_addr  = get_query_var( 'listing_title', 'none' );
             $post_price = get_query_var( 'listing_price', '' );
@@ -447,14 +447,14 @@ class SimplyRetsCustomPostPages {
                 "post_parent"    => 0,
                 "post_status"    => "publish",
                 "post_title"     => $post_title,
-                "post_type"      => "retsd-listings"
+                "post_type"      => "sr-listings"
             );
 
             $posts = array( $post );
             return $posts;
         }
         // if we catch a search results query, create a new post on the fly
-        if( $wp_query->query['retsd-listings'] == "sr-search" ) {
+        if( $wp_query->query['sr-listings'] == "sr-search" ) {
             $post_id = get_query_var( 'sr_minprice', '9998' );
 
             $post = (object)array(
@@ -469,7 +469,7 @@ class SimplyRetsCustomPostPages {
                 "post_parent"    => 0,
                 "post_status"    => "publish",
                 "post_title"     => "Search Results",
-                "post_type"      => "retsd-listings"
+                "post_type"      => "sr-listings"
             );
 
 		    $posts = array( $post );
