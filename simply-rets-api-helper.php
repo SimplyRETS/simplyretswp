@@ -98,14 +98,11 @@ class SimplyRetsApiHelper {
 
 
     public static function simplyRetsClientCss() {
-        // TODO We possibly might not want to have dependencies depent
-        // on the directory name - I think there's a better way.
-        $css_path = plugins_url( '/rets/css/simply-rets-client.css' );
-        wp_register_style( 'simply-rets-client-css', $css_path );
+        wp_register_style( 'simply-rets-client-css', plugins_url( 'css/simply-rets-client.css', __FILE__ ) );
         wp_enqueue_style( 'simply-rets-client-css' );
     }
 
-    // generate markup for a SINGLE listing's details page
+    // generate markup for a single listing's details page
     public static function srResidentialDetailsGenerator( $listing ) {
         $br = "<br>";
         $cont = "";
