@@ -1,4 +1,4 @@
-* WP Rets
+* WP Simply Rets
   The official repository for the Simply Rets Wordpress plugin.
 
   Simply Rets enables you to embed *your* real estate listings directly
