@@ -10,7 +10,7 @@ console.log("This is RETSD");
 
 jQuery(document).ready(function() {
 
-  jQuery('#id0').attr('checked', 'checked');
+  // jQuery('#id0').attr('checked', 'checked');
 
   // Single Listing Image Slider
   jQuery(".sr-slider-input").click(function() {
