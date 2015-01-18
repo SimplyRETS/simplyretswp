@@ -87,14 +87,16 @@
         Example: [sr_residential mlsid="123456"]
 
 
-*** /COMING SOON/ Widgets
+*** Widgets
     Simple Rets provides two widgets you can use just like any other widget
     on your site.
 
-    *Search Widget:* Use the Search Widget to embed a small search form in
-    your sidebar or elsewhere.
-
     *Listing Widget:* Use the Listing Widget to embed a single Rets listing
     in your sidebar or elsewhere.
+
+**** Widgets Coming Soon
+     *Search Widget:* Use the Search Widget to embed a small search form in
+     your sidebar or elsewhere.
+
 
 
