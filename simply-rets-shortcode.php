@@ -61,7 +61,7 @@ class SimplyRetsShortcodes {
 
               <div class="sr-search-field" id="sr-search-ptype">
                 <select name="sr_ptype">
-                  <option value="">-- Property Type --</option>
+                  <option value="">Property Type</option>
                   <option value="res">Residential</option>
                   <option value="cnd">Condo</option>
                   <option value="rnt">Rental</option>
