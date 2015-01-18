@@ -1,22 +1,29 @@
-#+OPTIONS: H:1
-#+TODO: TODO(t) IN-PROGRESS(i) TESTING(x) WISHLIST(s) WAITING(w) DONE(d) DOCUMENT(D)
-#+TAGS: FEATURE(f) BUG(b) DOCUMENTATION(d) RESEARCH(r) TASK(t) REFACTOR(c)
-
-
 * WP Rets
-  A Wordpress plugin for integrating the Reichert Brothers RetsD API into your
-  wordpress site.
+  The official repository for the Simply Rets Wordpress plugin.
+
+  Simply Rets enables you to embed *your* real estate listings directly
+  on your site, with minimal setup and hassle.
+
+  This the official Wordpress Plugin for Simply Rets. It connects Wordpress sites
+  to your Simply Rets account and feeds your properties directly to the Wordpress
+  pages you choose. Read on to find out more about how it works.
 
 ** Installation
    1) Clone this repo in any Wordpress site's =wp-content/plugins/= directory
    and activate it through Plugins page of the admin panel.
    2) Enter your Simply Rets API Credentials in the WP Admin Panel.
       (see *Admin Settings*)
+      
+      Note: the plugin also provides API credentials for demo listing data, so you can
+      try it out on your Wordpress site. To get the credentials, install the plugin and
+      look in the admin panel.
+      
 
 ** Admin Settings
     Set your API credentials in the admin panel (=Options -> RetsD=)
     - API name
     - API key
+
 
 ** Getting Started 
 
@@ -91,49 +98,3 @@
     in your sidebar or elsewhere.
 
 
-* TODO-TRACKER
-*** TODO Either default or optional contact form on details pages   :FEATURE:
-    There def needs to be a contact form on single listing details
-    pages. Either option or default I think will be ok. If it's
-    default we'll have to figure out how to send notifications maybe?
-*** TODO Short code contraints to a certain amount of results       :FEATURE:
-    Something like [sr_residential max_results="2"] or something
-    to that effect will be necessary.
-*** TODO Ability to create custom searches                          :FEATURE:
-    The admin can basically create a shortcode that stores a list of search
-    parameters. Then they can embed the results of specific searches on any page
-*** TODO Provide a Search Form Widget to be put anywhere            :FEATURE:
-
-
-*** TESTING Flush permalink settings when plugin is activated       :BUG:TASK:
-    If the permalinks aren't flushed when Simply Rets is activated
-    and the site has 'pretty permalinks' enabled, the Simply Rets
-    pages will 404. A good example of how to do this is in dsIDX
-*** TESTING Support for all property types in search, pages, etc    :FEATURE:
-*** IN-PROGRESS Documentation for possible shortcode parameters     :DOCUMENTATION:
-
-*** WAITING  Translate Interior and Exterior features into words    :DOCUMENTATION:
-    The response from rets is something like BCKYD, COVPT, SMOKE, etc
-    Is there we can use to show better text with these?
-    [2015-01-15 Thu] - looks like this will be done server side and we'll
-    get a list of words
-
-*** WISHLIST Add options for 'registered' search fields             :FEATURE:
-    The admin should be able to choose which fields the user is able to search with.
-    It could be any easy way to make construcable and custom search forms for any page.
-
-*** WISHLIST An admin panel option to display the search for on     :FEATURE:
-    search results pages
-
-
-*** DONE Provide a Search Form Shortcode to be put anywhere
-*** DONE Short code contraints to a certain listing id              :FEATURE:
-    Something like [sr_residential mlsid="22342"] or something
-    to that effect will be necessary.
-
-*** DONE Create some slider to view all images on details page      :FEATURE:TASK:
-*** DONE Format Price in results templates                          :TASK:
-*** DONE Create links to individual property pages                  :FEATURE:RESEARCH:
-    CLOSED: [2015-01-09 Fri 15:59]
-    - this should be working for shortcodes, but needs to also be working on
-      Rets Pages (can use same code).
