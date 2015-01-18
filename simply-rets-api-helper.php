@@ -445,7 +445,8 @@ HTML;
 HTML;
         }
 
-    return $cont;
+        $cont .= "<hr><p>This information is believed to be accurate, but without any warranty.</p>";
+        return $cont;
     }
 
 
