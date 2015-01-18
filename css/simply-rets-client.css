@@ -473,7 +473,7 @@ The backend search should still work with most search form modifications.
 #sr-search-maxbath input,
 #sr-search-minbed input,
 #sr-search-maxbed input {
-    width: 90%;
+    width: 85%;
 }
 .sr-search-field {
     display: inline-block;
