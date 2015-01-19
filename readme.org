@@ -44,7 +44,6 @@
     credentials on that page instead.
 
 ** Getting Started
-
 *** Creating Simply Rets Pages
     A new page type is created called Simply Rets Pages. You can create
     new Simply Rets pages to show results from listings searches.
@@ -112,3 +111,22 @@
      sidebar or elsewhere.
      It takes a title for the Widget area, and an MLS ID of the property
      that you want to show on that widget.
+** License
+   *This software is licensed under the GNU General Publice License Version 3.0*
+
+   Copyright (C) 2014 Reichert Brothers
+   Authored by: Cody Reichert
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   in a LICENSE file along with this program.  If not, see
+   [[http://www.gnu.org/licenses/]]
