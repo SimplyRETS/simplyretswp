@@ -33,8 +33,7 @@ class SrAdminSettings {
         <hr>
         <p>
           Enter your Simply Rets API credentials in the fields below.
-          For any issues, please contact support@simplyrets.com.
-          <i> Note: properties will not show up until these are correct.</i>
+          <i>  Note: properties will not show up until these are correct.</i>
         </p>
         <form method="post" action="options.php">
           <?php settings_fields( 'sr_admin_settings'); ?>
@@ -73,10 +72,10 @@ class SrAdminSettings {
         <hr>
         <div class="sr-doc-links">
           <p>
-            <a href="http://simplyrets.com">Simply Rets Website</a> |
-            <a href="http://simplyrets.com">Simply Rets Wordpress Plugin Documentation</a> |
-            <a href="http://simplyrets.com">Simply Rets API Documentation</a> |
-            <a href="http://simplyrets.com">Simply Rets Support</a>
+            <a target="_blank" href="http://simplyrets.com">Simply Rets Website</a> |
+            <a target="_blank" href="http://simplyrets.com">Simply Rets Wordpress Plugin Documentation</a> |
+            <a target="_blank" href="http://simplyrets.com">Simply Rets API Documentation</a> |
+            <a target="_blank" href="http://simplyrets.com#home-contact">Simply Rets Support</a>
           </p>
           <p>
              For additional support, you can also email us at 
