@@ -77,18 +77,18 @@ class SimplyRetsShortcodes {
                 <input name="sr_maxprice" type="text" placeholder="Max Price.." />
               </div>
 
-              <div class="sr-search-field" id="sr-search-minbed">
-                <input name="sr_minbed" type="text" placeholder="Min Beds.." />
+              <div class="sr-search-field" id="sr-search-minbeds">
+                <input name="sr_minbeds" type="text" placeholder="Min Beds.." />
               </div>
-              <div class="sr-search-field" id="sr-search-maxbed">
-                <input name="sr_maxbed" type="text" placeholder="Max Beds.." />
+              <div class="sr-search-field" id="sr-search-maxbeds">
+                <input name="sr_maxbeds" type="text" placeholder="Max Beds.." />
               </div>
 
-              <div class="sr-search-field" id="sr-search-minbath">
-                <input name="sr_minbath" type="text" placeholder="Min Baths.." />
+              <div class="sr-search-field" id="sr-search-minbaths">
+                <input name="sr_minbaths" type="text" placeholder="Min Baths.." />
               </div>
-              <div class="sr-search-field" id="sr-search-maxbath">
-                <input name="sr_maxbath" type="text" placeholder="Max Baths.." />
+              <div class="sr-search-field" id="sr-search-maxbaths">
+                <input name="sr_maxbaths" type="text" placeholder="Max Baths.." />
               </div>
             </div>
 
