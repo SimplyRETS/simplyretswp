@@ -393,7 +393,7 @@ HTML;
             if( empty( $listingPhotos ) ) {
                 $listingPhotos[0] = 'http://placehold.it/250x175.jpg';
             }
-            $main_photo = $listingPhotos[0];
+            $main_photo = trim($listingPhotos[0]);
 
             $listing_link = get_home_url() . "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
             // append markup for this listing to the content
@@ -401,7 +401,7 @@ HTML;
               <hr>
               <div class="sr-listing">
                 <a href="$listing_link">
-                  <div class="sr-photo" style="background-image:url($main_photo);">
+                  <div class="sr-photo" style="background-image:url('$main_photo');">
                   </div>
                 </a>
                 <div class="sr-primary-data">
