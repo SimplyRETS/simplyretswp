@@ -18,9 +18,10 @@
   you need it to.
 
   For any support related issues, you can:
-  1) Submit an issue on the official Simply Rets WP github mirror: http://github.com/rbros/simplyretswp
-  2) Send us a message via our website contact fora at http://simplyrets.com
-  3) Send an email to [[mailto:support@simplyrets.com]]
+  1) View the documentation at http://docs.simplyrets.com
+  2) Submit an issue on the official Simply Rets WP github mirror: http://github.com/rbros/simplyretswp
+  3) Send us a message via our website contact fora at http://simplyrets.com
+  4) Send an email to [[mailto:support@simplyrets.com]]
 
 ** Installation
 
