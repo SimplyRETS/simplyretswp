@@ -395,7 +395,7 @@ HTML;
             }
             $main_photo = $listingPhotos[0];
 
-            $listing_link = "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
+            $listing_link = get_home_url() . "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
             // append markup for this listing to the content
             $cont .= <<<HTML
               <hr>
@@ -501,7 +501,7 @@ HTML;
 
             $mls_status    = $listing->mls->status;
             $listing_remarks  = $listing->remarks;
-            $listing_link = "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
+            $listing_link = get_home_url() . "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
             // append markup for this listing to the content
             $cont .= <<<HTML
               <div class="sr-listing-wdgt">
