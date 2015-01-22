@@ -1,9 +1,13 @@
 <?php
 /*
- * Plugin Name: Simply Rets
- * Description: A Wordpress plugin for Reichert Brothers Retsd server.
- * Copyright (c) Reichert Brothers 2014
- *
+Plugin Name: SimplyRETS
+Plugin URI: https://wordpress.org/extend/plugins/simply-rets/
+Description: Show your Real Estate listings on your Wordpress site. SimplyRETS provides a very simple set up and full control over your listings.
+Author: Cody Reichert - Reichert Brothers
+Version: 1.0.1
+License: GNU General Public License v3 or later
+Copyright (c) Reichert Brothers 2014
+
 */
 
 /* Code starts here */

@@ -3,7 +3,7 @@ Contributors: CodyReichert, ReichertBrothers
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, simple rets, rets feed, simple idx, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -196,7 +196,10 @@ listing sidebar widget.
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.1 =
+* Better image cdn link handling
+
+= 1.0.0 =
 * Initial Launch
 
 
