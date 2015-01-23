@@ -19,8 +19,8 @@
 
   For any support related issues, you can:
   1) View the documentation at http://docs.simplyrets.com
-  2) Submit an issue on the official SimplyRETS WP github mirror: http://github.com/rbros/simplyretswp
-  3) Send us a message via our website contact fora at http://simplyrets.com
+  2) Submit an issue on the official SimplyRETS WP github mirror: http://github.com/rbros/simplyretswp/issues
+  3) Send us a message via our website contact form at http://simplyrets.com/#home-contact
   4) Send an email to [[mailto:support@simplyrets.com]]
 
 ** Installation
