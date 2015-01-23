@@ -1,25 +1,25 @@
-* Simply Rets WP
+* SimplyRETS WP
 
-  This is the official repository of the Simply Rets Wordpress plugin
+  This is the official repository of the SimplyRETS Wordpress plugin
   client.
 
-  Simply Rets enables you to embed *your* live real estate listings
+  SimplyRETS enables you to embed *your* live real estate listings
   directly on your site simply and easily.
 
   The Wordpress plugin provides you a simply way to connect to your
-  Simply Rets account and start showing your real estate listings
+  SimplyRETS account and start showing your real estate listings
   directly on your Wordpress site. It provides Wordpress standard
   custom post types, sidebard and footer widgets, shortcodes, and
   more.
 
-  The plugin requires an active plan with Simply Rets to enable /your/
+  The plugin requires an active plan with SimplyRETS to enable /your/
   listings, but we also provide a demo test account with real listings
   that you can use to test out the plugin and make sure it does what
   you need it to.
 
   For any support related issues, you can:
   1) View the documentation at http://docs.simplyrets.com
-  2) Submit an issue on the official Simply Rets WP github mirror: http://github.com/rbros/simplyretswp
+  2) Submit an issue on the official SimplyRETS WP github mirror: http://github.com/rbros/simplyretswp
   3) Send us a message via our website contact fora at http://simplyrets.com
   4) Send an email to [[mailto:support@simplyrets.com]]
 
@@ -40,13 +40,13 @@
     Once the plugin is installed via one of the methods above, you
     need to active it using a set of API credentials. If you want to
     use the test data, you can use the credentials provided on the
-    =Settings -> Simply Rets= page of your dashboard. Enther them and
+    =Settings -> SimplyRETS= page of your dashboard. Enther them and
     activate! If you have an account with Simply Rets, enter /your/
     credentials on that page instead.
 
 ** Getting Started
-*** Creating Simply Rets Pages
-    A new page type is created called Simply Rets Pages. You can create
+*** Creating SimplyRETS Pages
+    A new page type is created called SimplyRETS Pages. You can create
     new Simply Rets pages to show results from listings searches.
 
     By default, a new page will show all listings. You can add 'filters'
@@ -65,9 +65,9 @@
 **** Page Templates and Layout
      Most themes come with a few different options for each page's
      layout. Most common are "Right Sidebar", "Full-Width", etc. Simply
-     Rets allows you to use these same templates on Simply Rets Pages.
+     Rets allows you to use these same templates on SimplyRETS Pages.
 
-     *Results Pages:* On Simply Rets Pages, you can choose the theme
+     *Results Pages:* On SimplyRETS Pages, you can choose the theme
      template to use in the right sidebar just like any other page. This
      allows the user to use pages with a sidebar, or other layouts their
      theme may offer.
@@ -83,9 +83,9 @@
     to any of your posts or pages.
 **** Search Form Shortcode: [sr_search_form]
      Embed this shortcode on any page or post in your Wordpress site to
-     provide a Simply Rets search form that will search all of your
+     provide a SimplyRETS search form that will search all of your
      listings. The best use of this is to add it to the top of one of
-     the Simply Rets Pages in order to make it a fully featured search
+     the SimplyRETS Pages in order to make it a fully featured search
      and results page.
 
 **** Residential Shortcode: [sr_residential]
@@ -104,11 +104,11 @@
          Example: [sr_residential mlsid="123456"]
 
 *** Widgets
-    Simply Rets provides you with widgets you can use in your sidebar or footer
+    SimplyRETS provides you with widgets you can use in your sidebar or footer
     just like any other widget on your site.
 
 **** Featured Listing Widget
-     Use the Listing Widget to embed a single Rets listing in your
+     Use the Listing Widget to embed a single RETS listing in your
      sidebar or elsewhere.
      It takes a title for the Widget area, and an MLS ID of the property
      that you want to show on that widget.
