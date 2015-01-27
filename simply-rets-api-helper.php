@@ -135,7 +135,12 @@ class SimplyRetsApiHelper {
         $stories          = $listing->property->stories;
         $exteriorFeatures = $listing->property->exteriorFeatures;
         $yearBuilt        = $listing->property->yearBuilt;
-        $lotSize          = $listing->property->lotSize; // might be empty
+        $lotSize          = $listing->property->lotSize;
+        if( $lotSize == 0 ) {
+            $lot_sqft = 'n/a';
+        } else {
+            $lot_sqft    = number_format( $lotSize );
+        }
         $fireplaces       = $listing->property->fireplaces;
         $subdivision      = $listing->property->subdivision;
         $roof             = $listing->property->roof;
@@ -207,7 +212,7 @@ class SimplyRetsApiHelper {
                 <h3>$bathsFull <small>Baths</small></h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-size">
-                <h3>2500 <small>SqFt</small></h3>
+                <h3>$lot_sqft <small>SqFt</small></h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-status">
                 <h3>$mls_status</h3>
@@ -248,7 +253,7 @@ class SimplyRetsApiHelper {
                   <td>$yearBuilt</td></tr>
                 <tr>
                   <td>Lot Size</td>
-                  <td>$lotSize</td></tr>
+                  <td>$lot_sqft SqFt</td></tr>
                 <tr>
                   <td>Fireplaces</td>
                   <td>$fireplaces</td></tr>
@@ -389,6 +394,11 @@ HTML;
             $bedrooms    = $listing->property->bedrooms;
             $bathsFull   = $listing->property->bathsFull;
             $lotSize     = $listing->property->lotSize; // might be empty
+            if( $lotSize == 0 ) {
+                $lot_sqft = 'n/a';
+            } else {
+                $lot_sqft    = number_format( $lotSize );
+            }
             $subdivision = $listing->property->subdivision;
             $yearBuilt   = $listing->property->yearBuilt;
             // listing data
@@ -431,7 +441,7 @@ HTML;
                       <span>$bathsFull Full Baths</span>
                     </li>
                     <li>
-                      <span>$lotSize Sq Ft</span>
+                      <span>$lot_sqft SqFt</span>
                     </li>
                     <li>
                       <span>Built in $yearBuilt</span>
