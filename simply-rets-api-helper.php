@@ -176,6 +176,7 @@ class SimplyRetsApiHelper {
         $listing_agent    = $listing->agent->id;
         $list_date        = $listing->listDate;
         $listing_price    = $listing->listPrice;
+        $listing_USD      = '$' . number_format( $listing_price );
         $listing_remarks  = $listing->remarks;
         // mls information
         $mls_status     = $listing->mls->status;
@@ -323,7 +324,7 @@ class SimplyRetsApiHelper {
                   <td>$listing_agent</td></tr>
                 <tr>
                   <td>Price</td>
-                  <td>$listing_price</td></tr>
+                  <td>$listing_USD</td></tr>
                 <tr>
                   <td>Remarks</td>
                   <td>$listing_remarks</td></tr>
