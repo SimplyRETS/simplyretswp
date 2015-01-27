@@ -103,7 +103,10 @@ class SimplyRetsApiHelper {
     }
 
     public static function simplyRetsClientJs() {
-        wp_register_script( 'simply-rets-client-js', plugins_url( 'js/simply-rets-client.js', __FILE__ ) );
+        wp_register_script( 'simply-rets-client-js',
+                            plugins_url( 'js/simply-rets-client.js', __FILE__ ),
+                            array('jquery')
+        );
         wp_enqueue_script( 'simply-rets-client-js' );
     }
 
