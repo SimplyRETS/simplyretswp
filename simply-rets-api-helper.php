@@ -160,11 +160,15 @@ class SimplyRetsApiHelper {
             }
         }
         // listing meta information
-        $listing_modified = $listing->modified; // TODO: format date
-        $school_data      = $listing->school->district;
-        $disclaimer       = $listing->disclaimer;
-        $tax_data         = $listing->tax->id;
-        $listing_uid      = $listing->mlsId;
+        $listing_modified    = $listing->modified; // TODO: format date
+        $date_modified       = date("M j, Y", strtotime($listing_modified));
+        $list_date           = $listing->listDate;
+        $list_date_formatted = date("M j, Y", strtotime($list_date));
+
+        $school_data = $listing->school->district;
+        $disclaimer  = $listing->disclaimer;
+        $tax_data    = $listing->tax->id;
+        $listing_uid = $listing->mlsId;
         // street address info
         $postal_code   = $listing->address->postalCode;
         $country       = $listing->address->country;
@@ -277,8 +281,11 @@ class SimplyRetsApiHelper {
                   <th colspan="2"><h5>Listing Meta Data</h5></th></tr></thead>
               <tbody>
                 <tr>
-                  <td>List last modified</td>
-                  <td>$listing_modified</td></tr>
+                  <td>Listing last modified</td>
+                  <td>$list_date_formatted</td></tr>
+                <tr>
+                  <td>Listing last modified</td>
+                  <td>$date_modified</td></tr>
                 <tr>
                   <td>School Data</td>
                   <td>$school_data</td></tr>
@@ -388,6 +395,7 @@ HTML;
             $listing_agent    = $listing->agent->id;
             $listing_price    = $listing->listPrice;
             $list_date        = $listing->listDate;
+            $list_date_formatted = date("M j, Y", strtotime($list_date));
             $listing_USD = '$' . number_format( $listing_price );
             // street address info
             $city    = $listing->address->city;
@@ -440,7 +448,7 @@ HTML;
                       <span>Listed by $listing_agent</span>
                     </li>
                     <li>
-                      <span>Listed on $list_date</span>
+                      <span>Listed on $list_date_formatted</span>
                     </li>
                   </ul>
                 </div>
