@@ -176,7 +176,7 @@ secondary data. For example, set the `.sr-data-column` to
 */
 .sr-data-column {
     display: inline-block;
-    margin: 0px 0px 10px 25px !important;
+    margin: 0px 0px 10px 15px !important;
 }
 
 
