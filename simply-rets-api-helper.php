@@ -449,7 +449,7 @@ HTML;
                   </ul>
                   <ul class="sr-data-column">
                     <li>
-                      <span>In the $subdivision Subdivision</span>
+                      <span>$subdivision</span>
                     </li>
                     <li>
                       <span>The City of $city</span>
