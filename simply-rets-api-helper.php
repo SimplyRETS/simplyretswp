@@ -543,7 +543,7 @@ HTML;
                 </div>
                 <div id="sr-listing-wdgt-btn">
                   <a href="$listing_link">
-                    <button class="button real-btn">
+                    <button class="button btn">
                       More about this listing
                     </button>
                   </a>
