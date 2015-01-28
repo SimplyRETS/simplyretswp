@@ -500,30 +500,27 @@ HTML;
 
         foreach ( $response as $listing ) {
             $listing_uid      = $listing->mlsId;
-            // Amenities
+            // widget details
             $bedrooms    = $listing->property->bedrooms;
             $bathsFull   = $listing->property->bathsFull;
-            $lotSize     = $listing->property->lotSize; // might be empty
-            $subdivision = $listing->property->subdivision;
-            $yearBuilt   = $listing->property->yearBuilt;
-            // listing data
-            $listing_agent = $listing->agent->id;
+            $mls_status    = $listing->mls->status;
+            $listing_remarks  = $listing->remarks;
             $listing_price = $listing->listPrice;
-            $list_date     = $listing->listDate;
             $listing_USD   = '$' . number_format( $listing_price );
-            // street address info
-            $city    = $listing->address->city;
+
+            // widget title
             $address = $listing->address->full;
-            // listing photos
+
+            // widget photo
             $listingPhotos = $listing->photos;
             if( empty( $listingPhotos ) ) {
                 $listingPhotos[0] = 'http://placehold.it/250x175.jpg';
             }
             $main_photo = $listingPhotos[0];
 
-            $mls_status    = $listing->mls->status;
-            $listing_remarks  = $listing->remarks;
+            // create link to listing
             $listing_link = get_home_url() . "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
+
             // append markup for this listing to the content
             $cont .= <<<HTML
               <div class="sr-listing-wdgt">
