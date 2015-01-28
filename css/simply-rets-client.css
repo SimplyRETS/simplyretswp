@@ -199,6 +199,10 @@ The initial height is dependent on the content.
 ```
 */
 
+.sr-details {
+    margin-top: 15px;
+}
+
 .sr-details th {
     background-color: #eee;
 }
@@ -491,9 +495,10 @@ elsewhere, this should be a breeze.
 
 */
 .slider{
-    width: 650px;
+    max-width: 650px;
+    width: 100%;
     position: relative;
-    padding-top: 420px;
+    padding-top: 485px;
     margin: 10px auto;
     background-color: transparent;
     transition: all 0.5s;
