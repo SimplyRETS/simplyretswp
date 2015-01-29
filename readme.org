@@ -112,6 +112,26 @@
      sidebar or elsewhere.
      It takes a title for the Widget area, and an MLS ID of the property
      that you want to show on that widget.
+
+** Style Guide
+   The SimplyRETS Wordpress styleguide provides an overview of the HTML
+   and css classes and id's used to style the listings. To make customizations
+   to your site, use this style guide to easily find which elements to style.
+
+   You can view the style guide in [[https://docs.simplyrets.com][the SimplyRETS documentation]]
+
+   To generate the the style guide:
+   - Install StyleDocco via npm:
+   #+BEGIN_SRC bash
+   $ npm install -g styledocco
+   #+END_SRC
+   - And run it from the top level of this repo:
+   #+BEGIN_SRC bash
+   $ styledocco -n "SimplyRETS Style Guide" css/simply-rets-client.css
+   #+END_SRC
+
+   Note: we only need the simply-rets-client.html file
+
 ** License
    *This software is licensed under the GNU General Publice License Version 3.0*
 
