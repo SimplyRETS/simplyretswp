@@ -1,4 +1,4 @@
-/*
+/**
  *
  * simply-rets-client.js - Copyright (c) Reichert Brothers 2014
  *
@@ -8,7 +8,7 @@
  * Author: Cody Reichert, Reichert Brothers
  * License: GPLv3 (http://www.gnu.org/licenses/gpl.html)
  *
- */
+**/
 
 jQuery(document).ready(function() {
 
@@ -23,7 +23,7 @@ jQuery(document).ready(function() {
 
   // & toggle
   jQuery('#sr-toggle-gallery').click(function() {
-    jQuery('.slider label').toggle(100);
+    jQuery('.sr-slider label').toggle(100);
     if(jQuery(this).text() == 'Hide photos') {
       jQuery(this).text('Show more photos');
     } else {

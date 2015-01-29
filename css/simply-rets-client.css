@@ -1,19 +1,21 @@
 /*
-Simply Rets Client Stylesheet
+SimplyRETS Wordpress Style Guide
 ====
+
+The SimplyRETS Wordpress plugin generates HTML for the listings
+shown on your site. It uses a standard set of classes and id's
+that is compatible with most themes out there. It will even use
+most of your theme's styling like colors, font-sizes, etc. In the
+case that you would like to customize the plugin even more for your
+theme, we've made it simple for you. Use the style guide below to
+easily find which element for which you need to add style. These
+classes and id's are versioned and safe to use, so you don't need
+to worry about your custom styles breaking when you upgrade. Like
+always, you should still use a child theme or a plugin like Add Custom
+CSS to add styles.
 
 *simply-rets-client.css - Copyright (C) Reichert Brothers 2014*
 *Licensed under the GNU GPL version 3 or later.*
-
-This file provides the stylesheets for all client side Simply
-Rets components, including Custom Post Pages, shortcode markup,
-and widgets. It does not, however, include styles for the admin
-panel.
-
-Below you can view the classes and id's used to style the output
-of the Simply Rets Wordpress plugin.  You can modify the base
-styles of any of these elements to your liking, and this should
-help you find what you need to change.
 */
 
 /*
@@ -23,8 +25,8 @@ Listing Results
 `sr-listing` is the main class wrapping each result on a page
 with mulitple listings (ie - search results pages).
 
-It only contains properties for size and display - and wraps classes
-with more specificity.You can change height, width, and other general
+It only contains properties for position and display - and wraps classes
+for more specificity.You can change height, width, and other general
 sizes with this class.
 
 ```
@@ -41,12 +43,13 @@ sizes with this class.
 
 /*
 Result photo
---- 
+---
 
-`sr-photo` affects the properties of the thumbnail image
-shown for listing results.
+`sr-photo` wraps the `sr-listing` thumbnail image
+shown for list results.
 
-For any changes to the placement, size, animations, etc
+There's really a lot you can do here, so we'll leave it up to you get
+creative, but for any changes to the placement, size, animations, etc
 of the image, use this class.
 
 ```
@@ -70,15 +73,18 @@ of the image, use this class.
 
 /*
 Primary Data
---- 
+---
 
 `sr-primary-data` is that banner that displays the listing
-address and price.
+address and price. This element only contains the title area of
+the listing wrapper.
 
 Utilizing this class is useful for changing colors, size, position,
 borders, etc for the primary listing data on results pages.
 
-The font and size will be handled by your theme.
+The font and size will be handled by your theme, but the background
+color is a light grey. This is very simply to change by setting:
+`.sr-primary-data { background-color: #yourcolor; }`
 
 ```
     <div class="sr-listing">
@@ -108,7 +114,7 @@ The font and size will be handled by your theme.
 
 /*
 Secondary Data
---- 
+---
 
 `sr-secondary-data` contains the additional listing details beneath
 the primary data banner.
@@ -116,7 +122,8 @@ the primary data banner.
 You can use this class to show or hide pieces of data, change the size,
 position or font. Amongts anything else you may want to do with this section.
 
-The font and size will be handled by your theme.
+Most things will be handled by the theme here as well, but a common modification
+is to change the `margin-left` property to align better in some themes.
 
 ```
     <div class="sr-listing">
@@ -171,7 +178,7 @@ The font and size will be handled by your theme.
 /*
 Notice that we also provide you with `sr-data-column` for
 managing the spacing and margin between the two columns of
-secondary data. For example, set the `.sr-data-column` to 
+secondary data. For example, set the `.sr-data-column` to
 `display: block` to make the two columns into one.
 */
 .sr-data-column {
@@ -186,11 +193,11 @@ Listing Details
 ===
 
 `sr-details` is the main class wrapping each **single** listing
-details. This class is only on single list pages.
+details page.
 
-This class is also just a main wrapper that should only be used
-for manipulating size/display/color properties.
-The initial height is dependent on the content.
+Commonly, this is used in addition with a child class for
+specificity, but you can also set the width, height, etc
+for the whole page with this class.
 
 ```
     <div class="sr-details">
@@ -213,9 +220,10 @@ Listing Primary Details
 
 `sr-primary-details` is the section on single listing pages just
 below the slider. It contains property information like Bedrooms,
-Baths, Lot Size, and MLS id. 
+Baths, Lot Size, and MLS status.
 
-You can show/hide or change any other properties about this area.
+This area also uses `flexbox`, so you can hide any of the fields
+without affecting the overall look of the section.
 
 ```
     <div class="sr-primary-details">
@@ -243,9 +251,9 @@ You can show/hide or change any other properties about this area.
 
 /*
 
-Within this class you can see that we even have a separate class to
+Within this class you can see that we have a separate class to
 access the details individually. Modify these as you wish using either
-the class or the id, depending on the specificity you need.
+the class or the id, depending on what you need.
 
 ```
     <div class="sr-primary-details">
@@ -293,10 +301,11 @@ the class or the id, depending on the specificity you need.
 Featured Listing Widget
 ===
 
-`sr-listing-wdgt` is the wrapper for the Featured Listing widget,
-which follows pretty much the same patters we've seen so far.
+`sr-listing-wdgt` is the wrapper for the Featured Listing sidebar widget,
+which follows the same patters we've seen so far.
 
-Mostly it will inherit the styles your theme uses for Widgets.
+This should mostly inherit the styles your theme uses for Widgets by using
+standard class names like `button` and `btn`.
 
 ```
     <div class="sr-listing-wdgt" style="max-width: 300px;">
@@ -361,13 +370,17 @@ Mostly it will inherit the styles your theme uses for Widgets.
 Search Form
 ===
 
-Much like a lot of the other components, your theme will handle most of
+Much like we've seen so far, your theme will handle most of
 the styling for this.
 
-However you can use any classes or id's insde of the `sr-search-form-wrapper`
-class to show/hide/move/etc any of the search form components.
+However you can use any classes or id's insde of the
+`sr-search-form-wrapper` class to show/hide/move/etc any of the search
+form fields.  The backend search should still work with most
+search form modifications.
 
-The backend search should still work with most search form modifications.
+The search form makes use of the `flexbox` CSS property. So if you decide
+to hide any of the search options, the rest will fill the remaining space.
+Most of these elements also have id's for you to use specifically.
 
 ```
         <div id="sr-search-wrapper">
@@ -493,8 +506,23 @@ It's a bit more complicated, but it is idiomatic to the rest
 of the class structure used, so if you've already made changes
 elsewhere, this should be a breeze.
 
+```
+  <div class="sr-slider">
+    <img class="sr-slider-img-act" src="http://placehold.it/350x350.jpg">
+    <input class="sr-slider-input" type="radio" name"slide_switch" id="id0" value="http://placehold.it/350x350.jpg">
+    <label for="id0">
+      <img src="http://placehold.it/350x350.jpg" width=100">
+    </label>
+    <input class="sr-slider-input" type="radio" name"slide_switch" id="id2" value="http://placehold.it/350x350.jpg">
+    <label for="id2">
+      <img src="http://placehold.it/350x350.jpg" width=100">
+    </label>
+  </div>
+
+```
+
 */
-.slider{
+.sr-slider{
     max-width: 650px;
     width: 100%;
     position: relative;
@@ -504,21 +532,23 @@ elsewhere, this should be a breeze.
     transition: all 0.5s;
 }
 
-.slider>img{
+.sr-slider>img{
     position: absolute;
     left: 0;
     top: 0;
     right: 0;
+    bottom: 0;
     margin: auto;
-    height: 100%;
+    width: 100%;
+    height: auto;
     box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.75);
 }
 
-.slider input[name='slide_switch'] {
+.sr-slider input[name='slide_switch'] {
     display: none;
 }
 
-.slider label {
+.sr-slider label {
     margin: 18px 0 0 18px;
     border: 3px solid #999;
     float: left;
@@ -531,23 +561,23 @@ elsewhere, this should be a breeze.
     display: none;
 }
 
-.slider input[name='slide_switch']:checked+label {
+.sr-slider input[name='slide_switch']:checked+label {
     border-color: #666;
     opacity: 1;
 }
-.slider input[name='slide_switch'] ~ img {
+.sr-slider input[name='slide_switch'] ~ img {
     opacity: 0;
     transform: scale(1.1);
 }
-.slider input[name='slide_switch']:checked+label+img {
+.sr-slider input[name='slide_switch']:checked+label+img {
     opacity: 1;
     transform: scale(1);
 }
 
 .sr-details-links {
     text-align: right;
-    margin-top: -15px !important;  /* these are both theme specific and should */
-    margin-bottom: 0px !important; /* be in the themese css, not the plugins   */
+    margin-top: -15px !important;
+    margin-bottom: 0px !important;
 }
 #sr-toggle-gallery {
     clear: both;

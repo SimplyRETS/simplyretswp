@@ -199,7 +199,7 @@ class SimplyRetsApiHelper {
               <span id="sr-toggle-gallery">See more photos</span> |
               <span id="sr-listing-contact">Contact us about this listing</span>
             </p>
-            <div class="slider">
+            <div class="sr-slider">
               <img class="sr-slider-img-act" src="$main_photo">
               $photo_markup
             </div>
@@ -286,7 +286,7 @@ class SimplyRetsApiHelper {
                   <th colspan="2"><h5>Listing Meta Data</h5></th></tr></thead>
               <tbody>
                 <tr>
-                  <td>Listing last modified</td>
+                  <td>Listing date</td>
                   <td>$list_date_formatted</td></tr>
                 <tr>
                   <td>Listing last modified</td>
