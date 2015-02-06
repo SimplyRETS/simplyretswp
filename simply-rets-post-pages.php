@@ -354,7 +354,7 @@ class SimplyRetsCustomPostPages {
         return $new_template;
     }
 
-    public static function srPostDefaultContent( $content, $post ) {
+    public static function srPostDefaultContent( $content ) {
         require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
         $post_type = get_post_type();
         $page_name = get_query_var( 'sr-listings' );
