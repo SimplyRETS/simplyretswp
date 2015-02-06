@@ -3,7 +3,7 @@ Contributors: CodyReichert, ReichertBrothers
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, simple rets, rets feed, simple idx, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -196,6 +196,9 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 1.0.3 =
+* patched php optional warning argument
+
 = 1.0.2 =
 * enhance default markup and css to be compatible with a wider range of themes
 
@@ -208,6 +211,9 @@ listing sidebar widget.
 
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+* If you were experiencing any error outputs on your site (mostly GoDadddy host), this update will resolve the issue.
 
 = 1.0 =
 * Launch
