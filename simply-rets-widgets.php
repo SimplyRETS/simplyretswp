@@ -25,7 +25,7 @@ class sr_listing_widget extends WP_Widget {
 
 	/** constructor */
 	function sr_listing_widget() {
-		parent::WP_Widget(false, $name = 'Simply Rets Listing');
+		parent::WP_Widget(false, $name = 'SimplyRETS Featured Listing');
 	}
 
 	/** save widget --  @see WP_Widget::update */

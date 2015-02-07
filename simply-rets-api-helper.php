@@ -43,7 +43,7 @@ class SimplyRetsApiHelper {
 
     /*
      * This function build a URL from a set of parameters that we'll use to
-     * requst our listings from the Simply Rets API.
+     * requst our listings from the SimplyRETS API.
      *
      * @params is either an associative array in the form of [filter] => "val"
      * or it is a single listing id as a string, ie "123456".
@@ -82,7 +82,7 @@ class SimplyRetsApiHelper {
 
         if( $request === FALSE || empty($response_array) ) {
             $error =
-                "Sorry, Simply Rets could not complete this search." .
+                "Sorry, SimplyRETS could not complete this search." .
                 "Please double check that your API credentials are valid " .
                 "and that the search filters you used are correct. If this " .
                 "is a new listing, you may also try back later.";
