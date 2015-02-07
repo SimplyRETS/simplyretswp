@@ -41,13 +41,13 @@
     need to active it using a set of API credentials. If you want to
     use the test data, you can use the credentials provided on the
     =Settings -> SimplyRETS= page of your dashboard. Enther them and
-    activate! If you have an account with Simply Rets, enter /your/
+    activate! If you have an account with SimplyRETS, enter /your/
     credentials on that page instead.
 
 ** Getting Started
 *** Creating SimplyRETS Pages
     A new page type is created called SimplyRETS Pages. You can create
-    new Simply Rets pages to show results from listings searches.
+    new SimplyRETS pages to show results from listings searches.
 
     By default, a new page will show all listings. You can add 'filters'
     to the page to create more advanced pages that only show certain
@@ -64,8 +64,8 @@
 
 **** Page Templates and Layout
      Most themes come with a few different options for each page's
-     layout. Most common are "Right Sidebar", "Full-Width", etc. Simply
-     Rets allows you to use these same templates on SimplyRETS Pages.
+     layout. Most common are "Right Sidebar", "Full-Width", etc. SimplyRETS
+     allows you to use these same templates on SimplyRETS Pages.
 
      *Results Pages:* On SimplyRETS Pages, you can choose the theme
      template to use in the right sidebar just like any other page. This

@@ -7,26 +7,26 @@ Stable tag: 1.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Show your Real Estate listings on your Wordpress site. Simply Rets provides a very simple set up and full control over your listings.
+Show your Real Estate listings on your Wordpress site. SimplyRETS provides a very simple set up and full control over your listings.
 
 
 == Description ==
 
-The Simply Rets plugin allows you integrate your live Real Estate
+The SimplyRETS plugin allows you integrate your live Real Estate
 listings directly on your Wordpress site with little to no hassle.
-This plugin requires a plan with [Simply Rets](https://simplyrets.com),
+This plugin requires a plan with [SimplyRETS](https://simplyrets.com),
 but demo listing data is provided for you to test out and make sure
 the plugin does what you're looking for. Getting started with the
-Simply Rets plugin is as easy as installing it and creating a new
+SimplyRETS plugin is as easy as installing it and creating a new
 page!
 
 In order to get your properties on your site, there are only a
 couple of things you need:
 
 * You must be a current member of an MLS provider. This is who we get your properties from (which we'll take care of).
-* You must have an active plan with [Simply Rets](https://simplyrets.com). We offer a wide variety of plans to accommodate most situations. Visit our website for me details on pricing and how to get started.
+* You must have an active plan with [SimplyRETS](https://simplyrets.com). We offer a wide variety of plans to accommodate most situations. Visit our website for me details on pricing and how to get started.
 
-The Simply Rets plugin generates accurate and correct HTML and does
+The SimplyRETS plugin generates accurate and correct HTML and does
 *not* use iframes or ever take your visitors away from your site -
 which we've learned is essential for materializing online leads. The
 power is put back in your hands by giving you full control of which of
@@ -39,28 +39,28 @@ The plugin also provides you extensions on many standard Wordpress features:
 * Plenty of short-codes for splicing your listings into any page or post.
 * Filters for searches, custom pages, etc.
 
-Simply Rets provides the fastest and most up-to-date solution for
-embedding your listings on your site. Simply Rets will update as
+SimplyRETS provides the fastest and most up-to-date solution for
+embedding your listings on your site. SimplyRETS will update as
 frequently as every hour (or as frequent as your MLS provider
 allows). This means that you're ahead of the competition and can have
 the fastest possible response time for dealing with interested
 prospects.
 
 This plugin is fast!. You don't have to worry about slowing down
-your website by pulling lots of data on every page load. The Simply
-Rets plugin is optimized to only load on the correct pages, and to
+your website by pulling lots of data on every page load. The SimplyRETS
+plugin is optimized to only load on the correct pages, and to
 only load the listings you choose. By doing this, you are able to keep
 visitors on your site to look at more properties. If you offer the
 fastest searching solution in your city, why would they go any where
 else?
 
-Simply Rets uses the RETS (Real Estate Standards Organization)
+SimplyRETS uses the RETS (Real Estate Standards Organization)
 protocol and has 100% coverage and compatibility with the RETS
 standard. This allows you to be on the leading technical edge and
 provides you with many advantages of IDX (internet data exchange)
 including response speed, compatibility across multiple MLS areas, and
 up-time.  So while your competition is working on getting properties
-on their site, you can install the Simply Rets Wordpress plugin and
+on their site, you can install the SimplyRETS Wordpress plugin and
 spend more time actually selling!
 
 
@@ -72,7 +72,7 @@ You can simply install this plugin a couple of different ways:
 = Wordpress Plugin Directory =
 
 1. If you usually install plugins via the Wordpress Dashboard 'Add
-Plugins' page, you can just search for 'Simply Rets' and click
+Plugins' page, you can just search for 'SimplyRETS' and click
 install!
 
 = Install from the .zip: =
@@ -91,8 +91,8 @@ install!
 
 Once you have the plugin installed via one of the methods above, you
 can go to the Plugins page of your Wordpress site and click `activate`
-on Simply Rets. Once successfully activated, you can start using the
-demo listings, or enter your Simply Rets credentials to start getting
+on SimplyRETS. Once successfully activated, you can start using the
+demo listings, or enter your SimplyRETS credentials to start getting
 your listings!
 
 
@@ -103,14 +103,14 @@ your listings!
 
 = Can I use this plugin for free? =
 
-Yes! The Simply Rets Wordpress plugin comes with free demo listings
+Yes! The SimplyRETS Wordpress plugin comes with free demo listings
 that you can use on your site.  Mostly, this should be used for
 testing the plugin to make sure it fits your needs. To show *your*
-listings on your site, you will need an active plan with [Simply Rets](https://simplyrets.com).
+listings on your site, you will need an active plan with [SimplyRETS](https://simplyrets.com).
 
 = Can I use my existing Wordpress theme? =
 
-Yes! The Simply Rets plugin generates widely compatible and responsive
+Yes! The SimplyRETS plugin generates widely compatible and responsive
 HTML for your pages. It has tested on and made to work with many
 different types of Wordpress themes. If you find a theme that this
 plugin does not work with, let us know! The plugin does *not* use
@@ -125,19 +125,19 @@ to add your own style and personal touch to it. We've created a very
 simple set of CSS classes and ID's for you to use to change the
 styles.  You can start by installing one of the many custom CSS
 Wordpress plugins, or if you're using a Child Theme, you can put it
-directly in your child-custom.css/style.css.  You can find the Simply
-Rets Style Documentation in the Documentation section of the website:
-[Simply Rets Style Documentation](https://docs.simplyrets.com).
+directly in your child-custom.css/style.css.  You can find the SimplyRETS
+Style Documentation in the Documentation section of the website:
+[SimplyRETS Style Documentation](https://docs.simplyrets.com).
 
 
 = How do I show *my* listings through this plugin? =
 
 Once you've decided that the plugin does what you need it to do, you
-can contact us at [the Simply Rets
+can contact us at [the SimplyRETS
 website](https://simplyrets.com#home-contact). We'll get you signed up and provide
 you with an API username and password. Starting to use your real
 listings is as easy as plugging the API credentials into the Wordpress
-Admin settings page (`Settings -> Simply Rets`) and hitting save! If the
+Admin settings page (`Settings -> SimplyRETS`) and hitting save! If the
 credentials are valid, your listings will start to show
 automatically. If they are invalid, the test data will continue to be
 used.
@@ -145,7 +145,7 @@ used.
 
 = How often are the listings refreshed? =
 
-Simply Rets will keep the most up-to-date listings on your site. We
+SimplyRETS will keep the most up-to-date listings on your site. We
 will refresh the feed as often as the MLS provider allows, which is
 usually in the the 1-2 hour range.
 
@@ -159,8 +159,8 @@ more sales!
 
 = I want to only show my listings, and not my whole office. Is that possible? =
 
-The Simply Rets plugins provides 'filters' for all the listings on
-your site. For example, if you create a new Simply Rets page, you can
+The SimplyRETS plugins provides 'filters' for all the listings on
+your site. For example, if you create a new SimplyRETS page, you can
 add an Agent Filter on that page which will take your Agent MLS
 Id. Then when that page is loaded, only listings tied to that Agent
 MLS Id will be shown.
@@ -176,9 +176,9 @@ fields that we will get from your MLS provider.
 
 == Screenshots ==
 
-1. Simply Rets settings page for entering API credentials
+1. SimplyRETS settings page for entering API credentials
 
-2. The Simply Rets custom page type creation pages. Here you can show
+2. The SimplyRETS custom page type creation pages. Here you can show
 different types of listings with the available 'page filters' and add
 any short codes, like a search form.
 
@@ -187,7 +187,7 @@ any short codes, like a search form.
 4. A single listing details page complete with an image gallery,
 contect button, and sidebar widget.
 
-5. The Simply Rets Featured Listing sidebar widget in action. (default 2015 theme)
+5. The SimplyRETS Featured Listing sidebar widget in action. (default 2015 theme)
 
 6. This screenshot shows the search form short-code and a featured
 listing sidebar widget.
@@ -221,14 +221,14 @@ listing sidebar widget.
 
 == Documentation ==
 
-There is much more documentation for both the Simply Rets API, and the
-Simply Rets Wordpress plugin. You can dig into all of that on the
-Documentation page of the Simply Rets site: [Simply Rets Documentation](https://docs.simplyrets.com)
+There is much more documentation for both the SimplyRETS API, and the
+SimplyRETS Wordpress plugin. You can dig into all of that on the
+Documentation page of the SimplyRETS site: [SimplyRETS Documentation](https://docs.simplyrets.com)
 
 = For Developers =
 
 If you're interested in building your own Plugin or Application,
-Simply Rets offers several different API's specifically geared towards
+SimplyRETS offers several different API's specifically geared towards
 developers. We provide JSON, XML, HTML, and Websockets API's to access
 the same data you see in this plugin, as well as other services like
 Database population and analytics.  The API's are simple, and the
@@ -236,5 +236,5 @@ documentation is robust - so you can spend more time developing your
 application than worrying about how to get the correct listings from
 your MLS provider.
 
-Visit the Simply Rets website for more details and a full list of
-services: [Simply Rets Features](https://simplyrets.com)
+Visit the SimplyRETS website for more details and a full list of
+services: [SimplyRETS Features](https://simplyrets.com)
