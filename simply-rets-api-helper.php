@@ -75,12 +75,26 @@ class SimplyRetsApiHelper {
     }
 
 
-
+    /**
+     * Make the request the SimplyRETS API. We try to use
+     * cURL first, but if it's not enabled on the server, we
+     * fall back to file_get_contents().
+    */
     public static function srApiRequest( $url ) {
-        $request = file_get_contents($url);
-        $response_array = json_decode( $request );
+        if( is_callable( 'curl_init' ) ) {
+            $ch = curl_init();
+            curl_setopt( $ch, CURLOPT_URL, $url );
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            $request = curl_exec( $ch );
+            $response_array = json_decode( $request );
+            curl_close( $ch );
 
-        if( $request === FALSE || empty($response_array) ) {
+        } else {
+            $request = file_get_contents($url);
+            $response_array = json_decode( $request );
+        }
+
+        if( $response_array === FALSE || empty($response_array) ) {
             $error =
                 "Sorry, SimplyRETS could not complete this search." .
                 "Please double check that your API credentials are valid " .
