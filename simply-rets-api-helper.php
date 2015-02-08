@@ -167,7 +167,7 @@ class SimplyRetsApiHelper {
         // photos data (and set up slideshow markup)
         $photos = $listing->photos;
         if(empty($photos)) {
-            $main_photo = 'http://placehold.it/450x375.jpg';
+             $main_photo = plugins_url( 'img/defprop.jpg', __FILE__ );
         } else {
             $main_photo = $photos[0];
             $photo_counter = 0;
@@ -430,7 +430,7 @@ HTML;
             // listing photos
             $listingPhotos = $listing->photos;
             if( empty( $listingPhotos ) ) {
-                $listingPhotos[0] = 'http://placehold.it/250x175.jpg';
+                $listingPhotos[0] = plugins_url( 'img/defprop.jpg', __FILE__ );
             }
             $main_photo = trim($listingPhotos[0]);
 
@@ -531,7 +531,7 @@ HTML;
             // widget photo
             $listingPhotos = $listing->photos;
             if( empty( $listingPhotos ) ) {
-                $listingPhotos[0] = 'http://placehold.it/250x175.jpg';
+                $listingPhotos[0] = plugins_url( 'img/defprop.jpg', __FILE__ );
             }
             $main_photo = $listingPhotos[0];
 
