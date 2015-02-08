@@ -366,6 +366,42 @@ standard class names like `button` and `btn`.
     margin-bottom: 10px !important;
 }
 
+
+/**
+ * SimplyRETS Search Form Widget
+ */
+.sr-search-widget {
+    text-align: center;
+}
+
+.sr-search-widget #sr-search-ptype {
+    width: 100%;
+    display: block;
+}
+
+.sr-search-widget #sr-search-keywords {
+    float: left;
+    width: 90%;
+    margin-bottom: 10px;
+}
+
+.sr-search-widget #sr-search-ptype select {
+    width: 90%;
+}
+
+.sr-search-widget-field {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.sr-search-widget-filters .sr-search-widget-field {
+    width: 49% !important;
+}
+
+.sr-search-widget .btn {
+    margin-top: 10px;
+}
+
 /*
 Search Form
 ===

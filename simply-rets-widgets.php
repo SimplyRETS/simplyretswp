@@ -19,6 +19,7 @@
 function srRegisterWidgets() {
     register_widget('srFeaturedListingWidget');
     register_widget('srRandomListingWidget');
+    register_widget('srSearchFormWidget');
 }
 
 
@@ -162,6 +163,108 @@ class srRandomListingWidget extends WP_Widget {
 		} else {
 			$cont = "No listing found";
 		}
+
+		$cont .= $after_widget;
+		echo $cont;
+	}
+
+}
+
+class srSearchFormWidget extends WP_Widget {
+
+	/** constructor */
+	function srSearchFormWidget() {
+		parent::WP_Widget(false, $name = 'SimplyRETS Search Widget');
+	}
+
+	/** save widget --  @see WP_Widget::update */
+	function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['title'] = strip_tags($new_instance['title']);
+		return $instance;
+	}
+
+	/** admin widget form --  @see WP_Widget::form */
+	function form( $instance ) {
+		$title  = esc_attr($instance['title']);
+
+		?>
+		<p>
+		  <label for="<?php echo $this->get_field_id('title'); ?>">
+			<?php _e('Title:'); ?>
+		  </label>
+		  <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
+				 name="<?php echo $this->get_field_name('title'); ?>"
+				 type="text"
+				 value="<?php echo $title; ?>" />
+		</p>
+        <?php
+	}
+
+	/** front end widget render -- @see WP_Widget::widget */
+	function widget( $args, $instance ) {
+		extract( $args );
+
+		$title  = apply_filters('widget_title', $instance['title']);
+
+		$cont .= $before_widget;
+		// populate title
+		if( $title ) {
+			$cont .= $before_title . $title . $after_title;
+		} else {
+			$cont .= $before_title . $after_title;
+		}
+
+        $home_url = get_home_url();
+        $search_form_markup = <<<HTML
+        <div class="sr-search-widget">
+          <form method="get" class="sr-search" action="$home_url">
+            <input type="hidden" name="sr-listings" value="sr-search">
+
+            <div class="sr-search-field" id="sr-search-keywords">
+              <input name="sr_keywords" type="text" placeholder="Subdivision, Zipcode, or Keywords" />
+            </div>
+
+            <div class="sr-search-field" id="sr-search-ptype">
+              <select name="sr_ptype">
+                <option value="">Property Type</option>
+                <option value="res">Residential</option>
+                <option value="cnd">Condo</option>
+                <option value="rnt">Rental</option>
+              </select>
+            </div>
+
+            <div class="sr-search-widget-filters">
+              <div class="sr-search-widget-field" id="sr-search-minprice">
+                <input name="sr_minprice" type="number" placeholder="Min Price.." />
+              </div>
+              <div class="sr-search-widget-field" id="sr-search-maxprice">
+                <input name="sr_maxprice" type="number" placeholder="Max Price.." />
+              </div>
+
+              <div class="sr-search-widget-field" id="sr-search-minbeds">
+                <input name="sr_minbeds" type="number" placeholder="Min Beds.." />
+              </div>
+              <div class="sr-search-widget-field" id="sr-search-maxbeds">
+                <input name="sr_maxbeds" type="number" placeholder="Max Beds.." />
+              </div>
+
+              <div class="sr-search-widget-field" id="sr-search-minbaths">
+                <input name="sr_minbaths" type="number" placeholder="Min Baths.." />
+              </div>
+              <div class="sr-search-widget-field" id="sr-search-maxbaths">
+                <input name="sr_maxbaths" type="number" placeholder="Max Baths.." />
+              </div>
+            </div>
+
+            <input class="submit button btn" type="submit" value="Seach Properties">
+
+          </form>
+        </div>
+HTML;
+
+		// populate content
+        $cont .= $search_form_markup;
 
 		$cont .= $after_widget;
 		echo $cont;
