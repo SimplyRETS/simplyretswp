@@ -381,13 +381,14 @@ class SimplyRetsCustomPostPages {
 
             // these should correlate with what the api expects as filters
             $listing_params = array(
-                "type"     => $type,
+                "type"      => $type,
+                "q"         => $keywords,
                 "minbeds"   => $minbeds,
                 "maxbeds"   => $maxbeds,
                 "minbaths"  => $minbaths,
                 "maxbaths"  => $maxbaths,
-                "minprice" => $minprice,
-                "maxprice" => $maxprice
+                "minprice"  => $minprice,
+                "maxprice"  => $maxprice
             );
 
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
