@@ -67,15 +67,11 @@ class SrAdminSettings {
           <hr>
           <div class="sr-admin-settings">
             <h3>Settings</h3>
-            <p>Set the link to your websites contact page. </p>
-            <p>
-              <i> Use the full path to the page ( example: http://localhost:8080/contact/ )</i>
-            </p>
             <table>
               <tbody>
                 <tr>
                   <td>
-                    <strong>Link</strong>
+                    <strong>Contact Page Link</strong>
                   </td>
                   <td>
                     <input type="text" name="sr_contact_page" value="<?php echo esc_attr( get_option('sr_contact_page') ); ?>" />
@@ -84,6 +80,9 @@ class SrAdminSettings {
                 </tr>
               </tbody>
             </table>
+            <p>
+              <i> Use the full path to the page. Example: http://yoursite.com/contact </i>
+            </p>
           <?php submit_button(); ?>
         </form>
         <div>
@@ -99,11 +98,7 @@ class SrAdminSettings {
             <a target="_blank" href="http://simplyrets.com">SimplyRETS Website</a> |
             <a target="_blank" href="http://docs.simplyrets.com">SimplyRETS Wordpress Plugin Documentation</a> |
             <a target="_blank" href="http://docs.simplyrets.com">SimplyRETS API Documentation</a> |
-            <a target="_blank" href="mailto:support@simplyrets.com">SimplyRETS  Support</a>
-          </p>
-          <p>
-             For additional support, you can also email us at 
-             <a href="mailto:support@simplyrets.com">support@simplyrets.com</a>
+            <a target="_blank" href="mailto:support@simplyrets.com">support@simplyrets.com</a>
           </p>
       </div> <?php
   }
