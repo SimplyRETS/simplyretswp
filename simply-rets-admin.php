@@ -23,6 +23,7 @@ class SrAdminSettings {
   function register_admin_settings() {
       register_setting('sr_admin_settings', 'sr_api_name');
       register_setting('sr_admin_settings', 'sr_api_key');
+      register_setting('sr_admin_settings', 'sr_contact_page');
   }
   
   function sr_admin_page() {
@@ -31,35 +32,58 @@ class SrAdminSettings {
       <div class="wrap">
         <h2>SimplyRETS Admin Settings</h2>
         <hr>
-        <p>
-          Enter your SimplyRETS API credentials in the fields below.
-          <i>  Note: properties will not show up until these are correct.</i>
-        </p>
         <form method="post" action="options.php">
           <?php settings_fields( 'sr_admin_settings'); ?>
           <?php do_settings_sections( 'sr_admin_settings'); ?>
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  <strong>API Username</strong>
-                </td>
-                <td>
-                  <input type="text" name="sr_api_key" value="<?php echo esc_attr( get_option('sr_api_key') ); ?>" />
-                  <span>(current: <?php echo esc_attr( get_option('sr_api_name') ); ?>)</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>API Key</strong>
-                </td>
-                <td>
-                  <input type="text" name="sr_api_name" value="<?php echo esc_attr( get_option('sr_api_name') ); ?>" />
-                  <span>(current: <?php echo esc_attr( get_option('sr_api_key') ); ?>)</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="sr-admin-api">
+            <h3>Account Credentials</h3>
+            <p>
+              Enter your SimplyRETS API credentials in the fields below.
+              <i>  Note: properties will not show up until these are correct.</i>
+            </p>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>API Username</strong>
+                  </td>
+                  <td>
+                    <input type="text" name="sr_api_key" value="<?php echo esc_attr( get_option('sr_api_key') ); ?>" />
+                    <span>(current: <?php echo esc_attr( get_option('sr_api_name') ); ?>)</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>API Key</strong>
+                  </td>
+                  <td>
+                    <input type="text" name="sr_api_name" value="<?php echo esc_attr( get_option('sr_api_name') ); ?>" />
+                    <span>(current: <?php echo esc_attr( get_option('sr_api_key') ); ?>)</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr>
+          <div class="sr-admin-settings">
+            <h3>Settings</h3>
+            <p>Set the link to your websites contact page. </p>
+            <p>
+              <i> Use the full path to the page ( example: http://localhost:8080/contact/ )</i>
+            </p>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Link</strong>
+                  </td>
+                  <td>
+                    <input type="text" name="sr_contact_page" value="<?php echo esc_attr( get_option('sr_contact_page') ); ?>" />
+                    <span>(current: <?php echo esc_attr( get_option('sr_contact_page') ); ?>)</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           <?php submit_button(); ?>
         </form>
         <div>

@@ -128,6 +128,7 @@ class SimplyRetsApiHelper {
     public static function srResidentialDetailsGenerator( $listing ) {
         $br = "<br>";
         $cont = "";
+        $contact_page = get_option( 'sr_contact_page' );
 
         /*
          * check for an error code in the array first, if it's
@@ -211,7 +212,9 @@ class SimplyRetsApiHelper {
           <div class="sr-details" style="text-align:left;">
             <p class="sr-details-links" style="clear:both;">
               <span id="sr-toggle-gallery">See more photos</span> |
-              <span id="sr-listing-contact">Contact us about this listing</span>
+              <span id="sr-listing-contact">
+                <a href="$contact_page">Contact us about this listing</a>
+              </span>
             </p>
             <div class="sr-slider">
               <img class="sr-slider-img-act" src="$main_photo">
