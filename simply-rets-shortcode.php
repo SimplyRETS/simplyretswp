@@ -92,7 +92,7 @@ class SimplyRetsShortcodes {
               </div>
             </div>
 
-            <input class="submit button btn" type="submit" value="Seach Properties">
+            <input class="submit button btn" type="submit" value="Search Properties">
 
           </form>
         </div>
