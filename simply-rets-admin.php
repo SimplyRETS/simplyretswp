@@ -48,8 +48,7 @@ class SrAdminSettings {
                     <strong>API Username</strong>
                   </td>
                   <td>
-                    <input type="text" name="sr_api_key" value="<?php echo esc_attr( get_option('sr_api_key') ); ?>" />
-                    <span>(current: <?php echo esc_attr( get_option('sr_api_name') ); ?>)</span>
+                    <input type="text" name="sr_api_name" value="<?php echo esc_attr( get_option('sr_api_name') ); ?>" />
                   </td>
                 </tr>
                 <tr>
@@ -57,8 +56,7 @@ class SrAdminSettings {
                     <strong>API Key</strong>
                   </td>
                   <td>
-                    <input type="text" name="sr_api_name" value="<?php echo esc_attr( get_option('sr_api_name') ); ?>" />
-                    <span>(current: <?php echo esc_attr( get_option('sr_api_key') ); ?>)</span>
+                    <input type="text" name="sr_api_key" value="<?php echo esc_attr( get_option('sr_api_key') ); ?>" />
                   </td>
                 </tr>
               </tbody>
@@ -75,7 +73,6 @@ class SrAdminSettings {
                   </td>
                   <td>
                     <input type="text" name="sr_contact_page" value="<?php echo esc_attr( get_option('sr_contact_page') ); ?>" />
-                    <span>(current: <?php echo esc_attr( get_option('sr_contact_page') ); ?>)</span>
                   </td>
                 </tr>
               </tbody>
