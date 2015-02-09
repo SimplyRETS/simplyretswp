@@ -81,16 +81,34 @@ class SimplyRetsApiHelper {
      * fall back to file_get_contents().
     */
     public static function srApiRequest( $url ) {
+        $wp_version = get_bloginfo('version');
+        $php_version = phpversion();
+
+        $ua_string     = "SimplyRETSWP/1.0.3 Wordpress/{$wp_version} PHP/{$php_version}";
+        $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
+
         if( is_callable( 'curl_init' ) ) {
             $ch = curl_init();
+            $curl_info = curl_version();
+            $curl_version = $curl_info['version'];
+            $headers[] = $accept_header;
             curl_setopt( $ch, CURLOPT_URL, $url );
+            curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
+            curl_setopt( $ch, CURLOPT_USERAGENT, $ua_string . " cURL/{$curl_version}" );
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
             $request = curl_exec( $ch );
             $response_array = json_decode( $request );
             curl_close( $ch );
 
         } else {
-            $request = file_get_contents($url);
+            $options = array(
+                'http' => array(
+                    'header' => $accept_header,
+                    'user_agent' => $ua_string
+                )
+            );
+            $context = stream_context_create( $options );
+            $request = file_get_contents( $url, false, $context );
             $response_array = json_decode( $request );
         }
 
