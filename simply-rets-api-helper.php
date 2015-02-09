@@ -153,6 +153,11 @@ class SimplyRetsApiHelper {
          * there, return it - no need to do anything else.
          * The error code comes from the UrlBuilder function.
         */
+        if( $listing == NULL ) {
+            $err = "SimplyRETS could not complete this search. Please check your " .
+                "credentials and try again.";
+            return $err;
+        }
         if( array_key_exists( "error", $listing ) ) {
             $error = $listing['error'];
             $cont .= "<hr><p>{$error}</p>";
@@ -411,6 +416,11 @@ HTML;
          * there, return it - no need to do anything else.
          * The error code comes from the UrlBuilder function.
         */
+        if( $response == NULL ) {
+            $err = "SimplyRETS could not complete this search. Please check your " .
+                "credentials and try again.";
+            return $err;
+        }
         if( array_key_exists( "error", $response ) ) {
             $error = $response['error'];
             $response_markup = "<hr><p>{$error}</p>";
@@ -522,6 +532,11 @@ HTML;
          * there, return it - no need to do anything else.
          * The error code comes from the UrlBuilder function.
         */
+        if( $response == NULL ) {
+            $err = "SimplyRETS could not complete this search. Please check your " .
+                "credentials and try again.";
+            return $err;
+        }
         if( array_key_exists( "error", $response ) ) {
             $error = $response['error'];
             $response_markup = "<hr><p>{$error}</p>";
