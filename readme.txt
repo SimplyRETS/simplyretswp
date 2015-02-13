@@ -3,7 +3,7 @@ Contributors: CodyReichert, ReichertBrothers
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, simple rets, rets feed, simple idx, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -196,6 +196,10 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 1.1.1 =
+* Better handling of data fields that might not always have a value
+* Fix for search results with only one result
+
 = 1.1.0 =
 * Add a new Search Form sidebar/footer Widget
 * Add a new Random listing widget
@@ -225,7 +229,7 @@ listing sidebar widget.
 == Upgrade Notice ==
 
 = 1.1.0 =
-* There many new updates and features added to this release. A lot of the API authentication has improved, so old
+* There are many new updates and features added to this release. A lot of the API authentication has improved, so old
 clients need to be updated. See the changelog for a complete list.
 
 = 1.0.3 =
