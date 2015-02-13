@@ -264,7 +264,53 @@ HTML;
         }
 
 
-        $geo_county     = $listing->geo->county;
+        // school zone data
+        $school_data = $listing->school->district;
+        if( $school_data == "" ) {
+            $school_data = "";
+        } else {
+            $school_data  = <<<HTML
+                <tr>
+                  <td>School Zone</td>
+                  <td>$school_data</td></tr>
+HTML;
+        }
+
+        // days on market
+        $days_on_market = $listing->mls->daysOnMarket;
+        if( $days_on_market == "" ) {
+            $days_on_market = "";
+        } else {
+            $days_on_market = <<<HTML
+                <tr>
+                  <td>Days on Market</td>
+                  <td>$days_on_market</td></tr>
+HTML;
+        }
+
+        // mls area
+        $mls_area       = $listing->mls->area;
+        if( $mls_area == "" ) {
+            $mls_area = "";
+        } else {
+            $mls_area = <<<HTML
+                <tr>
+                  <td>MLS Area</td>
+                  <td>$mls_area</td></tr>
+HTML;
+        }
+
+        // tax data
+        $tax_data    = $listing->tax->id;
+        if( $tax_data == "" ) {
+            $tax_data = "";
+        } else {
+            $tax_data = <<<HTML
+                <tr>
+                  <td>Tax Data</td>
+                  <td>$tax_data</td></tr>
+HTML;
+        }
 
         // Amenities
         $bedrooms         = $listing->property->bedrooms;
@@ -282,9 +328,7 @@ HTML;
         $list_date           = $listing->listDate;
         $list_date_formatted = date("M j, Y", strtotime($list_date));
 
-        $school_data = $listing->school->district;
         $disclaimer  = $listing->disclaimer;
-        $tax_data    = $listing->tax->id;
         $listing_uid = $listing->mlsId;
         // street address info
         $postal_code   = $listing->address->postalCode;
@@ -308,8 +352,6 @@ HTML;
 
         // mls information
         $mls_status     = $listing->mls->status;
-        $mls_area       = $listing->mls->area;
-        $days_on_market = $listing->mls->daysOnMarket;
 
         // listing markup
         $cont .= <<<HTML
@@ -398,15 +440,11 @@ HTML;
                 <tr>
                   <td>Listing last modified</td>
                   <td>$date_modified</td></tr>
-                <tr>
-                  <td>School Zone</td>
-                  <td>$school_data</td></tr>
+                $school_data
                 <tr>
                   <td>Disclaimer</td>
                   <td>$disclaimer</td></tr>
-                <tr>
-                  <td>Tax Data</td>
-                  <td>$tax_data</td></tr>
+                $tax_data
                 <tr>
                   <td>Listing Id</td>
                   <td>$listing_uid</td></tr>
@@ -446,15 +484,11 @@ HTML;
                 <tr>
                   <th colspan="2"><h5>Mls Information</h5></th></tr></thead>
               <tbody>
-                <tr>
-                  <td>Days on Market</td>
-                  <td>$days_on_market</td></tr>
+                $days_on_market
                 <tr>
                   <td>Mls Status</td>
                   <td>$mls_status</td></tr>
-                <tr>
-                  <td>Mls Area</td>
-                  <td>$mls_area</td></tr>
+                $mls_area
               </tbody>
             </table>
           </div>
@@ -477,19 +511,19 @@ HTML;
          * there, return it - no need to do anything else.
          * The error code comes from the UrlBuilder function.
         */
-        if( $response == NULL ) {
+        if( $response == "NULL" ) {
             $err = "SimplyRETS could not complete this search. Please check your " .
                 "credentials and try again.";
             return $err;
         }
         if( array_key_exists( "error", $response ) ) {
-            $error = $response['error'];
-            $response_markup = "<hr><p>{$error}</p>";
+            $error = "SimplyRETS could not find any properties matching your criteria. Please try another search.";
+            $response_markup = "<hr><p>{$error}</p><br>";
             return $response_markup;
         }
 
         $response_size = sizeof( $response );
-        if( $response_size <= 1 ) {
+        if( $response_size < 1 ) {
             $response = array( $response );
         }
 
