@@ -462,6 +462,8 @@ HTML;
             $yearBuilt   = $listing->property->yearBuilt;
             // listing data
             $listing_agent_id    = $listing->agent->id;
+            $listing_agent_name  = $listing->agent->firstName;
+
             $listing_price    = $listing->listPrice;
             $list_date        = $listing->listDate;
             $list_date_formatted = date("M j, Y", strtotime($list_date));
@@ -514,7 +516,7 @@ HTML;
                       <span>The City of $city</span>
                     </li>
                     <li>
-                      <span>Listed by $listing_agent_id</span>
+                      <span>Listed by $listing_agent_name</span>
                     </li>
                     <li>
                       <span>Listed on $list_date_formatted</span>
