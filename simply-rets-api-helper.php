@@ -170,7 +170,19 @@ class SimplyRetsApiHelper {
         $interiorFeatures = $listing->property->interiorFeatures;
         $style            = $listing->property->style;
         $heating          = $listing->property->heating;
+
+        // stories
         $stories          = $listing->property->stories;
+        if( $stories == "" ) {
+            $stories = "";
+        } else {
+            $stories = <<<HTML
+                <tr>
+                  <td>Stories</td>
+                  <td>$stories</td></tr>
+HTML;
+        }
+
         $exteriorFeatures = $listing->property->exteriorFeatures;
         $yearBuilt        = $listing->property->yearBuilt;
         $lotSize          = $listing->property->lotSize;
@@ -289,9 +301,7 @@ class SimplyRetsApiHelper {
                 <tr>
                   <td>Heating</td>
                   <td>$heating</td></tr>
-                <tr>
-                  <td>Stories</td>
-                  <td>$stories</td></tr>
+                $stories
                 <tr>
                   <td>Exterior Features</td>
                   <td>$exteriorFeatures</td></tr>
