@@ -523,7 +523,7 @@ HTML;
         }
 
         $response_size = sizeof( $response );
-        if( $response_size < 1 ) {
+        if( !array_key_exists( "0", $response ) ) {
             $response = array( $response );
         }
 
