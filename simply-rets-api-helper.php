@@ -218,13 +218,21 @@ class SimplyRetsApiHelper {
         $address       = $listing->address->full;
         $city          = $listing->address->city;
         // Listing Data
-        $showing_instructions = $listing->showingInstructions;
         $listing_office   = $listing->office->name;
-        $listing_agent    = $listing->agent->id;
         $list_date        = $listing->listDate;
         $listing_price    = $listing->listPrice;
         $listing_USD      = '$' . number_format( $listing_price );
         $listing_remarks  = $listing->remarks;
+
+        // agent data
+        $listing_agent_id    = $listing->agent->id;
+        $listing_agent_name  = $listing->agent->firstName;
+        $listing_agent_email = $listing->agent->contact->email;
+
+        if( !$listing_agent_email == "" ) {
+            $listing_agent_name = "<a href='mailto:$listing_agent_email'>$listing_agent_name</a>";
+        }
+
         // mls information
         $mls_status     = $listing->mls->status;
         $mls_area       = $listing->mls->area;
@@ -243,7 +251,6 @@ class SimplyRetsApiHelper {
               <img class="sr-slider-img-act" src="$main_photo">
               $photo_markup
             </div>
-
             <div class="sr-primary-details">
               <div class="sr-detail" id="sr-primary-details-beds">
                 <h3>$bedrooms <small>Beds</small></h3>
@@ -332,7 +339,7 @@ class SimplyRetsApiHelper {
                   <td>Listing last modified</td>
                   <td>$date_modified</td></tr>
                 <tr>
-                  <td>School Data</td>
+                  <td>School Zone</td>
                   <td>$school_data</td></tr>
                 <tr>
                   <td>Disclaimer</td>
@@ -366,14 +373,11 @@ class SimplyRetsApiHelper {
                   <th colspan="2"><h5>Listing Information</h5></th></tr></thead>
               <tbody>
                 <tr>
-                  <td>Showing Instructions</td>
-                  <td>$showing_instructions</td></tr>
-                <tr>
                   <td>Listing Office</td>
                   <td>$listing_office</td></tr>
                 <tr>
                   <td>Listing Agent</td>
-                  <td>$listing_agent</td></tr>
+                  <td>$listing_agent_name</td></tr>
                 <tr>
                   <td>Price</td>
                   <td>$listing_USD</td></tr>
@@ -447,7 +451,7 @@ HTML;
             $subdivision = $listing->property->subdivision;
             $yearBuilt   = $listing->property->yearBuilt;
             // listing data
-            $listing_agent    = $listing->agent->id;
+            $listing_agent_id    = $listing->agent->id;
             $listing_price    = $listing->listPrice;
             $list_date        = $listing->listDate;
             $list_date_formatted = date("M j, Y", strtotime($list_date));
@@ -500,7 +504,7 @@ HTML;
                       <span>The City of $city</span>
                     </li>
                     <li>
-                      <span>Listed by $listing_agent</span>
+                      <span>Listed by $listing_agent_id</span>
                     </li>
                     <li>
                       <span>Listed on $list_date_formatted</span>
