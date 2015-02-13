@@ -142,7 +142,9 @@ class SimplyRetsApiHelper {
         wp_enqueue_script( 'simply-rets-client-js' );
     }
 
-    // generate markup for a single listing's details page
+
+
+
     public static function srResidentialDetailsGenerator( $listing ) {
         $br = "<br>";
         $cont = "";
@@ -164,15 +166,8 @@ class SimplyRetsApiHelper {
             return $cont;
         }
 
-        // Amenities
-        $bedrooms         = $listing->property->bedrooms;
-        $bathsFull        = $listing->property->bathsFull;
-        $interiorFeatures = $listing->property->interiorFeatures;
-        $style            = $listing->property->style;
-        $heating          = $listing->property->heating;
-
         // stories
-        $stories          = $listing->property->stories;
+        $stories = $listing->property->stories;
         if( $stories == "" ) {
             $stories = "";
         } else {
@@ -182,23 +177,27 @@ class SimplyRetsApiHelper {
                   <td>$stories</td></tr>
 HTML;
         }
+        // fireplaces
+        $fireplaces = $listing->property->fireplaces;
+        if( $fireplaces == "" ) {
+            $fireplaces = "";
+        } else {
+            $fireplaces = <<<HTML
+                <tr>
+                  <td>Fireplaces</td>
+                  <td>$fireplaces</td></tr>
+HTML;
+        }
 
-        $exteriorFeatures = $listing->property->exteriorFeatures;
-        $yearBuilt        = $listing->property->yearBuilt;
+        // lot size
         $lotSize          = $listing->property->lotSize;
         if( $lotSize == 0 ) {
             $lot_sqft = 'n/a';
         } else {
             $lot_sqft    = number_format( $lotSize );
         }
-        $fireplaces       = $listing->property->fireplaces;
-        $subdivision      = $listing->property->subdivision;
-        $roof             = $listing->property->roof;
-        // geographic data
-        $geo_directions = $listing->geo->directions;
-        $geo_longitude  = $listing->geo->lng;
-        $geo_latitude   = $listing->geo->lat;
-        $geo_county     = $listing->geo->county;
+
+
         // photos data (and set up slideshow markup)
         $photos = $listing->photos;
         if(empty($photos)) {
@@ -214,6 +213,69 @@ HTML;
                 $photo_counter++;
             }
         }
+
+        // geographic data
+        $geo_directions = $listing->geo->directions;
+        if( $geo_directions == "" ) {
+            $geo_directions = "";
+        } else {
+            $geo_directions = <<<HTML
+              <thead>
+                <tr>
+                  <th colspan="2"><h5>Geographical Data</h5></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>Direction</td>
+                  <td>$geo_directions</td></tr>
+HTML;
+        }
+        // Long
+        $geo_longitude = $listing->geo->lng;
+        if( $geo_longitude == "" ) {
+            $geo_longitude  = "";
+        } else {
+            $geo_longitude = <<<HTML
+                <tr>
+                  <td>Longitude</td>
+                  <td>$geo_longitude</td></tr>
+HTML;
+        }
+        // Long
+        $geo_latitude = $listing->geo->lat;
+        if( $geo_latitude == "" ) {
+            $geo_latitude  = "";
+        } else {
+            $geo_latitude = <<<HTML
+                <tr>
+                  <td>Latitude</td>
+                  <td>$geo_latitude</td></tr>
+HTML;
+        }
+        // Long
+        $geo_county= $listing->geo->county;
+        if( $geo_county == "" ) {
+            $geo_county   = "";
+        } else {
+            $geo_county = <<<HTML
+                <tr>
+                  <td>Latitude</td>
+                  <td>$geo_county</td></tr>
+HTML;
+        }
+
+
+        $geo_county     = $listing->geo->county;
+
+        // Amenities
+        $bedrooms         = $listing->property->bedrooms;
+        $bathsFull        = $listing->property->bathsFull;
+        $interiorFeatures = $listing->property->interiorFeatures;
+        $style            = $listing->property->style;
+        $heating          = $listing->property->heating;
+        $exteriorFeatures = $listing->property->exteriorFeatures;
+        $yearBuilt        = $listing->property->yearBuilt;
+        $subdivision      = $listing->property->subdivision;
+        $roof             = $listing->property->roof;
         // listing meta information
         $listing_modified    = $listing->modified; // TODO: format date
         $date_modified       = date("M j, Y", strtotime($listing_modified));
@@ -240,7 +302,6 @@ HTML;
         $listing_agent_id    = $listing->agent->id;
         $listing_agent_name  = $listing->agent->firstName;
         $listing_agent_email = $listing->agent->contact->email;
-
         if( !$listing_agent_email == "" ) {
             $listing_agent_name = "<a href='mailto:$listing_agent_email'>$listing_agent_name</a>";
         }
@@ -287,6 +348,9 @@ HTML;
                   <th colspan="2"><h5>Listing Details</h5></th></tr></thead>
               <tbody>
                 <tr>
+                  <td>Price</td>
+                  <td>$listing_USD</td></tr>
+                <tr>
                   <td>Bedrooms</td>
                   <td>$bedrooms</td></tr>
                 <tr>
@@ -311,9 +375,7 @@ HTML;
                 <tr>
                   <td>Lot Size</td>
                   <td>$lot_sqft SqFt</td></tr>
-                <tr>
-                  <td>Fireplaces</td>
-                  <td>$fireplaces</td></tr>
+                $fireplaces
                 <tr>
                   <td>Subdivision</td>
                   <td>$subdivision</td></tr>
@@ -321,22 +383,10 @@ HTML;
                   <td>Roof</td>
                   <td>$roof</td></tr>
               </tbody>
-              <thead>
-                <tr>
-                  <th colspan="2"><h5>Geographical Data</h5></th></tr></thead>
-              <tbody>
-                <tr>
-                  <td>Directions</td>
-                  <td>$geo_directions</td></tr>
-                <tr>
-                  <td>County</td>
-                  <td>$geo_county</td></tr>
-                <tr>
-                  <td>Latitude</td>
-                  <td>$geo_latitude</td></tr>
-                <tr>
-                  <td>Longitude</td>
-                  <td>$geo_longitude</td></tr>
+                $geo_directions
+                $geo_county
+                $geo_latitude
+                $geo_longitude
               </tbody>
               <thead>
                 <tr>
@@ -388,9 +438,6 @@ HTML;
                 <tr>
                   <td>Listing Agent</td>
                   <td>$listing_agent_name</td></tr>
-                <tr>
-                  <td>Price</td>
-                  <td>$listing_USD</td></tr>
                 <tr>
                   <td>Remarks</td>
                   <td>$listing_remarks</td></tr>
