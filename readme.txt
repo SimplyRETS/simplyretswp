@@ -3,7 +3,7 @@ Contributors: CodyReichert, ReichertBrothers
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, simple rets, rets feed, simple idx, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -196,6 +196,11 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 1.1.3 =
+* Fixes php warning on new SimplyRETS Pages
+* Other fixes to prevent errrors and warnings
+* Added testing suite!!
+
 = 1.1.2 =
 * Patch for search results or shortcode with a single listing response
 
@@ -230,6 +235,9 @@ listing sidebar widget.
 
 
 == Upgrade Notice ==
+
+= 1.1.3 =
+* This update fixes a visible warning on new SimplyRETS post pages
 
 = 1.1.0 =
 * There are many new updates and features added to this release. A lot of the API authentication has improved, so old
