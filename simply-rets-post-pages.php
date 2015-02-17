@@ -266,7 +266,11 @@ class SimplyRetsCustomPostPages {
     }
 
     public static function postFilterMetaBoxSave( $post_id ) {
-        $current_nonce = SimplyRetsUtils::defaultValue( $_POST['sr_meta_box_nonce'], '' );
+        if( isset($_POST['sr_meta_box_nonce']) ) {
+            $current_nonce = $_POST['sr_meta_box_nonce'];
+        } else {
+            $current_nonce = NULL;
+        }
         $is_autosaving = wp_is_post_autosave( $post_id );
         $is_revision   = wp_is_post_revision( $post_id );
         $valid_nonce   = ( isset( $current_nonce ) && wp_verify_nonce( $current_nonce, basename( __FILE__ ) ) ) ? 'true' : 'false';
@@ -275,7 +279,11 @@ class SimplyRetsCustomPostPages {
             return;
         }
 
-        $sr_filters = SimplyRetsUtils::defaultValue( $_POST['sr_filters'], '' );
+        if( isset($_POST['sr_filters']) ) {
+            $sr_filters = $_POST['sr_filters'];
+        } else {
+            $sr_filters = NULL;
+        }
         update_post_meta( $post_id, 'sr_filters', $sr_filters );
     }
 
@@ -307,7 +315,11 @@ class SimplyRetsCustomPostPages {
     }
 
     public static function postTemplateMetaBoxSave( $post_id ) {
-        $current_nonce = SimplyRetsUtils::defaultValue( $_POST['sr_template_meta_nonce'], '' );
+        if( isset($_POST['sr_template_meta_nonce']) ) {
+            $current_nonce = $_POST['sr_template_meta_nonce'];
+        } else {
+            $current_nonce = NULL;
+        }
         $is_autosaving = wp_is_post_autosave( $post_id );
         $is_revision   = wp_is_post_revision( $post_id );
         $valid_nonce   = ( isset( $current_nonce ) && wp_verify_nonce( $current_nonce, basename( __FILE__ ) ) ) ? 'true' : 'false';
@@ -316,7 +328,11 @@ class SimplyRetsCustomPostPages {
             return;
         }
 
-        $sr_page_template = SimplyRetsUtils::defaultValue( $_POST['sr_page_template'], '' );
+        if( isset($_POST['sr_page_template']) ) {
+            $sr_page_template = $_POST['sr_page_template'];
+        } else {
+            $sr_page_template = NULL;
+        }
         update_post_meta( $post_id, 'sr_page_template', $sr_page_template );
     }
 
