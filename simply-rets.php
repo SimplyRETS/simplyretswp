@@ -12,7 +12,6 @@ Copyright (c) Reichert Brothers 2014
 
 /* Code starts here */
 
-require_once( plugin_dir_path(__FILE__) . 'simply-rets-utils.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-post-pages.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-shortcode.php' );

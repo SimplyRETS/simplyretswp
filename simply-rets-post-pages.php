@@ -242,6 +242,9 @@ class SimplyRetsCustomPostPages {
 
         // on page load, if there are any filters already saved, load them,
         // show the input field, and remove the option from the dropdown
+        if( !is_array($sr_filters) ) {
+            $sr_filters = array();
+        }
         foreach( $sr_filters as $key=>$val ) {
             if ( $val != '' ) {
                 ?>
