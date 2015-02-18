@@ -184,6 +184,7 @@ secondary data. For example, set the `.sr-data-column` to
 .sr-data-column {
     display: inline-block;
     margin: 0px 0px 10px 15px !important;
+    vertical-align: top;
 }
 
 
