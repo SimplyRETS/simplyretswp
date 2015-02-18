@@ -24,19 +24,20 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_api_name');
       register_setting('sr_admin_settings', 'sr_api_key');
       register_setting('sr_admin_settings', 'sr_contact_page');
+      register_setting('sr_admin_settings', 'sr_show_listingmeta');
   }
   
   function sr_admin_page() {
       global $wpdb;
       ?>
       <div class="wrap">
-        <h2>SimplyRETS Admin Settings</h2>
+        <h1>SimplyRETS Admin Settings</h2>
         <hr>
         <form method="post" action="options.php">
           <?php settings_fields( 'sr_admin_settings'); ?>
           <?php do_settings_sections( 'sr_admin_settings'); ?>
           <div class="sr-admin-api">
-            <h3>Account Credentials</h3>
+            <h2>Account Credentials</h2>
             <p>
               Enter your SimplyRETS API credentials in the fields below.
               <i>  Note: properties will not show up until these are correct.</i>
@@ -64,7 +65,7 @@ class SrAdminSettings {
           </div>
           <hr>
           <div class="sr-admin-settings">
-            <h3>Settings</h3>
+            <h2>Single Listing Page Settings</h2>
             <table>
               <tbody>
                 <tr>
@@ -72,14 +73,25 @@ class SrAdminSettings {
                     <strong>Contact Page Link</strong>
                   </td>
                   <td>
+                    <br>
                     <input type="text" name="sr_contact_page" value="<?php echo esc_attr( get_option('sr_contact_page') ); ?>" />
+                    <br>
+                    <i>Example: http://yoursite.com/contact </i>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_show_listingmeta" name="sr_show_listingmeta" value="1" '
+                        . checked(1, get_option('sr_show_listingmeta'), false) . '/>'
+                      ?>
+                      Show 'Listing Date' and 'Listing Last Modified' for search results and property details?
+                    </label>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <p>
-              <i> Use the full path to the page. Example: http://yoursite.com/contact </i>
-            </p>
           <?php submit_button(); ?>
         </form>
         <div>

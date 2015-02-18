@@ -276,18 +276,6 @@ HTML;
 HTML;
         }
 
-        // days on market
-        $days_on_market = $listing->mls->daysOnMarket;
-        if( $days_on_market == "" ) {
-            $days_on_market = "";
-        } else {
-            $days_on_market = <<<HTML
-                <tr>
-                  <td>Days on Market</td>
-                  <td>$days_on_market</td></tr>
-HTML;
-        }
-
         // mls area
         $mls_area       = $listing->mls->area;
         if( $mls_area == "" ) {
@@ -312,6 +300,39 @@ HTML;
 HTML;
         }
 
+        // list date and listing last modified
+        if( get_option('sr_show_listingmeta') ) {
+            $show_listing_meta = true;
+        } else {
+            $show_listing_meta = false;
+        }
+
+        $list_date_markup = '';
+        if( $show_listing_meta == true ) {
+            $list_date           = $listing->listDate;
+            $list_date_formatted = date("M j, Y", strtotime($list_date));
+            $listing_modified    = $listing->modified; // TODO: format date
+            $date_modified       = date("M j, Y", strtotime($listing_modified));
+            $list_date_markup = <<<HTML
+                <tr>
+                  <td>Listing date</td>
+                  <td>$list_date_formatted</td></tr>
+                <tr>
+                  <td>Listing last modified</td>
+                  <td>$date_modified</td></tr>
+HTML;
+            $days_on_market = $listing->mls->daysOnMarket;
+            if( $days_on_market == "" ) {
+                $days_on_market = "";
+            } else {
+                $days_on_market = <<<HTML
+                    <tr>
+                      <td>Days on Market</td>
+                      <td>$days_on_market</td></tr>
+HTML;
+            }
+        }
+
         // Amenities
         $bedrooms         = $listing->property->bedrooms;
         $bathsFull        = $listing->property->bathsFull;
@@ -323,11 +344,6 @@ HTML;
         $subdivision      = $listing->property->subdivision;
         $roof             = $listing->property->roof;
         // listing meta information
-        $listing_modified    = $listing->modified; // TODO: format date
-        $date_modified       = date("M j, Y", strtotime($listing_modified));
-        $list_date           = $listing->listDate;
-        $list_date_formatted = date("M j, Y", strtotime($list_date));
-
         $disclaimer  = $listing->disclaimer;
         $listing_uid = $listing->mlsId;
         // street address info
@@ -337,7 +353,6 @@ HTML;
         $city          = $listing->address->city;
         // Listing Data
         $listing_office   = $listing->office->name;
-        $list_date        = $listing->listDate;
         $listing_price    = $listing->listPrice;
         $listing_USD      = '$' . number_format( $listing_price );
         $listing_remarks  = $listing->remarks;
@@ -434,12 +449,7 @@ HTML;
                 <tr>
                   <th colspan="2"><h5>Listing Meta Data</h5></th></tr></thead>
               <tbody>
-                <tr>
-                  <td>Listing date</td>
-                  <td>$list_date_formatted</td></tr>
-                <tr>
-                  <td>Listing last modified</td>
-                  <td>$date_modified</td></tr>
+                $list_date_markup
                 $school_data
                 <tr>
                   <td>Disclaimer</td>
@@ -527,6 +537,12 @@ HTML;
             $response = array( $response );
         }
 
+        if( get_option('sr_show_listingmeta') ) {
+            $show_listing_meta = true;
+        } else {
+            $show_listing_meta = false;
+        }
+
         foreach ( $response as $listing ) {
             // id
             $listing_uid      = $listing->mlsId;
@@ -540,14 +556,30 @@ HTML;
                 $lot_sqft    = number_format( $lotSize );
             }
             $subdivision = $listing->property->subdivision;
-            $yearBuilt   = $listing->property->yearBuilt;
+
+            // year built
+            $yearBuilt = $listing->property->yearBuilt;
+            if( $yearBuilt == '' ) {
+                $yearBuilt = 'n/a';
+            }
+
             // listing data
             $listing_agent_id    = $listing->agent->id;
             $listing_agent_name  = $listing->agent->firstName;
 
+            // show listing date if setting is on
+            $list_date_markup = '';
+            if( $show_listing_meta == true ) {
+                $list_date        = $listing->listDate;
+                $list_date_formatted = date("M j, Y", strtotime($list_date));
+                $list_date_markup = <<<HTML
+                    <li>
+                      <span>Listed on $list_date_formatted</span>
+                    </li>
+HTML;
+            }
+
             $listing_price    = $listing->listPrice;
-            $list_date        = $listing->listDate;
-            $list_date_formatted = date("M j, Y", strtotime($list_date));
             $listing_USD = '$' . number_format( $listing_price );
             // street address info
             $city    = $listing->address->city;
@@ -559,7 +591,9 @@ HTML;
             }
             $main_photo = trim($listingPhotos[0]);
 
-            $listing_link = get_home_url() . "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
+            $listing_link = get_home_url() .
+                "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
+
             // append markup for this listing to the content
             $cont .= <<<HTML
               <hr>
@@ -599,9 +633,7 @@ HTML;
                     <li>
                       <span>Listed by $listing_agent_name</span>
                     </li>
-                    <li>
-                      <span>Listed on $list_date_formatted</span>
-                    </li>
+                    $list_date_markup
                   </ul>
                 </div>
                 <div style="clear:both;">
