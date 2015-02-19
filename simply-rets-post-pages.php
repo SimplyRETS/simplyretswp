@@ -28,6 +28,8 @@ class SimplyRetsCustomPostPages {
 
     public static function srActivate() {
         SimplyRetsCustomPostPages::srRegisterPostType();
+        add_option( 'sr_api_name', 'simplyrets' );
+        add_option( 'sr_api_key', 'simplyrets' );
         flush_rewrite_rules();
     }
 
