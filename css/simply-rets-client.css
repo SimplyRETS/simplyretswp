@@ -578,6 +578,7 @@ elsewhere, this should be a breeze.
     margin: auto;
     width: 100%;
     height: auto;
+    max-height: 485px;
     box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.75);
 }
 

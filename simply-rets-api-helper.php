@@ -302,9 +302,9 @@ HTML;
 
         // list date and listing last modified
         if( get_option('sr_show_listingmeta') ) {
-            $show_listing_meta = true;
-        } else {
             $show_listing_meta = false;
+        } else {
+            $show_listing_meta = true;
         }
 
         $list_date_markup = '';
@@ -538,9 +538,9 @@ HTML;
         }
 
         if( get_option('sr_show_listingmeta') ) {
-            $show_listing_meta = true;
-        } else {
             $show_listing_meta = false;
+        } else {
+            $show_listing_meta = true;
         }
 
         foreach ( $response as $listing ) {

@@ -79,6 +79,10 @@ class SrAdminSettings {
                     <i>Example: http://yoursite.com/contact </i>
                   </td>
                 </tr>
+              </tbody>
+            </table>
+            <table>
+              <tbody>
                 <tr>
                   <td colspan="2">
                     <label>
@@ -86,7 +90,7 @@ class SrAdminSettings {
                         '<input type="checkbox" id="sr_show_listingmeta" name="sr_show_listingmeta" value="1" '
                         . checked(1, get_option('sr_show_listingmeta'), false) . '/>'
                       ?>
-                      Show 'Listing Date' and 'Listing Last Modified' for search results and property details?
+                      Hide 'Listing Date' and 'Listing Last Modified' for search results and property details?
                     </label>
                   </td>
                 </tr>
