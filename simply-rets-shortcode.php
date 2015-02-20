@@ -10,9 +10,33 @@
 
 /* Code starts here */
 
+add_action('init', array('SimplyRetsShortcodes', 'sr_residential_btn') );
+
+
 class SimplyRetsShortcodes {
 
-    //
+
+    /**
+     * Short code kitchen sink button registration
+     */
+    function sr_residential_btn() {
+        if ( current_user_can('edit_posts') && current_user_can('edit_pages') ) {
+            add_filter('mce_external_plugins', array('SimplyRetsShortcodes', 'sr_res_add_plugin') );
+            add_filter('mce_buttons', array('SimplyRetsShortcodes', 'sr_register_res_button') );
+        }
+    }
+
+    function sr_register_res_button($buttons) {
+        array_push($buttons, "simplyRets");
+        return $buttons;
+    }
+
+    function sr_res_add_plugin($plugin_array) {
+        $plugin_array['simplyRets'] = plugins_url( 'js/simply-rets-shortcodes.js', __FILE__ );
+        return $plugin_array;
+    }
+
+
     /**
      * [sr_residential] - Residential Listings Shortcode
      *
