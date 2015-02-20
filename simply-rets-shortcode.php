@@ -12,7 +12,14 @@
 
 class SimplyRetsShortcodes {
 
-    // [sr_residential] for all residential listings
+    //
+    /**
+     * [sr_residential] - Residential Listings Shortcode
+     *
+     * Show all residential listings with the ability to filter by mlsid
+     * to show a single listing.
+     * ie, [sr_residential
+     */
     function sr_residential_shortcode( $atts ) {
         global $wp_query;
         ob_start();
@@ -31,8 +38,11 @@ class SimplyRetsShortcodes {
     }
 
 
-    // [sr_openhouses] for all residential listings
-    // this is pulling condos and obviously needs to be pulling open houses
+    /**
+     * Open Houses Shortcode - [sr_openhouses]
+     *
+     * this is pulling condos and obviously needs to be pulling open houses
+     */
     function sr_openhouses_shortcode() {
         $listing_params = array(
             "type" => "cnd"
@@ -43,7 +53,13 @@ class SimplyRetsShortcodes {
     }
 
 
-    // [sr_search_form] to display a form for search filtering
+    /**
+     * Search Form Shortcode - [sr_search_form]
+     *
+     * Can be used to insert a search form into any page or post. The shortcode takes
+     * optional parameters to have default searches:
+     * ie, [sr_search_form q="city"] or [sr_search_form minprice="500000"]
+     */
     function sr_search_form_shortcode( $atts ) {
         ob_start();
         $home_url = get_home_url();
@@ -59,7 +75,6 @@ class SimplyRetsShortcodes {
         $maxprice = array_key_exists('maxprice', $atts) ? $atts['maxprice'] : '';
         $keywords = array_key_exists('q',        $atts) ? $atts['q']        : '';
         $type     = array_key_exists('type',     $atts) ? $atts['type']     : '';
-
         if( !$type == "" ) {
             $type_res = ($type == "res") ? "selected" : '';
             $type_cnd = ($type == "cnd") ? "selected" : '';
