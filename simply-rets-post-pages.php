@@ -390,13 +390,12 @@ class SimplyRetsCustomPostPages {
         }
 
         if ( $page_name == 'sr-search' ) {
-            $minbeds   = get_query_var( 'sr_minbeds',   '' );
-            $maxbeds   = get_query_var( 'sr_maxbeds',   '' );
-            $minbaths  = get_query_var( 'sr_minbaths',  '' );
-            $maxbaths  = get_query_var( 'sr_maxbaths',  '' );
+            $minbeds  = get_query_var( 'sr_minbeds',   '' );
+            $maxbeds  = get_query_var( 'sr_maxbeds',   '' );
+            $minbaths = get_query_var( 'sr_minbaths',  '' );
+            $maxbaths = get_query_var( 'sr_maxbaths',  '' );
             $minprice = get_query_var( 'sr_minprice', '' );
             $maxprice = get_query_var( 'sr_maxprice', '' );
-            // TODO: make sure api helper supports these
             $keywords = get_query_var( 'sr_keywords', '' );
             $type     = get_query_var( 'sr_ptype', '' );
 
@@ -412,8 +411,14 @@ class SimplyRetsCustomPostPages {
                 "maxprice"  => $maxprice
             );
 
+            foreach( $listing_params as $param => $val ) {
+                if( !$val == '' ) {
+                    $filters_string .= ' ' . $param . '=\'' . $val . '\'';
+                }
+            }
+
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
-            $content .= do_shortcode( '[sr_search_form]' );
+            $content .= do_shortcode( "[sr_search_form  $filters_string]");
             $content .= $listings_content;
 
             return $content;
