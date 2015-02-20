@@ -32,7 +32,7 @@ jQuery(document).ready(function() {
                          {
                              type:  'textbox'
                            , name:  'minprice'
-                           , label: 'Minum Price'
+                           , label: 'Minimum Price'
                          },
                          {
                              type:  'textbox'
@@ -41,22 +41,22 @@ jQuery(document).ready(function() {
                          },
                          {
                              type:  'textbox'
-                           , name:  'minbed'
+                           , name:  'minbeds'
                            , label: 'Minimum Bedrooms'
                          },
                          {
                              type:  'textbox'
-                           , name:  'maxbed'
+                           , name:  'maxbeds'
                            , label: 'Maximum Bedrooms'
                          },
                          {
                              type:  'textbox'
-                           , name:  'minbath'
+                           , name:  'minbaths'
                            , label: 'Minimum bathrooms'
                          },
                          {
                              type:  'textbox'
-                           , name:  'maxbath'
+                           , name:  'maxbaths'
                            , label: 'Maximum Bathrooms'
                          }
                        ],
@@ -65,13 +65,13 @@ jQuery(document).ready(function() {
 
                            var scStart  = '[sr_residential ';
                            var scEnd    = ']';
-                           var type     = 'type="'     + e.data.type     + '" ';
-                           var minprice = 'minprice="' + e.data.minprice + '" ';
-                           var maxprice = 'maxprice="' + e.data.maxprice + '" ';
-                           var minbed   = 'minbed="'   + e.data.minbed   + '" ';
-                           var maxbed   = 'maxbed="'   + e.data.maxbed   + '" ';
-                           var minbath  = 'minbath="'  + e.data.minbath  + '" ';
-                           var maxbath  = 'maxbath="'  + e.data.maxbath  + '" ';
+                           var type     = 'type="'      + e.data.type       + '" ';
+                           var minprice = 'minprice="'  + e.data.minprice   + '" ';
+                           var maxprice = 'maxprice="'  + e.data.maxprice   + '" ';
+                           var minbed   = 'minbeds="'   + e.data.minbeds   + '" ';
+                           var maxbed   = 'maxbeds="'   + e.data.maxbeds   + '" ';
+                           var minbath  = 'minbaths="'  + e.data.minbaths  + '" ';
+                           var maxbath  = 'maxbaths="'  + e.data.maxbaths  + '" ';
                          
                            ed.selection.setContent(
                                  scStart

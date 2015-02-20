@@ -48,14 +48,18 @@ class SimplyRetsShortcodes {
         global $wp_query;
         ob_start();
 
-
         if( !empty($atts['mlsid']) ) {
             $mlsid = $atts['mlsid'];
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $mlsid );
             return $listings_content;
         }
 
-        $listing_params = array();
+        if(!is_array($atts)) {
+            $listing_params = array();
+        } else {
+            $listing_params = $atts;
+        }
+
         $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
         return $listings_content;
 
