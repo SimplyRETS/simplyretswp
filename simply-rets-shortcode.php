@@ -48,6 +48,9 @@ class SimplyRetsShortcodes {
         ob_start();
         $home_url = get_home_url();
 
+        if( !is_array($atts) ) {
+            $atts = array();
+        }
         $minbeds  = array_key_exists('minbeds',  $atts) ? $atts['minbeds']  : '';
         $maxbeds  = array_key_exists('maxbeds',  $atts) ? $atts['maxbeds']  : '';
         $minbaths = array_key_exists('minbaths', $atts) ? $atts['minbaths'] : '';
