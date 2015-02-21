@@ -13,7 +13,7 @@ jQuery(document).ready(function() {
        init : function(ed, url) {
            ed.addButton('simplyRets', {
                title : 'Insert SimplyRETS Listings',
-               image : url + '/../img/defprop.jpg',
+               image : url + '/../img/icon-128x128.png',
                onclick : function() {
                    ed.windowManager.open({
                        title: 'Embed SimplyRETS Listings',
@@ -23,10 +23,10 @@ jQuery(document).ready(function() {
                            , name:  'type'
                            , label: 'Property Type'
                            , 'values': [
-                                 {text: 'Residential', value: 'res'}
+                                 {text: 'All'        , value: ''}
+                               , {text: 'Residential', value: 'res'}
                                , {text: 'Condos'     , value: 'cnd'}
                                , {text: 'Rentals'    , value: 'rnt'}
-                               , {text: 'All'        , value: ''}
                            ]
                          },
                          {
@@ -81,7 +81,7 @@ jQuery(document).ready(function() {
                                             ? 'maxbeds="' + e.data.maxbeds + '" '
                                             : '';
                            var minbaths = e.data.minbaths !== "" && e.data.minbaths !== undefined
-                                            ? 'minbathc="' + e.data.minbaths + '" '
+                                            ? 'minbaths="' + e.data.minbaths + '" '
                                             : '';
                            var maxbaths = e.data.maxbaths !== "" && e.data.maxbaths !== undefined
                                             ? 'maxbaths="' + e.data.maxbaths + '" '
