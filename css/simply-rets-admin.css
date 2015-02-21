@@ -13,3 +13,20 @@
 .mce-container {
     opacity: 1 !important;
 }
+
+.sr-admin-wrap .sr-admin-logo {
+    display: inline-block;
+    max-height: 50px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    vertical-align: bottom;
+}
+
+.sr-admin-wrap .sr-admin-title {
+    display: inline-block;
+    vertical-align: text-bottom;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+}

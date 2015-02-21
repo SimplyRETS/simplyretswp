@@ -29,9 +29,11 @@ class SrAdminSettings {
   
   function sr_admin_page() {
       global $wpdb;
+      $logo_path = plugin_dir_url(__FILE__) . 'img/logo_button.png';
       ?>
-      <div class="wrap">
-        <h1>SimplyRETS Admin Settings</h2>
+      <div class="wrap sr-admin-wrap">
+        <img class="sr-admin-logo" src="<?php echo $logo_path; ?>">
+        <h1 class="sr-admin-title">SimplyRETS Admin Settings</h2>
         <hr>
         <form method="post" action="options.php">
           <?php settings_fields( 'sr_admin_settings'); ?>
@@ -40,7 +42,6 @@ class SrAdminSettings {
             <h2>Account Credentials</h2>
             <p>
               Enter your SimplyRETS API credentials in the fields below.
-              <i>  Note: properties will not show up until these are correct.</i>
             </p>
             <table>
               <tbody>
