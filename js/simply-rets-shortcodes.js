@@ -69,22 +69,22 @@ jQuery(document).ready(function() {
                                             ? 'type="' + e.data.type + '" '
                                             : '';
                            var minprice = e.data.minprice !== "" && e.data.minprice !== undefined
-                                            ? 'type="' + e.data.minprice + '" '
+                                            ? 'minprice="' + e.data.minprice + '" '
                                             : '';
                            var maxprice = e.data.maxprice !== "" && e.data.maxprice !== undefined
-                                            ? 'type="' + e.data.maxprice + '" '
+                                            ? 'maxprice="' + e.data.maxprice + '" '
                                             : '';
                            var minbeds   = e.data.minbeds !== "" && e.data.minbeds !== undefined
-                                            ? 'type="' + e.data.minbeds + '" '
+                                            ? 'minbeds="' + e.data.minbeds + '" '
                                             : '';
                            var maxbeds   = e.data.maxbeds !== "" && e.data.maxbeds !== undefined
-                                            ? 'type="' + e.data.maxbeds + '" '
+                                            ? 'maxbeds="' + e.data.maxbeds + '" '
                                             : '';
                            var minbaths = e.data.minbaths !== "" && e.data.minbaths !== undefined
-                                            ? 'type="' + e.data.minbaths + '" '
+                                            ? 'minbathc="' + e.data.minbaths + '" '
                                             : '';
                            var maxbaths = e.data.maxbaths !== "" && e.data.maxbaths !== undefined
-                                            ? 'type="' + e.data.maxbaths + '" '
+                                            ? 'maxbaths="' + e.data.maxbaths + '" '
                                             : '';
                          
                            ed.selection.setContent(
