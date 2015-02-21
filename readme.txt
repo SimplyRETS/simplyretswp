@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: CodyReichert, ReichertBrothers
+Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, simple rets, rets feed, simple idx, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.1.1

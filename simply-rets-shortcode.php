@@ -19,19 +19,19 @@ class SimplyRetsShortcodes {
     /**
      * Short code kitchen sink button registration
      */
-    function sr_residential_btn() {
+    public static function sr_residential_btn() {
         if ( current_user_can('edit_posts') && current_user_can('edit_pages') ) {
             add_filter('mce_external_plugins', array('SimplyRetsShortcodes', 'sr_res_add_plugin') );
             add_filter('mce_buttons', array('SimplyRetsShortcodes', 'sr_register_res_button') );
         }
     }
 
-    function sr_register_res_button($buttons) {
+    public static function sr_register_res_button($buttons) {
         array_push($buttons, "simplyRets");
         return $buttons;
     }
 
-    function sr_res_add_plugin($plugin_array) {
+    public static function sr_res_add_plugin($plugin_array) {
         $plugin_array['simplyRets'] = plugins_url( 'js/simply-rets-shortcodes.js', __FILE__ );
         return $plugin_array;
     }
@@ -44,7 +44,7 @@ class SimplyRetsShortcodes {
      * to show a single listing.
      * ie, [sr_residential
      */
-    function sr_residential_shortcode( $atts ) {
+    public function sr_residential_shortcode( $atts ) {
         global $wp_query;
         ob_start();
 
@@ -71,7 +71,7 @@ class SimplyRetsShortcodes {
      *
      * this is pulling condos and obviously needs to be pulling open houses
      */
-    function sr_openhouses_shortcode() {
+    public static function sr_openhouses_shortcode() {
         $listing_params = array(
             "type" => "cnd"
         );
@@ -88,7 +88,7 @@ class SimplyRetsShortcodes {
      * optional parameters to have default searches:
      * ie, [sr_search_form q="city"] or [sr_search_form minprice="500000"]
      */
-    function sr_search_form_shortcode( $atts ) {
+    public static function sr_search_form_shortcode( $atts ) {
         ob_start();
         $home_url = get_home_url();
 
