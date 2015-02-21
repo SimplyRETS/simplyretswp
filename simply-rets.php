@@ -12,6 +12,8 @@ Copyright (c) Reichert Brothers 2014
 
 /* Code starts here */
 
+$plugin = plugin_basename(__FILE__);
+
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-post-pages.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-shortcode.php' );
@@ -31,6 +33,7 @@ add_action( 'widgets_init', 'srRegisterWidgets' );
 add_action( 'wp_enqueue_scripts', array( 'SimplyRetsApiHelper', 'simplyRetsClientCss' ) );
 add_action( 'wp_enqueue_scripts', array( 'SimplyRetsApiHelper', 'simplyRetsClientJs' ) );
 add_filter( 'query_vars', array( 'SimplyRetsCustomPostPages', 'srQueryVarsInit' ) );
+add_filter( "plugin_action_links_{$plugin}", array( 'SimplyRetsCustomPostPages', 'srPluginSettingsLink' ) );
 
 register_activation_hook( __FILE__,   array('SimplyRetsCustomPostPages', 'srActivate' ) );
 register_deactivation_hook( __FILE__, array('SimplyRetsCustomPostPages', 'srDeactivate' ) );

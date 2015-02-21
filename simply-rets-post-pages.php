@@ -37,6 +37,15 @@ class SimplyRetsCustomPostPages {
         flush_rewrite_rules();
     }
 
+    public static function srPluginSettingsLink( $links ) {
+        $settings_link =
+            '<a href="' . admin_url( 'options-general.php?page=simplyrets-admin.php' ) . '">'
+            . __( 'Settings', 'SimplyRETS' )
+            . '</a>';
+        array_unshift( $links, $settings_link );
+        return $links;
+    }
+
     // Create our Custom Post Type
     public static function srRegisterPostType() {
         $labels = array(
