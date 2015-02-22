@@ -193,6 +193,23 @@ class SimplyRetsApiHelper {
     }
 
 
+    /**
+     * Experimental function not implemented yet. Should be
+     * built out to show/hide fields based on whether or not
+     * the specific listing has them.
+     */
+    public static function srDetailsTable($val, $name) {
+        if( $val == "" ) {
+            $val = "";
+        } else {
+            $val = <<<HTML
+                <tr>
+                  <td>$name</td>
+                  <td>$val</td>
+HTML;
+        }
+        return $val;
+    }
 
 
     public static function srResidentialDetailsGenerator( $listing ) {
@@ -218,27 +235,31 @@ class SimplyRetsApiHelper {
         }
 
         // stories
-        $stories = $listing->property->stories;
-        if( $stories == "" ) {
-            $stories = "";
-        } else {
-            $stories = <<<HTML
-                <tr>
-                  <td>Stories</td>
-                  <td>$stories</td></tr>
-HTML;
-        }
+        $listing_stories = $listing->property->stories;
+        $stories = SimplyRetsApiHelper::srDetailsTable($listing_stories, "Stories");
         // fireplaces
-        $fireplaces = $listing->property->fireplaces;
-        if( $fireplaces == "" ) {
-            $fireplaces = "";
-        } else {
-            $fireplaces = <<<HTML
-                <tr>
-                  <td>Fireplaces</td>
-                  <td>$fireplaces</td></tr>
-HTML;
-        }
+        $listing_fireplaces = $listing->property->fireplaces;
+        $fireplaces = SimplyRetsApiHelper::srDetailsTable($listing_fireplaces, "Fireplaces");
+        // Long
+        $listing_longitude = $listing->geo->lng;
+        $geo_longitude = SimplyRetsApiHelper::srDetailsTable($listing_longitude, "Longitude");
+        // Long
+        $listing_lat = $listing->geo->lat;
+        $geo_latitude = SimplyRetsApiHelper::srDetailsTable($listing_lat, "Latitude");
+        // County
+        $listing_county = $listing->geo->county;
+        $geo_county = SimplyRetsApiHelper::srDetailsTable($listing_county, "County");
+        // mls area
+        $listing_mlsarea = $listing->mls->area;
+        $mls_area = SimplyRetsApiHelper::srDetailsTable($listing_mlsarea, "MLS Area");
+        // tax data
+        $listing_taxdata = $listing->tax->id;
+        $tax_data = SimplyRetsApiHelper::srDetailsTable($listing_taxdata, "Tax Data");
+        // school zone data
+        $listing_schooldata = $listing->school->district;
+        $school_data = SimplyRetsApiHelper::srDetailsTable($listing_schooldata, "School Data");
+
+
 
         // lot size
         $lotSize          = $listing->property->lotSize;
@@ -247,7 +268,6 @@ HTML;
         } else {
             $lot_sqft    = number_format( $lotSize );
         }
-
 
         // photos data (and set up slideshow markup)
         $photos = $listing->photos;
@@ -281,76 +301,6 @@ HTML;
                   <td>$geo_directions</td></tr>
 HTML;
         }
-        // Long
-        $geo_longitude = $listing->geo->lng;
-        if( $geo_longitude == "" ) {
-            $geo_longitude  = "";
-        } else {
-            $geo_longitude = <<<HTML
-                <tr>
-                  <td>Longitude</td>
-                  <td>$geo_longitude</td></tr>
-HTML;
-        }
-        // Long
-        $geo_latitude = $listing->geo->lat;
-        if( $geo_latitude == "" ) {
-            $geo_latitude  = "";
-        } else {
-            $geo_latitude = <<<HTML
-                <tr>
-                  <td>Latitude</td>
-                  <td>$geo_latitude</td></tr>
-HTML;
-        }
-        // Long
-        $geo_county= $listing->geo->county;
-        if( $geo_county == "" ) {
-            $geo_county   = "";
-        } else {
-            $geo_county = <<<HTML
-                <tr>
-                  <td>Latitude</td>
-                  <td>$geo_county</td></tr>
-HTML;
-        }
-
-
-        // school zone data
-        $school_data = $listing->school->district;
-        if( $school_data == "" ) {
-            $school_data = "";
-        } else {
-            $school_data  = <<<HTML
-                <tr>
-                  <td>School Zone</td>
-                  <td>$school_data</td></tr>
-HTML;
-        }
-
-        // mls area
-        $mls_area       = $listing->mls->area;
-        if( $mls_area == "" ) {
-            $mls_area = "";
-        } else {
-            $mls_area = <<<HTML
-                <tr>
-                  <td>MLS Area</td>
-                  <td>$mls_area</td></tr>
-HTML;
-        }
-
-        // tax data
-        $tax_data    = $listing->tax->id;
-        if( $tax_data == "" ) {
-            $tax_data = "";
-        } else {
-            $tax_data = <<<HTML
-                <tr>
-                  <td>Tax Data</td>
-                  <td>$tax_data</td></tr>
-HTML;
-        }
 
         // list date and listing last modified
         if( get_option('sr_show_listingmeta') ) {
@@ -363,26 +313,13 @@ HTML;
         if( $show_listing_meta == true ) {
             $list_date           = $listing->listDate;
             $list_date_formatted = date("M j, Y", strtotime($list_date));
-            $listing_modified    = $listing->modified; // TODO: format date
-            $date_modified       = date("M j, Y", strtotime($listing_modified));
-            $list_date_markup = <<<HTML
-                <tr>
-                  <td>Listing date</td>
-                  <td>$list_date_formatted</td></tr>
-                <tr>
-                  <td>Listing last modified</td>
-                  <td>$date_modified</td></tr>
-HTML;
-            $days_on_market = $listing->mls->daysOnMarket;
-            if( $days_on_market == "" ) {
-                $days_on_market = "";
-            } else {
-                $days_on_market = <<<HTML
-                    <tr>
-                      <td>Days on Market</td>
-                      <td>$days_on_market</td></tr>
-HTML;
-            }
+            $date_formatted_markup = SimplyRetsApiHelper::srDetailsTable($list_date_formatted, "Listing Date");
+            $listing_modified = $listing->modified; // TODO: format date
+            $date_modified    = date("M j, Y", strtotime($listing_modified));
+            $date_modified_markup = SimplyRetsApiHelper::srDetailsTable($date_modified, "Listing Last Modified");
+            $list_date_markup .= $date_formatted_markup . $date_modified_markup;
+            $listing_days_on_market = $listing->mls->daysOnMarket;
+            $days_on_market = SimplyRetsApiHelper::srDetailsTable($listing_days_on_market, "Days on Market" );
         }
 
         // Amenities
@@ -588,7 +525,7 @@ HTML;
          * there, return it - no need to do anything else.
          * The error code comes from the UrlBuilder function.
         */
-        if( $response == "NULL" ) {
+        if( $response == NULL ) {
             $err = "SimplyRETS could not complete this search. Please check your " .
                 "credentials and try again.";
             return $err;
@@ -617,10 +554,16 @@ HTML;
             $bedrooms    = $listing->property->bedrooms;
             $bathsFull   = $listing->property->bathsFull;
             $lotSize     = $listing->property->lotSize; // might be empty
+            $area        = $listing->property->area; // might be empty
             if( $lotSize == 0 ) {
                 $lot_sqft = 'n/a';
             } else {
-                $lot_sqft    = number_format( $lotSize );
+                $lot_sqft = number_format( $lotSize );
+            }
+            if( $area == 0 ) {
+                $area = 'n/a';
+            } else {
+                $area = number_format( $area );
             }
             $subdivision = $listing->property->subdivision;
 
@@ -684,7 +627,7 @@ HTML;
                       <span>$bathsFull Full Baths</span>
                     </li>
                     <li>
-                      <span>$lot_sqft SqFt</span>
+                      <span>$area SqFt</span>
                     </li>
                     <li>
                       <span>Built in $yearBuilt</span>
