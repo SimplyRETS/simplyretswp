@@ -88,6 +88,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_maxbaths";
         $vars[] = "sr_keywords";
         $vars[] = "sr_ptype";
+        $vars[] = "sr_agent";
         $vars[] = "sr-listings";
         return $vars;
     }
@@ -229,7 +230,7 @@ class SimplyRetsCustomPostPages {
             <label for="sr-listing-agent-input">
               Listing Agent MLS Id:
             </label>
-            <input id="agentid" type="text" name="sr_filters[agentid]"
+            <input id="agent" type="text" name="sr_filters[agent]"
               value="<?php print_r( $agent_id_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
@@ -406,11 +407,13 @@ class SimplyRetsCustomPostPages {
             $maxprice = get_query_var( 'sr_maxprice', '' );
             $keywords = get_query_var( 'sr_keywords', '' );
             $type     = get_query_var( 'sr_ptype', '' );
+            $agent    = get_query_var( 'sr_agent', '' );
 
             // these should correlate with what the api expects as filters
             $listing_params = array(
                 "type"      => $type,
                 "q"         => $keywords,
+                "agent"     => $agent,
                 "minbeds"   => $minbeds,
                 "maxbeds"   => $maxbeds,
                 "minbaths"  => $minbaths,
