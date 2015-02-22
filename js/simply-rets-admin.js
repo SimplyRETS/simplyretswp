@@ -18,6 +18,7 @@ jQuery(function() {
   var maxBathFilterInput  = jQuery('#sr-max-bath-span');
   var agentFilterInput    = jQuery('#sr-listing-agent-span');
   var listingTypeSelect   = jQuery('#sr-listing-type-span');
+  var limitInput          = jQuery('#sr-limit-span');
 
   var filterArea      = jQuery('.current-filters');
   var filterSelectBox = jQuery('#sr-filter-select');
@@ -66,6 +67,11 @@ jQuery(function() {
       case "Listing Type":
           filterArea.append(listingTypeSelect);
           listingTypeSelect.show();
+          jQuery(this).find("option:selected").remove();
+          break;
+      case "Amount of listings":
+          filterArea.append(limitInput);
+          limitInput.show();
           jQuery(this).find("option:selected").remove();
           break;
       default:
