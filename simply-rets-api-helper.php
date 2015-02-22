@@ -268,6 +268,13 @@ HTML;
         } else {
             $lot_sqft    = number_format( $lotSize );
         }
+        $area        = $listing->property->area; // might be empty
+        if( $area == 0 ) {
+            $area = 'n/a';
+        } else {
+            $area = number_format( $area );
+        }
+
 
         // photos data (and set up slideshow markup)
         $photos = $listing->photos;
@@ -378,7 +385,7 @@ HTML;
                 <h3>$bathsFull <small>Baths</small></h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-size">
-                <h3>$lot_sqft <small>SqFt</small></h3>
+                <h3>$area <small>SqFt</small></h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-status">
                 <h3>$mls_status</h3>
@@ -554,19 +561,19 @@ HTML;
             $bedrooms    = $listing->property->bedrooms;
             $bathsFull   = $listing->property->bathsFull;
             $lotSize     = $listing->property->lotSize; // might be empty
-            $area        = $listing->property->area; // might be empty
             if( $lotSize == 0 ) {
                 $lot_sqft = 'n/a';
             } else {
                 $lot_sqft = number_format( $lotSize );
             }
+            $area        = $listing->property->area; // might be empty
             if( $area == 0 ) {
                 $area = 'n/a';
             } else {
                 $area = number_format( $area );
             }
-            $subdivision = $listing->property->subdivision;
 
+            $subdivision = $listing->property->subdivision;
             // year built
             $yearBuilt = $listing->property->yearBuilt;
             if( $yearBuilt == '' ) {
