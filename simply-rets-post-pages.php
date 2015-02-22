@@ -266,7 +266,6 @@ class SimplyRetsCustomPostPages {
                     var parent = key.parent();
 
                     key.val(val); // set value to $key
-                    console.log(key.val());
                     filterArea.append(parent); //append div to filters area
                     parent.show(); //display: block the div since it has a value
 

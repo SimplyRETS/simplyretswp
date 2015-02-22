@@ -23,7 +23,6 @@ jQuery(function() {
   var filterSelectBox = jQuery('#sr-filter-select');
   filterSelectBox.change(function() {
 
-    console.log('filter select box changed');
     var filterVal = filterSelectBox.val();
 
     // when a new filter is selected, show the input box and remove the
@@ -73,12 +72,9 @@ jQuery(function() {
           break;
     }
 
-    console.log(filterVal);
-
   });
 
   jQuery('.sr-remove-filter').click(function() {
-      console.log('remove button cliked');
       jQuery(this).parent('.sr-filter-input').hide();
       jQuery(this).prev('input').val("");
   });
