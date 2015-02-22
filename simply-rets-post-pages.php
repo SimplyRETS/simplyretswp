@@ -172,7 +172,7 @@ class SimplyRetsCustomPostPages {
             <label for="sr-min-price-input">
               <?php _e( 'Minimum Price', 'sr-textdomain' ) ?>
             </label>
-            <input id="minprice" type="text" name="sr_filters[minprice]"
+            <input id="minprice" type="number" name="sr_filters[minprice]"
               value="<?php print_r( $min_price_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
@@ -182,7 +182,7 @@ class SimplyRetsCustomPostPages {
             <label for="sr-max-price-input">
               Maximum Price:
             </label>
-            <input id="maxprice" type="text" name="sr_filters[maxprice]"
+            <input id="maxprice" type="number" name="sr_filters[maxprice]"
               value="<?php print_r( $max_price_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
@@ -192,7 +192,7 @@ class SimplyRetsCustomPostPages {
             <label for="sr-min-bed-input">
               Minimum Bedrooms:
             </label>
-            <input id="minbeds" type="text" name="sr_filters[minbeds]"
+            <input id="minbeds" type="number" name="sr_filters[minbeds]"
               value="<?php print_r( $min_bed_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
@@ -202,7 +202,7 @@ class SimplyRetsCustomPostPages {
             <label for="sr-max-bed-input">
               Maximum Bedrooms:
             </label>
-            <input id="maxbeds" type="text" name="sr_filters[maxbeds]"
+            <input id="maxbeds" type="number" name="sr_filters[maxbeds]"
               value="<?php print_r( $max_bed_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
@@ -212,7 +212,7 @@ class SimplyRetsCustomPostPages {
             <label for="sr-min-bath-input">
               Minimum Bathrooms:
             </label>
-            <input id="minbaths" type="text" name="sr_filters[minbaths]"
+            <input id="minbaths" type="number" name="sr_filters[minbaths]"
               value="<?php print_r( $min_bath_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
@@ -222,7 +222,7 @@ class SimplyRetsCustomPostPages {
             <label for="sr-max-bath-input">
               Maximum Bathrooms:
             </label>
-            <input id="maxbaths" type="text" name="sr_filters[maxbaths]"
+            <input id="maxbaths" type="number" name="sr_filters[maxbaths]"
               value="<?php print_r( $max_bath_filisting_typelter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
@@ -232,7 +232,7 @@ class SimplyRetsCustomPostPages {
             <label for="sr-listing-agent-input">
               Listing Agent MLS Id:
             </label>
-            <input id="agent" type="text" name="sr_filters[agent]"
+            <input id="agent" type="number" name="sr_filters[agent]"
               value="<?php print_r( $agent_id_filter ); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
