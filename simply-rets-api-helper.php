@@ -161,7 +161,7 @@ class SimplyRetsApiHelper {
             return $err;
         }
         if( array_key_exists( "error", $listing ) ) {
-            $error = $listing['error'];
+            $error = $listing->error;
             $cont .= "<hr><p>{$error}</p>";
             return $cont;
         }
