@@ -88,6 +88,7 @@ class SimplyRetsApiHelper {
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
+            // init curl and set options
             $ch = curl_init();
             $curl_info = curl_version();
             $curl_version = $curl_info['version'];
@@ -96,9 +97,29 @@ class SimplyRetsApiHelper {
             curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
             curl_setopt( $ch, CURLOPT_USERAGENT, $ua_string . " cURL/{$curl_version}" );
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt( $ch, CURLOPT_HEADER, true );
+
+            // make request to api
             $request = curl_exec( $ch );
-            $response_array = json_decode( $request );
+
+            // get header size to parse out of response
+            $header_size = curl_getinfo( $ch, CURLINFO_HEADER_SIZE );
+
+            // separate header/body out of response
+            $header      = substr( $request, 0, $header_size );
+            $body        = substr( $request, $header_size );
+
+            $pag_links = SimplyRetsApiHelper::srPaginationParser($header);
+
+            // decode the reponse body
+            $response_array = json_decode( $body );
+
+            $srResponse = array();
+            $srResponse['pagination'] = $pag_links;
+            $srResponse['response'] = $response_array;;
+            // close curl connection
             curl_close( $ch );
+            return $srResponse;
 
         } else {
             $options = array(
@@ -110,6 +131,7 @@ class SimplyRetsApiHelper {
             $context = stream_context_create( $options );
             $request = file_get_contents( $url, false, $context );
             $response_array = json_decode( $request );
+            return $response_array;
         }
 
         if( $response_array === FALSE || empty($response_array) ) {
@@ -127,6 +149,34 @@ class SimplyRetsApiHelper {
         return $response_array;
     }
 
+
+    public static function srPaginationParser( $linkHeader ) {
+        // get link val from header
+        $pag_links = array();
+        $name = 'Link';
+        preg_match('/^Link: ([^\r\n]*)[\r\n]*$/m', $linkHeader, $matches);
+        unset($matches[0]);
+        foreach( $matches as $key => $val ) {
+            $parts = explode( ",", $val );
+            foreach( $parts as $key => $part ) {
+                if( strpos( $part, 'rel="prev"' ) == true ) {
+                    $part = trim( $part );
+                    preg_match( '/^<(.*)>/', $part, $prevLink );
+                    // $prevLink = $part;
+                }
+                if( strpos( $part, 'rel="next"' ) == true ) {
+                    $part = trim( $part );
+                    preg_match( '/^<(.*)>/', $part, $nextLink );
+                }
+            }
+        }
+        //  $nextLink = explode(",", $matches[1]);
+        $prev_link = $prevLink[1];
+        $next_link = $nextLink[1];
+        $pag_links['prev'] = $prev_link;
+        $pag_links['next'] = $next_link;
+        return $pag_links;
+    }
 
 
     public static function simplyRetsClientCss() {
@@ -150,6 +200,7 @@ class SimplyRetsApiHelper {
         $cont = "";
         $contact_page = get_option( 'sr_contact_page' );
 
+        $listing = $listing['response'];
         /*
          * check for an error code in the array first, if it's
          * there, return it - no need to do anything else.
@@ -206,7 +257,8 @@ HTML;
             $main_photo = $photos[0];
             $photo_counter = 0;
             foreach( $photos as $photo ) {
-                $photo_markup .= "<input class=\"sr-slider-input\" type=\"radio\" name=\"slide_switch\" id=\"id$photo_counter\" value=\"$photo\"/>";
+                $photo_markup .=
+                    "<input class=\"sr-slider-input\" type=\"radio\" name=\"slide_switch\" id=\"id$photo_counter\" value=\"$photo\"/>";
                 $photo_markup .= "<label for='id$photo_counter'>";
                 $photo_markup .= "  <img src='$photo' width='100'>";
                 $photo_markup .= "</label>";
@@ -516,6 +568,21 @@ HTML;
         // var_dump( $response );
         // echo '</pre></code>';
 
+        $pagination = $response['pagination'];
+        $response = $response['response'];
+
+        if( $pagination['prev'] !== null && !empty($pagination['prev'] ) ) {
+            $previous = $pagination['prev'];
+            $siteUrl = get_home_url() . '/?sr-listings=sr-search&';
+            $prev = str_replace( 'https://api.simplyrets.com/properties?', $siteUrl, $previous );
+        }
+
+        if( $pagination['next'] !== null && !empty($pagination['next'] ) ) {
+            $nextLink = $pagination['next'];
+            $siteUrl = get_home_url() . '/?sr-listings=sr-search&';
+            $next = str_replace( 'https://api.simplyrets.com/properties?', $siteUrl, $nextLink );
+        }
+
         /*
          * check for an error code in the array first, if it's
          * there, return it - no need to do anything else.
@@ -643,6 +710,7 @@ HTML;
 HTML;
         }
 
+        $cont .= "<hr><p><a href='{$prev}'>prev</a> | <a href='{$next}'>Next</a></p>";
         $cont .= "<br><p><small><i>This information is believed to be accurate, but without any warranty.</i></small></p>";
         return $cont;
     }
@@ -661,6 +729,7 @@ HTML;
          * there, return it - no need to do anything else.
          * The error code comes from the UrlBuilder function.
         */
+        $response = $response['response'];
         if( $response == NULL ) {
             $err = "SimplyRETS could not complete this search. Please check your " .
                 "credentials and try again.";

@@ -79,6 +79,8 @@ class SimplyRetsCustomPostPages {
         $vars[] = "listing_id";
         $vars[] = "listing_title";
         $vars[] = "listing_price";
+        $vars[] = "limit";
+        $vars[] = "offset";
         // sr prefixes are for the search form
         $vars[] = "sr_minprice";
         $vars[] = "sr_maxprice";
@@ -408,6 +410,8 @@ class SimplyRetsCustomPostPages {
             $keywords = get_query_var( 'sr_keywords', '' );
             $type     = get_query_var( 'sr_ptype', '' );
             $agent    = get_query_var( 'sr_agent', '' );
+            $limit    = get_query_var( 'limit', '' );
+            $offset   = get_query_var( 'offset', '' );
 
             // these should correlate with what the api expects as filters
             $listing_params = array(
@@ -419,7 +423,9 @@ class SimplyRetsCustomPostPages {
                 "minbaths"  => $minbaths,
                 "maxbaths"  => $maxbaths,
                 "minprice"  => $minprice,
-                "maxprice"  => $maxprice
+                "maxprice"  => $maxprice,
+                "limit"     => $limit,
+                "offset"    => $offset
             );
 
             foreach( $listing_params as $param => $val ) {
