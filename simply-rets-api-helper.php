@@ -653,7 +653,7 @@ HTML;
 HTML;
         }
 
-        $cont .= "<hr><p><a href='{$prev}'>prev</a> | <a href='{$next}'>Next</a></p>";
+        $cont .= "<hr><p class='sr-pagination'><a href='{$prev}'>Prev</a> | <a href='{$next}'>Next</a></p>";
         $cont .= "<br><p><small><i>This information is believed to be accurate, but without any warranty.</i></small></p>";
         return $cont;
     }
