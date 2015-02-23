@@ -3,7 +3,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, simple rets, rets feed, simple idx, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.1.1
-Stable tag: 1.1.5
+Stable tag: 1.2.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -196,6 +196,14 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 1.2.0 =
+* Add graphical shortcode/page builder got creating listing shortcodes
+* Add support for listing limit and pagination for multiple pages of listings
+* Add support for agent ID query parameter in shortcode & custom post type
+* Add more styling and clean up text in admin settings panel
+* better error handling
+* other fixes and improvements 
+
 = 1.1.5 =
 * Automatically save test credentials when plugin is activated to make it easier to get started.
 
@@ -241,6 +249,10 @@ listing sidebar widget.
 
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+* This update should fully support backwards compatiblity, but if you notice problem
+update to the latest version.
 
 = 1.1.3 =
 * This update fixes a visible warning on new SimplyRETS post pages
