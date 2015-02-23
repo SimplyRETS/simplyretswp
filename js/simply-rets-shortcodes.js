@@ -16,18 +16,27 @@ jQuery(document).ready(function() {
                image : url + '/../img/icon-128x128.png',
                onclick : function() {
                    ed.windowManager.open({
-                       title: 'Embed SimplyRETS Listings',
+                       title: 'SimplyRETS Page Builder',
                        body: [
                          {
+                             type: 'container'
+                           , html: '<span style="max-width:400px">Use the filters below to determine the type '
+                                  +'and amount of</span><br><span>  listings that you want to show on this page.</span><br><br> '
+                         },
+                         {
                              type:  'listbox'
+                           , label: 'Type of Property'
                            , name:  'type'
-                           , label: 'Property Type'
                            , 'values': [
                                  {text: 'All'        , value: ''}
                                , {text: 'Residential', value: 'res'}
                                , {text: 'Condos'     , value: 'cnd'}
                                , {text: 'Rentals'    , value: 'rnt'}
                            ]
+                         },
+                         {
+                             type: 'container'
+                           , html: '<br>'
                          },
                          {
                              type:  'textbox'
@@ -40,6 +49,10 @@ jQuery(document).ready(function() {
                            , label: 'Maximum Price'
                          },
                          {
+                             type: 'container'
+                           , html: '<br>'
+                         },
+                         {
                              type:  'textbox'
                            , name:  'minbeds'
                            , label: 'Minimum Bedrooms'
@@ -50,6 +63,10 @@ jQuery(document).ready(function() {
                            , label: 'Maximum Bedrooms'
                          },
                          {
+                             type: 'container'
+                           , html: '<br>'
+                         },
+                         {
                              type:  'textbox'
                            , name:  'minbaths'
                            , label: 'Minimum bathrooms'
@@ -58,6 +75,20 @@ jQuery(document).ready(function() {
                              type:  'textbox'
                            , name:  'maxbaths'
                            , label: 'Maximum Bathrooms'
+                         },
+                         {
+                             type: 'container'
+                           , html: '<br>'
+                         },
+                         {
+                             type:  'textbox'
+                           , name:  'agent'
+                           , label: 'Agent MLS ID'
+                         },
+                         {
+                             type:  'textbox'
+                           , name:  'limit'
+                           , label: 'Amount of listings to show'
                          }
                        ],
                        onsubmit: function(e) {
@@ -86,6 +117,12 @@ jQuery(document).ready(function() {
                            var maxbaths = e.data.maxbaths !== "" && e.data.maxbaths !== undefined
                                             ? 'maxbaths="' + e.data.maxbaths + '" '
                                             : '';
+                           var agent    = e.data.agent !== "" && e.data.agent !== undefined
+                                            ? 'agent="' + e.data.agent + '" '
+                                            : '';
+                           var limit    = e.data.limit !== "" && e.data.limit !== undefined
+                                            ? 'limit="' + e.data.limit + '" '
+                                            : '';
                          
                            ed.selection.setContent(
                                  scStart
@@ -96,6 +133,8 @@ jQuery(document).ready(function() {
                                + maxbeds
                                + minbaths
                                + maxbaths
+                               + agent
+                               + limit
                                + scEnd
                                + ed.selection.getContent()
                            );
