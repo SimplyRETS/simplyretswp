@@ -326,12 +326,15 @@ HTML;
 
         $list_date_markup = '';
         if( $show_listing_meta == true ) {
+
             $list_date           = $listing->listDate;
             $list_date_formatted = date("M j, Y", strtotime($list_date));
             $date_formatted_markup = SimplyRetsApiHelper::srDetailsTable($list_date_formatted, "Listing Date");
+
             $listing_modified = $listing->modified; // TODO: format date
             $date_modified    = date("M j, Y", strtotime($listing_modified));
             $date_modified_markup = SimplyRetsApiHelper::srDetailsTable($date_modified, "Listing Last Modified");
+
             $list_date_markup .= $date_formatted_markup . $date_modified_markup;
             $listing_days_on_market = $listing->mls->daysOnMarket;
             $days_on_market = SimplyRetsApiHelper::srDetailsTable($listing_days_on_market, "Days on Market" );
@@ -359,7 +362,25 @@ HTML;
         $listing_office   = $listing->office->name;
         $listing_price    = $listing->listPrice;
         $listing_USD      = '$' . number_format( $listing_price );
-        $listing_remarks  = $listing->remarks;
+
+
+        if( get_option('sr_show_listing_remarks') ) {
+            $show_remarks = false;
+        } else {
+            $show_remarks = true;
+        }
+
+        $remarks_marksup = '';
+        $remarks_table = '';
+        if( $show_remarks == true ) {
+            $remarks = $listing->remarks;
+            $remarks_markup = <<<HTML
+            <div class="sr-remarks-details">
+              <p>$remarks</p>
+            </div>
+HTML;
+            $days_on_market = SimplyRetsApiHelper::srDetailsTable($remarks, "Remarks" );
+        }
 
         // agent data
         $listing_agent_id    = $listing->agent->id;
@@ -419,9 +440,7 @@ HTML;
                 <h3>$mls_status</h3>
               </div>
             </div>
-            <div class="sr-remarks-details">
-              <p>$listing_remarks</p>
-            </div>
+            $remarks_markup
 
             <table style="width:100%;">
               <thead>
@@ -510,9 +529,7 @@ HTML;
                 <tr>
                   <td>Listing Agent</td>
                   <td>$listing_agent_name</td></tr>
-                <tr>
-                  <td>Remarks</td>
-                  <td>$listing_remarks</td></tr>
+                $remarks_table
               </tbody>
               <thead>
                 <tr>
