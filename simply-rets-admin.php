@@ -29,7 +29,7 @@ class SrAdminSettings {
   
   function sr_admin_page() {
       global $wpdb;
-      $logo_path = plugin_dir_url(__FILE__) . 'img/logo_button.png';
+      $logo_path = plugin_dir_url(__FILE__) . 'assets/img/logo_button.png';
       ?>
       <div class="wrap sr-admin-wrap">
         <img class="sr-admin-logo" src="<?php echo $logo_path; ?>">

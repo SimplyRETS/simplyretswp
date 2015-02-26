@@ -32,7 +32,7 @@ class SimplyRetsShortcodes {
     }
 
     public static function sr_res_add_plugin($plugin_array) {
-        $plugin_array['simplyRets'] = plugins_url( 'js/simply-rets-shortcodes.js', __FILE__ );
+        $plugin_array['simplyRets'] = plugins_url( 'assets/js/simply-rets-shortcodes.js', __FILE__ );
         return $plugin_array;
     }
 

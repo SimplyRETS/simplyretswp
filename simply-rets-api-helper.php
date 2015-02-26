@@ -180,13 +180,13 @@ class SimplyRetsApiHelper {
 
 
     public static function simplyRetsClientCss() {
-        wp_register_style( 'simply-rets-client-css', plugins_url( 'css/simply-rets-client.css', __FILE__ ) );
+        wp_register_style( 'simply-rets-client-css', plugins_url( 'assets/css/simply-rets-client.css', __FILE__ ) );
         wp_enqueue_style( 'simply-rets-client-css' );
     }
 
     public static function simplyRetsClientJs() {
         wp_register_script( 'simply-rets-client-js',
-                            plugins_url( 'js/simply-rets-client.js', __FILE__ ),
+                            plugins_url( 'assets/js/simply-rets-client.js', __FILE__ ),
                             array('jquery')
         );
         wp_enqueue_script( 'simply-rets-client-js' );
@@ -279,7 +279,7 @@ HTML;
         // photos data (and set up slideshow markup)
         $photos = $listing->photos;
         if(empty($photos)) {
-             $main_photo = plugins_url( 'img/defprop.jpg', __FILE__ );
+             $main_photo = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
         } else {
             $main_photo = $photos[0];
             $photo_counter = 0;
@@ -604,7 +604,7 @@ HTML;
             // listing photos
             $listingPhotos = $listing->photos;
             if( empty( $listingPhotos ) ) {
-                $listingPhotos[0] = plugins_url( 'img/defprop.jpg', __FILE__ );
+                $listingPhotos[0] = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
             }
             $main_photo = trim($listingPhotos[0]);
 
@@ -712,7 +712,7 @@ HTML;
             // widget photo
             $listingPhotos = $listing->photos;
             if( empty( $listingPhotos ) ) {
-                $listingPhotos[0] = plugins_url( 'img/defprop.jpg', __FILE__ );
+                $listingPhotos[0] = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
             }
             $main_photo = $listingPhotos[0];
 
