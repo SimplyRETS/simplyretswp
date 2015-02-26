@@ -621,3 +621,7 @@ elsewhere, this should be a breeze.
     clear: both;
     cursor: pointer;
 }
+.sr-gallery {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

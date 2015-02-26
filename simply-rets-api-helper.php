@@ -295,6 +295,7 @@ HTML;
             if(get_option('sr_listing_gallery') == 'classic') {
                 $main_photo = $photos[0];
                 $photo_counter = 0;
+                $more_photos = '<span id="sr-toggle-gallery">See more photos</span> |';
                 $photo_gallery .= "<div class='sr-slider'><img class='sr-slider-img-act' src='$main_photo'>";
                 foreach( $photos as $photo ) {
                     $photo_gallery.=
@@ -307,7 +308,7 @@ HTML;
 
             } else {
                 $photo_gallery = '<div class="sr-gallery">';
-
+                $more_photos = '';
                 foreach( $photos as $photo ) {
                     $photo_gallery .= "<img src='$photo' data-title='$address'>";
                 }
@@ -412,7 +413,7 @@ HTML;
         $cont .= <<<HTML
           <div class="sr-details" style="text-align:left;">
             <p class="sr-details-links" style="clear:both;">
-              <span id="sr-toggle-gallery">See more photos</span> |
+              $more_photos
               <span id="sr-listing-contact">
                 <a href="$contact_page">Contact us about this listing</a>
               </span>

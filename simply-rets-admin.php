@@ -69,6 +69,7 @@ class SrAdminSettings {
           <hr>
           <div class="sr-admin-settings">
             <h2>Single Listing Page Settings</h2>
+            <h3>Contact Capture</h3>
             <table>
               <tbody>
                 <tr>
@@ -76,14 +77,12 @@ class SrAdminSettings {
                     <strong>Contact Page Link</strong>
                   </td>
                   <td>
-                    <br>
-                    <input type="text" name="sr_contact_page" value="<?php echo esc_attr( get_option('sr_contact_page') ); ?>" />
-                    <br>
-                    <i>Ex: http://yoursite.com/contact </i>
+                    <input placeholder="www.example.com/contact" type="text" name="sr_contact_page" value="<?php echo esc_attr( get_option('sr_contact_page') ); ?>" />
                   </td>
                 </tr>
               </tbody>
             </table>
+            <h3>Show/Hide Fields</h3>
             <table>
               <tbody>
                 <tr>
