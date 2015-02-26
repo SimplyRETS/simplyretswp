@@ -26,6 +26,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_contact_page');
       register_setting('sr_admin_settings', 'sr_show_listingmeta');
       register_setting('sr_admin_settings', 'sr_show_listing_remarks');
+      register_setting('sr_admin_settings', 'sr_listing_gallery');
   }
   
   function sr_admin_page() {
@@ -104,6 +105,33 @@ class SrAdminSettings {
                         . checked(1, get_option('sr_show_listing_remarks'), false) . '/>'
                       ?>
                       Hide 'Listing Remarks' (description) field from property details?
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h3>Image Gallery Settings</h3>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <label>
+                      <?php echo
+                        '<input type="radio" id="sr_listing_gallery" name="sr_listing_gallery" value="fancy" '
+                        . checked('fancy', get_option('sr_listing_gallery'), false) . '/>'
+                      ?>
+                      Fancy Gallery
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>
+                      <?php echo
+                        '<input type="radio" id="sr_listing_gallery" name="sr_listing_gallery" value="classic" '
+                        . checked('classic', get_option('sr_listing_gallery'), false) . '/>'
+                      ?>
+                      Classic Gallery
                     </label>
                   </td>
                 </tr>

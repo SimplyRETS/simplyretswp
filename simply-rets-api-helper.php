@@ -282,23 +282,37 @@ HTML;
 
 
         // photos data (and set up slideshow markup)
+        /**
+         * We build the markup for our image gallery here. If classic is set explicity, we use
+         * the classic gallery - otherwise we default to the fancy gallery
+         */
         $photos = $listing->photos;
         if(empty($photos)) {
              $main_photo = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
         } else {
-            $main_photo = $photos[0];
-            $photo_counter = 0;
-            foreach( $photos as $photo ) {
-                $photo_markup .=
-                    "<input class=\"sr-slider-input\" type=\"radio\" name=\"slide_switch\" id=\"id$photo_counter\" value=\"$photo\"/>";
-                $photo_markup .= "<label for='id$photo_counter'>";
-                $photo_markup .= "  <img src='$photo' width='100'>";
-                $photo_markup .= "</label>";
+            $photo_gallery = '';
 
-                $gallery_markup .= "<img src='$photo' data-title='$address'>";
+            if(get_option('sr_listing_gallery') == 'classic') {
+                $main_photo = $photos[0];
+                $photo_counter = 0;
+                $photo_gallery .= "<div class='sr-slider'><img class='sr-slider-img-act' src='$main_photo'>";
+                foreach( $photos as $photo ) {
+                    $photo_gallery.=
+                        "<input class='sr-slider-input' type='radio' name='slide_switch' id='id$photo_counter' value='$photo' />";
+                    $photo_gallery.= "<label for='id$photo_counter'>";
+                    $photo_gallery.= "  <img src='$photo' width='100'>";
+                    $photo_gallery.= "</label>";
+                    $photo_counter++;
+                }
 
-                $photo_counter++;
+            } else {
+                $photo_gallery = '<div class="sr-gallery">';
+
+                foreach( $photos as $photo ) {
+                    $photo_gallery .= "<img src='$photo' data-title='$address'>";
+                }
             }
+            $photo_gallery .= "</div>";
         }
 
         // geographic data
@@ -370,8 +384,8 @@ HTML;
             $show_remarks = true;
         }
 
-        $remarks_marksup = '';
-        $remarks_table = '';
+        $remarks_markup = '';
+        $remarks_table  = '';
         if( $show_remarks == true ) {
             $remarks = $listing->remarks;
             $remarks_markup = <<<HTML
@@ -403,16 +417,7 @@ HTML;
                 <a href="$contact_page">Contact us about this listing</a>
               </span>
             </p>
-            <br>
-            <div class="sr-gallery">
-              $gallery_markup
-            </div>
-            <!--
-            <div class="sr-slider">
-              <img class="sr-slider-img-act" src="$main_photo">
-              $photo_markup
-            </div>
-            -->
+            $photo_gallery
             <script>
               Galleria.loadTheme('$galleria_theme');
               Galleria.configure({
@@ -441,7 +446,6 @@ HTML;
               </div>
             </div>
             $remarks_markup
-
             <table style="width:100%;">
               <thead>
                 <tr>
