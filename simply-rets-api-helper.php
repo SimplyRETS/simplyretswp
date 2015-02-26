@@ -190,6 +190,11 @@ class SimplyRetsApiHelper {
                             array('jquery')
         );
         wp_enqueue_script( 'simply-rets-client-js' );
+        wp_register_script( 'simply-rets-galleria-js',
+                            plugins_url( 'assets/galleria/galleria-1.4.2.min.js', __FILE__ ),
+                            array('jquery')
+        );
+        wp_enqueue_script( 'simply-rets-galleria-js' );
     }
 
 
@@ -289,6 +294,9 @@ HTML;
                 $photo_markup .= "<label for='id$photo_counter'>";
                 $photo_markup .= "  <img src='$photo' width='100'>";
                 $photo_markup .= "</label>";
+
+                $gallery_markup .= "<img src='$photo' data-title='$address'>";
+
                 $photo_counter++;
             }
         }
@@ -363,6 +371,7 @@ HTML;
 
         // mls information
         $mls_status     = $listing->mls->status;
+        $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
         // listing markup
         $cont .= <<<HTML
@@ -373,10 +382,29 @@ HTML;
                 <a href="$contact_page">Contact us about this listing</a>
               </span>
             </p>
+            <br>
+            <div class="sr-gallery">
+              $gallery_markup
+            </div>
+            <!--
             <div class="sr-slider">
               <img class="sr-slider-img-act" src="$main_photo">
               $photo_markup
             </div>
+            -->
+            <script>
+              Galleria.loadTheme('$galleria_theme');
+              Galleria.configure({
+                  height: 475,
+                  width:  "90%",
+                  showinfo: false,
+                  lightbox: true,
+                  imageCrop: true,
+                  imageMargin: 0,
+                  fullscreenDoubleTap: true
+              });
+              Galleria.run('.sr-gallery');
+            </script>
             <div class="sr-primary-details">
               <div class="sr-detail" id="sr-primary-details-beds">
                 <h3>$bedrooms <small>Beds</small></h3>
