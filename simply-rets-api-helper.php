@@ -263,6 +263,12 @@ HTML;
         // school zone data
         $listing_schooldata = $listing->school->district;
         $school_data = SimplyRetsApiHelper::srDetailsTable($listing_schooldata, "School Data");
+        // roof
+        $listing_roof = $listing->property->roof;
+        $roof = SimplyRetsApiHelper::srDetailsTable($listing_roof, "Roof");
+        // subdivision
+        $listing_subdivision = $listing->property->subdivision;
+        $subdivision = SimplyRetsApiHelper::srDetailsTable($listing_subdivision, "Subdivision");
 
 
 
@@ -363,8 +369,6 @@ HTML;
         $heating          = $listing->property->heating;
         $exteriorFeatures = $listing->property->exteriorFeatures;
         $yearBuilt        = $listing->property->yearBuilt;
-        $subdivision      = $listing->property->subdivision;
-        $roof             = $listing->property->roof;
         // listing meta information
         $disclaimer  = $listing->disclaimer;
         $listing_uid = $listing->mlsId;
@@ -481,12 +485,8 @@ HTML;
                   <td>Lot Size</td>
                   <td>$lot_sqft SqFt</td></tr>
                 $fireplaces
-                <tr>
-                  <td>Subdivision</td>
-                  <td>$subdivision</td></tr>
-                <tr>
-                  <td>Roof</td>
-                  <td>$roof</td></tr>
+                $subdivision
+                $roof
               </tbody>
                 $geo_directions
                 $geo_county
