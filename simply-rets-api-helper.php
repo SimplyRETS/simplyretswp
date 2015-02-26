@@ -289,9 +289,9 @@ HTML;
         $photos = $listing->photos;
         if(empty($photos)) {
              $main_photo = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
+             $photo_gallery.= "  <img src='$main_photo'>";
         } else {
             $photo_gallery = '';
-
             if(get_option('sr_listing_gallery') == 'classic') {
                 $main_photo = $photos[0];
                 $photo_counter = 0;

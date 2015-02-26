@@ -485,9 +485,9 @@ class SimplyRetsCustomPostPages {
         if( $wp_query->query['sr-listings'] == "sr-single" ) {
             $post_id    = get_query_var( 'listing_id' );
             $post_addr  = get_query_var( 'listing_title', 'none' );
-            $post_price = get_query_var( 'listing_price', '' );
+            $post_price = get_query_var( 'listing_price', '0' );
 
-            $listing_USD = '$' . number_format( $post_price );
+            $listing_USD = $post_price == '' ? '$0' : '$' . number_format( $post_price );
             $title_normalize = "background-color:transparent;padding:0px;";
             $post_title = "{$post_addr} - <span style='{$title_normalize}'><i>{$listing_USD}</i></span>";
 
