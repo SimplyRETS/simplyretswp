@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: SimplyRETS
-Plugin URI: https://wordpress.org/extend/plugins/simply-rets/
+Plugin URI: https://simplyrets.com
 Description: Show your Real Estate listings on your Wordpress site. SimplyRETS provides a very simple set up and full control over your listings.
 Author: SimplyRETS
-Version: 1.2.0
+Version: 1.3.0
 License: GNU General Public License v3 or later
 Copyright (c) Reichert Brothers 2014
 
