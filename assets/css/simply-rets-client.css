@@ -625,3 +625,7 @@ elsewhere, this should be a breeze.
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.galleria-errors {
+    display: none !important;
+}

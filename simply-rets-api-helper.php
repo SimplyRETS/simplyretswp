@@ -293,6 +293,7 @@ HTML;
          * the classic gallery - otherwise we default to the fancy gallery
          */
         $photos = $listing->photos;
+        $dummy = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
         if(empty($photos)) {
              $main_photo = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
              $photo_gallery.= "  <img src='$main_photo'>";
@@ -432,6 +433,7 @@ HTML;
                       height: 475,
                       width:  "90%",
                       showinfo: false,
+                      dummy: "$dummy",
                       lightbox: true,
                       imageCrop: true,
                       imageMargin: 0,
