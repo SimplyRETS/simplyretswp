@@ -318,6 +318,21 @@ HTML;
                 foreach( $photos as $photo ) {
                     $photo_gallery .= "<img src='$photo' data-title='$address'>";
                 }
+                $photo_gallery .= <<<HTML
+                    <script>
+                      Galleria.loadTheme('$galleria_theme');
+                      Galleria.configure({
+                          height: 475,
+                          width:  "90%",
+                          showinfo: false,
+                          lightbox: true,
+                          imageCrop: true,
+                          imageMargin: 0,
+                          fullscreenDoubleTap: true
+                      });
+                      Galleria.run('.sr-gallery');
+                    </script>
+HTML;
             }
             $photo_gallery .= "</div>";
         }
@@ -423,19 +438,6 @@ HTML;
               </span>
             </p>
             $photo_gallery
-            <script>
-              Galleria.loadTheme('$galleria_theme');
-              Galleria.configure({
-                  height: 475,
-                  width:  "90%",
-                  showinfo: false,
-                  lightbox: true,
-                  imageCrop: true,
-                  imageMargin: 0,
-                  fullscreenDoubleTap: true
-              });
-              Galleria.run('.sr-gallery');
-            </script>
             <div class="sr-primary-details">
               <div class="sr-detail" id="sr-primary-details-beds">
                 <h3>$bedrooms <small>Beds</small></h3>
