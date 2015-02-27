@@ -30,6 +30,7 @@ class SimplyRetsCustomPostPages {
         SimplyRetsCustomPostPages::srRegisterPostType();
         add_option( 'sr_api_name', 'simplyrets' );
         add_option( 'sr_api_key', 'simplyrets' );
+        add_option( 'sr_listing_gallery', 'fancy' );
         flush_rewrite_rules();
     }
 
