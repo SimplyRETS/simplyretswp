@@ -82,6 +82,10 @@ class SimplyRetsCustomPostPages {
         $vars[] = "listing_id";
         $vars[] = "listing_title";
         $vars[] = "listing_price";
+        $vars[] = "limit";
+        $vars[] = "offset";
+        $vars[] = "advanced";
+        $vars[] = "status";
         // sr prefixes are for the search form
         $vars[] = "sr_minprice";
         $vars[] = "sr_maxprice";
@@ -96,6 +100,13 @@ class SimplyRetsCustomPostPages {
         $vars[] = "offset";
         // post type
         $vars[] = "sr-listings";
+        // advanced search form parameters
+        $vars[] = "sr_lotsize";
+        $vars[] = "sr_area";
+        $vars[] = "sr_cities";
+        $vars[] = "sr_neighborhoods";
+        $vars[] = "sr_amenities";
+        $vars[] = "sr_features";
         return $vars;
     }
 
