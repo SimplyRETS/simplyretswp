@@ -627,10 +627,77 @@ elsewhere, this should be a breeze.
     margin-bottom: 20px;
 }
 
-.galleria-errors {
-    display: none !important;
+
+/**
+  * Advanced Search Form
+  */
+.sr-adv-search-wrap {
+    background-color: #f8f8f8;
+    border: solid 1px #e7e7e7;
+    border-radius: 2px;
+    padding: 10px;
 }
 
+.sr-adv-search-part {
+    margin-bottom: 10px;
+}
+
+.sr-adv-search-part label {
+    display: block;
+}
+
+/** Single Column */
+.sr-adv-search-part .sr-adv-search-col1 {
+    padding: 10px;
+}
+
+/** Half Column */
+.sr-adv-search-part .sr-adv-search-col2 {
+    display: inline-block;
+    width: 45%;
+    padding: 10px;
+}
+
+.sr-adv-search-part .sr-adv-search-col2 input {
+    display: inline-block;
+    width: 45%;
+}
+
+.sr-adv-search-part .sr-adv-search-col2 select {
+    width: 100%;
+}
+
+/** Quarter Column */
+.sr-adv-search-part .sr-adv-search-col4 {
+    display: inline-block;
+    width: 22%;
+    padding: 10px;
+}
+.sr-adv-search-part .sr-adv-search-col4 select {
+    width: 100%;
+}
+.sr-adv-search-part .sr-adv-search-col4 input {
+    width: 90%;
+}
+
+.sr-adv-search-amenities-wrapper {
+    padding: 10px;
+}
+
+.sr-adv-search-amenities-wrapper-inner {
+    padding: 10px;
+    padding-top: 0px;
+    max-height: 200px;
+    overflow-y: scroll;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.sr-adv-search-part li {
+    display: inline-block;
+    width: 25%;
+}
 
 /*
  * Responsive CSS
