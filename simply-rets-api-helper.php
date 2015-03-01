@@ -71,6 +71,63 @@ class SimplyRetsApiHelper {
 
     }
 
+    public static function srApiOptionsRequest( $url ) {
+        $wp_version = get_bloginfo('version');
+        $php_version = phpversion();
+
+        $ua_string     = "SimplyRETSWP/1.3.0 Wordpress/{$wp_version} PHP/{$php_version}";
+        $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
+
+        if( is_callable( 'curl_init' ) ) {
+            $curl_info = curl_version();
+
+            // init curl and set options
+            $ch = curl_init();
+            $curl_version = $curl_info['version'];
+            $headers[] = $accept_header;
+
+            curl_setopt( $ch, CURLOPT_URL, $url );
+            curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
+            curl_setopt( $ch, CURLOPT_USERAGENT, $ua_string . " cURL/{$curl_version}" );
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, "OPTIONS" );
+
+            // make request to api
+            $request = curl_exec( $ch );
+
+            // decode the reponse body
+            $response_array = json_decode( $request );
+
+            // close curl connection and return value
+            curl_close( $ch );
+            return $response_array;
+
+        } else {
+            return;
+        }
+    }
+
+    public static function srUpdateAdvSearchOptions() {
+        $options_url = SimplyRetsApiHelper::srRequestUrlBuilder( array() );
+        $options     = SimplyRetsApiHelper::srApiOptionsRequest( $options_url );
+
+        $city_key         = null;
+        $county_ley       = null;
+        $type_key         = null;
+        $neighborhood_key = null;
+
+        foreach( $options as $key => $option ) {
+            if( !$option == NULL ) {
+                update_option( 'sr_adv_search_option_' . $key, $option );
+            } else {
+                echo '';
+            }
+        }
+
+        return;
+
+    }
+
 
     /**
      * Make the request the SimplyRETS API. We try to use
@@ -363,6 +420,7 @@ HTML;
         $listing_style = $listing->property->style;
         $style = SimplyRetsApiHelper::srDetailsTable($listing_style, "Property Style");
         // subdivision
+        // TODO: Check if neighborhood
         $listing_subdivision = $listing->property->subdivision;
         $subdivision = SimplyRetsApiHelper::srDetailsTable($listing_subdivision, "Subdivision");
         // unit
