@@ -22,6 +22,7 @@ add_action( 'admin_init',            array( 'SimplyRetsCustomPostPages', 'postFi
 add_action( 'admin_enqueue_scripts', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxJs' ) );
 // ^TODO: load css/js only on sr-listings post type pages when admin
 //  and move these into a constructor
+add_action( 'sr_update_adv_search_meta_action', array( 'SimplyRetsApiHelper', 'srUpdateAdvSearchOptions' ) );
 
 
 class SimplyRetsCustomPostPages {
@@ -29,6 +30,13 @@ class SimplyRetsCustomPostPages {
     public static function srActivate() {
         SimplyRetsCustomPostPages::srRegisterPostType();
         SimplyRetsApiHelper::srUpdateAdvSearchOptions();
+
+        wp_schedule_event(
+            get_option('sr_adv_search_meta_timestamp')
+            , 'daily'
+            , 'sr_update_adv_search_options_action'
+        );
+
         add_option( 'sr_api_name', 'simplyrets' );
         add_option( 'sr_api_key', 'simplyrets' );
         add_option( 'sr_listing_gallery', 'fancy' );
@@ -457,14 +465,14 @@ class SimplyRetsCustomPostPages {
             $cities = isset($_GET['sr_cities']) ? $_GET['sr_cities'] : '';
             if(isset($cities) && is_array($cities)) {
                 foreach($cities as $key => $city) {
-                    $cities_string .= "&city=$city";
+                    $cities_string .= "&cities=$city";
                 }
             }
 
             $neighborhoods = isset($_GET['sr_neighborhoods']) ? $_GET['sr_neighborhoods'] : '';
             if(isset($neighborhoods) && is_array($neighborhoods)) {
                 foreach($neighborhoods as $key => $neighborhood) {
-                    $neighborhoods_string .= "&neighborhood=$neighborhood";
+                    $neighborhoods_string .= "&neighborhoods=$neighborhood";
                 }
             }
             $amenities = isset($_GET['sr_amenities']) ? $_GET['sr_amenities'] : '';
