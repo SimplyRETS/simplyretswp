@@ -149,6 +149,13 @@ class SimplyRetsShortcodes {
         $maxprice = array_key_exists('maxprice', $atts) ? $atts['maxprice'] : '';
         $keywords = array_key_exists('q',        $atts) ? $atts['q']        : '';
         $type     = array_key_exists('type',     $atts) ? $atts['type']     : '';
+
+        /** Advanced Search Parameters */
+        $adv_status   = array_key_exists('status',   $atts) ? $atts['status']   : '';
+        $lotsize      = array_key_exists('lotsize',  $atts) ? $atts['lotsize']  : '';
+        $area         = array_key_exists('area',     $atts) ? $atts['area']     : '';
+
+
         if( !$type == "" ) {
             $type_res = ($type == "res") ? "selected" : '';
             $type_cnd = ($type == "cnd") ? "selected" : '';
@@ -173,73 +180,136 @@ class SimplyRetsShortcodes {
 
         $cities = get_option( 'sr_adv_search_option_city' );
         foreach( $cities as $key=>$city ) {
-            $city_options .= "<li class='sr-adv-search-option'><label><input type='checkbox' value='$city' />$city</label></li>";
+            $city_options .= "<option value='$city' />$city</option>";
         }
 
-        $types = get_option( 'sr_adv_search_option_type' );
-        foreach( $types  as $key=>$type ) {
-            $type_options .= "<li class='sr-adv-search-option'><label><input type='checkbox' value='$type' />$type</label></li>";
+        $status = get_option( 'sr_adv_search_option_status' );
+        foreach( $status as $key=>$status) {
+            if( $status == $adv_status ) {
+                $status_options .= "<option value='$status' selected />$status</option>";
+            } else {
+                $status_options .= "<option value='$status' />$status</option>";
+            }
         }
 
         $counties = get_option( 'sr_adv_search_option_county' );
         foreach( $counties as $key=>$status) {
-            $status_options .= "<li class='sr-adv-search-option'><label><input type='checkbox' value='$status' />$status</label></li>";
+            $location_options .= "<option value='$status' />$status</option>";
         }
 
-        $neighborhoods = get_option( 'sr_adv_search_option_neighborhood' );
-        foreach( $neighborhoods as $key=>$feature) {
-            $features_options .= "<li class='sr-adv-search-option'><label><input type='checkbox' value='$feature' />$feature</label></li>";
+        $features = get_option( 'sr_adv_search_option_interiorFeatures' );
+        foreach( $features as $key=>$feature) {
+            $features_options .= "<li class='sr-adv-search-option'>"
+                ."<label><input name='sr_features[]' type='checkbox' value='$feature' />$feature</label></li>";
         }
 
         if( array_key_exists('advanced', $atts) && $atts['advanced'] == 'true' || $atts['advanced'] == 'True' ) {
             ?>
 
             <div class="sr-adv-search-wrap">
-              <form>
+              <form method="get" class="sr-search" action="<?php echo $home_url; ?>">
+                <input type="hidden" name="sr-listings" value="sr-search">
+                <input type="hidden" name="advanced" value="true">
                 <h2>Advanced Listings Search
-
                 <div class="sr-adv-search-minmax sr-adv-search-part">
-                  <input type="text" style="width:98%" placeholder="Keywords, Address, MLS ID..." />
-                  <div class="sr-adv-search-col3">
-                    <h4>Price Range</h4>
-                    <input type="number" name="minprice" value="" /> <small>to</small>
-                    <input type="number" name="maxprice" value="" />
+
+                  <div class="sr-adv-search-col1">
+                    <!-- Keyword / Property Type -->
+                    <div class="sr-minmax-filters">
+                      <div class="sr-search-field" id="sr-search-keywords">
+                        <input name="sr_keywords"
+                               type="text"
+                               placeholder="Keywords, MLS Number, or Market Area"
+                               value="<?php echo $keywords ?>" />
+                      </div>
+
+                      <div class="sr-search-field" id="sr-search-ptype">
+                        <select name="sr_ptype">
+                          <option value="">Property Type</option>
+                          <option <?php echo $type_res; ?> value="res">Residential</option>
+                          <option <?php echo $type_cnd; ?> value="cnd">Condo</option>
+                          <option <?php echo $type_rnt; ?> value="rnt">Rental</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                  <div class="sr-adv-search-col3">
-                    <h4>Bedrooms</h4>
-                    <input type="number" name="minbeds" value="" />
-                    <small>to</small>
-                    <input type="number" name="maxbeds" value="" />
+
+                  <div class="sr-adv-search-col2 sr-adv-search-price">
+                    <label><strong>Price Range</strong></label>
+                    <input type="number" name="sr_minprice" placeholder="10000" value="<?php echo $minprice; ?>"/>
+                    <input type="number" name="sr_maxprice" placeholder="1000000" value="<?php echo $maxprice; ?>"/>
                   </div>
-                  <div class="sr-adv-search-col3">
-                    <h4>Bathrooms</h4>
-                    <input type="number" name="minbaths" value="" /> <small>to</small>
-                    <input type="number" name="maxbaths" value="" />
+
+                  <div class="sr-adv-search-col4">
+                    <label for="sr-adv-minprice"><strong>Bedrooms</strong></label>
+                    <select name="sr_minbeds" id="sr-adv-minbeds">
+                      <option value="<?php echo $minbeds; ?>"><?php echo $minbeds; ?>+</option>
+                      <option value="1">1+</option>
+                      <option value="2">2+</option>
+                      <option value="3">3+</option>
+                      <option value="4">4+</option>
+                      <option value="5">5+</option>
+                      <option value="6">6+</option>
+                      <option value="7">7+</option>
+                      <option value="8">8+</option>
+                    </select>
                   </div>
-                </div>
+                  <div class="sr-adv-search-col4">
+                    <label><strong>Bathrooms</strong></label>
+                    <select name="sr_minbaths" id="sr-adv-minbaths">
+                      <option value="<?php echo $minbaths; ?>"><?php echo $minbaths; ?>+</option>
+                      <option value="1">1+</option>
+                      <option value="2">2+</option>
+                      <option value="3">3+</option>
+                      <option value="4">4+</option>
+                      <option value="5">5+</option>
+                      <option value="6">6+</option>
+                      <option value="7">7+</option>
+                      <option value="8">8+</option>
+                    </select>
+                  </div>
 
-                <div class="sr-adv-search-cities sr-adv-search-part">
-                  <h4>Cities</h4>
-                  <?php echo $city_options ?>
-                </div>
+                  <div class="sr-adv-search-col2">
+                    <label><strong>Status</strong></label>
+                    <select name="status" id="sr-adv-search-status">
+                      <?php echo $status_options; ?>
+                    </select>
+                  </div>
 
-                <div class="sr-adv-search-status sr-adv-search-part">
-                  <h4>Listing Status</h4>
-                  <?php echo $status_options; ?>
-                </div>
+                  <div class="sr-adv-search-col4">
+                    <label for="sr-adv-lotsize"><strong>Lot Size</strong></label>
+                    <input type="number" name="sr_lotsize" placeholder="3500" value="<?php echo $lotsize; ?>"/>
+                  </div>
+                  <div class="sr-adv-search-col4">
+                    <label><strong>Area (SqFt)</strong></label>
+                    <input type="number" name="sr_area" value="<?php echo $area; ?>" placeholder="1500" />
+                  </div>
 
-                <div class="sr-adv-search-type sr-adv-search-part">
-                  <h4>Property Type</h4>
-                  <?php echo $type_options; ?>
-                </div>
 
-                <div class="sr-adv-search-features sr-adv-search-part">
-                  <h4>Ammenities</h4>
-                  <?php echo $features_options; ?>
+                  <div class="sr-adv-search-col2">
+                    <label><strong>Cities</strong></label>
+                    <select name='sr_cities[]' multiple>
+                      <?php echo $city_options ?>
+                    </select>
+                  </div>
+
+                  <div class="sr-adv-search-col2">
+                    <label><strong>Locations</strong></label>
+                    <select name="sr_neighborhoods[]" multiple>
+                      <?php echo $location_options ?>
+                    </select>
+                  </div>
+
+                  <div class="sr-adv-search-amenities-wrapper">
+                    <label><strong>Features</strong></label>
+                    <div class="sr-adv-search-amenities-wrapper-inner">
+                      <?php echo $features_options; ?>
+                    </div>
+                  </div>
+
                 </div>
 
                 <button class="btn button submit btn-submit" style="display:block">Search</button>
-
               </form>
             </div>
 
