@@ -28,6 +28,7 @@ class SimplyRetsCustomPostPages {
 
     public static function srActivate() {
         SimplyRetsCustomPostPages::srRegisterPostType();
+        SimplyRetsApiHelper::srUpdateAdvSearchOptions();
         add_option( 'sr_api_name', 'simplyrets' );
         add_option( 'sr_api_key', 'simplyrets' );
         add_option( 'sr_listing_gallery', 'fancy' );

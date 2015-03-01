@@ -164,27 +164,22 @@ class SimplyRetsShortcodes {
 
 
 
-        // price range
-        // *city
-        // *neighborhood (location)
-        // type (condo, townhome, residential)
-        // *style
-        // *amenities (int/ext)
-        // status (active, pending, sold)
-        // zip
-        // area
-
-        // status
-        // *yearbuilt
-        // *mlsarea
-
-        $cities = get_option( 'sr_adv_search_option_city' );
-        foreach( $cities as $key=>$city ) {
+        /**
+         * Advanced Search Form.
+         * Used by [sr_search_form advanced='true']
+         *
+         * We populate the options used in the form by the meta data received from retsd daily.
+         *
+         * price range, *city, *neighborhood (location), * type (condo, townhome, residential),
+         * *amenities (int/ext), *status (active, pending, sold), area.
+         */
+        $adv_search_cities = get_option( 'sr_adv_search_meta_city' );
+        foreach( $adv_search_cities as $key=>$city ) {
             $city_options .= "<option value='$city' />$city</option>";
         }
 
-        $status = get_option( 'sr_adv_search_option_status' );
-        foreach( $status as $key=>$status) {
+        $adv_search_status = get_option( 'sr_adv_search_meta_status' );
+        foreach( $adv_search_status as $key=>$status) {
             if( $status == $adv_status ) {
                 $status_options .= "<option value='$status' selected />$status</option>";
             } else {
@@ -192,16 +187,30 @@ class SimplyRetsShortcodes {
             }
         }
 
-        $counties = get_option( 'sr_adv_search_option_county' );
-        foreach( $counties as $key=>$status) {
-            $location_options .= "<option value='$status' />$status</option>";
+        $adv_search_neighborhoods= get_option( 'sr_adv_search_meta_neighborhoods' );
+        foreach( $adv_search_neighborhoods as $key=>$neighborhood) {
+            $location_options .= "<option value='$neighborhood' />$neighborhood</option>";
         }
 
-        $features = get_option( 'sr_adv_search_option_interiorFeatures' );
-        foreach( $features as $key=>$feature) {
+
+        $adv_search_features = get_option( 'sr_adv_search_meta_features' );
+        foreach( $adv_search_features as $key=>$feature) {
             $features_options .= "<li class='sr-adv-search-option'>"
                 ."<label><input name='sr_features[]' type='checkbox' value='$feature' />$feature</label></li>";
         }
+
+        // currently unused
+        // $adv_search_counties = get_option( 'sr_adv_search_meta_county' );
+        // foreach( $adv_search_counties as $key=>$county) {
+        //     $county_options .= "<option value='$county' />$county</option>";
+        // }
+
+        // currently unused
+        // $adv_search_amenities = get_option( 'sr_adv_search_option_amenities' );
+        // foreach( $adv_search_amenities as $key=>$amenity) {
+        //     $amenity_options .= "<li class='sr-adv-search-option'>"
+        //         ."<label><input name='sr_features[]' type='checkbox' value='$amenity' />$amenity</label></li>";
+        // }
 
         if( array_key_exists('advanced', $atts) && $atts['advanced'] == 'true' || $atts['advanced'] == 'True' ) {
             ?>
