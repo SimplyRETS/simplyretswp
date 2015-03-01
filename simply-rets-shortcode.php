@@ -155,6 +155,98 @@ class SimplyRetsShortcodes {
             $type_rnt = ($type == "rnt") ? "selected" : '';
         }
 
+
+
+        // price range
+        // *city
+        // *neighborhood (location)
+        // type (condo, townhome, residential)
+        // *style
+        // *amenities (int/ext)
+        // status (active, pending, sold)
+        // zip
+        // area
+
+        // status
+        // *yearbuilt
+        // *mlsarea
+
+        $cities = get_option( 'sr_adv_search_option_city' );
+        foreach( $cities as $key=>$city ) {
+            $city_options .= "<li class='sr-adv-search-option'><label><input type='checkbox' value='$city' />$city</label></li>";
+        }
+
+        $types = get_option( 'sr_adv_search_option_type' );
+        foreach( $types  as $key=>$type ) {
+            $type_options .= "<li class='sr-adv-search-option'><label><input type='checkbox' value='$type' />$type</label></li>";
+        }
+
+        $counties = get_option( 'sr_adv_search_option_county' );
+        foreach( $counties as $key=>$status) {
+            $status_options .= "<li class='sr-adv-search-option'><label><input type='checkbox' value='$status' />$status</label></li>";
+        }
+
+        $neighborhoods = get_option( 'sr_adv_search_option_neighborhood' );
+        foreach( $neighborhoods as $key=>$feature) {
+            $features_options .= "<li class='sr-adv-search-option'><label><input type='checkbox' value='$feature' />$feature</label></li>";
+        }
+
+        if( array_key_exists('advanced', $atts) && $atts['advanced'] == 'true' || $atts['advanced'] == 'True' ) {
+            ?>
+
+            <div class="sr-adv-search-wrap">
+              <form>
+                <h2>Advanced Listings Search
+
+                <div class="sr-adv-search-minmax sr-adv-search-part">
+                  <input type="text" style="width:98%" placeholder="Keywords, Address, MLS ID..." />
+                  <div class="sr-adv-search-col3">
+                    <h4>Price Range</h4>
+                    <input type="number" name="minprice" value="" /> <small>to</small>
+                    <input type="number" name="maxprice" value="" />
+                  </div>
+                  <div class="sr-adv-search-col3">
+                    <h4>Bedrooms</h4>
+                    <input type="number" name="minbeds" value="" />
+                    <small>to</small>
+                    <input type="number" name="maxbeds" value="" />
+                  </div>
+                  <div class="sr-adv-search-col3">
+                    <h4>Bathrooms</h4>
+                    <input type="number" name="minbaths" value="" /> <small>to</small>
+                    <input type="number" name="maxbaths" value="" />
+                  </div>
+                </div>
+
+                <div class="sr-adv-search-cities sr-adv-search-part">
+                  <h4>Cities</h4>
+                  <?php echo $city_options ?>
+                </div>
+
+                <div class="sr-adv-search-status sr-adv-search-part">
+                  <h4>Listing Status</h4>
+                  <?php echo $status_options; ?>
+                </div>
+
+                <div class="sr-adv-search-type sr-adv-search-part">
+                  <h4>Property Type</h4>
+                  <?php echo $type_options; ?>
+                </div>
+
+                <div class="sr-adv-search-features sr-adv-search-part">
+                  <h4>Ammenities</h4>
+                  <?php echo $features_options; ?>
+                </div>
+
+                <button class="btn button submit btn-submit" style="display:block">Search</button>
+
+              </form>
+            </div>
+
+            <?php
+            return ob_get_clean();
+        }
+
         ?>
         <div id="sr-search-wrapper">
           <h3>Search Listings</h3>
