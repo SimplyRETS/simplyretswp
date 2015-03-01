@@ -111,18 +111,20 @@ class SimplyRetsApiHelper {
         $options_url = SimplyRetsApiHelper::srRequestUrlBuilder( array() );
         $options     = SimplyRetsApiHelper::srApiOptionsRequest( $options_url );
 
-        $city_key         = null;
-        $county_ley       = null;
-        $type_key         = null;
-        $neighborhood_key = null;
-
-        foreach( $options as $key => $option ) {
-            if( !$option == NULL ) {
-                update_option( 'sr_adv_search_option_' . $key, $option );
-            } else {
-                echo '';
-            }
-        }
+        // var_dump( $options );
+        update_option( 'sr_adv_search_meta_timestamp', $options->expires );
+        update_option( 'sr_adv_search_meta_status', $options->fields->status );
+        update_option( 'sr_adv_search_meta_county', $options->fields->county );
+        update_option( 'sr_adv_search_meta_city', $options->fields->city );
+        update_option( 'sr_adv_search_meta_features', $options->fields->features );
+        update_option( 'sr_adv_search_meta_neighborhoods', $options->fields->neighborhood );
+        // foreach( $options as $key => $option ) {
+        //     if( !$option == NULL ) {
+        //         update_option( 'sr_adv_search_option_' . $key, $option );
+        //     } else {
+        //         echo '';
+        //     }
+        // }
 
         return;
 
