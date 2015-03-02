@@ -155,13 +155,15 @@ class SimplyRetsShortcodes {
         $lotsize      = array_key_exists('lotsize',  $atts) ? $atts['lotsize']  : '';
         $area         = array_key_exists('area',     $atts) ? $atts['area']     : '';
 
+        $adv_features = isset($_GET['sr_features']) ? $_GET['sr_features'] : array();
+        $adv_cities   = isset($_GET['sr_cities']) ? $_GET['sr_cities']     : array();
+        $adv_neighborhoods   = isset($_GET['sr_neighborhoods']) ? $_GET['sr_neighborhoods']     : array();
 
         if( !$type == "" ) {
             $type_res = ($type == "res") ? "selected" : '';
             $type_cnd = ($type == "cnd") ? "selected" : '';
             $type_rnt = ($type == "rnt") ? "selected" : '';
         }
-
 
 
         /**
@@ -175,7 +177,8 @@ class SimplyRetsShortcodes {
          */
         $adv_search_cities = get_option( 'sr_adv_search_meta_city' );
         foreach( $adv_search_cities as $key=>$city ) {
-            $city_options .= "<option value='$city' />$city</option>";
+            $checked = in_array($city, $adv_cities) ? 'selected="selected"' : '';
+            $city_options .= "<option value='$city' $checked>$city</option>";
         }
 
         $adv_search_status = get_option( 'sr_adv_search_meta_status' );
@@ -189,14 +192,16 @@ class SimplyRetsShortcodes {
 
         $adv_search_neighborhoods= get_option( 'sr_adv_search_meta_neighborhoods' );
         foreach( $adv_search_neighborhoods as $key=>$neighborhood) {
-            $location_options .= "<option value='$neighborhood' />$neighborhood</option>";
+            $checked = in_array($neighborhood, $adv_neighborhoods) ? 'selected="selected"' : '';
+            $location_options .= "<option value='$neighborhood' $checked>$neighborhood</option>";
         }
 
 
         $adv_search_features = get_option( 'sr_adv_search_meta_features' );
         foreach( $adv_search_features as $key=>$feature) {
+            $checked = in_array($feature, $adv_features) ? 'checked="checked"' : '';
             $features_options .= "<li class='sr-adv-search-option'>"
-                ."<label><input name='sr_features[]' type='checkbox' value='$feature' />$feature</label></li>";
+                 ."<label><input name='sr_features[]' type='checkbox' value='$feature' $checked />$feature</label></li>";
         }
 
         // currently unused
