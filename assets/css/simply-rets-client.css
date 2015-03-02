@@ -506,6 +506,7 @@ Most of these elements also have id's for you to use specifically.
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 #sr-search-keywords {
@@ -664,6 +665,11 @@ elsewhere, this should be a breeze.
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.sr-adv-search-wrap .sr-minmax-filters {
+    margin-bottom: 0px;
+}
+
 
 /** Single Column */
 .sr-adv-search-part .sr-adv-search-col1 {
