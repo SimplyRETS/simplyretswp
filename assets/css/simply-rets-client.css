@@ -660,6 +660,9 @@ elsewhere, this should be a breeze.
 
 .sr-adv-search-part label {
     display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /** Single Column */
