@@ -70,6 +70,13 @@ of the image, use this class.
     background-position: center center;
     background-repeat: no-repeat;
 }
+@media screen and (max-width: 360px) {
+    .sr-photo {
+        width: 100%;
+        display: block;
+        height: 180px;
+    }
+}
 
 /*
 Primary Data
@@ -112,6 +119,11 @@ color is a light grey. This is very simply to change by setting:
     margin-bottom: 10px !important;
 }
 
+@media screen and (max-width: 360px) {
+    .sr-primary-data {
+        width: 100%;
+    }
+}
 /*
 Secondary Data
 ---
@@ -174,6 +186,11 @@ is to change the `margin-left` property to align better in some themes.
     vertical-align: top;
     padding-top: 10px;
     width: 70%;
+}
+@media screen and (max-width: 360px) {
+    .sr-secondary-data {
+        width: 100%;
+    }
 }
 /*
 Notice that we also provide you with `sr-data-column` for
@@ -489,7 +506,6 @@ Most of these elements also have id's for you to use specifically.
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 10px;
 }
 
 #sr-search-keywords {
@@ -654,7 +670,7 @@ elsewhere, this should be a breeze.
 /** Half Column */
 .sr-adv-search-part .sr-adv-search-col2 {
     display: inline-block;
-    width: 45%;
+    width: 50%;
     padding: 10px;
 }
 
@@ -670,14 +686,14 @@ elsewhere, this should be a breeze.
 /** Quarter Column */
 .sr-adv-search-part .sr-adv-search-col4 {
     display: inline-block;
-    width: 22%;
+    width: 25%;
     padding: 10px;
 }
 .sr-adv-search-part .sr-adv-search-col4 select {
     width: 100%;
 }
 .sr-adv-search-part .sr-adv-search-col4 input {
-    width: 90%;
+    width: 95%;
 }
 
 .sr-adv-search-amenities-wrapper {
@@ -686,7 +702,7 @@ elsewhere, this should be a breeze.
 
 .sr-adv-search-amenities-wrapper-inner {
     padding: 10px;
-    padding-top: 0px;
+    padding-top: 0px
     max-height: 200px;
     overflow-y: scroll;
     border: solid 1px #ccc;
@@ -698,6 +714,12 @@ elsewhere, this should be a breeze.
     display: inline-block;
     width: 25%;
 }
+
+@media screen and (max-width: 360px) {
+    .sr-adv-search-part li {
+        width: 50%;
+    }
+
 
 /*
  * Responsive CSS

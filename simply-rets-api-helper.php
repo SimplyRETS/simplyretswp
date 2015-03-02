@@ -114,10 +114,10 @@ class SimplyRetsApiHelper {
         // var_dump( $options );
         update_option( 'sr_adv_search_meta_timestamp', $options->expires );
         update_option( 'sr_adv_search_meta_status', $options->fields->status );
-        update_option( 'sr_adv_search_meta_county', $options->fields->county );
-        update_option( 'sr_adv_search_meta_city', $options->fields->city );
+        update_option( 'sr_adv_search_meta_county', $options->fields->counties );
+        update_option( 'sr_adv_search_meta_city', $options->fields->cities );
         update_option( 'sr_adv_search_meta_features', $options->fields->features );
-        update_option( 'sr_adv_search_meta_neighborhoods', $options->fields->neighborhood );
+        update_option( 'sr_adv_search_meta_neighborhoods', $options->fields->neighborhoods );
         // foreach( $options as $key => $option ) {
         //     if( !$option == NULL ) {
         //         update_option( 'sr_adv_search_option_' . $key, $option );

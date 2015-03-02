@@ -219,7 +219,7 @@ class SimplyRetsShortcodes {
               <form method="get" class="sr-search" action="<?php echo $home_url; ?>">
                 <input type="hidden" name="sr-listings" value="sr-search">
                 <input type="hidden" name="advanced" value="true">
-                <h2>Advanced Listings Search
+                <h2>Advanced Listings Search</h2>
                 <div class="sr-adv-search-minmax sr-adv-search-part">
 
                   <div class="sr-adv-search-col1">
@@ -243,76 +243,84 @@ class SimplyRetsShortcodes {
                     </div>
                   </div>
 
-                  <div class="sr-adv-search-col2 sr-adv-search-price">
-                    <label><strong>Price Range</strong></label>
-                    <input type="number" name="sr_minprice" placeholder="10000" value="<?php echo $minprice; ?>"/>
-                    <input type="number" name="sr_maxprice" placeholder="1000000" value="<?php echo $maxprice; ?>"/>
+                  <div class="sr-minmax-filters">
+                    <div class="sr-adv-search-col2 sr-adv-search-price">
+                      <label><strong>Price Range</strong></label>
+                      <input type="number" name="sr_minprice" placeholder="10000" value="<?php echo $minprice; ?>"/>
+                      <input type="number" name="sr_maxprice" placeholder="1000000" value="<?php echo $maxprice; ?>"/>
+                    </div>
+
+                    <div class="sr-adv-search-col4">
+                      <label for="sr-adv-minprice"><strong>Beds</strong></label>
+                      <select name="sr_minbeds" id="sr-adv-minbeds">
+                        <option value="<?php echo $minbeds; ?>"><?php echo $minbeds; ?>+</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                        <option value="5">5+</option>
+                        <option value="6">6+</option>
+                        <option value="7">7+</option>
+                        <option value="8">8+</option>
+                      </select>
+                    </div>
+                    <div class="sr-adv-search-col4">
+                      <label><strong>Baths</strong></label>
+                      <select name="sr_minbaths" id="sr-adv-minbaths">
+                        <option value="<?php echo $minbaths; ?>"><?php echo $minbaths; ?>+</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                        <option value="5">5+</option>
+                        <option value="6">6+</option>
+                        <option value="7">7+</option>
+                        <option value="8">8+</option>
+                      </select>
+                    </div>
                   </div>
 
-                  <div class="sr-adv-search-col4">
-                    <label for="sr-adv-minprice"><strong>Bedrooms</strong></label>
-                    <select name="sr_minbeds" id="sr-adv-minbeds">
-                      <option value="<?php echo $minbeds; ?>"><?php echo $minbeds; ?>+</option>
-                      <option value="1">1+</option>
-                      <option value="2">2+</option>
-                      <option value="3">3+</option>
-                      <option value="4">4+</option>
-                      <option value="5">5+</option>
-                      <option value="6">6+</option>
-                      <option value="7">7+</option>
-                      <option value="8">8+</option>
-                    </select>
-                  </div>
-                  <div class="sr-adv-search-col4">
-                    <label><strong>Bathrooms</strong></label>
-                    <select name="sr_minbaths" id="sr-adv-minbaths">
-                      <option value="<?php echo $minbaths; ?>"><?php echo $minbaths; ?>+</option>
-                      <option value="1">1+</option>
-                      <option value="2">2+</option>
-                      <option value="3">3+</option>
-                      <option value="4">4+</option>
-                      <option value="5">5+</option>
-                      <option value="6">6+</option>
-                      <option value="7">7+</option>
-                      <option value="8">8+</option>
-                    </select>
-                  </div>
-
-                  <div class="sr-adv-search-col2">
-                    <label><strong>Status</strong></label>
-                    <select name="status" id="sr-adv-search-status">
-                      <?php echo $status_options; ?>
-                    </select>
-                  </div>
-
-                  <div class="sr-adv-search-col4">
-                    <label for="sr-adv-lotsize"><strong>Lot Size</strong></label>
-                    <input type="number" name="sr_lotsize" placeholder="3500" value="<?php echo $lotsize; ?>"/>
-                  </div>
-                  <div class="sr-adv-search-col4">
-                    <label><strong>Area (SqFt)</strong></label>
-                    <input type="number" name="sr_area" value="<?php echo $area; ?>" placeholder="1500" />
+                  <div class="sr-minmax-filters">
+                    <div class="sr-adv-search-col2">
+                      <label><strong>Status</strong></label>
+                      <select name="status" id="sr-adv-search-status">
+                        <option value="">All</option>
+                        <?php echo $status_options; ?>
+                      </select>
+                    </div>
+                    <div class="sr-adv-search-col4">
+                      <label for="sr-adv-lotsize"><strong>Lot Size</strong></label>
+                      <input type="number" name="sr_lotsize" placeholder="3500" value="<?php echo $lotsize; ?>"/>
+                    </div>
+                    <div class="sr-adv-search-col4">
+                      <label><strong>Area (SqFt)</strong></label>
+                      <input type="number" name="sr_area" value="<?php echo $area; ?>" placeholder="1500" />
+                    </div>
                   </div>
 
 
-                  <div class="sr-adv-search-col2">
-                    <label><strong>Cities</strong></label>
-                    <select name='sr_cities[]' multiple>
-                      <?php echo $city_options ?>
-                    </select>
+                  <div class="sr-minmax-filters">
+                    <div class="sr-adv-search-col2">
+                      <label><strong>Cities</strong></label>
+                      <select name='sr_cities[]' multiple>
+                        <?php echo $city_options ?>
+                      </select>
+                    </div>
+
+                    <div class="sr-adv-search-col2">
+                      <label><strong>Locations</strong></label>
+                      <select name="sr_neighborhoods[]" multiple>
+                        <?php echo $location_options ?>
+                      </select>
+                    </div>
                   </div>
 
-                  <div class="sr-adv-search-col2">
-                    <label><strong>Locations</strong></label>
-                    <select name="sr_neighborhoods[]" multiple>
-                      <?php echo $location_options ?>
-                    </select>
-                  </div>
-
-                  <div class="sr-adv-search-amenities-wrapper">
-                    <label><strong>Features</strong></label>
-                    <div class="sr-adv-search-amenities-wrapper-inner">
-                      <?php echo $features_options; ?>
+                  <div class="sr-minmax-filters">
+                    <div class="sr-adv-search-amenities-wrapper">
+                      <label><strong>Features</strong></label>
+                      <div class="sr-adv-search-amenities-wrapper-inner">
+                        <?php echo $features_options; ?>
+                      </div>
                     </div>
                   </div>
 
