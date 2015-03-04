@@ -897,7 +897,6 @@ HTML;
                 echo '<div>';
                 echo '<p>Thanks for contacting us, we\'ll get back to you soon.</p>';
                 echo '</div>';
-                wp_mail( $to, $subject, $message, $headers );
             } else {
                 echo 'An unexpected error occurred';
             }
