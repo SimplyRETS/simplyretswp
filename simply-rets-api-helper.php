@@ -269,6 +269,18 @@ HTML;
         // subdivision
         $listing_subdivision = $listing->property->subdivision;
         $subdivision = SimplyRetsApiHelper::srDetailsTable($listing_subdivision, "Subdivision");
+        // mls information
+        $listing_mls_status     = $listing->mls->status;
+        $mls_status = SimplyRetsApiHelper::srDetailsTable($listing_mls_status, "MLS Status");
+        // int/ext features
+        $listing_interiorFeatures = $listing->property->interiorFeatures;
+        $interiorFeatures = SimplyRetsApiHelper::srDetailsTable($listing_interiorFeatures, "Interior Features");
+        // int/ext features
+        $listing_exteriorFeatures = $listing->property->exteriorFeatures;
+        $exteriorFeatures = SimplyRetsApiHelper::srDetailsTable($listing_exteriorFeatures, "Exterior Features");
+        // year built
+        $listing_yearBuilt = $listing->property->yearBuilt;
+        $yearBuilt = SimplyRetsApiHelper::srDetailsTable($listing_yearBuilt, "Year Built");
 
 
 
@@ -347,7 +359,6 @@ HTML;
         } else {
             $show_listing_meta = true;
         }
-
         $list_date_markup = '';
         if( $show_listing_meta == true ) {
 
@@ -367,11 +378,8 @@ HTML;
         // Amenities
         $bedrooms         = $listing->property->bedrooms;
         $bathsFull        = $listing->property->bathsFull;
-        $interiorFeatures = $listing->property->interiorFeatures;
         $style            = $listing->property->style;
         $heating          = $listing->property->heating;
-        $exteriorFeatures = $listing->property->exteriorFeatures;
-        $yearBuilt        = $listing->property->yearBuilt;
         // listing meta information
         $disclaimer  = $listing->disclaimer;
         $listing_uid = $listing->mlsId;
@@ -401,7 +409,7 @@ HTML;
               <p>$remarks</p>
             </div>
 HTML;
-            $days_on_market = SimplyRetsApiHelper::srDetailsTable($remarks, "Remarks" );
+            $remarks_table = SimplyRetsApiHelper::srDetailsTable($remarks, "Remarks" );
         }
 
         // agent data
@@ -412,8 +420,6 @@ HTML;
             $listing_agent_name = "<a href='mailto:$listing_agent_email'>$listing_agent_name</a>";
         }
 
-        // mls information
-        $mls_status     = $listing->mls->status;
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
         // listing markup
@@ -472,24 +478,18 @@ HTML;
                   <td>Full Bathrooms</td>
                   <td>$bathsFull</td></tr>
                 <tr>
-                  <td>Interior Features</td>
-                  <td>$interiorFeatures</td></tr>
-                <tr>
                   <td>Property Style</td>
                   <td>$style</td></tr>
                 <tr>
                   <td>Heating</td>
                   <td>$heating</td></tr>
-                $stories
-                <tr>
-                  <td>Exterior Features</td>
-                  <td>$exteriorFeatures</td></tr>
-                <tr>
-                  <td>Year Built</td>
-                  <td>$yearBuilt</td></tr>
                 <tr>
                   <td>Lot Size</td>
                   <td>$lot_sqft SqFt</td></tr>
+                $stories
+                $interiorFeatures
+                $exteriorFeatures
+                $yearBuilt
                 $fireplaces
                 $subdivision
                 $roof
@@ -540,16 +540,13 @@ HTML;
                 <tr>
                   <td>Listing Agent</td>
                   <td>$listing_agent_name</td></tr>
-                $remarks_table
               </tbody>
               <thead>
                 <tr>
                   <th colspan="2"><h5>Mls Information</h5></th></tr></thead>
               <tbody>
                 $days_on_market
-                <tr>
-                  <td>Mls Status</td>
-                  <td>$mls_status</td></tr>
+                $mls_status
                 $mls_area
               </tbody>
             </table>
