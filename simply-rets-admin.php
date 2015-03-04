@@ -27,6 +27,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_show_listingmeta');
       register_setting('sr_admin_settings', 'sr_show_listing_remarks');
       register_setting('sr_admin_settings', 'sr_listing_gallery');
+      register_setting('sr_admin_settings', 'sr_show_leadcapture');
   }
   
   function sr_admin_page() {
@@ -69,15 +70,18 @@ class SrAdminSettings {
           <hr>
           <div class="sr-admin-settings">
             <h2>Single Listing Page Settings</h2>
-            <h3>Contact Capture</h3>
+            <h3>Contact Form Lead Capture</h3>
             <table>
               <tbody>
                 <tr>
-                  <td>
-                    <strong>Contact Page Link</strong>
-                  </td>
-                  <td>
-                    <input placeholder="www.example.com/contact" type="text" name="sr_contact_page" value="<?php echo esc_attr( get_option('sr_contact_page') ); ?>" />
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_show_leadcapture" name="sr_show_leadcapture" value="1" '
+                        . checked(1, get_option('sr_show_leadcapture'), false) . '/>'
+                      ?>
+                      Enable Contact Form Lead Capture on single listing pages?
+                    </label>
                   </td>
                 </tr>
               </tbody>

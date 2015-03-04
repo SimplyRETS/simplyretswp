@@ -455,15 +455,12 @@ HTML;
         $listing_USD      = '$' . number_format( $listing_price );
 
 
+        $remarks_markup = '';
+        $remarks_table  = '';
         if( get_option('sr_show_listing_remarks') ) {
             $show_remarks = false;
         } else {
             $show_remarks = true;
-        }
-
-        $remarks_markup = '';
-        $remarks_table  = '';
-        if( $show_remarks == true ) {
             $remarks = $listing->remarks;
             $remarks_markup = <<<HTML
             <div class="sr-remarks-details">
@@ -471,6 +468,15 @@ HTML;
             </div>
 HTML;
             $remarks_table = SimplyRetsApiHelper::srDetailsTable($remarks, "Remarks" );
+        }
+
+        if( get_option('sr_show_leadcapture') ) {
+            $contact_text = 'Contact us about this listing';
+            $cf_listing = $address . ' ( MLSID #' . $listing_uid . ' )';
+            $contact_markup = SimplyRetsApiHelper::srContactFormMarkup($cf_listing);
+        } else {
+            $contact_text = '';
+            $contact_markup = '';
         }
 
         // agent data
@@ -489,7 +495,7 @@ HTML;
             <p class="sr-details-links" style="clear:both;">
               $more_photos
               <span id="sr-listing-contact">
-                <a href="#sr-contact-form">Contact us about this listing</a>
+                <a href="#sr-contact-form">$contact_text</a>
               </span>
             </p>
             $photo_gallery
@@ -595,10 +601,8 @@ HTML;
             </table>
           </div>
 HTML;
-
-        $cf_listing = $address . ' ( MLSID #' . $listing_uid . ' )';
         $cont .= SimplyRetsApiHelper::srContactFormDeliver();
-        $cont .= SimplyRetsApiHelper::srContactFormMarkup($cf_listing);
+        $cont .= $contact_markup;
         return $cont;
     }
 
