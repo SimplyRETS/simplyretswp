@@ -59,7 +59,7 @@ class SimplyRetsApiHelper {
     public static function srRequestUrlBuilder( $params ) {
         $authid   = get_option( 'sr_api_name' );
         $authkey  = get_option( 'sr_api_key' );
-        $base_url = "http://{$authid}:{$authkey}@54.187.230.155/properties";
+        $base_url = "https://{$authid}:{$authkey}@api.simplyrets.com/properties";
 
         if( is_array( $params ) ) {
             $filters_query = http_build_query( array_filter( $params ) );
