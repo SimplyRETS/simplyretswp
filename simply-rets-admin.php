@@ -92,7 +92,7 @@ class SrAdminSettings {
                         '<input type="checkbox" id="sr_show_listingmeta" name="sr_show_listingmeta" value="1" '
                         . checked(1, get_option('sr_show_listingmeta'), false) . '/>'
                       ?>
-                      Hide 'Listing Date' and 'Listing Last Modified' for search results and property details?
+                      Hide 'Listing Meta Information' fields from property details?
                     </label>
                   </td>
                 </tr>
@@ -149,7 +149,7 @@ class SrAdminSettings {
         <div class="sr-doc-links">
           <p>
             <a target="_blank" href="http://simplyrets.com">SimplyRETS Website</a> |
-            <a target="_blank" href="http://docs.simplyrets.com">SimplyRETS Wordpress Plugin Documentation</a> |
+            <a target="_blank" href="https://wordpress.org/plugins/simply-rets/other_notes/">SimplyRETS Wordpress Plugin Documentation</a> |
             <a target="_blank" href="http://docs.simplyrets.com">SimplyRETS API Documentation</a> |
             <a target="_blank" href="mailto:support@simplyrets.com">support@simplyrets.com</a>
           </p>
