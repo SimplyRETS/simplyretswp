@@ -170,11 +170,36 @@ class SimplyRetsApiHelper {
                 }
             }
         }
-        //  $nextLink = explode(",", $matches[1]);
+
         $prev_link = $prevLink[1];
         $next_link = $nextLink[1];
         $pag_links['prev'] = $prev_link;
         $pag_links['next'] = $next_link;
+
+        /**
+         * Transform query parameters to what the Wordpress client needs
+         */
+        foreach( $pag_links as $key=>$link ) {
+            $link_parts = parse_url( $link );
+            parse_str( $link_parts['query'], $output );
+            if( !empty( $output ) ) {
+                foreach( $output as $query=>$parameter) {
+                    if( $query !== 'offset' && $query !== 'limit' ) {
+                        $output['sr_' . $query] = $output[$query];
+                        unset( $output[$query] );
+                    }
+                }
+                $link_parts['query'] = http_build_query( $output );
+                $pag_link_modified = $link_parts['scheme']
+                                     . '://'
+                                     . $link_parts['host']
+                                     . $link_parts['path']
+                                     . '?'
+                                     . $link_parts['query'];
+                $pag_links[$key] = $pag_link_modified;
+            }
+        }
+
         return $pag_links;
     }
 

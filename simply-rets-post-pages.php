@@ -80,8 +80,6 @@ class SimplyRetsCustomPostPages {
         $vars[] = "listing_id";
         $vars[] = "listing_title";
         $vars[] = "listing_price";
-        $vars[] = "limit";
-        $vars[] = "offset";
         // sr prefixes are for the search form
         $vars[] = "sr_minprice";
         $vars[] = "sr_maxprice";
@@ -92,6 +90,9 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_keywords";
         $vars[] = "sr_ptype";
         $vars[] = "sr_agent";
+        $vars[] = "limit";
+        $vars[] = "offset";
+        // post type
         $vars[] = "sr-listings";
         return $vars;
     }
@@ -142,7 +143,7 @@ class SimplyRetsCustomPostPages {
         $max_bath_filter  = "";
         $agent_id_filter  = "";
         $listing_type_filter  = "";
-        $limit_filter  = "";
+        $limit_filter     = "";
 
         $sr_filters = get_post_meta( $post->ID, 'sr_filters', true);
 
@@ -414,17 +415,17 @@ class SimplyRetsCustomPostPages {
         }
 
         if ( $page_name == 'sr-search' ) {
-            $minbeds  = get_query_var( 'sr_minbeds',   '' );
-            $maxbeds  = get_query_var( 'sr_maxbeds',   '' );
-            $minbaths = get_query_var( 'sr_minbaths',  '' );
-            $maxbaths = get_query_var( 'sr_maxbaths',  '' );
+            $minbeds  = get_query_var( 'sr_minbeds',  '' );
+            $maxbeds  = get_query_var( 'sr_maxbeds',  '' );
+            $minbaths = get_query_var( 'sr_minbaths', '' );
+            $maxbaths = get_query_var( 'sr_maxbaths', '' );
             $minprice = get_query_var( 'sr_minprice', '' );
             $maxprice = get_query_var( 'sr_maxprice', '' );
             $keywords = get_query_var( 'sr_keywords', '' );
-            $type     = get_query_var( 'sr_ptype', '' );
-            $agent    = get_query_var( 'sr_agent', '' );
-            $limit    = get_query_var( 'limit', '' );
-            $offset   = get_query_var( 'offset', '' );
+            $type     = get_query_var( 'sr_ptype',    '' );
+            $agent    = get_query_var( 'sr_agent',    '' );
+            $limit    = get_query_var( 'limit',       '' );
+            $offset   = get_query_var( 'offset',      '' );
 
             // these should correlate with what the api expects as filters
             $listing_params = array(
