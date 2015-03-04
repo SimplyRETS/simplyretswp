@@ -239,6 +239,15 @@ HTML;
             return $cont;
         }
 
+        // bedrooms
+        $listing_bedrooms = $listing->property->bedrooms;
+        $bedrooms = SimplyRetsApiHelper::srDetailsTable($listing_bedrooms, "Bedrooms");
+        // full baths
+        $listing_bathsFull = $listing->property->bathsFull;
+        $bathsFull = SimplyRetsApiHelper::srDetailsTable($listing_bathsFull, "Full Baths");
+        // half baths
+        $listing_bathsHalf = $listing->property->bathsHalf;
+        $bathsHalf = SimplyRetsApiHelper::srDetailsTable($listing_bathsHalf, "Half Baths");
         // stories
         $listing_stories = $listing->property->stories;
         $stories = SimplyRetsApiHelper::srDetailsTable($listing_stories, "Stories");
@@ -266,6 +275,9 @@ HTML;
         // roof
         $listing_roof = $listing->property->roof;
         $roof = SimplyRetsApiHelper::srDetailsTable($listing_roof, "Roof");
+        // style
+        $listing_style = $listing->property->style;
+        $style = SimplyRetsApiHelper::srDetailsTable($listing_style, "Property Style");
         // subdivision
         $listing_subdivision = $listing->property->subdivision;
         $subdivision = SimplyRetsApiHelper::srDetailsTable($listing_subdivision, "Subdivision");
@@ -305,17 +317,25 @@ HTML;
 
 
         // lot size
-        $lotSize          = $listing->property->lotSize;
+        $lotSize = $listing->property->lotSize;
         if( $lotSize == 0 ) {
             $lot_sqft = 'n/a';
         } else {
-            $lot_sqft    = number_format( $lotSize );
+            $lot_sqft = number_format( $lotSize );
         }
-        $area        = $listing->property->area; // might be empty
+        $area = $listing->property->area; // might be empty
         if( $area == 0 ) {
             $area = 'n/a';
         } else {
             $area = number_format( $area );
+        }
+
+        // bed/baths
+        if( $listing_bedrooms == null || $listing_bedrooms == "" ) {
+            $listing_bedrooms = 0;
+        }
+        if( $listing_bathsFull == null || $listing_bathsFull == "" ) {
+            $listing_bathsFull = 0;
         }
 
 
@@ -401,10 +421,6 @@ HTML;
 
         }
 
-        // Amenities
-        $bedrooms         = $listing->property->bedrooms;
-        $bathsFull        = $listing->property->bathsFull;
-        $style            = $listing->property->style;
         // street address info
         $postal_code   = $listing->address->postalCode;
         $country       = $listing->address->country;
@@ -472,10 +488,10 @@ HTML;
             </script>
             <div class="sr-primary-details">
               <div class="sr-detail" id="sr-primary-details-beds">
-                <h3>$bedrooms <small>Beds</small></h3>
+                <h3>$listing_bedrooms <small>Beds</small></h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-baths">
-                <h3>$bathsFull <small>Baths</small></h3>
+                <h3>$listing_bathsFull <small>Baths</small></h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-size">
                 <h3>$area <small>SqFt</small></h3>
@@ -493,15 +509,10 @@ HTML;
                 <tr>
                   <td>Price</td>
                   <td>$listing_USD</td></tr>
-                <tr>
-                  <td>Bedrooms</td>
-                  <td>$bedrooms</td></tr>
-                <tr>
-                  <td>Full Bathrooms</td>
-                  <td>$bathsFull</td></tr>
-                <tr>
-                  <td>Property Style</td>
-                  <td>$style</td></tr>
+                $bedrooms
+                $bathsFull
+                $bathsHalf
+                $style
                 <tr>
                   <td>Lot Size</td>
                   <td>$lot_sqft SqFt</td></tr>
@@ -623,7 +634,13 @@ HTML;
             $listing_uid      = $listing->mlsId;
             // Amenities
             $bedrooms    = $listing->property->bedrooms;
+            if( $bedrooms == null || $bedrooms == "" ) {
+                $bedrooms = 0;
+            }
             $bathsFull   = $listing->property->bathsFull;
+            if( $bathsFull == null || $bathsFull == "" ) {
+                $bathsFull = 0;
+            }
             $lotSize     = $listing->property->lotSize; // might be empty
             if( $lotSize == 0 ) {
                 $lot_sqft = 'n/a';
@@ -765,6 +782,9 @@ HTML;
             // widget details
             $bedrooms    = $listing->property->bedrooms;
             $bathsFull   = $listing->property->bathsFull;
+            if( $bathsFull == null || $bathsFull == "" ) {
+                $bathsFull = 0;
+            }
             $mls_status    = $listing->mls->status;
             $listing_remarks  = $listing->remarks;
             $listing_price = $listing->listPrice;
