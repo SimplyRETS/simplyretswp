@@ -571,8 +571,7 @@ HTML;
           </div>
 HTML;
 
-        $cf_listing = $address . ' ( ' . $listing_uid . ' )';
-
+        $cf_listing = $address . ' ( MLSID #' . $listing_uid . ' )';
         $cont .= SimplyRetsApiHelper::srContactFormDeliver();
         $cont .= SimplyRetsApiHelper::srContactFormMarkup($cf_listing);
         return $cont;
@@ -806,7 +805,8 @@ HTML;
             $main_photo = $listingPhotos[0];
 
             // create link to listing
-            $listing_link = get_home_url() . "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
+            $listing_link = get_home_url()
+                . "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
 
             // append markup for this listing to the content
             $cont .= <<<HTML
@@ -845,8 +845,9 @@ HTML;
 
     public static function srContactFormMarkup($listing) {
         $markup .= '<hr>';
+        $markup .= '<div id="sr-contact-form">';
         $markup .= '<h3>Contact us about this Listing</h3>';
-        $markup .= '<form id="sr-contact-form" action="' . esc_url( $_SERVER['REQUEST_URI'] ) . '" method="post">';
+        $markup .= '<form action="' . esc_url( $_SERVER['REQUEST_URI'] ) . '" method="post">';
         $markup .= '<p>';
         $markup .= '<input type="hidden" name="sr-cf-listing" value="' . $listing . '" />';
         $markup .= 'Your Name (required) <br/>';
@@ -868,8 +869,9 @@ HTML;
         $markup .= '<textarea rows="10" cols="35" name="sr-cf-message">'
             . ( isset( $_POST["sr-cf-message"] ) ? esc_attr( $_POST["sr-cf-message"] ) : '' ) . '</textarea>';
         $markup .= '</p>';
-        $markup .= '<p><input type="submit" name="sr-cf-submitted" value="Send"></p>';
+        $markup .= '<p><input class="btn button btn-submit" type="submit" name="sr-cf-submitted" value="Send"></p>';
         $markup .= '</form>';
+        $markup .= '</div>';
 
         return $markup;
 
@@ -885,7 +887,7 @@ HTML;
             $name    = sanitize_text_field( $_POST["sr-cf-name"] );
             $email   = sanitize_email( $_POST["sr-cf-email"] );
             $subject = sanitize_text_field( $_POST["sr-cf-subject"] );
-            $message = esc_textarea( $_POST["sr-cf-message"] ) . ' -' . $listing;
+            $message = esc_textarea( $_POST["sr-cf-message"] ) . ' - ' . $listing;
 
             // get the blog administrator's email address
             $to = get_option( 'admin_email' );
@@ -894,9 +896,7 @@ HTML;
 
             // If email has been process for sending, display a success message
             if ( wp_mail( $to, $subject, $message, $headers ) ) {
-                echo '<div>';
-                echo '<p>Thanks for contacting us, we\'ll get back to you soon.</p>';
-                echo '</div>';
+                echo '<div></div>';
             } else {
                 echo 'An unexpected error occurred';
             }
