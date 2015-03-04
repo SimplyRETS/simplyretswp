@@ -268,10 +268,10 @@ HTML;
         $mls_area = SimplyRetsApiHelper::srDetailsTable($listing_mlsarea, "MLS Area");
         // tax data
         $listing_taxdata = $listing->tax->id;
-        $tax_data = SimplyRetsApiHelper::srDetailsTable($listing_taxdata, "Tax Data");
+        $tax_data = SimplyRetsApiHelper::srDetailsTable($listing_taxdata, "Tax ID");
         // school zone data
         $listing_schooldata = $listing->school->district;
-        $school_data = SimplyRetsApiHelper::srDetailsTable($listing_schooldata, "School Data");
+        $school_data = SimplyRetsApiHelper::srDetailsTable($listing_schooldata, "School Zone");
         // roof
         $listing_roof = $listing->property->roof;
         $roof = SimplyRetsApiHelper::srDetailsTable($listing_roof, "Roof");
@@ -868,7 +868,7 @@ HTML;
         $markup .= '<textarea rows="10" cols="35" name="sr-cf-message">'
             . ( isset( $_POST["sr-cf-message"] ) ? esc_attr( $_POST["sr-cf-message"] ) : '' ) . '</textarea>';
         $markup .= '</p>';
-        $markup .= '<p><input type="submit" name="cf-submitted" value="Send"></p>';
+        $markup .= '<p><input type="submit" name="sr-cf-submitted" value="Send"></p>';
         $markup .= '</form>';
 
         return $markup;
@@ -878,25 +878,26 @@ HTML;
     public static function srContactFormDeliver() {
 
         // if the submit button is clicked, send the email
-        if ( isset( $_POST['cf-submitted'] ) ) {
+        if ( isset( $_POST['sr-cf-submitted'] ) ) {
 
             // sanitize form values
             $listing = sanitize_text_field( $_POST["sr-cf-listing"] );
             $name    = sanitize_text_field( $_POST["sr-cf-name"] );
             $email   = sanitize_email( $_POST["sr-cf-email"] );
             $subject = sanitize_text_field( $_POST["sr-cf-subject"] );
-            $message = esc_textarea( $_POST["sr-cf-message"] );
+            $message = esc_textarea( $_POST["sr-cf-message"] ) . ' -' . $listing;
 
             // get the blog administrator's email address
             $to = get_option( 'admin_email' );
 
-            $headers = "From: $name <$email> - $listing" . "\r\n";
+            $headers = "From: $name <$email>" . "\r\n";
 
             // If email has been process for sending, display a success message
             if ( wp_mail( $to, $subject, $message, $headers ) ) {
                 echo '<div>';
                 echo '<p>Thanks for contacting us, we\'ll get back to you soon.</p>';
                 echo '</div>';
+                wp_mail( $to, $subject, $message, $headers );
             } else {
                 echo 'An unexpected error occurred';
             }
