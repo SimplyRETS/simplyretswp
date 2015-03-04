@@ -329,7 +329,6 @@ HTML;
         } else {
             $area = number_format( $area );
         }
-
         // bed/baths
         if( $listing_bedrooms == null || $listing_bedrooms == "" ) {
             $listing_bedrooms = 0;
@@ -339,7 +338,6 @@ HTML;
         }
 
 
-        // photos data (and set up slideshow markup)
         /**
          * We build the markup for our image gallery here. If classic is set explicity, we use
          * the classic gallery - otherwise we default to the fancy gallery
@@ -781,6 +779,9 @@ HTML;
             $listing_uid      = $listing->mlsId;
             // widget details
             $bedrooms    = $listing->property->bedrooms;
+            if( $bedrooms == null || $bedrooms == "" ) {
+                $bedrooms = 0;
+            }
             $bathsFull   = $listing->property->bathsFull;
             if( $bathsFull == null || $bathsFull == "" ) {
                 $bathsFull = 0;
