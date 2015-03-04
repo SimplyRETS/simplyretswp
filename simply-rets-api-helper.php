@@ -464,7 +464,7 @@ HTML;
             <p class="sr-details-links" style="clear:both;">
               $more_photos
               <span id="sr-listing-contact">
-                <a href="$contact_page">Contact us about this listing</a>
+                <a href="#sr-contact-form">Contact us about this listing</a>
               </span>
             </p>
             $photo_gallery
@@ -571,6 +571,10 @@ HTML;
           </div>
 HTML;
 
+        $cf_listing = $address . ' ( ' . $listing_uid . ' )';
+
+        $cont .= SimplyRetsApiHelper::srContactFormDeliver();
+        $cont .= SimplyRetsApiHelper::srContactFormMarkup($cf_listing);
         return $cont;
     }
 
@@ -838,4 +842,64 @@ HTML;
         return $cont;
     }
 
+
+    public static function srContactFormMarkup($listing) {
+        $markup .= '<hr>';
+        $markup .= '<h3>Contact us about this Listing</h3>';
+        $markup .= '<form id="sr-contact-form" action="' . esc_url( $_SERVER['REQUEST_URI'] ) . '" method="post">';
+        $markup .= '<p>';
+        $markup .= '<input type="hidden" name="sr-cf-listing" value="' . $listing . '" />';
+        $markup .= 'Your Name (required) <br/>';
+        $markup .= '<input type="text" name="sr-cf-name" pattern="[a-zA-Z0-9 ]+" value="'
+            . ( isset( $_POST["sr-cf-name"] ) ? esc_attr( $_POST["sr-cf-name"] ) : '' ) . '" size="40" />';
+        $markup .= '</p>';
+        $markup .= '<p>';
+        $markup .= 'Your Email (required) <br/>';
+        $markup .= '<input type="email" name="sr-cf-email" value="'
+            . ( isset( $_POST["sr-cf-email"] ) ? esc_attr( $_POST["sr-cf-email"] ) : '' ) . '" size="40" />';
+        $markup .= '</p>';
+        $markup .= '<p>';
+        $markup .= 'Subject (required) <br/>';
+        $markup .= '<input type="text" name="sr-cf-subject" pattern="[a-zA-Z ]+" value="'
+            . ( isset( $_POST["sr-cf-subject"] ) ? esc_attr( $_POST["sr-cf-subject"] ) : '' ) . '" size="40" />';
+        $markup .= '</p>';
+        $markup .= '<p>';
+        $markup .= 'Your Message (required) <br/>';
+        $markup .= '<textarea rows="10" cols="35" name="sr-cf-message">'
+            . ( isset( $_POST["sr-cf-message"] ) ? esc_attr( $_POST["sr-cf-message"] ) : '' ) . '</textarea>';
+        $markup .= '</p>';
+        $markup .= '<p><input type="submit" name="cf-submitted" value="Send"></p>';
+        $markup .= '</form>';
+
+        return $markup;
+
+    }
+
+    public static function srContactFormDeliver() {
+
+        // if the submit button is clicked, send the email
+        if ( isset( $_POST['cf-submitted'] ) ) {
+
+            // sanitize form values
+            $listing = sanitize_text_field( $_POST["sr-cf-listing"] );
+            $name    = sanitize_text_field( $_POST["sr-cf-name"] );
+            $email   = sanitize_email( $_POST["sr-cf-email"] );
+            $subject = sanitize_text_field( $_POST["sr-cf-subject"] );
+            $message = esc_textarea( $_POST["sr-cf-message"] );
+
+            // get the blog administrator's email address
+            $to = get_option( 'admin_email' );
+
+            $headers = "From: $name <$email> - $listing" . "\r\n";
+
+            // If email has been process for sending, display a success message
+            if ( wp_mail( $to, $subject, $message, $headers ) ) {
+                echo '<div>';
+                echo '<p>Thanks for contacting us, we\'ll get back to you soon.</p>';
+                echo '</div>';
+            } else {
+                echo 'An unexpected error occurred';
+            }
+        }
+    }
 }
