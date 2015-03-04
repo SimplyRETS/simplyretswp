@@ -581,12 +581,14 @@ HTML;
             $previous = $pagination['prev'];
             $siteUrl = get_home_url() . '/?sr-listings=sr-search&';
             $prev = str_replace( 'https://api.simplyrets.com/properties?', $siteUrl, $previous );
+            $prev_link = "<a href='{$prev}'>Prev</a>";
         }
 
         if( $pagination['next'] !== null && !empty($pagination['next'] ) ) {
             $nextLink = $pagination['next'];
             $siteUrl = get_home_url() . '/?sr-listings=sr-search&';
             $next = str_replace( 'https://api.simplyrets.com/properties?', $siteUrl, $nextLink );
+            $next_link = "| <a href='{$next}'>Next</a>";
         }
 
         /*
@@ -722,7 +724,7 @@ HTML;
 HTML;
         }
 
-        $cont .= "<hr><p class='sr-pagination'><a href='{$prev}'>Prev</a> | <a href='{$next}'>Next</a></p>";
+        $cont .= "<hr><p class='sr-pagination'>$prev_link $next_link</p>";
         $cont .= "<br><p><small><i>This information is believed to be accurate, but without any warranty.</i></small></p>";
         return $cont;
     }
