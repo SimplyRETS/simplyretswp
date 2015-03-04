@@ -230,7 +230,7 @@ HTML;
         */
         if( $listing == NULL ) {
             $err = "SimplyRETS could not complete this search. Please check your " .
-                "credentials and try again.";
+                "search parameters and try again.";
             return $err;
         }
         if( array_key_exists( "error", $listing ) ) {
@@ -281,6 +281,23 @@ HTML;
         // year built
         $listing_yearBuilt = $listing->property->yearBuilt;
         $yearBuilt = SimplyRetsApiHelper::srDetailsTable($listing_yearBuilt, "Year Built");
+        // mls id
+        $listing_uid = $listing->mlsId;
+        $mlsid = SimplyRetsApiHelper::srDetailsTable($listing_uid, "MLS #");
+        // heating
+        $listing_heating = $listing->property->heating;
+        $heating = SimplyRetsApiHelper::srDetailsTable($listing_heating, "Heating");
+        // listing meta information
+        $listing_disclaimer  = $listing->disclaimer;
+        $disclaimer = SimplyRetsApiHelper::srDetailsTable($listing_disclaimer, "Disclaimer");
+        // listing date
+        $list_date = $listing->listDate;
+        $list_date_formatted = date("M j, Y", strtotime($list_date));
+        $list_date_formatted_markup = SimplyRetsApiHelper::srDetailsTable($list_date_formatted, "Listing Date");
+        // listing date modified
+        $listing_modified = $listing->modified; // TODO: format date
+        $date_modified    = date("M j, Y", strtotime($listing_modified));
+        $date_modified_markup = SimplyRetsApiHelper::srDetailsTable($date_modified, "Listing Last Modified");
 
 
 
@@ -348,7 +365,7 @@ HTML;
                   <th colspan="2"><h5>Geographical Data</h5></th></tr></thead>
               <tbody>
                 <tr>
-                  <td>Direction</td>
+                  <td>Directions</td>
                   <td>$geo_directions</td></tr>
 HTML;
         }
@@ -360,29 +377,31 @@ HTML;
             $show_listing_meta = true;
         }
         $list_date_markup = '';
+        $listing_meta_markup = '';
         if( $show_listing_meta == true ) {
 
-            $list_date           = $listing->listDate;
-            $list_date_formatted = date("M j, Y", strtotime($list_date));
-            $date_formatted_markup = SimplyRetsApiHelper::srDetailsTable($list_date_formatted, "Listing Date");
-
-            $listing_modified = $listing->modified; // TODO: format date
-            $date_modified    = date("M j, Y", strtotime($listing_modified));
-            $date_modified_markup = SimplyRetsApiHelper::srDetailsTable($date_modified, "Listing Last Modified");
-
-            $list_date_markup .= $date_formatted_markup . $date_modified_markup;
             $listing_days_on_market = $listing->mls->daysOnMarket;
             $days_on_market = SimplyRetsApiHelper::srDetailsTable($listing_days_on_market, "Days on Market" );
+
+            $listing_meta_markup = <<<HTML
+              <thead>
+                <tr>
+                  <th colspan="2"><h5>Listing Meta Data</h5></th></tr></thead>
+              <tbody>
+                $list_date_formatted_markup
+                $date_modified_markup
+                $school_data
+                $disclaimer
+                $tax_data
+              </tbody>
+HTML;
+
         }
 
         // Amenities
         $bedrooms         = $listing->property->bedrooms;
         $bathsFull        = $listing->property->bathsFull;
         $style            = $listing->property->style;
-        $heating          = $listing->property->heating;
-        // listing meta information
-        $disclaimer  = $listing->disclaimer;
-        $listing_uid = $listing->mlsId;
         // street address info
         $postal_code   = $listing->address->postalCode;
         $country       = $listing->address->country;
@@ -459,7 +478,7 @@ HTML;
                 <h3>$area <small>SqFt</small></h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-status">
-                <h3>$mls_status</h3>
+                <h3>$listing_mls_status</h3>
               </div>
             </div>
             $remarks_markup
@@ -481,9 +500,6 @@ HTML;
                   <td>Property Style</td>
                   <td>$style</td></tr>
                 <tr>
-                  <td>Heating</td>
-                  <td>$heating</td></tr>
-                <tr>
                   <td>Lot Size</td>
                   <td>$lot_sqft SqFt</td></tr>
                 $stories
@@ -493,25 +509,12 @@ HTML;
                 $fireplaces
                 $subdivision
                 $roof
+                $heating
               </tbody>
                 $geo_directions
                 $geo_county
                 $geo_latitude
                 $geo_longitude
-              </tbody>
-              <thead>
-                <tr>
-                  <th colspan="2"><h5>Listing Meta Data</h5></th></tr></thead>
-              <tbody>
-                $list_date_markup
-                $school_data
-                <tr>
-                  <td>Disclaimer</td>
-                  <td>$disclaimer</td></tr>
-                $tax_data
-                <tr>
-                  <td>Listing Id</td>
-                  <td>$listing_uid</td></tr>
               </tbody>
               <thead>
                 <tr>
@@ -541,6 +544,7 @@ HTML;
                   <td>Listing Agent</td>
                   <td>$listing_agent_name</td></tr>
               </tbody>
+              $listing_meta_markup
               <thead>
                 <tr>
                   <th colspan="2"><h5>Mls Information</h5></th></tr></thead>
@@ -548,6 +552,7 @@ HTML;
                 $days_on_market
                 $mls_status
                 $mls_area
+                $mlsid
               </tbody>
             </table>
           </div>
