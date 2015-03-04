@@ -269,6 +269,9 @@ HTML;
         // subdivision
         $listing_subdivision = $listing->property->subdivision;
         $subdivision = SimplyRetsApiHelper::srDetailsTable($listing_subdivision, "Subdivision");
+        // unit
+        $listing_unit = $listing->property->unit;
+        $unit = SimplyRetsApiHelper::srDetailsTable($listing_unit, "Unit");
         // mls information
         $listing_mls_status     = $listing->mls->status;
         $mls_status = SimplyRetsApiHelper::srDetailsTable($listing_mls_status, "MLS Status");
@@ -521,17 +524,18 @@ HTML;
                   <th colspan="2"><h5>Address Information</h5></th></tr></thead>
               <tbody>
                 <tr>
+                  <td>Address</td>
+                  <td>$address</td></tr>
+                $unit
+                <tr>
                   <td>Postal Code</td>
                   <td>$postal_code</td></tr>
                 <tr>
-                  <td>Country Code</td>
-                  <td>$country</td></tr>
-                <tr>
-                  <td>Address</td>
-                  <td>$address</td></tr>
-                <tr>
                   <td>City</td>
                   <td>$city</td></tr>
+                <tr>
+                  <td>Country</td>
+                  <td>$country</td></tr>
               </tbody>
               <thead>
                 <tr>
