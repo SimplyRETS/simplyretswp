@@ -346,7 +346,7 @@ HTML;
         if( $lotSize == 0 ) {
             $lot_sqft = 'n/a';
         } else {
-            $lot_sqft = number_format( $lotSize );
+            $lot_sqft = $lotSize;
         }
         $area = $listing->property->area; // might be empty
         if( $area == 0 ) {
@@ -522,7 +522,7 @@ HTML;
                 <h3>$listing_bathsFull <small>Baths</small></h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-size">
-                <h3>$area <small>SqFt</small></h3>
+                <h3>$area <small class="sr-listing-area-sqft">SqFt</small></h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-status">
                 <h3>$listing_mls_status</h3>
@@ -543,7 +543,7 @@ HTML;
                 $style
                 <tr>
                   <td>Lot Size</td>
-                  <td>$lot_sqft SqFt</td></tr>
+                  <td>$lot_sqft <span class="sr-listing-lotsize-sqft">SqFt</span></td></tr>
                 $stories
                 $interiorFeatures
                 $exteriorFeatures
@@ -671,13 +671,7 @@ HTML;
             if( $bathsFull == null || $bathsFull == "" ) {
                 $bathsFull = 0;
             }
-            $lotSize     = $listing->property->lotSize; // might be empty
-            if( $lotSize == 0 ) {
-                $lot_sqft = 'n/a';
-            } else {
-                $lot_sqft = number_format( $lotSize );
-            }
-            $area        = $listing->property->area; // might be empty
+            $area = $listing->property->area; // might be empty
             if( $area == 0 ) {
                 $area = 'n/a';
             } else {
@@ -745,7 +739,7 @@ HTML;
                       <span>$bathsFull Full Baths</span>
                     </li>
                     <li>
-                      <span>$area SqFt</span>
+                      <span>$area <span class="sr-listing-area-sqft">SqFt</span></span>
                     </li>
                     <li>
                       <span>Built in $yearBuilt</span>
