@@ -314,7 +314,7 @@ HTML;
         $mls_status = SimplyRetsApiHelper::srDetailsTable($listing_mls_status, "MLS Status");
         // int/ext features
         $listing_interiorFeatures = $listing->property->interiorFeatures;
-        $interiorFeatures = SimplyRetsApiHelper::srDetailsTable($listing_interiorFeatures, "Interior Features");
+        $interiorFeatures = SimplyRetsApiHelper::srDetailsTable($listing_interiorFeatures, "Features");
         // int/ext features
         $listing_exteriorFeatures = $listing->property->exteriorFeatures;
         $exteriorFeatures = SimplyRetsApiHelper::srDetailsTable($listing_exteriorFeatures, "Exterior Features");
@@ -437,7 +437,6 @@ HTML;
                 $list_date_formatted_markup
                 $date_modified_markup
                 $school_data
-                $disclaimer
                 $tax_data
               </tbody>
 HTML;
@@ -597,6 +596,7 @@ HTML;
                 $mls_status
                 $mls_area
                 $mlsid
+                $disclaimer
               </tbody>
             </table>
           </div>
@@ -875,7 +875,7 @@ HTML;
     public static function srContactFormMarkup($listing) {
         $markup .= '<hr>';
         $markup .= '<div id="sr-contact-form">';
-        $markup .= '<h3>Contact us about this Listing</h3>';
+        $markup .= '<h3>Contact us about this listing</h3>';
         $markup .= '<form action="' . esc_url( $_SERVER['REQUEST_URI'] ) . '" method="post">';
         $markup .= '<p>';
         $markup .= '<input type="hidden" name="sr-cf-listing" value="' . $listing . '" />';
