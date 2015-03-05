@@ -307,7 +307,7 @@ HTML;
         $listing_subdivision = $listing->property->subdivision;
         $subdivision = SimplyRetsApiHelper::srDetailsTable($listing_subdivision, "Subdivision");
         // unit
-        $listing_unit = $listing->property->unit;
+        $listing_unit = $listing->address->unit;
         $unit = SimplyRetsApiHelper::srDetailsTable($listing_unit, "Unit");
         // mls information
         $listing_mls_status     = $listing->mls->status;
@@ -715,17 +715,19 @@ HTML;
 
             $listing_link = get_home_url() .
                 "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
+            $link = str_replace( ' ', '%20', $listing_link );
+            $link = str_replace( '#', '%23', $link );
 
             // append markup for this listing to the content
             $cont .= <<<HTML
               <hr>
               <div class="sr-listing">
-                <a href="$listing_link">
+                <a href="$link">
                   <div class="sr-photo" style="background-image:url('$main_photo');">
                   </div>
                 </a>
                 <div class="sr-primary-data">
-                  <a href="$listing_link">
+                  <a href="$link">
                     <h4>$address
                     <span id="sr-price"><i>$listing_USD</i></span></h4>
                   </a>
@@ -759,7 +761,7 @@ HTML;
                   </ul>
                 </div>
                 <div style="clear:both;">
-                  <a href="$listing_link">More details</a>
+                  <a href="$link">More details</a>
                 </div>
               </div>
 HTML;
@@ -830,16 +832,18 @@ HTML;
             // create link to listing
             $listing_link = get_home_url()
                 . "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
+            $link = str_replace( ' ', '%20', $listing_link );
+            $link = str_replace( '#', '%23', $link );
 
             // append markup for this listing to the content
             $cont .= <<<HTML
               <div class="sr-listing-wdgt">
-                <a href="$listing_link">
+                <a href="$link">
                   <h5>$address
                     <small> - $listing_USD </small>
                   </h5>
                 </a>
-                <a href="$listing_link">
+                <a href="$link">
                   <img src="$main_photo" width="100%" alt="$address">
                 </a>
                 <div class="sr-listing-wdgt-primary">
@@ -852,7 +856,7 @@ HTML;
                   </div>
                 </div>
                 <div id="sr-listing-wdgt-btn">
-                  <a href="$listing_link">
+                  <a href="$link">
                     <button class="button btn">
                       More about this listing
                     </button>
