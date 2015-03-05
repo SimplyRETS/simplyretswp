@@ -124,7 +124,7 @@ class SimplyRetsShortcodes {
               </div>
 
               <div class="sr-search-field" id="sr-search-ptype">
-                <select name="sr_ptype">
+                <select name="sr_type">
                   <option value="">Property Type</option>
                   <option <?php echo $type_res; ?> value="res">Residential</option>
                   <option <?php echo $type_cnd; ?> value="cnd">Condo</option>

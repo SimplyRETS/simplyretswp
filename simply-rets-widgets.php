@@ -226,7 +226,7 @@ class srSearchFormWidget extends WP_Widget {
             </div>
 
             <div class="sr-search-field" id="sr-search-ptype">
-              <select name="sr_ptype">
+              <select name="sr_type">
                 <option value="">Property Type</option>
                 <option value="res">Residential</option>
                 <option value="cnd">Condo</option>
