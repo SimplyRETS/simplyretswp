@@ -88,7 +88,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_maxbeds";
         $vars[] = "sr_minbaths";
         $vars[] = "sr_maxbaths";
-        $vars[] = "sr_keywords";
+        $vars[] = "sr_q";
         $vars[] = "sr_type";
         $vars[] = "sr_agent";
         $vars[] = "limit";
@@ -422,8 +422,8 @@ class SimplyRetsCustomPostPages {
             $maxbaths = get_query_var( 'sr_maxbaths', '' );
             $minprice = get_query_var( 'sr_minprice', '' );
             $maxprice = get_query_var( 'sr_maxprice', '' );
-            $keywords = get_query_var( 'sr_keywords', '' );
-            $type     = get_query_var( 'sr_type',    '' );
+            $keywords = get_query_var( 'sr_q',        '' );
+            $type     = get_query_var( 'sr_type',     '' );
             $agent    = get_query_var( 'sr_agent',    '' );
             $limit    = get_query_var( 'limit',       '' );
             $offset   = get_query_var( 'offset',      '' );

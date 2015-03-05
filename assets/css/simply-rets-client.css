@@ -427,7 +427,7 @@ Most of these elements also have id's for you to use specifically.
 
             <div class="sr-minmax-filters">
               <div class="sr-search-field" id="sr-search-keywords">
-                <input name="sr_keywords" type="text" placeholder="Keywords" />
+                <input name="sr_q" type="text" placeholder="Keywords" />
               </div>
 
               <div class="sr-search-field" id="sr-search-ptype">
