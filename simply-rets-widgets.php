@@ -79,7 +79,7 @@ class srFeaturedListingWidget extends WP_Widget {
 		if( $title ) {
 			$cont .= $before_title . $title . $after_title;
 		} else {
-			$cont .= $before_title . "Featured Listing" .$after_title;
+			$cont .= $before_title . $after_title;
 		}
 
 		// populate content
@@ -154,7 +154,7 @@ class srRandomListingWidget extends WP_Widget {
 		if( $title ) {
 			$cont .= $before_title . $title . $after_title;
 		} else {
-			$cont .= $before_title . "Featured Listing" .$after_title;
+			$cont .= $before_title . $after_title;
 		}
 
 		// populate content
