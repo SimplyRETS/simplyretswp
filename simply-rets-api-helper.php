@@ -67,7 +67,7 @@ class SimplyRetsApiHelper {
             return $request_url;
 
         } else {
-            $request_url = $base_url . '/' . $params;
+            $request_url = $base_url . '' . $params;
             return $request_url;
 
         }

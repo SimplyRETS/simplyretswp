@@ -60,9 +60,53 @@ class SimplyRetsShortcodes {
             $listing_params = $atts;
         }
 
+        if( !isset( $listing_params['neighborhoods'] ) && !isset( $listing_params['postalcodes'] ) ) {
+            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
+            return $listings_content;
+
+        } else {
+            /**
+             * Neighborhoods filter is being used - check for multiple values and build query accordingly
+             */
+            if( isset( $listing_params['neighborhoods'] ) && !empty( $listing_params['neighborhoods'] ) ) {
+                $neighborhoods = explode( ';', $listing_params['neighborhoods'] );
+                foreach( $neighborhoods as $key => $neighborhood ) {
+                    $neighborhood = trim( $neighborhood );
+                    $neighborhoods_string .= "neighborhoods=$neighborhood&";
+                }
+                $neighborhoods_string = str_replace(' ', '%20', $neighborhoods_string );
+            }
+
+            /**
+             * Postal Codes filter is being used - check for multiple values and build query accordingly
+             */
+            if( isset( $listing_params['postalcodes'] ) && !empty( $listing_params['postalcodes'] ) ) {
+                $postalcodes = explode( ';', $listing_params['postalcodes'] );
+                foreach( $postalcodes as $key => $postalcode  ) {
+                    $postalcode = trim( $postalcode );
+                    $postalcodes_string .= "postalCodes=$postalcode&";
+                }
+                $postalcodes_string = str_replace(' ', '%20', $postalcodes_string );
+            }
+
+            foreach( $listing_params as $key => $value ) {
+                if( $key !== 'postalcodes' && $key !== 'neighborhoods' ) {
+                    $params_string .= $key . "=" . $value . "&";
+                }
+            }
+
+            $qs = '?';
+            $qs .= $neighborhoods_string;
+            $qs .= $postalcodes_string;
+            $qs .= $params_string;
+
+            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs );
+            return $listings_content;
+        }
+
+
         $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
         return $listings_content;
-
     }
 
 

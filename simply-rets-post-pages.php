@@ -411,7 +411,7 @@ class SimplyRetsCustomPostPages {
 
         if ( $page_name == 'sr-single' ) {
             $listing_id = get_query_var( 'listing_id' );
-            $content .= SimplyRetsApiHelper::retrieveListingDetails( $listing_id );
+            $content .= SimplyRetsApiHelper::retrieveListingDetails( '/' . $listing_id );
             return $content;
         }
 

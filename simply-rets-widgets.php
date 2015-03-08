@@ -87,7 +87,7 @@ class srFeaturedListingWidget extends WP_Widget {
 		if( $mlsid ) {
 			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( $mlsid );
 		} else {
-			$cont = "No listing found";
+			$cont .= "No listing found";
 		}
 
 		$cont .= $after_widget;
@@ -175,7 +175,7 @@ class srAgentListingWidget extends WP_Widget {
             $params['limit'] = $limit;
 			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( $params );
 		} else {
-			$cont = "No listing found";
+			$cont .= "No listing found";
 		}
 
 		$cont .= $after_widget;
@@ -250,7 +250,7 @@ class srRandomListingWidget extends WP_Widget {
 		if( $mlsid ) {
 			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( $mlsid );
 		} else {
-			$cont = "No listing found";
+			$cont .= "No listing found";
 		}
 
 		$cont .= $after_widget;
