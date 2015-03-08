@@ -18,6 +18,7 @@
 /* Code starts here */
 function srRegisterWidgets() {
     register_widget('srFeaturedListingWidget');
+    register_widget('srAgentListingWidget');
     register_widget('srRandomListingWidget');
     register_widget('srSearchFormWidget');
 }
@@ -85,6 +86,94 @@ class srFeaturedListingWidget extends WP_Widget {
 		// populate content
 		if( $mlsid ) {
 			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( $mlsid );
+		} else {
+			$cont = "No listing found";
+		}
+
+		$cont .= $after_widget;
+		echo $cont;
+	}
+
+}
+
+class srAgentListingWidget extends WP_Widget {
+
+	/** constructor */
+	function srAgentListingWidget() {
+		parent::WP_Widget(false, $name = 'SimplyRETS Agents Listings');
+	}
+
+	/** save widget --  @see WP_Widget::update */
+	function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['title'] = strip_tags($new_instance['title']);
+		$instance['agent'] = strip_tags($new_instance['agent']);
+		$instance['limit'] = strip_tags($new_instance['limit']);
+		return $instance;
+	}
+
+	/** admin widget form --  @see WP_Widget::form */
+	function form( $instance ) {
+		$title = esc_attr($instance['title']);
+		$agent = esc_attr($instance['agent']);
+		$limit = esc_attr($instance['limit']);
+
+		?>
+		<p>
+		  <label for="<?php echo $this->get_field_id('title'); ?>">
+			<?php _e('Title:'); ?>
+		  </label>
+		  <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
+				 name="<?php echo $this->get_field_name('title'); ?>"
+				 type="text"
+				 value="<?php echo $title; ?>" />
+		</p>
+
+		<p>
+		  <label for="<?php echo $this->get_field_id('agent'); ?>">
+			<?php _e('Agent MLS Id:'); ?>
+		  </label>
+		  <input class="widefat"
+				 id="<?php echo $this->get_field_id('agent'); ?>"
+				 name="<?php echo $this->get_field_name('agent'); ?>"
+				 type="text"
+				 value="<?php echo $agent; ?>" />
+		</p>
+
+		<p>
+		  <label for="<?php echo $this->get_field_id('limit'); ?>">
+			<?php _e('Amount of listings to show:'); ?>
+		  </label>
+		  <input class="widefat"
+				 id="<?php echo $this->get_field_id('limit'); ?>"
+				 name="<?php echo $this->get_field_name('limit'); ?>"
+				 type="text"
+				 value="<?php echo $limit; ?>" />
+		</p>
+		<?php
+	}
+
+	/** front end widget render -- @see WP_Widget::widget */
+	function widget( $args, $instance ) {
+		extract( $args );
+		$title = apply_filters('widget_title', $instance['title']);
+		$agent = $instance['agent'];
+		$limit = $instance['limit'];
+
+
+		$cont .= $before_widget;
+		// populate title
+		if( $title ) {
+			$cont .= $before_title . $title . $after_title;
+		} else {
+			$cont .= $before_title . $after_title;
+		}
+
+		// populate content
+		if( $agent && $limit ) {
+            $params['agent'] = $agent;
+            $params['limit'] = $limit;
+			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( $params );
 		} else {
 			$cont = "No listing found";
 		}
