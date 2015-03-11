@@ -787,19 +787,25 @@ HTML;
          * The error code comes from the UrlBuilder function.
         */
         $response = $response['response'];
+        $response_size = sizeof( $response );
+
         if( $response == NULL ) {
             $err = "SimplyRETS could not complete this search. Please check your " .
                 "credentials and try again.";
             return $err;
         }
+
         if( array_key_exists( "error", $response ) ) {
             $error = $response['error'];
             $response_markup = "<hr><p>{$error}</p>";
             return $response_markup;
         }
 
-        $response_size = sizeof( $response );
-        if( $response_size <= 1 ) {
+        if( !array_key_exists("0", $response ) ) {
+            $response = array( $response );
+        }
+
+        if( $response_size < 1 ) {
             $response = array( $response );
         }
 

@@ -160,7 +160,6 @@ class srAgentListingWidget extends WP_Widget {
 		$agent = $instance['agent'];
 		$limit = $instance['limit'];
 
-
 		$cont .= $before_widget;
 		// populate title
 		if( $title ) {
@@ -248,7 +247,7 @@ class srRandomListingWidget extends WP_Widget {
 
 		// populate content
 		if( $mlsid ) {
-			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( $mlsid );
+			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( '/' . $mlsid );
 		} else {
 			$cont .= "No listing found";
 		}
