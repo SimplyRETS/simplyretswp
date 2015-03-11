@@ -85,7 +85,7 @@ class srFeaturedListingWidget extends WP_Widget {
 
 		// populate content
 		if( $mlsid ) {
-			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( $mlsid );
+			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( '/' . $mlsid );
 		} else {
 			$cont .= "No listing found";
 		}
