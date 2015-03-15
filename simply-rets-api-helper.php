@@ -224,9 +224,8 @@ class SimplyRetsApiHelper {
 
 
     /**
-     * Experimental function not implemented yet. Should be
-     * built out to show/hide fields based on whether or not
-     * the specific listing has them.
+     * Run fields through this function before rendering them on single listing
+     * pages to hide fields that are null.
      */
     public static function srDetailsTable($val, $name) {
         if( $val == "" ) {
@@ -338,7 +337,6 @@ HTML;
         $listing_modified = $listing->modified; // TODO: format date
         $date_modified    = date("M j, Y", strtotime($listing_modified));
         $date_modified_markup = SimplyRetsApiHelper::srDetailsTable($date_modified, "Listing Last Modified");
-
 
 
         // lot size
@@ -453,7 +451,6 @@ HTML;
         $listing_price    = $listing->listPrice;
         $listing_USD      = '$' . number_format( $listing_price );
 
-
         $remarks_markup = '';
         $remarks_table  = '';
         if( get_option('sr_show_listing_remarks') ) {
@@ -476,6 +473,28 @@ HTML;
         } else {
             $contact_text = '';
             $contact_markup = '';
+        }
+
+
+        /**
+         * Check for ListHub Analytics
+         */
+        if( get_option( 'sr_listhub_analytics' ) ) {
+            echo 'listhub analytics is turned on';
+            $lh_analytics = SimplyRetsApiHelper::srListhubAnalytics();
+            if( get_option( 'sr_listhub_analytics_id' ) ) {
+                $metrics_id = get_option( 'sr_listhub_analytics_id' );
+                $lh_send_details = SimplyRetsApiHelper::srListhubSendDetails(
+                    $metrics_id
+                    , true
+                    , $listing_uid
+                    , $postal_code
+                );
+                $lh_analytics .= $lh_send_details;
+            }
+        } else {
+            echo 'listhub analytics is off';
+            $lh_analytics = '';
         }
 
         // agent data
@@ -599,6 +618,7 @@ HTML;
                 $disclaimer
               </tbody>
             </table>
+            <script>$lh_analytics</script>
           </div>
 HTML;
         $cont .= SimplyRetsApiHelper::srContactFormDeliver();
@@ -934,5 +954,33 @@ HTML;
                 echo 'An unexpected error occurred';
             }
         }
+    }
+
+
+    /**
+     * Listhub Analytics Tracking Code Snippet
+     * We'll insert this in the markup if the admin option
+     * sr_listhub_analytics is true.
+     */
+    public static function srListhubAnalytics() {
+        $analytics = "(function(l,i,s,t,h,u,b){l['ListHubAnalyticsObject']=h;l[h]=l[h]||function(){ "
+            . "(l[h].q=l[h].q||[]).push(arguments)},l[h].d=1*new Date();u=i.createElement(s),"
+            . " b=i.getElementsByTagName(s)[0];u.async=1;u.src=t;b.parentNode.insertBefore(u,b) "
+            . " })(window,document,'script','//tracking.listhub.net/la.min.js','lh'); ";
+        return $analytics;
+    }
+
+
+    public static function srListhubSendDetails( $m, $t, $mlsid, $zip=NULL ) {
+        $metrics_id = $m;
+        $test       = $t;
+        $mlsid      = $mlsid;
+        $zipcode    = $zip;
+
+        $lh_send_details = "lh('init', {provider: '$metrics_id', test: $test}); "
+            . "lh('submit', 'DETAIL_PAGE_VIEWED', {mlsn: '$mlsid', zip: '$zipcode'});";
+
+        return $lh_send_details;
+
     }
 }

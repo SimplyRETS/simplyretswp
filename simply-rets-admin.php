@@ -28,6 +28,8 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_show_listing_remarks');
       register_setting('sr_admin_settings', 'sr_listing_gallery');
       register_setting('sr_admin_settings', 'sr_show_leadcapture');
+      register_setting('sr_admin_settings', 'sr_listhub_analytics');
+      register_setting('sr_admin_settings', 'sr_listhub_analytics_id');
   }
   
   function sr_admin_page() {
@@ -35,8 +37,17 @@ class SrAdminSettings {
       $logo_path = plugin_dir_url(__FILE__) . 'assets/img/logo_button.png';
       ?>
       <div class="wrap sr-admin-wrap">
+        <h2 id="message"></h2>
         <img class="sr-admin-logo" src="<?php echo $logo_path; ?>">
-        <h1 class="sr-admin-title">SimplyRETS Admin Settings</h2>
+        <h1 class="sr-admin-title">SimplyRETS Admin Settings</h1>
+        <div class="sr-doc-links">
+          <p>
+            <a target="_blank" href="http://simplyrets.com">SimplyRETS Website</a> |
+            <a target="_blank" href="https://wordpress.org/plugins/simply-rets/other_notes/">SimplyRETS Wordpress Plugin Documentation</a> |
+            <a target="_blank" href="http://docs.simplyrets.com">SimplyRETS API Documentation</a> |
+            <a target="_blank" href="mailto:support@simplyrets.com">support@simplyrets.com</a>
+          </p>
+        </div>
         <hr>
         <form method="post" action="options.php">
           <?php settings_fields( 'sr_admin_settings'); ?>
@@ -67,6 +78,14 @@ class SrAdminSettings {
               </tbody>
             </table>
           </div>
+          <div>
+            <span>
+              <i>Note - to use the SimplyRETS demo data, you can use these  API credentials: </i>
+              <strong>API Username: </strong><span>simplyrets</span>
+              <strong>API Key: </strong><span>simplyrets</span>
+            </span>
+          <div>
+          <?php submit_button(); ?>
           <hr>
           <div class="sr-admin-settings">
             <h2>Single Listing Page Settings</h2>
@@ -141,22 +160,37 @@ class SrAdminSettings {
               </tbody>
             </table>
           <?php submit_button(); ?>
+          <hr>
+          <div class="sr-admin-settings-lh">
+            <h2>Listhub Analytics Settings</h2>
+            <table>
+              <tbody>
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_listhub_analytics" name="sr_listhub_analytics" value="1" '
+                        . checked(1, get_option('sr_listhub_analytics'), false) . '/>'
+                      ?>
+                      Enable Listhub Analytics? <i>(requires an account with Listhub)</i>
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Metrics Provider ID</strong><i> (provided by Listhub)</i>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" name="sr_listhub_analytics_id" value="<?php echo esc_attr( get_option('sr_listhub_analytics_id') ); ?>" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <?php submit_button(); ?>
         </form>
-        <div>
-          <span>
-            <i>Note - to use the SimplyRETS demo data, you can use these  API credentials: </i>
-            <strong>API Username: </strong><span>simplyrets</span>
-            <strong>API Key: </strong><span>simplyrets</span>
-          </span>
-        <div>
-        <hr>
-        <div class="sr-doc-links">
-          <p>
-            <a target="_blank" href="http://simplyrets.com">SimplyRETS Website</a> |
-            <a target="_blank" href="https://wordpress.org/plugins/simply-rets/other_notes/">SimplyRETS Wordpress Plugin Documentation</a> |
-            <a target="_blank" href="http://docs.simplyrets.com">SimplyRETS API Documentation</a> |
-            <a target="_blank" href="mailto:support@simplyrets.com">support@simplyrets.com</a>
-          </p>
-      </div> <?php
+        <?php
   }
 } ?>
