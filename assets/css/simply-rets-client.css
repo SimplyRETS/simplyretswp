@@ -629,3 +629,40 @@ elsewhere, this should be a breeze.
 .galleria-errors {
     display: none !important;
 }
+
+
+/*
+ * Responsive CSS
+*/
+@media screen and (max-width: 360px) {
+    /*
+     * Search results
+     */
+    .sr-photo {
+        display: block;
+        width: 100%;
+    }
+    .sr-primary-data {
+        display: block;
+        width: 100%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        clear: both;
+    }
+    .sr-primary-data h4 {
+        padding-right: 15px;
+    }
+    .sr-secondary-data {
+        display: block;
+        width: 100%;
+    }
+    /*
+     * Search form
+     */
+    .sr-minmax-filters {
+        display: block;
+    }
+    #sr-search-ptype {
+        width: 85%;
+    }
+}
