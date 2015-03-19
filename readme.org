@@ -1,4 +1,4 @@
-* SimplyRETS WP [[https://travis-ci.org/rbros/simplyretswp.svg?branch=master]]
+* SimplyRETS WP [[https://travis-ci.org/SimplyRETS/simplyretswp.svg?branch=master]]
 
   This is the official repository of the SimplyRETS Wordpress plugin
   client.
