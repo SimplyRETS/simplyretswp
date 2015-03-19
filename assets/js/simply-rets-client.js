@@ -1,11 +1,11 @@
 /**
  *
- * simply-rets-client.js - Copyright (c) Reichert Brothers 2014
+ * simply-rets-client.js - Copyright (c) 2014-2015 SimplyRETS
  *
  * This file provides the (minimal) client side javascript for the
  * SimplyRETS Wordpress plugin.
  * 
- * Author: Cody Reichert, Reichert Brothers
+ * Author: Cody Reichert
  * License: GPLv3 (http://www.gnu.org/licenses/gpl.html)
  *
 **/

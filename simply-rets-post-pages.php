@@ -2,7 +2,7 @@
 
 /*
  *
- * simply-rets-post-pages.php - Copyright (C) Reichert Brothers 2014
+ * simply-rets-post-pages.php - Copyright (C) 2014-2015 SimplyRETS
  * This file provides the logic for the simply-rets custom post type pages.
  *
 */

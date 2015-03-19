@@ -2,7 +2,7 @@
  * 
  * simply-rets-admin.js
  * Javascript for the admin functionality of the Simple Rets plugin.
- * Copyright (c) Reichert Brothers 2014
+ * Copyright (c) 2014-2015 SimplyRETS
  * 
  */
 

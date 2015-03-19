@@ -2,7 +2,7 @@
 
 /*
  *
- * simply-rets-widgets.php - Copyright (C) Reichert Brothers 2014
+ * simply-rets-widgets.php - Copyright (C) 2014-2015 SimplyRETS
  * This file provides the logic for the simply-rets sidebar widgets.
  *
 */

@@ -1,11 +1,11 @@
 /**
  *
- * simply-rets-shortcodes.js - Copyright (c) Reichert Brothers 2014
+ * simply-rets-shortcodes.js - Copyright (c) 2014-2015 SimplyRETS
  * 
- * Author: Cody Reichert, Reichert Brothers
+ * Author: Cody Reichert
  * License: GPLv3 (http://www.gnu.org/licenses/gpl.html)
  *
-**/
+ */
 
 jQuery(document).ready(function() {
 
