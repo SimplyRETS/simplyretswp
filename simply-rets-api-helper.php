@@ -263,6 +263,9 @@ HTML;
             return $cont;
         }
 
+        // internal unique id
+        $listing_uid = $listing->mlsId;
+
         // bedrooms
         $listing_bedrooms = $listing->property->bedrooms;
         $bedrooms = SimplyRetsApiHelper::srDetailsTable($listing_bedrooms, "Bedrooms");
@@ -320,9 +323,11 @@ HTML;
         // year built
         $listing_yearBuilt = $listing->property->yearBuilt;
         $yearBuilt = SimplyRetsApiHelper::srDetailsTable($listing_yearBuilt, "Year Built");
-        // mls id
-        $listing_uid = $listing->mlsId;
-        $mlsid = SimplyRetsApiHelper::srDetailsTable($listing_uid, "MLS #");
+
+        // listing id (MLS #)
+        $listing_mlsid = $listing->listingId;
+        $mlsid = SimplyRetsApiHelper::srDetailsTable($listing_mlsid, "MLS #");
+
         // heating
         $listing_heating = $listing->property->heating;
         $heating = SimplyRetsApiHelper::srDetailsTable($listing_heating, "Heating");
@@ -401,9 +406,7 @@ HTML;
 
         // geographic data
         $geo_directions = $listing->geo->directions;
-        if( $geo_directions == "" ) {
-            $geo_directions = "";
-        } else {
+        if( !$geo_directions == "" ) {
             $geo_directions = <<<HTML
               <thead>
                 <tr>
@@ -469,7 +472,7 @@ HTML;
 
         if( get_option('sr_show_leadcapture') ) {
             $contact_text = 'Contact us about this listing';
-            $cf_listing = $address . ' ( MLSID #' . $listing_uid . ' )';
+            $cf_listing = $address . ' ( MLS #' . $listing_mlsid . ' )';
             $contact_markup = SimplyRetsApiHelper::srContactFormMarkup($cf_listing);
         } else {
             $contact_text = '';
@@ -487,7 +490,7 @@ HTML;
                 $lh_send_details = SimplyRetsApiHelper::srListhubSendDetails(
                     $metrics_id
                     , true
-                    , $listing_uid
+                    , $listing_mlsid
                     , $postal_code
                 );
                 $lh_analytics .= $lh_send_details;

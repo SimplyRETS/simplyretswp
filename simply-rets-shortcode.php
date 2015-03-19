@@ -42,7 +42,7 @@ class SimplyRetsShortcodes {
      *
      * Show all residential listings with the ability to filter by mlsid
      * to show a single listing.
-     * ie, [sr_residential
+     * ie, [sr_residential mlsid="12345"]
      */
     public function sr_residential_shortcode( $atts ) {
         global $wp_query;
@@ -50,7 +50,10 @@ class SimplyRetsShortcodes {
 
         if( !empty($atts['mlsid']) ) {
             $mlsid = $atts['mlsid'];
-            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $mlsid );
+            $listing_params = array(
+                "q" => $mlsid
+            );
+            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
             return $listings_content;
         }
 

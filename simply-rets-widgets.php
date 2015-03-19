@@ -74,7 +74,6 @@ class srFeaturedListingWidget extends WP_Widget {
 		$title = apply_filters('widget_title', $instance['title']);
 		$mlsid = $instance['mlsid'];
 
-
 		$cont .= $before_widget;
 		// populate title
 		if( $title ) {
@@ -85,7 +84,10 @@ class srFeaturedListingWidget extends WP_Widget {
 
 		// populate content
 		if( $mlsid ) {
-			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( '/' . $mlsid );
+            $listing_params = array(
+                "q" => $mlsid
+            );
+			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( $listing_params );
 		} else {
 			$cont .= "No listing found";
 		}
@@ -247,7 +249,10 @@ class srRandomListingWidget extends WP_Widget {
 
 		// populate content
 		if( $mlsid ) {
-			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( '/' . $mlsid );
+            $listing_params = array(
+                "q" => $mlsid
+            );
+			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( $listing_params );
 		} else {
 			$cont .= "No listing found";
 		}
