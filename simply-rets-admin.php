@@ -178,10 +178,8 @@ class SrAdminSettings {
                 </tr>
                 <tr>
                   <td>
-                    <strong>Metrics Provider ID</strong><i> (provided by Listhub)</i>
+                    <strong>Metrics Provider ID</strong><br><i> (provided by Listhub)</i>
                   </td>
-                </tr>
-                <tr>
                   <td>
                     <input type="text" name="sr_listhub_analytics_id" value="<?php echo esc_attr( get_option('sr_listhub_analytics_id') ); ?>" />
                   </td>

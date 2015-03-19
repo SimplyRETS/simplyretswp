@@ -67,7 +67,7 @@ class SimplyRetsApiHelper {
             return $request_url;
 
         } else {
-            $request_url = $base_url . '' . $params;
+            $request_url = $base_url . $params;
             return $request_url;
 
         }
@@ -106,8 +106,8 @@ class SimplyRetsApiHelper {
             $header_size = curl_getinfo( $ch, CURLINFO_HEADER_SIZE );
 
             // separate header/body out of response
-            $header      = substr( $request, 0, $header_size );
-            $body        = substr( $request, $header_size );
+            $header = substr( $request, 0, $header_size );
+            $body   = substr( $request, $header_size );
 
             $pag_links = SimplyRetsApiHelper::srPaginationParser($header);
 
@@ -139,7 +139,7 @@ class SimplyRetsApiHelper {
                 "Sorry, SimplyRETS could not complete this search." .
                 "Please double check that your API credentials are valid " .
                 "and that the search filters you used are correct. If this " .
-                "is a new listing, you may also try back later.";
+                "is a new listing you may also try back later.";
             $response_err = array(
                 "error" => $error
             );
@@ -346,7 +346,8 @@ HTML;
         } else {
             $lot_sqft = $lotSize;
         }
-        $area = $listing->property->area; // might be empty
+        // area
+        $area = $listing->property->area;
         if( $area == 0 ) {
             $area = 'n/a';
         } else {
@@ -480,7 +481,6 @@ HTML;
          * Check for ListHub Analytics
          */
         if( get_option( 'sr_listhub_analytics' ) ) {
-            echo 'listhub analytics is turned on';
             $lh_analytics = SimplyRetsApiHelper::srListhubAnalytics();
             if( get_option( 'sr_listhub_analytics_id' ) ) {
                 $metrics_id = get_option( 'sr_listhub_analytics_id' );
@@ -493,7 +493,6 @@ HTML;
                 $lh_analytics .= $lh_send_details;
             }
         } else {
-            echo 'listhub analytics is off';
             $lh_analytics = '';
         }
 
@@ -830,9 +829,9 @@ HTML;
         }
 
         foreach ( $response as $listing ) {
-            $listing_uid      = $listing->mlsId;
+            $listing_uid = $listing->mlsId;
             // widget details
-            $bedrooms    = $listing->property->bedrooms;
+            $bedrooms = $listing->property->bedrooms;
             if( $bedrooms == null || $bedrooms == "" ) {
                 $bedrooms = 0;
             }
