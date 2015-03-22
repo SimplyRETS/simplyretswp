@@ -59,7 +59,8 @@ class SimplyRetsApiHelper {
     public static function srRequestUrlBuilder( $params ) {
         $authid   = get_option( 'sr_api_name' );
         $authkey  = get_option( 'sr_api_key' );
-        $base_url = "https://{$authid}:{$authkey}@api.simplyrets.com/properties";
+        // $base_url = "https://{$authid}:{$authkey}@api.simplyrets.com/properties";
+        $base_url = "http://{$authid}:{$authkey}@192.168.1.104:3001/properties";
 
         if( is_array( $params ) ) {
             $filters_query = http_build_query( array_filter( $params ) );
@@ -84,7 +85,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/1.3.2 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/1.3.3 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {

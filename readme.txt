@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, simple rets, rets feed, simple idx, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.1.1
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -217,6 +217,14 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 1.3.3 =
+* Added initial, basic support for Listhub Analytics!
+* Show ListingId (MLS #) instead of unique ID in listing details
+* Better responsive CSS for search form and search results
+* Added support for using multiple neighborhoods/cities/zipcodes in the sr_residential shortcode
+* Added new Agents Listings Widget for showing listings for a specific agent
+* Clean up for existing widgets
+
 = 1.3.2 =
 * Patches for url encoding spaces and hash symbols
 * Patches for area/sqft units in markup
@@ -287,6 +295,9 @@ listing sidebar widget.
 
 
 == Upgrade Notice ==
+
+= 1.3.3 =
+* If you are building any shortcodes, links, or widgets from the MLS ID - you should double check that with this update they are still showing the correct listing - we switched to the MLS# instead of internal uid.
 
 = 1.3.0 =
 * This update will move you to the new Fancy gallery - If you like the Classic gallery, you can switch it back in Settings -> SimplyRETS (no changes to Classic gallery)
