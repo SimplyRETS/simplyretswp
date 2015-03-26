@@ -1,11 +1,10 @@
 <?php
 
 /*
+ * simply-rets-api-helper.php - Copyright (C) 2014-2015 SimplyRETS, Inc.
  *
- * simply-rets-api-helper.php - Copyright (C) 2014-2015 SimplyRETS
  * This file provides a class that has functions for retrieving and parsing
  * data from the remote retsd api.
- *
  *
 */
 
@@ -241,6 +240,96 @@ HTML;
     }
 
 
+
+    /**
+     * Build the photo gallery shown on single listing details pages
+     */
+    public static function srDetailsGallery( $photos ) {
+
+        if(empty($photos)) {
+             $main_photo = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
+             $photo_gallery.= "  <img src='$main_photo'>";
+        } else {
+            $photo_gallery = '';
+            if(get_option('sr_listing_gallery') == 'classic') {
+                $main_photo = $photos[0];
+                $photo_counter = 0;
+                $more_photos = '<span id="sr-toggle-gallery">See more photos</span> |';
+                $photo_gallery .= "<div class='sr-slider'><img class='sr-slider-img-act' src='$main_photo'>";
+                foreach( $photos as $photo ) {
+                    $photo_gallery.=
+                        "<input class='sr-slider-input' type='radio' name='slide_switch' id='id$photo_counter' value='$photo' />";
+                    $photo_gallery.= "<label for='id$photo_counter'>";
+                    $photo_gallery.= "  <img src='$photo' width='100'>";
+                    $photo_gallery.= "</label>";
+                    $photo_counter++;
+                }
+
+            } else {
+                $photo_gallery = '<div class="sr-gallery" id="sr-fancy-gallery">';
+                $more_photos = '';
+                foreach( $photos as $photo ) {
+                    $photo_gallery .= "<img src='$photo' data-title='$address'>";
+                }
+            }
+            $photo_gallery .= "</div>";
+        }
+        return $photo_gallery;
+
+    }
+
+
+    public static function srDetailsGMap( $lat, $long, $address ) {
+        if( $lat == "" && $long == "" ) {
+            $gmap = "";
+            $gmap = <<<HTML
+                function initialize() {
+                  geocoder = new google.maps.Geocoder();
+                  var address = '$address';
+                  var latlng = new google.maps.LatLng(-34.397, 150.644);
+                  var mapOptions = {
+                    zoom: 8,
+                    center: latlng
+                  }
+                  map = new google.maps.Map(document.getElementById('sr-map-canvas'), mapOptions);
+                  geocoder.geocode( { 'address': address}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                      map.setCenter(results[0].geometry.location);
+                      var marker = new google.maps.Marker({
+                          map: map,
+                          position: results[0].geometry.location
+                      });
+                    } else {
+                      alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                  });
+                }
+
+                google.maps.event.addDomListener(window, 'load', initialize);
+HTML;
+        } else {
+            $gmap = <<<HTML
+            function initialize() {
+                var myLatlng = new google.maps.LatLng($lat,$long);
+                var mapOptions = {
+                    zoom: 8,
+                    center: myLatlng
+                }
+                var map = new google.maps.Map(document.getElementById('sr-map-canvas'), mapOptions);
+
+                var marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        title: 'Hello World!'
+                });
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+HTML;
+        }
+        return $gmap;
+    }
+
+
     public static function srResidentialDetailsGenerator( $listing ) {
         $br = "<br>";
         $cont = "";
@@ -323,11 +412,9 @@ HTML;
         // year built
         $listing_yearBuilt = $listing->property->yearBuilt;
         $yearBuilt = SimplyRetsApiHelper::srDetailsTable($listing_yearBuilt, "Year Built");
-
         // listing id (MLS #)
         $listing_mlsid = $listing->listingId;
         $mlsid = SimplyRetsApiHelper::srDetailsTable($listing_mlsid, "MLS #");
-
         // heating
         $listing_heating = $listing->property->heating;
         $heating = SimplyRetsApiHelper::srDetailsTable($listing_heating, "Heating");
@@ -367,42 +454,9 @@ HTML;
         }
 
 
-        /**
-         * We build the markup for our image gallery here. If classic is set explicity, we use
-         * the classic gallery - otherwise we default to the fancy gallery
-         */
         $photos = $listing->photos;
+        $photo_gallery = SimplyRetsApiHelper::srDetailsGallery( $photos );
         $dummy = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
-        if(empty($photos)) {
-             $main_photo = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
-             $photo_gallery.= "  <img src='$main_photo'>";
-        } else {
-            $photo_gallery = '';
-            if(get_option('sr_listing_gallery') == 'classic') {
-                $main_photo = $photos[0];
-                $photo_counter = 0;
-                $more_photos = '<span id="sr-toggle-gallery">See more photos</span> |';
-                $photo_gallery .= "<div class='sr-slider'><img class='sr-slider-img-act' src='$main_photo'>";
-                foreach( $photos as $photo ) {
-                    $photo_gallery.=
-                        "<input class='sr-slider-input' type='radio' name='slide_switch' id='id$photo_counter' value='$photo' />";
-                    $photo_gallery.= "<label for='id$photo_counter'>";
-                    $photo_gallery.= "  <img src='$photo' width='100'>";
-                    $photo_gallery.= "</label>";
-                    $photo_counter++;
-                }
-
-            } else {
-                $photo_gallery = '<div class="sr-gallery" id="sr-fancy-gallery">';
-                $more_photos = '';
-                foreach( $photos as $photo ) {
-                    $photo_gallery .= "<img src='$photo' data-title='$address'>";
-                }
-                $photo_gallery .= <<<HTML
-HTML;
-            }
-            $photo_gallery .= "</div>";
-        }
 
         // geographic data
         $geo_directions = $listing->geo->directions;
@@ -480,6 +534,9 @@ HTML;
         }
 
 
+        // gmap
+        $gmap = SimplyRetsApiHelper::srDetailsGMap( $listing_lat, $listing_longitude, $address );
+
         /**
          * Check for ListHub Analytics
          */
@@ -523,7 +580,7 @@ HTML;
               if(document.getElementById('sr-fancy-gallery')) {
                   Galleria.loadTheme('$galleria_theme');
                   Galleria.configure({
-                      height: 475,
+                      height: 500,
                       width:  "90%",
                       showinfo: false,
                       dummy: "$dummy",
@@ -620,6 +677,9 @@ HTML;
                 $disclaimer
               </tbody>
             </table>
+            <br>
+            <div id="sr-map-canvas" style="width:100%;height:300px;"></div>
+            <script>$gmap</script>
             <script>$lh_analytics</script>
           </div>
 HTML;
