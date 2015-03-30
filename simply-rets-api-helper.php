@@ -214,11 +214,17 @@ class SimplyRetsApiHelper {
                             array('jquery')
         );
         wp_enqueue_script( 'simply-rets-client-js' );
+
         wp_register_script( 'simply-rets-galleria-js',
                             plugins_url( 'assets/galleria/galleria-1.4.2.min.js', __FILE__ ),
                             array('jquery')
         );
         wp_enqueue_script( 'simply-rets-galleria-js' );
+
+        wp_register_script( 'simply-rets-google-maps',
+                            'http://maps.googleapis.com/maps/api/js?sensor=true'
+        );
+        wp_enqueue_script( 'simply-rets-google-maps' );
     }
 
 
@@ -280,52 +286,7 @@ HTML;
 
 
     public static function srDetailsGMap( $lat, $long, $address ) {
-        if( $lat == "" && $long == "" ) {
-            $gmap = "";
-            $gmap = <<<HTML
-                function initialize() {
-                  geocoder = new google.maps.Geocoder();
-                  var address = '$address';
-                  var latlng = new google.maps.LatLng(-34.397, 150.644);
-                  var mapOptions = {
-                    zoom: 8,
-                    center: latlng
-                  }
-                  map = new google.maps.Map(document.getElementById('sr-map-canvas'), mapOptions);
-                  geocoder.geocode( { 'address': address}, function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                      map.setCenter(results[0].geometry.location);
-                      var marker = new google.maps.Marker({
-                          map: map,
-                          position: results[0].geometry.location
-                      });
-                    } else {
-                      alert('Geocode was not successful for the following reason: ' + status);
-                    }
-                  });
-                }
-
-                google.maps.event.addDomListener(window, 'load', initialize);
-HTML;
-        } else {
-            $gmap = <<<HTML
-            function initialize() {
-                var myLatlng = new google.maps.LatLng($lat,$long);
-                var mapOptions = {
-                    zoom: 8,
-                    center: myLatlng
-                }
-                var map = new google.maps.Map(document.getElementById('sr-map-canvas'), mapOptions);
-
-                var marker = new google.maps.Marker({
-                        position: myLatlng,
-                        map: map,
-                        title: 'Hello World!'
-                });
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
-HTML;
-        }
+        $gmap = "var srMapLat = '$lat', srMapLng = '$long', srMapAddr = '$address'";
         return $gmap;
     }
 
@@ -678,7 +639,8 @@ HTML;
               </tbody>
             </table>
             <br>
-            <div id="sr-map-canvas" style="width:100%;height:300px;"></div>
+            <div id="sr-map-canvas" style="width:100%;height:300px;max-width:none;"></div>
+            <style>#sr-map-canvas img { max-width: none; } </style>
             <script>$gmap</script>
             <script>$lh_analytics</script>
           </div>
