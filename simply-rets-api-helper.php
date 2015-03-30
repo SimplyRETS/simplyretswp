@@ -251,34 +251,46 @@ HTML;
      * Build the photo gallery shown on single listing details pages
      */
     public static function srDetailsGallery( $photos ) {
+        $photo_gallery = array();
 
-        if(empty($photos)) {
+        if( empty($photos) ) {
              $main_photo = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
-             $photo_gallery.= "  <img src='$main_photo'>";
+             $markup = "<img src='$main_photo'>";
+             $photo_gallery['markup'] = $markup;
+             $photo_gallery['more']   = '';
+             return $photo_gallery;
+
         } else {
-            $photo_gallery = '';
+            $markup = '';
             if(get_option('sr_listing_gallery') == 'classic') {
-                $main_photo = $photos[0];
                 $photo_counter = 0;
-                $more_photos = '<span id="sr-toggle-gallery">See more photos</span> |';
-                $photo_gallery .= "<div class='sr-slider'><img class='sr-slider-img-act' src='$main_photo'>";
+                $main_photo = $photos[0];
+                $more = '<span id="sr-toggle-gallery">See more photos</span> |';
+                $markup .= "<div class='sr-slider'><img class='sr-slider-img-act' src='$main_photo'>";
                 foreach( $photos as $photo ) {
-                    $photo_gallery.=
+                    $markup .=
                         "<input class='sr-slider-input' type='radio' name='slide_switch' id='id$photo_counter' value='$photo' />";
-                    $photo_gallery.= "<label for='id$photo_counter'>";
-                    $photo_gallery.= "  <img src='$photo' width='100'>";
-                    $photo_gallery.= "</label>";
+                    $markup .= "<label for='id$photo_counter'>";
+                    $markup .= "  <img src='$photo' width='100'>";
+                    $markup .= "</label>";
                     $photo_counter++;
                 }
+                $markup .= "</div>";
+                $photo_gallery['markup'] = $markup;
+                $photo_gallery['more'] = $more;
+                return $photo_gallery;
 
             } else {
-                $photo_gallery = '<div class="sr-gallery" id="sr-fancy-gallery">';
-                $more_photos = '';
+                $more = '';
+                $markup .= '<div class="sr-gallery" id="sr-fancy-gallery">';
                 foreach( $photos as $photo ) {
-                    $photo_gallery .= "<img src='$photo' data-title='$address'>";
+                    $markup .= "<img src='$photo' data-title='$address'>";
                 }
+                $markup .= "</div>";
+                $photo_gallery['markup'] = $markup;
+                $photo_gallery['more'] = $more;
+                return $photo_gallery;
             }
-            $photo_gallery .= "</div>";
         }
         return $photo_gallery;
 
@@ -415,9 +427,12 @@ HTML;
         }
 
 
-        $photos = $listing->photos;
-        $photo_gallery = SimplyRetsApiHelper::srDetailsGallery( $photos );
-        $dummy = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
+        // photo gallery
+        $photos         = $listing->photos;
+        $photo_gallery  = SimplyRetsApiHelper::srDetailsGallery( $photos );
+        $gallery_markup = $photo_gallery['markup'];
+        $more_photos    = $photo_gallery['more'];
+        $dummy          = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
 
         // geographic data
         $geo_directions = $listing->geo->directions;
@@ -536,7 +551,7 @@ HTML;
                 <a href="#sr-contact-form">$contact_text</a>
               </span>
             </p>
-            $photo_gallery
+            $gallery_markup
             <script>
               if(document.getElementById('sr-fancy-gallery')) {
                   Galleria.loadTheme('$galleria_theme');
@@ -639,7 +654,7 @@ HTML;
               </tbody>
             </table>
             <br>
-            <div id="sr-map-canvas" style="width:100%;height:300px;max-width:none;"></div>
+            <div id="sr-map-canvas" style="width:100%;height:400px;max-width:none;"></div>
             <style>#sr-map-canvas img { max-width: none; } </style>
             <script>$gmap</script>
             <script>$lh_analytics</script>
