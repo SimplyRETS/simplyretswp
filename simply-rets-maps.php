@@ -29,7 +29,6 @@ class SrSearchMap {
             'width' => '100%',
             'height' =>  '550px'
         ));
-        $map->setAutoZoom(true);
         return $map;
     }
 
@@ -63,8 +62,7 @@ class SrSearchMap {
         $mlsid,
         $propType,
         $area,
-        $style,
-        $remarks
+        $style
     ) {
         $markup = <<<HTML
             <div class="sr-iw-inner">
@@ -80,8 +78,8 @@ class SrSearchMap {
               <hr>
               <div class="sr-iw-inner__secondary">
                 <p><strong>MLS #:</strong> $mlsid</p>
-                <p><strong>Property Type:</strong> $propType</p>
                 <p><strong>Area:</strong> $area SqFt</p>
+                <p><strong>Property Type:</strong> $propType</p>
                 <p><strong>Property Style:</strong> $style</p>
               </div>
               <hr>

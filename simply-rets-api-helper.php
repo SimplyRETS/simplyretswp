@@ -304,12 +304,6 @@ HTML;
     }
 
 
-    public static function srDetailsGMap( $lat, $long, $address ) {
-        $gmap = "var srMapLat = '$lat', srMapLng = '$long', srMapAddr = '$address'";
-        return $gmap;
-    }
-
-
     public static function srResidentialDetailsGenerator( $listing ) {
         $br = "<br>";
         $cont = "";
@@ -335,6 +329,9 @@ HTML;
         // internal unique id
         $listing_uid = $listing->mlsId;
 
+        // type
+        $listing_type = $listing->property->type;
+        $type = SimplyRetsApiHelper::srDetailsTable($listing_type, "Property Type");
         // bedrooms
         $listing_bedrooms = $listing->property->bedrooms;
         $bedrooms = SimplyRetsApiHelper::srDetailsTable($listing_bedrooms, "Bedrooms");
@@ -410,6 +407,16 @@ HTML;
         $date_modified    = date("M j, Y", strtotime($listing_modified));
         $date_modified_markup = SimplyRetsApiHelper::srDetailsTable($date_modified, "Listing Last Modified");
 
+        // street address info
+        $postal_code   = $listing->address->postalCode;
+        $country       = $listing->address->country;
+        $address       = $listing->address->full;
+        $city          = $listing->address->city;
+        // Listing Data
+        $listing_office   = $listing->office->name;
+        $listing_price    = $listing->listPrice;
+        $listing_USD      = '$' . number_format( $listing_price );
+
 
         // lot size
         $lotSize = $listing->property->lotSize;
@@ -440,6 +447,7 @@ HTML;
         $gallery_markup = $photo_gallery['markup'];
         $more_photos    = $photo_gallery['more'];
         $dummy          = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
+        !empty($photos) ? $main_photo = $photos[0] : $main_photo = $dummy;
 
         // geographic data
         $geo_directions = $listing->geo->directions;
@@ -456,11 +464,7 @@ HTML;
         }
 
         // list date and listing last modified
-        if( get_option('sr_show_listingmeta') ) {
-            $show_listing_meta = false;
-        } else {
-            $show_listing_meta = true;
-        }
+        $show_listing_meta = SrUtils::srShowListingMeta();
         $list_date_markup = '';
         $listing_meta_markup = '';
         if( $show_listing_meta == true ) {
@@ -481,16 +485,6 @@ HTML;
 HTML;
 
         }
-
-        // street address info
-        $postal_code   = $listing->address->postalCode;
-        $country       = $listing->address->country;
-        $address       = $listing->address->full;
-        $city          = $listing->address->city;
-        // Listing Data
-        $listing_office   = $listing->office->name;
-        $listing_price    = $listing->listPrice;
-        $listing_USD      = '$' . number_format( $listing_price );
 
         $remarks_markup = '';
         $remarks_table  = '';
@@ -516,9 +510,6 @@ HTML;
             $contact_markup = '';
         }
 
-
-        // gmap
-        $gmap = SimplyRetsApiHelper::srDetailsGMap( $listing_lat, $listing_longitude, $address );
 
         /**
          * Check for ListHub Analytics
@@ -549,10 +540,59 @@ HTML;
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
+
+        $link = get_home_url() . $_SERVER['REQUEST_URI'];
+        $addrFull = $address . ', ' . $city . ' ' . $zip;
+        /**
+         * Google Map for single listing
+         **************************************************/
+        $map       = SrSearchMap::mapWithDefaults();
+        $marker    = SrSearchMap::markerWithDefaults();
+        $iw        = SrSearchMap::infoWindowWithDefaults();
+        $mapHelper = new MapHelper();
+        $geocoder  = new GoogleMaps(new CurlHttpAdapter());
+        // Make our map marker for this listing
+        $iwCont = SrSearchMap::infoWindowMarkup(
+            $link,
+            $main_photo,
+            $address,
+            $listing_USD,
+            $listing_bedrooms,
+            $listing_bathsFull,
+            $listing_mls_status,
+            $listing_mlsid,
+            $listing_type,
+            $area,
+            $listing_style
+        );
+        $iw->setContent($iwCont);
+        if( $listing_lat  && $listing_longitude ) {
+            $marker->setPosition($listing_lat, $listing_longitude, true);
+            $map->setCenter($listing_lat, $listing_longitude, true);
+        } else {
+            $res = $geocoder->geocode($addrFull);
+            $glat = $res->first()->getLatitude();
+            $glng = $res->first()->getLongitude();
+            $marker->setPosition($glat, $glng, true);
+            $map->setCenter($glat, $glng, true);
+        }
+        $marker->setInfoWindow($iw);
+        $map->addMarker($marker);
+        $map->setAutoZoom(false);
+        $map->setMapOption('zoom', 15);
+        $mapMarkup = $mapHelper->render($map);
+        /************************************************/
+
+
         // listing markup
         $cont .= <<<HTML
           <div class="sr-details" style="text-align:left;">
             <p class="sr-details-links" style="clear:both;">
+              <span style="float:left;">
+                <a href="#details-map">
+                  View on map
+                </a>
+              </span>
               $more_photos
               <span id="sr-listing-contact">
                 <a href="#sr-contact-form">$contact_text</a>
@@ -660,10 +700,11 @@ HTML;
                 $disclaimer
               </tbody>
             </table>
-            <br>
-            <div id="sr-map-canvas" style="width:100%;height:400px;max-width:none;"></div>
-            <style>#sr-map-canvas img { max-width: none; } </style>
-            <script>$gmap</script>
+            <hr>
+            <div id="details-map">
+              <h3>Map View</h3>
+              $mapMarkup
+            </div>
             <script>$lh_analytics</script>
           </div>
 HTML;
@@ -707,6 +748,7 @@ HTML;
 
 
         $map = SrSearchMap::mapWithDefaults();
+        $map->setAutoZoom(true);
         $mapHelper = new MapHelper();
         $geocoder = new GoogleMaps(new CurlHttpAdapter());
 
@@ -785,8 +827,7 @@ HTML;
                 $mlsid,
                 $propType,
                 $area,
-                $style,
-                $remarks
+                $style
             );
             $iw->setContent($iwCont);
             if( $lat  && $lng ) {
