@@ -10,9 +10,16 @@
 
 /* Code starts here */
 
+use Ivory\GoogleMap\Map,
+    Ivory\GoogleMap\Helper\MapHelper,
+    Ivory\GoogleMap\MapTypeId,
+    Ivory\GoogleMap\Overlays\Animation,
+    Ivory\GoogleMap\Overlays\Marker,
+    Ivory\GoogleMap\Overlays\InfoWindow,
+    Ivory\HttpAdapter\CurlHttpAdapter,
+    Geocoder\Provider\GoogleMaps;
+
 class SimplyRetsApiHelper {
-
-
 
     public static function retrieveRetsListings( $params ) {
         $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder( $params );
@@ -221,10 +228,10 @@ class SimplyRetsApiHelper {
         );
         wp_enqueue_script( 'simply-rets-galleria-js' );
 
-        wp_register_script( 'simply-rets-google-maps',
-                            'http://maps.googleapis.com/maps/api/js?sensor=true'
-        );
-        wp_enqueue_script( 'simply-rets-google-maps' );
+        // wp_register_script( 'simply-rets-google-maps',
+        //                     'http://maps.googleapis.com/maps/api/js?sensor=true'
+        // );
+        // wp_enqueue_script( 'simply-rets-google-maps' );
     }
 
 
@@ -670,26 +677,13 @@ HTML;
         $br = "<br>";
         $cont = "";
 
-        // echo '<pre><code>';
-        // var_dump( $response );
-        // echo '</pre></code>';
-
-        $pagination = $response['pagination'];
         $response = $response['response'];
 
-        if( $pagination['prev'] !== null && !empty($pagination['prev'] ) ) {
-            $previous = $pagination['prev'];
-            $siteUrl = get_home_url() . '/?sr-listings=sr-search&';
-            $prev = str_replace( 'https://api.simplyrets.com/properties?', $siteUrl, $previous );
-            $prev_link = "<a href='{$prev}'>Prev</a>";
-        }
+        $show_listing_meta = SrUtils::srShowListingMeta();
 
-        if( $pagination['next'] !== null && !empty($pagination['next'] ) ) {
-            $nextLink = $pagination['next'];
-            $siteUrl = get_home_url() . '/?sr-listings=sr-search&';
-            $next = str_replace( 'https://api.simplyrets.com/properties?', $siteUrl, $nextLink );
-            $next_link = "| <a href='{$next}'>Next</a>";
-        }
+        $pag = SrUtils::buildPaginationLinks( $response['pagination'] );
+        $prev_link = $pag['prev'];
+        $next_link = $pag['next'];
 
         /*
          * check for an error code in the array first, if it's
@@ -706,65 +700,61 @@ HTML;
             $response_markup = "<hr><p>{$error}</p><br>";
             return $response_markup;
         }
-
         $response_size = sizeof( $response );
         if( !array_key_exists( "0", $response ) ) {
             $response = array( $response );
         }
 
-        if( get_option('sr_show_listingmeta') ) {
-            $show_listing_meta = false;
-        } else {
-            $show_listing_meta = true;
-        }
 
-        foreach ( $response as $listing ) {
-            // id
-            $listing_uid      = $listing->mlsId;
-            // Amenities
-            $bedrooms    = $listing->property->bedrooms;
+        $map = SrSearchMap::mapWithDefaults();
+        $mapHelper = new MapHelper();
+        $geocoder = new GoogleMaps(new CurlHttpAdapter());
+
+        foreach( $response as $listing ) {
+            $listing_uid        = $listing->mlsId;
+            $mlsid              = $listing->listingId;
+            $propType           = $listing->property->type;
+            $address            = $listing->address->full;
+            $lng                = $listing->geo->lng;
+            $lat                = $listing->geo->lat;
+            $bedrooms           = $listing->property->bedrooms;
+            $bathsFull          = $listing->property->bathsFull;
+            $area               = $listing->property->area; // might be empty
+            $subdivision        = $listing->property->subdivision;
+            $yearBuilt          = $listing->property->yearBuilt;
+            $listing_agent_id   = $listing->agent->id;
+            $listing_agent_name = $listing->agent->firstName;
+            $list_date          = $listing->listDate;
+            $city               = $listing->address->city;
+            $mls_status         = $listing->mls->status;
+            $remarks            = $listing->remarks;
+            $zip                = $listing->address->postalCode;
+            $style              = $listing->property->style;
+            $listing_price      = $listing->listPrice;
+            $listing_USD        = '$' . number_format( $listing_price );
+
+            $addrFull = $address . ', ' . $city . ' ' . $zip;
+
             if( $bedrooms == null || $bedrooms == "" ) {
                 $bedrooms = 0;
             }
-            $bathsFull   = $listing->property->bathsFull;
             if( $bathsFull == null || $bathsFull == "" ) {
                 $bathsFull = 0;
             }
-            $area = $listing->property->area; // might be empty
             if( $area == 0 ) {
                 $area = 'n/a';
             } else {
                 $area = number_format( $area );
             }
-
-            $subdivision = $listing->property->subdivision;
-            // year built
-            $yearBuilt = $listing->property->yearBuilt;
             if( $yearBuilt == '' ) {
                 $yearBuilt = 'n/a';
             }
-
-            // listing data
-            $listing_agent_id    = $listing->agent->id;
-            $listing_agent_name  = $listing->agent->firstName;
-
             // show listing date if setting is on
-            $list_date_markup = '';
             if( $show_listing_meta == true ) {
-                $list_date        = $listing->listDate;
                 $list_date_formatted = date("M j, Y", strtotime($list_date));
-                $list_date_markup = <<<HTML
-                    <li>
-                      <span>Listed on $list_date_formatted</span>
-                    </li>
-HTML;
+                $list_date_markup = SrViews::listDateResults( $list_date_formatted );
             }
 
-            $listing_price    = $listing->listPrice;
-            $listing_USD = '$' . number_format( $listing_price );
-            // street address info
-            $city    = $listing->address->city;
-            $address = $listing->address->full;
             // listing photos
             $listingPhotos = $listing->photos;
             if( empty( $listingPhotos ) ) {
@@ -777,8 +767,45 @@ HTML;
             $link = str_replace( ' ', '%20', $listing_link );
             $link = str_replace( '#', '%23', $link );
 
+
+
+            /************************************************
+             * Make our map marker for this listing
+             */
+            $marker = SrSearchMap::markerWithDefaults();
+            $iw     = SrSearchMap::infoWindowWithDefaults();
+            $iwCont = SrSearchMap::infoWindowMarkup(
+                $link,
+                $main_photo,
+                $address,
+                $listing_USD,
+                $bedrooms,
+                $bathsFull,
+                $mls_status,
+                $mlsid,
+                $propType,
+                $area,
+                $style,
+                $remarks
+            );
+            $iw->setContent($iwCont);
+            if( $lat  && $lng ) {
+                /** Map Marker stuff */
+                $marker->setPosition($lat, $lng, true);
+                /** Add it all to the map */
+            } else {
+                $res = $geocoder->geocode($addrFull);
+                $glat = $res->first()->getLatitude();
+                $glng = $res->first()->getLongitude();
+                $marker->setPosition($glat, $glng, true);
+            }
+            $marker->setInfoWindow($iw);
+            $map->addMarker($marker);
+            /************************************************/
+
+
             // append markup for this listing to the content
-            $cont .= <<<HTML
+            $resultsMarkup .= <<<HTML
               <hr>
               <div class="sr-listing">
                 <a href="$link">
@@ -824,7 +851,14 @@ HTML;
                 </div>
               </div>
 HTML;
+
         }
+
+        /**
+         * Creating a map
+         */
+        $cont .= $mapHelper->render($map);
+        $cont .= $resultsMarkup;
 
         $cont .= "<hr><p class='sr-pagination'>$prev_link $next_link</p>";
         $cont .= "<br><p><small><i>This information is believed to be accurate, but without any warranty.</i></small></p>";
@@ -835,10 +869,6 @@ HTML;
     public static function srWidgetListingGenerator( $response ) {
         $br = "<br>";
         $cont = "";
-
-        // echo '<pre><code>';
-        // var_dump( $response );
-        // echo '</pre></code>';
 
         /*
          * check for an error code in the array first, if it's
