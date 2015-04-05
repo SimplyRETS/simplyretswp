@@ -15,10 +15,15 @@ Copyright (c) SimplyRETS 2014 - 2015
 
 $plugin = plugin_basename(__FILE__);
 
+require __DIR__.'/vendor/autoload.php';
+
+require_once( plugin_dir_path(__FILE__) . 'simply-rets-utils.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-post-pages.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-shortcode.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-widgets.php' );
+require_once( plugin_dir_path(__FILE__) . 'simply-rets-maps.php' );
+
 
 if ( is_admin() ) {
     require_once( plugin_dir_path(__FILE__) . 'simply-rets-admin.php' );
