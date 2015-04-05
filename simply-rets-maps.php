@@ -58,21 +58,18 @@ class SrSearchMap {
         $address,
         $price,
         $beds,
-        $baths,ss
+        $baths,
         $status,
         $mlsid,
         $propType,
         $area,
         $style,
-        $remarks4
+        $remarks
     ) {
         $markup = <<<HTML
             <div class="sr-iw-inner">
               <h4 class="sr-iw-addr">$address<small> $price</small></h4>
-              <div clasadded composer.json for Map/Geocoder/HttpCurl Interface dependencies
-
-Can we trim this down to only the necessary files?// s="sr-iw-inner__im
-g">
+              <div class="sr-iw-inner__img">
                 <a href='$link'>
                   <img src='$photo'>
                 </a>
