@@ -1,0 +1,530 @@
+[
+    {
+        "name": "symfony/property-access",
+        "version": "v2.6.5",
+        "version_normalized": "2.6.5.0",
+        "target-dir": "Symfony/Component/PropertyAccess",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/PropertyAccess.git",
+            "reference": "0ce73304d8acd87ab3a75155c889f9cc8ac9d28d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/PropertyAccess/zipball/0ce73304d8acd87ab3a75155c889f9cc8ac9d28d",
+            "reference": "0ce73304d8acd87ab3a75155c889f9cc8ac9d28d",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "symfony/phpunit-bridge": "~2.7"
+        },
+        "time": "2015-03-07 07:40:15",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.6-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\PropertyAccess\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Symfony PropertyAccess Component",
+        "homepage": "http://symfony.com",
+        "keywords": [
+            "access",
+            "array",
+            "extraction",
+            "index",
+            "injection",
+            "object",
+            "property",
+            "property path",
+            "reflection"
+        ]
+    },
+    {
+        "name": "egeloen/json-builder",
+        "version": "1.0.3",
+        "version_normalized": "1.0.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/egeloen/ivory-json-builder.git",
+            "reference": "6209142ed808e9899473e9b6091b8a4f4d8de794"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/egeloen/ivory-json-builder/zipball/6209142ed808e9899473e9b6091b8a4f4d8de794",
+            "reference": "6209142ed808e9899473e9b6091b8a4f4d8de794",
+            "shasum": ""
+        },
+        "require": {
+            "ext-json": "*",
+            "php": ">=5.3.0",
+            "symfony/property-access": "~2.2"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0",
+            "satooshi/php-coveralls": "~0.6"
+        },
+        "time": "2014-11-08 10:51:34",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Ivory\\JsonBuilder\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Eric GELOEN",
+                "email": "geloen.eric@gmail.com"
+            }
+        ],
+        "description": "JSON builder with escaping control for PHP 5.3+",
+        "keywords": [
+            "Escape",
+            "builder",
+            "json"
+        ]
+    },
+    {
+        "name": "egeloen/google-map",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/egeloen/ivory-google-map.git",
+            "reference": "9770a3f47888494e9f2d449144508bc805af124f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/egeloen/ivory-google-map/zipball/9770a3f47888494e9f2d449144508bc805af124f",
+            "reference": "9770a3f47888494e9f2d449144508bc805af124f",
+            "shasum": ""
+        },
+        "require": {
+            "egeloen/json-builder": "~1.0.0",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0",
+            "satooshi/php-coveralls": "~0.6",
+            "widop/http-adapter": "~1.1.0",
+            "willdurand/geocoder": "~2.0"
+        },
+        "suggest": {
+            "widop/http-adapter": "Allows to use services",
+            "willdurand/geocoder": "Allows to use geocoding service"
+        },
+        "time": "2014-10-30 19:30:44",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.4-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Ivory\\GoogleMap\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Eric GELOEN",
+                "email": "geloen.eric@gmail.com"
+            }
+        ],
+        "description": "Google Map API v3 integration for PHP 5.3+",
+        "keywords": [
+            "google map"
+        ]
+    },
+    {
+        "name": "symfony/event-dispatcher",
+        "version": "v2.6.5",
+        "version_normalized": "2.6.5.0",
+        "target-dir": "Symfony/Component/EventDispatcher",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/EventDispatcher.git",
+            "reference": "70f7c8478739ad21e3deef0d977b38c77f1fb284"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/70f7c8478739ad21e3deef0d977b38c77f1fb284",
+            "reference": "70f7c8478739ad21e3deef0d977b38c77f1fb284",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "psr/log": "~1.0",
+            "symfony/config": "~2.0,>=2.0.5",
+            "symfony/dependency-injection": "~2.6",
+            "symfony/expression-language": "~2.6",
+            "symfony/phpunit-bridge": "~2.7",
+            "symfony/stopwatch": "~2.3"
+        },
+        "suggest": {
+            "symfony/dependency-injection": "",
+            "symfony/http-kernel": ""
+        },
+        "time": "2015-03-13 17:37:22",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.6-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\EventDispatcher\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Symfony EventDispatcher Component",
+        "homepage": "http://symfony.com"
+    },
+    {
+        "name": "psr/http-message",
+        "version": "0.5.1",
+        "version_normalized": "0.5.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/http-message.git",
+            "reference": "18619eee10ecf266bafe048e5a2922fa20938498"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/http-message/zipball/18619eee10ecf266bafe048e5a2922fa20938498",
+            "reference": "18619eee10ecf266bafe048e5a2922fa20938498",
+            "shasum": ""
+        },
+        "time": "2014-11-04 14:03:01",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Http\\Message\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for HTTP messages",
+        "keywords": [
+            "http",
+            "http-message",
+            "psr",
+            "psr-7",
+            "request",
+            "response"
+        ]
+    },
+    {
+        "name": "egeloen/http-adapter",
+        "version": "0.5.0",
+        "version_normalized": "0.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/egeloen/ivory-http-adapter.git",
+            "reference": "83e1c993839560f841f78f6774148c0d04bdea3e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/egeloen/ivory-http-adapter/zipball/83e1c993839560f841f78f6774148c0d04bdea3e",
+            "reference": "83e1c993839560f841f78f6774148c0d04bdea3e",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3",
+            "psr/http-message": "~0.5.0",
+            "symfony/event-dispatcher": "~2.1"
+        },
+        "require-dev": {
+            "ext-curl": "*",
+            "guzzle/guzzle": "~3.9,>=3.9.2",
+            "guzzlehttp/guzzle": "~4.1,>=4.1.4|~5.0",
+            "kriswallsmith/buzz": "~0.13",
+            "nategood/httpful": "~0.2,>=0.2.17",
+            "phpunit/phpunit": "~4.0",
+            "phpunit/phpunit-mock-objects": "dev-matcher-verify as 2.3.x-dev",
+            "psr/log": "~1.0",
+            "satooshi/php-coveralls": "~0.6",
+            "zendframework/zendframework": "dev-http-curl-adapter",
+            "zendframework/zendframework1": "~1.12,>=1.12.9"
+        },
+        "suggest": {
+            "ext-curl": "Allows you to use the cURL adapter",
+            "guzzle/guzzle": "Allows you to use the Guzzle 3 adapter",
+            "guzzlehttp/guzzle": "Allows you to use the Guzzle 4 adapter",
+            "kriswallsmith/buzz": "Allows you to use the Buzz adapter",
+            "nategood/httpful": "Allows you to use the httpful adapter",
+            "psr/log": "Allows you to use the logger event subscriber",
+            "zendframework/zend-http": "Allows you to use the Zend 2 adapter",
+            "zendframework/zendframework1": "Allows you to use the Zend 1 adapter"
+        },
+        "time": "2014-11-05 01:16:54",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.5-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Ivory\\HttpAdapter\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Eric GELOEN",
+                "email": "geloen.eric@gmail.com"
+            }
+        ],
+        "description": "Issue HTTP request for PHP 5.3+.",
+        "keywords": [
+            "http",
+            "request"
+        ]
+    },
+    {
+        "name": "igorw/get-in",
+        "version": "v1.0.3",
+        "version_normalized": "1.0.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/igorw/get-in.git",
+            "reference": "170ded831f49abc6a6061f655aba9bdbcf7b8111"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/igorw/get-in/zipball/170ded831f49abc6a6061f655aba9bdbcf7b8111",
+            "reference": "170ded831f49abc6a6061f655aba9bdbcf7b8111",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4"
+        },
+        "time": "2014-12-15 23:03:51",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/get_in.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Igor Wiedler",
+                "email": "igor@wiedler.ch"
+            }
+        ],
+        "description": "Functions for for hash map (assoc array) traversal.",
+        "keywords": [
+            "assoc-array",
+            "hash-map"
+        ]
+    },
+    {
+        "name": "willdurand/geocoder",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/geocoder-php/Geocoder.git",
+            "reference": "0a65fca9f48da071c41d6ca640940d9d758811be"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/geocoder-php/Geocoder/zipball/0a65fca9f48da071c41d6ca640940d9d758811be",
+            "reference": "0a65fca9f48da071c41d6ca640940d9d758811be",
+            "shasum": ""
+        },
+        "require": {
+            "egeloen/http-adapter": "0.5.*",
+            "igorw/get-in": "~1.0",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "geoip2/geoip2": "~2.0",
+            "symfony/stopwatch": "~2.5"
+        },
+        "suggest": {
+            "ext-geoip": "Enabling the geoip extension allows you to use the MaxMindProvider.",
+            "geoip/geoip": "If you are going to use the MaxMindBinaryProvider (conflict with geoip extension).",
+            "geoip2/geoip2": "If you are going to use the GeoIP2DatabaseProvider.",
+            "symfony/stopwatch": "If you want to use the TimedGeocoder"
+        },
+        "time": "2015-02-17 07:02:30",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.0-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Geocoder": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "William Durand",
+                "email": "william.durand1@gmail.com"
+            }
+        ],
+        "description": "The almost missing Geocoder PHP 5.4 library.",
+        "homepage": "http://geocoder-php.org",
+        "keywords": [
+            "abstraction",
+            "geocoder",
+            "geocoding",
+            "geoip"
+        ]
+    },
+    {
+        "name": "widop/http-adapter",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/widop/http-adapter.git",
+            "reference": "9f21040064d290cc70db4affe3191828f419f5af"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/widop/http-adapter/zipball/9f21040064d290cc70db4affe3191828f419f5af",
+            "reference": "9f21040064d290cc70db4affe3191828f419f5af",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "ext-curl": "*",
+            "guzzle/guzzle": "*",
+            "kriswallsmith/buzz": "*",
+            "phpunit/phpunit": "3.7.*",
+            "zendframework/zend-http": "*"
+        },
+        "suggest": {
+            "ext-curl": "Allows you to use cURL adapter",
+            "guzzle/guzzle": "Allows you to use Guzzle adapter",
+            "kriswallsmith/buzz": "Allows you to use Buzz adapter",
+            "zendframework/zend-http": "Allows you to use Zend adapter"
+        },
+        "time": "2014-07-20 18:29:58",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Widop\\HttpAdapter": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Eric GELOEN",
+                "email": "geloen.eric@gmail.com"
+            },
+            {
+                "name": "Widop",
+                "email": "contact@widop.com"
+            }
+        ],
+        "description": "Issue HTTP request.",
+        "keywords": [
+            "http",
+            "request"
+        ]
+    }
+]
