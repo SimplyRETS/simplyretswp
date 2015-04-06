@@ -15,6 +15,4 @@ before_script:
     - composer install --prefer-source --no-interaction --dev
     - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION 
 
-script:
-  composer install
-  phpunit
+script: phpunit
