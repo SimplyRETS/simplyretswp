@@ -4,11 +4,11 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d9e27888d008272674eb06ac536b266f",
+    "hash": "fe4695473310b38254996facceda9ada",
     "packages": [
         {
             "name": "egeloen/google-map",
-            "version": "dev-master",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egeloen/ivory-google-map.git",
@@ -276,7 +276,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.6.5",
+            "version": "v2.6.6",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
@@ -335,17 +335,17 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v2.6.5",
+            "version": "v2.6.6",
             "target-dir": "Symfony/Component/PropertyAccess",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/PropertyAccess.git",
-                "reference": "0ce73304d8acd87ab3a75155c889f9cc8ac9d28d"
+                "reference": "b342f127c3ab73dd4069c2104cb76f1a1ef7c7e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/PropertyAccess/zipball/0ce73304d8acd87ab3a75155c889f9cc8ac9d28d",
-                "reference": "0ce73304d8acd87ab3a75155c889f9cc8ac9d28d",
+                "url": "https://api.github.com/repos/symfony/PropertyAccess/zipball/b342f127c3ab73dd4069c2104cb76f1a1ef7c7e7",
+                "reference": "b342f127c3ab73dd4069c2104cb76f1a1ef7c7e7",
                 "shasum": ""
             },
             "require": {
@@ -392,11 +392,11 @@
                 "property path",
                 "reflection"
             ],
-            "time": "2015-03-07 07:40:15"
+            "time": "2015-03-30 15:54:10"
         },
         {
             "name": "widop/http-adapter",
-            "version": "dev-master",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/widop/http-adapter.git",
@@ -458,16 +458,16 @@
         },
         {
             "name": "willdurand/geocoder",
-            "version": "dev-master",
+            "version": "v3.0.0-alpha3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/Geocoder.git",
-                "reference": "0a65fca9f48da071c41d6ca640940d9d758811be"
+                "reference": "b43b07912b08ecd05804e415346da6fed6be32a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/Geocoder/zipball/0a65fca9f48da071c41d6ca640940d9d758811be",
-                "reference": "0a65fca9f48da071c41d6ca640940d9d758811be",
+                "url": "https://api.github.com/repos/geocoder-php/Geocoder/zipball/b43b07912b08ecd05804e415346da6fed6be32a5",
+                "reference": "b43b07912b08ecd05804e415346da6fed6be32a5",
                 "shasum": ""
             },
             "require": {
@@ -514,16 +514,14 @@
                 "geocoding",
                 "geoip"
             ],
-            "time": "2015-02-17 07:02:30"
+            "time": "2015-02-13 12:39:03"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "egeloen/google-map": 20,
-        "willdurand/geocoder": 20,
-        "widop/http-adapter": 20
+        "willdurand/geocoder": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,
