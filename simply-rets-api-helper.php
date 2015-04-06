@@ -10,15 +10,6 @@
 
 /* Code starts here */
 
-use Ivory\GoogleMap\Map,
-    Ivory\GoogleMap\Helper\MapHelper,
-    Ivory\GoogleMap\MapTypeId,
-    Ivory\GoogleMap\Overlays\Animation,
-    Ivory\GoogleMap\Overlays\Marker,
-    Ivory\GoogleMap\Overlays\InfoWindow,
-    Ivory\HttpAdapter\CurlHttpAdapter,
-    Geocoder\Provider\GoogleMaps;
-
 class SimplyRetsApiHelper {
 
     public static function retrieveRetsListings( $params ) {
@@ -540,47 +531,55 @@ HTML;
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
-
         $link = get_home_url() . $_SERVER['REQUEST_URI'];
         $addrFull = $address . ', ' . $city . ' ' . $zip;
-        /**
-         * Google Map for single listing
-         **************************************************/
-        $map       = SrSearchMap::mapWithDefaults();
-        $marker    = SrSearchMap::markerWithDefaults();
-        $iw        = SrSearchMap::infoWindowWithDefaults();
-        $mapHelper = new MapHelper();
-        $geocoder  = new GoogleMaps(new CurlHttpAdapter());
-        // Make our map marker for this listing
-        $iwCont = SrSearchMap::infoWindowMarkup(
-            $link,
-            $main_photo,
-            $address,
-            $listing_USD,
-            $listing_bedrooms,
-            $listing_bathsFull,
-            $listing_mls_status,
-            $listing_mlsid,
-            $listing_type,
-            $area,
-            $listing_style
-        );
-        $iw->setContent($iwCont);
         if( $listing_lat  && $listing_longitude ) {
+            /**
+             * Google Map for single listing
+             **************************************************/
+            $map       = SrSearchMap::mapWithDefaults();
+            $marker    = SrSearchMap::markerWithDefaults();
+            $iw        = SrSearchMap::infoWindowWithDefaults();
+            $mapHelper = SrSearchMap::srMapHelper();
+            $iwCont    = SrSearchMap::infoWindowMarkup(
+                $link,
+                $main_photo,
+                $address,
+                $listing_USD,
+                $listing_bedrooms,
+                $listing_bathsFull,
+                $listing_mls_status,
+                $listing_mlsid,
+                $listing_type,
+                $area,
+                $listing_style
+            );
+            $iw->setContent($iwCont);
             $marker->setPosition($listing_lat, $listing_longitude, true);
             $map->setCenter($listing_lat, $listing_longitude, true);
+            $marker->setInfoWindow($iw);
+            $map->addMarker($marker);
+            $map->setAutoZoom(false);
+            $map->setMapOption('zoom', 12);
+            $mapM = $mapHelper->render($map);
+            $mapMarkup = <<<HTML
+                <hr>
+                <div id="details-map">
+                  <h3>Map View</h3>
+                  $mapM
+                </div>
+HTML;
+            $mapLink = <<<HTML
+              <span style="float:left;">
+                <a href="#details-map">
+                  View on map
+                </a>
+              </span>
+HTML;
         } else {
-            $res = $geocoder->geocode($addrFull);
-            $glat = $res->first()->getLatitude();
-            $glng = $res->first()->getLongitude();
-            $marker->setPosition($glat, $glng, true);
-            $map->setCenter($glat, $glng, true);
+            $mapMarkup = '';
+            $mapLink = '';
         }
-        $marker->setInfoWindow($iw);
-        $map->addMarker($marker);
-        $map->setAutoZoom(false);
-        $map->setMapOption('zoom', 15);
-        $mapMarkup = $mapHelper->render($map);
         /************************************************/
 
 
@@ -588,11 +587,7 @@ HTML;
         $cont .= <<<HTML
           <div class="sr-details" style="text-align:left;">
             <p class="sr-details-links" style="clear:both;">
-              <span style="float:left;">
-                <a href="#details-map">
-                  View on map
-                </a>
-              </span>
+              $mapLink
               $more_photos
               <span id="sr-listing-contact">
                 <a href="#sr-contact-form">$contact_text</a>
@@ -700,11 +695,7 @@ HTML;
                 $disclaimer
               </tbody>
             </table>
-            <hr>
-            <div id="details-map">
-              <h3>Map View</h3>
-              $mapMarkup
-            </div>
+            $mapMarkup
             <script>$lh_analytics</script>
           </div>
 HTML;
@@ -745,10 +736,10 @@ HTML;
         }
 
 
-        $map = SrSearchMap::mapWithDefaults();
+        $map       = SrSearchMap::mapWithDefaults();
+        $mapHelper = SrSearchMap::srMapHelper();
         $map->setAutoZoom(true);
-        $mapHelper = new MapHelper();
-        $geocoder = new GoogleMaps(new CurlHttpAdapter());
+        $markerCount = 0;
 
         foreach( $response as $listing ) {
             $listing_uid        = $listing->mlsId;
@@ -808,38 +799,31 @@ HTML;
             $link = str_replace( '#', '%23', $link );
 
 
-
             /************************************************
              * Make our map marker for this listing
              */
-            $marker = SrSearchMap::markerWithDefaults();
-            $iw     = SrSearchMap::infoWindowWithDefaults();
-            $iwCont = SrSearchMap::infoWindowMarkup(
-                $link,
-                $main_photo,
-                $address,
-                $listing_USD,
-                $bedrooms,
-                $bathsFull,
-                $mls_status,
-                $mlsid,
-                $propType,
-                $area,
-                $style
-            );
-            $iw->setContent($iwCont);
             if( $lat  && $lng ) {
-                /** Map Marker stuff */
+                $marker = SrSearchMap::markerWithDefaults();
+                $iw     = SrSearchMap::infoWindowWithDefaults();
+                $iwCont = SrSearchMap::infoWindowMarkup(
+                    $link,
+                    $main_photo,
+                    $address,
+                    $listing_USD,
+                    $bedrooms,
+                    $bathsFull,
+                    $mls_status,
+                    $mlsid,
+                    $propType,
+                    $area,
+                    $style
+                );
+                $iw->setContent($iwCont);
                 $marker->setPosition($lat, $lng, true);
-                /** Add it all to the map */
-            } else {
-                $res = $geocoder->geocode($addrFull);
-                $glat = $res->first()->getLatitude();
-                $glng = $res->first()->getLongitude();
-                $marker->setPosition($glat, $glng, true);
+                $marker->setInfoWindow($iw);
+                $map->addMarker($marker);
+                $markerCount = $markerCount + 1;
             }
-            $marker->setInfoWindow($iw);
-            $map->addMarker($marker);
             /************************************************/
 
 
@@ -893,24 +877,26 @@ HTML;
 
         }
 
+        $markerCount > 0 ? $mapMarkup = $mapHelper->render($map) : $mapMarkup = '';
+
         if( $map_position == 'list_only' )
         {
             $cont .= $resultsMarkup;
         }
         elseif( $map_position == 'map_only' )
         {
-            $cont .= $mapHelper->render($map);
+            $cont .= $mapMarkup;
         }
         elseif( $map_position == 'map_above' )
         {
-            $cont .= $mapHelper->render($map);
+            $cont .= $mapMarkup;
             $cont .= $resultsMarkup;
         }
         elseif( $map_position == 'map_below' )
         {
             $cont .= $resultsMarkup;
             $cont .= '<hr>';
-            $cont .= $mapHelper->render($map);
+            $cont .= $mapMarkup;
         }
 
         $cont .= "<hr><p class='sr-pagination'>$prev_link $next_link</p>";

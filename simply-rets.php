@@ -14,6 +14,7 @@ Copyright (c) SimplyRETS 2014 - 2015
 /* Code starts here */
 
 $plugin = plugin_basename(__FILE__);
+$php_version = phpversion();
 
 require __DIR__.'/vendor/autoload.php';
 

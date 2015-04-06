@@ -15,8 +15,7 @@ use Ivory\GoogleMap\Map,
     Ivory\GoogleMap\Overlays\Animation,
     Ivory\GoogleMap\Overlays\Marker,
     Ivory\GoogleMap\Overlays\InfoWindow,
-    Ivory\HttpAdapter\CurlHttpAdapter,
-    Geocoder\Provider\GoogleMaps;
+    Ivory\HttpAdapter\CurlHttpAdapter;
 
 
 class SrSearchMap {
@@ -50,6 +49,9 @@ class SrSearchMap {
         return $iw;
     }
 
+    public static function srMapHelper() {
+        return new MapHelper();
+    }
 
     public static function infoWindowMarkup(
         $link,
