@@ -367,7 +367,6 @@ class SimplyRetsCustomPostPages {
 
     // TODO: not sure if this is entirely necessary...at one time it was
     function srClearComments() {
-        return;
         global $post;
         if ( !( is_singular() && ( have_comments() || 'open' == $post->comment_status ) ) ) {
             return;
@@ -375,6 +374,7 @@ class SimplyRetsCustomPostPages {
         if ( $post->post_type == 'sr-listings') {
             return dirname(__FILE__) . '/simply-rets-comments-template.php';
         }
+        return;
     }
 
 
