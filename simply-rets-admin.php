@@ -30,6 +30,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_show_leadcapture');
       register_setting('sr_admin_settings', 'sr_listhub_analytics');
       register_setting('sr_admin_settings', 'sr_listhub_analytics_id');
+      register_setting('sr_admin_settings', 'sr_search_map_position');
   }
   
   function sr_admin_page() {
@@ -159,6 +160,60 @@ class SrAdminSettings {
                 </tr>
               </tbody>
             </table>
+          <?php submit_button(); ?>
+          <hr>
+          <div class="sr-admin-settings-map">
+            <h2>Map Settings</h2>
+            <p>On pages with multiple results, how would you like to show the map and list views?</p>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <label>
+                      <?php echo
+                        '<input type="radio" id="sr_search_map_position" name="sr_search_map_position" value="list_only" '
+                        . checked('list_only', get_option('sr_search_map_position'), false) . '/>'
+                      ?>
+                      Only Show List View
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>
+                      <?php echo
+                        '<input type="radio" id="sr_search_map_position" name="sr_search_map_position" value="map_only" '
+                        . checked('map_only', get_option('sr_search_map_position'), false) . '/>'
+                      ?>
+                      Only Show Map View
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>
+                      <?php echo
+                        '<input type="radio" id="sr_search_map_position" name="sr_search_map_position" value="map_above" '
+                        . checked('map_above', get_option('sr_search_map_position'), false) . '/>'
+                      ?>
+                      Show Map View Above List View
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>
+                      <?php echo
+                        '<input type="radio" id="sr_search_map_position" name="sr_search_map_position" value="map_below" '
+                        . checked('map_below', get_option('sr_search_map_position'), false) . '/>'
+                      ?>
+                      Show Map View Below List View
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <?php submit_button(); ?>
           <hr>
           <div class="sr-admin-settings-lh">

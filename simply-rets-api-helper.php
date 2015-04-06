@@ -123,6 +123,7 @@ class SimplyRetsApiHelper {
             $srResponse = array();
             $srResponse['pagination'] = $pag_links;
             $srResponse['response'] = $response_array;;
+
             // close curl connection
             curl_close( $ch );
             return $srResponse;
@@ -715,16 +716,15 @@ HTML;
 
 
     public static function srResidentialResultsGenerator( $response ) {
-        $br = "<br>";
-        $cont = "";
-
-        $response = $response['response'];
-
+        $br                = "<br>";
+        $cont              = "";
+        $pagination        = $response['pagination'];
+        $response          = $response['response'];
+        $map_position      = get_option('sr_search_map_position');
         $show_listing_meta = SrUtils::srShowListingMeta();
-
-        $pag = SrUtils::buildPaginationLinks( $response['pagination'] );
-        $prev_link = $pag['prev'];
-        $next_link = $pag['next'];
+        $pag               = SrUtils::buildPaginationLinks( $pagination );
+        $prev_link         = $pag['prev'];
+        $next_link         = $pag['next'];
 
         /*
          * check for an error code in the array first, if it's
@@ -895,15 +895,30 @@ HTML;
 
         }
 
-        /**
-         * Creating a map
-         */
-        $cont .= $mapHelper->render($map);
-        $cont .= $resultsMarkup;
+        if( $map_position == 'list_only' )
+        {
+            $cont .= $resultsMarkup;
+        }
+        elseif( $map_position == 'map_only' )
+        {
+            $cont .= $mapHelper->render($map);
+        }
+        elseif( $map_position == 'map_above' )
+        {
+            $cont .= $mapHelper->render($map);
+            $cont .= $resultsMarkup;
+        }
+        elseif( $map_position == 'map_below' )
+        {
+            $cont .= $resultsMarkup;
+            $cont .= '<hr>';
+            $cont .= $mapHelper->render($map);
+        }
 
         $cont .= "<hr><p class='sr-pagination'>$prev_link $next_link</p>";
         $cont .= "<br><p><small><i>This information is believed to be accurate, but without any warranty.</i></small></p>";
         return $cont;
+
     }
 
 
