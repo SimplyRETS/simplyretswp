@@ -668,15 +668,16 @@ elsewhere, this should be a breeze.
     }
 }
 
+/**
+ * Map styling
+ */
 #sr_map_canvas img {
-    max-width: none;
+    max-width: none !important;
 }
 
 .sr-iw-inner {
-    max-width: 300px;
-}
-
-.gm-style-iw div:nth-child(1) {
+    max-width: 325px;
+    min-width: 250px;
 }
 
 .sr-iw-inner__img {
@@ -684,7 +685,8 @@ elsewhere, this should be a breeze.
     max-width: 95%;
     margin: auto;
 }
-.sr-iw-inner__img img {
+
+#sr_map_canvas #sr-iw-inner__img-img {
     max-width: 100% !important;
     max-height: 170px !important;
     box-shadow: 0px 0px 3px #8B9293;

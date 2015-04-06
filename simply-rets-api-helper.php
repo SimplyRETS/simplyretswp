@@ -317,8 +317,7 @@ HTML;
          * The error code comes from the UrlBuilder function.
         */
         if( $listing == NULL ) {
-            $err = "SimplyRETS could not complete this search. Please check your " .
-                "search parameters and try again.";
+            $err = "SimplyRETS could not complete this search. Please try searching with different parameters.";
             return $err;
         }
         if( array_key_exists( "error", $listing ) ) {
@@ -732,8 +731,7 @@ HTML;
          * The error code comes from the UrlBuilder function.
         */
         if( $response == NULL ) {
-            $err = "SimplyRETS could not complete this search. Please check your " .
-                "credentials and try again.";
+            $err = "SimplyRETS could not complete this search. Please try searching with different parameters.";
             return $err;
         }
         if( array_key_exists( "error", $response ) ) {
@@ -935,8 +933,7 @@ HTML;
         $response_size = sizeof( $response );
 
         if( $response == NULL ) {
-            $err = "SimplyRETS could not complete this search. Please check your " .
-                "credentials and try again.";
+            $err = "SimplyRETS could not complete this search. Please try searching with different parameters.";
             return $err;
         }
 
