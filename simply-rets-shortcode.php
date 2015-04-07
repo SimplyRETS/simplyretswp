@@ -52,7 +52,7 @@ class SimplyRetsShortcodes {
             $listing_params = array(
                 "q" => $mlsid
             );
-            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
+            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
             return $listings_content;
         }
 
@@ -102,12 +102,12 @@ class SimplyRetsShortcodes {
             $qs .= $postalcodes_string;
             $qs .= $params_string;
 
-            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs );
+            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs, $atts );
             return $listings_content;
         }
 
 
-        $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
+        $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
         return $listings_content;
     }
 
