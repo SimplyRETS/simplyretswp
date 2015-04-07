@@ -603,7 +603,7 @@ HTML;
                       showinfo: false,
                       dummy: "$dummy",
                       lightbox: true,
-                      imageCrop: true,
+                      imageCrop: false,
                       imageMargin: 0,
                       fullscreenDoubleTap: true
                   });
