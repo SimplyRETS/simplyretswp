@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, simple rets, rets feed, simple idx, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.1.1
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -216,6 +216,11 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 1.3.4 =
+* NEW FEATURE: For showing single listing and searches on a map view!
+* Changed Fancy Gallery to not stretch small images
+* Minor bug fixes and patches
 
 = 1.3.3 =
 * Added initial, basic support for Listhub Analytics!
