@@ -46,7 +46,6 @@ class SimplyRetsShortcodes {
      */
     public function sr_residential_shortcode( $atts ) {
         global $wp_query;
-        ob_start();
 
         if( !empty($atts['mlsid']) ) {
             $mlsid = $atts['mlsid'];
@@ -64,7 +63,7 @@ class SimplyRetsShortcodes {
         }
 
         if( !isset( $listing_params['neighborhoods'] ) && !isset( $listing_params['postalcodes'] ) ) {
-            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
+            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
             return $listings_content;
 
         } else {

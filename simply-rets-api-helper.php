@@ -12,10 +12,10 @@
 
 class SimplyRetsApiHelper {
 
-    public static function retrieveRetsListings( $params ) {
+    public static function retrieveRetsListings( $params, $settings = NULL ) {
         $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder( $params );
         $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
-        $response_markup  = SimplyRetsApiHelper::srResidentialResultsGenerator( $request_response );
+        $response_markup  = SimplyRetsApiHelper::srResidentialResultsGenerator( $request_response, $settings );
 
         return $response_markup;
     }
@@ -705,7 +705,7 @@ HTML;
     }
 
 
-    public static function srResidentialResultsGenerator( $response ) {
+    public static function srResidentialResultsGenerator( $response, $settings ) {
         $br                = "<br>";
         $cont              = "";
         $pagination        = $response['pagination'];
@@ -715,6 +715,8 @@ HTML;
         $pag               = SrUtils::buildPaginationLinks( $pagination );
         $prev_link         = $pag['prev'];
         $next_link         = $pag['next'];
+
+        isset( $settings['show_map'] ) ? $map_setting = $settings['show_map'] : $map_setting = '';
 
         /*
          * check for an error code in the array first, if it's
@@ -878,6 +880,10 @@ HTML;
         }
 
         $markerCount > 0 ? $mapMarkup = $mapHelper->render($map) : $mapMarkup = '';
+
+        if( $map_setting == 'false' ) {
+            $mapMarkup = '';
+        }
 
         if( $map_position == 'list_only' )
         {
