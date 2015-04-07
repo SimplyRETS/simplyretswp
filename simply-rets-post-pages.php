@@ -32,6 +32,7 @@ class SimplyRetsCustomPostPages {
         add_option( 'sr_api_key', 'simplyrets' );
         add_option( 'sr_listing_gallery', 'fancy' );
         add_option( 'sr_show_leadcapture', true );
+        add_option( 'sr_search_map_position', 'map_above');
         flush_rewrite_rules();
     }
 
