@@ -854,21 +854,17 @@ HTML;
                     <li>
                       <span>$area <span class="sr-listing-area-sqft">SqFt</span></span>
                     </li>
-                    <li>
-                      <span>Built in $yearBuilt</span>
-                    </li>
                   </ul>
                   <ul class="sr-data-column">
                     <li>
-                      <span>$subdivision</span>
+                      <span>Built in $yearBuilt</span>
                     </li>
                     <li>
                       <span>The City of $city</span>
                     </li>
                     <li>
-                      <span>Listed by $listing_agent_name</span>
+                      <span>MLS #: $mlsid</span>
                     </li>
-                    $list_date_markup
                   </ul>
                 </div>
                 <div style="clear:both;">
