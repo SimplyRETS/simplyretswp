@@ -705,6 +705,29 @@ HTML;
     }
 
 
+    public static function resultDataColumnMarkup($val, $name, $reverse=false) {
+        if( $val == "" ) {
+            $val = "";
+        } else {
+            if($reverse == false) {
+                $val = <<<HTML
+                    <li>
+                      $val $name
+                    </li>
+HTML;
+            }
+            else {
+                $val = <<<HTML
+                    <li>
+                      $name $val
+                    </li>
+HTML;
+            }
+        }
+        return $val;
+    }
+
+
     public static function srResidentialResultsGenerator( $response, $settings ) {
         $br                = "<br>";
         $cont              = "";
@@ -828,6 +851,17 @@ HTML;
             }
             /************************************************/
 
+            /*
+             * Variables that contain markup for sr-data-column
+             * If the field is empty, they'll be hidden
+             */
+             $bedsMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($bedrooms, 'Bedrooms');
+             $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsFull, 'Full Baths');
+             $areaMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($area, '<span class="sr-listing-area-sqft">SqFt</span>');
+             $yearMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($yearBuilt, 'Built in', true);
+             $cityMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($city, 'The City of', true);
+             $mlsidMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($mlsid, 'MLS #:', true);
+
 
             // append markup for this listing to the content
             $resultsMarkup .= <<<HTML
@@ -845,26 +879,14 @@ HTML;
                 </div>
                 <div class="sr-secondary-data">
                   <ul class="sr-data-column">
-                    <li>
-                      <span>$bedrooms Bedrooms</span>
-                    </li>
-                    <li>
-                      <span>$bathsFull Full Baths</span>
-                    </li>
-                    <li>
-                      <span>$area <span class="sr-listing-area-sqft">SqFt</span></span>
-                    </li>
+                    $bedsMarkup
+                    $bathsMarkup
+                    $areaMarkup
                   </ul>
                   <ul class="sr-data-column">
-                    <li>
-                      <span>Built in $yearBuilt</span>
-                    </li>
-                    <li>
-                      <span>The City of $city</span>
-                    </li>
-                    <li>
-                      <span>MLS #: $mlsid</span>
-                    </li>
+                    $yearMarkup
+                    $cityMarkup
+                    $mlsidMarkup
                   </ul>
                 </div>
                 <div style="clear:both;">
