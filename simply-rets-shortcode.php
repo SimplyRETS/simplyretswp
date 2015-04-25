@@ -331,9 +331,21 @@ class SimplyRetsShortcodes {
 
                 </div>
 
-                <button class="btn button submit btn-submit" style="display:block">Search</button>
+                <div>
+                    <button class="btn button submit btn-submit" style="display:inline-block;">Search</button>
+                    <div class="sr-sort-wrapper" style="display:inline-block;float:right;margin-top:10px;">
+                        <label for="sr_sort">Sort by: </label>
+                        <select name="sr_sort">
+                            <option value="pricehigh">Price - High to Low</option>
+                            <option value="pricelow">Price - Low to High</option>
+                            <option value="datehigh" selected>List Date - New to Old</option>
+                            <option value="datelow">List date - Old to New</option>
+                        </select>
+                    </div>
+                </div>
               </form>
             </div>
+            <br>
 
             <?php
             return ob_get_clean();
@@ -386,7 +398,19 @@ class SimplyRetsShortcodes {
               </div>
             </div>
 
-            <input class="submit button btn" type="submit" value="Search Properties">
+            <div>
+                <input class="submit button btn" type="submit" value="Search Properties">
+
+                <div class="sr-sort-wrapper" style="display:inline-block;float:right;margin:10px 25px 0px 0px;">
+                    <label for="sr_sort">Sort by: </label>
+                    <select class="select" name="sr_sort">
+                        <option value="pricehigh">Price - High to Low</option>
+                        <option value="pricelow">Price - Low to High</option>
+                        <option value="datehigh">List Date - New to Old</option>
+                        <option value="datelow">List date - Old to New</option>
+                    </select>
+                </div>
+            </div>
 
           </form>
         </div>
