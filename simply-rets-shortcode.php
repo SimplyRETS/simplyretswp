@@ -141,23 +141,23 @@ class SimplyRetsShortcodes {
         if( !is_array($atts) ) {
             $atts = array();
         }
-        $minbeds  = array_key_exists('minbeds',  $atts) ? $atts['minbeds']  : '';
-        $maxbeds  = array_key_exists('maxbeds',  $atts) ? $atts['maxbeds']  : '';
-        $minbaths = array_key_exists('minbaths', $atts) ? $atts['minbaths'] : '';
-        $maxbaths = array_key_exists('maxbaths', $atts) ? $atts['maxbaths'] : '';
-        $minprice = array_key_exists('minprice', $atts) ? $atts['minprice'] : '';
-        $maxprice = array_key_exists('maxprice', $atts) ? $atts['maxprice'] : '';
-        $keywords = array_key_exists('q',        $atts) ? $atts['q']        : '';
-        $type     = array_key_exists('type',     $atts) ? $atts['type']     : '';
-
+        $minbeds    = array_key_exists('minbeds',  $atts) ? $atts['minbeds']  : '';
+        $maxbeds    = array_key_exists('maxbeds',  $atts) ? $atts['maxbeds']  : '';
+        $minbaths   = array_key_exists('minbaths', $atts) ? $atts['minbaths'] : '';
+        $maxbaths   = array_key_exists('maxbaths', $atts) ? $atts['maxbaths'] : '';
+        $minprice   = array_key_exists('minprice', $atts) ? $atts['minprice'] : '';
+        $maxprice   = array_key_exists('maxprice', $atts) ? $atts['maxprice'] : '';
+        $keywords   = array_key_exists('q',        $atts) ? $atts['q']        : '';
+        $type       = array_key_exists('type',     $atts) ? $atts['type']     : '';
+        $sort       = array_key_exists('sort',     $atts) ? $atts['sort']     : '';
         /** Advanced Search Parameters */
-        $adv_status   = array_key_exists('status',   $atts) ? $atts['status']   : '';
-        $lotsize      = array_key_exists('lotsize',  $atts) ? $atts['lotsize']  : '';
-        $area         = array_key_exists('area',     $atts) ? $atts['area']     : '';
+        $adv_status = array_key_exists('status',   $atts) ? $atts['status']   : '';
+        $lotsize    = array_key_exists('lotsize',  $atts) ? $atts['lotsize']  : '';
+        $area       = array_key_exists('area',     $atts) ? $atts['area']     : '';
 
-        $adv_features = isset($_GET['sr_features']) ? $_GET['sr_features'] : array();
-        $adv_cities   = isset($_GET['sr_cities']) ? $_GET['sr_cities']     : array();
-        $adv_neighborhoods   = isset($_GET['sr_neighborhoods']) ? $_GET['sr_neighborhoods']     : array();
+        $adv_features      = isset($_GET['sr_features']) ? $_GET['sr_features'] : array();
+        $adv_cities        = isset($_GET['sr_cities']) ? $_GET['sr_cities']     : array();
+        $adv_neighborhoods = isset($_GET['sr_neighborhoods']) ? $_GET['sr_neighborhoods']     : array();
 
         if( !$type == "" ) {
             $type_res = ($type == "res") ? "selected" : '';
@@ -165,6 +165,12 @@ class SimplyRetsShortcodes {
             $type_rnt = ($type == "rnt") ? "selected" : '';
         }
 
+        if( !$sort  == "" ) {
+            $sort_price_hl = ($sort == "pricehigh") ? "selected" : '';
+            $sort_price_lh = ($sort == "pricelow")  ? "selected" : '';
+            $sort_date_hl  = ($sort == "datehigh")  ? "selected" : '';
+            $sort_date_lh  = ($sort == "datelow")   ? "selected" : '';
+        }
 
         /**
          * Advanced Search Form.
@@ -256,7 +262,7 @@ class SimplyRetsShortcodes {
                     </div>
 
                     <div class="sr-adv-search-col4">
-                      <label for="sr-adv-minprice"><strong>Beds</strong></label>
+                      <label for="sr-adv-minprice"><strong>Bedrooms</strong></label>
                       <select name="sr_minbeds" id="sr-adv-minbeds">
                         <option value="<?php echo $minbeds; ?>"><?php echo $minbeds; ?>+</option>
                         <option value="1">1+</option>
@@ -270,7 +276,7 @@ class SimplyRetsShortcodes {
                       </select>
                     </div>
                     <div class="sr-adv-search-col4">
-                      <label><strong>Baths</strong></label>
+                      <label><strong>Bathrooms</strong></label>
                       <select name="sr_minbaths" id="sr-adv-minbaths">
                         <option value="<?php echo $minbaths; ?>"><?php echo $minbaths; ?>+</option>
                         <option value="1">1+</option>
@@ -336,10 +342,10 @@ class SimplyRetsShortcodes {
                     <div class="sr-sort-wrapper" style="display:inline-block;float:right;margin-top:10px;">
                         <label for="sr_sort">Sort by: </label>
                         <select name="sr_sort">
-                            <option value="pricehigh">Price - High to Low</option>
-                            <option value="pricelow">Price - Low to High</option>
-                            <option value="datehigh" selected>List Date - New to Old</option>
-                            <option value="datelow">List date - Old to New</option>
+                            <option value="pricehigh" <?php echo $sort_price_hl ?>> Price - High to Low</option>
+                            <option value="pricelow"  <?php echo $sort_price_lh ?>> Price - Low to High</option>
+                            <option value="datehigh"  <?php echo $sort_date_hl ?> > List Date - New to Old</option>
+                            <option value="datelow"   <?php echo $sort_date_lh ?> > List date - Old to New</option>
                         </select>
                     </div>
                 </div>

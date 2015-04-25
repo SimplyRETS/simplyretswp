@@ -105,6 +105,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_q";
         $vars[] = "sr_type";
         $vars[] = "sr_agent";
+        $vars[] = "sr_sort";
         $vars[] = "limit";
         $vars[] = "offset";
         // post type
@@ -422,6 +423,7 @@ class SimplyRetsCustomPostPages {
         return $new_template;
     }
 
+
     public static function srPostDefaultContent( $content ) {
         require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
         $post_type = get_post_type();
@@ -454,6 +456,7 @@ class SimplyRetsCustomPostPages {
             $status    = get_query_var( 'status', '' );
             $lotsize   = get_query_var( 'sr_lotsize', '' );
             $area      = get_query_var( 'sr_area', '' );
+            $sort      = get_query_var( 'sr_sort', '' );
 
             $features = isset($_GET['sr_features']) ? $_GET['sr_features'] : '';
             if(isset($features) && is_array($features)) {
@@ -501,7 +504,9 @@ class SimplyRetsCustomPostPages {
                 /** Advanced Search */
                 "lotsize"   => $lotsize,
                 "area"      => $area,
-                "status"    => $status
+                "status"    => $status,
+
+                "sort"      => $sort
             );
 
 
@@ -529,7 +534,7 @@ class SimplyRetsCustomPostPages {
               $qs = str_replace(' ', '%20', $qs);
               $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs );
 
-              $content .= do_shortcode( "[sr_search_form  advanced='true' $filters_string]");
+              $content .= do_shortcode( "[sr_search_form  advanced='True' $filters_string]");
               $content .= $listings_content;
               return $content;
             }
