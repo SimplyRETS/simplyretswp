@@ -278,11 +278,6 @@ class SimplyRetsApiHelper {
                             array('jquery')
         );
         wp_enqueue_script( 'simply-rets-galleria-js' );
-
-        // wp_register_script( 'simply-rets-google-maps',
-        //                     'http://maps.googleapis.com/maps/api/js?sensor=true'
-        // );
-        // wp_enqueue_script( 'simply-rets-google-maps' );
     }
 
 
