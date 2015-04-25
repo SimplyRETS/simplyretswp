@@ -410,10 +410,10 @@ class SimplyRetsShortcodes {
                 <div class="sr-sort-wrapper" style="display:inline-block;float:right;margin:10px 25px 0px 0px;">
                     <label for="sr_sort">Sort by: </label>
                     <select class="select" name="sr_sort">
-                        <option value="pricehigh">Price - High to Low</option>
-                        <option value="pricelow">Price - Low to High</option>
-                        <option value="datehigh">List Date - New to Old</option>
-                        <option value="datelow">List date - Old to New</option>
+                        <option value="pricehigh" <?php echo $sort_price_hl ?>> Price - High to Low</option>
+                        <option value="pricelow"  <?php echo $sort_price_lh ?>> Price - Low to High</option>
+                        <option value="datehigh"  <?php echo $sort_date_hl ?> > List Date - New to Old</option>
+                        <option value="datelow"   <?php echo $sort_date_lh ?> > List date - Old to New</option>
                     </select>
                 </div>
             </div>
