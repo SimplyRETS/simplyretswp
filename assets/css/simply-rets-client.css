@@ -673,14 +673,14 @@ elsewhere, this should be a breeze.
 
 /** Single Column */
 .sr-adv-search-part .sr-adv-search-col1 {
-    padding: 10px;
+    padding: 5px 10px;
 }
 
 /** Half Column */
 .sr-adv-search-part .sr-adv-search-col2 {
     display: inline-block;
     width: 50%;
-    padding: 10px;
+    padding: 5px 10px;
 }
 
 .sr-adv-search-part .sr-adv-search-col2 input {
@@ -696,7 +696,7 @@ elsewhere, this should be a breeze.
 .sr-adv-search-part .sr-adv-search-col4 {
     display: inline-block;
     width: 25%;
-    padding: 10px;
+    padding: 5px 10px;
 }
 .sr-adv-search-part .sr-adv-search-col4 select {
     width: 100%;
@@ -706,17 +706,21 @@ elsewhere, this should be a breeze.
 }
 
 .sr-adv-search-amenities-wrapper {
-    padding: 10px;
+    padding: 5px 10px;
 }
 
 .sr-adv-search-amenities-wrapper-inner {
     padding: 10px;
-    padding-top: 0px
-    max-height: 200px;
+    padding-top: 0px;
+    max-height: 125px;
     overflow-y: scroll;
     border: solid 1px #ccc;
     border-radius: 4px;
     background-color: white;
+}
+
+.sr-adv-search-amenities-wrapper-inner .sr-adv-search-option input {
+    margin-right: 5px;
 }
 
 .sr-adv-search-part li {
