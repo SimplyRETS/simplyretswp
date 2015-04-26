@@ -166,10 +166,10 @@ class SimplyRetsShortcodes {
         }
 
         if( !$sort  == "" ) {
-            $sort_price_hl = ($sort == "pricehigh") ? "selected" : '';
-            $sort_price_lh = ($sort == "pricelow")  ? "selected" : '';
-            $sort_date_hl  = ($sort == "datehigh")  ? "selected" : '';
-            $sort_date_lh  = ($sort == "datelow")   ? "selected" : '';
+            $sort_price_hl = ($sort == "-listprice") ? "selected" : '';
+            $sort_price_lh = ($sort == "listprice")  ? "selected" : '';
+            $sort_date_hl  = ($sort == "-listdate")  ? "selected" : '';
+            $sort_date_lh  = ($sort == "listdate")   ? "selected" : '';
         }
 
         /**
@@ -342,10 +342,10 @@ class SimplyRetsShortcodes {
                     <div class="sr-sort-wrapper" style="display:inline-block;float:right;margin-top:10px;">
                         <label for="sr_sort">Sort by: </label>
                         <select name="sr_sort">
-                            <option value="pricehigh" <?php echo $sort_price_hl ?>> Price - High to Low</option>
-                            <option value="pricelow"  <?php echo $sort_price_lh ?>> Price - Low to High</option>
-                            <option value="datehigh"  <?php echo $sort_date_hl ?> > List Date - New to Old</option>
-                            <option value="datelow"   <?php echo $sort_date_lh ?> > List date - Old to New</option>
+                            <option value="-listprice" <?php echo $sort_price_hl ?>> Price - High to Low</option>
+                            <option value="listprice"  <?php echo $sort_price_lh ?>> Price - Low to High</option>
+                            <option value="-listdate"  <?php echo $sort_date_hl ?> > List Date - New to Old</option>
+                            <option value="listdate"   <?php echo $sort_date_lh ?> > List date - Old to New</option>
                         </select>
                     </div>
                 </div>
@@ -410,10 +410,10 @@ class SimplyRetsShortcodes {
                 <div class="sr-sort-wrapper" style="display:inline-block;float:right;margin:10px 25px 0px 0px;">
                     <label for="sr_sort">Sort by: </label>
                     <select class="select" name="sr_sort">
-                        <option value="pricehigh" <?php echo $sort_price_hl ?>> Price - High to Low</option>
-                        <option value="pricelow"  <?php echo $sort_price_lh ?>> Price - Low to High</option>
-                        <option value="datehigh"  <?php echo $sort_date_hl ?> > List Date - New to Old</option>
-                        <option value="datelow"   <?php echo $sort_date_lh ?> > List date - Old to New</option>
+                        <option value="-listprice" <?php echo $sort_price_hl ?>> Price - High to Low</option>
+                        <option value="listprice"  <?php echo $sort_price_lh ?>> Price - Low to High</option>
+                        <option value="-listdate"  <?php echo $sort_date_hl ?> > List Date - New to Old</option>
+                        <option value="listdate"   <?php echo $sort_date_lh ?> > List date - Old to New</option>
                     </select>
                 </div>
             </div>
