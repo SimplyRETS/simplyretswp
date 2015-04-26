@@ -33,6 +33,7 @@ if ( is_admin() ) {
 }
 
 add_shortcode( 'sr_residential', array( 'SimplyRetsShortcodes', 'sr_residential_shortcode' ) );
+add_shortcode( 'sr_listings',    array( 'SimplyRetsShortcodes', 'sr_residential_shortcode' ) );
 add_shortcode( 'sr_openhouses',  array( 'SimplyRetsShortcodes', 'sr_openhouses_shortcode' ) );
 add_shortcode( 'sr_search_form', array( 'SimplyRetsShortcodes', 'sr_search_form_shortcode' ) );
 
