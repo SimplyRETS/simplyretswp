@@ -106,8 +106,6 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_type";
         $vars[] = "sr_agent";
         $vars[] = "sr_sort";
-        $vars[] = "limit";
-        $vars[] = "offset";
         // post type
         $vars[] = "sr-listings";
         // advanced search form parameters

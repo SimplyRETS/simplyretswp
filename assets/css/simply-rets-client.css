@@ -70,13 +70,7 @@ of the image, use this class.
     background-position: center center;
     background-repeat: no-repeat;
 }
-@media screen and (max-width: 360px) {
-    .sr-photo {
-        width: 100%;
-        display: block;
-        height: 180px;
-    }
-}
+
 
 /*
 Primary Data
@@ -119,11 +113,6 @@ color is a light grey. This is very simply to change by setting:
     margin-bottom: 10px !important;
 }
 
-@media screen and (max-width: 360px) {
-    .sr-primary-data {
-        width: 100%;
-    }
-}
 /*
 Secondary Data
 ---
@@ -187,11 +176,8 @@ is to change the `margin-left` property to align better in some themes.
     padding-top: 10px;
     width: 70%;
 }
-@media screen and (max-width: 360px) {
-    .sr-secondary-data {
-        width: 100%;
-    }
-}
+
+
 /*
 Notice that we also provide you with `sr-data-column` for
 managing the spacing and margin between the two columns of
@@ -642,6 +628,10 @@ elsewhere, this should be a breeze.
 .sr-gallery {
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.galleria-errors {
+    display: none !important;
 }
 
 
