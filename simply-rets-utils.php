@@ -11,6 +11,7 @@
 /* Code starts here */
 class SrUtils {
 
+
     public static function srShowListingMeta() {
         if( get_option('sr_show_listingmeta') ) {
             $show_listing_meta = false;
@@ -46,6 +47,20 @@ class SrUtils {
     }
 
 }
+
+
+
+class SrMessages {
+
+    public static function noResultsMsg() {
+        $noResultsMsg = "<br><p><strong>There are 0 listings that match this search. "
+                         . "Please try to broaden your search criteria or feel free to try again later.</p></strong>";
+        return $noResultsMsg;
+    }
+
+}
+
+
 
 class SrViews {
 

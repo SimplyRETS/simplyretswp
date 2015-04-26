@@ -362,13 +362,12 @@ HTML;
          * The error code comes from the UrlBuilder function.
         */
         if( $listing == NULL ) {
-            $err = "SimplyRETS could not complete this search. Please try searching with different parameters.";
+            $err = SrMessages::noResultsMsg();
             return $err;
         }
         if( array_key_exists( "error", $listing ) ) {
-            $error = $listing->error;
-            $cont .= "<hr><p>{$error}</p>";
-            return $cont;
+            $err = SrMessages::noResultsMsg();
+            return $err;
         }
 
         // internal unique id
@@ -802,13 +801,12 @@ HTML;
          * The error code comes from the UrlBuilder function.
         */
         if( $response == NULL ) {
-            $err = "SimplyRETS could not complete this search. Please try searching with different parameters.";
+            $err = SrMessages::noResultsMsg();
             return $err;
         }
         if( array_key_exists( "error", $response ) ) {
-            $error = "SimplyRETS could not find any properties matching your criteria. Please try another search.";
-            $response_markup = "<hr><p>{$error}</p><br>";
-            return $response_markup;
+            $err = SrMessages::noResultsMsg();
+            return $err;
         }
         $response_size = sizeof( $response );
         if( !array_key_exists( "0", $response ) ) {
@@ -998,7 +996,7 @@ HTML;
         $response_size = sizeof( $response );
 
         if( $response == NULL ) {
-            $err = "SimplyRETS could not complete this search. Please try searching with different parameters.";
+            $err = SrMessages::noResultsMsg();
             return $err;
         }
 
