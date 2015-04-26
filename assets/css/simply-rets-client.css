@@ -732,6 +732,32 @@ elsewhere, this should be a breeze.
     .sr-adv-search-part li {
         width: 50%;
     }
+    .sr-adv-search-part #sr-search-keywords {
+        width: 100%;
+    }
+    .sr-adv-search-part #sr-search-ptype {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .sr-adv-search-part #sr-search-ptype select {
+        width: 100%;
+    }
+    /* 1/2 Columns Responsiveness */
+    .sr-adv-search-part .sr-adv-search-col2 {
+        width: 100%;
+    }
+    .sr-adv-search-part .sr-adv-search-col2 input {
+        width: 49%;
+    }
+    /* 1/4 Columns Responsiveness */
+    .sr-adv-search-part .sr-adv-search-col4 {
+        width: 49%;
+    }
+    /* Features checkboxes Responsiveness */
+    .sr-adv-search-part .sr-adv-search-option {
+        width: 50%;
+    }
+}
 
 
 /*
