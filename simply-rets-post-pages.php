@@ -103,6 +103,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_minbaths";
         $vars[] = "sr_maxbaths";
         $vars[] = "sr_q";
+        $vars[] = "sr_keywords";
         $vars[] = "sr_type";
         $vars[] = "sr_agent";
         $vars[] = "sr_sort";
@@ -574,9 +575,9 @@ class SimplyRetsCustomPostPages {
             $post_addr  = get_query_var( 'listing_title', 'none' );
             $post_price = get_query_var( 'listing_price', '0' );
 
-            $listing_USD = $post_price == '' ? '$0' : '$' . number_format( $post_price );
+            $listing_USD = $post_price == '' ? '' : '$' . number_format( $post_price );
             $title_normalize = "background-color:transparent;padding:0px;";
-            $post_title = "{$post_addr} - <span style='{$title_normalize}'><i>{$listing_USD}</i></span>";
+            $post_title = "{$post_addr} <span style='{$title_normalize}'><small><i> {$listing_USD}</i></small></span>";
 
             $post = (object)array(
                 "ID"             => $post_id,

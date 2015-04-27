@@ -365,7 +365,7 @@ class SimplyRetsShortcodes {
 
             <div class="sr-minmax-filters">
               <div class="sr-search-field" id="sr-search-keywords">
-                <input name="sr_q"
+                <input name="sr_keywords"
                        type="text"
                        placeholder="Subdivision, Zipcode, MLS Area, MLS Number, or Market Area"
                        value="<?php echo $keywords ?>" />
