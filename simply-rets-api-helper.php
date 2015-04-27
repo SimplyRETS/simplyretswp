@@ -764,18 +764,10 @@ HTML;
             $val = "";
         } else {
             if($reverse == false) {
-                $val = <<<HTML
-                    <li>
-                      $val $name
-                    </li>
-HTML;
+                $val = "<li>$val $name</li>";
             }
             else {
-                $val = <<<HTML
-                    <li>
-                      $name $val
-                    </li>
-HTML;
+                $val = "<li>$name $val</li>";
             }
         }
         return $val;
@@ -800,14 +792,11 @@ HTML;
          * there, return it - no need to do anything else.
          * The error code comes from the UrlBuilder function.
         */
-        if( $response == NULL ) {
+        if( $response == NULL || array_key_exists( "error", $response ) ) {
             $err = SrMessages::noResultsMsg();
             return $err;
         }
-        if( array_key_exists( "error", $response ) ) {
-            $err = SrMessages::noResultsMsg();
-            return $err;
-        }
+
         $response_size = sizeof( $response );
         if( !array_key_exists( "0", $response ) ) {
             $response = array( $response );
@@ -822,27 +811,29 @@ HTML;
         foreach( $response as $listing ) {
             $listing_uid        = $listing->mlsId;
             $mlsid              = $listing->listingId;
-            $propType           = $listing->property->type;
+            $listing_price      = $listing->listPrice;
+            $list_date          = $listing->listDate;
+            $remarks            = $listing->remarks;
+            $city               = $listing->address->city;
             $address            = $listing->address->full;
-            $lng                = $listing->geo->lng;
-            $lat                = $listing->geo->lat;
-            $bedrooms           = $listing->property->bedrooms;
-            $bathsFull          = $listing->property->bathsFull;
-            $area               = $listing->property->area; // might be empty
-            $subdivision        = $listing->property->subdivision;
-            $yearBuilt          = $listing->property->yearBuilt;
+            $zip                = $listing->address->postalCode;
             $listing_agent_id   = $listing->agent->id;
             $listing_agent_name = $listing->agent->firstName;
-            $list_date          = $listing->listDate;
-            $city               = $listing->address->city;
+            $lng                = $listing->geo->lng;
+            $lat                = $listing->geo->lat;
             $mls_status         = $listing->mls->status;
-            $remarks            = $listing->remarks;
-            $zip                = $listing->address->postalCode;
+            $propType           = $listing->property->type;
+            $bedrooms           = $listing->property->bedrooms;
+            $bathsFull          = $listing->property->bathsFull;
+            $bathsHalf          = $listing->property->bathsHalf;
+            $area               = $listing->property->area; // might be empty
+            $lotSize            = $listing->property->lotSize; // might be empty
+            $subdivision        = $listing->property->subdivision;
             $style              = $listing->property->style;
-            $listing_price      = $listing->listPrice;
-            $listing_USD        = '$' . number_format( $listing_price );
+            $yearBuilt          = $listing->property->yearBuilt;
 
             $addrFull = $address . ', ' . $city . ' ' . $zip;
+            $listing_USD = $listing_price == "" ? "" : '$' . number_format( $listing_price );
 
             if( $bedrooms == null || $bedrooms == "" ) {
                 $bedrooms = 0;
@@ -850,13 +841,11 @@ HTML;
             if( $bathsFull == null || $bathsFull == "" ) {
                 $bathsFull = 0;
             }
-            if( $area == 0 ) {
-                $area = 'n/a';
-            } else {
-                $area = number_format( $area );
+            if( $bathsHalf == null || $bathsHalf == "" ) {
+                $bathsHalf = 0;
             }
-            if( $yearBuilt == '' ) {
-                $yearBuilt = 'n/a';
+            if( !$area == 0 ) {
+                $area = number_format( $area );
             }
             // show listing date if setting is on
             if( $show_listing_meta == true ) {
@@ -908,13 +897,20 @@ HTML;
              * Variables that contain markup for sr-data-column
              * If the field is empty, they'll be hidden
              */
-             $bedsMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($bedrooms, 'Bedrooms');
-             $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsFull, 'Full Baths');
-             $areaMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($area, '<span class="sr-listing-area-sqft">SqFt</span>');
-             $yearMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($yearBuilt, 'Built in', true);
-             $cityMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($city, 'The City of', true);
-             $mlsidMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($mlsid, 'MLS #:', true);
+            $bedsMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($bedrooms, 'Bedrooms');
+            $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsFull, 'Full Baths');
+            $areaMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($area, '<span class="sr-listing-area-sqft">SqFt</span>');
+            $yearMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($yearBuilt, 'Built in', true);
+            $cityMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($city, 'The City of', true);
+            $mlsidMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($mlsid, 'MLS #:', true);
 
+            if( $area == 0 ) {
+                $areaMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsHalf, 'Half Baths', false);
+            }
+
+            if( $yearBuilt == 0 ) {
+                $yearMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($subdivision, "");
+            }
 
             // append markup for this listing to the content
             $resultsMarkup .= <<<HTML
