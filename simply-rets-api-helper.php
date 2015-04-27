@@ -379,7 +379,7 @@ HTML;
             $err = SrMessages::noResultsMsg();
             return $err;
         }
-        if( array_key_exists( "error", $listing ) ) {
+        if( array_key_exists( "error", $listing ) || array_key_exists( "errors", $response ) ) {
             $err = SrMessages::noResultsMsg();
             return $err;
         }
@@ -806,7 +806,7 @@ HTML;
          * there, return it - no need to do anything else.
          * The error code comes from the UrlBuilder function.
         */
-        if( $response == NULL || array_key_exists( "error", $response ) ) {
+        if( $response == NULL || array_key_exists( "errors", $response ) ) {
             $err = SrMessages::noResultsMsg();
             return $err;
         }
@@ -1014,7 +1014,7 @@ HTML;
         $response = $response['response'];
         $response_size = sizeof( $response );
 
-        if( $response == NULL ) {
+        if( $response == NULL || array_key_exists( "errors", $response ) ) {
             $err = SrMessages::noResultsMsg();
             return $err;
         }
