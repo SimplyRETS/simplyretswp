@@ -251,7 +251,11 @@ class SimplyRetsApiHelper {
             parse_str( $link_parts['query'], $output );
             if( !empty( $output ) ) {
                 foreach( $output as $query=>$parameter) {
-                    if( $query !== 'offset' && $query !== 'limit' ) {
+                    if( $query == 'type' ) {
+                        $output['sr_p' . $query] = $output[$query];
+                        unset( $output[$query] );
+                    }
+                    if( $query !== 'offset' && $query !== 'limit' && $query !== 'type' ) {
                         $output['sr_' . $query] = $output[$query];
                         unset( $output[$query] );
                     }
