@@ -825,6 +825,7 @@ HTML;
             $list_date          = $listing->listDate;
             $remarks            = $listing->remarks;
             $city               = $listing->address->city;
+            $county             = $listing->geo->county;
             $address            = $listing->address->full;
             $zip                = $listing->address->postalCode;
             $listing_agent_id   = $listing->agent->id;
@@ -906,6 +907,7 @@ HTML;
             /*
              * Variables that contain markup for sr-data-column
              * If the field is empty, they'll be hidden
+             * TODO: Create a ranking system 1 - 10 to smartly replace missing values
              */
             $bedsMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($bedrooms, 'Bedrooms');
             $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsFull, 'Full Baths');
@@ -916,6 +918,9 @@ HTML;
 
             if( $area == 0 ) {
                 $areaMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsHalf, 'Half Baths', false);
+                if( $areaMarkup == 0 ) {
+                    $areaMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($county, "County", false);
+                }
             }
 
             if( $yearBuilt == 0 ) {
@@ -938,14 +943,14 @@ HTML;
                 </div>
                 <div class="sr-secondary-data">
                   <ul class="sr-data-column">
+                    $cityMarkup
+                    $yearMarkup
+                    $mlsidMarkup
+                  </ul>
+                  <ul class="sr-data-column">
                     $bedsMarkup
                     $bathsMarkup
                     $areaMarkup
-                  </ul>
-                  <ul class="sr-data-column">
-                    $yearMarkup
-                    $cityMarkup
-                    $mlsidMarkup
                   </ul>
                 </div>
                 <div style="clear:both;">
