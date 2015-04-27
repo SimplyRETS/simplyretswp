@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, simple rets, rets feed, simple idx, idx feed
 Requires at least: 3.0.1
-Tested up to: 4.1.1
-Stable tag: 1.3.4
+Tested up to: 4.2.1
+Stable tag: 1.4.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -217,6 +217,15 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 1.4.0 =
+* NEW FEATURE: Advanced search form for all MLS's!
+* NEW FEATURE: Option to sort search results by price and date.
+* Add support for commercial, land, mulit-family, and farm property type (must be enabled in your simplyrets account)
+* New Shortcode [sr_listings] as an alias to [sr_residential]
+* Ability to update meta data from the admin panel
+* Better handling of fields shown for listings in search results
+* Minor bug fixes and patches
+
 = 1.3.4 =
 * NEW FEATURE: For showing single listing and searches on a map view!
 * Changed Fancy Gallery to not stretch small images
@@ -329,7 +338,7 @@ clients need to be updated. See the changelog for a complete list.
 
 There is much more documentation for both the SimplyRETS API, and the
 SimplyRETS Wordpress plugin. You can dig into all of that on the
-Documentation page of the SimplyRETS site: [SimplyRETS Documentation](https://docs.simplyrets.com)
+SimplyRETS Docs website: [SimplyRETS Documentation](https://docs.simplyrets.com)
 
 = Plugin Shortcodes, Widgets, and more! =
 
