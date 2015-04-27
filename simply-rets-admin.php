@@ -36,6 +36,15 @@ class SrAdminSettings {
   function sr_admin_page() {
       global $wpdb;
       $logo_path = plugin_dir_url(__FILE__) . 'assets/img/logo_button.png';
+
+      // update meta data fields manually
+      if( isset( $_POST['sr_update_meta'] ) ) {
+          echo '<div id="setting-error-settings_updated" class="updated settings-error notice is-dismissible">'.
+               '<p><strong>Meta Data Updated!</strong></p>'.
+               '<button type="button" class="notice-dismiss">'.
+               '<span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+          SimplyRetsApiHelper::srUpdateAdvSearchOptions();
+      }
       ?>
       <div class="wrap sr-admin-wrap">
         <h2 id="message"></h2>
@@ -47,6 +56,9 @@ class SrAdminSettings {
             <a target="_blank" href="https://wordpress.org/plugins/simply-rets/other_notes/">SimplyRETS Wordpress Plugin Documentation</a> |
             <a target="_blank" href="http://docs.simplyrets.com">SimplyRETS API Documentation</a> |
             <a target="_blank" href="mailto:support@simplyrets.com">support@simplyrets.com</a>
+            <form method="post" action="options-general.php?page=simplyrets-admin.php" style="display:inline-block;">
+                <?php submit_button( "Refresh Meta Data", "submit", "sr_update_meta", 0 ); ?>
+            </form>
           </p>
         </div>
         <hr>
