@@ -184,6 +184,9 @@ class SimplyRetsShortcodes {
          * *amenities (int/ext), *status (active, pending, sold), area.
          */
         $adv_search_types = get_option( 'sr_adv_search_meta_types' );
+        if( empty( $adv_search_types ) ) {
+            $adv_search_types = array("Residential", "Condominium", "Rental" );
+        }
         foreach( $adv_search_types as $key=>$type) {
             if( $type == $adv_type) {
                 $type_options .= "<option value='$type' selected />$type</option>";
