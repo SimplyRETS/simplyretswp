@@ -30,10 +30,15 @@ jQuery(document).ready(function() {
     }
   });
 
+  if(jQuery('#sr-search-ptype select').val() == 'Land') {
+      jQuery('.sr-adv-search-amenities-wrapper').hide();
+  }
   jQuery('#sr-search-ptype select').change(function() {
       if(jQuery(this).val() == 'Land') {
-          console.log('land selected');
           jQuery('.sr-adv-search-amenities-wrapper').hide();
+          jQuery('input[name="sr_features[]"]').each(function() {
+              jQuery(this).attr('checked', false);
+          });
       } else {
           jQuery('.sr-adv-search-amenities-wrapper').show();
       }
