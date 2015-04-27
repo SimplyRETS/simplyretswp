@@ -981,6 +981,10 @@ HTML;
             $cont .= '<hr>';
             $cont .= $mapMarkup;
         }
+        else
+        {
+            $cont .= $resultsMarkup;
+        }
 
         $cont .= "<hr><p class='sr-pagination'>$prev_link $next_link</p>";
         $cont .= "<br><p><small><i>This information is believed to be accurate, but without any warranty.</i></small></p>";
