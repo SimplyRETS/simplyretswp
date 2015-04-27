@@ -148,9 +148,11 @@ class SimplyRetsShortcodes {
         $minprice   = array_key_exists('minprice', $atts) ? $atts['minprice'] : '';
         $maxprice   = array_key_exists('maxprice', $atts) ? $atts['maxprice'] : '';
         $keywords   = array_key_exists('q',        $atts) ? $atts['q']        : '';
-        $type       = array_key_exists('type',     $atts) ? $atts['type']     : '';
         $sort       = array_key_exists('sort',     $atts) ? $atts['sort']     : '';
         /** Advanced Search Parameters */
+        $type       = array_key_exists('type',     $atts) ? $atts['type']     : '';
+        $adv_type   = array_key_exists('type',     $atts) ? $atts['type']     : '';
+
         $adv_status = array_key_exists('status',   $atts) ? $atts['status']   : '';
         $lotsize    = array_key_exists('lotsize',  $atts) ? $atts['lotsize']  : '';
         $area       = array_key_exists('area',     $atts) ? $atts['area']     : '';
@@ -181,6 +183,15 @@ class SimplyRetsShortcodes {
          * price range, *city, *neighborhood (location), * type (condo, townhome, residential),
          * *amenities (int/ext), *status (active, pending, sold), area.
          */
+        $adv_search_types = get_option( 'sr_adv_search_meta_types' );
+        foreach( $adv_search_types as $key=>$type) {
+            if( $type == $adv_type) {
+                $type_options .= "<option value='$type' selected />$type</option>";
+            } else {
+                $type_options .= "<option value='$type' />$type</option>";
+            }
+        }
+
         $adv_search_cities = get_option( 'sr_adv_search_meta_city' );
         foreach( $adv_search_cities as $key=>$city ) {
             $checked = in_array($city, $adv_cities) ? 'selected="selected"' : '';
@@ -246,9 +257,7 @@ class SimplyRetsShortcodes {
                       <div class="sr-search-field" id="sr-search-ptype">
                         <select name="sr_ptype">
                           <option value="">Property Type</option>
-                          <option <?php echo $type_res; ?> value="res">Residential</option>
-                          <option <?php echo $type_cnd; ?> value="cnd">Condo</option>
-                          <option <?php echo $type_rnt; ?> value="rnt">Rental</option>
+                          <?php echo $type_options; ?>
                         </select>
                       </div>
                     </div>
@@ -372,11 +381,9 @@ class SimplyRetsShortcodes {
               </div>
 
               <div class="sr-search-field" id="sr-search-ptype">
-                <select name="sr_type">
+                <select name="sr_ptype">
                   <option value="">Property Type</option>
-                  <option <?php echo $type_res; ?> value="res">Residential</option>
-                  <option <?php echo $type_cnd; ?> value="cnd">Condo</option>
-                  <option <?php echo $type_rnt; ?> value="rnt">Rental</option>
+                  <?php echo $type_options; ?>
                 </select>
               </div>
             </div>

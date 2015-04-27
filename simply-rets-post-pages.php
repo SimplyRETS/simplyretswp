@@ -105,6 +105,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_q";
         $vars[] = "sr_keywords";
         $vars[] = "sr_type";
+        $vars[] = "sr_ptype";
         $vars[] = "sr_agent";
         $vars[] = "sr_sort";
         // post type

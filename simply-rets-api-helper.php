@@ -111,9 +111,19 @@ class SimplyRetsApiHelper {
         $options_url = SimplyRetsApiHelper::srRequestUrlBuilder( array() );
         $options     = SimplyRetsApiHelper::srApiOptionsRequest( $options_url );
 
-        // var_dump( $options );
+        $types = $options->fields->type;
+        if( !isset( $types ) || empty( $types ) ) {
+            $types = array(
+                "Residential"
+                , "Condominium"
+                , "Rental"
+                , "Multi-Family"
+            );
+        }
+
         update_option( 'sr_adv_search_meta_timestamp', $options->expires );
         update_option( 'sr_adv_search_meta_status', $options->fields->status );
+        update_option( 'sr_adv_search_meta_types', $types );
         update_option( 'sr_adv_search_meta_county', $options->fields->counties );
         update_option( 'sr_adv_search_meta_city', $options->fields->cities );
         update_option( 'sr_adv_search_meta_features', $options->fields->features );
