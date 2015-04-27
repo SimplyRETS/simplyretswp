@@ -30,4 +30,13 @@ jQuery(document).ready(function() {
     }
   });
 
+  jQuery('#sr-search-ptype select').change(function() {
+      if(jQuery(this).val() == 'Land') {
+          console.log('land selected');
+          jQuery('.sr-adv-search-amenities-wrapper').hide();
+      } else {
+          jQuery('.sr-adv-search-amenities-wrapper').show();
+      }
+  });
+
 });
