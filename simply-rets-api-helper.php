@@ -117,7 +117,6 @@ class SimplyRetsApiHelper {
                 "Residential"
                 , "Condominium"
                 , "Rental"
-                , "Multi-Family"
             );
         }
 
