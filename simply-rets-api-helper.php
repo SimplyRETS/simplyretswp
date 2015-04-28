@@ -111,22 +111,52 @@ class SimplyRetsApiHelper {
         $options_url = SimplyRetsApiHelper::srRequestUrlBuilder( array() );
         $options     = SimplyRetsApiHelper::srApiOptionsRequest( $options_url );
 
-        $types = $options->fields->type;
-        if( !isset( $types ) || empty( $types ) ) {
-            $types = array(
-                "Residential"
-                , "Condominium"
-                , "Rental"
-            );
-        }
+        $defaultArray   = array();
+        $defaultTypes   = array("Residential", "Condominium", "Rental");
+        $defaultExpires = time();
 
-        update_option( 'sr_adv_search_meta_timestamp', $options->expires );
-        update_option( 'sr_adv_search_meta_status', $options->fields->status );
+        $types = $options->fields->type;
+        !isset( $types ) || empty( $types )
+            ? $types = $defaultTypes
+            : $types = $options->fields->type;
+
+        $expires = $options->expires;
+        !isset( $expires ) || empty( $expires )
+            ? $expires = $defaultExpires
+            : $expires = $options->expires;
+
+        $status = $options->fields->status;
+        !isset( $status ) || empty( $status )
+            ? $status = $defaultArray
+            : $status = $options->fields->status;
+
+        $counties = $options->fields->counties;
+        !isset( $counties ) || empty( $counties )
+            ? $counties = $defaultArray
+            : $counties = $options->fields->counties;
+
+        $cities = $options->fields->cities;
+        !isset( $cities ) || empty( $cities )
+            ? $cities = $defaultArray
+            : $cities = $options->fields->cities;
+
+        $features = $options->fields->features;
+        !isset( $features ) || empty( $features )
+            ? $features = $defaultArray
+            : $features = $options->fields->features;
+
+        $neighborhoods = $options->fields->neighborhoods;
+        !isset( $neighborhoods ) || empty( $neighborhoods )
+            ? $neighborhoods = $defaultArray
+            : $neighborhoods = $options->fields->neighborhoods;
+
+        update_option( 'sr_adv_search_meta_timestamp', $expires );
+        update_option( 'sr_adv_search_meta_status', $status );
         update_option( 'sr_adv_search_meta_types', $types );
-        update_option( 'sr_adv_search_meta_county', $options->fields->counties );
-        update_option( 'sr_adv_search_meta_city', $options->fields->cities );
-        update_option( 'sr_adv_search_meta_features', $options->fields->features );
-        update_option( 'sr_adv_search_meta_neighborhoods', $options->fields->neighborhoods );
+        update_option( 'sr_adv_search_meta_county', $counties );
+        update_option( 'sr_adv_search_meta_city', $cities );
+        update_option( 'sr_adv_search_meta_features', $features );
+        update_option( 'sr_adv_search_meta_neighborhoods', $neighborhoods );
         // foreach( $options as $key => $option ) {
         //     if( !$option == NULL ) {
         //         update_option( 'sr_adv_search_option_' . $key, $option );
@@ -792,7 +822,7 @@ HTML;
         $cont              = "";
         $pagination        = $response['pagination'];
         $response          = $response['response'];
-        $map_position      = get_option('sr_search_map_position');
+        $map_position      = get_option('sr_search_map_position', 'list_only');
         $show_listing_meta = SrUtils::srShowListingMeta();
         $pag               = SrUtils::buildPaginationLinks( $pagination );
         $prev_link         = $pag['prev'];

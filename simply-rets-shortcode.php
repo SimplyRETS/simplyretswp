@@ -183,11 +183,11 @@ class SimplyRetsShortcodes {
          * price range, *city, *neighborhood (location), * type (condo, townhome, residential),
          * *amenities (int/ext), *status (active, pending, sold), area.
          */
-        $adv_search_types = get_option( 'sr_adv_search_meta_types' );
+        $adv_search_types = get_option( 'sr_adv_search_meta_types', array() );
         if( empty( $adv_search_types ) ) {
             $adv_search_types = array("Residential", "Condominium", "Rental" );
         }
-        foreach( $adv_search_types as $key=>$type) {
+        foreach( (array)$adv_search_types as $key=>$type) {
             if( $type == $adv_type) {
                 $type_options .= "<option value='$type' selected />$type</option>";
             } else {
@@ -195,14 +195,14 @@ class SimplyRetsShortcodes {
             }
         }
 
-        $adv_search_cities = get_option( 'sr_adv_search_meta_city' );
-        foreach( $adv_search_cities as $key=>$city ) {
+        $adv_search_cities = get_option( 'sr_adv_search_meta_city', array() );
+        foreach( (array)$adv_search_cities as $key=>$city ) {
             $checked = in_array($city, $adv_cities) ? 'selected="selected"' : '';
             $city_options .= "<option value='$city' $checked>$city</option>";
         }
 
-        $adv_search_status = get_option( 'sr_adv_search_meta_status' );
-        foreach( $adv_search_status as $key=>$status) {
+        $adv_search_status = get_option( 'sr_adv_search_meta_status', array() );
+        foreach( (array)$adv_search_status as $key=>$status) {
             if( $status == $adv_status ) {
                 $status_options .= "<option value='$status' selected />$status</option>";
             } else {
@@ -210,15 +210,15 @@ class SimplyRetsShortcodes {
             }
         }
 
-        $adv_search_neighborhoods= get_option( 'sr_adv_search_meta_neighborhoods' );
-        foreach( $adv_search_neighborhoods as $key=>$neighborhood) {
+        $adv_search_neighborhoods= get_option( 'sr_adv_search_meta_neighborhoods', array() );
+        foreach( (array)$adv_search_neighborhoods as $key=>$neighborhood) {
             $checked = in_array($neighborhood, $adv_neighborhoods) ? 'selected="selected"' : '';
             $location_options .= "<option value='$neighborhood' $checked>$neighborhood</option>";
         }
 
 
-        $adv_search_features = get_option( 'sr_adv_search_meta_features' );
-        foreach( $adv_search_features as $key=>$feature) {
+        $adv_search_features = get_option( 'sr_adv_search_meta_features', array() );
+        foreach( (array)$adv_search_features as $key=>$feature) {
             $checked = in_array($feature, $adv_features) ? 'checked="checked"' : '';
             $features_options .= "<li class='sr-adv-search-option'>"
                  ."<label><input name='sr_features[]' type='checkbox' value='$feature' $checked />$feature</label></li>";
