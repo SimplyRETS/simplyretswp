@@ -378,7 +378,7 @@ HTML;
             $err = SrMessages::noResultsMsg();
             return $err;
         }
-        if( array_key_exists( "error", $listing ) || array_key_exists( "errors", $response ) ) {
+        if( array_key_exists( "error", $listing ) || array_key_exists( "errors", $listing ) ) {
             $err = SrMessages::noResultsMsg();
             return $err;
         }
