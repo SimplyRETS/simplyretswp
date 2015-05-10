@@ -1,6 +1,7 @@
 {
     "require": {
         "egeloen/google-map": "1.4.1",
+        "willdurand/geocoder": "3.0.0-alpha3",
         "widop/http-adapter": "1.1.0"
     }
 }
