@@ -13,6 +13,7 @@ Copyright (c) SimplyRETS 2014 - 2015
 
 /* Code starts here */
 
+error_reporting(0);
 $plugin = plugin_basename(__FILE__);
 
 require __DIR__.'/vendor/autoload.php';
