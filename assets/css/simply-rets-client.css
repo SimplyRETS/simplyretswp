@@ -826,3 +826,26 @@ elsewhere, this should be a breeze.
 .sr-iw-inner__secondary p {
     margin-bottom: 3px !important;
 }
+
+
+/** Listing Slider */
+.sr-listing-slider-item {
+    padding: 10px;
+    text-align: center;
+}
+
+.sr-listing-slider-item-img {
+    height: 170px;
+    background-size: cover;
+    background-position: center;
+}
+
+.sr-listing-slider-item-address {
+    margin-top: 10px;
+}
+
+.sr-listing-slider-item-price,
+.sr-listing-slider-item-specs {
+    margin-bottom: 5px !important;
+    text-align: center;
+}

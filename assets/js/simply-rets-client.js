@@ -44,4 +44,9 @@ jQuery(document).ready(function() {
       }
   });
 
+  // [sr_listings_slider]
+  jQuery("#owl-example").owlCarousel({
+    items: 4
+  });
+
 });

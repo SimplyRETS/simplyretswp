@@ -37,6 +37,13 @@ class SimplyRetsApiHelper {
         return $response_markup;
     }
 
+    public static function retrieveListingsSlider( $params ) {
+        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder( $params );
+        $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
+        $response_markup  = SimplyRetsApiHelper::srListingSliderGenerator( $request_response );
+
+        return $response_markup;
+    }
 
     /*
      * This function build a URL from a set of parameters that we'll use to
@@ -307,6 +314,12 @@ class SimplyRetsApiHelper {
     public static function simplyRetsClientCss() {
         wp_register_style( 'simply-rets-client-css', plugins_url( 'assets/css/simply-rets-client.css', __FILE__ ) );
         wp_enqueue_style( 'simply-rets-client-css' );
+
+        wp_register_style( 'simply-rets-carousel', 'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css');
+        wp_enqueue_style( 'simply-rets-carousel' );
+
+        wp_register_style( 'simply-rets-carousel-theme', 'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css');
+        wp_enqueue_style( 'simply-rets-carousel-theme' );
     }
 
     public static function simplyRetsClientJs() {
@@ -321,6 +334,11 @@ class SimplyRetsApiHelper {
                             array('jquery')
         );
         wp_enqueue_script( 'simply-rets-galleria-js' );
+        wp_register_script( 'simply-rets-carousel',
+                            'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js',
+                            array('jquery')
+        );
+        wp_enqueue_script( 'simply-rets-carousel' );
     }
 
 
@@ -1187,6 +1205,50 @@ HTML;
                 echo 'An unexpected error occurred';
             }
         }
+    }
+
+
+    public static function srListingSliderGenerator( $response ) {
+        $listings = $response['response'];
+        $inner;
+        foreach($listings as $l) {
+            $address = $l->address->full;
+            $price   = $l->listPrice;
+            $photos  = $l->photos;
+            $beds    = $l->property->bedrooms;
+            $baths   = $l->property->bathsFull;
+            $area    = $l->property->area;
+
+            if( $area == 0 ) {
+                $area = 'na';
+            } else {
+                $area = number_format( $area );
+            }
+            $priceUSD = '$' . number_format( $price );
+            if( empty( $photos ) ) {
+                $photo = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
+            } else {
+                $photo = trim($photos[0]);
+            }
+
+            $inner .= <<<HTML
+                <div class="sr-listing-slider-item">
+                  <div class="sr-listing-slider-item-img" style="background-image: url('$photo')"></div>
+                  <h4 class="sr-listing-slider-item-address">$address</h4>
+                  <p class="sr-listing-slider-item-price">$priceUSD</p>
+                  <p class="sr-listing-slider-item-specs">$beds bed / $baths bath / $area SqFt</p>
+                </div>
+HTML;
+        }
+
+        $content = <<<HTML
+
+            <div id="owl-example" class="owl-carousel">
+              $inner
+            </div>
+HTML;
+
+        return $content;
     }
 
 

@@ -438,10 +438,12 @@ class SrShortcodes {
 
     public static function sr_listing_slider_shortcode( $atts ) {
         ob_start();
+        $limit = empty($atts['limit']) ? 4 : $atts['limit'];
+        $slider = SimplyRetsApiHelper::retrieveListingsSlider($atts);
 
-        $limit = $atts['limit'];
         ?>
         <h4>This is a featured listing slider</h4>
+        <p><?php echo $slider ?></p>
         <?php
 
         return ob_get_clean();
