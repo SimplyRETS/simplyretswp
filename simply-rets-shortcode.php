@@ -13,7 +13,7 @@
 add_action('init', array('SimplyRetsShortcodes', 'sr_residential_btn') );
 
 
-class SimplyRetsShortcodes {
+class SrShortcodes {
 
 
     /**
@@ -430,6 +430,18 @@ class SimplyRetsShortcodes {
 
           </form>
         </div>
+        <?php
+
+        return ob_get_clean();
+    }
+
+
+    public static function sr_listing_slider_shortcode( $atts ) {
+        ob_start();
+
+        $limit = $atts['limit'];
+        ?>
+        <h4>This is a featured listing slider</h4>
         <?php
 
         return ob_get_clean();
