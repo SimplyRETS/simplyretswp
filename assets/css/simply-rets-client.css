@@ -482,6 +482,7 @@ Most of these elements also have id's for you to use specifically.
 
 #sr-search-wrapper form {
     margin-bottom: 0px;
+    clear: both;
 }
 
 #sr-search-wrapper h3 {
