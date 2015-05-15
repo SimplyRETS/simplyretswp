@@ -1251,7 +1251,7 @@ HTML;
 
         $content = <<<HTML
 
-            <div id="owl-example" class="owl-carousel">
+            <div id="simplyrets-listings-slider" class="sr-listing-carousel">
               $inner
             </div>
 HTML;
