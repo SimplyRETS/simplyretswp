@@ -441,10 +441,7 @@ class SrShortcodes {
         $limit = empty($atts['limit']) ? 4 : $atts['limit'];
         $slider = SimplyRetsApiHelper::retrieveListingsSlider($atts);
 
-        ?>
-        <h4>This is a featured listing slider</h4>
-        <p><?php echo $slider ?></p>
-        <?php
+        echo $slider;
 
         return ob_get_clean();
     }

@@ -1212,12 +1212,16 @@ HTML;
         $listings = $response['response'];
         $inner;
         foreach($listings as $l) {
+            $uid     = $l->mlsId;
             $address = $l->address->full;
             $price   = $l->listPrice;
             $photos  = $l->photos;
             $beds    = $l->property->bedrooms;
             $baths   = $l->property->bathsFull;
             $area    = $l->property->area;
+
+            $listing_link = get_home_url() .
+                "/?sr-listings=sr-single&listing_id=$uid&listing_price=$price&listing_title=$address";
 
             if( $area == 0 ) {
                 $area = 'na';
@@ -1233,8 +1237,12 @@ HTML;
 
             $inner .= <<<HTML
                 <div class="sr-listing-slider-item">
-                  <div class="sr-listing-slider-item-img" style="background-image: url('$photo')"></div>
-                  <h4 class="sr-listing-slider-item-address">$address</h4>
+                  <a href="$listing_link">
+                    <div class="sr-listing-slider-item-img" style="background-image: url('$photo')"></div>
+                  </a>
+                  <a href="$listing_link">
+                    <h4 class="sr-listing-slider-item-address">$address</h4>
+                  </a>
                   <p class="sr-listing-slider-item-price">$priceUSD</p>
                   <p class="sr-listing-slider-item-specs">$beds bed / $baths bath / $area SqFt</p>
                 </div>
