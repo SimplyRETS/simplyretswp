@@ -10,7 +10,7 @@
 
 /* Code starts here */
 
-add_action('init', array('SimplyRetsShortcodes', 'sr_residential_btn') );
+add_action('init', array('SrShortcodes', 'sr_residential_btn') );
 
 
 class SrShortcodes {
@@ -21,8 +21,8 @@ class SrShortcodes {
      */
     public static function sr_residential_btn() {
         if ( current_user_can('edit_posts') && current_user_can('edit_pages') ) {
-            add_filter('mce_external_plugins', array('SimplyRetsShortcodes', 'sr_res_add_plugin') );
-            add_filter('mce_buttons', array('SimplyRetsShortcodes', 'sr_register_res_button') );
+            add_filter('mce_external_plugins', array('SrShortcodes', 'sr_res_add_plugin') );
+            add_filter('mce_buttons', array('SrShortcodes', 'sr_register_res_button') );
         }
     }
 
