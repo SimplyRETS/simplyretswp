@@ -350,8 +350,9 @@ class SimplyRetsApiHelper {
         if( $val == "" ) {
             $val = "";
         } else {
+            $data_attr = str_replace(" ", "-", strtolower($name));
             $val = <<<HTML
-                <tr>
+                <tr data-attribute="$data_attr">
                   <td>$name</td>
                   <td>$val</td>
 HTML;
