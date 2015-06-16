@@ -435,6 +435,10 @@ HTML;
         // internal unique id
         $listing_uid = $listing->mlsId;
 
+        // price
+        $listing_price = $listing->listPrice;
+        $listing_price_USD = '$' . number_format( $listing_price );
+        $price = SimplyRetsApiHelper::srDetailsTable($listing_price_USD, "Price");
         // type
         $listing_type = $listing->property->type;
         $type = SimplyRetsApiHelper::srDetailsTable($listing_type, "Property Type");
@@ -513,32 +517,33 @@ HTML;
         $listing_modified = $listing->modified; // TODO: format date
         $date_modified    = date("M j, Y", strtotime($listing_modified));
         $date_modified_markup = SimplyRetsApiHelper::srDetailsTable($date_modified, "Listing Last Modified");
+        //listing office
+        $listing_office = $listing->office->name;
+        $office = SimplyRetsApiHelper::srDetailsTable($listing_office, "Listing Office");
+        // lot size
+        $listing_lotSize = $listing->property->lotSize;
+        $lotsize = $listing_lotSize == 0 ? 'N/A' : $listing_lotSize;
+        $lotsize_w_sqft = "$lotsize<span class='sr-listing-lotsize-sqft'> SqFt</span>";
+        $lotsize_markup = SimplyRetsApiHelper::srDetailsTable($lotsize_w_sqft, "Lot Size");
 
         // street address info
-        $postal_code   = $listing->address->postalCode;
-        $country       = $listing->address->country;
-        $address       = $listing->address->full;
-        $city          = $listing->address->city;
-        // Listing Data
-        $listing_office   = $listing->office->name;
-        $listing_price    = $listing->listPrice;
-        $listing_USD      = '$' . number_format( $listing_price );
+        $listing_postal_code   = $listing->address->postalCode;
+        $postal_code = SimplyRetsApiHelper::srDetailsTable($listing_postal_code, "Postal Code");
 
+        $listing_country       = $listing->address->country;
+        $country = SimplyRetsApiHelper::srDetailsTable($listing_country, "Country");
 
-        // lot size
-        $lotSize = $listing->property->lotSize;
-        if( $lotSize == 0 ) {
-            $lot_sqft = 'n/a';
-        } else {
-            $lot_sqft = $lotSize;
-        }
+        $listing_address       = $listing->address->full;
+        $address = SimplyRetsApiHelper::srDetailsTable($listing_address, "Address");
+
+        $listing_city          = $listing->address->city;
+        $city = SimplyRetsApiHelper::srDetailsTable($listing_city, "City");
+
         // area
-        $area = $listing->property->area;
-        if( $area == 0 ) {
-            $area = 'n/a';
-        } else {
-            $area = number_format( $area );
-        }
+        $area = $listing->property->area == 0
+              ? 'n/a'
+              : number_format($listing->property->area);
+
         // bed/baths
         if( $listing_bedrooms == null || $listing_bedrooms == "" ) {
             $listing_bedrooms = 0;
@@ -592,9 +597,6 @@ HTML;
 HTML;
 
         }
-
-        $remarks_markup = '';
-        $remarks_table  = '';
         if( get_option('sr_show_listing_remarks') ) {
             $show_remarks = false;
         } else {
@@ -605,7 +607,6 @@ HTML;
               <p>$remarks</p>
             </div>
 HTML;
-            $remarks_table = SimplyRetsApiHelper::srDetailsTable($remarks, "Remarks" );
         }
 
         if( get_option('sr_show_leadcapture') ) {
@@ -644,6 +645,7 @@ HTML;
         if( !$listing_agent_email == "" ) {
             $listing_agent_name = "<a href='mailto:$listing_agent_email'>$listing_agent_name</a>";
         }
+        $agent = SimplyRetsApiHelper::srDetailsTable($listing_agent_name, "Listing Agent");
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
@@ -746,16 +748,12 @@ HTML;
                 <tr>
                   <th colspan="2"><h5>Listing Details</h5></th></tr></thead>
               <tbody>
-                <tr>
-                  <td>Price</td>
-                  <td>$listing_USD</td></tr>
+                $price
                 $bedrooms
                 $bathsFull
                 $bathsHalf
                 $style
-                <tr>
-                  <td>Lot Size</td>
-                  <td>$lot_sqft <span class="sr-listing-lotsize-sqft">SqFt</span></td></tr>
+                $lotsize_markup
                 $stories
                 $interiorFeatures
                 $exteriorFeatures
@@ -774,30 +772,18 @@ HTML;
                 <tr>
                   <th colspan="2"><h5>Address Information</h5></th></tr></thead>
               <tbody>
-                <tr>
-                  <td>Address</td>
-                  <td>$address</td></tr>
+                $address
                 $unit
-                <tr>
-                  <td>Postal Code</td>
-                  <td>$postal_code</td></tr>
-                <tr>
-                  <td>City</td>
-                  <td>$city</td></tr>
-                <tr>
-                  <td>Country</td>
-                  <td>$country</td></tr>
+                $postal_code
+                $city
+                $country
               </tbody>
               <thead>
                 <tr>
                   <th colspan="2"><h5>Listing Information</h5></th></tr></thead>
               <tbody>
-                <tr>
-                  <td>Listing Office</td>
-                  <td>$listing_office</td></tr>
-                <tr>
-                  <td>Listing Agent</td>
-                  <td>$listing_agent_name</td></tr>
+                $office
+                $agent
               </tbody>
               $listing_meta_markup
               <thead>
