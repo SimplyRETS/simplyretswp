@@ -107,6 +107,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_type";
         $vars[] = "sr_ptype";
         $vars[] = "sr_agent";
+        $vars[] = "sr_brokers";
         $vars[] = "sr_sort";
         // post type
         $vars[] = "sr-listings";
@@ -448,6 +449,7 @@ class SimplyRetsCustomPostPages {
             $keywords = get_query_var( 'sr_keywords', '' );
             $type     = get_query_var( 'sr_ptype', '' );
             $agent    = get_query_var( 'sr_agent', '' );
+            $brokers  = get_query_var( 'sr_brokers', '' );
             /** Pagination */
             $limit    = get_query_var( 'limit', '' );
             $offset   = get_query_var( 'offset', '' );
@@ -490,6 +492,7 @@ class SimplyRetsCustomPostPages {
                 "type"      => $type,
                 "q"         => $keywords,
                 "agent"     => $agent,
+                "brokers"   => $brokers,
                 "minbeds"   => $minbeds,
                 "maxbeds"   => $maxbeds,
                 "minbaths"  => $minbaths,
@@ -505,7 +508,6 @@ class SimplyRetsCustomPostPages {
                 "lotsize"   => $lotsize,
                 "area"      => $area,
                 "status"    => $status,
-
                 "sort"      => $sort
             );
 
