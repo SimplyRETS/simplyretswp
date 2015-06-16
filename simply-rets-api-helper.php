@@ -638,7 +638,7 @@ HTML;
 
         // agent data
         $listing_agent_id    = $listing->agent->id;
-        $listing_agent_name  = $listing->agent->firstName;
+        $listing_agent_name  = $listing->agent->firstName . ' ' . $listing->agent->lastName;
         $listing_agent_email = $listing->agent->contact->email;
         if( !$listing_agent_email == "" ) {
             $listing_agent_name = "<a href='mailto:$listing_agent_email'>$listing_agent_name</a>";
@@ -880,7 +880,7 @@ HTML;
             $address            = $listing->address->full;
             $zip                = $listing->address->postalCode;
             $listing_agent_id   = $listing->agent->id;
-            $listing_agent_name = $listing->agent->firstName;
+            $listing_agent_name = $listing->agent->firstName . ' ' . $listing->agent->lastName;
             $lng                = $listing->geo->lng;
             $lat                = $listing->geo->lat;
             $mls_status         = $listing->mls->status;
