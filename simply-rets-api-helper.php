@@ -611,7 +611,7 @@ HTML;
 
         if( get_option('sr_show_leadcapture') ) {
             $contact_text = 'Contact us about this listing';
-            $cf_listing = $address . ' ( MLS #' . $listing_mlsid . ' )';
+            $cf_listing = $listing_address . ' ( MLS #' . $listing_mlsid . ' )';
             $contact_markup = SimplyRetsApiHelper::srContactFormMarkup($cf_listing);
         } else {
             $contact_text = '';
