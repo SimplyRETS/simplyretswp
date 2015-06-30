@@ -37,10 +37,10 @@ class SimplyRetsApiHelper {
         return $response_markup;
     }
 
-    public static function retrieveListingsSlider( $params ) {
+    public static function retrieveListingsSlider( $params, $settings = NULL ) {
         $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder( $params );
         $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
-        $response_markup  = SimplyRetsApiHelper::srListingSliderGenerator( $request_response );
+        $response_markup  = SimplyRetsApiHelper::srListingSliderGenerator( $request_response, $settings );
 
         return $response_markup;
     }
@@ -1195,9 +1195,13 @@ HTML;
     }
 
 
-    public static function srListingSliderGenerator( $response ) {
+    public static function srListingSliderGenerator( $response, $settings ) {
         $listings = $response['response'];
         $inner;
+        if(!empty($settings['random']) && $settings['random'] === "true") {
+            echo "shuffling";
+            shuffle($listings);
+        }
         foreach($listings as $l) {
             $uid     = $l->mlsId;
             $address = $l->address->full;
