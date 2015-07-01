@@ -4,8 +4,7 @@
  *
  * This file provides the (minimal) client side javascript for the
  * SimplyRETS Wordpress plugin.
- * 
- * Author: Cody Reichert
+ *
  * License: GPLv3 (http://www.gnu.org/licenses/gpl.html)
  *
 **/

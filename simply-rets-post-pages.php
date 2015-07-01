@@ -468,6 +468,10 @@ class SimplyRetsCustomPostPages {
             }
 
             $cities = isset($_GET['sr_cities']) ? $_GET['sr_cities'] : '';
+
+            /**
+             * Is it still an array if it only has one selected?
+             */
             if(isset($cities) && is_array($cities)) {
                 foreach($cities as $key => $city) {
                     $cities_string .= "&cities=$city";
@@ -519,7 +523,14 @@ class SimplyRetsCustomPostPages {
             }
 
             if( !$advanced || !$advanced == "true" ) {
-              $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
+              $qs = '?';
+              $qs .= http_build_query( array_filter( $listing_params ) );
+              $qs .= $features_string;
+              $qs .= $cities_string;
+              $qs .= $neighborhoods_string;
+              $qs .= $amenities_string;
+
+              $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs );
               $content .= do_shortcode( "[sr_search_form  $filters_string]");
               $content .= $listings_content;
               return $content;

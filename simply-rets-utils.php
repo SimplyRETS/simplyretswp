@@ -46,6 +46,38 @@ class SrUtils {
         return $pag;
     }
 
+
+    /**
+     * Use this instead of builting parse_str
+     * proper_parse_str will sanely handle duplicate
+     * keys in the query. id ?foo=1&foo2
+     *
+     * @param $str - a query string
+     * @result $arr - the query string in array form
+     */
+    public static function proper_parse_str($str) {
+        $arr = array();
+        # split on outer delimiter
+        $pairs = explode('&', $str);
+        foreach ($pairs as $i) {
+
+            list($name,$value) = explode('=', $i, 2);
+
+            if( isset($arr[$name]) ) {
+
+                if( is_array($arr[$name]) ) {
+                    $arr[$name][] = $value;
+                }
+                else {
+                    $arr[$name] = array($arr[$name], $value);
+                }
+            }
+            else {
+                $arr[$name] = $value;
+            }
+        }
+        return $arr;
+    }
 }
 
 

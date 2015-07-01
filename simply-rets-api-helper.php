@@ -284,7 +284,13 @@ class SimplyRetsApiHelper {
          */
         foreach( $pag_links as $key=>$link ) {
             $link_parts = parse_url( $link );
-            parse_str( $link_parts['query'], $output );
+
+            // Do NOT use the builtin parse_str, use our custom function
+            // proper_parse_str instead
+            //
+            // parse_str( $link_parts['query'], $output );
+            $output = SrUtils::proper_parse_str($link_parts['query']);
+
             if( !empty( $output ) ) {
                 foreach( $output as $query=>$parameter) {
                     if( $query == 'type' ) {

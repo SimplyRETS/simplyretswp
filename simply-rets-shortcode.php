@@ -198,7 +198,7 @@ class SrShortcodes {
         $adv_search_cities = get_option( 'sr_adv_search_meta_city', array() );
         sort( $adv_search_cities );
         foreach( (array)$adv_search_cities as $key=>$city ) {
-            $checked = in_array($city, $adv_cities) ? 'selected="selected"' : '';
+            $checked = in_array($city, (array)$adv_cities) ? 'selected="selected"' : '';
             $city_options .= "<option value='$city' $checked>$city</option>";
         }
 
@@ -214,7 +214,7 @@ class SrShortcodes {
         $adv_search_neighborhoods= get_option( 'sr_adv_search_meta_neighborhoods', array() );
         sort( $adv_search_neighborhoods );
         foreach( (array)$adv_search_neighborhoods as $key=>$neighborhood) {
-            $checked = in_array($neighborhood, $adv_neighborhoods) ? 'selected="selected"' : '';
+            $checked = in_array($neighborhood, (array)$adv_neighborhoods) ? 'selected="selected"' : '';
             $location_options .= "<option value='$neighborhood' $checked>$neighborhood</option>";
         }
 
@@ -222,7 +222,7 @@ class SrShortcodes {
         $adv_search_features = get_option( 'sr_adv_search_meta_features', array() );
         sort( $adv_search_features );
         foreach( (array)$adv_search_features as $key=>$feature) {
-            $checked = in_array($feature, $adv_features) ? 'checked="checked"' : '';
+            $checked = in_array($feature, (array)$adv_features) ? 'checked="checked"' : '';
             $features_options .= "<li class='sr-adv-search-option'>"
                  ."<label><input name='sr_features[]' type='checkbox' value='$feature' $checked />$feature</label></li>";
         }
