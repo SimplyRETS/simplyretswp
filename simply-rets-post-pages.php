@@ -460,33 +460,31 @@ class SimplyRetsCustomPostPages {
             $area      = get_query_var( 'sr_area', '' );
             $sort      = get_query_var( 'sr_sort', '' );
 
+
             $features = isset($_GET['sr_features']) ? $_GET['sr_features'] : '';
-            if(isset($features) && is_array($features)) {
-                foreach($features as $key => $feature) {
+            if(!empty($features)) {
+                foreach((array)$features as $key => $feature) {
                     $features_string .= "&features=$feature";
                 }
             }
 
-            $cities = isset($_GET['sr_cities']) ? $_GET['sr_cities'] : '';
 
-            /**
-             * Is it still an array if it only has one selected?
-             */
-            if(isset($cities) && is_array($cities)) {
-                foreach($cities as $key => $city) {
+            $cities = isset($_GET['sr_cities']) ? $_GET['sr_cities'] : '';
+            if(!empty($cities)) {
+                foreach((array)$cities as $key => $city) {
                     $cities_string .= "&cities=$city";
                 }
             }
 
             $neighborhoods = isset($_GET['sr_neighborhoods']) ? $_GET['sr_neighborhoods'] : '';
-            if(isset($neighborhoods) && is_array($neighborhoods)) {
-                foreach($neighborhoods as $key => $neighborhood) {
+            if(!empty($neighborhoods)) {
+                foreach((array)$neighborhoods as $key => $neighborhood) {
                     $neighborhoods_string .= "&neighborhoods=$neighborhood";
                 }
             }
             $amenities = isset($_GET['sr_amenities']) ? $_GET['sr_amenities'] : '';
-            if(isset($amenities) && is_array($amenities)) {
-                foreach($amenities as $key => $amenity) {
+            if(!empty($amenities)) {
+                foreach((array)$amenities as $key => $amenity) {
                     $amenities_string .= "&amenities=$amenity";
                 }
             }
