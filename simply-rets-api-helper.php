@@ -921,8 +921,13 @@ HTML;
             }
             $main_photo = trim($listingPhotos[0]);
 
+            // listing link to details
             $listing_link = get_home_url() .
-                "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
+                          "/?sr-listings=sr-single&" .
+                          "listing_id=$listing_uid&" .
+                          "vendor=$vendor&" .
+                          "listing_price=$listing_price&" .
+                          "listing_title=$address";
             $link = str_replace( ' ', '%20', $listing_link );
             $link = str_replace( '#', '%23', $link );
 

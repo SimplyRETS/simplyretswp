@@ -118,6 +118,8 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_neighborhoods";
         $vars[] = "sr_amenities";
         $vars[] = "sr_features";
+        // multi-mls
+        $vars[] = "vendor";
         return $vars;
     }
 
@@ -428,14 +430,18 @@ class SimplyRetsCustomPostPages {
     public static function srPostDefaultContent( $content ) {
         require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
         $post_type = get_post_type();
-        $page_name = get_query_var( 'sr-listings' );
-
+        $page_name = get_query_var('sr-listings');
         $sr_post_type = 'sr-listings';
-        $br = '<br>';
 
         if ( $page_name == 'sr-single' ) {
-            $listing_id = get_query_var( 'listing_id' );
-            $content .= SimplyRetsApiHelper::retrieveListingDetails( '/' . $listing_id );
+            $listing_id = get_query_var('listing_id');
+            $vendor     = get_query_var('vendor', '');
+
+            $vendorQuery = $vendor === "" ? "" : "?vendor=$vendor";
+
+            $resource = "/$listing_id" . "$vendorQuery";
+
+            $content .= SimplyRetsApiHelper::retrieveListingDetails( $resource );
             return $content;
         }
 
