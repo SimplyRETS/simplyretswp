@@ -218,7 +218,7 @@ class SimplyRetsApiHelper {
 
             $srResponse = array();
             $srResponse['pagination'] = $pag_links;
-            $srResponse['response'] = $response_array;;
+            $srResponse['response'] = $response_array;
 
             // close curl connection
             curl_close( $ch );
