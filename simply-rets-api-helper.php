@@ -318,33 +318,37 @@ class SimplyRetsApiHelper {
 
 
     public static function simplyRetsClientCss() {
-        wp_register_style( 'simply-rets-client-css', plugins_url( 'assets/css/simply-rets-client.css', __FILE__ ) );
-        wp_enqueue_style( 'simply-rets-client-css' );
+        wp_register_style(
+            'simply-rets-client-css',
+            plugins_url( 'assets/css/simply-rets-client.css', __FILE__ )
+        ); wp_enqueue_style('simply-rets-client-css');
 
-        wp_register_style( 'simply-rets-carousel', 'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css');
-        wp_enqueue_style( 'simply-rets-carousel' );
+        wp_register_style(
+            'simply-rets-carousel',
+            'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css'
+        ); wp_enqueue_style('simply-rets-carousel');
 
-        wp_register_style( 'simply-rets-carousel-theme', 'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css');
-        wp_enqueue_style( 'simply-rets-carousel-theme' );
+        wp_register_style(
+            'simply-rets-carousel-theme',
+            'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css'
+        ); wp_enqueue_style('simply-rets-carousel-theme');
     }
 
     public static function simplyRetsClientJs() {
-        wp_register_script( 'simply-rets-client-js',
-                            plugins_url( 'assets/js/simply-rets-client.js', __FILE__ ),
-                            array('jquery')
-        );
-        wp_enqueue_script( 'simply-rets-client-js' );
+        wp_register_script('simply-rets-client-js',
+                           plugins_url( 'assets/js/simply-rets-client.js', __FILE__ ),
+                           array('jquery')
+        ); wp_enqueue_script('simply-rets-client-js');
 
-        wp_register_script( 'simply-rets-galleria-js',
-                            plugins_url( 'assets/galleria/galleria-1.4.2.min.js', __FILE__ ),
-                            array('jquery')
-        );
-        wp_enqueue_script( 'simply-rets-galleria-js' );
-        wp_register_script( 'simply-rets-carousel',
-                            'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js',
-                            array('jquery')
-        );
-        wp_enqueue_script( 'simply-rets-carousel' );
+        wp_register_script('simply-rets-galleria-js',
+                           plugins_url( 'assets/galleria/galleria-1.4.2.min.js', __FILE__ ),
+                           array('jquery')
+        ); wp_enqueue_script('simply-rets-galleria-js');
+
+        wp_register_script('simply-rets-carousel',
+                           'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js',
+                           array('jquery')
+        ); wp_enqueue_script('simply-rets-carousel');
     }
 
 

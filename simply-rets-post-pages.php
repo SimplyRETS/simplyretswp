@@ -9,20 +9,20 @@
 
 
 /* Code starts here */
-add_action( 'init',                  array( 'SimplyRetsCustomPostPages', 'srRegisterPostType' ) );
-add_filter( 'comments_template',     array( 'SimplyRetsCustomPostPages', 'srClearComments' ) );
-add_filter( 'single_template',       array( 'SimplyRetsCustomPostPages', 'srLoadPostTemplate' ) );
-add_filter( 'the_content',           array( 'SimplyRetsCustomPostPages', 'srPostDefaultContent' ) );
-add_filter( 'the_posts',             array( 'SimplyRetsCustomPostPages', 'srCreateDynamicPost' ) );
-add_action( 'add_meta_boxes',        array( 'SimplyRetsCustomPostPages', 'postFilterMetaBox' ) );
-add_action( 'add_meta_boxes',        array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBox' ) );
-add_action( 'save_post',             array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxSave' ) );
-add_action( 'save_post',             array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBoxSave' ) );
-add_action( 'admin_init',            array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxCss' ) );
-add_action( 'admin_enqueue_scripts', array( 'SimplyRetsCustomPostPages', 'postFilterMetaBoxJs' ) );
+add_action('init',                  array('SimplyRetsCustomPostPages', 'srRegisterPostType'));
+add_filter('comments_template',     array('SimplyRetsCustomPostPages', 'srClearComments'));
+add_filter('single_template',       array('SimplyRetsCustomPostPages', 'srLoadPostTemplate'));
+add_filter('the_content',           array('SimplyRetsCustomPostPages', 'srPostDefaultContent'));
+add_filter('the_posts',             array('SimplyRetsCustomPostPages', 'srCreateDynamicPost'));
+add_action('add_meta_boxes',        array('SimplyRetsCustomPostPages', 'postFilterMetaBox'));
+add_action('add_meta_boxes',        array('SimplyRetsCustomPostPages', 'postTemplateMetaBox'));
+add_action('save_post',             array('SimplyRetsCustomPostPages', 'postFilterMetaBoxSave'));
+add_action('save_post',             array('SimplyRetsCustomPostPages', 'postTemplateMetaBoxSave'));
+add_action('admin_init',            array('SimplyRetsCustomPostPages', 'postFilterMetaBoxCss'));
+add_action('admin_enqueue_scripts', array('SimplyRetsCustomPostPages', 'postFilterMetaBoxJs'));
 // ^TODO: load css/js only on sr-listings post type pages when admin
 //  and move these into a constructor
-add_action( 'sr_update_adv_search_meta_action', array( 'SimplyRetsApiHelper', 'srUpdateAdvSearchOptions' ) );
+add_action('sr_update_adv_search_meta_action', array('SimplyRetsApiHelper', 'srUpdateAdvSearchOptions'));
 
 
 class SimplyRetsCustomPostPages {
