@@ -279,6 +279,7 @@ class SimplyRetsApiHelper {
         $pag_links['prev'] = $prev_link;
         $pag_links['next'] = $next_link;
 
+
         /**
          * Transform query parameters to what the Wordpress client needs
          */
@@ -287,11 +288,10 @@ class SimplyRetsApiHelper {
 
             // Do NOT use the builtin parse_str, use our custom function
             // proper_parse_str instead
-            //
             // parse_str( $link_parts['query'], $output );
             $output = SrUtils::proper_parse_str($link_parts['query']);
 
-            if( !empty( $output ) ) {
+            if( !empty( $output ) && !in_array(NULL, $output, true) ) {
                 foreach( $output as $query=>$parameter) {
                     if( $query == 'type' ) {
                         $output['sr_p' . $query] = $output[$query];
