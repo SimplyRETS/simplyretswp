@@ -120,6 +120,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_features";
         // multi-mls
         $vars[] = "vendor";
+        $vars[] = "sr_vendor";
         return $vars;
     }
 
@@ -435,7 +436,7 @@ class SimplyRetsCustomPostPages {
 
         if ( $page_name == 'sr-single' ) {
             $listing_id = get_query_var('listing_id');
-            $vendor     = get_query_var('vendor', '');
+            $vendor     = get_query_var('sr_vendor', '');
 
             $vendorQuery = $vendor === "" ? "" : "?vendor=$vendor";
 
@@ -465,6 +466,8 @@ class SimplyRetsCustomPostPages {
             $lotsize   = get_query_var( 'sr_lotsize', '' );
             $area      = get_query_var( 'sr_area', '' );
             $sort      = get_query_var( 'sr_sort', '' );
+            /** multi mls */
+            $vendor    = get_query_var('sr_vendor', '');
 
 
             $features = isset($_GET['sr_features']) ? $_GET['sr_features'] : '';
@@ -516,7 +519,10 @@ class SimplyRetsCustomPostPages {
                 "lotsize"   => $lotsize,
                 "area"      => $area,
                 "status"    => $status,
-                "sort"      => $sort
+                "sort"      => $sort,
+
+                /** Multi MLS */
+                "vendor"    => $vendor
             );
 
 

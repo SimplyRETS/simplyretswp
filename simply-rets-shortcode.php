@@ -141,6 +141,12 @@ class SrShortcodes {
         if( !is_array($atts) ) {
             $atts = array();
         }
+
+        /** Private Parameters (shortcode attributes) */
+        $vendor  = isset($atts['vendor'])  ? $atts['vendor']  : '';
+        $brokers = isset($atts['brokers']) ? $atts['brokers'] : '';
+
+        /** Public parameters */
         $minbeds    = array_key_exists('minbeds',  $atts) ? $atts['minbeds']  : '';
         $maxbeds    = array_key_exists('maxbeds',  $atts) ? $atts['maxbeds']  : '';
         $minbaths   = array_key_exists('minbaths', $atts) ? $atts['minbaths'] : '';
@@ -149,14 +155,12 @@ class SrShortcodes {
         $maxprice   = array_key_exists('maxprice', $atts) ? $atts['maxprice'] : '';
         $keywords   = array_key_exists('q',        $atts) ? $atts['q']        : '';
         $sort       = array_key_exists('sort',     $atts) ? $atts['sort']     : '';
-        /** Advanced Search Parameters */
+        /** Advanced Search */
         $type       = array_key_exists('type',     $atts) ? $atts['type']     : '';
         $adv_type   = array_key_exists('type',     $atts) ? $atts['type']     : '';
-
         $adv_status = array_key_exists('status',   $atts) ? $atts['status']   : '';
         $lotsize    = array_key_exists('lotsize',  $atts) ? $atts['lotsize']  : '';
         $area       = array_key_exists('area',     $atts) ? $atts['area']     : '';
-
         $adv_features      = isset($_GET['sr_features']) ? $_GET['sr_features'] : array();
         $adv_cities        = isset($_GET['sr_cities']) ? $_GET['sr_cities']     : array();
         $adv_neighborhoods = isset($_GET['sr_neighborhoods']) ? $_GET['sr_neighborhoods']     : array();
@@ -416,6 +420,9 @@ class SrShortcodes {
                 <input name="sr_maxbaths" type="number" value="<?php echo $maxbaths; ?>" placeholder="Max Baths.." />
               </div>
             </div>
+
+            <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
+            <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
 
             <div>
                 <input class="submit button btn" type="submit" value="Search Properties">

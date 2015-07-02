@@ -844,6 +844,10 @@ HTML;
         $vendor      = isset($settings['vendor']) ? $settings['vendor'] : '';
         $map_setting = isset($settings['show_map']) ? $settings['show_map'] : '';
 
+        if(empty($vendor)) {
+            $vendor = get_query_var('sr_vendor', '');
+        }
+
         /*
          * check for an error code in the array first, if it's
          * there, return it - no need to do anything else.
@@ -925,7 +929,7 @@ HTML;
             $listing_link = get_home_url() .
                           "/?sr-listings=sr-single&" .
                           "listing_id=$listing_uid&" .
-                          "vendor=$vendor&" .
+                          "sr_vendor=$vendor&" .
                           "listing_price=$listing_price&" .
                           "listing_title=$address";
             $link = str_replace( ' ', '%20', $listing_link );
