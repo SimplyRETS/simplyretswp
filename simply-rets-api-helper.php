@@ -320,7 +320,7 @@ class SimplyRetsApiHelper {
     public static function simplyRetsClientCss() {
         wp_register_style(
             'simply-rets-client-css',
-            plugins_url( 'assets/css/simply-rets-client.css', __FILE__ )
+            plugins_url('assets/css/simply-rets-client.css', __FILE__)
         ); wp_enqueue_style('simply-rets-client-css');
 
         wp_register_style(
@@ -336,12 +336,12 @@ class SimplyRetsApiHelper {
 
     public static function simplyRetsClientJs() {
         wp_register_script('simply-rets-client-js',
-                           plugins_url( 'assets/js/simply-rets-client.js', __FILE__ ),
+                           plugins_url('assets/js/simply-rets-client.js', __FILE__),
                            array('jquery')
         ); wp_enqueue_script('simply-rets-client-js');
 
         wp_register_script('simply-rets-galleria-js',
-                           plugins_url( 'assets/galleria/galleria-1.4.2.min.js', __FILE__ ),
+                           plugins_url('assets/galleria/galleria-1.4.2.min.js', __FILE__),
                            array('jquery')
         ); wp_enqueue_script('simply-rets-galleria-js');
 
@@ -425,7 +425,7 @@ HTML;
     public static function srResidentialDetailsGenerator( $listing ) {
         $br = "<br>";
         $cont = "";
-        $contact_page = get_option( 'sr_contact_page' );
+        $contact_page = get_option('sr_contact_page');
 
         $listing = $listing['response'];
         /*

@@ -533,12 +533,12 @@ class SimplyRetsCustomPostPages {
             }
 
             if( !$advanced || !$advanced == "true" ) {
-              $qs = '?';
-              $qs .= http_build_query( array_filter( $listing_params ) );
-              $qs .= $features_string;
-              $qs .= $cities_string;
-              $qs .= $neighborhoods_string;
-              $qs .= $amenities_string;
+              $qs = '?'
+                  . http_build_query( array_filter( $listing_params ) )
+                  . $features_string
+                  . $cities_string
+                  . $neighborhoods_string
+                  . $amenities_string;
 
               $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs );
               $content .= do_shortcode( "[sr_search_form  $filters_string]");
