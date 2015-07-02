@@ -429,12 +429,10 @@ HTML;
          * there, return it - no need to do anything else.
          * The error code comes from the UrlBuilder function.
         */
-        if( $listing == NULL ) {
-            $err = SrMessages::noResultsMsg();
-            return $err;
-        }
-        if( array_key_exists( "error", $listing ) || array_key_exists( "errors", $listing ) ) {
-            $err = SrMessages::noResultsMsg();
+        if($listing == NULL
+           || array_key_exists("error", $listing)
+           || array_key_exists("errors", $listing)) {
+            $err = SrMessages::noResultsMsg((array)$listing);
             return $err;
         }
 
@@ -839,15 +837,19 @@ HTML;
         $prev_link         = $pag['prev'];
         $next_link         = $pag['next'];
 
-        isset( $settings['show_map'] ) ? $map_setting = $settings['show_map'] : $map_setting = '';
+        $vendor      = isset($settings['vendor']) ? $settings['vendor'] : '';
+        $map_setting = isset($settings['show_map']) ? $settings['show_map'] : '';
 
         /*
          * check for an error code in the array first, if it's
          * there, return it - no need to do anything else.
          * The error code comes from the UrlBuilder function.
         */
-        if( $response == NULL || array_key_exists( "errors", $response ) ) {
-            $err = SrMessages::noResultsMsg();
+        if($response == NULL
+           || array_key_exists("errors", $response)
+           || array_key_exists("error", $response)) {
+
+            $err = SrMessages::noResultsMsg((array)$response);
             return $err;
         }
 

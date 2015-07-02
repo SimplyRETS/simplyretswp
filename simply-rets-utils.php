@@ -84,7 +84,16 @@ class SrUtils {
 
 class SrMessages {
 
-    public static function noResultsMsg() {
+    public static function noResultsMsg($response) {
+
+        if($response['message']) {
+            return (
+                '<br><p><strong>'
+                . $response['message']
+                . '</br></p></strong>'
+            );
+        }
+
         $noResultsMsg = "<br><p><strong>There are 0 listings that match this search. "
                          . "Please try to broaden your search criteria or feel free to try again later.</p></strong>";
         return $noResultsMsg;
