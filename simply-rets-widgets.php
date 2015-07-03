@@ -36,13 +36,15 @@ class srFeaturedListingWidget extends WP_Widget {
                 $instance = $old_instance;
                 $instance['title'] = strip_tags($new_instance['title']);
                 $instance['mlsid'] = strip_tags($new_instance['mlsid']);
+                $instance['vendor'] = strip_tags($new_instance['vendor']);
                 return $instance;
         }
 
         /** admin widget form --  @see WP_Widget::form */
         function form( $instance ) {
-                $title = esc_attr($instance['title']);
-                $mlsid= esc_attr($instance['mlsid']);
+                $title  = esc_attr($instance['title']);
+                $mlsid  = esc_attr($instance['mlsid']);
+                $vendor = esc_attr($instance['vendor']);
 
                 ?>
                 <p>
@@ -65,6 +67,15 @@ class srFeaturedListingWidget extends WP_Widget {
                                  type="text"
                                  value="<?php echo $mlsid; ?>" />
                 </p>
+                <p>
+                  <label for="<?php echo $this->get_field_id('vendor'); ?>">
+                      <?php _e('Vendor:'); ?>
+                  </label>
+                  <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
+                         name="<?php echo $this->get_field_name('vendor'); ?>"
+                         type="text"
+                         value="<?php echo $vendor; ?>" />
+                </p>
                 <?php
         }
 
@@ -73,21 +84,20 @@ class srFeaturedListingWidget extends WP_Widget {
                 extract( $args );
                 $title = apply_filters('widget_title', $instance['title']);
                 $mlsid = $instance['mlsid'];
+                $vendor = $instance['vendor'];
 
                 $cont .= $before_widget;
                 // populate title
                 if( $title ) {
-                        $cont .= $before_title . $title . $after_title;
+                    $cont .= $before_title . $title . $after_title;
                 } else {
-                        $cont .= $before_title . $after_title;
+                    $cont .= $before_title . $after_title;
                 }
 
                 // populate content
                 if( $mlsid ) {
-                    $listing_params = array(
-                        "q" => $mlsid
-                    );
-                    $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $listing_params );
+                    $qs = "/$mlsid?vendor=$vendor";
+                    $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $qs );
                 } else {
                     $cont .= "No listing found";
                 }
@@ -394,11 +404,11 @@ class srSearchFormWidget extends WP_Widget {
         </div>
 HTML;
 
-                // populate content
-        $cont .= $search_form_markup;
+            // populate content
+            $cont .= $search_form_markup;
 
-                $cont .= $after_widget;
-                echo $cont;
+            $cont .= $after_widget;
+            echo $cont;
         }
 
 }
