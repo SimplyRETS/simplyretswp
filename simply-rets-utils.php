@@ -14,7 +14,7 @@ class SrUtils {
 
     public static function isSingleVendor() {
         $vendors = get_option('sr_adv_search_meta_vendors', array());
-        if(count($availableVendors) > 1)
+        if(count($vendors) > 1)
             return false;
         return true;
     }
@@ -94,6 +94,7 @@ class SrMessages {
 
     public static function noResultsMsg($response) {
 
+        $response = (array)$response;
         if($response['message']) {
             return (
                 '<br><p><strong>'

@@ -137,13 +137,13 @@ class SrShortcodes {
     public static function sr_search_form_shortcode( $atts ) {
         ob_start();
         $home_url = get_home_url();
+        $singleVendor = SrUtils::isSingleVendor();
 
         if( !is_array($atts) ) {
             $atts = array();
         }
 
         $availableVendors = get_option('sr_adv_search_meta_vendors', array());
-        $singleVendor = count($availableVendors) > 1 ? false : true;
 
         /** Private Parameters (shortcode attributes) */
         $vendor  = isset($atts['vendor'])  ? $atts['vendor']  : '';

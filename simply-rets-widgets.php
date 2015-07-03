@@ -132,6 +132,7 @@ class srAgentListingWidget extends WP_Widget {
 
     /** admin widget form --  @see WP_Widget::form */
     function form( $instance ) {
+        $singleVendor = SrUtils::isSingleVendor();
         $title = esc_attr($instance['title']);
         $agent = esc_attr($instance['agent']);
         $limit = esc_attr($instance['limit']);
@@ -169,16 +170,18 @@ class srAgentListingWidget extends WP_Widget {
                          type="text"
                          value="<?php echo $limit; ?>" />
         </p>
-        <p>
-          <label for="<?php echo $this->get_field_id('vendor'); ?>">
-              <?php _e('Vendor:'); ?>
-          </label>
-          <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
-                 name="<?php echo $this->get_field_name('vendor'); ?>"
-                 type="text"
-                 value="<?php echo $vendor; ?>" />
-        </p>
-        <?php
+        <?php if(!$singleVendor) { ?>
+            <p>
+                <label for="<?php echo $this->get_field_id('vendor'); ?>">
+                    <?php _e('Vendor:'); ?>
+                </label>
+                <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
+                       name="<?php echo $this->get_field_name('vendor'); ?>"
+                       type="text"
+                       value="<?php echo $vendor; ?>"
+                />
+            </p>
+        <?php }
     }
 
     /** front end widget render -- @see WP_Widget::widget */
@@ -231,6 +234,7 @@ class srRandomListingWidget extends WP_Widget {
 
     /** admin widget form --  @see WP_Widget::form */
     function form( $instance ) {
+        $singleVendor = SrUtils::isSingleVendor();
         $title  = esc_attr($instance['title']);
         $mlsids = esc_attr($instance['mlsids']);
         $vendor = esc_attr($instance['vendor']);
@@ -258,17 +262,18 @@ class srRandomListingWidget extends WP_Widget {
                    value="<?php echo $mlsids; ?>"
             />
         </p>
-        <p>
-            <label for="<?php echo $this->get_field_id('vendor'); ?>">
-                <?php _e('Vendor:'); ?>
-            </label>
-            <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
-                   name="<?php echo $this->get_field_name('vendor'); ?>"
-                   type="text"
-                   value="<?php echo $vendor; ?>"
-            />
-        </p>
-        <?php
+        <?php if(!$singleVendor) { ?>
+            <p>
+                <label for="<?php echo $this->get_field_id('vendor'); ?>">
+                    <?php _e('Vendor:'); ?>
+                </label>
+                <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
+                       name="<?php echo $this->get_field_name('vendor'); ?>"
+                       type="text"
+                       value="<?php echo $vendor; ?>"
+                />
+            </p>
+        <?php }
     }
 
     /** front end widget render -- @see WP_Widget::widget */
@@ -322,6 +327,7 @@ class srSearchFormWidget extends WP_Widget {
 
     /** admin widget form --  @see WP_Widget::form */
     function form( $instance ) {
+        $singleVendor = SrUtils::isSingleVendor();
         $title  = esc_attr($instance['title']);
         $vendor = esc_attr($instance['vendor']);
 
@@ -335,17 +341,18 @@ class srSearchFormWidget extends WP_Widget {
                    type="text"
                    value="<?php echo $title; ?>" />
         </p>
-        <p>
-            <label for="<?php echo $this->get_field_id('vendor'); ?>">
-                <?php _e('Vendor:'); ?>
-            </label>
-            <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
-                   name="<?php echo $this->get_field_name('vendor'); ?>"
-                   type="text"
-                   value="<?php echo $vendor; ?>"
-            />
-        </p>
-        <?php
+        <?php if(!$singleVendor) { ?>
+            <p>
+                <label for="<?php echo $this->get_field_id('vendor'); ?>">
+                    <?php _e('Vendor:'); ?>
+                </label>
+                <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
+                       name="<?php echo $this->get_field_name('vendor'); ?>"
+                       type="text"
+                       value="<?php echo $vendor; ?>"
+                />
+            </p>
+        <?php }
     }
 
     /** front end widget render -- @see WP_Widget::widget */
