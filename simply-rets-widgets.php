@@ -274,12 +274,14 @@ class srSearchFormWidget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['title'] = strip_tags($new_instance['title']);
+                $instance['vendor'] = strip_tags($new_instance['vendor']);
 		return $instance;
 	}
 
 	/** admin widget form --  @see WP_Widget::form */
 	function form( $instance ) {
 		$title  = esc_attr($instance['title']);
+		$vendor = esc_attr($instance['vendor']);
 
 		?>
 		<p>
@@ -287,9 +289,18 @@ class srSearchFormWidget extends WP_Widget {
 			<?php _e('Title:'); ?>
 		  </label>
 		  <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
-				 name="<?php echo $this->get_field_name('title'); ?>"
-				 type="text"
-				 value="<?php echo $title; ?>" />
+			 name="<?php echo $this->get_field_name('title'); ?>"
+			 type="text"
+			 value="<?php echo $title; ?>" />
+		</p>
+                <p>
+		  <label for="<?php echo $this->get_field_id('vendor'); ?>">
+                      <?php _e('Vendor:'); ?>
+                  </label>
+		  <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
+		         name="<?php echo $this->get_field_name('vendor'); ?>"
+		         type="text"
+		         value="<?php echo $vendor; ?>" />
 		</p>
         <?php
 	}
@@ -299,6 +310,7 @@ class srSearchFormWidget extends WP_Widget {
 		extract( $args );
 
 		$title  = apply_filters('widget_title', $instance['title']);
+		$vendor = apply_filters('widget_title', $instance['vendor']);
 
 		$cont .= $before_widget;
 		// populate title
@@ -349,6 +361,8 @@ class srSearchFormWidget extends WP_Widget {
                 <input name="sr_maxbaths" type="number" placeholder="Max Baths.." />
               </div>
             </div>
+
+            <input type="hidden" name="sr_vendor" value="$vendor" >
 
             <input class="submit button btn" type="submit" value="Search Properties">
 
