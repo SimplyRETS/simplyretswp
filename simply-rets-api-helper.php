@@ -115,16 +115,15 @@ class SimplyRetsApiHelper {
     }
 
     public static function srUpdateAdvSearchOptions() {
-        $authid   = get_option( 'sr_api_name' );
-        $authkey  = get_option( 'sr_api_key' );
-        // $url      = "https://{$authid}:{$authkey}@api.simplyrets.com/";
-        $url      = "http://{$authid}:{$authkey}@192.168.1.104:3001/";
+        $authid   = get_option('sr_api_name');
+        $authkey  = get_option('sr_api_key');
+        $url      = "https://{$authid}:{$authkey}@api.simplyrets.com/";
         $options  = SimplyRetsApiHelper::srApiOptionsRequest( $url );
         $vendors  = $options->vendors;
 
         update_option("sr_adv_search_meta_vendors", $vendors);
 
-        foreach($vendors as $vendor) {
+        foreach((array)$vendors as $vendor) {
             $vendorUrl = $url . "properties?vendor=$vendor";
             $vendorOptions = SimplyRetsApiHelper::srApiOptionsRequest($vendorUrl);
 
