@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, simple rets, rets feed, simple idx, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 1.4.3
+Stable tag: 1.5.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -216,6 +216,14 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 1.5.0 =
+* NEW: Support for all features when using a Multi-MLS feed
+* NEW: "Random" options for the sr_listings slider
+* IMPROVEMENT: Improve persisting of search parameters when paginating
+* IMPROVEMENT: Better error messages
+* IMPROVEMENT: Code cleanup
+* FIX: SimplyRETS Lead Capture MLS ID field
 
 = 1.4.3 =
 * NEW: Add data-attribute tag to each row on listing details pages to allow for easier targeting when adding custom cCSS or JS (Thanks to Chris Howard for the patch).
