@@ -84,12 +84,12 @@ class srFeaturedListingWidget extends WP_Widget {
 
 		// populate content
 		if( $mlsid ) {
-            $listing_params = array(
-                "q" => $mlsid
-            );
-			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( $listing_params );
+                    $listing_params = array(
+                        "q" => $mlsid
+                    );
+		    $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $listing_params );
 		} else {
-			$cont .= "No listing found";
+		    $cont .= "No listing found";
 		}
 
 		$cont .= $after_widget;
@@ -111,6 +111,7 @@ class srAgentListingWidget extends WP_Widget {
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['agent'] = strip_tags($new_instance['agent']);
 		$instance['limit'] = strip_tags($new_instance['limit']);
+                $instance['vendor'] = strip_tags($new_instance['vendor']);
 		return $instance;
 	}
 
@@ -119,6 +120,7 @@ class srAgentListingWidget extends WP_Widget {
 		$title = esc_attr($instance['title']);
 		$agent = esc_attr($instance['agent']);
 		$limit = esc_attr($instance['limit']);
+		$vendor = esc_attr($instance['vendor']);
 
 		?>
 		<p>
@@ -152,6 +154,15 @@ class srAgentListingWidget extends WP_Widget {
 				 type="text"
 				 value="<?php echo $limit; ?>" />
 		</p>
+                <p>
+		  <label for="<?php echo $this->get_field_id('vendor'); ?>">
+                      <?php _e('Vendor:'); ?>
+                  </label>
+		  <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
+		         name="<?php echo $this->get_field_name('vendor'); ?>"
+		         type="text"
+		         value="<?php echo $vendor; ?>" />
+		</p>
 		<?php
 	}
 
@@ -161,22 +172,24 @@ class srAgentListingWidget extends WP_Widget {
 		$title = apply_filters('widget_title', $instance['title']);
 		$agent = $instance['agent'];
 		$limit = $instance['limit'];
+		$vendor = $instance['vendor'];
 
 		$cont .= $before_widget;
 		// populate title
 		if( $title ) {
-			$cont .= $before_title . $title . $after_title;
+		    $cont .= $before_title . $title . $after_title;
 		} else {
-			$cont .= $before_title . $after_title;
+		    $cont .= $before_title . $after_title;
 		}
 
 		// populate content
 		if( $agent && $limit ) {
-            $params['agent'] = $agent;
-            $params['limit'] = $limit;
-			$cont .= SimplyRetsApiHelper::retrieveWidgetListing( $params );
+                    $params['agent'] = $agent;
+                    $params['limit'] = $limit;
+                    $params['vendor'] = $vendor;
+		    $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $params );
 		} else {
-			$cont .= "No listing found";
+		    $cont .= "No listing found";
 		}
 
 		$cont .= $after_widget;

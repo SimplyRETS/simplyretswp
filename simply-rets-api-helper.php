@@ -1069,8 +1069,11 @@ HTML;
         $response = $response['response'];
         $response_size = sizeof( $response );
 
-        if( $response == NULL || array_key_exists( "errors", $response ) ) {
-            $err = SrMessages::noResultsMsg();
+        if($response == NULL
+           || array_key_exists( "error", $response )
+           || array_key_exists( "errors", $response )) {
+
+            $err = SrMessages::noResultsMsg($response);
             return $err;
         }
 
