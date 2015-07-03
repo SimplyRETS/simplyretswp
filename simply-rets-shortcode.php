@@ -142,9 +142,17 @@ class SrShortcodes {
             $atts = array();
         }
 
+        $availableVendors = get_option('sr_adv_search_meta_vendors', array());
+        $singleVendor = count($availableVendors) > 1 ? false : true;
+
         /** Private Parameters (shortcode attributes) */
         $vendor  = isset($atts['vendor'])  ? $atts['vendor']  : '';
         $brokers = isset($atts['brokers']) ? $atts['brokers'] : '';
+
+        if(empty($vendor) && $singleVendor === true) {
+            $vendor = $availableVendors[0];
+        }
+        $vendorOptions = "_$vendor";
 
         /** Public parameters */
         $minbeds    = array_key_exists('minbeds',  $atts) ? $atts['minbeds']  : '';
@@ -187,7 +195,7 @@ class SrShortcodes {
          * price range, *city, *neighborhood (location), * type (condo, townhome, residential),
          * *amenities (int/ext), *status (active, pending, sold), area.
          */
-        $adv_search_types = get_option( 'sr_adv_search_meta_types', array() );
+        $adv_search_types = get_option("sr_adv_search_meta_types_$vendor", array());
         if( empty( $adv_search_types ) ) {
             $adv_search_types = array("Residential", "Condominium", "Rental" );
         }
@@ -199,14 +207,14 @@ class SrShortcodes {
             }
         }
 
-        $adv_search_cities = get_option( 'sr_adv_search_meta_city', array() );
-        sort( $adv_search_cities );
+        $adv_search_cities = get_option("sr_adv_search_meta_city_$vendor", array());
+        sort($adv_search_cities);
         foreach( (array)$adv_search_cities as $key=>$city ) {
             $checked = in_array($city, (array)$adv_cities) ? 'selected="selected"' : '';
             $city_options .= "<option value='$city' $checked>$city</option>";
         }
 
-        $adv_search_status = get_option( 'sr_adv_search_meta_status', array() );
+        $adv_search_status = get_option("sr_adv_search_meta_status_$vendor", array());
         foreach( (array)$adv_search_status as $key=>$status) {
             if( $status == $adv_status ) {
                 $status_options .= "<option value='$status' selected />$status</option>";
@@ -215,7 +223,7 @@ class SrShortcodes {
             }
         }
 
-        $adv_search_neighborhoods= get_option( 'sr_adv_search_meta_neighborhoods', array() );
+        $adv_search_neighborhoods= get_option("sr_adv_search_meta_neighborhoods_$vendor", array());
         sort( $adv_search_neighborhoods );
         foreach( (array)$adv_search_neighborhoods as $key=>$neighborhood) {
             $checked = in_array($neighborhood, (array)$adv_neighborhoods) ? 'selected="selected"' : '';
@@ -223,13 +231,14 @@ class SrShortcodes {
         }
 
 
-        $adv_search_features = get_option( 'sr_adv_search_meta_features', array() );
+        $adv_search_features = get_option("sr_adv_search_meta_features_$vendor", array());
         sort( $adv_search_features );
         foreach( (array)$adv_search_features as $key=>$feature) {
             $checked = in_array($feature, (array)$adv_features) ? 'checked="checked"' : '';
             $features_options .= "<li class='sr-adv-search-option'>"
                  ."<label><input name='sr_features[]' type='checkbox' value='$feature' $checked />$feature</label></li>";
         }
+
 
         // currently unused
         // $adv_search_counties = get_option( 'sr_adv_search_meta_county' );
@@ -355,6 +364,9 @@ class SrShortcodes {
                   </div>
 
                 </div>
+
+                <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
+                <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
 
                 <div>
                     <button class="btn button submit btn-submit" style="display:inline-block;">Search</button>

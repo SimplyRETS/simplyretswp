@@ -115,55 +115,69 @@ class SimplyRetsApiHelper {
     }
 
     public static function srUpdateAdvSearchOptions() {
-        $options_url = SimplyRetsApiHelper::srRequestUrlBuilder( array() );
-        $options     = SimplyRetsApiHelper::srApiOptionsRequest( $options_url );
+        $authid   = get_option( 'sr_api_name' );
+        $authkey  = get_option( 'sr_api_key' );
+        // $url      = "https://{$authid}:{$authkey}@api.simplyrets.com/";
+        $url      = "http://{$authid}:{$authkey}@192.168.1.104:3001/";
+        $options  = SimplyRetsApiHelper::srApiOptionsRequest( $url );
+        $vendors  = $options->vendors;
 
-        $defaultArray   = array();
-        $defaultTypes   = array("Residential", "Condominium", "Rental");
-        $defaultExpires = time();
+        update_option("sr_adv_search_meta_vendors", $vendors);
 
-        $types = $options->fields->type;
-        !isset( $types ) || empty( $types )
-            ? $types = $defaultTypes
-            : $types = $options->fields->type;
+        foreach($vendors as $vendor) {
+            $vendorUrl = $url . "properties?vendor=$vendor";
+            $vendorOptions = SimplyRetsApiHelper::srApiOptionsRequest($vendorUrl);
 
-        $expires = $options->expires;
-        !isset( $expires ) || empty( $expires )
-            ? $expires = $defaultExpires
-            : $expires = $options->expires;
+            $defaultArray   = array();
+            $defaultTypes   = array("Residential", "Condominium", "Rental");
+            $defaultExpires = time();
 
-        $status = $options->fields->status;
-        !isset( $status ) || empty( $status )
-            ? $status = $defaultArray
-            : $status = $options->fields->status;
+            $types = $vendorOptions->fields->type;
+            !isset( $types ) || empty( $types )
+                ? $types = $defaultTypes
+                : $types = $vendorOptions->fields->type;
 
-        $counties = $options->fields->counties;
-        !isset( $counties ) || empty( $counties )
-            ? $counties = $defaultArray
-            : $counties = $options->fields->counties;
+            $expires = $vendorOptions->expires;
+            !isset( $expires ) || empty( $expires )
+                ? $expires = $defaultExpires
+                : $expires = $vendorOptions->expires;
 
-        $cities = $options->fields->cities;
-        !isset( $cities ) || empty( $cities )
-            ? $cities = $defaultArray
-            : $cities = $options->fields->cities;
+            $status = $vendorOptions->fields->status;
+            !isset( $status ) || empty( $status )
+                ? $status = $defaultArray
+                : $status = $vendorOptions->fields->status;
 
-        $features = $options->fields->features;
-        !isset( $features ) || empty( $features )
-            ? $features = $defaultArray
-            : $features = $options->fields->features;
+            $counties = $vendorOptions->fields->counties;
+            !isset( $counties ) || empty( $counties )
+                ? $counties = $defaultArray
+                : $counties = $vendorOptions->fields->counties;
 
-        $neighborhoods = $options->fields->neighborhoods;
-        !isset( $neighborhoods ) || empty( $neighborhoods )
-            ? $neighborhoods = $defaultArray
-            : $neighborhoods = $options->fields->neighborhoods;
+            $cities = $vendorOptions->fields->cities;
+            !isset( $cities ) || empty( $cities )
+                ? $cities = $defaultArray
+                : $cities = $vendorOptions->fields->cities;
 
-        update_option( 'sr_adv_search_meta_timestamp', $expires );
-        update_option( 'sr_adv_search_meta_status', $status );
-        update_option( 'sr_adv_search_meta_types', $types );
-        update_option( 'sr_adv_search_meta_county', $counties );
-        update_option( 'sr_adv_search_meta_city', $cities );
-        update_option( 'sr_adv_search_meta_features', $features );
-        update_option( 'sr_adv_search_meta_neighborhoods', $neighborhoods );
+            $features = $vendorOptions->fields->features;
+            !isset( $features ) || empty( $features )
+                ? $features = $defaultArray
+                : $features = $vendorOptions->fields->features;
+
+            $neighborhoods = $vendorOptions->fields->neighborhoods;
+            !isset( $neighborhoods ) || empty( $neighborhoods )
+                ? $neighborhoods = $defaultArray
+                : $neighborhoods = $vendorOptions->fields->neighborhoods;
+
+            update_option( "sr_adv_search_meta_timestamp_$vendor", $expires );
+            update_option( "sr_adv_search_meta_status_$vendor", $status );
+            update_option( "sr_adv_search_meta_types_$vendor", $types );
+            update_option( "sr_adv_search_meta_county_$vendor", $counties );
+            update_option( "sr_adv_search_meta_city_$vendor", $cities );
+            update_option( "sr_adv_search_meta_features_$vendor", $features );
+            update_option( "sr_adv_search_meta_neighborhoods_$vendor", $neighborhoods );
+
+        }
+
+
         // foreach( $options as $key => $option ) {
         //     if( !$option == NULL ) {
         //         update_option( 'sr_adv_search_option_' . $key, $option );
