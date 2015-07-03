@@ -12,6 +12,14 @@
 class SrUtils {
 
 
+    public static function isSingleVendor() {
+        $vendors = get_option('sr_adv_search_meta_vendors', array());
+        if(count($availableVendors) > 1)
+            return false;
+        return true;
+    }
+
+
     public static function srShowListingMeta() {
         if( get_option('sr_show_listingmeta') ) {
             $show_listing_meta = false;
