@@ -1236,7 +1236,6 @@ HTML;
         $listings = $response['response'];
         $inner;
         if(!empty($settings['random']) && $settings['random'] === "true") {
-            echo "shuffling";
             shuffle($listings);
         }
         foreach($listings as $l) {
