@@ -47,12 +47,12 @@ class SrShortcodes {
     public function sr_residential_shortcode( $atts ) {
         global $wp_query;
 
-        if( !empty($atts['mlsid']) ) {
-            $mlsid = $atts['mlsid'];
-            $listing_params = array(
-                "q" => $mlsid
-            );
-            $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
+        if(!empty($atts['mlsid'])) {
+            $qs = '/' . $atts['mlsid'];
+            if(array_key_exists('vendor', $atts) && !empty($atts['vendor'])) {
+                $qs .= "?vendor={$atts['vendor']}";
+            }
+            $listings_content = SimplyRetsApiHelper::retrieveRetsListings($qs);
             return $listings_content;
         }
 
