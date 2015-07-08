@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, simple rets, rets feed, simple idx, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -208,9 +208,13 @@ contact button, and sidebar widget.
 6. This screenshot shows the search form short-code and a featured
 listing sidebar widget.
 
+7. The SimplyRETS Listings Slider
 
 
 == Changelog ==
+
+= 1.5.2 =
+* Improve a bunch of the documentation, add more examples, etc
 
 = 1.5.1 =
 * IMPROVEMENT: Allow vendor parameter in single listing short-code
@@ -375,31 +379,29 @@ but to only show listings from a specific agent:
 ..read more about the available attributes [here][shortcode attributes].
 
 == Contents ==
-- [Shortcodes][shortcodes]
-  - [Listings][shortcodes listings]
-  - [Search Form][shortcodes search form]
-  - [Listing Slider][shortcodes listing slider]
-  - [Available attributes][shortcodes attributes]
+- Shortcodes
+  - Listings
+  - Search Form
+  - Listing Slider
+  - Available attributes
 
-- [Widgets][widgets]
+- Widgets
 
-- [Test Listings][test listings]
+- Test Listings
 
-- [SimplyRETS Pages][simplyrets pages]
+- SimplyRETS Pages
 
-- [Custom CSS][custom css]
+- Custom CSS
 
-- [Support / More Documentation][support]
+- Support / More Documentation
 
 
-[shortcodes]
 == Shortcodes ==
 
 Most of the plugin is built around using shortcodes. This allows the
 most flexibility for customizing your own layout and search pages.
 
 
-[shortcodes listings]
 = SimplyRETS Listings Shortcode =
 
 `[sr_listings]`
@@ -424,7 +426,6 @@ Easy!
 (*Note: the ID is provided by your MLS*)
 
 
-[shortcodes search form]
 = SimplyRETS Search Form Shortcode =
 
 `[sr_search_form]`
@@ -457,7 +458,6 @@ This builds a nice page with an initial set of listings, which
 promotes the visitor to continue making a search.
 
 
-[shortcodes listing slider]
 = Listings Slider Shortcode =
 
 `[sr_listings_slider]`
@@ -480,8 +480,6 @@ And the same minimum price, but only for one specific agent? Easy!
 (*Note: the ID is provided by your MLS*)
 
 
-
-[shortcodes attributes]
 = Available Attributes =
 
 There are ton of attributes available for refining the listings in any
@@ -490,104 +488,103 @@ the shortcodes, and you can use (most of) them in combination with
 each other like the examples above:
 
 * **mlsid**
-  Fetches a single listing by it's mlsid
-  Ex, `[sr_listings mlsid="12345"]`
+Fetches a single listing by it's mlsid.
+`[sr_listings mlsid="12345"]`
 
 * **status**
-  Refines listings by a certain status, like Active, Pending, or Closed
-  Ex, `[sr_listings status="Closed"]`
+Refines listings by a certain status, like Active, Pending, or Closed.
+`[sr_listings status="Closed"]`
 
 * **minprice**
-  Refines listings to a minimum price
-  Ex, `[sr_listings minprice="500000"]`
+Refines listings to a minimum price.
+`[sr_listings minprice="500000"]`
 
 * **maxprice**
-  Refines listings to a maximum price
-  Ex, `[sr_listings maxprice="1000000"]`
+Refines listings to a maximum price.
+`[sr_listings maxprice="1000000"]`
 
 * **minbeds**
-  Set a minimum amount of bedrooms
-  Ex, `[sr_listings minbeds="3"]`
+Set a minimum amount of bedrooms.
+`[sr_listings minbeds="3"]`
 
 * **maxbeds**
-  Set a maximum amount of bedrooms
-  Ex, `[sr_listings maxbeds="3"]`
+Set a maximum amount of bedrooms.
+`[sr_listings maxbeds="3"]`
 
 * **minbaths**
-  Set a minimum amount of baths
-  Ex, `[sr_listings minbaths="3"]`
+Set a minimum amount of baths.
+`[sr_listings minbaths="3"]`
 
 * **maxbaths**
-  Set a maximum amount of baths
-  Ex, `[sr_listings maxbaths="3"]`
+Set a maximum amount of baths.
+`[sr_listings maxbaths="3"]`
 
 * **q**
-  A fuzzy keyword search that will include listings matching a given string
-  Ex, `[sr_listings q="great view"]`
+A fuzzy keyword search that will include listings matching a given string.
+`[sr_listings q="great view"]`
 
 * **type**
-  Refines listings by a certain type, like Residential, Condo, Rental
-  Ex, `[sr_listings type="Rental"]`
+Refines listings by a certain type, like Residential, Condo, Rental.
+`[sr_listings type="Rental"]`
 
 * **agent**
-  Refines listings to a specific agent by taking an agent's MLS ID
-  Ex, `[sr_listings agent="JDOE12"]`
+Refines listings to a specific agent by taking an agent's MLS ID.
+`[sr_listings agent="JDOE12"]`
 
 * **brokers**
-  Refines listings to a specific brokerage by taking a brokerage's MLS ID
-  Ex, `[sr_listings brokers="KWREALTY1"]`
+Refines listings to a specific brokerage by taking a brokerage's MLS ID.
+`[sr_listings brokers="KWREALTY1"]`
 
 * **lotsize**
-  Refines listings by a certain lot size in Sq Ft (note, this is not area).
-  Ex, `[sr_listings lotsize="5000"]`
+Refines listings by a certain lot size in Sq Ft (note, this is not area).
+`[sr_listings lotsize="5000"]`
 
 * **area**
-  Refines listings by a certain area size in Sq Ft 
-  Ex, `[sr_listings area="1500"]`
+Refines listings by a certain area size in Sq Ft.
+`[sr_listings area="1500"]`
 
 * **cities**
-  Refines listings to a given set of cities. (Separate multiple with a semi-colon)
-  Ex, `[sr_listings cities="Houston; Austin; Dallas"]`
+Refines listings to a given set of cities. (Separate multiple with a semi-colon).
+`[sr_listings cities="Houston; Austin; Dallas"]`
 
 * **neighborhoods**
-  Refines listings to a given set of neighborhoods/subdivisions. (Separate multiple with a semi-colon)
-  Ex, `[sr_listings cities="Heights; Downtown; Uptown"]`
+Refines listings to a given set of neighborhoods/subdivisions. (Separate multiple with a semi-colon).
+`[sr_listings cities="Heights; Downtown; Uptown"]`
 
 * **amenities**
-  Refines listings to a given set of amenities. (Separate multiple with a semi-colon)
-  Ex, `[sr_listings cities="Granite; Balcony"]`
+Refines listings to a given set of amenities. (Separate multiple with a semi-colon).
+`[sr_listings cities="Granite; Balcony"]`
 
 * **features**
-  Refines listings to a given set of features. (Separate multiple with a semi-colon)
-  Ex, `[sr_listings cities="Tennis Court; Waterfront"]`
+Refines listings to a given set of features. (Separate multiple with a semi-colon).
+`[sr_listings cities="Tennis Court; Waterfront"]`
 
 * **vendor**
-  Refines listings by a certain vendor or MLS Board. (This is only available when your account has multiple MLS's).
-  Ex, `[sr_listings vendor="MFRMLS"]`
+Refines listings by a certain vendor or MLS Board. (This is only available when your account has multiple MLS's).
+`[sr_listings vendor="MFRMLS"]`
 
 * **limit**
-  The amount of listings to return. Default is 20, maximum is 50.
-  Ex, `[sr_listings limit="50"]`
+The amount of listings to return. Default is 20, maximum is 50.
+`[sr_listings limit="50"]`
 
 * **offset**
-  Returns a set of listings and skips the first *n*, where *n* is the offset.
-  Ex, `[sr_listings offset="20"]`
+Returns a set of listings and skips the first *n*, where *n* is the offset.
+`[sr_listings offset="20"]`
 
 * **sort**
-  Displays the listings in a specific order.
-  Ex, `[sr_listings sort="price"]`
+Displays the listings in a specific order.
+`[sr_listings sort="price"]`
 
-  (The available sort options are `listprice`, `-listprice`,
-  `listdate`, `-listdate`, `baths`, `-baths`, `beds`, and `-beds`.
-  Options starting the a minus (-) are high to low, no minus sign is
-  low to high).
+(The available sort options are `listprice`, `-listprice`,
+`listdate`, `-listdate`, `baths`, `-baths`, `beds`, and `-beds`.
+Options starting the a minus (-) are high to low, no minus sign is
+low to high).
 
 * **advanced**
-  This attribute is to turn the basic search form into an advanced search form
-  Ex, `[sr_search_form advanced="true"]`
+This attribute is to turn the basic search form into an advanced search form.
+`[sr_search_form advanced="true"]`
 
 
-[widgets]
 == SimplyRETS Widgets ==
 
 The SimplyRETS plugin comes with several widgets you can use in you
@@ -611,7 +608,6 @@ sidebar and footer. The currently available widgets include:
   sidebar or footer of your site.
 
 
-[test listings]
 == Trial Listings ==
 
 You can use the Trial Listings as much as you need before you set up
@@ -630,7 +626,6 @@ installing the plugin for the first time, you don't need to do the
 above steps.
 
 
-[simplyrets pages]
 == SimplyRETS Pages ==
 
 SimplyRETS pages allow for an easy way to get up and running with new
@@ -656,7 +651,6 @@ theme developer then customizing the SimplyRETS pages may be the best
 option.
 
 
-[custom css]
 == Customizing the CSS ==
 
 We're are totally OK with you tweaking the CSS and changing it to fit your needs. As a matter of fact, we want you to!
@@ -668,7 +662,6 @@ use to when adding your own css. You can find it here:
 [SimplyRETS Style Guide](https://docs.simplyrets.com/simply-rets-client.html)
 
 
-[support]
 == Support, Contributing, and More Information ==
 
 We want to hear from you! Whether you're an agent or developer, need
@@ -676,14 +669,14 @@ help getting set up, or want to contribute some code - come one come
 all.
 
 
-= Need a new feature? =
+= Feature Request? =
 
 If you have a suggestion for a new feature to add to the plugin, let
 us know! We're always looking to expand our plugin to give you what
 you need to make the best possible site. Email support@simplyrets.com
 if you have an idea, we'd love to hear it!
 
-= For Developers =
+= For Agents =
 
 Need help finding a developer to build the best Real Estate site in
 town (that people will actually use)? Shoot us an email and we can
