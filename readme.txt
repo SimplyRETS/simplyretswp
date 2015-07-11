@@ -1,10 +1,10 @@
 === SimplyRETS ===
 Author: SimplyRETS
 Contributors: SimplyRETS
-Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, simple rets, rets feed, simple idx, idx feed
+Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,11 +15,14 @@ Show your Real Estate listings on your Wordpress site. SimplyRETS provides a ver
 
 = Getting Started =
 
-The SimplyRETS plugin allows you to display and search your Real
-Estate listings directly on your Wordpress site. And it call be set up
-in less than 5 minutes. We have a set of trial listings for you to
-test the plugin with. We never use iframes, so you get all the SEO
-benefits!
+SimplyRETS allows you to display and search your Real Estate listings
+directly on your Wordpress site. And it call be set up in less than 5
+minutes!
+
+The SimplyRETS Plugin has the most filtering options of any IDX Plugin
+on the market, with over 25 different ways to create unique pages of
+listings on your site. No iframes, great SEO, and a modern and
+customizable interface for a modern Real Estate Agent.
 
 To get *your* listings showing through the plugin, you need 3 things:
 
@@ -27,7 +30,14 @@ To get *your* listings showing through the plugin, you need 3 things:
 * Use the RETS credentials from your MLS to [create an app](https://simplyrets.com/blog/getting-set-up.html).
 * Start getting LIVE listings right on your site!
 
-*The best place to get started is on the [Documentation page](https://wordpress.org/plugins/simply-rets/other_notes/)*
+**To get started, check out the [Documentation page](https://wordpress.org/plugins/simply-rets/other_notes/)**
+
+**[Visit our website](https://simplyrets.com)**
+
+
+= The 5 Minute Setup =
+[youtube https://www.youtube.com/watch?v=hh-YJYyhxv0]
+
 
 = Using the Test Listings =
 
@@ -212,6 +222,10 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 1.5.3 =
+* IMPROVE: Improve pagination parser
+* FIX: Fix specifying multple cities and a vendor in a single shortcode
 
 = 1.5.2 =
 * Improve a bunch of the documentation, add more examples, etc
