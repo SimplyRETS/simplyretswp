@@ -62,7 +62,10 @@ class SrShortcodes {
             $listing_params = $atts;
         }
 
-        if( !isset( $listing_params['neighborhoods'] ) && !isset( $listing_params['postalcodes'] ) ) {
+        if( !isset($listing_params['neighborhoods'])
+            && !isset($listing_params['postalcodes'])
+            && !isset($listing_params['cities']))
+        {
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
             return $listings_content;
 
@@ -79,6 +82,15 @@ class SrShortcodes {
                 $neighborhoods_string = str_replace(' ', '%20', $neighborhoods_string );
             }
 
+            if( isset( $listing_params['cities'] ) && !empty( $listing_params['cities'] ) ) {
+                $cities = explode( ';', $listing_params['cities'] );
+                foreach( $cities as $key => $city ) {
+                    $city = trim( $city );
+                    $cities_string .= "cities=$city&";
+                }
+                $cities_string = str_replace(' ', '%20', $cities_string );
+            }
+
             /**
              * Postal Codes filter is being used - check for multiple values and build query accordingly
              */
@@ -92,13 +104,14 @@ class SrShortcodes {
             }
 
             foreach( $listing_params as $key => $value ) {
-                if( $key !== 'postalcodes' && $key !== 'neighborhoods' ) {
+                if( $key !== 'postalcodes' && $key !== 'neighborhoods' && $key !== 'cities') {
                     $params_string .= $key . "=" . $value . "&";
                 }
             }
 
             $qs = '?';
             $qs .= $neighborhoods_string;
+            $qs .= $cities_string;
             $qs .= $postalcodes_string;
             $qs .= $params_string;
 

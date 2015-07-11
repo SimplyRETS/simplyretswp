@@ -540,6 +540,7 @@ class SimplyRetsCustomPostPages {
                   . $neighborhoods_string
                   . $amenities_string;
 
+              $qs = str_replace(' ', '%20', $qs);
               $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs );
               $content .= do_shortcode( "[sr_search_form  $filters_string]");
               $content .= $listings_content;
