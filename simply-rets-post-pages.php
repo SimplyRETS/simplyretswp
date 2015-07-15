@@ -453,7 +453,8 @@ class SimplyRetsCustomPostPages {
             $maxbaths = get_query_var( 'sr_maxbaths', '' );
             $minprice = get_query_var( 'sr_minprice', '' );
             $maxprice = get_query_var( 'sr_maxprice', '' );
-            $keywords = get_query_var( 'sr_keywords', '' );
+            $keywords = get_query_var( 'sr_keywords', '' )
+                      . get_query_var( 'sr_q',        '' );
             $type     = get_query_var( 'sr_ptype', '' );
             $agent    = get_query_var( 'sr_agent', '' );
             $brokers  = get_query_var( 'sr_brokers', '' );

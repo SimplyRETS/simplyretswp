@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -222,6 +222,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 1.5.4 =
+* PATCH: Small patch to fix pagination links when using sr_keywords searches
 
 = 1.5.3 =
 * IMPROVE: Improve pagination parser
