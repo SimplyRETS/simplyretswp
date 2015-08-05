@@ -28,6 +28,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_show_listing_remarks');
       register_setting('sr_admin_settings', 'sr_listing_gallery');
       register_setting('sr_admin_settings', 'sr_show_leadcapture');
+      register_setting('sr_admin_settings', 'sr_additional_rooms');
       register_setting('sr_admin_settings', 'sr_listhub_analytics');
       register_setting('sr_admin_settings', 'sr_listhub_analytics_id');
       register_setting('sr_admin_settings', 'sr_search_map_position');
@@ -143,6 +144,19 @@ class SrAdminSettings {
                     </label>
                   </td>
                 </tr>
+
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_additional_rooms" name="sr_additional_rooms" value="1" '
+                        . checked(1, get_option('sr_additional_rooms'), false) . '/>'
+                      ?>
+                      Show additional room details?
+                    </label>
+                  </td>
+                </tr>
+
               </tbody>
             </table>
             <h3>Image Gallery Settings</h3>

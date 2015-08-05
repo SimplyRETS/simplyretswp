@@ -73,7 +73,6 @@ class SimplyRetsApiHelper {
         } else {
             $request_url = $base_url . $params;
             return $request_url;
-
         }
 
     }
@@ -369,16 +368,25 @@ class SimplyRetsApiHelper {
      * Run fields through this function before rendering them on single listing
      * pages to hide fields that are null.
      */
-    public static function srDetailsTable($val, $name) {
+    public static function srDetailsTable($val, $name, $additional = NULL) {
         if( $val == "" ) {
             $val = "";
         } else {
             $data_attr = str_replace(" ", "-", strtolower($name));
-            $val = <<<HTML
-                <tr data-attribute="$data_attr">
-                  <td>$name</td>
-                  <td>$val</td>
+            if(!$additional) {
+                $val = <<<HTML
+                    <tr data-attribute="$data_attr">
+                      <td>$name</td>
+                      <td colspan="2">$val</td>
 HTML;
+            } else {
+                $val = <<<HTML
+                    <tr data-attribute="$data_attr">
+                      <td>$name</td>
+                      <td>$val</td>
+                      <td>$additional</td>
+HTML;
+            }
         }
         return $val;
     }
@@ -574,6 +582,32 @@ HTML;
         }
 
 
+        $roomsMarkup = '';
+        if(is_array($listing->property->rooms)) {
+
+            $rooms = $listing->property->rooms;
+
+            usort($rooms, function ($a, $b) {
+                return (is_null($a->level) OR $a->level == "") ? 1 : -1;
+            });
+
+            $roomsMarkup .= "
+              <thead>
+                <tr>
+                  <th colspan=\"3\"><h5>Room Details</h5></th></tr></thead>";
+
+            foreach($rooms as $room) {
+                $roomSize = "$room->length" .  " x " . "$room->width";
+                $level = $room->level;
+                $levelText = empty($level) ? '' : SrUtils::ordinalSuffix($level) . " level";
+                $roomsMarkup .= SimplyRetsApiHelper::srDetailsTable(
+                    $roomSize,
+                    $room->type,
+                    $levelText
+                );
+            }
+        }
+
         // photo gallery
         $photos         = $listing->photos;
         $photo_gallery  = SimplyRetsApiHelper::srDetailsGallery( $photos );
@@ -588,11 +622,11 @@ HTML;
             $geo_directions = <<<HTML
               <thead>
                 <tr>
-                  <th colspan="2"><h5>Geographical Data</h5></th></tr></thead>
+                  <th colspan="3"><h5>Geographical Data</h5></th></tr></thead>
               <tbody>
                 <tr>
                   <td>Directions</td>
-                  <td>$geo_directions</td></tr>
+                  <td colspan="2">$geo_directions</td></tr>
 HTML;
         }
 
@@ -608,7 +642,7 @@ HTML;
             $listing_meta_markup = <<<HTML
               <thead>
                 <tr>
-                  <th colspan="2"><h5>Listing Meta Data</h5></th></tr></thead>
+                  <th colspan="3"><h5>Listing Meta Data</h5></th></tr></thead>
               <tbody>
                 $list_date_formatted_markup
                 $date_modified_markup
@@ -767,7 +801,7 @@ HTML;
             <table style="width:100%;">
               <thead>
                 <tr>
-                  <th colspan="2"><h5>Listing Details</h5></th></tr></thead>
+                  <th colspan="3"><h5>Listing Details</h5></th></tr></thead>
               <tbody>
                 $price
                 $bedrooms
@@ -783,6 +817,7 @@ HTML;
                 $subdivision
                 $roof
                 $heating
+                $roomsMarkup
               </tbody>
                 $geo_directions
                 $geo_county
@@ -791,7 +826,7 @@ HTML;
               </tbody>
               <thead>
                 <tr>
-                  <th colspan="2"><h5>Address Information</h5></th></tr></thead>
+                  <th colspan="3"><h5>Address Information</h5></th></tr></thead>
               <tbody>
                 $address
                 $unit
@@ -801,7 +836,7 @@ HTML;
               </tbody>
               <thead>
                 <tr>
-                  <th colspan="2"><h5>Listing Information</h5></th></tr></thead>
+                  <th colspan="3"><h5>Listing Information</h5></th></tr></thead>
               <tbody>
                 $office
                 $agent
@@ -809,7 +844,7 @@ HTML;
               $listing_meta_markup
               <thead>
                 <tr>
-                  <th colspan="2"><h5>Mls Information</h5></th></tr></thead>
+                  <th colspan="3"><h5>Mls Information</h5></th></tr></thead>
               <tbody>
                 $days_on_market
                 $mls_status

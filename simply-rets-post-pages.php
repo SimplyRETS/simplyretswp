@@ -436,12 +436,18 @@ class SimplyRetsCustomPostPages {
 
         if ( $page_name == 'sr-single' ) {
             $listing_id = get_query_var('listing_id');
+
             $vendor     = get_query_var('sr_vendor', '');
+            $add_rooms  = get_option('sr_additional_rooms') ? 'rooms' : '';
 
-            $vendorQuery = $vendor === "" ? "" : "?vendor=$vendor";
+            $params = http_build_query(
+                array(
+                    "vendor" => $vendor,
+                    "include" => $add_rooms
+                )
+            );
 
-            $resource = "/$listing_id" . "$vendorQuery";
-
+            $resource = "/{$listing_id}?{$params}";
             $content .= SimplyRetsApiHelper::retrieveListingDetails( $resource );
             return $content;
         }
