@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.2.4
-Stable tag: 1.5.6
+Stable tag: 1.5.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -222,6 +222,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 1.5.7 =
+* UPDATE: For additional room details, use dimensions instead of length and width (if available)
 
 = 1.5.6 =
 * FEATURE: Add support for showing extended room details (in areas where it is available)
