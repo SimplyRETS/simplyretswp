@@ -368,23 +368,32 @@ class SimplyRetsApiHelper {
      * Run fields through this function before rendering them on single listing
      * pages to hide fields that are null.
      */
-    public static function srDetailsTable($val, $name, $additional = NULL) {
+    public static function srDetailsTable($val, $name, $additional = NULL, $desc = NULL) {
         if( $val == "" ) {
             $val = "";
         } else {
             $data_attr = str_replace(" ", "-", strtolower($name));
-            if(!$additional) {
+            if(!$additional && !$desc) {
                 $val = <<<HTML
                     <tr data-attribute="$data_attr">
                       <td>$name</td>
                       <td colspan="2">$val</td>
 HTML;
-            } else {
+            } elseif ($additional && !$desc) {
                 $val = <<<HTML
                     <tr data-attribute="$data_attr">
                       <td>$name</td>
                       <td>$val</td>
                       <td>$additional</td>
+HTML;
+            } else {
+                $val = <<<HTML
+                    <tr data-attribute="$data_attr">
+                      <td rowspan="2" style="vertical-align: middle">$name</td>
+                      <td colspan="1">$val</td>
+                      <td colspan="1">$additional</td>
+                    <tr data-attribute="$data_attr">
+                      <td colspan="2">$desc</td>
 HTML;
             }
         }
@@ -591,7 +600,7 @@ HTML;
                 return (is_null($a->level) OR $a->level == "") ? 1 : -1;
             });
 
-            $roomsMarkup .= "
+            $roomsMarkup .= count($rooms) < 1 ? "" : "
               <thead>
                 <tr>
                   <th colspan=\"3\"><h5>Room Details</h5></th></tr></thead>";
@@ -603,7 +612,8 @@ HTML;
                 $roomsMarkup .= SimplyRetsApiHelper::srDetailsTable(
                     $roomSize,
                     $room->type,
-                    $levelText
+                    $levelText,
+                    $room->description
                 );
             }
         }
