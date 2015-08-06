@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.2.4
-Stable tag: 1.5.7
+Stable tag: 1.5.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -222,6 +222,11 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 1.5.8 =
+* FEATURE: Add setting for lead capture recipient. You can choose who email get sent to
+* NEW: Allow agents and limit parameters in the sr_searh_form shortcode
+* UPDATE: More generic text in on the search results
 
 = 1.5.7 =
 * UPDATE: For additional room details, use dimensions instead of length and width (if available)
