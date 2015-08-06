@@ -1269,7 +1269,8 @@ HTML;
             $message = esc_textarea( $_POST["sr-cf-message"] ) . ' - ' . $listing;
 
             // get the blog administrator's email address
-            $to = get_option( 'admin_email' );
+            $to = get_option('sr_leadcapture_recipient', '');
+            $to = empty($to) ? get_option('admin_email') : $to;
 
             $headers = "From: $name <$email>" . "\r\n";
 

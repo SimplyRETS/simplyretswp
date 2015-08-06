@@ -28,6 +28,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_show_listing_remarks');
       register_setting('sr_admin_settings', 'sr_listing_gallery');
       register_setting('sr_admin_settings', 'sr_show_leadcapture');
+      register_setting('sr_admin_settings', 'sr_leadcapture_recipient');
       register_setting('sr_admin_settings', 'sr_additional_rooms');
       register_setting('sr_admin_settings', 'sr_listhub_analytics');
       register_setting('sr_admin_settings', 'sr_listhub_analytics_id');
@@ -115,6 +116,12 @@ class SrAdminSettings {
                       ?>
                       Enable Contact Form Lead Capture on single listing pages?
                     </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p><strong>Send Lead Capture forms submissions to:<p></strong>
+                    <input type="email" name="sr_leadcapture_recipient" value="<?php echo esc_attr( get_option('sr_leadcapture_recipient') ); ?>" />
                   </td>
                 </tr>
               </tbody>
