@@ -905,8 +905,11 @@ HTML;
         $prev_link         = $pag['prev'];
         $next_link         = $pag['next'];
 
-        $vendor      = isset($settings['vendor']) ? $settings['vendor'] : '';
-        $map_setting = isset($settings['show_map']) ? $settings['show_map'] : '';
+        $vendor       = isset($settings['vendor']) ? $settings['vendor'] : '';
+        $map_setting  = isset($settings['show_map']) ? $settings['show_map'] : '';
+
+        /** Allow override of "map_position" admin setting on a per short-code basis */
+        $map_position = isset($settings['map_position']) ? $settings['map_position'] : $map_position;
 
         if(empty($vendor)) {
             $vendor = get_query_var('sr_vendor', '');

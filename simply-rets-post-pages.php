@@ -121,6 +121,8 @@ class SimplyRetsCustomPostPages {
         // multi-mls
         $vars[] = "vendor";
         $vars[] = "sr_vendor";
+        // settings
+        $vars[] = "sr_map_position";
         return $vars;
     }
 
@@ -476,6 +478,9 @@ class SimplyRetsCustomPostPages {
             /** multi mls */
             $vendor    = get_query_var('sr_vendor', '');
 
+            $map_position = get_query_var('sr_map_position',
+                                          get_option('sr_search_map_position'));
+
 
             $features = isset($_GET['sr_features']) ? $_GET['sr_features'] : '';
             if(!empty($features)) {
@@ -529,9 +534,20 @@ class SimplyRetsCustomPostPages {
                 "sort"      => $sort,
 
                 /** Multi MLS */
-                "vendor"    => $vendor
+                "vendor"    => $vendor,
+
+                /**
+                   Settings that need to be propogated through to
+                   pagination. It's a bit awkward because these aren't
+                   SimplyRETS query parameters, but it's the easiest
+                   way to get them back on the other side right now.
+                */
+                "map_position" => $map_position
             );
 
+            $settings = array(
+                "map_position" => $map_position
+            );
 
             foreach( $listing_params as $param => $val ) {
                 if( !$val == '' ) {
@@ -548,7 +564,7 @@ class SimplyRetsCustomPostPages {
                   . $amenities_string;
 
               $qs = str_replace(' ', '%20', $qs);
-              $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs );
+              $listings_content = SimplyRetsApiHelper::retrieveRetsListings($qs, $settings);
               $content .= do_shortcode( "[sr_search_form  $filters_string]");
               $content .= $listings_content;
               return $content;
