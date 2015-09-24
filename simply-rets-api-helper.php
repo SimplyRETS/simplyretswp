@@ -544,6 +544,9 @@ HTML;
         // heating
         $listing_heating = $listing->property->heating;
         $heating = SimplyRetsApiHelper::srDetailsTable($listing_heating, "Heating");
+        // waterfront
+        $listing_water = $listing->property->water;
+        $water = SimplyRetsApiHelper::srDetailsTable($listing_water, "Water");
         // listing meta information
         $listing_disclaimer  = $listing->disclaimer;
         $disclaimer = SimplyRetsApiHelper::srDetailsTable($listing_disclaimer, "Disclaimer");
@@ -832,6 +835,7 @@ HTML;
                 $fireplaces
                 $subdivision
                 $roof
+                $waterfront
                 $heating
                 $roomsMarkup
               </tbody>
