@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 4.2.4
-Stable tag: 1.5.10
+Tested up to: 4.3.1
+Stable tag: 1.5.11
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -222,6 +222,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 1.5.11 =
+* FEATURE: Add "water" features to details page when available
 
 = 1.5.10 =
 * FEATURE: Allow setting map position on a per shortcode basis
