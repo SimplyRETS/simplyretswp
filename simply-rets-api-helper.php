@@ -835,7 +835,7 @@ HTML;
                 $fireplaces
                 $subdivision
                 $roof
-                $waterfront
+                $water
                 $heating
                 $roomsMarkup
               </tbody>
