@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.3.1
-Stable tag: 1.5.11
+Stable tag: 1.5.12
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -222,6 +222,11 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 1.5.12 =
+* IMPROVEMENT: Refaactor away some inline CSS
+* IMPROVEMENT: If agent name is not available, show their ID.
+* PATH: Fix pagination when using the 'water' parameter
 
 = 1.5.11 =
 * FEATURE: Add "water" features to details page when available
