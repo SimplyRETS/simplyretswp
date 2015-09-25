@@ -720,11 +720,13 @@ HTML;
         $listing_agent_name  = $listing->agent->firstName . ' ' . $listing->agent->lastName;
         $listing_agent_email = $listing->agent->contact->email;
         // agent email is available
-        if(!empty(trim($listing_agent_email))) {
+        $agent_email = trim($listing_agent_email);
+        if(!empty($agent_email)) {
             $listing_agent_name = "<a href='mailto:$listing_agent_email'>$listing_agent_name</a>";
         }
         //agent name is not available - use their id
-        if(empty(trim($listing_agent_name))) {
+        $agent_name = trim($listing_agent_name);
+        if(empty($agent_name)) {
             $listing_agent_name = $listing_agent_id;
         }
 
