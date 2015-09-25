@@ -719,6 +719,12 @@ elsewhere, this should be a breeze.
     width: 25%;
 }
 
+.sr-sort-wrapper {
+    display: inline-block;
+    float: right;
+    margin: 10px 25px 0px 0px;
+}
+
 @media screen and (max-width: 360px) {
     .sr-adv-search-part li {
         width: 50%;

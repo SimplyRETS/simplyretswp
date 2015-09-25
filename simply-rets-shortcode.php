@@ -388,7 +388,7 @@ class SrShortcodes {
 
                 <div>
                     <button class="btn button submit btn-submit" style="display:inline-block;">Search</button>
-                    <div class="sr-sort-wrapper" style="display:inline-block;float:right;margin-top:10px;">
+                    <div class="sr-sort-wrapper">
                         <label for="sr_sort">Sort by: </label>
                         <select name="sr_sort">
                             <option value="-listprice" <?php echo $sort_price_hl ?>> Price - High to Low</option>
@@ -459,7 +459,7 @@ class SrShortcodes {
             <div>
                 <input class="submit button btn" type="submit" value="Search Properties">
 
-                <div class="sr-sort-wrapper" style="display:inline-block;float:right;margin:10px 25px 0px 0px;">
+                <div class="sr-sort-wrapper">
                     <label for="sr_sort">Sort by: </label>
                     <select class="select" name="sr_sort">
                         <option value="-listprice" <?php echo $sort_price_hl ?>> Price - High to Low</option>
