@@ -109,6 +109,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_agent";
         $vars[] = "sr_brokers";
         $vars[] = "sr_sort";
+        $vars[] = "water";
         // post type
         $vars[] = "sr-listings";
         // advanced search form parameters
@@ -466,6 +467,7 @@ class SimplyRetsCustomPostPages {
             $type     = get_query_var( 'sr_ptype', '' );
             $agent    = get_query_var( 'sr_agent', '' );
             $brokers  = get_query_var( 'sr_brokers', '' );
+            $water    = get_query_var( 'water', '' );
             /** Pagination */
             $limit    = get_query_var( 'limit', '' );
             $offset   = get_query_var( 'offset', '' );
@@ -522,6 +524,7 @@ class SimplyRetsCustomPostPages {
                 "maxbaths"  => $maxbaths,
                 "minprice"  => $minprice,
                 "maxprice"  => $maxprice,
+                "water"     => $water,
 
                 /** Pagination */
                 "limit"     => $limit,

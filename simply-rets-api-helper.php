@@ -298,6 +298,8 @@ class SimplyRetsApiHelper {
         foreach( $pag_links as $key=>$link ) {
             $link_parts = parse_url( $link );
 
+            $no_prefix = array('offset', 'limit', 'type', 'water');
+
             // Do NOT use the builtin parse_str, use our custom function
             // proper_parse_str instead
             // parse_str( $link_parts['query'], $output );
@@ -309,7 +311,8 @@ class SimplyRetsApiHelper {
                         $output['sr_p' . $query] = $output[$query];
                         unset( $output[$query] );
                     }
-                    if( $query !== 'offset' && $query !== 'limit' && $query !== 'type' ) {
+                    /** There a few queries that we don't prefix with sr_ */
+                    if(!in_array($query, $no_prefix)) {
                         $output['sr_' . $query] = $output[$query];
                         unset( $output[$query] );
                     }
