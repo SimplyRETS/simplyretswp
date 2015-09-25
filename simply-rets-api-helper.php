@@ -719,9 +719,15 @@ HTML;
         $listing_agent_id    = $listing->agent->id;
         $listing_agent_name  = $listing->agent->firstName . ' ' . $listing->agent->lastName;
         $listing_agent_email = $listing->agent->contact->email;
-        if( !$listing_agent_email == "" ) {
+        // agent email is available
+        if(!empty(trim($listing_agent_email))) {
             $listing_agent_name = "<a href='mailto:$listing_agent_email'>$listing_agent_name</a>";
         }
+        //agent name is not available - use their id
+        if(empty(trim($listing_agent_name))) {
+            $listing_agent_name = $listing_agent_id;
+        }
+
         $agent = SimplyRetsApiHelper::srDetailsTable($listing_agent_name, "Listing Agent");
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
