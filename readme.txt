@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.3.1
-Stable tag: 1.5.12
+Stable tag: 1.6.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -222,6 +222,10 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 1.6.0 =
+* FEATURE: Allow multiple agent ids in the [sr_residential] shortcode
+* FEATURE: Allow multiple property types the [sr_residential] shortcode
 
 = 1.5.12 =
 * IMPROVEMENT: Refaactor away some inline CSS
