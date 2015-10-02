@@ -464,7 +464,6 @@ class SimplyRetsCustomPostPages {
             $maxprice = get_query_var( 'sr_maxprice', '' );
             $keywords = get_query_var( 'sr_keywords', '' )
                       . get_query_var( 'sr_q',        '' );
-            $type     = get_query_var( 'sr_ptype', '' );
             $brokers  = get_query_var( 'sr_brokers', '' );
             $water    = get_query_var( 'water', '' );
             /** Pagination */
@@ -482,6 +481,13 @@ class SimplyRetsCustomPostPages {
             $map_position = get_query_var('sr_map_position',
                                           get_option('sr_search_map_position'));
 
+
+            $p_types = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
+            if(!empty($p_types)) {
+                foreach((array)$p_types as $key => $ptype) {
+                    $ptypes_string .= "&type=$ptype";
+                }
+            }
 
             $features = isset($_GET['sr_features']) ? $_GET['sr_features'] : '';
             if(!empty($features)) {
@@ -519,7 +525,6 @@ class SimplyRetsCustomPostPages {
 
             // these should correlate with what the api expects as filters
             $listing_params = array(
-                "type"      => $type,
                 "q"         => $keywords,
                 "brokers"   => $brokers,
                 "minbeds"   => $minbeds,
@@ -569,6 +574,7 @@ class SimplyRetsCustomPostPages {
                   . $cities_string
                   . $neighborhoods_string
                   . $agents_string
+                  . $ptypes_string
                   . $amenities_string;
 
               $qs = str_replace(' ', '%20', $qs);
@@ -584,6 +590,7 @@ class SimplyRetsCustomPostPages {
               $qs .= $features_string;
               $qs .= $cities_string;
               $qs .= $agents_string;
+              $qs .= $ptypes_string;
               $qs .= $neighborhoods_string;
               $qs .= $amenities_string;
 

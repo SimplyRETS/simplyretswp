@@ -66,6 +66,7 @@ class SrShortcodes {
             && !isset($listing_params['postalcodes'])
             && !isset($listing_params['cities'])
             && !isset($listing_params['agent'])
+            && !isset($listing_params['type'])
         )
         {
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
@@ -102,6 +103,15 @@ class SrShortcodes {
                 $agents_string = str_replace(' ', '%20', $agents_string );
             }
 
+            if( isset( $listing_params['type'] ) && !empty( $listing_params['type'] ) ) {
+                $ptypes = explode( ';', $listing_params['type'] );
+                foreach($ptypes as $key => $ptype) {
+                    $ptype = trim($ptype);
+                    $ptypes_string .= "type=$ptype&";
+                }
+                $ptypes_string = str_replace(' ', '%20', $ptypes_string );
+            }
+
             /**
              * Postal Codes filter is being used - check for multiple values and build query accordingly
              */
@@ -119,6 +129,7 @@ class SrShortcodes {
                     && $key !== 'neighborhoods'
                     && $key !== 'cities'
                     && $key !== 'agent'
+                    && $key !== 'type'
                 ) {
                     $params_string .= $key . "=" . $value . "&";
                 }
@@ -130,6 +141,7 @@ class SrShortcodes {
             $qs .= $postalcodes_string;
             $qs .= $params_string;
             $qs .= $agents_string;
+            $qs .= $ptypes_string;
 
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs, $atts );
             return $listings_content;
