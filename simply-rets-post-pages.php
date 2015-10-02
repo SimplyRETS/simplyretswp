@@ -465,7 +465,6 @@ class SimplyRetsCustomPostPages {
             $keywords = get_query_var( 'sr_keywords', '' )
                       . get_query_var( 'sr_q',        '' );
             $type     = get_query_var( 'sr_ptype', '' );
-            $agent    = get_query_var( 'sr_agent', '' );
             $brokers  = get_query_var( 'sr_brokers', '' );
             $water    = get_query_var( 'water', '' );
             /** Pagination */
@@ -491,11 +490,17 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
-
             $cities = isset($_GET['sr_cities']) ? $_GET['sr_cities'] : '';
             if(!empty($cities)) {
                 foreach((array)$cities as $key => $city) {
                     $cities_string .= "&cities=$city";
+                }
+            }
+
+            $agents = isset($_GET['sr_agent']) ? $_GET['sr_agent'] : '';
+            if(!empty($agents)) {
+                foreach((array)$agents as $key => $agent) {
+                    $agents_string .= "&agent=$agent";
                 }
             }
 
@@ -516,7 +521,6 @@ class SimplyRetsCustomPostPages {
             $listing_params = array(
                 "type"      => $type,
                 "q"         => $keywords,
-                "agent"     => $agent,
                 "brokers"   => $brokers,
                 "minbeds"   => $minbeds,
                 "maxbeds"   => $maxbeds,
@@ -564,6 +568,7 @@ class SimplyRetsCustomPostPages {
                   . $features_string
                   . $cities_string
                   . $neighborhoods_string
+                  . $agents_string
                   . $amenities_string;
 
               $qs = str_replace(' ', '%20', $qs);
@@ -578,6 +583,7 @@ class SimplyRetsCustomPostPages {
               $qs .= http_build_query( array_filter( $listing_params ) );
               $qs .= $features_string;
               $qs .= $cities_string;
+              $qs .= $agents_string;
               $qs .= $neighborhoods_string;
               $qs .= $amenities_string;
 
