@@ -80,6 +80,7 @@ class SimplyRetsApiHelper {
     public static function srApiOptionsRequest( $url ) {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
+        $site_url = get_site_url();
 
         $ua_string     = "SimplyRETSWP/1.5.12 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
@@ -95,6 +96,8 @@ class SimplyRetsApiHelper {
             curl_setopt( $ch, CURLOPT_URL, $url );
             curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
             curl_setopt( $ch, CURLOPT_USERAGENT, $ua_string . " cURL/{$curl_version}" );
+            curl_setopt( $ch, CURLOPT_USERAGENT, $ua_string . " cURL/{$curl_version}" );
+            curl_setopt( $ch, CURLOPT_REFERER, $site_url );
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
             curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, "OPTIONS" );
 
