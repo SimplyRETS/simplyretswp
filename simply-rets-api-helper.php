@@ -526,7 +526,6 @@ HTML;
         $listing_style = $listing->property->style;
         $style = SimplyRetsApiHelper::srDetailsTable($listing_style, "Property Style");
         // subdivision
-        // TODO: Check if neighborhood
         $listing_subdivision = $listing->property->subdivision;
         $subdivision = SimplyRetsApiHelper::srDetailsTable($listing_subdivision, "Subdivision");
         // unit
