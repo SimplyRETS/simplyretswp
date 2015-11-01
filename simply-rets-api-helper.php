@@ -510,15 +510,18 @@ HTML;
         // County
         $listing_county = $listing->geo->county;
         $geo_county = SimplyRetsApiHelper::srDetailsTable($listing_county, "County");
+        // County
+        $listing_directions = $listing->geo->directions;
+        $geo_directions = SimplyRetsApiHelper::srDetailsTable($listing_directions , "Directions");
+        // Market Area
+        $listing_market_area = $listing->geo->marketArea;
+        $geo_market_area = SimplyRetsApiHelper::srDetailsTable($listing_market_area, "Market Area");
         // mls area
         $listing_mlsarea = $listing->mls->area;
         $mls_area = SimplyRetsApiHelper::srDetailsTable($listing_mlsarea, "MLS Area");
         // tax data
         $listing_taxdata = $listing->tax->id;
         $tax_data = SimplyRetsApiHelper::srDetailsTable($listing_taxdata, "Tax ID");
-        // school zone data
-        $listing_schooldata = $listing->school->district;
-        $school_data = SimplyRetsApiHelper::srDetailsTable($listing_schooldata, "School Zone");
         // roof
         $listing_roof = $listing->property->roof;
         $roof = SimplyRetsApiHelper::srDetailsTable($listing_roof, "Roof");
@@ -549,6 +552,24 @@ HTML;
         // heating
         $listing_heating = $listing->property->heating;
         $heating = SimplyRetsApiHelper::srDetailsTable($listing_heating, "Heating");
+        // foundation
+        $listing_foundation = $listing->property->foundation;
+        $foundation = SimplyRetsApiHelper::srDetailsTable($listing_foundation, "Foundation");
+        // laundry features
+        $listing_laundry = $listing->property->laundryFeatures;
+        $laundry_features = SimplyRetsApiHelper::srDetailsTable($listing_laundry, "Laundry Features");
+        // lot description
+        $listing_lot_descrip = $listing->property->lotDescription;
+        $lot_description = SimplyRetsApiHelper::srDetailsTable($listing_lot_descrip, "Lot Description");
+        // additional rooms
+        $listing_rooms = $listing->property->additionalRooms;
+        $additional_rooms = SimplyRetsApiHelper::srDetailsTable($listing_rooms, "Additional Rooms");
+        // view
+        $listing_view = $listing->property->view;
+        $view = SimplyRetsApiHelper::srDetailsTable($listing_view, "View");
+        // accessibility
+        $listing_accessibility = $listing->property->accessibility;
+        $accessibility = SimplyRetsApiHelper::srDetailsTable($listing_accessibility, "Accessibility");
         // waterfront
         $listing_water = $listing->property->water;
         $water = SimplyRetsApiHelper::srDetailsTable($listing_water, "Water");
@@ -584,6 +605,21 @@ HTML;
 
         $listing_city          = $listing->address->city;
         $city = SimplyRetsApiHelper::srDetailsTable($listing_city, "City");
+
+        $listing_cross_street = $listing->address->crossStreet;
+        $cross_street = SimplyRetsApiHelper::srDetailsTable($listing_cross_street, "Cross Street");
+
+        $listing_state = $listing->address->state;
+        $state = SimplyRetsApiHelper::srDetailsTable($listing_state, "State");
+
+        $listing_terms = $listing->terms;
+        $terms = SimplyRetsApiHelper::srDetailsTable($listing_terms, "Terms");
+
+        $listing_lease_term = $listing->leaseTerm;
+        $lease_term = SimplyRetsApiHelper::srDetailsTable($listing_lease_term, "Lease Term");
+
+        $listing_lease_type = $listing->leaseType;
+        $lease_type = SimplyRetsApiHelper::srDetailsTable($listing_lease_type, "Lease Type");
 
         // area
         $area = $listing->property->area == 0
@@ -641,17 +677,46 @@ HTML;
         !empty($photos) ? $main_photo = $photos[0] : $main_photo = $dummy;
 
         // geographic data
-        $geo_directions = $listing->geo->directions;
-        if( !$geo_directions == "" ) {
-            $geo_directions = <<<HTML
+        if( $geo_directions || $listing_lat || $listing_longitude
+            || $listing_county || $listing_market_area ) {
+            $geo_table_header = <<<HTML
               <thead>
                 <tr>
-                  <th colspan="3"><h5>Geographical Data</h5></th></tr></thead>
+                  <th colspan="3"><h5>Geographic Data</h5></th></tr></thead>
               <tbody>
-                <tr>
-                  <td>Directions</td>
-                  <td colspan="2">$geo_directions</td></tr>
 HTML;
+        } else {
+            $geo_table_header = "";
+        }
+
+        // school data
+        $listing_school_district = $listing->school->district;
+        $school_district = SimplyRetsApiHelper::srDetailsTable($listing_school_district, "District");
+        // elementary school
+        $listing_elementary = $listing->school->elementarySchool;
+        $school_elementary = SimplyRetsApiHelper::srDetailsTable($listing_elementary, "Elementary School");
+        // middle school
+        $listing_middle_school = $listing->school->middleSchool;
+        $school_middle = SimplyRetsApiHelper::srDetailsTable($listing_middle_school, "Middle School");
+        // high school
+        $listing_high_school = $listing->school->highSchool;
+        $school_high = SimplyRetsApiHelper::srDetailsTable($listing_high_school, "High School");
+
+        if( $listing_school_district || $listing_elementary
+            || $listing_middle_school || $listing_high_school ) {
+            $school_data = <<<HTML
+              <thead>
+                <tr>
+                  <th colspan="3"><h5>School Information</h5></th></tr></thead>
+              <tbody>
+              $school_district
+              $school_elementary
+              $school_middle
+              $school_high
+              </tbody>
+HTML;
+        } else {
+            $school_data = "";
         }
 
         // list date and listing last modified
@@ -670,7 +735,6 @@ HTML;
               <tbody>
                 $list_date_formatted_markup
                 $date_modified_markup
-                $school_data
                 $tax_data
               </tbody>
 HTML;
@@ -833,7 +897,7 @@ HTML;
             <table style="width:100%;">
               <thead>
                 <tr>
-                  <th colspan="3"><h5>Listing Details</h5></th></tr></thead>
+                  <th colspan="3"><h5>Property Details</h5></th></tr></thead>
               <tbody>
                 $price
                 $bedrooms
@@ -847,15 +911,23 @@ HTML;
                 $yearBuilt
                 $fireplaces
                 $subdivision
+                $view
                 $roof
                 $water
                 $heating
+                $foundation
+                $accessibility
+                $lot_description
+                $laundry_features
+                $additional_rooms
                 $roomsMarkup
               </tbody>
+              $geo_table_header
                 $geo_directions
                 $geo_county
                 $geo_latitude
                 $geo_longitude
+                $geo_market_area
               </tbody>
               <thead>
                 <tr>
@@ -865,6 +937,8 @@ HTML;
                 $unit
                 $postal_code
                 $city
+                $cross_street
+                $state
                 $country
               </tbody>
               <thead>
@@ -873,8 +947,10 @@ HTML;
               <tbody>
                 $office
                 $agent
+                $terms
               </tbody>
               $listing_meta_markup
+              $school_data
               <thead>
                 <tr>
                   <th colspan="3"><h5>Mls Information</h5></th></tr></thead>
