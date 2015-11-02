@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.3.1
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -222,6 +222,11 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 1.6.2 =
+* FIX: Update deprecated WP_Widget Contructors to prevent warnings/fix build
+* UPDATE: Update wp-cli bash script to fix Travis build.
+* UPDATE: Move "Listing Meta Data" information into "MLS Information" section on single listings.
 
 = 1.6.1 =
 * FEATURE: Support for new fields provided by the SimplyRETS API
