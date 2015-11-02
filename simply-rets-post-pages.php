@@ -42,11 +42,40 @@ class SimplyRetsCustomPostPages {
         add_option( 'sr_listing_gallery', 'fancy' );
         add_option( 'sr_show_leadcapture', true );
         add_option( 'sr_search_map_position', 'map_above');
+
+        add_option('sr_show_admin_message', 1);
+        add_option('sr_demo_page_created', false);
+
         flush_rewrite_rules();
     }
 
     public static function srDeactivate() {
+        delete_option('sr_show_admin_message');
+        delete_option('sr_demo_page_created');
         flush_rewrite_rules();
+    }
+
+    public static function onActivationNotice () {
+        return (
+            '<div id="setting-error-settings_updated" class="updated settings-error notice">'.
+            '<p>' .
+            '  <span>'.
+            '    <form id="admin-msg" method="post" action="options-general.php?page=simplyrets-admin.php">' .
+            '      <input type="hidden" name="sr_create_demo_page" value="1" />' .
+            '      <strong>SimplyRETS: </strong>' .
+            '      <button class="sr-admin-msg-btn" type="submit">Click here</button>' .
+            '      to set up a demo page!' .
+            '    </form>' .
+            '  </span>' .
+            '  <span style="float:right">' .
+            '    <form id="admin-dismiss" method="post" action="options-general.php?page=simplyrets-admin.php">' .
+            '      <input type="hidden" name="sr_dismiss_admin_msg" value="1" />' .
+            '      <button class="sr-admin-msg-btn" type="submit">Dismiss</button>' .
+            '    </form>' .
+            '  </span>' .
+            '</p>' .
+            '</div>'
+        );
     }
 
     public static function srPluginSettingsLink( $links ) {

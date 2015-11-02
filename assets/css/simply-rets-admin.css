@@ -1,9 +1,9 @@
 /*
- * 
+ *
  * simply-rets-admin.css
  * CSS styling for the admin functionality of the SimplyRETS plugin.
  * Copyright (c) SimplyRETS 2014-2015
- * 
+ *
  */
 
 .sr-filter-input {
@@ -29,4 +29,19 @@
     line-height: 50px;
     margin-top: 0px;
     margin-bottom: 5px;
+}
+
+.sr-admin-msg-btn {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    font: inherit;
+    border-bottom: 1px solid #444;
+    cursor: pointer;
+}
+
+#admin-dismiss,
+#admin-msg {
+    display: inline-block;
+
 }

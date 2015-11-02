@@ -9,6 +9,9 @@
 
 /* Code starts here */
 
+add_action("wp_loaded", array("SrAdminSettings", "createDemoPage"));
+add_action("admin_notices", array("SrAdminSettings", "adminMessages"));
+
 class SrAdminSettings {
 
   function add_to_admin_menu() {
@@ -33,6 +36,39 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_listhub_analytics');
       register_setting('sr_admin_settings', 'sr_listhub_analytics_id');
       register_setting('sr_admin_settings', 'sr_search_map_position');
+  }
+
+  public static function adminMessages () {
+      $page_created = get_option("sr_demo_page_created", false);
+      $show_msg     = get_option("sr_show_admin_message", true);
+
+      if($page_created OR !$show_msg) {
+          return;
+      } else {
+          $notice = SimplyRetsCustomPostPages::onActivationNotice();
+          echo $notice;
+      }
+  }
+
+  public static function createDemoPage() {
+      if(isset( $_POST['sr_create_demo_page'])) {
+          $demo_post = array(
+              "post_content" => "[sr_search_form] [sr_listings]",
+              "post_name" => "simplyrets-listings",
+              "post_title" => "SimplyRETS Demo Page",
+              "post_status" => "publish",
+              "post_type" => "page"
+          );
+          $post_id = wp_insert_post($demo_post);
+          $permalink = get_post_permalink($post_id);
+          update_option("sr_demo_page_created", true);
+          wp_redirect($permalink);
+          exit();
+      } else if(isset( $_POST['sr_dismiss_admin_msg'])) {
+          update_option("sr_show_admin_message", false);
+      } else {
+          return;
+      }
   }
   
   function sr_admin_page() {
@@ -60,6 +96,9 @@ class SrAdminSettings {
             <a target="_blank" href="mailto:support@simplyrets.com">support@simplyrets.com</a>
             <form method="post" action="options-general.php?page=simplyrets-admin.php" style="display:inline-block;">
                 <?php submit_button( "Refresh Meta Data", "submit", "sr_update_meta", 0 ); ?>
+            </form>
+            <form method="post" action="options-general.php?page=simplyrets-admin.php" style="display:inline-block;">
+                <?php submit_button( "Create Demo Page", "submit", "sr_create_demo_page", 0 ); ?>
             </form>
           </p>
         </div>
