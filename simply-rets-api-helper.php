@@ -723,23 +723,13 @@ HTML;
         $show_listing_meta = SrUtils::srShowListingMeta();
         $list_date_markup = '';
         $listing_meta_markup = '';
-        if( $show_listing_meta == true ) {
 
-            $listing_days_on_market = $listing->mls->daysOnMarket;
-            $days_on_market = SimplyRetsApiHelper::srDetailsTable($listing_days_on_market, "Days on Market" );
-
-            $listing_meta_markup = <<<HTML
-              <thead>
-                <tr>
-                  <th colspan="3"><h5>Listing Meta Data</h5></th></tr></thead>
-              <tbody>
-                $list_date_formatted_markup
-                $date_modified_markup
-                $tax_data
-              </tbody>
-HTML;
-
+        if($show_listing_meta !== true) {
+            $list_date_formatted_markup = '';
+            $date_modified_markup = '';
+            $tax_data = '';
         }
+
         if( get_option('sr_show_listing_remarks') ) {
             $show_remarks = false;
         } else {
@@ -957,6 +947,9 @@ HTML;
               <tbody>
                 $days_on_market
                 $mls_status
+                $list_date_formatted_markup
+                $date_modified_markup
+                $tax_data
                 $mls_area
                 $mlsid
                 $disclaimer
