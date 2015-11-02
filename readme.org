@@ -23,6 +23,11 @@
   3) Send us a message via our website contact form at http://simplyrets.com/#home-contact
   4) Send an email to [[mailto:support@simplyrets.com]]
 
+  *If you have an active SimplyRETS account, you can also submit a
+  support request via your [[https://simplyrets.com/account][SimplyRETS Account Panel]].*
+
+  /Pull requests are welcomed!/
+
 ** Installation
 
 *** Install from .zip file
