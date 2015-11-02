@@ -27,8 +27,8 @@ function srRegisterWidgets() {
 class srFeaturedListingWidget extends WP_Widget {
 
     /** constructor */
-    function srFeaturedListingWidget() {
-        parent::WP_Widget(false, $name = 'SimplyRETS Featured Listing');
+    function __construct() {
+        parent::__construct(false, "SimplyRETS Featured Listing");
     }
 
     /** save widget --  @see WP_Widget::update */
@@ -116,9 +116,10 @@ class srFeaturedListingWidget extends WP_Widget {
 class srAgentListingWidget extends WP_Widget {
 
     /** constructor */
-    function srAgentListingWidget() {
-        parent::WP_Widget(false, $name = 'SimplyRETS Agents Listings');
+    function __construct() {
+        parent::__construct(false, "SimplyRETS Agents Listings");
     }
+
 
     /** save widget --  @see WP_Widget::update */
     function update( $new_instance, $old_instance ) {
@@ -219,8 +220,8 @@ class srAgentListingWidget extends WP_Widget {
 class srRandomListingWidget extends WP_Widget {
 
     /** constructor */
-    function srRandomListingWidget() {
-        parent::WP_Widget(false, $name = 'SimplyRETS Random Listing');
+    function __construct() {
+        parent::__construct(false, "SimplyRETS Random Listing");
     }
 
     /** save widget --  @see WP_Widget::update */
@@ -313,8 +314,8 @@ class srRandomListingWidget extends WP_Widget {
 class srSearchFormWidget extends WP_Widget {
 
     /** constructor */
-    function srSearchFormWidget() {
-        parent::WP_Widget(false, $name = 'SimplyRETS Search Widget');
+    function __construct() {
+        parent::__construct(false, "SimplyRETS Search Widget");
     }
 
     /** save widget --  @see WP_Widget::update */
