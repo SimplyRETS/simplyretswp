@@ -90,10 +90,21 @@ class SrAdminSettings {
         <h1 class="sr-admin-title">SimplyRETS Admin Settings</h1>
         <div class="sr-doc-links">
           <p>
-            <a target="_blank" href="http://simplyrets.com">SimplyRETS Website</a> |
-            <a target="_blank" href="https://wordpress.org/plugins/simply-rets/other_notes/">SimplyRETS Wordpress Plugin Documentation</a> |
-            <a target="_blank" href="http://docs.simplyrets.com">SimplyRETS API Documentation</a> |
-            <a target="_blank" href="mailto:support@simplyrets.com">support@simplyrets.com</a>
+            <a target="_blank" href="http://simplyrets.com">
+                simplyrets.com
+            </a> |
+            <a target="_blank" href="https://wordpress.org/plugins/simply-rets/other_notes/">
+                Plugin Docs
+            </a> |
+            <a target="_blank" href="http://docs.simplyrets.com">
+                API Docs
+            </a> |
+            <a target="_blank" href="http://status.simplyrets.com">
+                Service Status
+            </a> |
+            <a target="_blank" href="https://simplyrets.com/account">
+                Support Request
+            </a>
             <form method="post" action="options-general.php?page=simplyrets-admin.php" style="display:inline-block;">
                 <?php submit_button( "Refresh Meta Data", "submit", "sr_update_meta", 0 ); ?>
             </form>
