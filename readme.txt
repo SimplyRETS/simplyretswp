@@ -447,20 +447,20 @@ but to only show listings from a specific agent:
 
 `[sr_listings agent="AGENTID"]`
 
-..read more about the available attributes [here][shortcode attributes].
+..read more about the available attributes [here][#Available-Attributes].
 
 == Contents ==
 
-- Shortcodes
-  - Listings
+* [Shortcodes](#Shortcodes)
+  - Show Listings
   - Search Form
-  - Listing Slider
-  - Available attributes
-- Widgets
-- Test Listings
-- SimplyRETS Pages
-- Custom CSS
-- Support / More Documentation
+  - Featured Listing Slider
+* [Available Filters](#Available-Filters)
+* [Widgets](#SimplyRETS-Widgets)
+* [Trial Listings](#Trial-Listings)
+* [SimplyRETS Pages](#SimplyRETS-Pages)
+* [Customizing CSS](#Customizing-the-CSS)
+* [Support / More Documentation](#Support,-Contributing,-and-More-Information)
 
 
 == Shortcodes ==
@@ -533,6 +533,12 @@ The listing slider is a great feature that allows you to build a
 'slider' of listings. See [screenshot #7](https://wordpress.org/plugins/simply-rets/screenshots/)
 for a quick glance of how it works.
 
+**Attributes**
+
+* random
+Show the listings in a random order whenever the page is loaded.
+`[sr_listings_slider random="true"]`
+
 
 The slider shortcode takes all the same attributes as the listings
 shortcode, which is all of them. So to make a slider with listings
@@ -544,10 +550,10 @@ And the same minimum price, but only for one specific agent? Easy!
 
 `[sr_listings_slider minprice="500000" agent="ID"]`
 
-(*Note: the ID is provided by your MLS*)
 
+(*Note: the Agent ID is provided by your MLS*)
 
-= Available Attributes =
+== Available Filters ==
 
 There are ton of attributes available for refining the listings in any
 way you can imagine. Each of these attributes can be used in any of
@@ -693,7 +699,7 @@ above steps.
 
 == SimplyRETS Pages ==
 
-**Note: SimplyRETS pages are no longer the recomended way of creating**
+**Note: SimplyRETS pages are no longer the recommended way of creating**
 **listing pages. Instead, we recommend creating a regular WordPress Page**
 **and using the short-codes directly.**
 
