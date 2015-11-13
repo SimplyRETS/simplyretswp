@@ -22,7 +22,7 @@ minutes!
 The SimplyRETS Plugin has the most filtering options of any IDX Plugin
 on the market, with over 25 different ways to create unique pages of
 listings on your site. No iframes, great SEO, and a modern and
-customizable interface for a modern Real Estate Agent.
+customizable interface for a modern Real Estate site.
 
 To get *your* listings showing through the plugin, you need 3 things:
 
@@ -33,6 +33,16 @@ To get *your* listings showing through the plugin, you need 3 things:
 **To get started, check out the [Documentation page](https://wordpress.org/plugins/simply-rets/other_notes/)**
 
 **[Visit our website](https://simplyrets.com)**
+
+
+= Quick Start =
+After installing and activating the plugin - you can quickly get
+listings showing by putting the following short-code on *any* page:
+`[sr_listings]`.
+
+But that's just a start! There are many ways you can show and filter
+the listings - check out the
+[full documentation](https://wordpress.org/plugins/simply-rets/other_notes/).
 
 
 = The 5 Minute Setup =
@@ -132,6 +142,9 @@ your listings!
 
 
 == Frequently Asked Questions ==
+
+Below are some frequently asked questions. For something you can't
+find, try our [FAQ](https://simplyrets.com/faq).
 
 = Can I use this plugin for free? =
 
