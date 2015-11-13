@@ -693,6 +693,10 @@ above steps.
 
 == SimplyRETS Pages ==
 
+**Note: SimplyRETS pages are no longer the recomended way of creating**
+**listing pages. Instead, we recommend creating a regular WordPress Page**
+**and using the short-codes directly.**
+
 SimplyRETS pages allow for an easy way to get up and running with new
 pages. Here's a few tips:
 
