@@ -577,12 +577,12 @@ HTML;
         $listing_disclaimer  = $listing->disclaimer;
         $disclaimer = SimplyRetsApiHelper::srDetailsTable($listing_disclaimer, "Disclaimer");
         // listing date
-        $list_date = $listing->listDate;
-        $list_date_formatted = date("M j, Y", strtotime($list_date));
-        $list_date_formatted_markup = SimplyRetsApiHelper::srDetailsTable($list_date_formatted, "Listing Date");
+        $listing_list_date = $listing->listDate;
+        if($listing_list_date) { $list_date_formatted = date("M j, Y", strtotime($listing_list_date)); }
+        $list_date = SimplyRetsApiHelper::srDetailsTable($list_date_formatted, "Listing Date");
         // listing date modified
-        $listing_modified = $listing->modified; // TODO: format date
-        $date_modified    = date("M j, Y", strtotime($listing_modified));
+        $listing_modified = $listing->modified;
+        if($listing_modified) { $date_modified = date("M j, Y", strtotime($listing_modified)); }
         $date_modified_markup = SimplyRetsApiHelper::srDetailsTable($date_modified, "Listing Last Modified");
         //listing office
         $listing_office = $listing->office->name;
@@ -721,11 +721,9 @@ HTML;
 
         // list date and listing last modified
         $show_listing_meta = SrUtils::srShowListingMeta();
-        $list_date_markup = '';
-        $listing_meta_markup = '';
 
         if($show_listing_meta !== true) {
-            $list_date_formatted_markup = '';
+            $list_date = '';
             $date_modified_markup = '';
             $tax_data = '';
         }
@@ -939,7 +937,6 @@ HTML;
                 $agent
                 $terms
               </tbody>
-              $listing_meta_markup
               $school_data
               <thead>
                 <tr>
@@ -947,7 +944,7 @@ HTML;
               <tbody>
                 $days_on_market
                 $mls_status
-                $list_date_formatted_markup
+                $list_date
                 $date_modified_markup
                 $tax_data
                 $mls_area
@@ -1029,7 +1026,6 @@ HTML;
             $listing_uid        = $listing->mlsId;
             $mlsid              = $listing->listingId;
             $listing_price      = $listing->listPrice;
-            $list_date          = $listing->listDate;
             $remarks            = $listing->remarks;
             $city               = $listing->address->city;
             $county             = $listing->geo->county;
@@ -1064,11 +1060,6 @@ HTML;
             }
             if( !$area == 0 ) {
                 $area = number_format( $area );
-            }
-            // show listing date if setting is on
-            if( $show_listing_meta == true ) {
-                $list_date_formatted = date("M j, Y", strtotime($list_date));
-                $list_date_markup = SrViews::listDateResults( $list_date_formatted );
             }
 
             // listing photos
