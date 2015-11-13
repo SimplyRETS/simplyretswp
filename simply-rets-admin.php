@@ -126,7 +126,7 @@ class SrAdminSettings {
               <tbody>
                 <tr>
                   <td>
-                    <strong>API Username</strong>
+                    <strong>API Key</strong>
                   </td>
                   <td>
                     <input type="text" name="sr_api_name" value="<?php echo esc_attr( get_option('sr_api_name') ); ?>" />
@@ -134,7 +134,7 @@ class SrAdminSettings {
                 </tr>
                 <tr>
                   <td>
-                    <strong>API Key</strong>
+                    <strong>API Secret</strong>
                   </td>
                   <td>
                     <input type="text" name="sr_api_key" value="<?php echo esc_attr( get_option('sr_api_key') ); ?>" />
