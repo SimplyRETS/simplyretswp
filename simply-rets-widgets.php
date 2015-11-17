@@ -321,7 +321,7 @@ class srSearchFormWidget extends WP_Widget {
     /** save widget --  @see WP_Widget::update */
     function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
-        $instance['title'] = strip_tags($new_instance['title']);
+        $instance['title']  = strip_tags($new_instance['title']);
         $instance['vendor'] = strip_tags($new_instance['vendor']);
         return $instance;
     }
@@ -360,9 +360,10 @@ class srSearchFormWidget extends WP_Widget {
     function widget( $args, $instance ) {
         extract( $args );
         $title  = apply_filters('widget_title', $instance['title']);
-        $vendor = apply_filters('widget_title', $instance['vendor']);
+        $vendor = apply_filters('widget_vendor', $instance['vendor']);
 
         $cont .= $before_widget;
+
         // populate title
         if( $title ) {
             $cont .= $before_title . $title . $after_title;
