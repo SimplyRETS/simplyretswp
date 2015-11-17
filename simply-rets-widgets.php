@@ -371,6 +371,29 @@ class srSearchFormWidget extends WP_Widget {
             $cont .= $before_title . $after_title;
         }
 
+        // Create property type dropdown options
+        $singleVendor = SrUtils::isSingleVendor();
+        $availableVendors = get_option('sr_adv_search_meta_vendors', array());
+        $ven = isset($vendor) ? $vendor  : '';
+        if(empty($ven) && $singleVendor === true) {
+            $ven = $availableVendors[0];
+        }
+
+        $current_type = empty($_GET['sr_ptype']) ? '' : $_GET['sr_ptype'];
+
+        $adv_search_types = get_option("sr_adv_search_meta_types_$ven",
+                                       array("Residential", "Condominium", "Rental" ));
+
+        $type_options = '';
+        foreach( (array)$adv_search_types as $key=>$type) {
+            if( $type == $current_type) {
+                $type_options .= "<option value='$type' selected />$type</option>";
+            } else {
+                $type_options .= "<option value='$type' />$type</option>";
+            }
+        }
+
+
         $home_url = get_home_url();
         $search_form_markup = <<<HTML
           <div class="sr-search-widget">
@@ -382,11 +405,9 @@ class srSearchFormWidget extends WP_Widget {
               </div>
 
               <div class="sr-search-field" id="sr-search-ptype">
-                <select name="sr_type">
+                <select name="sr_ptype">
                   <option value="">Property Type</option>
-                  <option value="res">Residential</option>
-                  <option value="cnd">Condo</option>
-                  <option value="rnt">Rental</option>
+                  $type_options
                 </select>
               </div>
 
