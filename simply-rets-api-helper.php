@@ -631,7 +631,7 @@ HTML;
         // Determine the best field to show in the primary-details section
         $primary_baths = "";
         if(is_numeric($listing_bathsTotal)) {
-            $primary_baths = $listing_bathsTotal;
+            $primary_baths = $listing_bathsTotal + 0;
         } elseif(!empty($listing_bathsFull)) {
             $primary_baths = $listing_bathsFull;
         } else {
