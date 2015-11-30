@@ -592,10 +592,7 @@ HTML;
         $office = SimplyRetsApiHelper::srDetailsTable($listing_office, "Listing Office");
         // lot size
         $listing_lotSize = $listing->property->lotSize;
-        $lotsize = $listing_lotSize == 0 ? 'N/A' : $listing_lotSize;
-        $lotsize_w_sqft = "$lotsize<span class='sr-listing-lotsize-sqft'> SqFt</span>";
-        $lotsize_markup = SimplyRetsApiHelper::srDetailsTable($lotsize_w_sqft, "Lot Size");
-
+        $lotsize_markup  = SimplyRetsApiHelper::srDetailsTable($listing_lotSize, "Lot Size");
         // street address info
         $listing_postal_code = $listing->address->postalCode;
         $postal_code = SimplyRetsApiHelper::srDetailsTable($listing_postal_code, "Postal Code");
