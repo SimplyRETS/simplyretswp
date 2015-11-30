@@ -692,8 +692,12 @@ HTML;
         !empty($photos) ? $main_photo = $photos[0] : $main_photo = $dummy;
 
         // geographic data
-        if( $geo_directions || $listing_lat || $listing_longitude
-            || $listing_county || $listing_market_area ) {
+        if($geo_directions
+           || $listing_lat
+           || $listing_longitude
+           || $listing_county
+           || $listing_market_area
+        ) {
             $geo_table_header = <<<HTML
               <thead>
                 <tr>
@@ -717,8 +721,11 @@ HTML;
         $listing_high_school = $listing->school->highSchool;
         $school_high = SimplyRetsApiHelper::srDetailsTable($listing_high_school, "High School");
 
-        if( $listing_school_district || $listing_elementary
-            || $listing_middle_school || $listing_high_school ) {
+        if($listing_school_district
+           || $listing_elementary
+           || $listing_middle_school
+           || $listing_high_school
+        ) {
             $school_data = <<<HTML
               <thead>
                 <tr>
