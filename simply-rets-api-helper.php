@@ -631,7 +631,7 @@ HTML;
         // Determine the best field to show in the primary-details section
         $primary_baths = "";
         if(is_numeric($listing_bathsTotal)) {
-            $primary_baths = $listing_bathsTotal + 0;
+            $primary_baths = $listing_bathsTotal + 0; // strips extraneous decimals
         } elseif(!empty($listing_bathsFull)) {
             $primary_baths = $listing_bathsFull;
         } else {
@@ -1008,7 +1008,7 @@ HTML;
         $prev_link         = $pag['prev'];
         $next_link         = $pag['next'];
 
-        $vendor       = isset($settings['vendor']) ? $settings['vendor'] : '';
+        $vendor       = isset($settings['vendor'])   ? $settings['vendor']   : '';
         $map_setting  = isset($settings['show_map']) ? $settings['show_map'] : '';
 
         /** Allow override of "map_position" admin setting on a per short-code basis */
@@ -1025,15 +1025,15 @@ HTML;
         */
         if($response == NULL
            || array_key_exists("errors", $response)
-           || array_key_exists("error", $response)) {
-
+           || array_key_exists("error", $response)
+        ) {
             $err = SrMessages::noResultsMsg((array)$response);
             return $err;
         }
 
-        $response_size = sizeof( $response );
-        if( !array_key_exists( "0", $response ) ) {
-            $response = array( $response );
+        $response_size = sizeof($response);
+        if(!array_key_exists("0", $response)) {
+            $response = array($response);
         }
 
 
@@ -1060,6 +1060,7 @@ HTML;
             $bedrooms           = $listing->property->bedrooms;
             $bathsFull          = $listing->property->bathsFull;
             $bathsHalf          = $listing->property->bathsHalf;
+            $bathsTotal         = $listing->property->bathrooms;
             $area               = $listing->property->area; // might be empty
             $lotSize            = $listing->property->lotSize; // might be empty
             $subdivision        = $listing->property->subdivision;
@@ -1134,7 +1135,9 @@ HTML;
              */
             $bedsMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($bedrooms, 'Bedrooms');
             $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsFull, 'Full Baths');
-            $areaMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($area, '<span class="sr-listing-area-sqft">SqFt</span>');
+            $areaMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup(
+                $area, '<span class="sr-listing-area-sqft">SqFt</span>'
+            );
             $yearMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($yearBuilt, 'Built in', true);
             $cityMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($city, 'Located in', true);
             $mlsidMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($mlsid, 'MLS #:', true);
@@ -1148,6 +1151,11 @@ HTML;
 
             if( $yearBuilt == 0 ) {
                 $yearMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($subdivision, "");
+            }
+
+            if(empty($bathsFull) || $bathsFull == 0 && is_numeric($bathsTotal)) {
+                $realBaths   = $bathsTotal + 0;
+                $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($realBaths, "Bath");
             }
 
             // append markup for this listing to the content
