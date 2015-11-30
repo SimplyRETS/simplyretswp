@@ -495,6 +495,9 @@ HTML;
         // half baths
         $listing_bathsHalf = $listing->property->bathsHalf;
         $bathsHalf = SimplyRetsApiHelper::srDetailsTable($listing_bathsHalf, "Half Baths");
+        // total baths
+        $listing_bathsTotal = $listing->property->bathrooms;
+        $bathsTotal = SimplyRetsApiHelper::srDetailsTable($listing_bathsTotal, "Total Baths");
         // stories
         $listing_stories = $listing->property->stories;
         $stories = SimplyRetsApiHelper::srDetailsTable($listing_stories, "Stories");
@@ -594,16 +597,16 @@ HTML;
         $lotsize_markup = SimplyRetsApiHelper::srDetailsTable($lotsize_w_sqft, "Lot Size");
 
         // street address info
-        $listing_postal_code   = $listing->address->postalCode;
+        $listing_postal_code = $listing->address->postalCode;
         $postal_code = SimplyRetsApiHelper::srDetailsTable($listing_postal_code, "Postal Code");
 
-        $listing_country       = $listing->address->country;
+        $listing_country = $listing->address->country;
         $country = SimplyRetsApiHelper::srDetailsTable($listing_country, "Country");
 
-        $listing_address       = $listing->address->full;
+        $listing_address = $listing->address->full;
         $address = SimplyRetsApiHelper::srDetailsTable($listing_address, "Address");
 
-        $listing_city          = $listing->address->city;
+        $listing_city = $listing->address->city;
         $city = SimplyRetsApiHelper::srDetailsTable($listing_city, "City");
 
         $listing_cross_street = $listing->address->crossStreet;
@@ -621,12 +624,24 @@ HTML;
         $listing_lease_type = $listing->leaseType;
         $lease_type = SimplyRetsApiHelper::srDetailsTable($listing_lease_type, "Lease Type");
 
+
         // area
         $area = $listing->property->area == 0
               ? 'n/a'
               : number_format($listing->property->area);
 
-        // bed/baths
+
+        // Determine the best field to show in the primary-details section
+        $primary_baths = "";
+        if(is_numeric($listing_bathsTotal)) {
+            $primary_baths = $listing_bathsTotal;
+        } elseif(!empty($listing_bathsFull)) {
+            $primary_baths = $listing_bathsFull;
+        } else {
+            $primary_baths = 'n/a';
+        }
+
+
         if( $listing_bedrooms == null || $listing_bedrooms == "" ) {
             $listing_bedrooms = 0;
         }
@@ -872,7 +887,7 @@ HTML;
                 <h3>$listing_bedrooms <small>Beds</small></h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-baths">
-                <h3>$listing_bathsFull <small>Baths</small></h3>
+                <h3>$primary_baths<small> Baths</small></h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-size">
                 <h3>$area <small class="sr-listing-area-sqft">SqFt</small></h3>
@@ -891,6 +906,7 @@ HTML;
                 $bedrooms
                 $bathsFull
                 $bathsHalf
+                $bathsTotal
                 $style
                 $lotsize_markup
                 $stories
