@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.3.1
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,11 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 1.6.5 =
+* IMPROVEMENT: Better defaults for Bathrooms on list and details pages.
+* IMPROVEMENT: Don't show "SqFt" for "LotSize" on details pages.
+* IMPROVEMENT: General code cleanup.
 
 = 1.6.4 =
 * FIX: Dynamically populate property types in sidebar search widget.
