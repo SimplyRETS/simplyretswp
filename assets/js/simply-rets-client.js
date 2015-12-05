@@ -9,43 +9,54 @@
  *
 **/
 
+
 jQuery(document).ready(function() {
 
-  // Single Listing Image Slider
-  jQuery(".sr-slider-input").click(function() {
-    var imgSrc = jQuery("input[name='slide_switch']:checked").val();
-    jQuery(".sr-slider-img-act").fadeOut("fast", function() {
-      jQuery(".sr-slider-img-act").attr('src', imgSrc);
-      jQuery(".sr-slider-img-act").fadeIn("fast");
+    var $_ = jQuery; // reassign jQuery
+
+
+    // Single Listing Image Slider
+    $_(".sr-slider-input").click(function() {
+        var imgSrc = $_("input[name='slide_switch']:checked").val();
+        $_(".sr-slider-img-act").fadeOut("fast", function() {
+            $_(".sr-slider-img-act").attr('src', imgSrc);
+            $_(".sr-slider-img-act").fadeIn("fast");
+        });
     });
-  });
-  // & toggle
-  jQuery('#sr-toggle-gallery').click(function() {
-    jQuery('.sr-slider label').toggle(100);
-    if(jQuery(this).text() == 'Hide photos') {
-      jQuery(this).text('Show more photos');
-    } else {
-      jQuery(this).text('Hide photos');
+
+
+    // & toggle
+    $_('#sr-toggle-gallery').click(function() {
+        $_('.sr-slider label').toggle(100);
+        if($_(this).text() == 'Hide photos') {
+            $_(this).text('Show more photos');
+        } else {
+            $_(this).text('Hide photos');
+        }
+    });
+
+
+    if($_('#sr-search-ptype select').val() == 'Land') {
+        $_('.sr-adv-search-amenities-wrapper').hide();
     }
-  });
 
-  if(jQuery('#sr-search-ptype select').val() == 'Land') {
-      jQuery('.sr-adv-search-amenities-wrapper').hide();
-  }
-  jQuery('#sr-search-ptype select').change(function() {
-      if(jQuery(this).val() == 'Land') {
-          jQuery('.sr-adv-search-amenities-wrapper').hide();
-          jQuery('input[name="sr_features[]"]').each(function() {
-              jQuery(this).attr('checked', false);
-          });
-      } else {
-          jQuery('.sr-adv-search-amenities-wrapper').show();
-      }
-  });
 
-  // [sr_listings_slider]
-  jQuery("#simplyrets-listings-slider").owlCarousel({
-    items: 4
-  });
+    $_('#sr-search-ptype select').change(function() {
+        if($_(this).val() == 'Land') {
+            $_('.sr-adv-search-amenities-wrapper').hide();
+            $_('input[name="sr_features[]"]').each(function() {
+                $_(this).attr('checked', false);
+            });
+        } else {
+            $_('.sr-adv-search-amenities-wrapper').show();
+        }
+    });
+
+
+    // [sr_listings_slider] default num of items
+    $_("#simplyrets-listings-slider").owlCarousel({
+        items: 4
+    });
+
 
 });
