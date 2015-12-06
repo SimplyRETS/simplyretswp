@@ -37,6 +37,7 @@ add_shortcode( 'sr_listings',        array( 'SrShortcodes', 'sr_residential_shor
 add_shortcode( 'sr_openhouses',      array( 'SrShortcodes', 'sr_openhouses_shortcode' ) );
 add_shortcode( 'sr_search_form',     array( 'SrShortcodes', 'sr_search_form_shortcode' ) );
 add_shortcode( 'sr_listings_slider', array( 'SrShortcodes', 'sr_listing_slider_shortcode' ) );
+add_shortcode( 'sr_map_search',      array( 'SrShortcodes', 'sr_int_map_search' ) );
 
 add_action( 'widgets_init', 'srRegisterWidgets' );
 add_action( 'wp_enqueue_scripts', array( 'SimplyRetsApiHelper', 'simplyRetsClientCss' ) );

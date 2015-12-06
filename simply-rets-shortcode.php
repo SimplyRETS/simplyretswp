@@ -37,6 +37,11 @@ class SrShortcodes {
     }
 
 
+    public static function sr_int_map_search($atts) {
+        return "<div id=\"sr-int-map\"></div>";
+    }
+
+
     /**
      * [sr_residential] - Residential Listings Shortcode
      *
@@ -145,6 +150,7 @@ class SrShortcodes {
 
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs, $atts );
             return $listings_content;
+
         }
 
 
@@ -517,4 +523,5 @@ class SrShortcodes {
 
         return ob_get_clean();
     }
+
 }
