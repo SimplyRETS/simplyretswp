@@ -336,37 +336,66 @@ class SimplyRetsApiHelper {
 
 
     public static function simplyRetsClientCss() {
-        wp_register_style(
-            'simply-rets-client-css',
-            plugins_url('assets/css/simply-rets-client.css', __FILE__)
-        ); wp_enqueue_style('simply-rets-client-css');
+        // client side css
+        wp_register_style('simply-rets-client-css',
+                          plugins_url('assets/css/simply-rets-client.css', __FILE__));
+        wp_enqueue_style('simply-rets-client-css');
 
-        wp_register_style(
-            'simply-rets-carousel',
-            'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css'
-        ); wp_enqueue_style('simply-rets-carousel');
+        // listings slider css
+        wp_register_style('simply-rets-carousel',
+                          'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css');
+        wp_enqueue_style('simply-rets-carousel');
 
-        wp_register_style(
-            'simply-rets-carousel-theme',
-            'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css'
-        ); wp_enqueue_style('simply-rets-carousel-theme');
+        // listings slider css
+        wp_register_style('simply-rets-carousel-theme',
+                          'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css');
+        wp_enqueue_style('simply-rets-carousel-theme');
+
+
+        /**
+         * Interactive Map Search CSS
+         */
+        wp_register_style('simply-rets-leaflet-css',
+                          'http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css');
+        wp_enqueue_style('simply-rets-leaflet-css');
+
+        wp_register_style('simply-rets-leaflet-draw-css',
+                          'https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css');
+        wp_enqueue_style('simply-rets-leaflet-draw-css');
     }
 
     public static function simplyRetsClientJs() {
+        // client-side js
         wp_register_script('simply-rets-client-js',
                            plugins_url('assets/js/simply-rets-client.js', __FILE__),
-                           array('jquery')
-        ); wp_enqueue_script('simply-rets-client-js');
+                           array('jquery'));
+        wp_enqueue_script('simply-rets-client-js');
 
+        // image gallery js
         wp_register_script('simply-rets-galleria-js',
                            plugins_url('assets/galleria/galleria-1.4.2.min.js', __FILE__),
-                           array('jquery')
-        ); wp_enqueue_script('simply-rets-galleria-js');
+                           array('jquery'));
+        wp_enqueue_script('simply-rets-galleria-js');
 
+        // listings slider js
         wp_register_script('simply-rets-carousel',
                            'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js',
-                           array('jquery')
-        ); wp_enqueue_script('simply-rets-carousel');
+                           array('jquery'));
+        wp_enqueue_script('simply-rets-carousel');
+
+        /**
+         * Interactive Map Search JS
+         */
+        wp_register_script('simply-rets-leaflet-js',
+                           'http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js',
+                           array('jquery'));
+        wp_enqueue_script('simply-rets-leaflet-js');
+
+        wp_register_script('simply-rets-leaflet-draw-js',
+                           'https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js',
+                           array('jquery'));
+        wp_enqueue_script('simply-rets-leaflet-draw-js');
+
     }
 
 
@@ -1224,13 +1253,14 @@ HTML;
 
         $cont .= "<hr><p class='sr-pagination'>$prev_link $next_link</p>";
         $cont .= "<br><p><small><i>This information is believed to be accurate, but without any warranty.</i></small></p>";
+
         return $cont;
 
     }
 
 
     public static function srWidgetListingGenerator( $response ) {
-        $br = "<br>";
+        $br   = "<br>";
         $cont = "";
 
         /*
