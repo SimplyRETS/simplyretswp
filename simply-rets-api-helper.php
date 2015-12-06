@@ -45,6 +45,14 @@ class SimplyRetsApiHelper {
         return $response_markup;
     }
 
+
+    public static function makeApiRequest($params) {
+        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder($params);
+        $request_response = SimplyRetsApiHelper::srApiRequest($request_url);
+
+        return $request_response;
+    }
+
     /*
      * This function build a URL from a set of parameters that we'll use to
      * requst our listings from the SimplyRETS API.

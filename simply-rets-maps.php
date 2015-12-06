@@ -8,6 +8,12 @@
 */
 
 
+add_action('wp_head',
+           array('SrSearchMap', 'defineAjaxUrl'));
+add_action('wp_ajax_update_int_map_data',
+           array('SrSearchMap', 'update_int_map_data'));
+
+
 /* Code starts here */
 use Ivory\GoogleMap\Map,
     Ivory\GoogleMap\Helper\MapHelper,
@@ -92,6 +98,41 @@ class SrSearchMap {
 HTML;
 
         return $markup;
+
+    }
+
+
+    public static function defineAjaxUrl() {
+        ?>
+        <script>
+            var sr_ajaxUrl = "<?php echo admin_url('admin-ajax.php'); ?>"
+        </script>
+        <?php
+    }
+
+
+    public static function update_int_map_data() {
+
+        if(array_key_exists('action', $_POST) && $_POST['action'] === "update_int_map_data") {
+            header("Content-Type: application/json");
+
+            $req = SimplyRetsApiHelper::makeApiRequest("?".$_POST['params']);
+
+            $response = array(
+                "result" => $req,
+                "post"   => $_POST
+            );
+
+
+            wp_send_json($response);
+
+        } else {
+
+            var_dump($_POST);
+
+            die(json_encode((array)'Something\'s fishy'));
+
+        }
 
     }
 
