@@ -153,8 +153,6 @@ var srMapSendRequest = function(points) {
 
 var srMapHandleRequest = function(data) {
 
-    console.log(data);
-
     var listings = data.result.response.length > 0
                  ? data.result.response
                  : [];
@@ -260,16 +258,12 @@ var initIntMap = function() {
             markers  = mks.markers;
             listings = ls;
 
-            console.log(markers);
-
             placeMapMarkers(map, markers);
             map.fitBounds(bounds);
 
         },
 
         handleDraw: function(e) {
-
-            console.log(markers);
 
             $_.each (markers, function (i, m) { map.removeLayer(m) });
             if(polygon != null) map.removeLayer(polygon);
@@ -324,9 +318,6 @@ var initIntMap = function() {
     SrMap.on('load',
              SrMap.makeRequest([]).done(
                  SrMap.handleRequest));
-
-    console.log('MARKERS');
-    console.log(markers);
 
     var drawnItems = new L.FeatureGroup();
     var drawCtrl   = new L.Control.Draw({
