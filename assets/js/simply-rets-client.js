@@ -221,6 +221,33 @@ var placeMapMarkers = function(map, markers) {
 
 }
 
+
+var getSearchFormValues = function() {
+
+    var keyword  = $_('.sr-int-map-search-wrapper #sr-search-keywords > input[type="text"]').val(),
+        ptype    = $_('.sr-int-map-search-wrapper #sr-search-ptype select').val(),
+        minprice = $_('.sr-int-map-search-wrapper #sr-search-minprice input').val(),
+        maxprice = $_('.sr-int-map-search-wrapper #sr-search-maxprice input').val(),
+        minbeds  = $_('.sr-int-map-search-wrapper #sr-search-minbeds input').val(),
+        maxbeds  = $_('.sr-int-map-search-wrapper #sr-search-maxbeds input').val(),
+        minbaths = $_('.sr-int-map-search-wrapper #sr-search-minbaths input').val(),
+        maxbaths = $_('.sr-int-map-search-wrapper #sr-search-maxbaths input').val(),
+        sort     = $_('.sr-int-map-search-wrapper .sr-sort-wrapper select').val();
+
+    return {
+        q:        keyword,
+        type:     ptype,
+        sort:     sort,
+        minprice: minprice,
+        maxprice: maxprice,
+        minbeds:  minbeds,
+        maxbeds:  maxbeds,
+        minbaths: minbaths,
+        maxbaths: maxbaths,
+    }
+}
+
+
 /********************************/
 
 
@@ -249,33 +276,7 @@ var initIntMap = function() {
 
         },
 
-        getSearchFormValues: function() {
-
-            var keyword  = $_('.sr-int-map-search-wrapper #sr-search-keywords > input[type="text"]').val(),
-                ptype    = $_('.sr-int-map-search-wrapper #sr-search-ptype select').val(),
-                minprice = $_('.sr-int-map-search-wrapper #sr-search-minprice input').val(),
-                maxprice = $_('.sr-int-map-search-wrapper #sr-search-maxprice input').val(),
-                minbeds  = $_('.sr-int-map-search-wrapper #sr-search-minbeds input').val(),
-                maxbeds  = $_('.sr-int-map-search-wrapper #sr-search-maxbeds input').val(),
-                minbaths = $_('.sr-int-map-search-wrapper #sr-search-minbaths input').val(),
-                maxbaths = $_('.sr-int-map-search-wrapper #sr-search-maxbaths input').val(),
-                sort     = $_('.sr-int-map-search-wrapper .sr-sort-wrapper select').val();
-
-            return {
-                q:        keyword,
-                type:     ptype,
-                sort:     sort,
-                minprice: minprice,
-                maxprice: maxprice,
-                minbeds:  minbeds,
-                maxbeds:  maxbeds,
-                minbaths: minbaths,
-                maxbaths: maxbaths,
-            }
-
-        },
-
-        handleRequest: function(data, xhr) {
+        handleRequest: function(data) {
 
             bounds   = [];
             listings = [];
@@ -295,9 +296,35 @@ var initIntMap = function() {
 
         },
 
+        handleFormSubmit: function(e) {
+            e.preventDefault();
+
+            $_.each (markers, function (i, m) { map.removeLayer(m) });
+
+            var params = getSearchFormValues();
+
+            markers = [];
+
+            polygon.bindPopup(loadMsg);
+            polygon.openPopup();
+
+            var points = $_.map(polygon.getLatLngs(), function(o) {
+                return {
+                    name: "points",
+                    value: o.lat + "," + o.lng
+                }
+            });
+
+            return {
+                query:  params,
+                points: points
+            }
+
+        },
+
         handleDraw: function(e) {
 
-            var query = this.getSearchFormValues();
+            var query = getSearchFormValues();
 
             $_.each (markers, function (i, m) { map.removeLayer(m) });
             if(polygon != null) map.removeLayer(polygon);
@@ -344,12 +371,15 @@ var initIntMap = function() {
     });
 
 
+    // Make new map
     var SrMap = new SMap('sr-int-map');
 
+    // Initial layers/markers
     SrMap.addTileLayer();
     SrMap.setView(2);
     SrMap.on('load', SrMap.makeRequest([], {}).done(SrMap.handleRequest));
 
+    // make controls
     var drawnItems = new L.FeatureGroup();
     var drawCtrl   = new L.Control.Draw({
         edit: { featureGroup: drawnItems },
@@ -360,16 +390,33 @@ var initIntMap = function() {
         }
     });
 
+    // add controls to map
     SrMap.addControl(drawCtrl);
     SrMap.addLayer(drawnItems);
 
+    // Run when a new polygon is drawn
     SrMap.on('draw:created', function(e) {
-        var params = SrMap.handleDraw(e); // gather lat/lngs from map
 
-        var lls = params.latLngs;
-        var query = params.query;
+        var params = SrMap.handleDraw(e),
+            points = params.latLngs,
+            query  = params.query;
 
-        SrMap.makeRequest(lls, query).done(SrMap.handleRequest);
+        SrMap.makeRequest(points, query).done(SrMap.handleRequest);
+
+    });
+
+    // When the search form is submitted, rerun query
+    $_('.sr-int-map-search-wrapper form input.submit').on('click', function(e) {
+
+        var params = SrMap.handleFormSubmit(e),
+            points = params.points,
+            query  = params.query;
+
+        console.log(points);
+        console.log(query);
+
+        SrMap.makeRequest(points, query).done(SrMap.handleRequest);
+
     });
 
     return;
