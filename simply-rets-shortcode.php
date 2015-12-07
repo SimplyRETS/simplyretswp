@@ -131,7 +131,12 @@ class SrShortcodes {
                               </select>
                           </div>
                       </div>
-
+                      <p style="margin-bottom:5px">
+                        <span><small><i>
+                          To make a search, set your parameters
+                          above and/or draw a section on the map.
+                        </i></small></span>
+                      </p>
                     </form>
                   </div>
                   <div id="sr-int-map"></div>
