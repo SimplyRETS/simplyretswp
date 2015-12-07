@@ -82,31 +82,30 @@ var listingSliderCarousel = function() {
 
 var genMarkerPopup = function(listing) {
 
-    var stat  = listing.mls.status;
-    var baths = listing.property.bathsFull;
-    var beds  = listing.property.bedrooms;
-    var style = listing.property.style;
-    var type  = listing.property.type;
-    var sqft  = listing.property.area;
-    var mlnum = listing.listingId;
-    var addr  = listing.address.full;
-
-    var p = listing.photos.length > 1
-          ? listing.photos[0]
-          : 'assets/img/defprop.jpg';
-    var l = window.location.href +
-            "/?sr-listings=sr-single" +
-            "&listing_id=" + listing.mlsId +
-            "&sr_vendor=" +
-            "&listing_price=" + listing.listPrice +
-            "&listing_title=" + listing.address.full;
+    var stat  = listing.mls.status         || "Active";
+    var baths = listing.property.bathsFull || "n/a";
+    var beds  = listing.property.bedrooms  || "n/a";
+    var style = listing.property.style     || "Res" ;
+    var type  = listing.property.type      || "Res";
+    var sqft  = listing.property.area      || "n/a";
+    var mlnum = listing.listingId          || "n/a";
+    var addr  = listing.address.full       || "Unknown";
+    var photo = listing.photos.length > 1
+              ? listing.photos[0]
+              : 'assets/img/defprop.jpg';
+    var link  = window.location.href +
+                "/?sr-listings=sr-single" +
+                "&listing_id=" + listing.mlsId +
+                "&sr_vendor=" +
+                "&listing_price=" + listing.listPrice +
+                "&listing_title=" + listing.address.full;
 
     var markup = '' +
        '<div class="sr-iw-inner">' +
        '    <h4 class="sr-iw-addr">' + addr + '</h4>' +
        '    <div class="sr-iw-inner__img">' +
-       '        <a href="' + l + '">' +
-       '            <img id="sr-iw-inner__img-img" src="' + p + '" style="max-width:100%">' +
+       '        <a href="' + link + '">' +
+       '            <img id="sr-iw-inner__img-img" src="' + photo + '" style="max-width:100%">' +
        '        </a>' +
        '    </div>' +
        '    <div class="sr-iw-inner__primary">' +
@@ -124,7 +123,7 @@ var genMarkerPopup = function(listing) {
        '    </div>' +
        '    <hr>' +
        '    <div class="sr-iw-inner__view-details">' +
-       '       <a href="' + l + '">View Details</a>' +
+       '       <a href="' + link + '">View Details</a>' +
        '    </div>' +
        '    </div>' +
        '</div>';
