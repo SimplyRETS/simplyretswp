@@ -89,6 +89,7 @@ var genMarkerPopup = function(listing) {
     var type  = listing.property.type      || "Res";
     var sqft  = listing.property.area      || "n/a";
     var mlnum = listing.listingId          || "n/a";
+    var price = listing.listPrice          || "Unknown";
     var addr  = listing.address.full       || "Unknown";
     var photo = listing.photos.length > 1
               ? listing.photos[0]
@@ -113,6 +114,8 @@ var genMarkerPopup = function(listing) {
        '    </div>' +
        '    <hr>' +
        '    <div class="sr-iw-inner__secondary">' +
+       '        <span><strong>Price:</strong>' + price + '</span>' +
+       '        <br>' +
        '        <span><strong>MLS #:</strong>' + mlnum + '</span>' +
        '        <br>' +
        '        <span><strong>Area:</strong>' + sqft + '</span>' +
