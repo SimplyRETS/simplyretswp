@@ -117,9 +117,11 @@ HTML;
             header("Content-Type: application/json");
 
             $req = SimplyRetsApiHelper::makeApiRequest("?".$_POST['params']);
+            $con = SimplyRetsApiHelper::srResidentialResultsGenerator($req);
 
             $response = array(
                 "result" => $req,
+                "markup" => $con,
                 "post"   => $_POST
             );
 
