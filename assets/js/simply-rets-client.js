@@ -412,9 +412,6 @@ var initIntMap = function() {
             points = params.points,
             query  = params.query;
 
-        console.log(points);
-        console.log(query);
-
         SrMap.makeRequest(points, query).done(SrMap.handleRequest);
 
     });
