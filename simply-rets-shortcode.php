@@ -38,7 +38,112 @@ class SrShortcodes {
 
 
     public static function sr_int_map_search($atts) {
-        return "<div id=\"sr-int-map\"></div>";
+        if(!is_array($atts)) $atts = array();
+
+        /** Private Parameters (shortcode attributes) */
+        $vendor  = isset($atts['vendor'])  ? $atts['vendor']  : '';
+        $brokers = isset($atts['brokers']) ? $atts['brokers'] : '';
+        $agent   = isset($atts['agent'])   ? $atts['agent']   : '';
+        $limit   = isset($atts['limit'])   ? $atts['limit']   : '';
+
+        $type_att = isset($atts['type']) ? $atts['type'] : '';
+
+        if(!empty($atts['search_form'])) {
+
+            $single_vendor = SrUtils::isSingleVendor();
+            $allVendors    = get_option('sr_adv_search_meta_vendors', array());
+            $vendor        = (empty($vendor) && $singleVendor == true && !empty($allVendors[0]))
+                           ? $allVendors[0]
+                           : $vendor;
+            $prop_types    = get_option("sr_adv_search_meta_types_$vendor"
+                                        , array("Residential", "Condominium", "Rental"));
+
+            $type_options = "";
+            foreach((array)$prop_types as $key=>$type) {
+                if( $type == $type_att) {
+                    $type_options .= "<option value='$type' selected />$type</option>";
+                } else {
+                    $type_options .= "<option value='$type' />$type</option>";
+                }
+            }
+
+            $content = <<<HTML
+                <div class="sr-int-map-search-wrapper">
+                  <div id="sr-search-wrapper">
+                    <h3>Search Listings</h3>
+                    <form method="get" class="sr-search sr-map-search-form">
+                      <input type="hidden" name="sr-listings" value="sr-search">
+
+                      <div class="sr-minmax-filters">
+                        <div class="sr-search-field" id="sr-search-keywords">
+                          <input name="sr_keywords"
+                                 type="text"
+                                 placeholder="Subdivision, Zipcode, MLS Area, MLS Number, or Market Area"
+                          />
+                        </div>
+
+                        <div class="sr-search-field" id="sr-search-ptype">
+                          <select name="sr_ptype">
+                            <option value="">Property Type</option>
+                            <?php echo $type_options; ?>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="sr-minmax-filters">
+                        <div class="sr-search-field" id="sr-search-minprice">
+                          <input name="sr_minprice" type="number" placeholder="Min Price.." />
+                        </div>
+                        <div class="sr-search-field" id="sr-search-maxprice">
+                          <input name="sr_maxprice" type="number" placeholder="Max Price.." />
+                        </div>
+
+                        <div class="sr-search-field" id="sr-search-minbeds">
+                          <input name="sr_minbeds" type="number" placeholder="Min Beds.." />
+                        </div>
+                        <div class="sr-search-field" id="sr-search-maxbeds">
+                          <input name="sr_maxbeds" type="number" placeholder="Max Beds.." />
+                        </div>
+
+                        <div class="sr-search-field" id="sr-search-minbaths">
+                          <input name="sr_minbaths" type="number" placeholder="Min Baths.." />
+                        </div>
+                        <div class="sr-search-field" id="sr-search-maxbaths">
+                          <input name="sr_maxbaths" type="number" placeholder="Max Baths.." />
+                        </div>
+                      </div>
+
+                      <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
+                      <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
+                      <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
+                      <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
+
+                      <div>
+                          <input class="submit button btn" type="submit" value="Search Properties">
+
+                          <div class="sr-sort-wrapper">
+                              <label for="sr_sort">Sort by: </label>
+                              <select class="select" name="sr_sort">
+                                  <option value="-listprice"> Price - High to Low</option>
+                                  <option value="listprice"> Price - Low to High</option>
+                                  <option value="-listdate"> List Date - New to Old</option>
+                                  <option value="listdate"> List date - Old to New</option>
+                              </select>
+                          </div>
+                      </div>
+
+                    </form>
+                  </div>
+                  <div id="sr-int-map"></div>
+                </div>
+HTML;
+
+            return $content;
+
+        } else {
+            return "<div id=\"sr-int-map\"></div>";
+        }
+
     }
 
 
