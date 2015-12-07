@@ -139,15 +139,26 @@ var genMarkerPopup = function(listing) {
 /**
  * Send request with points
  */
-var srMapSendRequest = function(points) {
+var srMapSendRequest = function(points, params) {
+
+    for (var p in params) {
+        if(params[p] === null || params[p] === undefined || params[p] === "") {
+            delete params[p];
+        }
+    }
+
+    var pointsQ = $_.param(points);
+    var paramsQ = $_.param(params);
+
+    var query = pointsQ + "&" + paramsQ;
 
     var req = $_.ajax({
         type: 'post',
         url: sr_ajaxUrl, // defined in <head>
         data: {
             action: 'update_int_map_data', // server controller
-            data: points,
-            params: $_.param(points)
+            data: pointsQ,
+            params: query
         },
     });
 
@@ -222,18 +233,8 @@ var initIntMap = function() {
     var markers  = [];
     var listings = [];
     var polygon  = null;
-    var loadMsg  = "Waiting...";
-
-    var mapData = {
-        map: map,
-        bounds: bounds,
-        markers: markers,
-        listings: listings,
-        polygon: polygon,
-        loadMsg: loadMsg
-    };
-
-    var center   = new L.LatLng(41.850033, -87.6500523);
+    var popup    = null;
+    var loadMsg  = "Loading...";
 
     var SMap =  L.Class.extend({
 
@@ -248,7 +249,33 @@ var initIntMap = function() {
 
         },
 
-        handleRequest: function(data) {
+        getSearchFormValues: function() {
+
+            var keyword  = $_('.sr-int-map-search-wrapper #sr-search-keywords > input[type="text"]').val(),
+                ptype    = $_('.sr-int-map-search-wrapper #sr-search-ptype select').val(),
+                minprice = $_('.sr-int-map-search-wrapper #sr-search-minprice input').val(),
+                maxprice = $_('.sr-int-map-search-wrapper #sr-search-maxprice input').val(),
+                minbeds  = $_('.sr-int-map-search-wrapper #sr-search-minbeds input').val(),
+                maxbeds  = $_('.sr-int-map-search-wrapper #sr-search-maxbeds input').val(),
+                minbaths = $_('.sr-int-map-search-wrapper #sr-search-minbaths input').val(),
+                maxbaths = $_('.sr-int-map-search-wrapper #sr-search-maxbaths input').val(),
+                sort     = $_('.sr-int-map-search-wrapper .sr-sort-wrapper select').val();
+
+            return {
+                q:        keyword,
+                type:     ptype,
+                sort:     sort,
+                minprice: minprice,
+                maxprice: maxprice,
+                minbeds:  minbeds,
+                maxbeds:  maxbeds,
+                minbaths: minbaths,
+                maxbaths: maxbaths,
+            }
+
+        },
+
+        handleRequest: function(data, xhr) {
 
             bounds   = [];
             listings = [];
@@ -261,12 +288,16 @@ var initIntMap = function() {
             markers  = mks.markers;
             listings = ls;
 
+            if(polygon != null && popup != null) polygon.closePopup();
+
             placeMapMarkers(map, markers);
             map.fitBounds(bounds);
 
         },
 
         handleDraw: function(e) {
+
+            var query = this.getSearchFormValues();
 
             $_.each (markers, function (i, m) { map.removeLayer(m) });
             if(polygon != null) map.removeLayer(polygon);
@@ -275,6 +306,7 @@ var initIntMap = function() {
 
             polygon = e.layer;
             markers = [];
+            popup   = loadMsg;
 
             e.layer.bindPopup(loadMsg);
             e.layer.openPopup();
@@ -286,12 +318,10 @@ var initIntMap = function() {
                 }
             });
 
-            e.layer.closePopup();
-            return latLngs;
-
-            // srMapSendRequest(latLngs).done(function(data) {
-            //     this.handleRequest(data);
-            // })
+            return {
+                latLngs: latLngs,
+                query: query
+            }
 
         },
 
@@ -318,9 +348,7 @@ var initIntMap = function() {
 
     SrMap.addTileLayer();
     SrMap.setView(2);
-    SrMap.on('load',
-             SrMap.makeRequest([]).done(
-                 SrMap.handleRequest));
+    SrMap.on('load', SrMap.makeRequest([], {}).done(SrMap.handleRequest));
 
     var drawnItems = new L.FeatureGroup();
     var drawCtrl   = new L.Control.Draw({
@@ -336,8 +364,12 @@ var initIntMap = function() {
     SrMap.addLayer(drawnItems);
 
     SrMap.on('draw:created', function(e) {
-        var lls = SrMap.handleDraw(e); // gather lat/lngs from map
-        SrMap.makeRequest(lls).done(SrMap.handleRequest);
+        var params = SrMap.handleDraw(e); // gather lat/lngs from map
+
+        var lls = params.latLngs;
+        var query = params.query;
+
+        SrMap.makeRequest(lls, query).done(SrMap.handleRequest);
     });
 
     return;
