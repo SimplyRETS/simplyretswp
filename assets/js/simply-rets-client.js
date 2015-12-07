@@ -127,7 +127,7 @@ var genMarkerPopup = function(listing) {
        '    </div>' +
        '    </div>' +
        '</div>';
-    
+
     return markup;
 
 }
@@ -209,44 +209,124 @@ var placeMapMarkers = function(map, markers) {
 
 }
 
+/********************************/
+
+
+/********************************/
+
 var initIntMap = function() {
 
-    /*
-     * Interactive Map Search JS
-     */
-    var map = new L.Map('sr-int-map');
-    var center = new L.LatLng(41.850033, -87.6500523);
+    var map      = new L.Map('sr-int-map');
+    var bounds   = [];
+    var markers  = [];
+    var listings = [];
+    var polygon  = null;
+    var loadMsg  = "Waiting...";
 
-    var mapBounds   = [];
-    var mapMarkers  = [];
-    var mapListings = [];
-    var mapPolygon  = null;
+    var mapData = {
+        map: map,
+        bounds: bounds,
+        markers: markers,
+        listings: listings,
+        polygon: polygon,
+        loadMsg: loadMsg
+    };
 
-    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-        maxZoom: 18
-    }).addTo(map);
+    var center   = new L.LatLng(41.850033, -87.6500523);
 
+    var SMap =  L.Class.extend({
 
-    map.on('load', function() {
-        srMapSendRequest([]).done(function(data) {
+        makeRequest: srMapSendRequest,
+
+        addTileLayer: function() {
+
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+                maxZoom: 18
+            }).addTo(map);
+
+        },
+
+        handleRequest: function(data) {
+
+            bounds   = [];
+            listings = [];
 
             var response = srMapHandleRequest(data);
-            var markers  = makeMapMarkers(response.listings);
+            var ls       = response.listings.length > 0 ? response.listings : [];
+            var mks      = makeMapMarkers(ls);
 
-            mapBounds   = markers.bounds;
-            mapMarkers  = markers.markers;
-            mapListings = markers.listings;
+            bounds   = mks.bounds;
+            markers  = mks.markers;
+            listings = ls;
 
-            placeMapMarkers(map, markers.markers);
-            map.fitBounds(markers.bounds);
+            console.log(markers);
 
-        });
+            placeMapMarkers(map, markers);
+            map.fitBounds(bounds);
+
+        },
+
+        handleDraw: function(e) {
+
+            console.log(markers);
+
+            $_.each (markers, function (i, m) { map.removeLayer(m) });
+            if(polygon != null) map.removeLayer(polygon);
+
+            map.addLayer(e.layer);
+
+            polygon = e.layer;
+            markers = [];
+
+            e.layer.bindPopup(loadMsg);
+            e.layer.openPopup();
+
+            var latLngs = $_.map(e.layer.getLatLngs(), function(o) {
+                return {
+                    name: "points",
+                    value: o.lat + "," + o.lng
+                }
+            });
+
+            e.layer.closePopup();
+            return latLngs;
+
+            // srMapSendRequest(latLngs).done(function(data) {
+            //     this.handleRequest(data);
+            // })
+
+        },
+
+        addLayer: function(layer) {
+            map.addLayer(layer);
+        },
+
+        addControl: function(control) {
+            map.addControl(control);
+        },
+
+        on: function(action, callback) {
+            map.on(action, callback);
+        },
+
+        setView: function(z) {
+            map.setView(new L.LatLng(41.850033, -87.6500523), z);
+        }
+
     });
 
-    map.setView(center, 2);
 
-    /***********************************************************/
+    var SrMap = new SMap('sr-int-map');
+
+    SrMap.addTileLayer();
+    SrMap.setView(2);
+    SrMap.on('load',
+             SrMap.makeRequest([]).done(
+                 SrMap.handleRequest));
+
+    console.log('MARKERS');
+    console.log(markers);
 
     var drawnItems = new L.FeatureGroup();
     var drawCtrl   = new L.Control.Draw({
@@ -258,53 +338,18 @@ var initIntMap = function() {
         }
     });
 
-    map.addControl(drawCtrl);
-    map.addLayer(drawnItems);
+    SrMap.addControl(drawCtrl);
+    SrMap.addLayer(drawnItems);
 
-    /***********************************************************/
-
-    // load initial listings after render
-    map.on('draw:created', function(e) {
-
-        $_.each (mapMarkers, function (i, m) { map.removeLayer(m) });
-        if (mapPolygon != null) map.removeLayer (mapPolygon);
-
-        mapPolygon  = null;
-        mapBounds   = [];
-        mapMarkers  = [];
-        mapListings = [];
-
-        var latLngs = $_.map(e.layer.getLatLngs(), function(o) {
-            return {
-                name: "points",
-                value: o.lat + "," + o.lng
-            }
-        });
-
-        srMapSendRequest(latLngs).done(function(data) {
-
-            var response = srMapHandleRequest(data);
-            var markers  = makeMapMarkers(response.listings);
-
-            console.log(markers.markers.length);
-
-            mapBounds   = markers.bounds;
-            mapMarkers  = markers.markers;
-            mapListings = markers.listings;
-            mapPolygon  = e.layer;
-
-            console.log(mapBounds);
-
-            placeMapMarkers(map, markers.markers);
-            map.addLayer(e.layer);
-            map.fitBounds(markers.bounds);
-
-        });
-
+    SrMap.on('draw:created', function(e) {
+        var lls = SrMap.handleDraw(e); // gather lat/lngs from map
+        SrMap.makeRequest(lls).done(SrMap.handleRequest);
     });
 
     return;
+
 }
+
 
 
 $_(document).ready(function() {
@@ -318,4 +363,5 @@ $_(document).ready(function() {
     if($_('#sr-int-map').length) {
         initIntMap();
     }
+
 });
