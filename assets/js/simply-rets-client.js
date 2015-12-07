@@ -221,6 +221,13 @@ var placeMapMarkers = function(map, markers) {
 
 }
 
+var replaceListingMarkup = function(markup) {
+
+    var root = $_('.sr-int-map-list-view');
+    root.html(markup);
+
+}
+
 
 var getSearchFormValues = function() {
 
@@ -293,6 +300,7 @@ var initIntMap = function() {
 
             placeMapMarkers(map, markers);
             map.fitBounds(bounds);
+            replaceListingMarkup(data.markup);
 
         },
 
