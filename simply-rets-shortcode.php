@@ -40,6 +40,13 @@ class SrShortcodes {
     public static function sr_int_map_search($atts) {
         if(!is_array($atts)) $atts = array();
 
+        $content     = "";
+        $search_form = "";
+        $map_markup  = "<div id=\"sr-int-map\"></div>";
+        $list_markup = !empty($atts['list_view'])
+                     ? "<div class=\"sr-int-map-list-view\"></div>"
+                     : "";
+
         /** Private Parameters (shortcode attributes) */
         $vendor  = isset($atts['vendor'])  ? $atts['vendor']  : '';
         $brokers = isset($atts['brokers']) ? $atts['brokers'] : '';
@@ -67,7 +74,7 @@ class SrShortcodes {
                 }
             }
 
-            $content = <<<HTML
+            $search_form = <<<HTML
                 <div class="sr-int-map-search-wrapper">
                   <div id="sr-search-wrapper">
                     <h3>Search Listings</h3>
@@ -139,15 +146,16 @@ class SrShortcodes {
                       </p>
                     </form>
                   </div>
-                  <div id="sr-int-map"></div>
                 </div>
 HTML;
 
-            return $content;
-
-        } else {
-            return "<div id=\"sr-int-map\"></div>";
         }
+
+        $content .= $search_form;
+        $content .= $map_markup;
+        $content .= $list_markup;
+
+        return $content;
 
     }
 
