@@ -10,7 +10,8 @@
 
 add_action('wp_head',
            array('SrSearchMap', 'defineAjaxUrl'));
-add_action('wp_ajax_update_int_map_data',
+
+add_action('wp_ajax_nopriv_update_int_map_data',
            array('SrSearchMap', 'update_int_map_data'));
 
 
@@ -129,8 +130,6 @@ HTML;
             wp_send_json($response);
 
         } else {
-
-            var_dump($_POST);
 
             die(json_encode((array)'Something\'s fishy'));
 
