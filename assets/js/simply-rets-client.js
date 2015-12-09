@@ -229,12 +229,10 @@ function Map() {
     this.rectangle = null;
     this.popup     = null;
     this.loadMsg   = "Loading...";
-    this.zoom      = 8;
+    this.loaded    = false;
+    this.options   = { zoom: 8 }
 
-    this.map = new google.maps.Map(document.getElementById('sr-map-search'), {
-        center: { lat: 43.77109381775651, lng: -79.716796875 },
-        zoom: this.zoom
-    });
+    this.map = new google.maps.Map(document.getElementById('sr-map-search'), this.options);
 
     return this;
 }
@@ -347,25 +345,6 @@ Map.prototype.handleRectangleDraw = function(that, overlay) {
         points: pts,
         query: query
     }
-}
-
-
-Map.prototype.initSearchFormEventHandler = function() {
-
-    var that = this;
-
-    $_('.sr-int-map-search-wrapper form input.submit').on('click', function(e) {
-        var params = that.handleFormSubmit(e),
-            points = params.points,
-            query  = params.query;
-
-        that.sendRequest(points, query).done(function(data) {
-            that.handleRequest(that, data);
-        });
-
-    });
-
-    return;
 }
 
 
@@ -506,10 +485,43 @@ Map.prototype.setDrawingManager = function() {
 };
 
 
+Map.prototype.initEventListeners = function() {
+
+    var that = this;
+
+    // fetch initial listings when map is loaded
+    this.addEventListener(this.map, 'idle', function() {
+        if(!that.loaded) {
+            that.loaded = true;
+            that.sendRequest([], {}).done(function(data) {
+                that.handleRequest(that, data);
+            });
+        }
+    });
+
+
+    // Watch the search form for submission
+    $_('.sr-int-map-search-wrapper form input.submit').on('click', function(e) {
+        var params = that.handleFormSubmit(e),
+            points = params.points,
+            query  = params.query;
+
+        that.sendRequest(points, query).done(function(data) {
+            that.handleRequest(that, data);
+        });
+
+    });
+
+    return;
+
+};
+
+
 var startMap = function() {
 
     var map = new Map();
     map.setDrawingManager();
+    map.initEventListeners();
     map.initSearchFormEventHandler();
 
 }
