@@ -248,8 +248,6 @@ function Map() {
 /** `rec`: google.maps.OverlayType === RECTANGLE */
 Map.prototype.getRectanglePoints = function(rec) {
 
-    console.log(rec.getBounds());
-
     var b  = rec.getBounds();
     var nE = [ b.getNorthEast().lat(), b.getNorthEast().lng() ];
     var nW = [ b.getNorthEast().lat(), b.getSouthWest().lng() ];
@@ -286,8 +284,6 @@ Map.prototype.getPolygonPoints = function(polygon) {
         }
     });
 
-    console.log(latLngs);
-
     return latLngs;
 
 }
@@ -320,6 +316,7 @@ Map.prototype.handlePolygonDraw = function(that, overlay) {
     var pts   = this.getPolygonPoints(overlay);
     var query = that.searchFormValues();
 
+    that.shape   = 'polygon';
     that.polygon = overlay;
     that.markers = [];
 
@@ -342,12 +339,9 @@ Map.prototype.handleRectangleDraw = function(that, overlay) {
     // if(polygon != null) map.removeLayer(polygon);
     // map.addLayer(e.layer);
 
+    this.shape   = "rectangle";
     this.polygon = overlay;
     this.markers = [];
-    this.popup   = "Loaded";
-
-    // e.layer.bindPopup(loadMsg);
-    // e.layer.openPopup();
 
     return {
         points: pts,
@@ -381,7 +375,9 @@ Map.prototype.handleFormSubmit = function(e) {
     this.clearMarkers();
 
     var params = this.searchFormValues();
-    var points = this.getPolygonPoints(this.polygon);
+    var points = this.shape === "rectangle"
+               ? this.getRectanglePoints(this.polygon)
+               : this.getPolygonPoints(this.polygon);
 
     return {
         query:  params,
