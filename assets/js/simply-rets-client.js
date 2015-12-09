@@ -2,7 +2,7 @@
  *
  * simply-rets-client.js - Copyright (c) 2014-2015 SimplyRETS
  *
- * This file provides the (minimal) client side javascript for the
+ * This file provides the client side javascript for the
  * SimplyRETS Wordpress plugin.
  *
  * License: GPLv3 (http://www.gnu.org/licenses/gpl.html)
@@ -136,54 +136,12 @@ var genMarkerPopup = function(listing) {
 }
 
 
-/**
- * Send request with points
- */
-var srMapSendRequest = function(points, params) {
-
-    for (var p in params) {
-        if(params[p] === null || params[p] === undefined || params[p] === "") {
-            delete params[p];
-        }
-    }
-
-    var pointsQ = $_.param(points);
-    var paramsQ = $_.param(params);
-
-    var query = pointsQ + "&" + paramsQ;
-
-    var req = $_.ajax({
-        type: 'post',
-        url: sr_ajaxUrl, // defined in <head>
-        data: {
-            action: 'update_int_map_data', // server controller
-            data: pointsQ,
-            params: query
-        },
-    });
-
-    return req;
-}
-
-var srMapHandleRequest = function(data) {
-
-    var listings = data.result.response.length > 0
-                 ? data.result.response
-                 : [];
-
-    return {
-        data: data,
-        listings: listings
-    }
-
-}
-
-
-var makeMapMarkers = function(listings) {
+var makeMapMarkers = function(map, listings) {
     // if(!listings || listings.length < 1) return [];
 
-    var bounds  = [];
     var markers = [];
+    var windows = [];
+    var bounds  = new google.maps.LatLngBounds();
 
     $_.each(listings, function(idx, listing) {
 
@@ -191,14 +149,27 @@ var makeMapMarkers = function(listings) {
             lng = listing.geo.lng;
 
         if(lat && lng) {
-            var bound  = new L.LatLng(listing.geo.lat, listing.geo.lng);
-            var marker = new L.Marker(bound);
+
+            var bound  = new google.maps.LatLng(listing.geo.lat, listing.geo.lng);
+
             var popup  = genMarkerPopup(listing);
+            var window = new google.maps.InfoWindow({
+                content: popup
+            });
 
-            marker.bindPopup(popup);
+            var marker = new google.maps.Marker({
+                position: bound,
+                map: map,
+                title: listing.address.full
+            });
 
-            bounds.push(bound);
+            marker.addListener('click', function() {
+                window.open(map, marker);
+            });
+
+            bounds.extend(bound);
             markers.push(marker);
+            windows.push(window);
         }
 
     });
@@ -206,26 +177,15 @@ var makeMapMarkers = function(listings) {
     return {
         bounds:   bounds,
         markers:  markers,
-        listings: listings
+        windowsL: windows
     }
 
 }
 
 
-var placeMapMarkers = function(map, markers) {
-    // if(!markers || markers.length < 1) return [];
-
-    $_.each(markers, function (idx, marker) {
-        map.addLayer(marker);
-    });
-
-}
-
 var replaceListingMarkup = function(markup) {
-
     var root = $_('.sr-int-map-list-view');
     root.html(markup);
-
 }
 
 
@@ -255,179 +215,308 @@ var getSearchFormValues = function() {
 }
 
 
-/********************************/
+/**
+ * Our Map Class
+ * Holds some state for working with the map:
+ */
+function Map() {
 
+    this.element   = 'sr-map-search';
+    this.bounds    = [];
+    this.markers   = [];
+    this.listings  = [];
+    this.polygon   = null;
+    this.rectangle = null;
+    this.popup     = null;
+    this.loadMsg   = "Loading...";
+    this.zoom      = 8;
 
-/********************************/
-
-var initIntMap = function() {
-
-    var map      = new L.Map('sr-int-map');
-    var bounds   = [];
-    var markers  = [];
-    var listings = [];
-    var polygon  = null;
-    var popup    = null;
-    var loadMsg  = "Loading...";
-
-    var SMap =  L.Class.extend({
-
-        makeRequest: srMapSendRequest,
-
-        addTileLayer: function() {
-
-            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-                maxZoom: 18
-            }).addTo(map);
-
-        },
-
-        handleRequest: function(data) {
-
-            bounds   = [];
-            listings = [];
-
-            var response = srMapHandleRequest(data);
-            var ls       = response.listings.length > 0 ? response.listings : [];
-            var mks      = makeMapMarkers(ls);
-
-            bounds   = mks.bounds;
-            markers  = mks.markers;
-            listings = ls;
-
-            if(polygon != null && popup != null) polygon.closePopup();
-
-            placeMapMarkers(map, markers);
-            map.fitBounds(bounds);
-            replaceListingMarkup(data.markup);
-
-        },
-
-        handleFormSubmit: function(e) {
-            e.preventDefault();
-
-            $_.each (markers, function (i, m) { map.removeLayer(m) });
-
-            var params = getSearchFormValues();
-
-            markers = [];
-
-            polygon.bindPopup(loadMsg);
-            polygon.openPopup();
-
-            var points = $_.map(polygon.getLatLngs(), function(o) {
-                return {
-                    name: "points",
-                    value: o.lat + "," + o.lng
-                }
-            });
-
-            return {
-                query:  params,
-                points: points
-            }
-
-        },
-
-        handleDraw: function(e) {
-
-            var query = getSearchFormValues();
-
-            $_.each (markers, function (i, m) { map.removeLayer(m) });
-            if(polygon != null) map.removeLayer(polygon);
-
-            map.addLayer(e.layer);
-
-            polygon = e.layer;
-            markers = [];
-            popup   = loadMsg;
-
-            e.layer.bindPopup(loadMsg);
-            e.layer.openPopup();
-
-            var latLngs = $_.map(e.layer.getLatLngs(), function(o) {
-                return {
-                    name: "points",
-                    value: o.lat + "," + o.lng
-                }
-            });
-
-            return {
-                latLngs: latLngs,
-                query: query
-            }
-
-        },
-
-        addLayer: function(layer) {
-            map.addLayer(layer);
-        },
-
-        addControl: function(control) {
-            map.addControl(control);
-        },
-
-        on: function(action, callback) {
-            map.on(action, callback);
-        },
-
-        setView: function(z) {
-            map.setView(new L.LatLng(41.850033, -87.6500523), z);
-        }
-
+    this.map = new google.maps.Map(document.getElementById('sr-map-search'), {
+        center: { lat: 43.77109381775651, lng: -79.716796875 },
+        zoom: this.zoom
     });
 
+    return this;
+}
 
-    // Make new map
-    var SrMap = new SMap('sr-int-map');
 
-    // Initial layers/markers
-    SrMap.addTileLayer();
-    SrMap.setView(2);
-    SrMap.on('load', SrMap.makeRequest([], {}).done(SrMap.handleRequest));
+/**
+ * Map prototype methods
+ */
 
-    // make controls
-    var drawnItems = new L.FeatureGroup();
-    var drawCtrl   = new L.Control.Draw({
-        edit: { featureGroup: drawnItems },
-        draw: {
-            circle: false,
-            marker: false,
-            polyline: false
+
+/** `rec`: google.maps.OverlayType === RECTANGLE */
+Map.prototype.getRectanglePoints = function(rec) {
+
+    console.log(rec.getBounds());
+
+    var b  = rec.getBounds();
+    var nE = [ b.getNorthEast().lat(), b.getNorthEast().lng() ];
+    var nW = [ b.getNorthEast().lat(), b.getSouthWest().lng() ];
+    var sE = [ b.getSouthWest().lat(), b.getNorthEast().lng() ];
+    var sW = [ b.getSouthWest().lat(), b.getSouthWest().lng() ];
+
+    var latLngs = $_.map([nE, nW, sE, sW], function(o) {
+        return {
+            name: "points",
+            value: o[0] + "," + o[1]
         }
     });
 
-    // add controls to map
-    SrMap.addControl(drawCtrl);
-    SrMap.addLayer(drawnItems);
+    return latLngs;
 
-    // Run when a new polygon is drawn
-    SrMap.on('draw:created', function(e) {
+}
 
-        var params = SrMap.handleDraw(e),
-            points = params.latLngs,
-            query  = params.query;
+Map.prototype.getPolygonPoints = function(polygon) {
 
-        SrMap.makeRequest(points, query).done(SrMap.handleRequest);
+    var paths  = polygon.getPaths();
+    var points = [];
 
+    for (var p = 0; p < paths.getLength(); p++) {
+        var path = paths.getAt(p);
+        for (var i = 0; i < path.getLength(); i++) {
+            points.push([ path.getAt(i).lat(), path.getAt(i).lng() ]);
+        }
+    }
+
+    var latLngs = $_.map(points, function(o) {
+        return {
+            name: "points",
+            value: o[0] + "," + o[1]
+        }
     });
 
-    // When the search form is submitted, rerun query
+    console.log(latLngs);
+
+    return latLngs;
+
+}
+
+
+Map.prototype.addEventListener = function(source, event, fn) {
+    return google.maps.event.addListener(source, event, fn);
+}
+
+Map.prototype.searchFormValues = function() {
+    return getSearchFormValues();
+};
+
+Map.prototype.clearMarkers = function() {
+    if(this.markers.length > 0)
+        this.setMapOnMarkers(null);
+}
+
+Map.prototype.clearPolygon = function() {
+    if(this.polygon !== null)
+        this.setMapOnPolygon(null);
+}
+
+
+Map.prototype.handlePolygonDraw = function(that, overlay) {
+
+    that.clearMarkers();
+    that.clearPolygon();
+
+    var pts   = this.getPolygonPoints(overlay);
+    var query = that.searchFormValues();
+
+    that.polygon = overlay;
+    that.markers = [];
+
+    return {
+        points: pts,
+        query: query
+    }
+}
+
+
+Map.prototype.handleRectangleDraw = function(that, overlay) {
+
+    that.clearMarkers();
+    that.clearPolygon();
+
+    var pts   = that.getRectanglePoints(overlay);
+    var query = that.searchFormValues();
+
+    // $_.each (markers, function (i, m) { map.removeLayer(m) });
+    // if(polygon != null) map.removeLayer(polygon);
+    // map.addLayer(e.layer);
+
+    this.polygon = overlay;
+    this.markers = [];
+    this.popup   = "Loaded";
+
+    // e.layer.bindPopup(loadMsg);
+    // e.layer.openPopup();
+
+    return {
+        points: pts,
+        query: query
+    }
+}
+
+
+Map.prototype.initSearchFormEventHandler = function() {
+
+    var that = this;
+
     $_('.sr-int-map-search-wrapper form input.submit').on('click', function(e) {
-
-        var params = SrMap.handleFormSubmit(e),
+        var params = that.handleFormSubmit(e),
             points = params.points,
             query  = params.query;
 
-        SrMap.makeRequest(points, query).done(SrMap.handleRequest);
+        that.sendRequest(points, query).done(function(data) {
+            that.handleRequest(that, data);
+        });
 
     });
 
     return;
+}
+
+
+Map.prototype.handleFormSubmit = function(e) {
+    e.preventDefault();
+
+    this.clearMarkers();
+
+    var params = this.searchFormValues();
+    var points = this.getPolygonPoints(this.polygon);
+
+    return {
+        query:  params,
+        points: points
+    }
 
 }
 
+
+Map.prototype.setMapOnMarkers = function(map) {
+
+    for(var i = 0; i < this.markers.length; i++) {
+        this.markers[i].setMap(map);
+    }
+
+    return true;
+}
+
+
+Map.prototype.setMapOnPolygon = function(map) {
+
+    this.polygon.setMap(map);
+
+    return true;
+}
+
+
+Map.prototype.handleRequest = function(that, data) {
+
+    that.setMapOnMarkers(null);
+    // that.polygon !== null ? that.polygon.setMap(null) : true;
+
+    that.bounds   = [];
+    that.listings = [];
+
+    var listings = data.result.response.length > 0
+                 ? data.result.response
+                 : [];
+    var markers  = makeMapMarkers(that.map, listings); // {markers:_,windows:_,bounds:_}
+
+    that.bounds   = markers.bounds;
+    that.markers  = markers.markers;
+    that.listings = listings;
+
+    that.map.fitBounds(that.bounds);
+    replaceListingMarkup(data.markup);
+
+}
+
+Map.prototype.sendRequest = function(points, params) {
+
+    for (var p in params) {
+        if(params[p] === null || params[p] === undefined || params[p] === "") {
+            delete params[p];
+        }
+    }
+
+    var pointsQ = $_.param(points);
+    var paramsQ = $_.param(params);
+
+    var query = pointsQ + "&" + paramsQ;
+
+    var req = $_.ajax({
+        type: 'post',
+        url: sr_ajaxUrl, // defined in <head>
+        data: {
+            action: 'update_int_map_data', // server controller
+            data: pointsQ,
+            params: query
+        },
+    });
+
+    return req;
+
+}
+
+Map.prototype.setDrawingManager = function() {
+
+    var that = this;
+
+    // Enable the drawing tools toolbar
+    var drawingManager = new google.maps.drawing.DrawingManager({
+        map: this.map,
+        drawingControl: true,
+        drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: [
+                google.maps.drawing.OverlayType.POLYGON,
+                google.maps.drawing.OverlayType.RECTANGLE
+            ]
+        },
+        // markerOptions: { icon: 'custom/icon/here.png' },
+        rectangleOptions: {
+            fillOpacity: 0.1,
+            fillColor: 'green',
+            strokeColor: 'green'
+        },
+        polygonOptions: {
+            // editable: true
+            fillOpacity: 0.1,
+            fillColor: 'green',
+            strokeColor: 'green'
+        },
+    });
+
+    this.addEventListener(drawingManager, 'rectanglecomplete', function(overlay) {
+        var q = that.handleRectangleDraw(that, overlay);
+
+        that.sendRequest(q.points, q.query).done(function(data) {
+            that.handleRequest(that, data);
+        });
+
+    });
+
+    this.addEventListener(drawingManager, 'polygoncomplete', function(overlay) {
+        var q = that.handlePolygonDraw(that, overlay);
+
+        that.sendRequest(q.points, q.query).done(function(data) {
+            that.handleRequest(that, data);
+        });
+
+    });
+
+    return drawingManager;
+
+};
+
+
+var startMap = function() {
+
+    var map = new Map();
+    map.setDrawingManager();
+    map.initSearchFormEventHandler();
+
+}
 
 
 $_(document).ready(function() {
@@ -437,9 +526,8 @@ $_(document).ready(function() {
     advSearchFormToggler();
     listingSliderCarousel();
 
-
-    if($_('#sr-int-map').length) {
-        initIntMap();
+    if(document.getElementById('sr-map-search')) {
+        startMap();
     }
 
 });
