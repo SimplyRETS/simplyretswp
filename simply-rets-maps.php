@@ -14,6 +14,9 @@ add_action('wp_head',
 add_action('wp_ajax_nopriv_update_int_map_data',
            array('SrSearchMap', 'update_int_map_data'));
 
+add_action('wp_ajax_update_int_map_data',
+           array('SrSearchMap', 'update_int_map_data'));
+
 
 /* Code starts here */
 use Ivory\GoogleMap\Map,
