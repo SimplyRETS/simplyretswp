@@ -44,7 +44,7 @@ class SrShortcodes {
         $search_form = "";
         $map_markup  = "<div id=\"sr-map-search\"></div>";
         $list_markup = !empty($atts['list_view'])
-                     ? "<div class=\"sr-int-map-list-view\"></div>"
+                     ? "<div class=\"sr-map-search-list-view\"></div>"
                      : "";
 
         /** Private Parameters (shortcode attributes) */
