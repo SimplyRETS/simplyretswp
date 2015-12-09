@@ -393,7 +393,6 @@ Map.prototype.setMapOnPolygon = function(map) {
 Map.prototype.handleRequest = function(that, data) {
 
     that.setMapOnMarkers(null);
-    // that.polygon !== null ? that.polygon.setMap(null) : true;
 
     that.bounds   = [];
     that.listings = [];
@@ -542,7 +541,22 @@ $_(document).ready(function() {
     listingSliderCarousel();
 
     if(document.getElementById('sr-map-search')) {
-        startMap();
+
+        if(typeof google === 'object' && typeof googlemaps === 'object') {
+            // google.maps exists - start map
+            startMap();
+
+        } else {
+            // if google.maps doesn't exist - load it, then start map
+            var url = "https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=drawing&callback=startMap"
+            var script = document.createElement("script");
+
+            script.type = "text/javascript";
+            script.src = url;
+
+            document.body.appendChild(script);
+
+        }
     }
 
 });

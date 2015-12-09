@@ -380,12 +380,6 @@ class SimplyRetsApiHelper {
                            array('jquery'));
         wp_enqueue_script('simply-rets-carousel');
 
-
-        wp_register_script('simply-rets-gmaps',
-                           'https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=drawing',
-                           array('jquery'));
-        wp_enqueue_script('simply-rets-gmaps');
-
     }
 
 
