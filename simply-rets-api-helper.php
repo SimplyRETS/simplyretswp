@@ -359,17 +359,6 @@ class SimplyRetsApiHelper {
                           'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css');
         wp_enqueue_style('simply-rets-carousel-theme');
 
-
-        /**
-         * Interactive Map Search CSS
-         */
-        wp_register_style('simply-rets-leaflet-css',
-                          'http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css');
-        wp_enqueue_style('simply-rets-leaflet-css');
-
-        wp_register_style('simply-rets-leaflet-draw-css',
-                          'https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css');
-        wp_enqueue_style('simply-rets-leaflet-draw-css');
     }
 
     public static function simplyRetsClientJs() {
@@ -392,24 +381,10 @@ class SimplyRetsApiHelper {
         wp_enqueue_script('simply-rets-carousel');
 
 
-        wp_register_script(
-            'simply-rets-gmaps',
-            'https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=drawing',
-            array('jquery'));
+        wp_register_script('simply-rets-gmaps',
+                           'https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=drawing',
+                           array('jquery'));
         wp_enqueue_script('simply-rets-gmaps');
-
-        /**
-         * Interactive Map Search JS
-         */
-        wp_register_script('simply-rets-leaflet-js',
-                           'http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js',
-                           array('jquery'));
-        wp_enqueue_script('simply-rets-leaflet-js');
-
-        wp_register_script('simply-rets-leaflet-draw-js',
-                           'https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js',
-                           array('jquery'));
-        wp_enqueue_script('simply-rets-leaflet-draw-js');
 
     }
 
