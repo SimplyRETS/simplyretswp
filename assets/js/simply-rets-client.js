@@ -140,7 +140,6 @@ var makeMapMarkers = function(map, listings) {
     // if(!listings || listings.length < 1) return [];
 
     var markers = [];
-    var windows = [];
     var bounds  = new google.maps.LatLngBounds();
 
     $_.each(listings, function(idx, listing) {
@@ -153,6 +152,7 @@ var makeMapMarkers = function(map, listings) {
             var bound  = new google.maps.LatLng(listing.geo.lat, listing.geo.lng);
 
             var popup  = genMarkerPopup(listing);
+
             var window = new google.maps.InfoWindow({
                 content: popup
             });
@@ -164,12 +164,15 @@ var makeMapMarkers = function(map, listings) {
             });
 
             marker.addListener('click', function() {
-                window.open(map, marker);
+                if(window.getMap()) {
+                    window.close(map, marker);
+                } else {
+                    window.open(map, marker);
+                }
             });
 
             bounds.extend(bound);
             markers.push(marker);
-            windows.push(window);
         }
 
     });
@@ -177,7 +180,6 @@ var makeMapMarkers = function(map, listings) {
     return {
         bounds:   bounds,
         markers:  markers,
-        windowsL: windows
     }
 
 }
@@ -228,6 +230,7 @@ function Map() {
     this.polygon   = null;
     this.rectangle = null;
     this.popup     = null;
+    this.drawCtrl  = null;
     this.loadMsg   = "Loading...";
     this.loaded    = false;
     this.options   = { zoom: 8 }
@@ -305,13 +308,18 @@ Map.prototype.clearPolygon = function() {
         this.setMapOnPolygon(null);
 }
 
+Map.prototype.setDrawCtrlOptions = function(opts) {
+    return this.drawCtrl.setOptions(opts);
+}
+
 
 Map.prototype.handlePolygonDraw = function(that, overlay) {
 
     that.clearMarkers();
     that.clearPolygon();
+    that.setDrawCtrlOptions({ drawingMode: null });
 
-    var pts   = this.getPolygonPoints(overlay);
+    var pts   = that.getPolygonPoints(overlay);
     var query = that.searchFormValues();
 
     that.shape   = 'polygon';
@@ -329,17 +337,14 @@ Map.prototype.handleRectangleDraw = function(that, overlay) {
 
     that.clearMarkers();
     that.clearPolygon();
+    that.setDrawCtrlOptions({ drawingMode: null });
 
     var pts   = that.getRectanglePoints(overlay);
     var query = that.searchFormValues();
 
-    // $_.each (markers, function (i, m) { map.removeLayer(m) });
-    // if(polygon != null) map.removeLayer(polygon);
-    // map.addLayer(e.layer);
-
-    this.shape   = "rectangle";
-    this.polygon = overlay;
-    this.markers = [];
+    that.shape   = "rectangle";
+    that.polygon = overlay;
+    that.markers = [];
 
     return {
         points: pts,
@@ -395,7 +400,7 @@ Map.prototype.handleRequest = function(that, data) {
     var listings = data.result.response.length > 0
                  ? data.result.response
                  : [];
-    var markers  = makeMapMarkers(that.map, listings); // {markers:_,windows:_,bounds:_}
+    var markers  = makeMapMarkers(that.map, listings);
 
     that.bounds   = markers.bounds;
     that.markers  = markers.markers;
@@ -462,6 +467,8 @@ Map.prototype.setDrawingManager = function() {
         },
     });
 
+    this.drawCtrl = drawingManager;
+
     this.addEventListener(drawingManager, 'rectanglecomplete', function(overlay) {
         var q = that.handleRectangleDraw(that, overlay);
 
@@ -522,7 +529,6 @@ var startMap = function() {
     var map = new Map();
     map.setDrawingManager();
     map.initEventListeners();
-    map.initSearchFormEventHandler();
 
 }
 
