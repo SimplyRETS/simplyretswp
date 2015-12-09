@@ -359,9 +359,10 @@ Map.prototype.handleFormSubmit = function(e) {
     this.clearMarkers();
 
     var params = this.searchFormValues();
-    var points = this.shape === "rectangle"
-               ? this.getRectanglePoints(this.polygon)
-               : this.getPolygonPoints(this.polygon);
+
+    var points = this.shape === "rectangle" ? this.getRectanglePoints(this.polygon)
+               : this.shape === "polygon"   ? this.getPolygonPoints(this.polygon)
+               : [];
 
     return {
         query:  params,
