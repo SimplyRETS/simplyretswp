@@ -10,11 +10,11 @@
 jQuery(document).ready(function() {
 
    tinymce.create('tinymce.plugins.simplyRets', {
-       init : function(ed, url) {
+       init: function(ed, url) {
            ed.addButton('simplyRets', {
-               title : 'Insert SimplyRETS Listings',
-               image : url + '/../img/icon-128x128.png',
-               onclick : function() {
+               title: 'Insert SimplyRETS Listings',
+               image: url + '/../img/icon-128x128.png',
+               onclick: function() {
                    ed.windowManager.open({
                        title: 'SimplyRETS Page Builder',
                        body: [
