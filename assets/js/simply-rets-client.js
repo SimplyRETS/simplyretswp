@@ -276,14 +276,19 @@ function Map() {
     this.rectangle  = null;
     this.popup      = null;
     this.drawCtrl   = null;
-    this.loadMsg    = "Loading...";
     this.loaded     = false;
     this.options    = { zoom: 8 }
     this.pagination = null;
     this.limit      = 25;
     this.offset     = 0;
 
-    this.map = new google.maps.Map(document.getElementById('sr-map-search'), this.options);
+    this.map     = new google.maps.Map(
+        document.getElementById('sr-map-search'), this.options
+    );
+    this.loadMsg = new google.maps.InfoWindow({
+        map: null,
+        content: "Loading..."
+    });
 
     return this;
 }
@@ -297,32 +302,51 @@ function Map() {
 /** `rec`: google.maps.OverlayType === RECTANGLE */
 Map.prototype.getRectanglePoints = function(rec) {
 
+    var latLngs = [];
+    var bounds  = new google.maps.LatLngBounds();
+
     var b  = rec.getBounds();
     var nE = [ b.getNorthEast().lat(), b.getNorthEast().lng() ];
     var nW = [ b.getNorthEast().lat(), b.getSouthWest().lng() ];
     var sE = [ b.getSouthWest().lat(), b.getNorthEast().lng() ];
     var sW = [ b.getSouthWest().lat(), b.getSouthWest().lng() ];
 
-    var latLngs = $_.map([nE, nW, sE, sW], function(o) {
-        return {
+    $_.map([nE, nW, sE, sW], function(o) {
+        latLngs.push({
             name: "points",
             value: o[0] + "," + o[1]
-        }
+        });
+        bounds.extend(new google.maps.LatLng(o[0], o[1]));
     });
 
-    return latLngs;
+    this.bounds = bounds;
+    this.map.fitBounds(bounds);
 
+    return latLngs;
 }
 
 Map.prototype.getPolygonPoints = function(polygon) {
 
     var paths  = polygon.getPaths();
     var points = [];
+    var bounds = new google.maps.LatLngBounds();
 
     for (var p = 0; p < paths.getLength(); p++) {
+
         var path = paths.getAt(p);
+
         for (var i = 0; i < path.getLength(); i++) {
-            points.push([ path.getAt(i).lat(), path.getAt(i).lng() ]);
+
+            points.push(
+                [ path.getAt(i).lat(), path.getAt(i).lng() ]
+            );
+
+            bounds.extend(
+                new google.maps.LatLng(
+                    path.getAt(i).lat(), path.getAt(i).lng()
+                )
+            );
+
         }
     }
 
@@ -332,6 +356,9 @@ Map.prototype.getPolygonPoints = function(polygon) {
             value: o[0] + "," + o[1]
         }
     });
+
+    this.bounds = bounds;
+    this.map.fitBounds(bounds);
 
     return latLngs;
 
@@ -407,7 +434,6 @@ Map.prototype.handleFormSubmit = function(e) {
     this.clearMarkers();
 
     var params = this.searchFormValues();
-
     var points = this.shape === "rectangle" ? this.getRectanglePoints(this.polygon)
                : this.shape === "polygon"   ? this.getPolygonPoints(this.polygon)
                : [];
@@ -441,6 +467,8 @@ Map.prototype.setMapOnPolygon = function(map) {
 Map.prototype.handleRequest = function(that, data) {
 
     that.setMapOnMarkers(null);
+    that.setLoadMsgMap(null);
+
 
     that.bounds   = [];
     that.listings = [];
@@ -454,7 +482,9 @@ Map.prototype.handleRequest = function(that, data) {
     that.markers  = markers.markers;
     that.listings = listings;
 
-    that.map.fitBounds(that.bounds);
+    if(that.loaded === false)
+        that.map.fitBounds(that.bounds);
+
     replaceListingMarkup(data.markup);
 
     var pagination = updatePagination(that);
@@ -503,7 +533,20 @@ Map.prototype.initPaginationEventHandlers = function(that, pag) {
 
 }
 
+
+Map.prototype.setLoadMsgMap = function(map) {
+
+    if(!this.polygon && !this.rectangle) return;
+
+    this.loadMsg.setPosition(this.map.getCenter());
+    this.loadMsg.setMap(map);
+
+}
+
+
 Map.prototype.sendRequest = function(points, params, paginate) {
+
+    this.setLoadMsgMap(this.map);
 
     /** Update pagination */
     if(paginate !== null && paginate !== undefined) {
@@ -611,8 +654,8 @@ Map.prototype.initEventListeners = function() {
     this.addEventListener(this.map, 'idle', function() {
         if(!that.loaded) {
             that.sendRequest([], {}).done(function(data) {
-                that.loaded = true;
                 that.handleRequest(that, data);
+                that.loaded = true;
             });
         }
     });
