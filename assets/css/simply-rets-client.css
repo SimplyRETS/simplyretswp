@@ -811,6 +811,12 @@ elsewhere, this should be a breeze.
     margin: auto;
 }
 
+.sr-iw-inner__img #sr-iw-inner__img-img {
+    max-width: 100% !important;
+    max-height: 170px !important;
+    box-shadow: 0px 0px 3px #8B9293;
+}
+
 #sr-iw-inner__img-img {
     max-width: 100% !important;
     max-height: 170px !important;
