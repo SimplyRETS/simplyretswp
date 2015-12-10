@@ -811,7 +811,7 @@ elsewhere, this should be a breeze.
     margin: auto;
 }
 
-#sr_map_canvas #sr-iw-inner__img-img {
+#sr-iw-inner__img-img {
     max-width: 100% !important;
     max-height: 170px !important;
     box-shadow: 0px 0px 3px #8B9293;
@@ -840,6 +840,12 @@ elsewhere, this should be a breeze.
 
 .sr-iw-inner__secondary p {
     margin-bottom: 3px !important;
+}
+
+#sr-map-search .sr-iw-addr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    line-height: 1em;
 }
 
 
@@ -872,4 +878,8 @@ elsewhere, this should be a breeze.
     width: 100%;
     height: 550px;
     margin-bottom: 25px;
+}
+
+#sr-map-search img {
+    margin: auto;
 }

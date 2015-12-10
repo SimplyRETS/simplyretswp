@@ -109,32 +109,27 @@ var genMarkerPopup = function(listing) {
 
     var markup = '' +
        '<div class="sr-iw-inner">' +
-       '    <h4 class="sr-iw-addr">' + addr + '</h4>' +
-       '    <div class="sr-iw-inner__img">' +
-       '        <a href="' + link + '">' +
-       '            <img id="sr-iw-inner__img-img" src="' + photo + '" style="max-width:100%">' +
-       '        </a>' +
-       '    </div>' +
-       '    <div class="sr-iw-inner__primary">' +
-       '        <p>' + beds + ' Beds | ' + baths + ' Baths | ' + stat + '</p>' +
-       '    </div>' +
-       '    <hr>' +
-       '    <div class="sr-iw-inner__secondary">' +
-       '        <span><strong>Price:</strong>' + price + '</span>' +
-       '        <br>' +
-       '        <span><strong>MLS #:</strong>' + mlnum + '</span>' +
-       '        <br>' +
-       '        <span><strong>Area:</strong>' + sqft + '</span>' +
-       '        <br>' +
-       '        <span><strong>Property Type:</strong>' + type + '</span>' +
-       '        <br>' +
-       '        <span><strong>Property Style:</strong>' + style + '</span>' +
-       '    </div>' +
-       '    <hr>' +
-       '    <div class="sr-iw-inner__view-details">' +
-       '       <a href="' + link + '">View Details</a>' +
-       '    </div>' +
-       '    </div>' +
+       '  <h4 class="sr-iw-addr">' + addr + '<small> $' + price + '</small></h4>' +
+       '  <div class="sr-iw-inner__img">' +
+       '    <a href="' + link + '">' +
+       '      <img id="sr-iw-inner__img-img" src="' + photo +'">' // '" style="max-width:100%">' +
+       + '    </a>' +
+       '  </div>' +
+       '  <div class="sr-iw-inner__primary">' +
+       '    <p>' + beds + ' Beds | ' + baths + ' Baths | ' + stat + '</p>' +
+       '  </div>' +
+       '  <hr>' +
+       '  <div class="sr-iw-inner__secondary">' +
+       '    <p><strong>Price: </strong>$' + price + '</p>' +
+       '    <p><strong>MLS #: </strong>' + mlnum + '</p>' +
+       '    <p><strong>Area: </strong>' + sqft + '</p>' +
+       '    <p><strong>Property Type: </strong>' + type + '</p>' +
+       '    <p><strong>Property Style: </strong>' + style + '</p>' +
+       '  </div>' +
+       '  <hr>' +
+       '  <div class="sr-iw-inner__view-details">' +
+       '    <a class="sr-iw-inner__details-link" href="' + link + '">View Details</a>' +
+       '  </div>' +
        '</div>';
 
     return markup;
