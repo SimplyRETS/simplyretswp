@@ -53,7 +53,7 @@ class SrAdminSettings {
   public static function createDemoPage() {
       if(isset( $_POST['sr_create_demo_page'])) {
           $demo_post = array(
-              "post_content" => "[sr_search_form] [sr_listings]",
+              "post_content" => "[sr_map_search search_form=\"true\" list_view=\"true\"]",
               "post_name" => "simplyrets-listings",
               "post_title" => "SimplyRETS Demo Page",
               "post_status" => "publish",
