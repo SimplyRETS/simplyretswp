@@ -413,24 +413,24 @@ class srSearchFormWidget extends WP_Widget {
 
               <div class="sr-search-widget-filters">
                 <div class="sr-search-widget-field" id="sr-search-minprice">
-                  <input name="sr_minprice" type="number" placeholder="Min Price.." />
+                  <input name="sr_minprice" step="1000" min="0" type="number" placeholder="Min Price.." />
                 </div>
                 <div class="sr-search-widget-field" id="sr-search-maxprice">
-                  <input name="sr_maxprice" type="number" placeholder="Max Price.." />
+                  <input name="sr_maxprice" step="1000" min="0" type="number" placeholder="Max Price.." />
                 </div>
 
                 <div class="sr-search-widget-field" id="sr-search-minbeds">
-                  <input name="sr_minbeds" type="number" placeholder="Min Beds.." />
+                  <input name="sr_minbeds" min="0" type="number" placeholder="Min Beds.." />
                 </div>
                 <div class="sr-search-widget-field" id="sr-search-maxbeds">
-                  <input name="sr_maxbeds" type="number" placeholder="Max Beds.." />
+                  <input name="sr_maxbeds" min="0" type="number" placeholder="Max Beds.." />
                 </div>
 
                 <div class="sr-search-widget-field" id="sr-search-minbaths">
-                  <input name="sr_minbaths" type="number" placeholder="Min Baths.." />
+                  <input name="sr_minbaths" min="0" type="number" placeholder="Min Baths.." />
                 </div>
                 <div class="sr-search-widget-field" id="sr-search-maxbaths">
-                  <input name="sr_maxbaths" type="number" placeholder="Max Baths.." />
+                  <input name="sr_maxbaths" min="0" type="number" placeholder="Max Baths.." />
                 </div>
               </div>
 

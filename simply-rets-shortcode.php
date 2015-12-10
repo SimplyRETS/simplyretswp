@@ -48,10 +48,10 @@ class SrShortcodes {
                      : "";
 
         /** Private Parameters (shortcode attributes) */
-        $vendor  = isset($atts['vendor'])  ? $atts['vendor']  : '';
-        $brokers = isset($atts['brokers']) ? $atts['brokers'] : '';
-        $agent   = isset($atts['agent'])   ? $atts['agent']   : '';
-        $limit   = isset($atts['limit'])   ? $atts['limit']   : '';
+        $vendor   = isset($atts['vendor'])  ? $atts['vendor']  : '';
+        $brokers  = isset($atts['brokers']) ? $atts['brokers'] : '';
+        $agent    = isset($atts['agent'])   ? $atts['agent']   : '';
+        $limit    = isset($atts['limit'])   ? $atts['limit']   : '';
 
         $type_att = isset($atts['type']) ? $atts['type'] : '';
 
@@ -99,24 +99,24 @@ class SrShortcodes {
 
                       <div class="sr-minmax-filters">
                         <div class="sr-search-field" id="sr-search-minprice">
-                          <input name="sr_minprice" type="number" placeholder="Min Price.." />
+                          <input name="sr_minprice" step="1000" min="0" type="number" placeholder="Min Price.." />
                         </div>
                         <div class="sr-search-field" id="sr-search-maxprice">
-                          <input name="sr_maxprice" type="number" placeholder="Max Price.." />
+                          <input name="sr_maxprice" step="1000" min="0" type="number" placeholder="Max Price.." />
                         </div>
 
                         <div class="sr-search-field" id="sr-search-minbeds">
-                          <input name="sr_minbeds" type="number" placeholder="Min Beds.." />
+                          <input name="sr_minbeds" min="0" type="number" placeholder="Min Beds.." />
                         </div>
                         <div class="sr-search-field" id="sr-search-maxbeds">
-                          <input name="sr_maxbeds" type="number" placeholder="Max Beds.." />
+                          <input name="sr_maxbeds" min="0" type="number" placeholder="Max Beds.." />
                         </div>
 
                         <div class="sr-search-field" id="sr-search-minbaths">
-                          <input name="sr_minbaths" type="number" placeholder="Min Baths.." />
+                          <input name="sr_minbaths" min="0" type="number" placeholder="Min Baths.." />
                         </div>
                         <div class="sr-search-field" id="sr-search-maxbaths">
-                          <input name="sr_maxbaths" type="number" placeholder="Max Baths.." />
+                          <input name="sr_maxbaths" min="0" type="number" placeholder="Max Baths.." />
                         </div>
                       </div>
 
@@ -452,8 +452,8 @@ HTML;
                   <div class="sr-minmax-filters">
                     <div class="sr-adv-search-col2 sr-adv-search-price">
                       <label><strong>Price Range</strong></label>
-                      <input type="number" name="sr_minprice" placeholder="10000" value="<?php echo $minprice; ?>"/>
-                      <input type="number" name="sr_maxprice" placeholder="1000000" value="<?php echo $maxprice; ?>"/>
+                      <input step="1000" min="0" type="number" name="sr_minprice" placeholder="10000" value="<?php echo $minprice; ?>"/>
+                      <input step="1000" min="0" type="number" name="sr_maxprice" placeholder="1000000" value="<?php echo $maxprice; ?>"/>
                     </div>
 
                     <div class="sr-adv-search-col4">
@@ -582,24 +582,24 @@ HTML;
 
             <div class="sr-minmax-filters">
               <div class="sr-search-field" id="sr-search-minprice">
-                <input name="sr_minprice" type="number" value="<?php echo $minprice; ?>" placeholder="Min Price.." />
+                <input name="sr_minprice" step="1000" min="0" type="number" value="<?php echo $minprice; ?>" placeholder="Min Price.." />
               </div>
               <div class="sr-search-field" id="sr-search-maxprice">
-                <input name="sr_maxprice" type="number" value="<?php echo $maxprice; ?>" placeholder="Max Price.." />
+                <input name="sr_maxprice" step="1000" min="0" type="number" value="<?php echo $maxprice; ?>" placeholder="Max Price.." />
               </div>
 
               <div class="sr-search-field" id="sr-search-minbeds">
-                <input name="sr_minbeds" type="number" value="<?php echo $minbeds; ?>" placeholder="Min Beds.." />
+                <input name="sr_minbeds" min="0" type="number" value="<?php echo $minbeds; ?>" placeholder="Min Beds.." />
               </div>
               <div class="sr-search-field" id="sr-search-maxbeds">
-                <input name="sr_maxbeds" type="number" value="<?php echo $maxbeds; ?>" placeholder="Max Beds.." />
+                <input name="sr_maxbeds" min="0" type="number" value="<?php echo $maxbeds; ?>" placeholder="Max Beds.." />
               </div>
 
               <div class="sr-search-field" id="sr-search-minbaths">
-                <input name="sr_minbaths" type="number" value="<?php echo $minbaths; ?>" placeholder="Min Baths.." />
+                <input name="sr_minbaths" min="0" type="number" value="<?php echo $minbaths; ?>" placeholder="Min Baths.." />
               </div>
               <div class="sr-search-field" id="sr-search-maxbaths">
-                <input name="sr_maxbaths" type="number" value="<?php echo $maxbaths; ?>" placeholder="Max Baths.." />
+                <input name="sr_maxbaths" min="0" type="number" value="<?php echo $maxbaths; ?>" placeholder="Max Baths.." />
               </div>
             </div>
 
