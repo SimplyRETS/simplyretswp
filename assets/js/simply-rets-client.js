@@ -187,7 +187,8 @@ var makeMapMarkers = function(map, listings) {
 
 var replaceListingMarkup = function(markup) {
     var root = $_('.sr-map-search-list-view');
-    root.html(markup);
+    if(root.length)
+        root.html(markup);
 }
 
 

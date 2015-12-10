@@ -118,10 +118,15 @@ HTML;
     public static function update_int_map_data() {
 
         if(array_key_exists('action', $_POST) && $_POST['action'] === "update_int_map_data") {
+
             header("Content-Type: application/json");
 
+            $markup_opts = array(
+                "show_map" => "false"
+            );
+
             $req = SimplyRetsApiHelper::makeApiRequest("?".$_POST['params']);
-            $con = SimplyRetsApiHelper::srResidentialResultsGenerator($req);
+            $con = SimplyRetsApiHelper::srResidentialResultsGenerator($req, $markup_opts);
 
             $response = array(
                 "result" => $req,
