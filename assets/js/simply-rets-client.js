@@ -80,6 +80,12 @@ var listingSliderCarousel = function() {
 }
 
 
+var scrollToAnchor = function(aid) {
+    var aTag = $_("#"+ aid);
+    $_('html,body').animate({scrollTop: aTag.offset().top},'slow');
+}
+
+
 var genMarkerPopup = function(listing) {
 
     var stat  = listing.mls.status         || "Active";
@@ -192,6 +198,49 @@ var replaceListingMarkup = function(markup) {
 }
 
 
+var updatePagination = function(that) {
+
+    var prevEl = null,
+        nextEl = null,
+        pagWrapper = $_('.sr-pagination');
+
+
+    if(pagWrapper.length) {
+
+        pagWrapper.empty(); // clear the current pagination elements
+
+        var prev = "<a href=\"#\">Prev</a> | ";
+        var next = "<a href=\"#\">Next</a>";
+
+        var pag;
+        if(that.offset === 0) {
+            pag = next;
+        } else {
+            pag = prev + next;
+        }
+
+        pagWrapper.append(pag);
+
+        var childs = pagWrapper.children();
+        if(childs.length >= 1) {
+            $_.each(childs, function(c) {
+                if(childs[c].text === "Next") {
+                    nextEl = childs[c];
+                }
+                if(childs[c].text === "Prev") {
+                    prevEl = childs[c];
+                }
+            });
+        }
+    }
+
+    return {
+        prev: prevEl,
+        next: nextEl
+    }
+}
+
+
 var getSearchFormValues = function() {
 
     var keyword  = $_('.sr-int-map-search-wrapper #sr-search-keywords > input[type="text"]').val(),
@@ -224,17 +273,20 @@ var getSearchFormValues = function() {
  */
 function Map() {
 
-    this.element   = 'sr-map-search';
-    this.bounds    = [];
-    this.markers   = [];
-    this.listings  = [];
-    this.polygon   = null;
-    this.rectangle = null;
-    this.popup     = null;
-    this.drawCtrl  = null;
-    this.loadMsg   = "Loading...";
-    this.loaded    = false;
-    this.options   = { zoom: 8 }
+    this.element    = 'sr-map-search';
+    this.bounds     = [];
+    this.markers    = [];
+    this.listings   = [];
+    this.polygon    = null;
+    this.rectangle  = null;
+    this.popup      = null;
+    this.drawCtrl   = null;
+    this.loadMsg    = "Loading...";
+    this.loaded     = false;
+    this.options    = { zoom: 8 }
+    this.pagination = null;
+    this.limit      = 25;
+    this.offset     = 0;
 
     this.map = new google.maps.Map(document.getElementById('sr-map-search'), this.options);
 
@@ -410,20 +462,83 @@ Map.prototype.handleRequest = function(that, data) {
     that.map.fitBounds(that.bounds);
     replaceListingMarkup(data.markup);
 
+    var pagination = updatePagination(that);
+
+    that.pagination = pagination;
+
+    that.initPaginationEventHandlers(that, that.pagination);
+
 }
 
-Map.prototype.sendRequest = function(points, params) {
+Map.prototype.initPaginationEventHandlers = function(that, pag) {
 
+    if(pag.next !== null) {
+
+        $_(pag.next).on('click', function(e) {
+
+            e.preventDefault();
+
+            var params = that.handleFormSubmit(e),
+                points = params.points,
+                query  = params.query;
+
+            that.sendRequest(points, query, 'next').done(function(data) {
+                that.handleRequest(that, data);
+            });
+
+        });
+    }
+
+    if(pag.prev !== null) {
+
+        $_(pag.prev).on('click', function(e) {
+
+            e.preventDefault();
+
+            var params = that.handleFormSubmit(e),
+                points = params.points,
+                query  = params.query;
+
+            that.sendRequest(points, query, 'prev').done(function(data) {
+                that.handleRequest(that, data);
+            });
+
+        });
+    }
+
+}
+
+Map.prototype.sendRequest = function(points, params, paginate) {
+
+    /** Update pagination */
+    if(paginate !== null && paginate !== undefined) {
+
+        if(paginate === "next") {
+            scrollToAnchor('sr-search-wrapper');
+            this.offset = this.offset + this.limit;
+        } else if(paginate === "prev") {
+            scrollToAnchor('sr-search-wrapper');
+            this.offset = this.offset - this.limit;
+        }
+
+    }
+
+    var limit  = this.limit;
+    var offset = this.offset;
+
+    /** Remove unused keys */
     for (var p in params) {
         if(params[p] === null || params[p] === undefined || params[p] === "") {
             delete params[p];
         }
     }
 
+    /** URL Encode them all */
     var pointsQ = $_.param(points);
     var paramsQ = $_.param(params);
 
-    var query = pointsQ + "&" + paramsQ;
+    /** Put the query in a string and send the request */
+    var query = pointsQ + "&limit=" + limit + "&offset=" + offset + "&" + paramsQ; 
 
     var req = $_.ajax({
         type: 'post',
@@ -431,7 +546,7 @@ Map.prototype.sendRequest = function(points, params) {
         data: {
             action: 'update_int_map_data', // server controller
             data: pointsQ,
-            params: query
+            parameters: query,
         },
     });
 
@@ -500,8 +615,8 @@ Map.prototype.initEventListeners = function() {
     // fetch initial listings when map is loaded
     this.addEventListener(this.map, 'idle', function() {
         if(!that.loaded) {
-            that.loaded = true;
             that.sendRequest([], {}).done(function(data) {
+                that.loaded = true;
                 that.handleRequest(that, data);
             });
         }

@@ -125,7 +125,7 @@ HTML;
                 "show_map" => "false"
             );
 
-            $req = SimplyRetsApiHelper::makeApiRequest("?".$_POST['params']);
+            $req = SimplyRetsApiHelper::makeApiRequest("?".$_POST['parameters']);
             $con = SimplyRetsApiHelper::srResidentialResultsGenerator($req, $markup_opts);
 
             $response = array(
