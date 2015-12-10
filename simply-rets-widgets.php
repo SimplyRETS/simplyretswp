@@ -101,7 +101,7 @@ class srFeaturedListingWidget extends WP_Widget {
 
         // populate content
         if( $mlsid ) {
-            $qs = "/$mlsid?vendor=$vendor";
+            $qs = "?q=$mlsid&vendor=$vendor";
             $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $qs );
         } else {
             $cont .= "No listing found";
@@ -227,7 +227,7 @@ class srRandomListingWidget extends WP_Widget {
     /** save widget --  @see WP_Widget::update */
     function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
-        $instance['title'] = strip_tags($new_instance['title']);
+        $instance['title']  = strip_tags($new_instance['title']);
         $instance['mlsids'] = strip_tags($new_instance['mlsids']);
         $instance['vendor'] = strip_tags($new_instance['vendor']);
         return $instance;
@@ -299,7 +299,7 @@ class srRandomListingWidget extends WP_Widget {
 
         // populate content
         if( $mlsid ) {
-            $qs = "/$mlsid?vendor=$vendor";
+            $qs = "?q=$mlsid&vendor=$vendor";
             $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $qs );
         } else {
             $cont .= "No listing found";
