@@ -236,6 +236,15 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 1.7.0 =
+* FEATURE: Interactive map search! Includes a
+  polygon/rectangle drawing tools on the map. Optional list view and
+  search form.  *Note: Your feed must include latitude/longitude for
+  this to work.*
+* FIX/UPDATE: Featured Listing and Random Listing Widgets now take
+  *listingId's*, not *mlsId's*. This will break existing widgets, so
+  please check them after upgrading.
+
 = 1.6.5 =
 * IMPROVEMENT: Better defaults for Bathrooms on list and details pages.
 * IMPROVEMENT: Don't show "SqFt" for "LotSize" on details pages.
@@ -267,7 +276,7 @@ listing sidebar widget.
 
 == Upgrade Notice ==
 
-= 2.0.0 =
+= 1.7.0 =
 * Note that SimplyRETS Page Builder and SimplyRETS Pages are both being deprecated in favor of using short-codes directly. Both of those will still be supported.
 * In this update, there is a change to the MLS ID that the Featured and Random Listing Widgets use. If you are using either of those widgets, be sure to double check them after this update.
 
