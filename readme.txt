@@ -286,23 +286,6 @@ listing sidebar widget.
 = 1.3.0 =
 * This update will move you to the new Fancy gallery - If you like the Classic gallery, you can switch it back in Settings -> SimplyRETS (no changes to Classic gallery)
 
-= 1.2.0 =
-* This update should fully support backwards compatibility, but if you notice problem
-update to the latest version.
-
-= 1.1.3 =
-* This update fixes a visible warning on new SimplyRETS post pages
-
-= 1.1.0 =
-* There are many new updates and features added to this release. A lot of the API authentication has improved, so old
-clients need to be updated. See the Changelog for a complete list.
-
-= 1.0.3 =
-* If you were experiencing any error outputs on your site (mostly GoDadddy host), this update will resolve the issue.
-
-= 1.0.0 =
-* Launch
-
 
 == Documentation ==
 
