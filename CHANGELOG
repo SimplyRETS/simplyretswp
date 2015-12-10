@@ -1,0 +1,188 @@
+# Changelog
+
+## 1.7.0
+* FEATURE: Add a new interactive map search. Includes a
+  polygon/rectangle drawing tools on the map. Optional list view and
+  search form.  *Note: Your feed must include latitude/longitude for
+  this to work.*
+* FIX/UPDATE: Featured Listing and Random Listing Widgets now take
+  *listingId's*, not *mlsId's*. This will break existing widgets, so
+  please check them after upgrading.
+
+## 1.6.5
+* IMPROVEMENT: Better defaults for Bathrooms on list and details pages.
+* IMPROVEMENT: Don't show "SqFt" for "LotSize" on details pages.
+* IMPROVEMENT: General code cleanup.
+
+## 1.6.4
+* FIX: Dynamically populate property types in sidebar search widget.
+
+## 1.6.3
+* FIX: Don't show listDate or modified fields if they're null.
+* UPDATE: Status page link / verbiage clarifications in admin panel.
+* UPDATE: Update documentation
+
+## 1.6.2
+* FIX: Update deprecated WP_Widget Contructors to prevent warnings/fix build
+* UPDATE: Update wp-cli bash script to fix Travis build.
+* UPDATE: Move "Listing Meta Data" information into "MLS Information" section on single listings.
+
+## 1.6.1
+* FEATURE: Support for new fields provided by the SimplyRETS API
+* FEATURE: Ability to create a demo page from Settings page and Activation Message.
+
+## 1.6.0
+* FEATURE: Allow multiple agent ids in the [sr_residential] shortcode
+* FEATURE: Allow multiple property types the [sr_residential] shortcode
+
+## 1.5.12
+* IMPROVEMENT: Refaactor away some inline CSS
+* IMPROVEMENT: If agent name is not available, show their ID.
+* PATH: Fix pagination when using the 'water' parameter
+
+## 1.5.11
+* FEATURE: Add "water" features to details page when available
+
+## 1.5.10
+* FEATURE: Allow setting map position on a per shortcode basis
+
+## 1.5.9
+* FEATURE: Admin option for setting lead capture email recipient
+
+## 1.5.8
+* FEATURE: Add setting for lead capture recipient. You can choose who email get sent to
+* NEW: Allow agents and limit parameters in the [sr_search_form] shortcode
+* UPDATE: More generic text in on the search results
+
+## 1.5.7
+* UPDATE: For additional room details, use dimensions instead of length and width (if available)
+
+## 1.5.6
+* FEATURE: Add support for showing extended room details (in areas where it is available)
+
+## 1.5.5
+* PATCH: Use better query parameters in the sidebar search widget
+
+## 1.5.4
+* PATCH: Small patch to fix pagination links when using sr_keywords searches
+
+## 1.5.3
+* IMPROVE: Improve pagination parser
+* FIX: Fix specifying multple cities and a vendor in a single shortcode
+
+## 1.5.2
+* Improve a bunch of the documentation, add more examples, etc
+
+## 1.5.1
+* IMPROVEMENT: Allow vendor parameter in single listing short-code
+* FIX: SimplyRETS Lead Capture MLS ID field
+
+## 1.5.0
+* NEW: Support for all features when using a Multi-MLS feed
+* NEW: "Random" options for the sr_listings slider
+* IMPROVEMENT: Improve persisting of search parameters when paginating
+* IMPROVEMENT: Better error messages
+* IMPROVEMENT: Code cleanup
+* FIX: SimplyRETS Lead Capture MLS ID field
+
+## 1.4.3
+* NEW: Add data-attribute tag to each row on listing details pages to allow for easier targeting when adding custom CSS or JS (Thanks to Chris Howard for the patch).
+* FIX: Fix for pagination links when using the brokers filter
+* FIX: Use full name for agents (concat first and last name)
+
+## 1.4.2
+* Fix for SrShortcodes class declaration error
+
+## 1.4.1
+* NEW FEATURE: Featured Listings Slider [sr_listings_slider]
+* Sort advanced search form fields alphabetically
+* CSS fix for basic search form
+
+## 1.4.0
+* NEW FEATURE: Advanced search form for all MLS's!
+* NEW FEATURE: Option to sort search results by price and date.
+* Add support for commercial, land, multi-family, and farm property type (must be enabled in your SimplyRETS account)
+* New Shortcode [sr_listings] as an alias to [sr_residential]
+* Ability to update meta data from the admin panel
+* Better handling of fields shown for listings in search results
+* Minor bug fixes and patches
+
+## 1.3.4
+* NEW FEATURE: For showing single listing and searches on a map view!
+* Changed Fancy Gallery to not stretch small images
+* Minor bug fixes and patches
+
+## 1.3.3
+* Added initial, basic support for Listhub Analytics!
+* Show ListingId (MLS #) instead of unique ID in listing details
+* Better responsive CSS for search form and search results
+* Added support for using multiple neighborhoods/cities/zipcodes in the sr_residential shortcode
+* Added new Agents Listings Widget for showing listings for a specific agent
+* Clean up for existing widgets
+
+## 1.3.2
+* Patches for URL encoding spaces and hash symbols
+* Patches for area/sqft units in markup
+
+## 1.3.1
+* FEATURE: Single Listing Contact Form Lead Capture
+* Patches for pagination links
+* SSL!
+* Better support for showing/hiding fields based on availability
+* Other minor patches
+
+## 1.3.0
+* New Image Gallery Option! With full screen and thumbnails
+* Add option to show/hide listing description (remarks)
+* Better handling of fields that may or may not be present
+* other fixes and improvements 
+
+## 1.2.0
+* Add graphical shortcode/page builder got creating listing shortcodes
+* Add support for listing limit and pagination for multiple pages of listings
+* Add support for agent ID query parameter in shortcode & custom post type
+* Add more styling and clean up text in admin settings panel
+* better error handling
+* other fixes and improvements 
+
+## 1.1.5
+* Automatically save test credentials when plugin is activated to make it easier to get started.
+
+## 1.1.4
+* Add option for hiding Listing Date and Listing Last Modified fields
+
+## 1.1.3
+* Fixes php warning on new SimplyRETS Pages
+* Other fixes to prevent errors and warnings
+* Added testing suite!!
+
+## 1.1.2
+* Patch for search results or shortcode with a single listing response
+
+## 1.1.1
+* Better handling of data fields that might not always have a value
+* Fix for search results with only one result
+
+## 1.1.0
+* Add a new Search Form sidebar/footer Widget
+* Add a new Random listing widget
+* Implement Contact Page link setting for linking to the sites contact page from single properties
+* improve keyword search
+* improve error handling
+* improvements and bug fixes to admin panel and settings
+* Add better default property image for listings with no images
+* search form min/max inputs are number boxes now
+* Grammar/text fixes and improvements
+* Improve API authentication and set up content versions for stability (using cURL)
+
+## 1.0.3
+* patched php optional warning argument
+
+## 1.0.2
+* enhance default markup and css to be compatible with a wider range of themes
+
+## 1.0.1
+* Better image cdn link handling
+
+## 1.0.0
+* Initial Launch
