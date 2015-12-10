@@ -21,7 +21,18 @@ jQuery(document).ready(function() {
                          {
                              type: 'container'
                            , html: '<span style="max-width:400px">Use the filters below to determine the type '
-                                  +'and amount of</span><br><span>  listings that you want to show on this page.</span><br><br> '
+                                  +'and amount of</span><br><span>  listings that you want to show on this page.'
+                                  +'</span><br>'
+                         },
+                         {
+                             type: 'container'
+                           , html: '<span style="color:#a00;font-weight:bold;max-width:400px"><strong>'
+                                 + '  Note: These are only a few of many more available filters.<br>'
+                                 + '  To see how to use more short-codes and filters, visit the <br> '
+                                 + '  <a href="https://wordpress.org/plugins/simply-rets/other_notes/#Shortcodes"'
+                                 + '     target="_blank" style="text-decoration:underline"'
+                                 + '> Short-Code Documentation</a>.'
+                                 + '</strong></span>'
                          },
                          {
                              type:  'listbox'
