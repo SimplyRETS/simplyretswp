@@ -50,73 +50,9 @@
     credentials on that page instead.
 
 ** Getting Started
-*** Creating SimplyRETS Pages
-    A new page type is created called SimplyRETS Pages. You can create
-    new SimplyRETS pages to show results from listings searches.
-
-    By default, a new page will show all listings. You can add 'filters'
-    to the page to create more advanced pages that only show certain
-    listings (ie, only residential listings for sale that are more that
-    $500,000). These are basically just pages that you an have content
-    on and embed listings into.
-
-**** Filters
-     1) Minimum Price
-     2) Maximum Price
-     3) Minimum Bedrooms
-     4) Maximum Bedrooms
-     5) Listing Agent Id
-
-**** Page Templates and Layout
-     Most themes come with a few different options for each page's
-     layout. Most common are "Right Sidebar", "Full-Width", etc. SimplyRETS
-     allows you to use these same templates on SimplyRETS Pages.
-
-     *Results Pages:* On SimplyRETS Pages, you can choose the theme
-     template to use in the right sidebar just like any other page. This
-     allows the user to use pages with a sidebar, or other layouts their
-     theme may offer.
-
-     *Single Listing Details Pages:* Since single listing pages are
-     created dynamically, we don't have access to choose the template
-     like the other pages. Instead, you set this in the Settings
-     page. The same options apply, like sidebar and full-width. This
-     setting will take effect on all single listing details pages.
-
-*** ShortCodes
-    Shortcodes are provided to add additionally functionality or information
-    to any of your posts or pages.
-**** Search Form Shortcode: [sr_search_form]
-     Embed this shortcode on any page or post in your Wordpress site to
-     provide a SimplyRETS search form that will search all of your
-     listings. The best use of this is to add it to the top of one of
-     the SimplyRETS Pages in order to make it a fully featured search
-     and results page.
-
-**** Residential Shortcode: [sr_residential]
-     The sr_residential shortcode allows you to embed one or more
-     listings into any page or post on your site. By default, it will
-     show 25 results from a search for all residential properties. Each
-     result from this shortcode will show the main photo and a few
-     details with a link to the listing's single page.
-***** Parameters
-      You can customise the listings that show up with this short code
-      by using the following parameters.
-      1) MLS Id (mlsid):
-         Use this parameter to insert a /specific/ listing by MLS Id.
-         Using this parameter will override any other parameters
-         within the same shortcode.
-         Example: [sr_residential mlsid="123456"]
-
-*** Widgets
-    SimplyRETS provides you with widgets you can use in your sidebar or footer
-    just like any other widget on your site.
-
-**** Featured Listing Widget
-     Use the Listing Widget to embed a single RETS listing in your
-     sidebar or elsewhere.
-     It takes a title for the Widget area, and an MLS ID of the property
-     that you want to show on that widget.
+   There are many Short-Codes, Widgets, Filters, and much much more
+   you can do with the SimplyRETs plugin. To see the full feature
+   documentation, please see the [[https://wordpress.org/plugins/simply-rets/other_notes/][WP Documentation page]].
 
 ** Style Guide
    The SimplyRETS Wordpress styleguide provides an overview of the HTML
