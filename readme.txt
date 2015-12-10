@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 4.3.1
-Stable tag: 1.6.5
+Tested up to: 4.4
+Stable tag: 1.7.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,7 +90,7 @@ allows). This means that you're ahead of the competition and can have
 the fastest possible response time for dealing with interested
 prospects.
 
-This plugin is fast!. You don't have to worry about slowing down
+This plugin is fast! You don't have to worry about slowing down
 your website by pulling lots of data on every page load. The SimplyRETS
 plugin is optimized to only load on the correct pages, and to
 only load the listings you choose. By doing this, you are able to keep
@@ -99,8 +99,7 @@ fastest searching solution in your city, why would they go any where
 else?
 
 SimplyRETS uses the RETS (Real Estate Standards Organization)
-protocol and has 100% coverage and compatibility with the RETS
-standard. This allows you to be on the leading technical edge and
+protocol. This allows you to be on the leading technical edge and
 provides you with many advantages of IDX (internet data exchange)
 including response speed, compatibility across multiple MLS areas, and
 up-time.  So while your competition is working on getting properties
