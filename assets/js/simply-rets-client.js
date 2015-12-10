@@ -214,6 +214,14 @@ var updatePagination = function(that) {
             pag = prev + next;
         }
 
+        if(that.offset === 0 && that.listings.length < 25) {
+            pag = null;
+        }
+
+        if(that.offset > 0 && that.listings.length < 25) {
+            pag = prev;
+        }
+
         pagWrapper.append(pag);
 
         var childs = pagWrapper.children();
@@ -481,6 +489,9 @@ Map.prototype.handleRequest = function(that, data) {
     that.bounds   = markers.bounds;
     that.markers  = markers.markers;
     that.listings = listings;
+
+    if(listings.length < 1)
+        that.offset = 0;
 
     if(that.loaded === false)
         that.map.fitBounds(that.bounds);
