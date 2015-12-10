@@ -131,6 +131,7 @@ class SrShortcodes {
                           <div class="sr-sort-wrapper">
                               <label for="sr_sort">Sort by: </label>
                               <select class="select" name="sr_sort">
+                                  <option value="">Sort Options</option>
                                   <option value="-listprice"> Price - High to Low</option>
                                   <option value="listprice"> Price - Low to High</option>
                                   <option value="-listdate"> List Date - New to Old</option>

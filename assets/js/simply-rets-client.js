@@ -99,7 +99,7 @@ var genMarkerPopup = function(listing) {
     var addr  = listing.address.full       || "Unknown";
     var photo = listing.photos.length > 1
               ? listing.photos[0]
-              : 'assets/img/defprop.jpg';
+              : 'https://s3-us-west-2.amazonaws.com/simplyrets/trial/properties/defprop.jpg';
     var link  = window.location.href +
                 "/?sr-listings=sr-single" +
                 "&listing_id=" + listing.mlsId +
@@ -112,8 +112,8 @@ var genMarkerPopup = function(listing) {
        '  <h4 class="sr-iw-addr">' + addr + '<small> $' + price + '</small></h4>' +
        '  <div class="sr-iw-inner__img">' +
        '    <a href="' + link + '">' +
-       '      <img id="sr-iw-inner__img-img" src="' + photo +'">' // '" style="max-width:100%">' +
-       + '    </a>' +
+       '      <img id="sr-iw-inner__img-img" src="' + photo +'">' +
+       '    </a>' +
        '  </div>' +
        '  <div class="sr-iw-inner__primary">' +
        '    <p>' + beds + ' Beds | ' + baths + ' Baths | ' + stat + '</p>' +
