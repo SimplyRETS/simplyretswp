@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.1
+* BUG FIX: Fix population of property-types dropdown on the
+  sr_map_search search form
+
 ## 1.7.0
 * FEATURE: Add a new interactive map search. Includes a
   polygon/rectangle drawing tools on the map. Optional list view and
