@@ -59,14 +59,14 @@ class SrShortcodes {
 
             $single_vendor = SrUtils::isSingleVendor();
             $allVendors    = get_option('sr_adv_search_meta_vendors', array());
-            $vendor        = (empty($vendor) && $singleVendor == true && !empty($allVendors[0]))
+            $vendor        = (empty($vendor) && $single_vendor == true && !empty($allVendors[0]))
                            ? $allVendors[0]
                            : $vendor;
             $prop_types    = get_option("sr_adv_search_meta_types_$vendor"
                                         , array("Residential", "Condominium", "Rental"));
 
             $type_options = "";
-            foreach((array)$prop_types as $key=>$type) {
+            foreach($prop_types as $key=>$type) {
                 if( $type == $type_att) {
                     $type_options .= "<option value='$type' selected />$type</option>";
                 } else {
