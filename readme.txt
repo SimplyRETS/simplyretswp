@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.4
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,10 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 1.7.2 =
+* FEATURE: Adds the ability to configure sr_search_form to search
+  specified property type(s) via short-code attributes.
+
 = 1.7.1 =
 * BUG FIX: Fix population of property-types dropdown on the
   sr_map_search search form
@@ -370,6 +374,14 @@ that will always search one specific office or brokerage:
 `[sr_search_form brokers="ID"]`
 
 (*Note: the ID is provided by your MLS*)
+
+You can also set the search form to search pre-designated property types (like Residential and Condominium). To do so, use the `type` attribute within the sr_search_form short-code:
+
+*This will default to search Rentals only:*
+`[sr_search_form type="Rental"]`
+
+*This will default to search Commercial and Land only:*
+`[sr_search_form type="Land; Commercial"]`
 
 There are several use-cases for the search form and you can put it
 anywhere on your site you want! The two most common ways to use the
