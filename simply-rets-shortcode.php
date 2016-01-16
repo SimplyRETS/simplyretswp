@@ -311,18 +311,22 @@ HTML;
 
         $availableVendors = get_option('sr_adv_search_meta_vendors', array());
 
-        /** Private Parameters (shortcode attributes) */
+        /** Configuration Parameters (shortcode attributes) */
         $vendor  = isset($atts['vendor'])  ? $atts['vendor']  : '';
         $brokers = isset($atts['brokers']) ? $atts['brokers'] : '';
-        $agent   = isset($atts['agent'])   ? $atts['agent'] : '';
+        $agent   = isset($atts['agent'])   ? $atts['agent']   : '';
         $limit   = isset($atts['limit'])   ? $atts['limit']   : '';
+        $config_type = isset($atts['type']) ? $atts['type']   : '';
 
+        if($config_type === '') {
+            $config_type = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
+        }
         if(empty($vendor) && $singleVendor === true) {
             $vendor = $availableVendors[0];
         }
         $vendorOptions = "_$vendor";
 
-        /** Public parameters */
+        /** User Facing Parameters */
         $minbeds    = array_key_exists('minbeds',  $atts) ? $atts['minbeds']  : '';
         $maxbeds    = array_key_exists('maxbeds',  $atts) ? $atts['maxbeds']  : '';
         $minbaths   = array_key_exists('minbaths', $atts) ? $atts['minbaths'] : '';
@@ -331,21 +335,13 @@ HTML;
         $maxprice   = array_key_exists('maxprice', $atts) ? $atts['maxprice'] : '';
         $keywords   = array_key_exists('q',        $atts) ? $atts['q']        : '';
         $sort       = array_key_exists('sort',     $atts) ? $atts['sort']     : '';
-        /** Advanced Search */
-        $type       = array_key_exists('type',     $atts) ? $atts['type']     : '';
-        $adv_type   = array_key_exists('type',     $atts) ? $atts['type']     : '';
+        /** Advanced Search Parameters */
         $adv_status = array_key_exists('status',   $atts) ? $atts['status']   : '';
         $lotsize    = array_key_exists('lotsize',  $atts) ? $atts['lotsize']  : '';
         $area       = array_key_exists('area',     $atts) ? $atts['area']     : '';
         $adv_features      = isset($_GET['sr_features']) ? $_GET['sr_features'] : array();
         $adv_cities        = isset($_GET['sr_cities']) ? $_GET['sr_cities']     : array();
         $adv_neighborhoods = isset($_GET['sr_neighborhoods']) ? $_GET['sr_neighborhoods']     : array();
-
-        if( !$type == "" ) {
-            $type_res = ($type == "res") ? "selected" : '';
-            $type_cnd = ($type == "cnd") ? "selected" : '';
-            $type_rnt = ($type == "rnt") ? "selected" : '';
-        }
 
         if( !$sort  == "" ) {
             $sort_price_hl = ($sort == "-listprice") ? "selected" : '';
@@ -363,15 +359,32 @@ HTML;
          * price range, *city, *neighborhood (location), * type (condo, townhome, residential),
          * *amenities (int/ext), *status (active, pending, sold), area.
          */
-        $adv_search_types = get_option("sr_adv_search_meta_types_$vendor", array());
-        if( empty( $adv_search_types ) ) {
-            $adv_search_types = array("Residential", "Condominium", "Rental" );
+        $type_options             = '';
+        $available_property_types = get_option("sr_adv_search_meta_types_$vendor", array());
+        $default_type_option      = '<option value="">Property Type</option>';
+
+        if( empty( $available_property_types ) ) {
+            $available_property_types = array("Residential", "Condominium", "Rental" );
         }
-        foreach( (array)$adv_search_types as $key=>$type) {
-            if( $type == $adv_type) {
-                $type_options .= "<option value='$type' selected />$type</option>";
-            } else {
-                $type_options .= "<option value='$type' />$type</option>";
+
+        if((is_array($config_type) == TRUE) && isset($_GET['sr_ptype'])) {
+            $type_string = join(';', $config_type);
+            $default_type_option = "<option value='$type_string' selected>Property Type</option>";
+            foreach($available_property_types as $key=>$value) {
+                $type_options .= "<option value='$value' />$value</option>";
+            }
+        } elseif(strpos($config_type, ";") !== FALSE) {
+            $default_type_option = "<option value='$config_type' selected>Property Type</option>";
+            foreach($available_property_types as $key=>$value) {
+                $type_options .= "<option value='$value' />$value</option>";
+            }
+        } else {
+            foreach($available_property_types as $key=>$value) {
+                if( $value == $config_type ) {
+                    $type_options .= "<option value='$value' selected />$value</option>";
+                } else {
+                    $type_options .= "<option value='$value' />$value</option>";
+                }
             }
         }
 
@@ -443,7 +456,7 @@ HTML;
 
                       <div class="sr-search-field" id="sr-search-ptype">
                         <select name="sr_ptype">
-                          <option value="">Property Type</option>
+                          <?php echo $default_type_option; ?>
                           <?php echo $type_options; ?>
                         </select>
                       </div>
@@ -575,7 +588,7 @@ HTML;
 
               <div class="sr-search-field" id="sr-search-ptype">
                 <select name="sr_ptype">
-                  <option value="">Property Type</option>
+                  <?php echo $default_type_option; ?>
                   <?php echo $type_options; ?>
                 </select>
               </div>
