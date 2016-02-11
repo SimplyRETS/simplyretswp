@@ -820,8 +820,15 @@ HTML;
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
-        $link = get_home_url() . $_SERVER['REQUEST_URI'];
+        // Build details link for map marker
+        $link = SrUtils::buildDetailsLink(
+            $listing_uid,
+            $listing_address,
+            !empty($vendor) ? array("sr_vendor" => $vendor) : array()
+        );
+
         $addrFull = $address . ', ' . $city . ' ' . $zip;
+
         if( $listing_lat  && $listing_longitude ) {
             /**
              * Google Map for single listing
@@ -1104,14 +1111,11 @@ HTML;
             $main_photo = trim($listingPhotos[0]);
 
             // listing link to details
-            $listing_link = get_home_url() . "/listings/$listing_uid/$address";
-            $link = str_replace( ' ', '+', $listing_link );
-            $link = str_replace( '#', '%23', $link );
-
-            if($vendor != NULL || $vendor != "") {
-                $link = $link . "?sr_vendor=$vendor";
-            }
-
+            $link = SrUtils::buildDetailsLink(
+                $listing_uid,
+                $address,
+                !empty($vendor) ? array("sr_vendor" => $vendor) : array()
+            );
 
             /************************************************
              * Make our map marker for this listing
@@ -1303,9 +1307,11 @@ HTML;
             $main_photo = $listingPhotos[0];
 
             // create link to listing
-            $listing_link = get_home_url() . "/listings/$listing_uid/$address";
-            $link = str_replace( ' ', '+', $listing_link );
-            $link = str_replace( '#', '%23', $link );
+            $link = SrUtils::buildDetailsLink(
+                $listing_uid,
+                $address,
+                !empty($vendor) ? array("sr_vendor" => $vendor) : array()
+            );
 
             // append markup for this listing to the content
             $cont .= <<<HTML
@@ -1420,9 +1426,11 @@ HTML;
             $area    = $l->property->area;
 
             // create link to listing
-            $listing_link = get_home_url() . "/listings/$uid/$address";
-            $link = str_replace( ' ', '+', $listing_link );
-            $link = str_replace( '#', '%23', $link );
+            $link = SrUtils::buildDetailsLink(
+                $uid,
+                $address,
+                !empty($vendor) ? array("sr_vendor" => $vendor) : array()
+            );
 
             if( $area == 0 ) {
                 $area = 'na';
