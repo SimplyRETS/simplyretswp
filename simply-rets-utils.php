@@ -37,8 +37,10 @@ class SrUtils {
      */
     public static function buildDetailsLink($listing_id, $listing_title, $params = array()) {
 
+        $permalink_struct = get_option('permalink_structure', '');
+
         // Are pretty permalinks enabled?
-        $prettify = empty(get_option('permalink_structure')) ? false : true;
+        $prettify = empty($permalink_struct) ? false : true;
 
         // Build a Maybe query string
         $_query = http_build_query($params);
