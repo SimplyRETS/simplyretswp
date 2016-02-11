@@ -24,6 +24,7 @@ add_action('admin_enqueue_scripts', array('SimplyRetsCustomPostPages', 'postFilt
 //  and move these into a constructor
 add_action('sr_update_adv_search_meta_action', array('SimplyRetsApiHelper', 'srUpdateAdvSearchOptions'));
 
+add_filter("rewrite_rules_array", array("SimplyRetsCustomPostPages", "srInitRewriteRules"));
 
 class SimplyRetsCustomPostPages {
 
@@ -53,6 +54,14 @@ class SimplyRetsCustomPostPages {
         delete_option('sr_show_admin_message');
         delete_option('sr_demo_page_created');
         flush_rewrite_rules();
+    }
+
+    public static function srInitRewriteRules($incoming) {
+		$rules = array(
+			"listings/(.*)/(.*)?$"
+              => "index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]"
+		);
+        return $incoming + $rules;
     }
 
     public static function onActivationNotice () {
@@ -466,10 +475,11 @@ class SimplyRetsCustomPostPages {
         $page_name = get_query_var('sr-listings');
         $sr_post_type = 'sr-listings';
 
-        if ( $page_name == 'sr-single' ) {
-            $listing_id = get_query_var('listing_id');
+        if (get_query_var('listing_id') != NULL AND get_query_var('listing_title') != NULL) {
 
+            $listing_id = get_query_var('listing_id');
             $vendor     = get_query_var('sr_vendor', '');
+
             $add_rooms  = get_option('sr_additional_rooms') ? 'rooms' : '';
 
             $params = http_build_query(
@@ -667,10 +677,16 @@ class SimplyRetsCustomPostPages {
 
         // if we catch a singlelisting query, create a new post on the fly
         global $wp_query;
-        if( $wp_query->query['sr-listings'] == "sr-single" ) {
-            $post_id    = get_query_var( 'listing_id' );
-            $post_addr  = get_query_var( 'listing_title', 'none' );
-            $post_price = get_query_var( 'listing_price', '0' );
+
+        if( $wp_query->query['sr-listings'] == 'sr-search'
+            AND array_key_exists("listing_id", $wp_query->query_vars)
+            AND array_key_exists("listing_title", $wp_query->query_vars)
+            OR $wp_query->query['sr-listings'] == "sr-single"
+        ) {
+
+            $post_id    = urldecode(get_query_var( 'listing_id', '' ));
+            $post_addr  = urldecode(get_query_var( 'listing_title', '' ));
+            $post_price = urldecode(get_query_var( 'listing_price', '' ));
 
             $listing_USD = $post_price == '' ? '' : '$' . number_format( $post_price );
             $title_normalize = "background-color:transparent;padding:0px;";
