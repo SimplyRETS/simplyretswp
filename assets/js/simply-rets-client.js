@@ -100,12 +100,7 @@ var genMarkerPopup = function(listing) {
     var photo = listing.photos.length > 1
               ? listing.photos[0]
               : 'https://s3-us-west-2.amazonaws.com/simplyrets/trial/properties/defprop.jpg';
-    var link  = window.location.href +
-                "/?sr-listings=sr-single" +
-                "&listing_id=" + listing.mlsId +
-                "&sr_vendor=" +
-                "&listing_price=" + listing.listPrice +
-                "&listing_title=" + listing.address.full;
+    var link  = window.location.href + "/listings/" + listing.mlsId + "/" + listing.address.full
 
     var markup = '' +
        '<div class="sr-iw-inner">' +
@@ -587,7 +582,7 @@ Map.prototype.sendRequest = function(points, params, paginate) {
     var paramsQ = $_.param(params);
 
     /** Put the query in a string and send the request */
-    var query = pointsQ + "&limit=" + limit + "&offset=" + offset + "&" + paramsQ; 
+    var query = pointsQ + "&limit=" + limit + "&offset=" + offset + "&" + paramsQ;
 
     var req = $_.ajax({
         type: 'post',
