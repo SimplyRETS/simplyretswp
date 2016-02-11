@@ -14,13 +14,15 @@ class SrUtils {
 
     public static function isSingleVendor() {
         $vendors = get_option('sr_adv_search_meta_vendors', array());
-        if(count($vendors) > 1)
+        if(count($vendors) > 1) {
             return false;
+        }
         return true;
     }
 
 
     public static function srShowListingMeta() {
+
         if( get_option('sr_show_listingmeta') ) {
             $show_listing_meta = false;
         } else {
@@ -28,6 +30,42 @@ class SrUtils {
         }
 
         return $show_listing_meta;
+    }
+
+    /**
+     * Builds a link to a listings' details page. Used in search results.
+     */
+    public static function buildDetailsLink($listing_id, $listing_title, $params = array()) {
+
+        // Are pretty permalinks enabled?
+        $prettify = empty(get_option('permalink_structure')) ? false : true;
+
+        // Build a Maybe query string
+        $_query = http_build_query($params);
+        $query = !empty($_query) ? $_query : "";
+
+
+        // Build URL - append the rest to this
+        $url = get_home_url();
+
+        if($prettify) {
+            $url .= "/listings/$listing_id/$listing_title";
+            if(!empty($query)) {
+                $url .= "?" . $query;
+            }
+        } else {
+            $url .= "?sr-listings=sr-single"
+                 .  "&listing_id=$listing_id"
+                 .  "&listing_title=$listing_title";
+            if(!empty($query)) {
+                $url .= "&" . $query;
+            }
+        }
+
+        $url = str_replace(' ', '+', $url);
+        $url = str_replace('#', '%23', $url);
+
+        return $url;
     }
 
     public static function buildPaginationLinks( $pagination ) {
