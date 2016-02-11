@@ -9,6 +9,7 @@
 
 
 /* Code starts here */
+add_action('init',                  array('SimplyRetsCustomPostPages', 'srInitRewriteRules'));
 add_action('init',                  array('SimplyRetsCustomPostPages', 'srRegisterPostType'));
 add_filter('comments_template',     array('SimplyRetsCustomPostPages', 'srClearComments'));
 add_filter('single_template',       array('SimplyRetsCustomPostPages', 'srLoadPostTemplate'));
@@ -24,7 +25,7 @@ add_action('admin_enqueue_scripts', array('SimplyRetsCustomPostPages', 'postFilt
 //  and move these into a constructor
 add_action('sr_update_adv_search_meta_action', array('SimplyRetsApiHelper', 'srUpdateAdvSearchOptions'));
 
-add_filter("rewrite_rules_array", array("SimplyRetsCustomPostPages", "srInitRewriteRules"));
+add_filter("rewrite_rules_array", array("SimplyRetsCustomPostPages", "srAddRewriteRules"));
 
 class SimplyRetsCustomPostPages {
 
@@ -57,7 +58,25 @@ class SimplyRetsCustomPostPages {
         flush_rewrite_rules();
     }
 
-    public static function srInitRewriteRules($incoming) {
+    public static function srInitRewriteRules() {
+        add_rewrite_tag('%listings%', '([^&]+)');
+        add_rewrite_rule(
+            'listings/(.*)/(.*)?$',
+            'index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]',
+            'top'
+        );
+
+        $rules = get_option('rewrite_rules');
+
+        if(!isset($rules['%listings%'])) {
+            flush_rewrite_rules();
+        }
+
+        return;
+
+    }
+
+    public static function srAddRewriteRules($incoming) {
         $use_pretty = get_option('sr_pretty_links', true);
 
         // Short circuit if user isn't using pretty links
