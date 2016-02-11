@@ -1104,14 +1104,13 @@ HTML;
             $main_photo = trim($listingPhotos[0]);
 
             // listing link to details
-            $listing_link = get_home_url() .
-                          "/?sr-listings=sr-single&" .
-                          "listing_id=$listing_uid&" .
-                          "sr_vendor=$vendor&" .
-                          "listing_price=$listing_price&" .
-                          "listing_title=$address";
-            $link = str_replace( ' ', '%20', $listing_link );
+            $listing_link = get_home_url() . "/listings/$listing_uid/$address";
+            $link = str_replace( ' ', '+', $listing_link );
             $link = str_replace( '#', '%23', $link );
+
+            if($vendor != NULL || $vendor != "") {
+                $link = $link . "?sr_vendor=$vendor";
+            }
 
 
             /************************************************
@@ -1304,9 +1303,8 @@ HTML;
             $main_photo = $listingPhotos[0];
 
             // create link to listing
-            $listing_link = get_home_url()
-                . "/?sr-listings=sr-single&listing_id=$listing_uid&listing_price=$listing_price&listing_title=$address";
-            $link = str_replace( ' ', '%20', $listing_link );
+            $listing_link = get_home_url() . "/listings/$listing_uid/$address";
+            $link = str_replace( ' ', '+', $listing_link );
             $link = str_replace( '#', '%23', $link );
 
             // append markup for this listing to the content
@@ -1421,8 +1419,10 @@ HTML;
             $baths   = $l->property->bathsFull;
             $area    = $l->property->area;
 
-            $listing_link = get_home_url() .
-                "/?sr-listings=sr-single&listing_id=$uid&listing_price=$price&listing_title=$address";
+            // create link to listing
+            $listing_link = get_home_url() . "/listings/$uid/$address";
+            $link = str_replace( ' ', '+', $listing_link );
+            $link = str_replace( '#', '%23', $link );
 
             if( $area == 0 ) {
                 $area = 'na';
