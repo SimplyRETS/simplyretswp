@@ -732,8 +732,7 @@ class SimplyRetsCustomPostPages {
                 "post_type"      => "sr-listings"
             );
 
-            $posts = array( $post );
-            return $posts;
+            return $posts + array($post);
         }
         // if we catch a search results query, create a new post on the fly
         if( $wp_query->query['sr-listings'] == "sr-search" ) {
@@ -755,8 +754,7 @@ class SimplyRetsCustomPostPages {
                 "post_type"      => "sr-listings"
             );
 
-            $posts = array( $post );
-            return $posts;
+            return $posts + array($post);
         }
 
         return $posts;
