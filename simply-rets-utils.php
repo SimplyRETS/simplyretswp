@@ -38,11 +38,16 @@ class SrUtils {
     public static function buildDetailsLink($listing, $params = array()) {
 
         $permalink_struct = get_option('permalink_structure', '');
+        $custom_permalink_struct = get_option('sr_permalink_structure', '');
 
         // Are pretty permalinks enabled?
-        $prettify = empty($permalink_struct) ? false : true;
+        $prettify = true;
+        $prettify = $custom_permalink_struct === "pretty"       ? true  : $prettify;
+        $prettify = $custom_permalink_struct === "pretty_extra" ? true  : $prettify;
+        $prettify = $custom_permalink_struct === "query_string" ? false : $prettify;
+        $prettify = $permalink_struct === ""                    ? false : $prettify;
 
-        // Build a Maybe query string
+        // Build a query string
         $_query = http_build_query($params);
         $query = !empty($_query) ? $_query : "";
 
@@ -53,18 +58,37 @@ class SrUtils {
         $listing_id = $listing->mlsId;
         $listing_address = $listing->address->full;
 
-        if($prettify) {
-            $url .= "/listings/$listing_id/$listing_address";
+        if($prettify && $custom_permalink_struct === "pretty_extra") {
+
+            $listing_city = $listing->address->city;
+            $listing_state = $listing->address->state;
+            $listing_zip = $listing->address->postalCode;
+
+
+            $url .= "/listings/$listing_city/$listing_state/$listing_zip/$listing_address/$listing_id";
+
             if(!empty($query)) {
                 $url .= "?" . $query;
             }
+
+        } elseif($prettify && $custom_permalink_struct === "pretty") {
+
+            $url .= "/listings/$listing_id/$listing_address";
+
+            if(!empty($query)) {
+                $url .= "?" . $query;
+            }
+
         } else {
+
             $url .= "?sr-listings=sr-single"
                  .  "&listing_id=$listing_id"
                  .  "&listing_title=$listing_address";
+
             if(!empty($query)) {
                 $url .= "&" . $query;
             }
+
         }
 
         $url = str_replace(' ', '+', $url);

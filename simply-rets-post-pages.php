@@ -60,27 +60,37 @@ class SimplyRetsCustomPostPages {
     }
 
     public static function srInitRewriteRules() {
+        $rules = get_option('rewrite_rules');
+
         add_rewrite_tag('%listings%', '([^&]+)');
+
+        // 'pretty_extra' permalinks
+        add_rewrite_rule(
+            'listings/([^&]+)/([^&]+)/([^&]+)/([^&]+)/([^&]+)/?$',
+            'index.php?sr-listings=sr-single&sr_city=$matches[1]&sr_state=$matches[2]&sr_zip=$matches[3]&listing_id=$matches[5]&listing_title=$matches[4]',
+            'top'
+        );
+
+        // 'pretty' permalinks
         add_rewrite_rule(
             'listings/(.*)/(.*)?$',
             'index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]',
             'top'
         );
 
-        $rules = get_option('rewrite_rules');
-
         if(!isset($rules['%listings%'])) {
             flush_rewrite_rules();
         }
 
         return;
-
     }
 
     public static function srAddRewriteRules($incoming) {
 		$rules = array(
+            'listings/([^&]+)/([^&]+)/([^&]+)/([^&]+)/([^&]+)/?$'
+            => 'index.php?sr-listings=sr-single&sr_city=$matches[1]&sr_state=$matches[2]&sr_zip=$matches[3]&listing_title=$matches[4]&listing_id=$matches[5]',
 			"listings/(.*)/(.*)?$"
-              => "index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]"
+                => "index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]"
 		);
         return $incoming + $rules;
     }
