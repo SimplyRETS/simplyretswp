@@ -44,7 +44,6 @@ class SimplyRetsCustomPostPages {
         add_option( 'sr_listing_gallery', 'fancy' );
         add_option( 'sr_show_leadcapture', true );
         add_option( 'sr_search_map_position', 'map_above');
-        add_option( 'sr_pretty_links', true );
 
         add_option('sr_show_admin_message', 1);
         add_option('sr_demo_page_created', false);
@@ -77,11 +76,6 @@ class SimplyRetsCustomPostPages {
     }
 
     public static function srAddRewriteRules($incoming) {
-        $use_pretty = get_option('sr_pretty_links', true);
-
-        // Short circuit if user isn't using pretty links
-        if(!$use_pretty) { return $incoming; }
-
 		$rules = array(
 			"listings/(.*)/(.*)?$"
               => "index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]"
