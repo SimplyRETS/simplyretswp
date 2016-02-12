@@ -35,7 +35,7 @@ class SrUtils {
     /**
      * Builds a link to a listings' details page. Used in search results.
      */
-    public static function buildDetailsLink($listing_id, $listing_title, $params = array()) {
+    public static function buildDetailsLink($listing, $params = array()) {
 
         $permalink_struct = get_option('permalink_structure', '');
 
@@ -46,19 +46,22 @@ class SrUtils {
         $_query = http_build_query($params);
         $query = !empty($_query) ? $_query : "";
 
-
-        // Build URL - append the rest to this
+        // Base of the URL we're building
         $url = get_home_url();
 
+        // Listing details
+        $listing_id = $listing->mlsId;
+        $listing_address = $listing->address->full;
+
         if($prettify) {
-            $url .= "/listings/$listing_id/$listing_title";
+            $url .= "/listings/$listing_id/$listing_address";
             if(!empty($query)) {
                 $url .= "?" . $query;
             }
         } else {
             $url .= "?sr-listings=sr-single"
                  .  "&listing_id=$listing_id"
-                 .  "&listing_title=$listing_title";
+                 .  "&listing_title=$listing_address";
             if(!empty($query)) {
                 $url .= "&" . $query;
             }

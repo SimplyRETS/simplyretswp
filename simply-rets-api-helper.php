@@ -822,8 +822,7 @@ HTML;
 
         // Build details link for map marker
         $link = SrUtils::buildDetailsLink(
-            $listing_uid,
-            $listing_address,
+            $listing,
             !empty($vendor) ? array("sr_vendor" => $vendor) : array()
         );
 
@@ -1112,8 +1111,7 @@ HTML;
 
             // listing link to details
             $link = SrUtils::buildDetailsLink(
-                $listing_uid,
-                $address,
+                $listing,
                 !empty($vendor) ? array("sr_vendor" => $vendor) : array()
             );
 
@@ -1308,8 +1306,7 @@ HTML;
 
             // create link to listing
             $link = SrUtils::buildDetailsLink(
-                $listing_uid,
-                $address,
+                $listing,
                 !empty($vendor) ? array("sr_vendor" => $vendor) : array()
             );
 
@@ -1425,10 +1422,11 @@ HTML;
             $baths   = $l->property->bathsFull;
             $area    = $l->property->area;
 
+            $priceUSD = '$' . number_format( $price );
+
             // create link to listing
             $link = SrUtils::buildDetailsLink(
-                $uid,
-                $address,
+                $l,
                 !empty($vendor) ? array("sr_vendor" => $vendor) : array()
             );
 
@@ -1437,7 +1435,7 @@ HTML;
             } else {
                 $area = number_format( $area );
             }
-            $priceUSD = '$' . number_format( $price );
+
             if( empty( $photos ) ) {
                 $photo = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
             } else {
