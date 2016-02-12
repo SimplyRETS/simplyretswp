@@ -22,7 +22,7 @@ class SrAdminSettings {
                        , array('SrAdminSettings', 'sr_admin_page')
       );
   }
-  
+
   function register_admin_settings() {
       register_setting('sr_admin_settings', 'sr_api_name');
       register_setting('sr_admin_settings', 'sr_api_key');
@@ -36,6 +36,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_listhub_analytics');
       register_setting('sr_admin_settings', 'sr_listhub_analytics_id');
       register_setting('sr_admin_settings', 'sr_search_map_position');
+      register_setting('sr_admin_settings', 'sr_permalink_structure');
   }
 
   public static function adminMessages () {
@@ -70,7 +71,7 @@ class SrAdminSettings {
           return;
       }
   }
-  
+
   function sr_admin_page() {
       global $wpdb;
       $logo_path = plugin_dir_url(__FILE__) . 'assets/img/logo_button.png';
@@ -243,6 +244,53 @@ class SrAdminSettings {
                 </tr>
               </tbody>
             </table>
+          <?php submit_button(); ?>
+          <hr>
+          <div class="sr-admin-settings-permalinks">
+            <h2>Permalink Structure</h2>
+            <p>
+                If you're using Wordpress' pretty permalinks, we have
+                a few different options you can choose from for single
+                listing pages.
+            </p>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <label>
+                      <?php echo
+                        '<input type="radio" id="sr_permalink_structure" name="sr_permalink_structure" value="pretty" '
+                        . checked('pretty', get_option('sr_permalink_structure'), false) . '/>'
+                      ?>
+                      Basic Pretty Links <i>(Ex: "/listings/{id}/{address})</i>
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>
+                      <?php echo
+                        '<input type="radio" id="sr_permalink_structure" name="sr_permalink_structure" value="pretty_extra" '
+                        . checked('pretty_extra', get_option('sr_permalink_structure'), false) . '/>'
+                      ?>
+                      Pretty Links Extra <i>(Ex: "/listings/{city}/{state}/{zip}/{address}/{id}
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>
+                      <?php echo
+                        '<input type="radio" id="sr_permalink_structure" name="sr_permalink_structure" value="query_string" '
+                        . checked('query_string', get_option('sr_permalink_structure'), false) . '/>'
+                      ?>
+                      Query String Links <i>(Ex: "/?sr-listings=sr-single&address={address}&listing_id={id}")</i>
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <?php submit_button(); ?>
           <hr>
           <div class="sr-admin-settings-map">

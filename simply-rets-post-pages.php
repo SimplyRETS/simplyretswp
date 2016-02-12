@@ -45,6 +45,8 @@ class SimplyRetsCustomPostPages {
         add_option( 'sr_show_leadcapture', true );
         add_option( 'sr_search_map_position', 'map_above');
 
+        add_option( 'sr_permalink_structure', 'pretty' );
+
         add_option('sr_show_admin_message', 1);
         add_option('sr_demo_page_created', false);
 
