@@ -321,6 +321,7 @@ but to only show listings from a specific agent:
   - Search Form
   - Featured Listing Slider
 * [Available Filters](#Available-Filters)
+* [Admin Settings / Permalinks](#SimplyRETS-Admin-Settings)
 * [Widgets](#SimplyRETS-Widgets)
 * [Trial Listings](#Trial-Listings)
 * [SimplyRETS Pages](#SimplyRETS-Pages)
@@ -550,6 +551,28 @@ sidebar and footer. The currently available widgets include:
 * **Agents Listing Widget**
   The search form widget allows you to add an MLS search in the
   sidebar or footer of your site.
+
+
+== Admin Settings and Permalinks ==
+
+This sections will discuss some of the basic configuration options
+available to admin's through the plugin:
+
+* **Permalinks**
+  SimplyRETS has support for 'pretty' and 'ugly' permalinks. It will
+  choose the best one based on your current configuration and there
+  are a couple of options to fine-tune it.
+
+  - If your WordPress site uses 'default' (ugly) permalinks, the
+    plugin is forced to use those as well.
+
+  - If your WordPress site is using 'pretty' permalinks, you can
+    choose between 'pretty' and 'extra pretty' SimplyRETS links in the
+    "Permalnks" section of the admin panel. Here are some basic
+    examples:
+
+  *Pretty*: http://yoursite.com/listings/{id}/{streetAddress}
+  *Extra Pretty*: http://yoursite.com/listings/{city}/{state}/{postalCode}/{streetAddress}/{id}
 
 
 == Trial Listings ==
