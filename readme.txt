@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.4
-Stable tag: 1.7.2
+Stable tag: 2.0.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,13 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.0.0 =
+* FEATURE: Support for pretty permalinks!
+* FEATURE: Pretty permalink options in the admin panel
+* IMPROVEMENT: URL's not longer contain the listing's price, so they
+  are much more easily shareable on social media.
+* BUGS: Misc, minor bugs and code cleanup.
+
 = 1.7.2 =
 * FEATURE: Adds the ability to configure sr_search_form to search
   specified property type(s) via short-code attributes.
@@ -252,46 +259,20 @@ listing sidebar widget.
   *listingId's*, not *mlsId's*. This will break existing widgets, so
   please check them after upgrading.
 
-= 1.6.5 =
-* IMPROVEMENT: Better defaults for Bathrooms on list and details pages.
-* IMPROVEMENT: Don't show "SqFt" for "LotSize" on details pages.
-* IMPROVEMENT: General code cleanup.
-
-= 1.6.4 =
-* FIX: Dynamically populate property types in sidebar search widget.
-
-= 1.6.3 =
-* FIX: Don't show listDate or modified fields if they're null.
-* UPDATE: Status page link / verbiage clarifications in admin panel.
-* UPDATE: Update documentation
-
-= 1.6.2 =
-* FIX: Update deprecated WP_Widget Contructors to prevent warnings/fix build
-* UPDATE: Update wp-cli bash script to fix Travis build.
-* UPDATE: Move "Listing Meta Data" information into "MLS Information" section on single listings.
-
-= 1.6.1 =
-* FEATURE: Support for new fields provided by the SimplyRETS API
-* FEATURE: Ability to create a demo page from Settings page and Activation Message.
-
-= 1.6.0 =
-* FEATURE: Allow multiple agent ids in the [sr_residential] shortcode
-* FEATURE: Allow multiple property types the [sr_residential] shortcode
 
 **View the complete CHANGELOG:** [here](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 
 
 == Upgrade Notice ==
 
+= 2.0.0 =
+**There are some changes you should be aware of**
+* Permalinks on single listing pages (the web page), will now use 'pretty permalinks' automatically if the rest of your site is using them. If your site is using Default links, the plugin will too.
+* The price on single listing pages is no longer in the title, it is right below, along with the listings' status, for prominence and to allow links to listings to be shared online.
+
 = 1.7.0 =
 * Note that SimplyRETS Page Builder and SimplyRETS Pages are both being deprecated in favor of using short-codes directly. Both of those will still be supported.
 * In this update, there is a change to the MLS ID that the Featured and Random Listing Widgets use. If you are using either of those widgets, be sure to double check them after this update.
-
-= 1.3.3 =
-* If you are building any shortcodes, links, or widgets from the MLS ID - you should double check that with this update they are still showing the correct listing - we switched to the MLS# instead of internal uid.
-
-= 1.3.0 =
-* This update will move you to the new Fancy gallery - If you like the Classic gallery, you can switch it back in Settings -> SimplyRETS (no changes to Classic gallery)
 
 
 == Documentation ==
