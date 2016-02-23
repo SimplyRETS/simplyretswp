@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.4
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,9 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.0.1 =
+* BUGFIX: Fix sr_listings_slider links to listing details
+
 = 2.0.0 =
 * FEATURE: Support for pretty permalinks!
 * FEATURE: Pretty permalink options in the admin panel
@@ -301,8 +304,9 @@ but to only show listings from a specific agent:
   - Show Listings
   - Search Form
   - Featured Listing Slider
+  - Interactive Map Search
 * [Available Filters](#Available-Filters)
-* [Admin Settings / Permalinks](#SimplyRETS-Admin-Settings)
+* [Admin Settings / Permalinks](#Admin-Settings-and-Permalinks)
 * [Widgets](#SimplyRETS-Widgets)
 * [Trial Listings](#Trial-Listings)
 * [SimplyRETS Pages](#SimplyRETS-Pages)
@@ -407,6 +411,30 @@ And the same minimum price, but only for one specific agent? Easy!
 
 
 (*Note: the Agent ID is provided by your MLS*)
+
+= Interactive Map Search =
+
+The SimplyRETS plugin also provides a second kind of map based search that allows
+the user to search by drawing polygons over and area and setting their parameters.
+
+The short-code can be used with:
+
+`[sr_map_search]`
+
+**Attributes**
+
+* search_form
+Show search form in addition to the map.
+`[sr_listings_slider search_form="true"]`
+
+* list_view
+Show a list view of search results below the map
+`[sr_listings_slider list_view="true"]`
+
+
+(*Note: Maps can only be enabled when latitude and longitude are
+available for the listings. Some MLS's do not provide this, in which
+case you can check out the SimplyRETS Geocoding Addon.*)
 
 == Available Filters ==
 
