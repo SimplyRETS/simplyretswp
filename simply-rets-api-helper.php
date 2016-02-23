@@ -1444,10 +1444,10 @@ HTML;
 
             $inner .= <<<HTML
                 <div class="sr-listing-slider-item">
-                  <a href="$listing_link">
+                  <a href="$link">
                     <div class="sr-listing-slider-item-img" style="background-image: url('$photo')"></div>
                   </a>
-                  <a href="$listing_link">
+                  <a href="$link">
                     <h4 class="sr-listing-slider-item-address">$address</h4>
                   </a>
                   <p class="sr-listing-slider-item-price">$priceUSD</p>
