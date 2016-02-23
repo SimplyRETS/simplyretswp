@@ -881,11 +881,6 @@ HTML;
         // listing markup
         $cont .= <<<HTML
           <div class="sr-details" style="text-align:left;">
-            <p>
-                <span><strong>List Price:</strong> $listing_price_USD</span>
-                <br/>
-                <span><strong>Status:</strong> $listing_mls_status</span>
-            </p>
             <p class="sr-details-links" style="clear:both;">
               $mapLink
               $more_photos
@@ -1123,7 +1118,7 @@ HTML;
             /************************************************
              * Make our map marker for this listing
              */
-            if( $lat  && $lng ) {
+            if( $lat && $lng ) {
                 $marker = SrSearchMap::markerWithDefaults();
                 $iw     = SrSearchMap::infoWindowWithDefaults();
                 $iwCont = SrSearchMap::infoWindowMarkup(
