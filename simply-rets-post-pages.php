@@ -553,10 +553,12 @@ class SimplyRetsCustomPostPages {
 
 
             $p_types = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
-            if(strpos($p_types, ";") !== FALSE && !is_array($p_types)) {
-                $p_types = explode(';', $p_types);
+            if(!is_array($p_types)) {
+                if(strpos($p_types, ";") !== FALSE) {
+                    $p_types = explode(';', $p_types);
+                }
             }
-            if(!empty($p_types)) {
+            if(is_array($p_types) && !empty($p_types)) {
                 foreach((array)$p_types as $key => $ptype) {
                     $final = trim($ptype);
                     $ptypes_string .= "&type=$final";
