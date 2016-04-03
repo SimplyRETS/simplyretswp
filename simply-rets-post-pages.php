@@ -572,6 +572,24 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
+
+            /** Multiple Statuses */
+            $statuses = isset($_GET['sr_status']) ? $_GET['sr_status'] : $status;
+            $statuses_string = '';
+            if(!is_array($statuses)) {
+                if(strpos($statuses, ";") !== FALSE) {
+                    $statuses = explode(';', $statuses);
+                } else {
+                    $statuses_string = "&status=$statuses";
+                }
+            }
+            if(is_array($statuses) && !empty($statuses)) {
+                foreach((array)$statuses as $key => $stat) {
+                    $final = trim($stat);
+                    $statuses_string .= "&status=$final";
+                }
+            }
+
             /**
              * The loops below check if the short-code has multiple
              * values for any query parameter. Eg, multiple cities.
@@ -646,7 +664,6 @@ class SimplyRetsCustomPostPages {
                 /** Advanced Search */
                 "lotsize"   => $lotsize,
                 "area"      => $area,
-                "status"    => $status,
                 "sort"      => $sort,
 
                 /** Multi MLS */
@@ -682,6 +699,7 @@ class SimplyRetsCustomPostPages {
                   . $neighborhoods_string
                   . $agents_string
                   . $ptypes_string
+                  . $statuses_string
                   . $amenities_string;
 
               $qs = str_replace(' ', '%20', $qs);
@@ -702,6 +720,7 @@ class SimplyRetsCustomPostPages {
               $qs .= $agents_string;
               $qs .= $ptypes_string;
               $qs .= $neighborhoods_string;
+              $qs .= $statuses_string;
               $qs .= $amenities_string;
 
               $qs = str_replace(' ', '%20', $qs);
