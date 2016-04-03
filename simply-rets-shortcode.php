@@ -171,6 +171,9 @@ HTML;
     public function sr_residential_shortcode( $atts ) {
         global $wp_query;
 
+        /**
+         * Check if `mlsId` was supplied. If so, just query that.
+         */
         if(!empty($atts['mlsid'])) {
             $qs = '/' . $atts['mlsid'];
             if(array_key_exists('vendor', $atts) && !empty($atts['vendor'])) {
@@ -186,6 +189,13 @@ HTML;
             $listing_params = $atts;
         }
 
+        /**
+         * The below parameters currently support multiple values via
+         * a semicolon delimeter. Eg, status="Active; Closed"
+         *
+         * Before we send them, build a proper query string that the API
+         * can understand. Eg, status=Active&status=Closed
+         */
         if( !isset($listing_params['neighborhoods'])
             && !isset($listing_params['postalcodes'])
             && !isset($listing_params['cities'])
@@ -236,9 +246,6 @@ HTML;
                 $ptypes_string = str_replace(' ', '%20', $ptypes_string );
             }
 
-            /**
-             * Postal Codes filter is being used - check for multiple values and build query accordingly
-             */
             if( isset( $listing_params['postalcodes'] ) && !empty( $listing_params['postalcodes'] ) ) {
                 $postalcodes = explode( ';', $listing_params['postalcodes'] );
                 foreach( $postalcodes as $key => $postalcode  ) {
@@ -248,7 +255,11 @@ HTML;
                 $postalcodes_string = str_replace(' ', '%20', $postalcodes_string );
             }
 
+            /**
+             * Build a regular query string for everything else
+             */
             foreach( $listing_params as $key => $value ) {
+                // Skip params that support multiple
                 if( $key !== 'postalcodes'
                     && $key !== 'neighborhoods'
                     && $key !== 'cities'
@@ -259,6 +270,9 @@ HTML;
                 }
             }
 
+            /**
+             * Final query string
+             */
             $qs = '?';
             $qs .= $neighborhoods_string;
             $qs .= $cities_string;
