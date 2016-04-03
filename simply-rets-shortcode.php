@@ -201,6 +201,7 @@ HTML;
             && !isset($listing_params['cities'])
             && !isset($listing_params['agent'])
             && !isset($listing_params['type'])
+            && !isset($listing_params['status'])
         )
         {
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
@@ -256,6 +257,21 @@ HTML;
             }
 
             /**
+             * Multiple statuses
+             */
+            if( isset( $listing_params['status'] ) && !empty( $listing_params['status'] ) ) {
+
+                $statuses = explode( ';', $listing_params['status'] );
+
+                foreach( $statuses as $key => $stat) {
+                    $stat = trim($stat);
+                    $statuses_string .= "status=$stat&";
+                }
+
+                $statuses_string = str_replace(' ', '%20', $statuses_string );
+            }
+
+            /**
              * Build a regular query string for everything else
              */
             foreach( $listing_params as $key => $value ) {
@@ -265,6 +281,7 @@ HTML;
                     && $key !== 'cities'
                     && $key !== 'agent'
                     && $key !== 'type'
+                    && $key !== 'status'
                 ) {
                     $params_string .= $key . "=" . $value . "&";
                 }
@@ -280,6 +297,7 @@ HTML;
             $qs .= $params_string;
             $qs .= $agents_string;
             $qs .= $ptypes_string;
+            $qs .= $statuses_string;
 
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs, $atts );
             return $listings_content;
