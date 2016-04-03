@@ -236,6 +236,7 @@ listing sidebar widget.
 == Changelog ==
 
 = 2.0.3 =
+* FEATURE: Allow multiple statuses in the sr_listings short-code.
 * BUGFIX: Fix image rendering when image URL contains forward slashes.
 
 = 2.0.2 =
@@ -454,8 +455,11 @@ Fetches a single listing by it's mlsid.
 `[sr_listings mlsid="12345"]`
 
 * **status**
-Refines listings by a certain status, like Active, Pending, or Closed.
+Refines listings by a certain status, like Active, Pending, or Closed. (Separate multiple with a semicolon ';')
 `[sr_listings status="Closed"]`
+`[sr_listings status="Active; Pending"]`
+
+*Note: By default, Active and Pending are queried*
 
 * **minprice**
 Refines listings to a minimum price.
@@ -522,7 +526,7 @@ Refines listings to a given set of features. (Separate multiple with a semi-colo
 `[sr_listings cities="Tennis Court; Waterfront"]`
 
 * **vendor**
-Refines listings by a certain vendor or MLS Board. (This is only available when your account has multiple MLS's).
+Refines listings by a certain vendor or MLS Board. (This is required when your account has multiple MLS's).
 `[sr_listings vendor="MFRMLS"]`
 
 * **limit**
@@ -539,6 +543,8 @@ Displays the listings in a specific order.
 
 (The available sort options are `listprice`, `-listprice`, `listdate`, `-listdate`, `baths`, `-baths`, `beds`, and `-beds`.
 Options starting the a minus (-) are high to low, no minus sign is low to high).
+
+*Note: By default, the listings are sorted by modification time, newest first*
 
 * **advanced**
 This attribute is to turn the basic search form into an advanced search form.
