@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.0.2 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.0.3 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.0.2 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.0.3 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -1108,6 +1108,7 @@ HTML;
                 $listingPhotos[0] = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
             }
             $main_photo = trim($listingPhotos[0]);
+            $main_photo = str_replace("\\", "", $main_photo);
 
             // listing link to details
             $link = SrUtils::buildDetailsLink(
@@ -1303,6 +1304,7 @@ HTML;
                 $listingPhotos[0] = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
             }
             $main_photo = $listingPhotos[0];
+            $main_photo = str_replace("\\", "", $main_photo);
 
             // create link to listing
             $link = SrUtils::buildDetailsLink(

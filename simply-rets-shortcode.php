@@ -171,6 +171,9 @@ HTML;
     public function sr_residential_shortcode( $atts ) {
         global $wp_query;
 
+        /**
+         * Check if `mlsId` was supplied. If so, just query that.
+         */
         if(!empty($atts['mlsid'])) {
             $qs = '/' . $atts['mlsid'];
             if(array_key_exists('vendor', $atts) && !empty($atts['vendor'])) {
@@ -186,11 +189,19 @@ HTML;
             $listing_params = $atts;
         }
 
+        /**
+         * The below parameters currently support multiple values via
+         * a semicolon delimeter. Eg, status="Active; Closed"
+         *
+         * Before we send them, build a proper query string that the API
+         * can understand. Eg, status=Active&status=Closed
+         */
         if( !isset($listing_params['neighborhoods'])
             && !isset($listing_params['postalcodes'])
             && !isset($listing_params['cities'])
             && !isset($listing_params['agent'])
             && !isset($listing_params['type'])
+            && !isset($listing_params['status'])
         )
         {
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
@@ -236,9 +247,6 @@ HTML;
                 $ptypes_string = str_replace(' ', '%20', $ptypes_string );
             }
 
-            /**
-             * Postal Codes filter is being used - check for multiple values and build query accordingly
-             */
             if( isset( $listing_params['postalcodes'] ) && !empty( $listing_params['postalcodes'] ) ) {
                 $postalcodes = explode( ';', $listing_params['postalcodes'] );
                 foreach( $postalcodes as $key => $postalcode  ) {
@@ -248,17 +256,40 @@ HTML;
                 $postalcodes_string = str_replace(' ', '%20', $postalcodes_string );
             }
 
+            /**
+             * Multiple statuses
+             */
+            if( isset( $listing_params['status'] ) && !empty( $listing_params['status'] ) ) {
+
+                $statuses = explode( ';', $listing_params['status'] );
+
+                foreach( $statuses as $key => $stat) {
+                    $stat = trim($stat);
+                    $statuses_string .= "status=$stat&";
+                }
+
+                $statuses_string = str_replace(' ', '%20', $statuses_string );
+            }
+
+            /**
+             * Build a regular query string for everything else
+             */
             foreach( $listing_params as $key => $value ) {
+                // Skip params that support multiple
                 if( $key !== 'postalcodes'
                     && $key !== 'neighborhoods'
                     && $key !== 'cities'
                     && $key !== 'agent'
                     && $key !== 'type'
+                    && $key !== 'status'
                 ) {
                     $params_string .= $key . "=" . $value . "&";
                 }
             }
 
+            /**
+             * Final query string
+             */
             $qs = '?';
             $qs .= $neighborhoods_string;
             $qs .= $cities_string;
@@ -266,6 +297,7 @@ HTML;
             $qs .= $params_string;
             $qs .= $agents_string;
             $qs .= $ptypes_string;
+            $qs .= $statuses_string;
 
             $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs, $atts );
             return $listings_content;

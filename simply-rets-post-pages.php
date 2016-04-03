@@ -552,10 +552,22 @@ class SimplyRetsCustomPostPages {
                                           get_option('sr_search_map_position'));
 
 
+            /**
+             * Check if there is multiple 'types' being searched.
+             * HACK: This is a bit of hack because sometimes the parameters
+             * are in an array() and sometimes they are in a string that needs
+             * to be made into an array. The others aren't like that,
+             * so we should fix this one.
+             */
+
+            /** Multiple Types */
             $p_types = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
+            $ptypes_string = '';
             if(!is_array($p_types)) {
                 if(strpos($p_types, ";") !== FALSE) {
                     $p_types = explode(';', $p_types);
+                } else {
+                    $ptypes_string = "&type=$p_types";
                 }
             }
             if(is_array($p_types) && !empty($p_types)) {
@@ -564,6 +576,39 @@ class SimplyRetsCustomPostPages {
                     $ptypes_string .= "&type=$final";
                 }
             }
+
+
+            /** Multiple Statuses */
+            $statuses = isset($_GET['sr_status']) ? $_GET['sr_status'] : $status;
+            $statuses_string = '';
+            if(!is_array($statuses)) {
+                if(strpos($statuses, ";") !== FALSE) {
+                    $statuses = explode(';', $statuses);
+                } else {
+                    $statuses_string = "&status=$statuses";
+                }
+            }
+            if(is_array($statuses) && !empty($statuses)) {
+                foreach((array)$statuses as $key => $stat) {
+                    $final = trim($stat);
+                    $statuses_string .= "&status=$final";
+                }
+            }
+
+            /**
+             * The loops below check if the short-code has multiple
+             * values for any query parameter. Eg, multiple cities.
+             * Since they support multiple, we do the following for
+             * each:
+             *
+             *
+             * - Split string on ';' delimeter (which returns a single
+                 item array if there is none)
+             *
+             * - Make each array item into a query (eg, &status=Closed)
+             *
+             * - Concat them together (eg,&status=Active&status=Closed)
+             */
 
             $features = isset($_GET['sr_features']) ? $_GET['sr_features'] : '';
             if(!empty($features)) {
@@ -599,7 +644,13 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
-            // these should correlate with what the api expects as filters
+            /**
+             * Make a new array with all query parameters.
+             *
+             * Note: We're only using params that weren't transformed
+             * above.
+             */
+
             $listing_params = array(
                 "q"         => $keywords,
                 "brokers"   => $brokers,
@@ -618,7 +669,6 @@ class SimplyRetsCustomPostPages {
                 /** Advanced Search */
                 "lotsize"   => $lotsize,
                 "area"      => $area,
-                "status"    => $status,
                 "sort"      => $sort,
 
                 /** Multi MLS */
@@ -643,6 +693,9 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
+            /**
+             * Make advanced search page with new query
+             */
             if( !$advanced || !$advanced == "true" ) {
               $qs = '?'
                   . http_build_query( array_filter( $listing_params ) )
@@ -651,6 +704,7 @@ class SimplyRetsCustomPostPages {
                   . $neighborhoods_string
                   . $agents_string
                   . $ptypes_string
+                  . $statuses_string
                   . $amenities_string;
 
               $qs = str_replace(' ', '%20', $qs);
@@ -659,6 +713,9 @@ class SimplyRetsCustomPostPages {
               $content .= $listings_content;
               return $content;
 
+            /**
+             * Make regular search page with new query
+             */
             } else {
 
               $qs = '?';
@@ -668,6 +725,7 @@ class SimplyRetsCustomPostPages {
               $qs .= $agents_string;
               $qs .= $ptypes_string;
               $qs .= $neighborhoods_string;
+              $qs .= $statuses_string;
               $qs .= $amenities_string;
 
               $qs = str_replace(' ', '%20', $qs);
