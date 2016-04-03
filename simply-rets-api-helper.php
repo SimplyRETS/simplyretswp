@@ -1304,6 +1304,7 @@ HTML;
                 $listingPhotos[0] = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
             }
             $main_photo = $listingPhotos[0];
+            $main_photo = str_replace("\\", "", $main_photo);
 
             // create link to listing
             $link = SrUtils::buildDetailsLink(
