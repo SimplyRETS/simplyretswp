@@ -552,6 +552,13 @@ class SimplyRetsCustomPostPages {
                                           get_option('sr_search_map_position'));
 
 
+            /**
+             * Check if there is multiple 'types' being searched.
+             * HACK: This is a bit of hack because sometimes the parameters
+             * are in an array() and sometimes they are in a string that needs
+             * to be made into an array. The others aren't like that,
+             * so we should fix this one.
+             */
             $p_types = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
             if(!is_array($p_types)) {
                 if(strpos($p_types, ";") !== FALSE) {
@@ -564,6 +571,21 @@ class SimplyRetsCustomPostPages {
                     $ptypes_string .= "&type=$final";
                 }
             }
+
+            /**
+             * The loops below check if the short-code has multiple
+             * values for any query parameter. Eg, multiple cities.
+             * Since they support multiple, we do the following for
+             * each:
+             *
+             *
+             * - Split string on ';' delimeter (which returns a single
+                 item array if there is none)
+             *
+             * - Make each array item into a query (eg, &status=Closed)
+             *
+             * - Concat them together (eg,&status=Active&status=Closed)
+             */
 
             $features = isset($_GET['sr_features']) ? $_GET['sr_features'] : '';
             if(!empty($features)) {
@@ -599,7 +621,13 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
-            // these should correlate with what the api expects as filters
+            /**
+             * Make a new array with all query parameters.
+             *
+             * Note: We're only using params that weren't transformed
+             * above.
+             */
+
             $listing_params = array(
                 "q"         => $keywords,
                 "brokers"   => $brokers,
@@ -643,6 +671,9 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
+            /**
+             * Make advanced search page with new query
+             */
             if( !$advanced || !$advanced == "true" ) {
               $qs = '?'
                   . http_build_query( array_filter( $listing_params ) )
@@ -659,6 +690,9 @@ class SimplyRetsCustomPostPages {
               $content .= $listings_content;
               return $content;
 
+            /**
+             * Make regular search page with new query
+             */
             } else {
 
               $qs = '?';
