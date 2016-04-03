@@ -559,10 +559,15 @@ class SimplyRetsCustomPostPages {
              * to be made into an array. The others aren't like that,
              * so we should fix this one.
              */
+
+            /** Multiple Types */
             $p_types = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
+            $ptypes_string = '';
             if(!is_array($p_types)) {
                 if(strpos($p_types, ";") !== FALSE) {
                     $p_types = explode(';', $p_types);
+                } else {
+                    $ptypes_string = "&type=$p_types";
                 }
             }
             if(is_array($p_types) && !empty($p_types)) {
