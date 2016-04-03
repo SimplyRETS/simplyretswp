@@ -1,5 +1,26 @@
 # Changelog
 
+## 2.0.3
+- FEATURE: Allow multiple statuses in the sr_listings short-code.
+- BUGFIX: Fix image rendering when image URL contains forward slashes.
+
+## 2.0.2
+* BUGFIX: Fix sr_ptypes query parameter when using multiple property types.
+
+## 2.0.1
+* BUGFIX: Fix sr_listings_slider links to listing details
+
+## 2.0.0
+* FEATURE: Support for pretty permalinks!
+* FEATURE: Pretty permalink options in the admin panel
+* IMPROVEMENT: URL's not longer contain the listing's price, so they
+  are much more easily shareable on social media.
+* BUGS: Misc, minor bugs and code cleanup.
+
+## 1.7.2
+* FEATURE: Adds the ability to configure sr_search_form to search
+  specified property type(s) via short-code attributes.
+
 ## 1.7.1
 * BUG FIX: Fix population of property-types dropdown on the
   sr_map_search search form
@@ -139,7 +160,7 @@
 * New Image Gallery Option! With full screen and thumbnails
 * Add option to show/hide listing description (remarks)
 * Better handling of fields that may or may not be present
-* other fixes and improvements 
+* other fixes and improvements
 
 ## 1.2.0
 * Add graphical shortcode/page builder got creating listing shortcodes
@@ -147,7 +168,7 @@
 * Add support for agent ID query parameter in shortcode & custom post type
 * Add more styling and clean up text in admin settings panel
 * better error handling
-* other fixes and improvements 
+* other fixes and improvements
 
 ## 1.1.5
 * Automatically save test credentials when plugin is activated to make it easier to get started.
