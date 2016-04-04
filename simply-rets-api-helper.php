@@ -1442,6 +1442,7 @@ HTML;
                 $photo = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
             } else {
                 $photo = trim($photos[0]);
+                $photo = str_replace("\\", "", $photo);
             }
 
             $inner .= <<<HTML
