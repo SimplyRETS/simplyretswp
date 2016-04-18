@@ -91,10 +91,20 @@ var buildPrettyLink = function(mlsId, address) {
 }
 
 var buildUglyLink = function(mlsId, address) {
-    return window.location.href
-           + "?sr-listings=sr-single"
-           + "&listing_id=" + mlsId
-           + "&listing_title=" + address;
+    // Check if the page already has a query parameters. If so, just
+    // append the new ones.
+    if(!!window.location.search) {
+        return window.location.search
+             + "&sr-listings=sr-single"
+             + "&listing_id=" + mlsId
+             + "&listing_title=" + address;
+    } else {
+        return window.location.href
+             + "?sr-listings=sr-single"
+             + "&listing_id=" + mlsId
+             + "&listing_title=" + address;
+    }
+
 }
 
 
