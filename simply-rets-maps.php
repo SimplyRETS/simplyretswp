@@ -118,9 +118,11 @@ HTML;
     public static function update_int_map_data() {
 
         // Ensure we only capture SimplyRETS requests
-        if(array_key_exists('action', $_POST) && $_POST['action'] === "update_int_map_data") {
+        if(array_key_exists('action', $_POST)
+           && $_POST['action'] === "update_int_map_data") {
 
             $permalink_struct = get_option('permalink_structure');
+            $site_root = get_site_url();
 
             header("Content-Type: application/json");
 
@@ -135,7 +137,8 @@ HTML;
                 "result" => $req,
                 "markup" => $con,
                 "post"   => $_POST,
-                "permalink_structure" => $permalink_struct
+                "permalink_structure" => $permalink_struct,
+                "site_root" => $site_root
             );
 
 

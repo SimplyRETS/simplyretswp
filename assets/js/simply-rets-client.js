@@ -86,19 +86,22 @@ var scrollToAnchor = function(aid) {
 }
 
 
-var buildPrettyLink = function(mlsId, address) {
-    return window.location.href + "listings/" + mlsId + "/" + address
+var buildPrettyLink = function(mlsId, address, root) {
+    return root
+         + "listings/"
+         + mlsId + "/"
+         + address
 }
 
-var buildUglyLink = function(mlsId, address) {
-    return window.location.href
-           + "?sr-listings=sr-single"
-           + "&listing_id=" + mlsId
-           + "&listing_title=" + address;
+var buildUglyLink = function(mlsId, address, root) {
+    return root
+         + "?sr-listings=sr-single"
+         + "&listing_id=" + mlsId
+         + "&listing_title=" + address;
 }
 
 
-var genMarkerPopup = function(listing, linkStyle) {
+var genMarkerPopup = function(listing, linkStyle, siteRoot) {
 
     var stat  = listing.mls.status         || "Active";
     var baths = listing.property.bathsFull || "n/a";
@@ -114,8 +117,8 @@ var genMarkerPopup = function(listing, linkStyle) {
               : 'https://s3-us-west-2.amazonaws.com/simplyrets/trial/properties/defprop.jpg';
 
     var link = linkStyle === "pretty"
-             ? buildPrettyLink(listing.mlsId, listing.address.full)
-             : buildUglyLink(listing.mlsId, listing.address.full);
+             ? buildPrettyLink(listing.mlsId, listing.address.full, siteRoot)
+             : buildUglyLink(listing.mlsId, listing.address.full, siteRoot);
 
     var markup = '' +
        '<div class="sr-iw-inner">' +
@@ -147,7 +150,7 @@ var genMarkerPopup = function(listing, linkStyle) {
 }
 
 
-var makeMapMarkers = function(map, listings, linkStyle) {
+var makeMapMarkers = function(map, listings, linkStyle, siteRoot) {
     // if(!listings || listings.length < 1) return [];
 
     var markers = [];
@@ -162,7 +165,7 @@ var makeMapMarkers = function(map, listings, linkStyle) {
 
             var bound  = new google.maps.LatLng(listing.geo.lat, listing.geo.lng);
 
-            var popup  = genMarkerPopup(listing, linkStyle);
+            var popup  = genMarkerPopup(listing, linkStyle, siteRoot);
 
             var window = new google.maps.InfoWindow({
                 content: popup
@@ -300,6 +303,7 @@ function Map() {
     this.limit      = 25;
     this.offset     = 0;
     this.linkStyle  = 'default';
+    this.siteRoot   = window.location.href
 
     this.map     = new google.maps.Map(
         document.getElementById('sr-map-search'), this.options
@@ -495,12 +499,16 @@ Map.prototype.handleRequest = function(that, data) {
 
     var linkStyle = data.permalink_structure === "" ? "default" : "pretty";
 
+    that.siteRoot = data.site_root
     that.linkStyle = linkStyle;
 
     var listings = data.result.response.length > 0
                  ? data.result.response
                  : [];
-    var markers  = makeMapMarkers(that.map, listings, that.linkStyle);
+    var markers  = makeMapMarkers(that.map
+                                , listings
+                                , that.linkStyle
+                                , that.siteRoot);
 
     that.bounds   = markers.bounds;
     that.markers  = markers.markers;
