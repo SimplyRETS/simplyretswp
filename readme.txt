@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 4.4
-Stable tag: 2.0.4
+Tested up to: 4.5
+Stable tag: 2.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -234,6 +234,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.0.5 =
+* BUGFIX: Resolve better links to listing details pages from the sr_map_search short-code
 
 = 2.0.4 =
 * BUGFIX: Fix image rendering when image URL contains forward slashes in sr_listings_slider
