@@ -88,7 +88,7 @@ var scrollToAnchor = function(aid) {
 
 var buildPrettyLink = function(mlsId, address, root) {
     return root
-         + "listings/"
+         + "/listings/"
          + mlsId + "/"
          + address
 }
