@@ -606,6 +606,15 @@ HTML;
         // lot size
         $listing_lotSize = $listing->property->lotSize;
         $lotsize_markup  = SimplyRetsApiHelper::srDetailsTable($listing_lotSize, "Lot Size");
+        // lot size area
+        $listing_lotSizeArea = $listing->property->lotSizeArea;
+        $lotsizearea_markup  = SimplyRetsApiHelper::srDetailsTable($listing_lotSizeArea, "Lot Size Area");
+        // lot size area units
+        $listing_lotSizeAreaUnits = $listing->property->lotSizeAreaUnits;
+        $lotsizeareaunits_markup  = SimplyRetsApiHelper::srDetailsTable($listing_lotSizeAreaUnits, "Lot Size Area Units");
+        // acres
+        $listing_acres = $listing->property->acres;
+        $acres_markup  = SimplyRetsApiHelper::srDetailsTable($acres, "Acres");
         // street address info
         $listing_postal_code = $listing->address->postalCode;
         $postal_code = SimplyRetsApiHelper::srDetailsTable($listing_postal_code, "Postal Code");
@@ -932,6 +941,11 @@ HTML;
                 $bathsTotal
                 $style
                 $lotsize_markup
+
+                $lotsizearea_markup
+                $lotsizeareaunits_markup
+                $acres_markup
+
                 $stories
                 $interiorFeatures
                 $exteriorFeatures
