@@ -29,6 +29,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_contact_page');
       register_setting('sr_admin_settings', 'sr_show_listingmeta');
       register_setting('sr_admin_settings', 'sr_show_listing_remarks');
+      register_setting('sr_admin_settings', 'sr_show_agent_contact');
       register_setting('sr_admin_settings', 'sr_listing_gallery');
       register_setting('sr_admin_settings', 'sr_show_leadcapture');
       register_setting('sr_admin_settings', 'sr_leadcapture_recipient');
@@ -188,6 +189,17 @@ class SrAdminSettings {
                         . checked(1, get_option('sr_show_listingmeta'), false) . '/>'
                       ?>
                       Hide 'Listing Meta Information' fields from property details?
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_show_agent_contact" name="sr_show_agent_contact" value="1" '
+                        . checked(1, get_option('sr_show_agent_contact'), false) . '/>'
+                      ?>
+                      Do not show Agent and Office phone number and email address (names are still shown).
                     </label>
                   </td>
                 </tr>
