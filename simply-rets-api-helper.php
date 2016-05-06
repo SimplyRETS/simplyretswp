@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.0.5 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.0.6 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.0.5 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.0.6 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -600,12 +600,18 @@ HTML;
         $listing_modified = $listing->modified;
         if($listing_modified) { $date_modified = date("M j, Y", strtotime($listing_modified)); }
         $date_modified_markup = SimplyRetsApiHelper::srDetailsTable($date_modified, "Listing Last Modified");
-        //listing office
-        $listing_office = $listing->office->name;
-        $office = SimplyRetsApiHelper::srDetailsTable($listing_office, "Listing Office");
         // lot size
         $listing_lotSize = $listing->property->lotSize;
         $lotsize_markup  = SimplyRetsApiHelper::srDetailsTable($listing_lotSize, "Lot Size");
+        // lot size area
+        $listing_lotSizeArea = $listing->property->lotSizeArea;
+        $lotsizearea_markup  = SimplyRetsApiHelper::srDetailsTable($listing_lotSizeArea, "Lot Size Area");
+        // lot size area units
+        $listing_lotSizeAreaUnits = $listing->property->lotSizeAreaUnits;
+        $lotsizeareaunits_markup  = SimplyRetsApiHelper::srDetailsTable($listing_lotSizeAreaUnits, "Lot Size Area Units");
+        // acres
+        $listing_acres = $listing->property->acres;
+        $acres_markup  = SimplyRetsApiHelper::srDetailsTable($acres, "Acres");
         // street address info
         $listing_postal_code = $listing->address->postalCode;
         $postal_code = SimplyRetsApiHelper::srDetailsTable($listing_postal_code, "Postal Code");
@@ -801,10 +807,21 @@ HTML;
             $lh_analytics = '';
         }
 
+        ///////////////////////////////////////////////////////
+
+        $show_contact_info = SrUtils::showAgentContact();
+
         // agent data
         $listing_agent_id    = $listing->agent->id;
         $listing_agent_name  = $listing->agent->firstName . ' ' . $listing->agent->lastName;
-        $listing_agent_email = $listing->agent->contact->email;
+
+        $listing_agent_email;
+        if($show_contact_info) {
+            $listing_agent_email = $listing->agent->contact->email;
+        } else {
+            $listing_agent_email = '';
+        }
+
         // agent email is available
         $agent_email = trim($listing_agent_email);
         if(!empty($agent_email)) {
@@ -817,6 +834,23 @@ HTML;
         }
 
         $agent = SimplyRetsApiHelper::srDetailsTable($listing_agent_name, "Listing Agent");
+
+        // Office
+
+        $listing_office = $listing->office->name;
+        $office = SimplyRetsApiHelper::srDetailsTable($listing_office, "Listing Office");
+        $listing_office_phone = $listing->office->contact->office;
+        $officePhone = SimplyRetsApiHelper::srDetailsTable($listing_office_phone, "Listing Office Phone");
+
+        $listing_office_email = $listing->office->contact->email;
+        $officeEmail = SimplyRetsApiHelper::srDetailsTable($listing_office_email, "Listing Office Email");
+
+        if(!$show_contact_info) {
+            $officePhone = '';
+            $officeEmail = '';
+        }
+
+        /////////////////////////////////////////////////////
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
@@ -932,6 +966,11 @@ HTML;
                 $bathsTotal
                 $style
                 $lotsize_markup
+
+                $lotsizearea_markup
+                $lotsizeareaunits_markup
+                $acres_markup
+
                 $stories
                 $interiorFeatures
                 $exteriorFeatures
@@ -973,6 +1012,8 @@ HTML;
                   <th colspan="3"><h5>Listing Information</h5></th></tr></thead>
               <tbody>
                 $office
+                $officePhone
+                $officeEmail
                 $agent
                 $terms
               </tbody>

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.6
+* FEATURE: Add support for new API fields: LotSizeArea, LotSizeAreaUnits, LotSizeAcres, ListingAgentPreferredEmail, ListingOfficePhone, ListingOfficeEmail.
+
 ## 2.0.5
 * BUGFIX: Resolve better links to listing details pages from the sr_map_search short-code
 
