@@ -810,10 +810,21 @@ HTML;
             $lh_analytics = '';
         }
 
+        ///////////////////////////////////////////////////////
+
+        $show_contact_info = SrUtils::showAgentContact();
+
         // agent data
         $listing_agent_id    = $listing->agent->id;
         $listing_agent_name  = $listing->agent->firstName . ' ' . $listing->agent->lastName;
-        $listing_agent_email = $listing->agent->contact->email;
+
+        $listing_agent_email;
+        if($show_contact_info) {
+            $listing_agent_email = $listing->agent->contact->email;
+        } else {
+            $listing_agent_email = '';
+        }
+
         // agent email is available
         $agent_email = trim($listing_agent_email);
         if(!empty($agent_email)) {
