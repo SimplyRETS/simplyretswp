@@ -600,9 +600,6 @@ HTML;
         $listing_modified = $listing->modified;
         if($listing_modified) { $date_modified = date("M j, Y", strtotime($listing_modified)); }
         $date_modified_markup = SimplyRetsApiHelper::srDetailsTable($date_modified, "Listing Last Modified");
-        //listing office
-        $listing_office = $listing->office->name;
-        $office = SimplyRetsApiHelper::srDetailsTable($listing_office, "Listing Office");
         // lot size
         $listing_lotSize = $listing->property->lotSize;
         $lotsize_markup  = SimplyRetsApiHelper::srDetailsTable($listing_lotSize, "Lot Size");
@@ -838,6 +835,23 @@ HTML;
 
         $agent = SimplyRetsApiHelper::srDetailsTable($listing_agent_name, "Listing Agent");
 
+        // Office
+
+        $listing_office = $listing->office->name;
+        $office = SimplyRetsApiHelper::srDetailsTable($listing_office, "Listing Office");
+        $listing_office_phone = $listing->office->contact->office;
+        $officePhone = SimplyRetsApiHelper::srDetailsTable($listing_office_phone, "Listing Office Phone");
+
+        $listing_office_email = $listing->office->contact->email;
+        $officeEmail = SimplyRetsApiHelper::srDetailsTable($listing_office_email, "Listing Office Email");
+
+        if(!$show_contact_info) {
+            $officePhone = '';
+            $officeEmail = '';
+        }
+
+        /////////////////////////////////////////////////////
+
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
         // Build details link for map marker
@@ -998,6 +1012,8 @@ HTML;
                   <th colspan="3"><h5>Listing Information</h5></th></tr></thead>
               <tbody>
                 $office
+                $officePhone
+                $officeEmail
                 $agent
                 $terms
               </tbody>
