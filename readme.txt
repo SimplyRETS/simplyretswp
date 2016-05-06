@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 4.5
-Stable tag: 2.0.5
+Tested up to: 4.5.1
+Stable tag: 2.0.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -234,6 +234,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.0.6 =
+* FEATURE: Add support for new API fields: LotSizeArea, LotSizeAreaUnits, LotSizeAcres, ListingAgentPreferredEmail, ListingOfficePhone, ListingOfficeEmail.
 
 = 2.0.5 =
 * BUGFIX: Resolve better links to listing details pages from the sr_map_search short-code
