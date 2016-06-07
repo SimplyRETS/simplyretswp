@@ -257,7 +257,12 @@ class SimplyRetsApiHelper {
             $context = stream_context_create( $options );
             $request = file_get_contents( $url, false, $context );
             $response_array = json_decode( $request );
-            return $response_array;
+
+            $srResponse = array();
+            $srResponse['pagination'] = $pag_links;
+            $srResponse['response'] = $response_array;
+
+            return $srResponse;
         }
 
         if( $response_array === FALSE || empty($response_array) ) {
