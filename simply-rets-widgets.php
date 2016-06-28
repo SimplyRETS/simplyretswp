@@ -99,10 +99,14 @@ class srFeaturedListingWidget extends WP_Widget {
             $cont .= $before_title . $after_title;
         }
 
+        $settings = array(
+            'vendor' => $vendor
+        );
+
         // populate content
         if( $mlsid ) {
             $qs = "?q=$mlsid&vendor=$vendor";
-            $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $qs );
+            $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $qs, $settings );
         } else {
             $cont .= "No listing found";
         }
@@ -201,12 +205,16 @@ class srAgentListingWidget extends WP_Widget {
            $cont .= $before_title . $after_title;
        }
 
+       $settings = array(
+           'vendor' => $vendor
+       );
+
        // populate content
        if( $agent && $limit ) {
            $params['agent'] = $agent;
            $params['limit'] = $limit;
            $params['vendor'] = $vendor;
-           $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $params );
+           $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $params, $settings );
        } else {
            $cont .= "No listing found";
        }
@@ -297,10 +305,14 @@ class srRandomListingWidget extends WP_Widget {
             $cont .= $before_title . $after_title;
         }
 
+        $settings = array(
+            'vendor' => $vendor
+        );
+
         // populate content
         if( $mlsid ) {
             $qs = "?q=$mlsid&vendor=$vendor";
-            $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $qs );
+            $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $qs, $settings );
         } else {
             $cont .= "No listing found";
         }

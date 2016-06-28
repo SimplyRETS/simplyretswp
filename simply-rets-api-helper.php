@@ -29,10 +29,10 @@ class SimplyRetsApiHelper {
         return $response_markup;
     }
 
-    public static function retrieveWidgetListing( $listing_id ) {
+    public static function retrieveWidgetListing( $listing_id, $settings = NULL ) {
         $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder( $listing_id );
         $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
-        $response_markup  = SimplyRetsApiHelper::srWidgetListingGenerator( $request_response );
+        $response_markup  = SimplyRetsApiHelper::srWidgetListingGenerator( $request_response, $settings );
 
         return $response_markup;
     }
@@ -257,7 +257,12 @@ class SimplyRetsApiHelper {
             $context = stream_context_create( $options );
             $request = file_get_contents( $url, false, $context );
             $response_array = json_decode( $request );
-            return $response_array;
+
+            $srResponse = array();
+            $srResponse['pagination'] = $pag_links;
+            $srResponse['response'] = $response_array;
+
+            return $srResponse;
         }
 
         if( $response_array === FALSE || empty($response_array) ) {
@@ -1286,7 +1291,7 @@ HTML;
     }
 
 
-    public static function srWidgetListingGenerator( $response ) {
+    public static function srWidgetListingGenerator( $response, $settings ) {
         $br   = "<br>";
         $cont = "";
 
@@ -1347,6 +1352,8 @@ HTML;
             $main_photo = $listingPhotos[0];
             $main_photo = str_replace("\\", "", $main_photo);
 
+
+            $vendor = isset($settings['vendor']) ? $settings['vendor'] : '';
             // create link to listing
             $link = SrUtils::buildDetailsLink(
                 $listing,
