@@ -38,6 +38,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_listhub_analytics_id');
       register_setting('sr_admin_settings', 'sr_search_map_position');
       register_setting('sr_admin_settings', 'sr_permalink_structure');
+      register_setting('sr_admin_settings', 'sr_google_api_key');
   }
 
   public static function adminMessages () {
@@ -352,6 +353,17 @@ class SrAdminSettings {
                       ?>
                       Show Map View Below List View
                     </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <br/>
+                    <strong>Google Maps API Key</strong>
+                    <br>
+                    <i>(Required for maps. Get one <a href="https://console.developers.google.com/flows/enableapi?apiid=maps_backend,geocoding_backend,directions_backend,distance_matrix_backend,elevation_backend,places_backend&keyType=CLIENT_SIDE&reusekey=true" target="_blank">here</a>.)</i>
+                  </td>
+                  <td>
+                    <input type="text" name="sr_google_api_key" value="<?php echo esc_attr( get_option('sr_google_api_key') ); ?>" />
                   </td>
                 </tr>
               </tbody>
