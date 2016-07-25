@@ -1,6 +1,12 @@
 {
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/CodyReichert/ivory-google-map"
+        }
+    ],
     "require": {
-        "egeloen/google-map": "1.4.1",
+        "egeloen/google-map": "dev-dev-stable",
         "widop/http-adapter": "1.1.0"
     }
 }
