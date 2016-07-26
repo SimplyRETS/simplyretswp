@@ -678,8 +678,14 @@ HTML;
 
     public static function sr_listing_slider_shortcode( $atts ) {
         ob_start();
-        $atts['limit'] = empty($atts['limit']) ? 8 : $atts['limit'];
         $settings = array();
+
+        $atts['limit'] = empty($atts['limit']) ? 8 : $atts['limit'];
+
+        if (isset($atts['vendor'])) {
+            $settings['vendor'] = $vendor;
+        }
+
         $settings['random'] = empty($atts['random']) ? NULL : $atts['random'];
         $slider = SimplyRetsApiHelper::retrieveListingsSlider($atts, $settings);
 

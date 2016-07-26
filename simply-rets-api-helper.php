@@ -1475,6 +1475,7 @@ HTML;
             $priceUSD = '$' . number_format( $price );
 
             // create link to listing
+            $vendor = isset($settings['vendor']) ? $settings['vendor'] : '';
             $link = SrUtils::buildDetailsLink(
                 $l,
                 !empty($vendor) ? array("sr_vendor" => $vendor) : array()
