@@ -736,8 +736,12 @@ $_(document).ready(function() {
             startMap();
 
         } else {
+            var key = document.getElementById('sr-map-search').dataset.apiKey;
+
             // if google.maps doesn't exist - load it, then start map
-            var url = "https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=drawing&callback=startMap"
+            var url = "https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=drawing&callback=startMap" +
+                      "&key=" + key;
+
             var script = document.createElement("script");
 
             script.type = "text/javascript";
