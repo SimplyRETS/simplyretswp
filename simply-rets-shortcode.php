@@ -682,8 +682,8 @@ HTML;
 
         $atts['limit'] = empty($atts['limit']) ? 8 : $atts['limit'];
 
-        if (isset($atts['vendor'])) {
-            $settings['vendor'] = $vendor;
+        if ($atts['vendor']) {
+            $settings['vendor'] = $atts['vendor'];
         }
 
         $settings['random'] = empty($atts['random']) ? NULL : $atts['random'];
