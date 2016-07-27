@@ -552,7 +552,7 @@ Returns a set of listings and skips the first *n*, where *n* is the offset.
 
 * **sort**
 Displays the listings in a specific order.
-`[sr_listings sort="price"]`
+`[sr_listings sort="listprice"]`
 
 (The available sort options are `listprice`, `-listprice`, `listdate`, `-listdate`, `baths`, `-baths`, `beds`, and `-beds`.
 Options starting the a minus (-) are high to low, no minus sign is low to high).
