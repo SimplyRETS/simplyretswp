@@ -522,21 +522,21 @@ Refines listings by a certain lot size in Sq Ft (note, this is not area).
 Refines listings by a certain area size in Sq Ft.
 `[sr_listings area="1500"]`
 
-* **cities**
+* ** cities**
 Refines listings to a given set of cities. (Separate multiple with a semi-colon).
 `[sr_listings cities="Houston; Austin; Dallas"]`
 
 * **neighborhoods**
 Refines listings to a given set of neighborhoods/subdivisions. (Separate multiple with a semi-colon).
-`[sr_listings cities="Heights; Downtown; Uptown"]`
+`[sr_listings neighborhoods="Heights; Downtown; Uptown"]`
 
 * **amenities**
 Refines listings to a given set of amenities. (Separate multiple with a semi-colon).
-`[sr_listings cities="Granite; Balcony"]`
+`[sr_listings amenities="Granite; Balcony"]`
 
 * **features**
 Refines listings to a given set of features. (Separate multiple with a semi-colon).
-`[sr_listings cities="Tennis Court; Waterfront"]`
+`[sr_listings features="Tennis Court; Waterfront"]`
 
 * **vendor**
 Refines listings by a certain vendor or MLS Board. (This is required when your account has multiple MLS's).
