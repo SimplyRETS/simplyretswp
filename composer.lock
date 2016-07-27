@@ -1,23 +1,24 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "825c25eb87bffc490e587b104aeccab3",
+    "hash": "11f811a25982885aa2822c06871ec3a2",
+    "content-hash": "787345aa111ffcc393e123cd47095185",
     "packages": [
         {
             "name": "egeloen/google-map",
-            "version": "1.4.1",
+            "version": "dev-dev-stable",
             "source": {
                 "type": "git",
-                "url": "https://github.com/egeloen/ivory-google-map.git",
-                "reference": "9770a3f47888494e9f2d449144508bc805af124f"
+                "url": "https://github.com/CodyReichert/ivory-google-map.git",
+                "reference": "5abf51ecea561f03c09f372b2219ecfffc8a4b80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egeloen/ivory-google-map/zipball/9770a3f47888494e9f2d449144508bc805af124f",
-                "reference": "9770a3f47888494e9f2d449144508bc805af124f",
+                "url": "https://api.github.com/repos/CodyReichert/ivory-google-map/zipball/5abf51ecea561f03c09f372b2219ecfffc8a4b80",
+                "reference": "5abf51ecea561f03c09f372b2219ecfffc8a4b80",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +46,6 @@
                     "Ivory\\GoogleMap\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -59,7 +59,10 @@
             "keywords": [
                 "google map"
             ],
-            "time": "2014-10-30 19:30:44"
+            "support": {
+                "source": "https://github.com/CodyReichert/ivory-google-map/tree/dev-stable"
+            },
+            "time": "2016-07-25 20:17:54"
         },
         {
             "name": "egeloen/json-builder",
@@ -115,35 +118,34 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v2.6.6",
-            "target-dir": "Symfony/Component/PropertyAccess",
+            "version": "v2.8.8",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/PropertyAccess.git",
-                "reference": "b342f127c3ab73dd4069c2104cb76f1a1ef7c7e7"
+                "url": "https://github.com/symfony/property-access.git",
+                "reference": "8fa1fe88f80fd8baefcc71d7cb3007c977d769bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/PropertyAccess/zipball/b342f127c3ab73dd4069c2104cb76f1a1ef7c7e7",
-                "reference": "b342f127c3ab73dd4069c2104cb76f1a1ef7c7e7",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/8fa1fe88f80fd8baefcc71d7cb3007c977d769bd",
+                "reference": "8fa1fe88f80fd8baefcc71d7cb3007c977d769bd",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "~2.7"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "Symfony\\Component\\PropertyAccess\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -151,16 +153,16 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
             "description": "Symfony PropertyAccess Component",
-            "homepage": "http://symfony.com",
+            "homepage": "https://symfony.com",
             "keywords": [
                 "access",
                 "array",
@@ -172,7 +174,7 @@
                 "property path",
                 "reflection"
             ],
-            "time": "2015-03-30 15:54:10"
+            "time": "2016-06-29 05:29:29"
         },
         {
             "name": "widop/http-adapter",
@@ -240,7 +242,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "egeloen/google-map": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

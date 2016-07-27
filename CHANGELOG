@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.1.0
+* FIX: Add admin option for Google Maps API key (which is now required for maps to show on new sites).
+* UPDATE: Various documentation fixes and updates.
+* BUG: Fix 'vendor' parameter initialization in sr_listings_slider short-code.
+* BUG: Fix 'vendor' parameter initialization in sr_map_search short-code.
+
+## 2.0.7
+* BUGFIX: Fix vendor parameter not passed to API calls from widgets
+* BUGFIX: Fix file_get_contents version of API requests.
+
 ## 2.0.6
 * FEATURE: Add support for new API fields: LotSizeArea, LotSizeAreaUnits, LotSizeAcres, ListingAgentPreferredEmail, ListingOfficePhone, ListingOfficeEmail.
 

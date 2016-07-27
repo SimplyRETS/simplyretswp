@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.5.3
-Stable tag: 2.0.7
+Stable tag: 2.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,11 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.1.0 =
+* FIX: Add admin option for Google Maps API key (which is now required for maps to show on new sites).
+* BUG: Fix 'vendor' parameter initialization in sr_listings_slider short-code
+* BUG: Fix 'vendor' parameter initialization in sr_map_search short-code
+
 = 2.0.7 =
 * BUG: Fix vendor parameter not passed to API calls from widgets
 * BUG: Fix file_get_contents version of API requests.
@@ -264,24 +269,6 @@ listing sidebar widget.
 * IMPROVEMENT: URL's not longer contain the listing's price, so they
   are much more easily shareable on social media.
 * BUGS: Misc, minor bugs and code cleanup.
-
-= 1.7.2 =
-* FEATURE: Adds the ability to configure sr_search_form to search
-  specified property type(s) via short-code attributes.
-
-= 1.7.1 =
-* BUG FIX: Fix population of property-types dropdown on the
-  sr_map_search search form
-
-= 1.7.0 =
-* FEATURE: Interactive map search! Includes a
-  polygon/rectangle drawing tools on the map. Optional list view and
-  search form.  *Note: Your feed must include latitude/longitude for
-  this to work.*
-* FIX/UPDATE: Featured Listing and Random Listing Widgets now take
-  *listingId's*, not *mlsId's*. This will break existing widgets, so
-  please check them after upgrading.
-
 
 **View the complete CHANGELOG:** [here](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 
@@ -528,15 +515,21 @@ Refines listings to a given set of cities. (Separate multiple with a semi-colon)
 
 * **neighborhoods**
 Refines listings to a given set of neighborhoods/subdivisions. (Separate multiple with a semi-colon).
-`[sr_listings cities="Heights; Downtown; Uptown"]`
+`[sr_listings neighborhoods="Heights; Downtown; Uptown"]`
 
 * **amenities**
 Refines listings to a given set of amenities. (Separate multiple with a semi-colon).
-`[sr_listings cities="Granite; Balcony"]`
+`[sr_listings amenities="Granite; Balcony"]`
 
 * **features**
 Refines listings to a given set of features. (Separate multiple with a semi-colon).
-`[sr_listings cities="Tennis Court; Waterfront"]`
+`[sr_listings features="Tennis Court; Waterfront"]`
+
+* **water**
+Refines listings to only ones that have a value for the 'water' field. `true` is the only valid value:
+`[sr_listings water="true"]`
+
+*Note: This is only available for feeds that have a value for 'water'*.
 
 * **vendor**
 Refines listings by a certain vendor or MLS Board. (This is required when your account has multiple MLS's).
@@ -552,7 +545,7 @@ Returns a set of listings and skips the first *n*, where *n* is the offset.
 
 * **sort**
 Displays the listings in a specific order.
-`[sr_listings sort="price"]`
+`[sr_listings sort="listprice"]`
 
 (The available sort options are `listprice`, `-listprice`, `listdate`, `-listdate`, `baths`, `-baths`, `beds`, and `-beds`.
 Options starting the a minus (-) are high to low, no minus sign is low to high).

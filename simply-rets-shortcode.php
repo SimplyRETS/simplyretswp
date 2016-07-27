@@ -40,20 +40,20 @@ class SrShortcodes {
     public static function sr_int_map_search($atts) {
         if(!is_array($atts)) $atts = array();
 
-        $content     = "";
-        $search_form = "";
-        $map_markup  = "<div id=\"sr-map-search\"></div>";
-        $list_markup = !empty($atts['list_view'])
-                     ? "<div class=\"sr-map-search-list-view\"></div>"
-                     : "";
-
         /** Private Parameters (shortcode attributes) */
         $vendor   = isset($atts['vendor'])  ? $atts['vendor']  : '';
         $brokers  = isset($atts['brokers']) ? $atts['brokers'] : '';
         $agent    = isset($atts['agent'])   ? $atts['agent']   : '';
         $limit    = isset($atts['limit'])   ? $atts['limit']   : '';
+        $type_att = isset($atts['type'])    ? $atts['type'] : '';
 
-        $type_att = isset($atts['type']) ? $atts['type'] : '';
+        $content     = "";
+        $search_form = "";
+        $gmaps_key   = get_option('sr_google_api_key', '');
+        $map_markup  = "<div id='sr-map-search' data-api-key='{$gmaps_key}' data-vendor='{$vendor}'></div>";
+        $list_markup = !empty($atts['list_view'])
+                     ? "<div class=\"sr-map-search-list-view\"></div>"
+                     : "";
 
         if(!empty($atts['search_form'])) {
 
@@ -678,8 +678,14 @@ HTML;
 
     public static function sr_listing_slider_shortcode( $atts ) {
         ob_start();
-        $atts['limit'] = empty($atts['limit']) ? 8 : $atts['limit'];
         $settings = array();
+
+        $atts['limit'] = empty($atts['limit']) ? 8 : $atts['limit'];
+
+        if ($atts['vendor']) {
+            $settings['vendor'] = $atts['vendor'];
+        }
+
         $settings['random'] = empty($atts['random']) ? NULL : $atts['random'];
         $slider = SimplyRetsApiHelper::retrieveListingsSlider($atts, $settings);
 

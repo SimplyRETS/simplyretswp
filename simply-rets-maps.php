@@ -38,6 +38,13 @@ class SrSearchMap {
             'width' => '100%',
             'height' =>  '550px'
         ));
+
+        // Set API key if user has added one.
+        $apik = get_option('sr_google_api_key');
+        if (!empty($apik)) {
+            $map->setApiKey($apik);
+        }
+
         return $map;
     }
 

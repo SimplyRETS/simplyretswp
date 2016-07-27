@@ -304,6 +304,7 @@ function Map() {
     this.offset     = 0;
     this.linkStyle  = 'default';
     this.siteRoot   = window.location.href
+    this.vendor     = document.getElementById('sr-map-search').dataset.vendor;
 
     this.map     = new google.maps.Map(
         document.getElementById('sr-map-search'), this.options
@@ -598,6 +599,7 @@ Map.prototype.sendRequest = function(points, params, paginate) {
 
     var limit  = this.limit;
     var offset = this.offset;
+    var vendor = this.vendor
 
     /** Remove unused keys */
     for (var p in params) {
@@ -611,7 +613,7 @@ Map.prototype.sendRequest = function(points, params, paginate) {
     var paramsQ = $_.param(params);
 
     /** Put the query in a string and send the request */
-    var query = pointsQ + "&limit=" + limit + "&offset=" + offset + "&" + paramsQ;
+    var query = pointsQ + "&limit=" + limit + "&offset=" + offset + "&vendor=" + vendor + "&" + paramsQ;
 
     var req = $_.ajax({
         type: 'post',
@@ -736,8 +738,12 @@ $_(document).ready(function() {
             startMap();
 
         } else {
+            var key = document.getElementById('sr-map-search').dataset.apiKey;
+
             // if google.maps doesn't exist - load it, then start map
-            var url = "https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=drawing&callback=startMap"
+            var url = "https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=drawing&callback=startMap" +
+                      "&key=" + key;
+
             var script = document.createElement("script");
 
             script.type = "text/javascript";
