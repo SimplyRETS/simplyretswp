@@ -538,6 +538,12 @@ Refines listings to a given set of amenities. (Separate multiple with a semi-col
 Refines listings to a given set of features. (Separate multiple with a semi-colon).
 `[sr_listings features="Tennis Court; Waterfront"]`
 
+* **waterfront**
+Refines listings to only ones that have a value for the 'water' field. `true` is the only valid value:
+`[sr_listings waterfront="true"]`
+
+*Note: This is only available for feeds that have a value for 'water'*.
+
 * **vendor**
 Refines listings by a certain vendor or MLS Board. (This is required when your account has multiple MLS's).
 `[sr_listings vendor="MFRMLS"]`
