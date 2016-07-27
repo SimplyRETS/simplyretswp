@@ -509,7 +509,7 @@ Refines listings by a certain lot size in Sq Ft (note, this is not area).
 Refines listings by a certain area size in Sq Ft.
 `[sr_listings area="1500"]`
 
-* ** cities**
+* **cities**
 Refines listings to a given set of cities. (Separate multiple with a semi-colon).
 `[sr_listings cities="Houston; Austin; Dallas"]`
 
@@ -525,9 +525,9 @@ Refines listings to a given set of amenities. (Separate multiple with a semi-col
 Refines listings to a given set of features. (Separate multiple with a semi-colon).
 `[sr_listings features="Tennis Court; Waterfront"]`
 
-* **waterfront**
+* **water**
 Refines listings to only ones that have a value for the 'water' field. `true` is the only valid value:
-`[sr_listings waterfront="true"]`
+`[sr_listings water="true"]`
 
 *Note: This is only available for feeds that have a value for 'water'*.
 
