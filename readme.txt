@@ -265,24 +265,6 @@ listing sidebar widget.
   are much more easily shareable on social media.
 * BUGS: Misc, minor bugs and code cleanup.
 
-= 1.7.2 =
-* FEATURE: Adds the ability to configure sr_search_form to search
-  specified property type(s) via short-code attributes.
-
-= 1.7.1 =
-* BUG FIX: Fix population of property-types dropdown on the
-  sr_map_search search form
-
-= 1.7.0 =
-* FEATURE: Interactive map search! Includes a
-  polygon/rectangle drawing tools on the map. Optional list view and
-  search form.  *Note: Your feed must include latitude/longitude for
-  this to work.*
-* FIX/UPDATE: Featured Listing and Random Listing Widgets now take
-  *listingId's*, not *mlsId's*. This will break existing widgets, so
-  please check them after upgrading.
-
-
 **View the complete CHANGELOG:** [here](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 
 
