@@ -688,6 +688,10 @@ HTML;
     }
 
 
+    /**
+     * TODO: sr_listings_slider should support attributes that can
+     * take multiple values (eg, postalCodes, counties). #32
+     */
     public static function sr_listing_slider_shortcode( $atts ) {
         ob_start();
         $settings = array();
