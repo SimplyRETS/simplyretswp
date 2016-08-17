@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.2
+* FIX: Fix missing vendor files
+
 ## 2.1.1
 * FIX: Check in missing files for maps
 

@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.5.3
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -234,6 +234,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.1.2 =
+* FIX: Fix missing vendor files
 
 = 2.1.1 =
 * FIX: Check in missing files for maps
