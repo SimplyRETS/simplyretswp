@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 4.5.3
-Stable tag: 2.1.2
+Tested up to: 4.6.0
+Stable tag: 2.1.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,9 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.1.3 =
+* FEATURE: Add support for multiple counties in sr_listings short-code
+
 = 2.1.2 =
 * FIX: Fix missing vendor files
 
@@ -405,6 +408,8 @@ The listing slider is a great feature that allows you to build a
 'slider' of listings. See [screenshot #7](https://wordpress.org/plugins/simply-rets/screenshots/)
 for a quick glance of how it works.
 
+*Note: Some attributes (listed below) can take multiple values. sr_listings_slider currently only supports one value per attribute. For example, [sr_listings_slider postalCodes="123456"] is supported, but [sr_listings_slider postalCodes="12345; 34567"] is not.*
+
 **Attributes**
 
 * random
@@ -522,6 +527,14 @@ Refines listings to a given set of cities. (Separate multiple with a semi-colon)
 * **neighborhoods**
 Refines listings to a given set of neighborhoods/subdivisions. (Separate multiple with a semi-colon).
 `[sr_listings neighborhoods="Heights; Downtown; Uptown"]`
+
+* **postalcodes**
+Refines listings to a given set of postal codes. (Separate multiple with a semi-colon).
+`[sr_listings postalcodes="12345; 34567"]`
+
+* **counties**
+Refines listings to a given set of counties. (Separate multiple with a semi-colon).
+`[sr_listings counties="Harris; Travis"]`
 
 * **amenities**
 Refines listings to a given set of amenities. (Separate multiple with a semi-colon).
