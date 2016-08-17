@@ -198,6 +198,7 @@ HTML;
          */
         if( !isset($listing_params['neighborhoods'])
             && !isset($listing_params['postalcodes'])
+            && !isset($listing_params['counties'])
             && !isset($listing_params['cities'])
             && !isset($listing_params['agent'])
             && !isset($listing_params['type'])
@@ -256,6 +257,15 @@ HTML;
                 $postalcodes_string = str_replace(' ', '%20', $postalcodes_string );
             }
 
+            if( isset( $listing_params['counties'] ) && !empty( $listing_params['counties'] ) ) {
+                $counties = explode( ';', $listing_params['counties'] );
+                foreach( $counties as $key => $county ) {
+                    $county = trim( $county );
+                    $counties_string .= "counties=$county&";
+                }
+                $counties_string = str_replace(' ', '%20', $counties_string );
+            }
+
             /**
              * Multiple statuses
              */
@@ -277,6 +287,7 @@ HTML;
             foreach( $listing_params as $key => $value ) {
                 // Skip params that support multiple
                 if( $key !== 'postalcodes'
+                    && $key !== 'counties'
                     && $key !== 'neighborhoods'
                     && $key !== 'cities'
                     && $key !== 'agent'
@@ -294,6 +305,7 @@ HTML;
             $qs .= $neighborhoods_string;
             $qs .= $cities_string;
             $qs .= $postalcodes_string;
+            $qs .= $counties_string;
             $qs .= $params_string;
             $qs .= $agents_string;
             $qs .= $ptypes_string;
