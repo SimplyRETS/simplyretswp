@@ -39,6 +39,8 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_search_map_position');
       register_setting('sr_admin_settings', 'sr_permalink_structure');
       register_setting('sr_admin_settings', 'sr_google_api_key');
+      register_setting('sr_admin_settings', 'sr_office_on_thumbnails');
+      register_setting('sr_admin_settings', 'sr_thumbnail_idx_image');
   }
 
   public static function adminMessages () {
@@ -257,6 +259,40 @@ class SrAdminSettings {
                 </tr>
               </tbody>
             </table>
+          </div>
+          <?php submit_button(); ?>
+          <hr>
+          <div class="sr-admin-settings">
+            <h2>Listing Summary Settings</h2>
+            <h3>Show brokerage name</h3>
+            <table>
+              <tbody>
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_office_on_thumbnails" name="sr_office_on_thumbnails" value="1" '
+                        . checked(1, get_option('sr_office_on_thumbnails'), false) . '/>'
+                      ?>
+                      Show brokerage name on listing summary thumbnails
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                      <p>IDX image for listing thumbnails <i>(enter a URL)</i>: </p>
+                  </td>
+                  <td>
+                      <input
+                          type="text"
+                          name="sr_thumbnail_idx_image"
+                          value="<?php echo esc_attr( get_option('sr_thumbnail_idx_image') ); ?>"
+                      />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <?php submit_button(); ?>
           <hr>
           <div class="sr-admin-settings-permalinks">

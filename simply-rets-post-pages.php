@@ -50,6 +50,9 @@ class SimplyRetsCustomPostPages {
         add_option('sr_show_admin_message', 1);
         add_option('sr_demo_page_created', false);
 
+        add_option('sr_office_on_thumbnails', false);
+        add_option('sr_thumbnail_idx_image', '');
+
         flush_rewrite_rules();
     }
 
