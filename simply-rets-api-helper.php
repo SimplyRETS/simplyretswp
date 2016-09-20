@@ -1224,7 +1224,7 @@ HTML;
              * Show 'Listing Courtesy of ...' if setting is enabled
              */
             $listing_office = $listing->office->name;
-            $listing_by_markup = ""; // Full text for 'Listing courtesy of ...'
+            $listing_by_markup = "";
 
             if (!empty($listing_office) && get_option('sr_office_on_thumbnails')) {
                 $listing_by_markup = "Listing broker: {$listing_office}";
