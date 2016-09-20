@@ -287,11 +287,14 @@ class SimplyRetsApiHelper {
     // and return the value
     public static function srLastUpdateHeaderParser($headers) {
 
-        // Get LastUpdate header value and format the date/time
-        $hdr = date("M, d Y h:i a", strtotime(http_parse_headers($headers)['X-SimplyRETS-LastUpdate']));
+        $parsed_headers = http_parse_headers($headers);
+        $last_update = $parsed_headers['X-SimplyRETS-LastUpdate'];
 
-        // Use current timestamp if header didn't exist
-        // or failed for some reason.
+        // Get LastUpdate header value and format the date/time
+        $hdr = date("M, d Y h:i a", strtotime($last_update));
+
+        // Use current timestamp if header didn't exist or failed for
+        // some reason.
         if (empty($hdr)) {
             $hdr = date("M, d Y h:i a");
         }
