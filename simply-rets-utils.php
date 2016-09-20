@@ -216,12 +216,15 @@ class SrUtils {
      * the user has provided a custom disclaimer in their settings
      * page use that, otherwise use the SimplyRETS default.
      */
-    public static function mkDisclaimerText() {
+    public static function mkDisclaimerText($lastUpdate) {
         $custom_disclaimer = get_option('sr_custom_disclaimer', false);
 
         if ($custom_disclaimer) {
 
-            return html_entity_decode($custom_disclaimer);
+            // Splice lastUpdate date into custom disclaimer
+            $built_disclaimer = str_replace('{lastUpdate}', $lastUpdate, $custom_disclaimer);
+
+            return html_entity_decode($built_disclaimer);
 
         } else {
 

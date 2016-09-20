@@ -1087,8 +1087,9 @@ HTML;
     public static function srResidentialResultsGenerator( $response, $settings ) {
         $br                = "<br>";
         $cont              = "";
-        $pagination        = $response['pagination'];
-        $response          = $response['response'];
+        $pagination        = $response['pagination'];   // get pagination links out of response
+        $lastUpdate        = $response['lastUpdate'];   // get lastUpdate time out of response
+        $response          = $response['response'];     // get listing data out of response
         $map_position      = get_option('sr_search_map_position', 'list_only');
         $show_listing_meta = SrUtils::srShowListingMeta();
         $pag               = SrUtils::buildPaginationLinks( $pagination );
@@ -1320,7 +1321,7 @@ HTML;
             $cont .= $resultsMarkup;
         }
 
-        $disclaimer_text = SrUtils::mkDisclaimerText();
+        $disclaimer_text = SrUtils::mkDisclaimerText($lastUpdate);
 
         $cont .= "<hr><p class='sr-pagination'>$prev_link $next_link</p>";
         $cont .= "<br><p>{$disclaimer_text}</p>";
