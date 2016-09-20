@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 4.6.0
-Stable tag: 2.1.3
+Tested up to: 4.6.1
+Stable tag: 2.2.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,12 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.2.0 =
+* FEATURE: Add support for showing an IDX image with all listing thumbnails
+* FEATURE: Add support for showing Listing Broker on all listing thumbnails
+* FEATURE: Add support for setting custom disclaimer text.
+* FIX: Don't crop images so watermarks are always shown.
+
 = 2.1.3 =
 * FEATURE: Add support for multiple counties in sr_listings short-code
 
@@ -248,36 +254,6 @@ listing sidebar widget.
 * FIX: Add admin option for Google Maps API key (which is now required for maps to show on new sites).
 * BUG: Fix 'vendor' parameter initialization in sr_listings_slider short-code
 * BUG: Fix 'vendor' parameter initialization in sr_map_search short-code
-
-= 2.0.7 =
-* BUG: Fix vendor parameter not passed to API calls from widgets
-* BUG: Fix file_get_contents version of API requests.
-
-= 2.0.6 =
-* FEATURE: Add support for new API fields: LotSizeArea, LotSizeAreaUnits, LotSizeAcres, ListingAgentPreferredEmail, ListingOfficePhone, ListingOfficeEmail.
-
-= 2.0.5 =
-* BUGFIX: Resolve better links to listing details pages from the sr_map_search short-code
-
-= 2.0.4 =
-* BUGFIX: Fix image rendering when image URL contains forward slashes in sr_listings_slider
-
-= 2.0.3 =
-* FEATURE: Allow multiple statuses in the sr_listings short-code.
-* BUGFIX: Fix image rendering when image URL contains forward slashes.
-
-= 2.0.2 =
-* BUGFIX: Fix sr_ptypes query parameter when using multiple property types.
-
-= 2.0.1 =
-* BUGFIX: Fix sr_listings_slider links to listing details
-
-= 2.0.0 =
-* FEATURE: Support for pretty permalinks!
-* FEATURE: Pretty permalink options in the admin panel
-* IMPROVEMENT: URL's not longer contain the listing's price, so they
-  are much more easily shareable on social media.
-* BUGS: Misc, minor bugs and code cleanup.
 
 **View the complete CHANGELOG:** [here](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 
@@ -640,12 +616,14 @@ name of the listing brokerage will be shown next to *all* thumbnail
 and summary sections, as well as on listing details pages.
 
 **IDX Image for listing summaries**
+
 This option allows you to add a URL for an image that will be shown
 with all listing summaries. For example, a broker reciprocity image
 can be added, and anywhere a listing summary is shown that image will
 be shown as well.
 
 **Custom disclaimer**
+
 If you need to add a custom disclaimer to your website, the SimplyRETS
 plugin offers a way for you to do so. On the `Settings -> SimplyRETS
 Settings` page there is an option called "Custom disclaimer". In this
