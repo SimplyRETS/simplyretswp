@@ -1525,16 +1525,36 @@ HTML;
                 $photo = str_replace("\\", "", $photo);
             }
 
+            /**
+             * Show listing brokerage, if applicable
+             */
+            $listing_office  = $l->office->name;
+            $listing_by_markup = ""; // Full text for 'Listing courtesy of ...'
+
+            if (!empty($listing_office) && get_option('sr_office_on_thumbnails')) {
+                $listing_by_markup = "Listing broker: {$listing_office}";
+            }
+
+            /**
+             * Show IDX image at the bottom of thumbnails, if supplied
+             */
+            $listing_idx_img = get_option('sr_thumbnail_idx_image');
+            $listing_idx_img_markup = "";
+
+            if (!empty($listing_idx_img)) {
+                $listing_idx_img_markup = "<img src=\"{$listing_idx_img}\"/>";
+            }
+
             $inner .= <<<HTML
                 <div class="sr-listing-slider-item">
                   <a href="$link">
                     <div class="sr-listing-slider-item-img" style="background-image: url('$photo')"></div>
                   </a>
                   <a href="$link">
-                    <h4 class="sr-listing-slider-item-address">$address</h4>
+                    <h4 class="sr-listing-slider-item-address">$address <small>$priceUSD</small></h4>
                   </a>
-                  <p class="sr-listing-slider-item-price">$priceUSD</p>
                   <p class="sr-listing-slider-item-specs">$beds bed / $baths bath / $area SqFt</p>
+                  <p class="sr-listing-slider-item-specs">$listing_by_markup <br/> $listing_idx_img_markup</p>
                 </div>
 HTML;
         }
