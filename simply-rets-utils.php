@@ -188,11 +188,11 @@ class SrUtils {
         $listing_office_markup  = "";
         $listing_idx_img_markup = "";
 
-        if (!empty($listing_office) && $office_on_thumbnails !== false) {
+        if (!empty($listing_office) && !empty($office_on_thumbnails)) {
             $listing_office_markup = "Listing broker: {$listing_office}";
         }
 
-        if ($idx_img_on_thumbnails !== false) {
+        if ($idx_img_on_thumbnails !== false && !empty($idx_img_on_thumbnails)) {
             $listing_idx_img_markup = "<img src=\"{$idx_img_on_thumbnails}\"/>";
         }
 
