@@ -179,6 +179,37 @@ class SrUtils {
         }
     }
 
+
+    public static function mkListingSummaryCompliance($listing_office) {
+
+        $office_on_thumbnails = get_option('sr_office_on_thumbnails', false);
+        $idx_img_on_thumbnails = get_option('sr_thumbnail_idx_image', false);
+
+        $listing_office_markup  = "";
+        $listing_idx_img_markup = "";
+
+        if (!empty($listing_office) && $office_on_thumbnails !== false) {
+            $listing_office_markup = "Listing broker: {$listing_office}";
+        }
+
+        if ($idx_img_on_thumbnails !== false) {
+            $listing_idx_img_markup = "<img src=\"{$idx_img_on_thumbnails}\"/>";
+        }
+
+
+        // Add a line break if both fields are enabled
+        if (!empty($listing_office_markup) && !empty($listing_idx_img_markup)) {
+
+            return "{$listing_office_markup}<br/>{$listing_idx_img_markup}";
+
+        } else {
+
+            return "{$listing_office_markup} {$listing_idx_img_markup}";
+
+        }
+
+    }
+
 }
 
 

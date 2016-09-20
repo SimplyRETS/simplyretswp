@@ -1167,24 +1167,7 @@ HTML;
              * Show 'Listing Courtesy of ...' if setting is enabled
              */
             $listing_office = $listing->office->name;
-            $listing_by_markup = "";
-
-            if (!empty($listing_office) && get_option('sr_office_on_thumbnails')) {
-                $listing_by_markup = "Listing broker: {$listing_office}";
-            }
-
-            /**
-             * Show IDX image at the bottom of thumbnails, if supplied
-             */
-            $listing_idx_img = get_option('sr_thumbnail_idx_image');
-            $listing_idx_img_markup = "";
-
-            if (!empty($listing_idx_img)) {
-                $listing_idx_img_markup = "<img src=\"{$listing_idx_img}\"/>";
-            }
-
-
-            //////////////////////////////////////////////////////////////////////////////
+            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
 
 
             /************************************************
@@ -1205,8 +1188,7 @@ HTML;
                     $propType,
                     $area,
                     $style,
-                    $listing_by_markup,
-                    $listing_idx_img_markup
+                    $compliance_markup
                 );
                 $iw->setContent($iwCont);
                 $marker->setPosition($lat, $lng, true);
@@ -1278,9 +1260,7 @@ HTML;
                     <span style="position:absolute;left:0">
                       <a href="$link">More details</a>
                     </span>
-                    $listing_by_markup
-                    <br/>
-                    $listing_idx_img_markup
+                    $compliance_markup
                   </div>
                 </div>
               </div>
@@ -1533,21 +1513,7 @@ HTML;
              * Show listing brokerage, if applicable
              */
             $listing_office  = $l->office->name;
-            $listing_by_markup = ""; // Full text for 'Listing courtesy of ...'
-
-            if (!empty($listing_office) && get_option('sr_office_on_thumbnails')) {
-                $listing_by_markup = "Listing broker: {$listing_office}";
-            }
-
-            /**
-             * Show IDX image at the bottom of thumbnails, if supplied
-             */
-            $listing_idx_img = get_option('sr_thumbnail_idx_image');
-            $listing_idx_img_markup = "";
-
-            if (!empty($listing_idx_img)) {
-                $listing_idx_img_markup = "<img src=\"{$listing_idx_img}\"/>";
-            }
+            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
 
             $inner .= <<<HTML
                 <div class="sr-listing-slider-item">
@@ -1558,7 +1524,7 @@ HTML;
                     <h4 class="sr-listing-slider-item-address">$address <small>$priceUSD</small></h4>
                   </a>
                   <p class="sr-listing-slider-item-specs">$beds bed / $baths bath / $area SqFt</p>
-                  <p class="sr-listing-slider-item-specs">$listing_by_markup <br/> $listing_idx_img_markup</p>
+                  <p class="sr-listing-slider-item-specs">$compliance_markup</p>
                 </div>
 HTML;
         }
