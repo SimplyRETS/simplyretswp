@@ -179,6 +179,60 @@ class SrUtils {
         }
     }
 
+
+    public static function mkListingSummaryCompliance($listing_office) {
+
+        $office_on_thumbnails = get_option('sr_office_on_thumbnails', false);
+        $idx_img_on_thumbnails = get_option('sr_thumbnail_idx_image', false);
+
+        $listing_office_markup  = "";
+        $listing_idx_img_markup = "";
+
+        if (!empty($listing_office) && !empty($office_on_thumbnails)) {
+            $listing_office_markup = "Listing broker: {$listing_office}";
+        }
+
+        if ($idx_img_on_thumbnails !== false && !empty($idx_img_on_thumbnails)) {
+            $listing_idx_img_markup = "<img src=\"{$idx_img_on_thumbnails}\"/>";
+        }
+
+
+        // Add a line break if both fields are enabled
+        if (!empty($listing_office_markup) && !empty($listing_idx_img_markup)) {
+
+            return "{$listing_office_markup}<br/>{$listing_idx_img_markup}";
+
+        } else {
+
+            return "{$listing_office_markup} {$listing_idx_img_markup}";
+
+        }
+
+    }
+
+
+    /**
+     * Generate disclaimer text shown with short-code listings.  If
+     * the user has provided a custom disclaimer in their settings
+     * page use that, otherwise use the SimplyRETS default.
+     */
+    public static function mkDisclaimerText($lastUpdate) {
+        $custom_disclaimer = get_option('sr_custom_disclaimer', false);
+
+        if ($custom_disclaimer) {
+
+            // Splice lastUpdate date into custom disclaimer
+            $built_disclaimer = str_replace('{lastUpdate}', $lastUpdate, $custom_disclaimer);
+
+            return html_entity_decode($built_disclaimer);
+
+        } else {
+
+            return "This information is believed to be accurate, but without any warranty.";
+
+        }
+    }
+
 }
 
 
@@ -218,4 +272,35 @@ HTML;
 
     }
 
+}
+
+
+/**
+ * Top level 'pollyfill' for 'http_parse_headers'
+ *
+ * Taken from PHP implementation:
+ * http://php.net/manual/it/function.http-parse-headers.php
+ */
+if (!function_exists('http_parse_headers')) {
+    function http_parse_headers ($raw_headers) {
+        $headers = array(); // $headers = [];
+
+        foreach (explode("\n", $raw_headers) as $i => $h) {
+            $h = explode(':', $h, 2);
+
+            if (isset($h[1])) {
+                if(!isset($headers[$h[0]])) {
+                    $headers[$h[0]] = trim($h[1]);
+                } else if(is_array($headers[$h[0]])) {
+                    $tmp = array_merge($headers[$h[0]],array(trim($h[1])));
+                    $headers[$h[0]] = $tmp;
+                } else {
+                    $tmp = array_merge(array($headers[$h[0]]),array(trim($h[1])));
+                    $headers[$h[0]] = $tmp;
+                }
+            }
+        }
+
+        return $headers;
+    }
 }

@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.1.3 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.2.0 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.1.3 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.2.0 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -235,12 +235,14 @@ class SimplyRetsApiHelper {
             $body   = substr( $request, $header_size );
 
             $pag_links = SimplyRetsApiHelper::srPaginationParser($header);
+            $last_update = SimplyRetsApiHelper::srLastUpdateHeaderParser($header);
 
             // decode the reponse body
             $response_array = json_decode( $body );
 
             $srResponse = array();
             $srResponse['pagination'] = $pag_links;
+            $srResponse['lastUpdate'] = $last_update;
             $srResponse['response'] = $response_array;
 
             // close curl connection
@@ -281,12 +283,33 @@ class SimplyRetsApiHelper {
     }
 
 
+    // Parse 'X-SimplyRETS-LastUpdate' from API response headers
+    // and return the value
+    public static function srLastUpdateHeaderParser($headers) {
+
+        $parsed_headers = http_parse_headers($headers);
+        $last_update = $parsed_headers['X-SimplyRETS-LastUpdate'];
+
+        // Get LastUpdate header value and format the date/time
+        $hdr = date("M, d Y h:i a", strtotime($last_update));
+
+        // Use current timestamp if header didn't exist or failed for
+        // some reason.
+        if (empty($hdr)) {
+            $hdr = date("M, d Y h:i a");
+        }
+
+        return $hdr;
+    }
+
+
     public static function srPaginationParser( $linkHeader ) {
+
         // get link val from header
         $pag_links = array();
-        $name = 'Link';
         preg_match('/^Link: ([^\r\n]*)[\r\n]*$/m', $linkHeader, $matches);
         unset($matches[0]);
+
         foreach( $matches as $key => $val ) {
             $parts = explode( ",", $val );
             foreach( $parts as $key => $part ) {
@@ -481,6 +504,7 @@ HTML;
         $cont = "";
         $contact_page = get_option('sr_contact_page');
 
+        $last_update = $listing['lastUpdate'];
         $listing = $listing['response'];
         /*
          * check for an error code in the array first, if it's
@@ -594,9 +618,6 @@ HTML;
         // waterfront
         $listing_water = $listing->property->water;
         $water = SimplyRetsApiHelper::srDetailsTable($listing_water, "Water");
-        // listing meta information
-        $listing_disclaimer  = $listing->disclaimer;
-        $disclaimer = SimplyRetsApiHelper::srDetailsTable($listing_disclaimer, "Disclaimer");
         // listing date
         $listing_list_date = $listing->listDate;
         if($listing_list_date) { $list_date_formatted = date("M j, Y", strtotime($listing_list_date)); }
@@ -855,7 +876,7 @@ HTML;
             $officeEmail = '';
         }
 
-        /////////////////////////////////////////////////////
+        $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
@@ -886,7 +907,8 @@ HTML;
                 $listing_mlsid,
                 $listing_type,
                 $area,
-                $listing_style
+                $listing_style,
+                $compliance_markup
             );
             $iw->setContent($iwCont);
             $marker->setPosition($listing_lat, $listing_longitude, true);
@@ -1034,7 +1056,6 @@ HTML;
                 $tax_data
                 $mls_area
                 $mlsid
-                $disclaimer
               </tbody>
             </table>
             $mapMarkup
@@ -1043,6 +1064,11 @@ HTML;
 HTML;
         $cont .= SimplyRetsApiHelper::srContactFormDeliver();
         $cont .= $contact_markup;
+
+        // Add disclaimer to the bottom of the page
+        $disclaimer = SrUtils::mkDisclaimerText($last_update);
+        $cont .= "<br/>{$disclaimer}";
+
         return $cont;
     }
 
@@ -1065,8 +1091,9 @@ HTML;
     public static function srResidentialResultsGenerator( $response, $settings ) {
         $br                = "<br>";
         $cont              = "";
-        $pagination        = $response['pagination'];
-        $response          = $response['response'];
+        $pagination        = $response['pagination'];   // get pagination links out of response
+        $lastUpdate        = $response['lastUpdate'];   // get lastUpdate time out of response
+        $response          = $response['response'];     // get listing data out of response
         $map_position      = get_option('sr_search_map_position', 'list_only');
         $show_listing_meta = SrUtils::srShowListingMeta();
         $pag               = SrUtils::buildPaginationLinks( $pagination );
@@ -1162,6 +1189,14 @@ HTML;
                 !empty($vendor) ? array("sr_vendor" => $vendor) : array()
             );
 
+
+            /**
+             * Show 'Listing Courtesy of ...' if setting is enabled
+             */
+            $listing_office = $listing->office->name;
+            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
+
+
             /************************************************
              * Make our map marker for this listing
              */
@@ -1179,7 +1214,8 @@ HTML;
                     $mlsid,
                     $propType,
                     $area,
-                    $style
+                    $style,
+                    $compliance_markup
                 );
                 $iw->setContent($iwCont);
                 $marker->setPosition($lat, $lng, true);
@@ -1219,6 +1255,7 @@ HTML;
                 $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($realBaths, "Bath");
             }
 
+
             // append markup for this listing to the content
             $resultsMarkup .= <<<HTML
               <hr>
@@ -1230,7 +1267,7 @@ HTML;
                 <div class="sr-primary-data">
                   <a href="$link">
                     <h4>$address
-                    <span id="sr-price"><i>$listing_USD</i></span></h4>
+                    <span class="sr-price"><i>$listing_USD</i></span></h4>
                   </a>
                 </div>
                 <div class="sr-secondary-data">
@@ -1246,7 +1283,12 @@ HTML;
                   </ul>
                 </div>
                 <div style="clear:both;">
-                  <a href="$link">More details</a>
+                  <div style="text-align:right;display:block">
+                    <span style="position:absolute;left:0">
+                      <a href="$link">More details</a>
+                    </span>
+                    $compliance_markup
+                  </div>
                 </div>
               </div>
 HTML;
@@ -1283,8 +1325,10 @@ HTML;
             $cont .= $resultsMarkup;
         }
 
+        $disclaimer_text = SrUtils::mkDisclaimerText($lastUpdate);
+
         $cont .= "<hr><p class='sr-pagination'>$prev_link $next_link</p>";
-        $cont .= "<br><p><small><i>This information is believed to be accurate, but without any warranty.</i></small></p>";
+        $cont .= "<br>{$disclaimer_text}";
 
         return $cont;
 
@@ -1460,9 +1504,14 @@ HTML;
     public static function srListingSliderGenerator( $response, $settings ) {
         $listings = $response['response'];
         $inner;
+
+        $last_update = $response['lastUpdate'];
+        $disclaimer = SrUtils::mkDisclaimerText($last_update);
+
         if(!empty($settings['random']) && $settings['random'] === "true") {
             shuffle($listings);
         }
+
         foreach($listings as $l) {
             $uid     = $l->mlsId;
             $address = $l->address->full;
@@ -1494,24 +1543,34 @@ HTML;
                 $photo = str_replace("\\", "", $photo);
             }
 
+            /**
+             * Show listing brokerage, if applicable
+             */
+            $listing_office  = $l->office->name;
+            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
+
             $inner .= <<<HTML
                 <div class="sr-listing-slider-item">
                   <a href="$link">
                     <div class="sr-listing-slider-item-img" style="background-image: url('$photo')"></div>
                   </a>
                   <a href="$link">
-                    <h4 class="sr-listing-slider-item-address">$address</h4>
+                    <h4 class="sr-listing-slider-item-address">$address <small>$priceUSD</small></h4>
                   </a>
-                  <p class="sr-listing-slider-item-price">$priceUSD</p>
                   <p class="sr-listing-slider-item-specs">$beds bed / $baths bath / $area SqFt</p>
+                  <p class="sr-listing-slider-item-specs">$compliance_markup</p>
                 </div>
 HTML;
         }
 
         $content = <<<HTML
 
-            <div id="simplyrets-listings-slider" class="sr-listing-carousel">
-              $inner
+            <div>
+              <div id="simplyrets-listings-slider" class="sr-listing-carousel">
+                $inner
+              </div>
+              <br/>
+              $disclaimer
             </div>
 HTML;
 

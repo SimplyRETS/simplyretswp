@@ -101,7 +101,7 @@ var buildUglyLink = function(mlsId, address, root) {
 }
 
 
-var genMarkerPopup = function(listing, linkStyle, siteRoot) {
+var genMarkerPopup = function(listing, linkStyle, siteRoot, idxImg, officeOnThumbnails) {
 
     var stat  = listing.mls.status         || "Active";
     var baths = listing.property.bathsFull || "n/a";
@@ -115,6 +115,9 @@ var genMarkerPopup = function(listing, linkStyle, siteRoot) {
     var photo = listing.photos.length > 1
               ? listing.photos[0]
               : 'https://s3-us-west-2.amazonaws.com/simplyrets/trial/properties/defprop.jpg';
+    var office = officeOnThumbnails && listing.office.name
+               ? listing.office.name
+               : ""
 
     var link = linkStyle === "pretty"
              ? buildPrettyLink(listing.mlsId, listing.address.full, siteRoot)
@@ -138,6 +141,8 @@ var genMarkerPopup = function(listing, linkStyle, siteRoot) {
        '    <p><strong>Area: </strong>' + sqft + '</p>' +
        '    <p><strong>Property Type: </strong>' + type + '</p>' +
        '    <p><strong>Property Style: </strong>' + style + '</p>' +
+       '    <p><strong>Listing office: </strong>'+ office + '</p>' +
+       '    <img src="' + idxImg + '"/>' +
        '  </div>' +
        '  <hr>' +
        '  <div class="sr-iw-inner__view-details">' +
@@ -150,7 +155,7 @@ var genMarkerPopup = function(listing, linkStyle, siteRoot) {
 }
 
 
-var makeMapMarkers = function(map, listings, linkStyle, siteRoot) {
+var makeMapMarkers = function(map, listings, linkStyle, siteRoot, idxImg, officeOnThumbnails) {
     // if(!listings || listings.length < 1) return [];
 
     var markers = [];
@@ -165,7 +170,7 @@ var makeMapMarkers = function(map, listings, linkStyle, siteRoot) {
 
             var bound  = new google.maps.LatLng(listing.geo.lat, listing.geo.lng);
 
-            var popup  = genMarkerPopup(listing, linkStyle, siteRoot);
+            var popup  = genMarkerPopup(listing, linkStyle, siteRoot, idxImg, officeOnThumbnails);
 
             var window = new google.maps.InfoWindow({
                 content: popup
@@ -498,6 +503,8 @@ Map.prototype.handleRequest = function(that, data) {
     that.bounds   = [];
     that.listings = [];
 
+    var idxImg = document.getElementById('sr-map-search').dataset.idxImg;
+    var officeOnThumbnails = document.getElementById('sr-map-search').dataset.officeOnThumbnails;
     var linkStyle = data.permalink_structure === "" ? "default" : "pretty";
 
     that.siteRoot = data.site_root
@@ -509,7 +516,9 @@ Map.prototype.handleRequest = function(that, data) {
     var markers  = makeMapMarkers(that.map
                                 , listings
                                 , that.linkStyle
-                                , that.siteRoot);
+                                , that.siteRoot
+                                , idxImg
+                                , officeOnThumbnails);
 
     that.bounds   = markers.bounds;
     that.markers  = markers.markers;

@@ -50,7 +50,13 @@ class SrShortcodes {
         $content     = "";
         $search_form = "";
         $gmaps_key   = get_option('sr_google_api_key', '');
-        $map_markup  = "<div id='sr-map-search' data-api-key='{$gmaps_key}' data-vendor='{$vendor}'></div>";
+        $idx_img     = get_option('sr_thumbnail_idx_image');
+        $office_on_thumbnails = get_option('sr_office_on_thumbnails', false);
+        $map_markup  = "<div id='sr-map-search'
+                             data-api-key='{$gmaps_key}'
+                             data-idx-img='{$idx_img}'
+                             data-office-on-thumbnails='{$office_on_thumbnails}'
+                             data-vendor='{$vendor}'></div>";
         $list_markup = !empty($atts['list_view'])
                      ? "<div class=\"sr-map-search-list-view\"></div>"
                      : "";

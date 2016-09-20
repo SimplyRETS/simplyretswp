@@ -39,6 +39,9 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_search_map_position');
       register_setting('sr_admin_settings', 'sr_permalink_structure');
       register_setting('sr_admin_settings', 'sr_google_api_key');
+      register_setting('sr_admin_settings', 'sr_office_on_thumbnails');
+      register_setting('sr_admin_settings', 'sr_thumbnail_idx_image');
+      register_setting('sr_admin_settings', 'sr_custom_disclaimer');
   }
 
   public static function adminMessages () {
@@ -86,6 +89,13 @@ class SrAdminSettings {
                '<span class="screen-reader-text">Dismiss this notice.</span></button></div>';
           SimplyRetsApiHelper::srUpdateAdvSearchOptions();
       }
+
+      // Custom POST handler for updating the custom disclaimer
+      // so we can properly sanitize the input.
+      if (isset( $_POST['sr_custom_disclaimer'] )) {
+          update_option('sr_custom_disclaimer', htmlentities(stripslashes($_POST['sr_custom_disclaimer'])));
+      }
+
       ?>
       <div class="wrap sr-admin-wrap">
         <h2 id="message"></h2>
@@ -257,6 +267,40 @@ class SrAdminSettings {
                 </tr>
               </tbody>
             </table>
+          </div>
+          <?php submit_button(); ?>
+          <hr>
+          <div class="sr-admin-settings">
+            <h2>Listing Compliance Settings</h2>
+            <h3>Show brokerage name</h3>
+            <table>
+              <tbody>
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_office_on_thumbnails" name="sr_office_on_thumbnails" value="1" '
+                        . checked(1, get_option('sr_office_on_thumbnails'), false) . '/>'
+                      ?>
+                      Show brokerage name on listing summary thumbnails
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                      <p>IDX image for listing thumbnails <i>(enter a URL)</i>: </p>
+                  </td>
+                  <td>
+                      <input
+                          type="text"
+                          name="sr_thumbnail_idx_image"
+                          value="<?php echo esc_attr( get_option('sr_thumbnail_idx_image') ); ?>"
+                      />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <?php submit_button(); ?>
           <hr>
           <div class="sr-admin-settings-permalinks">
@@ -399,6 +443,28 @@ class SrAdminSettings {
           </div>
           <?php submit_button(); ?>
         </form>
+        <hr>
+        <div>
+          <h3>Custom disclaimer</h3>
+          <p>Custom disclaimer to be shown with all short-codes</p>
+          <form method="post" action="options-general.php?page=simplyrets-admin.php">
+              <textarea
+                  id="sr_custom_disclaimer"
+                  name="sr_custom_disclaimer"
+                  cols="75"
+                  rows="10"><?php echo esc_attr( get_option('sr_custom_disclaimer') ); ?></textarea>
+              <ul>
+                  <li>
+                      - Use the variable "{lastUpdate}" to interpolate
+                      the time of the last feed update.
+                  </li>
+                  <li>
+                      - You can use HTML or plain text.
+                  </li>
+              </ul>
+              <?php submit_button(); ?>
+          </form>
+        </div>
         <?php
   }
 } ?>

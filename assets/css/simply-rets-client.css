@@ -66,7 +66,7 @@ of the image, use this class.
     height: 155px;
     width: 30%;
     overflow: hidden;
-    background-size: cover;
+    background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
 }
@@ -864,8 +864,9 @@ elsewhere, this should be a breeze.
 
 .sr-listing-slider-item-img {
     height: 170px;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 .sr-listing-slider-item-address {
