@@ -1162,6 +1162,31 @@ HTML;
                 !empty($vendor) ? array("sr_vendor" => $vendor) : array()
             );
 
+
+            /**
+             * Show 'Listing Courtesy of ...' if setting is enabled
+             */
+            $listing_office = $listing->office->name;
+            $listing_by_markup = "";
+
+            if (!empty($listing_office) && get_option('sr_office_on_thumbnails')) {
+                $listing_by_markup = "Listing broker: {$listing_office}";
+            }
+
+            /**
+             * Show IDX image at the bottom of thumbnails, if supplied
+             */
+            $listing_idx_img = get_option('sr_thumbnail_idx_image');
+            $listing_idx_img_markup = "";
+
+            if (!empty($listing_idx_img)) {
+                $listing_idx_img_markup = "<img src=\"{$listing_idx_img}\"/>";
+            }
+
+
+            //////////////////////////////////////////////////////////////////////////////
+
+
             /************************************************
              * Make our map marker for this listing
              */
@@ -1179,7 +1204,9 @@ HTML;
                     $mlsid,
                     $propType,
                     $area,
-                    $style
+                    $style,
+                    $listing_by_markup,
+                    $listing_idx_img_markup
                 );
                 $iw->setContent($iwCont);
                 $marker->setPosition($lat, $lng, true);
@@ -1219,29 +1246,6 @@ HTML;
                 $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($realBaths, "Bath");
             }
 
-
-            /**
-             * Show 'Listing Courtesy of ...' if setting is enabled
-             */
-            $listing_office = $listing->office->name;
-            $listing_by_markup = "";
-
-            if (!empty($listing_office) && get_option('sr_office_on_thumbnails')) {
-                $listing_by_markup = "Listing broker: {$listing_office}";
-            }
-
-            /**
-             * Show IDX image at the bottom of thumbnails, if supplied
-             */
-            $listing_idx_img = get_option('sr_thumbnail_idx_image');
-            $listing_idx_img_markup = "";
-
-            if (!empty($listing_idx_img)) {
-                $listing_idx_img_markup = "<img src=\"{$listing_idx_img}\"/>";
-            }
-
-
-            //////////////////////////////////////////////////////////////////////////////
 
             // append markup for this listing to the content
             $resultsMarkup .= <<<HTML

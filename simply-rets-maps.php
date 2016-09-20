@@ -81,7 +81,9 @@ class SrSearchMap {
         $mlsid,
         $propType,
         $area,
-        $style
+        $style,
+        $office,
+        $idx_img
     ) {
         $markup = <<<HTML
             <div class="sr-iw-inner">
@@ -100,6 +102,9 @@ class SrSearchMap {
                 <p><strong>Area:</strong> $area SqFt</p>
                 <p><strong>Property Type:</strong> $propType</p>
                 <p><strong>Property Style:</strong> $style</p>
+                $office
+                <br/>
+                $idx_img
               </div>
               <hr>
               <div class="sr-iw-inner__view-details">
