@@ -1326,7 +1326,7 @@ HTML;
         $disclaimer_text = SrUtils::mkDisclaimerText($lastUpdate);
 
         $cont .= "<hr><p class='sr-pagination'>$prev_link $next_link</p>";
-        $cont .= "<br><p>{$disclaimer_text}</p>";
+        $cont .= "<br>{$disclaimer_text}";
 
         return $cont;
 
