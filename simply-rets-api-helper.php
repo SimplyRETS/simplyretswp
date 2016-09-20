@@ -855,7 +855,7 @@ HTML;
             $officeEmail = '';
         }
 
-        /////////////////////////////////////////////////////
+        $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
@@ -886,7 +886,8 @@ HTML;
                 $listing_mlsid,
                 $listing_type,
                 $area,
-                $listing_style
+                $listing_style,
+                $compliance_markup
             );
             $iw->setContent($iwCont);
             $marker->setPosition($listing_lat, $listing_longitude, true);
@@ -959,6 +960,7 @@ HTML;
               </div>
             </div>
             $remarks_markup
+            $compliance_markup
             <table style="width:100%;">
               <thead>
                 <tr>
