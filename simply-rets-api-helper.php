@@ -978,7 +978,6 @@ HTML;
               </div>
             </div>
             $remarks_markup
-            $compliance_markup
             <table style="width:100%;">
               <thead>
                 <tr>
