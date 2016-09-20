@@ -443,12 +443,16 @@ The short-code can be used with:
 **Attributes**
 
 * search_form
+
 Show search form in addition to the map.
-`[sr_listings_slider search_form="true"]`
+
+`[sr_map_search search_form="true"]`
 
 * list_view
+
 Show a list view of search results below the map
-`[sr_listings_slider list_view="true"]`
+
+`[sr_map_search list_view="true"]`
 
 
 (*Note: Maps can only be enabled when latitude and longitude are
