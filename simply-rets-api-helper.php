@@ -501,6 +501,7 @@ HTML;
         $cont = "";
         $contact_page = get_option('sr_contact_page');
 
+        $last_update = $listing['lastUpdate'];
         $listing = $listing['response'];
         /*
          * check for an error code in the array first, if it's
@@ -614,9 +615,6 @@ HTML;
         // waterfront
         $listing_water = $listing->property->water;
         $water = SimplyRetsApiHelper::srDetailsTable($listing_water, "Water");
-        // listing meta information
-        $listing_disclaimer  = $listing->disclaimer;
-        $disclaimer = SimplyRetsApiHelper::srDetailsTable($listing_disclaimer, "Disclaimer");
         // listing date
         $listing_list_date = $listing->listDate;
         if($listing_list_date) { $list_date_formatted = date("M j, Y", strtotime($listing_list_date)); }
@@ -1056,7 +1054,6 @@ HTML;
                 $tax_data
                 $mls_area
                 $mlsid
-                $disclaimer
               </tbody>
             </table>
             $mapMarkup
@@ -1065,6 +1062,11 @@ HTML;
 HTML;
         $cont .= SimplyRetsApiHelper::srContactFormDeliver();
         $cont .= $contact_markup;
+
+        // Add disclaimer to the bottom of the page
+        $disclaimer = SrUtils::mkDisclaimerText($last_update);
+        $cont .= "<br/>{$disclaimer}";
+
         return $cont;
     }
 
