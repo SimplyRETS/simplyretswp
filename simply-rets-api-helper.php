@@ -1219,6 +1219,30 @@ HTML;
                 $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($realBaths, "Bath");
             }
 
+
+            /**
+             * Show 'Listing Courtesy of ...' if setting is enabled
+             */
+            $listing_office = $listing->office->name;
+            $listing_by_markup = ""; // Full text for 'Listing courtesy of ...'
+
+            if (!empty($listing_office) && get_option('sr_office_on_thumbnails')) {
+                $listing_by_markup = "Listing broker: {$listing_office}";
+            }
+
+            /**
+             * Show IDX image at the bottom of thumbnails, if supplied
+             */
+            $listing_idx_img = get_option('sr_thumbnail_idx_image');
+            $listing_idx_img_markup = "";
+
+            if (!empty($listing_idx_img)) {
+                $listing_idx_img_markup = "<img src=\"{$listing_idx_img}\"/>";
+            }
+
+
+            //////////////////////////////////////////////////////////////////////////////
+
             // append markup for this listing to the content
             $resultsMarkup .= <<<HTML
               <hr>
@@ -1246,7 +1270,14 @@ HTML;
                   </ul>
                 </div>
                 <div style="clear:both;">
-                  <a href="$link">More details</a>
+                  <div style="text-align:right;display:block">
+                    <span style="position:absolute;left:0">
+                      <a href="$link">More details</a>
+                    </span>
+                    $listing_by_markup
+                    <br/>
+                    $listing_idx_img_markup
+                  </div>
                 </div>
               </div>
 HTML;
