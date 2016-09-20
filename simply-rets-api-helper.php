@@ -1502,9 +1502,14 @@ HTML;
     public static function srListingSliderGenerator( $response, $settings ) {
         $listings = $response['response'];
         $inner;
+
+        $last_update = $response['lastUpdate'];
+        $disclaimer = SrUtils::mkDisclaimerText($last_update);
+
         if(!empty($settings['random']) && $settings['random'] === "true") {
             shuffle($listings);
         }
+
         foreach($listings as $l) {
             $uid     = $l->mlsId;
             $address = $l->address->full;
@@ -1558,8 +1563,12 @@ HTML;
 
         $content = <<<HTML
 
-            <div id="simplyrets-listings-slider" class="sr-listing-carousel">
-              $inner
+            <div>
+              <div id="simplyrets-listings-slider" class="sr-listing-carousel">
+                $inner
+              </div>
+              <br/>
+              $disclaimer
             </div>
 HTML;
 
