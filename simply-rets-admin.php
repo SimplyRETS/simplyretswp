@@ -41,6 +41,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_google_api_key');
       register_setting('sr_admin_settings', 'sr_office_on_thumbnails');
       register_setting('sr_admin_settings', 'sr_thumbnail_idx_image');
+      register_setting('sr_admin_settings', 'sr_custom_disclaimer');
   }
 
   public static function adminMessages () {
@@ -88,6 +89,13 @@ class SrAdminSettings {
                '<span class="screen-reader-text">Dismiss this notice.</span></button></div>';
           SimplyRetsApiHelper::srUpdateAdvSearchOptions();
       }
+
+      // Custom POST handler for updating the custom disclaimer
+      // so we can properly sanitize the input.
+      if (isset( $_POST['sr_custom_disclaimer'] )) {
+          update_option('sr_custom_disclaimer', htmlentities(stripslashes($_POST['sr_custom_disclaimer'])));
+      }
+
       ?>
       <div class="wrap sr-admin-wrap">
         <h2 id="message"></h2>
@@ -263,7 +271,7 @@ class SrAdminSettings {
           <?php submit_button(); ?>
           <hr>
           <div class="sr-admin-settings">
-            <h2>Listing Summary Settings</h2>
+            <h2>Listing Compliance Settings</h2>
             <h3>Show brokerage name</h3>
             <table>
               <tbody>
@@ -435,6 +443,17 @@ class SrAdminSettings {
           </div>
           <?php submit_button(); ?>
         </form>
+        <hr>
+        <div>
+          <h3>Custom disclaimer</h3>
+          <p>Custom disclaimer to be shown with all listings</p>
+          <form method="post" action="options-general.php?page=simplyrets-admin.php">
+              <textarea id="sr_custom_disclaimer" name="sr_custom_disclaimer" cols="35" rows="8">
+                  <?php echo esc_attr( get_option('sr_custom_disclaimer') ); ?>
+              </textarea>
+              <?php submit_button(); ?>
+          </form>
+        </div>
         <?php
   }
 } ?>
