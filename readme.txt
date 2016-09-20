@@ -645,6 +645,21 @@ with all listing summaries. For example, a broker reciprocity image
 can be added, and anywhere a listing summary is shown that image will
 be shown as well.
 
+**Custom disclaimer**
+If you need to add a custom disclaimer to your website, the SimplyRETS
+plugin offers a way for you to do so. On the `Settings -> SimplyRETS
+Settings` page there is an option called "Custom disclaimer". In this
+box, you can paste the text or HTML for your own disclaimer. A few
+notes:
+
+- Use the `{lastUpdate}` variable to splice in a timestamp for the
+  last time the listings were updated.
+
+- You can use HTML or plain text.
+
+- Disclaimers will be shown at the bottom of the output for every
+  short-code.
+
 
 == Trial Listings ==
 
