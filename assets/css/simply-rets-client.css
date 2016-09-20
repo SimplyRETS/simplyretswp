@@ -864,8 +864,9 @@ elsewhere, this should be a breeze.
 
 .sr-listing-slider-item-img {
     height: 170px;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 .sr-listing-slider-item-address {
