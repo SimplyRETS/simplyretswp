@@ -210,6 +210,26 @@ class SrUtils {
 
     }
 
+
+    /**
+     * Generate disclaimer text shown with short-code listings.  If
+     * the user has provided a custom disclaimer in their settings
+     * page use that, otherwise use the SimplyRETS default.
+     */
+    public static function mkDisclaimerText() {
+        $custom_disclaimer = get_option('sr_custom_disclaimer', false);
+
+        if ($custom_disclaimer) {
+
+            return html_entity_decode($custom_disclaimer);
+
+        } else {
+
+            return "This information is believed to be accurate, but without any warranty.";
+
+        }
+    }
+
 }
 
 
