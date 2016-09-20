@@ -323,6 +323,7 @@ but to only show listings from a specific agent:
   - Interactive Map Search
 * [Available Filters](#Available-Filters)
 * [Admin Settings / Permalinks](#Admin-Settings-and-Permalinks)
+* [MLS Compliance Settings](#MLS-Compliance-Settings)
 * [Widgets](#SimplyRETS-Widgets)
 * [Trial Listings](#Trial-Listings)
 * [SimplyRETS Pages](#SimplyRETS-Pages)
@@ -619,6 +620,26 @@ available to admin's through the plugin:
 
   *Pretty*: http://yoursite.com/listings/{id}/{streetAddress}
   *Extra Pretty*: http://yoursite.com/listings/{city}/{state}/{postalCode}/{streetAddress}/{id}
+
+
+== MLS Compliance Settings ==
+
+In some cases, you may need to show additional disclaimers and
+information for broker reciprocity. The SimplyRETS WordPress plugin
+has some options you can use to make this easier.
+
+**Show brokerage name by listing summaries**
+
+In the SimplyRETS Settings page of your WordPress dashboard you will
+find a setting called "Show brokerage name". With this enabled, the
+name of the listing brokerage will be shown next to *all* thumbnail
+and summary sections, as well as on listing details pages.
+
+**IDX Image for listing summaries**
+This option allows you to add a URL for an image that will be shown
+with all listing summaries. For example, a broker reciprocity image
+can be added, and anywhere a listing summary is shown that image will
+be shown as well.
 
 
 == Trial Listings ==
