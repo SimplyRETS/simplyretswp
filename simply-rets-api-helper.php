@@ -1267,7 +1267,7 @@ HTML;
                 <div class="sr-primary-data">
                   <a href="$link">
                     <h4>$address
-                    <span id="sr-price"><i>$listing_USD</i></span></h4>
+                    <span class="sr-price"><i>$listing_USD</i></span></h4>
                   </a>
                 </div>
                 <div class="sr-secondary-data">
