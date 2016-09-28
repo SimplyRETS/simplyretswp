@@ -714,13 +714,6 @@ us know! We're always looking to expand our plugin to give you what
 you need to make the best possible site. Email support@simplyrets.com
 if you have an idea, we'd love to hear it!
 
-= For Agents =
-
-Need help finding a developer to build the best Real Estate site in
-town (that people will actually use)? Shoot us an email and we can
-help hook you up with some of the amazing developers that are pro's at
-using the SimplyRETS product suite: support@simplyrets.com
-
 = For Developers =
 
 If you're interested in building your own Plugin or Application,
