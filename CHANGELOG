@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.1
+* FIX: Fix pagintation links when using 'counties' parameter
+
 ## 2.2.0
 * FEATURE: Add support for showing an IDX image with all listing thumbnails
 * FEATURE: Add support for showing Listing Broker on all listing thumbnails

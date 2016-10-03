@@ -627,6 +627,13 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
+            $counties = isset($_GET['sr_counties']) ? $_GET['sr_counties'] : '';
+            if(!empty($counties)) {
+                foreach((array)$counties as $key => $county) {
+                    $counties_string .= "&counties=$county";
+                }
+            }
+
             $agents = isset($_GET['sr_agent']) ? $_GET['sr_agent'] : '';
             if(!empty($agents)) {
                 foreach((array)$agents as $key => $agent) {
@@ -704,6 +711,7 @@ class SimplyRetsCustomPostPages {
                   . http_build_query( array_filter( $listing_params ) )
                   . $features_string
                   . $cities_string
+                  . $counties_string
                   . $neighborhoods_string
                   . $agents_string
                   . $ptypes_string
@@ -725,6 +733,7 @@ class SimplyRetsCustomPostPages {
               $qs .= http_build_query( array_filter( $listing_params ) );
               $qs .= $features_string;
               $qs .= $cities_string;
+              $qs .= $counties_string;
               $qs .= $agents_string;
               $qs .= $ptypes_string;
               $qs .= $neighborhoods_string;
