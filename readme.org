@@ -19,7 +19,7 @@
 
   For any support related issues, you can:
   1) View the documentation at http://docs.simplyrets.com
-  2) Submit an issue on the official SimplyRETS WP github mirror: http://github.com/rbros/simplyretswp/issues
+  2) Submit an issue on the official SimplyRETS WP github mirror: http://github.com/SimplyRETS/simplyretswp/issues
   3) Send us a message via our website contact form at http://simplyrets.com/#home-contact
   4) Send an email to [[mailto:support@simplyrets.com]]
 
@@ -31,13 +31,13 @@
 ** Installation
 
 *** Install from .zip file
-    - Download the `.zip` file from [[https://github.com/rbros/simplyretswp/releases][the releases page]].
+    - Download the `.zip` file from [[https://github.com/SimplyRETS/simplyretswp/releases][the releases page]].
     - In your Wordpress dashboard, go to 'Plugins' -> 'Add New'.
       Choose 'Upload a New Plugin' and upload the `.zip` file.
     - Activate it through the =Plugins -> Installed plugins= page of your Wordpress dashboard.
 
 *** Extract from .zip file
-    - Download the `.zip` file from [[https://github.com/rbros/simplyretswp/releases][the releases page]].
+    - Download the `.zip` file from [[https://github.com/SimplyRETS/simplyretswp/releases][the releases page]].
     - Unzip the file in your Wordpress site's =wp-content/plugins/= directory.
     - Activate it through the =Plugins -> Installed plugins= page of your Wordpress dashboard.
 
