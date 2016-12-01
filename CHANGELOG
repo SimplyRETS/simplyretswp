@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.2
+* FEATURE: Add support for more API fields including Garage Spaces, HOA, and more.
+
 ## 2.2.1
 * FIX: Fix pagintation links when using 'counties' parameter
 
