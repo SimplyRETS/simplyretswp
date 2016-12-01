@@ -895,8 +895,11 @@ HTML;
 
         $agent = SimplyRetsApiHelper::srDetailsTable($listing_agent_name, "Listing Agent");
 
-        // Office
+        $listing_agent_phone = $listing->agent->contact->office;
+        $agent_phone = SimplyRetsApiHelper::srDetailsTable($listing_agent_phone, "Listing Agent Phone");
 
+
+        // Office
         $listing_office = $listing->office->name;
         $office = SimplyRetsApiHelper::srDetailsTable($listing_office, "Listing Office");
         $listing_office_phone = $listing->office->contact->office;
@@ -905,12 +908,16 @@ HTML;
         $listing_office_email = $listing->office->contact->email;
         $officeEmail = SimplyRetsApiHelper::srDetailsTable($listing_office_email, "Listing Office Email");
 
+        /* If show_contact_info is false, stub these fields */
         if(!$show_contact_info) {
+            $agent_phone = '';
             $officePhone = '';
             $officeEmail = '';
         }
 
+
         $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
+
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
@@ -1083,6 +1090,7 @@ HTML;
                 $officePhone
                 $officeEmail
                 $agent
+                $agent_phone
                 $terms
               </tbody>
               $school_data
