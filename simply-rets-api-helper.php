@@ -699,6 +699,18 @@ HTML;
             $listing_association_amenities, "Association Amenities"
         );
 
+        // Virtual tour URL
+        $listing_virtual_tour = $listing->virtualTourUrl;
+        if (!empty($listing_virtual_tour)) {
+            // Make the URL a link
+            $listing_virtual_tour = "<a href='$listing_virtual_tour' target='_blank'>"
+                                  . $listing_virtual_tour
+                                  . "</a>";
+
+        }
+
+        $virtual_tour = SimplyRetsApiHelper::srDetailsTable($listing_virtual_tour, "Virtual Tour URL");
+
 
         // area
         $area = $listing->property->area == 0
@@ -1092,6 +1104,7 @@ HTML;
                 $agent
                 $agent_phone
                 $terms
+                $virtual_tour
               </tbody>
               $school_data
               <thead>
