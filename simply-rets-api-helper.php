@@ -567,6 +567,12 @@ HTML;
         // tax data
         $listing_taxdata = $listing->tax->id;
         $tax_data = SimplyRetsApiHelper::srDetailsTable($listing_taxdata, "Tax ID");
+        // tax year
+        $listing_tax_year = $listing->tax->taxYear;
+        $tax_year = SimplyRetsApiHelper::srDetailsTable($listing_tax_year, "Tax Year");
+        // tax annual amount
+        $listing_tax_annual_amount = $listing->tax->taxAnnualAmount;
+        $tax_annual_amount = SimplyRetsApiHelper::srDetailsTable($listing_tax_annual_amount, "Tax Annual Amount");
         // roof
         $listing_roof = $listing->property->roof;
         $roof = SimplyRetsApiHelper::srDetailsTable($listing_roof, "Roof");
@@ -666,6 +672,33 @@ HTML;
         $listing_lease_type = $listing->leaseType;
         $lease_type = SimplyRetsApiHelper::srDetailsTable($listing_lease_type, "Lease Type");
 
+        $listing_pool = $listing->property->pool;
+        $pool = SimplyRetsApiHelper::srDetailsTable($listing_pool, "Pool features");
+
+        // Garage and Parking info
+        $listing_garage_spaces = $listing->property->garageSpaces;
+        $garage_spaces = SimplyRetsApiHelper::srDetailsTable($listing_garage_spaces, "Garage spaces");
+
+        $listing_parking_spaces = $listing->property->parking->spaces;
+        $parking_spaces = SimplyRetsApiHelper::srDetailsTable($listing_parking_spaces, "Parking Spaces");
+
+        $listing_parking_description = $listing->property->parking->description;
+        $parking_description = SimplyRetsApiHelper::srDetailsTable(
+            $listing_parking_description, "Parking Description"
+        );
+
+        // association data
+        $listing_association_fee = $listing->association->fee;
+        $association_fee = SimplyRetsApiHelper::srDetailsTable($listing_association_fee, "Association Fee");
+
+        $listing_association_name = $listing->association->name;
+        $association_name = SimplyRetsApiHelper::srDetailsTable($listing_association_name, "Association Name");
+
+        $listing_association_amenities = $listing->association->amenities;
+        $association_amenities = SimplyRetsApiHelper::srDetailsTable(
+            $listing_association_amenities, "Association Amenities"
+        );
+
 
         // area
         $area = $listing->property->area == 0
@@ -692,8 +725,8 @@ HTML;
         }
 
 
+        // Rooms data
         $roomsMarkup = '';
-
         if(is_array($listing->property->rooms)) {
 
             $rooms = $listing->property->rooms;
@@ -785,11 +818,12 @@ HTML;
 
         // list date and listing last modified
         $show_listing_meta = SrUtils::srShowListingMeta();
-
         if($show_listing_meta !== true) {
             $list_date = '';
             $date_modified_markup = '';
             $tax_data = '';
+            $tax_year = '';
+            $tax_annual_amount = '';
         }
 
         if( get_option('sr_show_listing_remarks') ) {
@@ -1012,6 +1046,13 @@ HTML;
                 $accessibility
                 $lot_description
                 $laundry_features
+                $pool
+                $parking_description
+                $parking_spaces
+                $garage_spaces
+                $association_name
+                $association_fee
+                $association_amenities
                 $additional_rooms
                 $roomsMarkup
               </tbody>
@@ -1054,6 +1095,8 @@ HTML;
                 $list_date
                 $date_modified_markup
                 $tax_data
+                $tax_year
+                $tax_annual_amount
                 $mls_area
                 $mlsid
               </tbody>
