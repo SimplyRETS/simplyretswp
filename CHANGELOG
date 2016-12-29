@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.3
+* DOCUMENTATION: Remove unsupported 'lotsize' parameter from documentation.
+
 ## 2.2.2
 * FEATURE: Add support for more API fields including Garage Spaces, HOA, and more.
 
