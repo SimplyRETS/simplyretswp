@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 4.6.1
-Stable tag: 2.2.2
+Tested up to: 4.7
+Stable tag: 2.2.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -234,6 +234,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.2.3 =
+* DOCUMENTATION: Remove unsupported 'lotsize' parameter from documentation.
 
 = 2.2.2 =
 * FEATURE: Add support for more API fields including Garage Spaces, HOA, and more.
