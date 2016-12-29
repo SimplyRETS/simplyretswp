@@ -499,10 +499,6 @@ Refines listings to a specific agent by taking an agent's MLS ID.
 Refines listings to a specific brokerage by taking a brokerage's MLS ID.
 `[sr_listings brokers="KWREALTY1"]`
 
-* **lotsize**
-Refines listings by a certain lot size in Sq Ft (note, this is not area).
-`[sr_listings lotsize="5000"]`
-
 * **area**
 Refines listings by a certain area size in Sq Ft.
 `[sr_listings area="1500"]`
