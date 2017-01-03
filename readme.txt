@@ -502,10 +502,6 @@ Refines listings to a specific agent by taking an agent's MLS ID.
 Refines listings to a specific brokerage by taking a brokerage's MLS ID.
 `[sr_listings brokers="KWREALTY1"]`
 
-* **area**
-Refines listings by a certain area size in Sq Ft.
-`[sr_listings area="1500"]`
-
 * **cities**
 Refines listings to a given set of cities. (Separate multiple with a semi-colon).
 `[sr_listings cities="Houston; Austin; Dallas"]`
