@@ -556,17 +556,16 @@ class SimplyRetsCustomPostPages {
 
 
             /**
-             * Check if there is multiple 'types' being searched.
-             * HACK: This is a bit of hack because sometimes the parameters
-             * are in an array() and sometimes they are in a string that needs
-             * to be made into an array. The others aren't like that,
-             * so we should fix this one.
+             * Format the 'type' parameter.
+             * Note that the 'type' might come in as an Array or a
+             * String.  For strings, we split on ";" to support
+             * multiple property types only if the string is not
+             * empty.  Arrays are concated into multiple type=
+             * parameters.
              */
-
-            /** Multiple Types */
             $p_types = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
             $ptypes_string = '';
-            if(!is_array($p_types)) {
+            if(!is_array($p_types) && !empty($p_types)) {
                 if(strpos($p_types, ";") !== FALSE) {
                     $p_types = explode(';', $p_types);
                 } else {
@@ -581,10 +580,22 @@ class SimplyRetsCustomPostPages {
             }
 
 
-            /** Multiple Statuses */
+            /**
+             * Format the 'status' parameter.
+             * Note that the 'status' might come in as an Array or a
+             * String.  For strings, we split on ";" to support
+             * multiple statuses only if the string is not empty.
+             * Arrays are concated into multiple status= parameters.
+             *
+             * NOTE: it is important to not send an empty status
+             * parameter, for example "status=" to the API, as it will
+             * interpret it as Active, whereas _no_ status parameter
+             * is Active and Pending.
+             */
             $statuses = isset($_GET['sr_status']) ? $_GET['sr_status'] : $status;
             $statuses_string = '';
-            if(!is_array($statuses)) {
+
+            if(!is_array($statuses) && !empty($statuses)) {
                 if(strpos($statuses, ";") !== FALSE) {
                     $statuses = explode(';', $statuses);
                 } else {
@@ -597,6 +608,7 @@ class SimplyRetsCustomPostPages {
                     $statuses_string .= "&status=$final";
                 }
             }
+
 
             /**
              * The loops below check if the short-code has multiple
