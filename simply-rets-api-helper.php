@@ -1557,7 +1557,7 @@ HTML;
 
             // If email has been process for sending, display a success message
             if ( wp_mail( $to, $subject, $message, $headers ) ) {
-                echo '<div></div>';
+                echo '<div id="sr-contact-form-success">Your message was delivered successfully.</div>';
             } else {
                 echo 'An unexpected error occurred';
             }
