@@ -1511,7 +1511,7 @@ HTML;
         $markup .= '<p>';
         $markup .= '<input type="hidden" name="sr-cf-listing" value="' . $listing . '" />';
         $markup .= 'Your Name (required) <br/>';
-        $markup .= '<input type="text" name="sr-cf-name" pattern="[a-zA-Z0-9 ]+" value="'
+        $markup .= '<input type="text" name="sr-cf-name" value="'
             . ( isset( $_POST["sr-cf-name"] ) ? esc_attr( $_POST["sr-cf-name"] ) : '' ) . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
@@ -1521,7 +1521,7 @@ HTML;
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Subject (required) <br/>';
-        $markup .= '<input type="text" name="sr-cf-subject" pattern="[a-zA-Z ]+" value="'
+        $markup .= '<input type="text" name="sr-cf-subject" value="'
             . ( isset( $_POST["sr-cf-subject"] ) ? esc_attr( $_POST["sr-cf-subject"] ) : '' ) . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
