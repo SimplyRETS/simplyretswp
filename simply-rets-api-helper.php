@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.2.3 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.2.4 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.2.3 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.2.4 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -1511,7 +1511,7 @@ HTML;
         $markup .= '<p>';
         $markup .= '<input type="hidden" name="sr-cf-listing" value="' . $listing . '" />';
         $markup .= 'Your Name (required) <br/>';
-        $markup .= '<input type="text" name="sr-cf-name" pattern="[a-zA-Z0-9 ]+" value="'
+        $markup .= '<input type="text" name="sr-cf-name" value="'
             . ( isset( $_POST["sr-cf-name"] ) ? esc_attr( $_POST["sr-cf-name"] ) : '' ) . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
@@ -1521,7 +1521,7 @@ HTML;
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Subject (required) <br/>';
-        $markup .= '<input type="text" name="sr-cf-subject" pattern="[a-zA-Z ]+" value="'
+        $markup .= '<input type="text" name="sr-cf-subject" value="'
             . ( isset( $_POST["sr-cf-subject"] ) ? esc_attr( $_POST["sr-cf-subject"] ) : '' ) . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
@@ -1557,7 +1557,7 @@ HTML;
 
             // If email has been process for sending, display a success message
             if ( wp_mail( $to, $subject, $message, $headers ) ) {
-                echo '<div></div>';
+                echo '<div id="sr-contact-form-success">Your message was delivered successfully.</div>';
             } else {
                 echo 'An unexpected error occurred';
             }
