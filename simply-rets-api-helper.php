@@ -1547,7 +1547,16 @@ HTML;
             $name    = sanitize_text_field( $_POST["sr-cf-name"] );
             $email   = sanitize_email( $_POST["sr-cf-email"] );
             $subject = sanitize_text_field( $_POST["sr-cf-subject"] );
-            $message = esc_textarea( $_POST["sr-cf-message"] ) . ' - ' . $listing;
+            $message = esc_textarea( $_POST["sr-cf-message"] )
+                     . "\r\n" . "\r\n"
+                     . "Form submission information: "
+                     . "\r\n"
+                     . "Listing: " . $listing
+                     . "\r\n"
+                     . "Name: " . $name
+                     . "\r\n"
+                     . "Email: " . $email
+                     ;
 
             // get the blog administrator's email address
             $to = get_option('sr_leadcapture_recipient', '');
