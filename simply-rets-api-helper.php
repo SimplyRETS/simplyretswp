@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.2.4 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.2.5 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.2.4 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.2.5 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -1547,7 +1547,16 @@ HTML;
             $name    = sanitize_text_field( $_POST["sr-cf-name"] );
             $email   = sanitize_email( $_POST["sr-cf-email"] );
             $subject = sanitize_text_field( $_POST["sr-cf-subject"] );
-            $message = esc_textarea( $_POST["sr-cf-message"] ) . ' - ' . $listing;
+            $message = esc_textarea( $_POST["sr-cf-message"] )
+                     . "\r\n" . "\r\n"
+                     . "Form submission information: "
+                     . "\r\n"
+                     . "Listing: " . $listing
+                     . "\r\n"
+                     . "Name: " . $name
+                     . "\r\n"
+                     . "Email: " . $email
+                     ;
 
             // get the blog administrator's email address
             $to = get_option('sr_leadcapture_recipient', '');
