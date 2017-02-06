@@ -246,7 +246,7 @@ class SrAdminSettings {
                         '<input type="checkbox" id="sr_show_mls_status_text" name="sr_show_mls_status_text" value="1" '
                         . checked(1, get_option('sr_show_mls_status_text'), false) . '/>'
                       ?>
-                      Show MLS status text if available (hide standardized status)?
+                      Show MLS status text if available (in place of standardized status)?
                     </label>
                   </td>
                 </tr>
