@@ -131,6 +131,7 @@ HTML;
            && $_POST['action'] === "update_int_map_data") {
 
             $permalink_struct = get_option('permalink_structure');
+            $showStatusText = get_option('sr_show_mls_status_text', false);
             $site_root = get_site_url();
 
             header("Content-Type: application/json");
@@ -147,6 +148,7 @@ HTML;
                 "markup" => $con,
                 "post"   => $_POST,
                 "permalink_structure" => $permalink_struct,
+                "show_mls_status_text" => $showStatusText,
                 "site_root" => $site_root
             );
 

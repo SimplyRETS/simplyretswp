@@ -101,9 +101,9 @@ var buildUglyLink = function(mlsId, address, root) {
 }
 
 
-var genMarkerPopup = function(listing, linkStyle, siteRoot, idxImg, officeOnThumbnails) {
+var genMarkerPopup = function(listing, linkStyle, siteRoot, idxImg, officeOnThumbnails, statusText) {
 
-    var stat  = listing.mls.status         || "Active";
+    var stat  = statusText ? listing.mls.statusText : listing.mls.status;
     var baths = listing.property.bathsFull || "n/a";
     var beds  = listing.property.bedrooms  || "n/a";
     var style = listing.property.style     || "Res" ;
@@ -155,7 +155,7 @@ var genMarkerPopup = function(listing, linkStyle, siteRoot, idxImg, officeOnThum
 }
 
 
-var makeMapMarkers = function(map, listings, linkStyle, siteRoot, idxImg, officeOnThumbnails) {
+var makeMapMarkers = function(map, listings, linkStyle, siteRoot, idxImg, officeOnThumbnails, statusText) {
     // if(!listings || listings.length < 1) return [];
 
     var markers = [];
@@ -170,7 +170,7 @@ var makeMapMarkers = function(map, listings, linkStyle, siteRoot, idxImg, office
 
             var bound  = new google.maps.LatLng(listing.geo.lat, listing.geo.lng);
 
-            var popup  = genMarkerPopup(listing, linkStyle, siteRoot, idxImg, officeOnThumbnails);
+            var popup  = genMarkerPopup(listing, linkStyle, siteRoot, idxImg, officeOnThumbnails, statusText);
 
             var window = new google.maps.InfoWindow({
                 content: popup
@@ -506,6 +506,7 @@ Map.prototype.handleRequest = function(that, data) {
     var idxImg = document.getElementById('sr-map-search').dataset.idxImg;
     var officeOnThumbnails = document.getElementById('sr-map-search').dataset.officeOnThumbnails;
     var linkStyle = data.permalink_structure === "" ? "default" : "pretty";
+    var statusText = data.show_mls_status_text;
 
     that.siteRoot = data.site_root
     that.linkStyle = linkStyle;
@@ -518,7 +519,8 @@ Map.prototype.handleRequest = function(that, data) {
                                 , that.linkStyle
                                 , that.siteRoot
                                 , idxImg
-                                , officeOnThumbnails);
+                                , officeOnThumbnails
+                                , statusText );
 
     that.bounds   = markers.bounds;
     that.markers  = markers.markers;
