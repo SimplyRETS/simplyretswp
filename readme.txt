@@ -593,21 +593,75 @@ sidebar and footer. The currently available widgets include:
 This sections will discuss some of the basic configuration options
 available to admin's through the plugin:
 
-* **Permalinks**
-  SimplyRETS has support for 'pretty' and 'ugly' permalinks. It will
-  choose the best one based on your current configuration and there
-  are a couple of options to fine-tune it.
+= Account credentials =
 
-  - If your WordPress site uses 'default' (ugly) permalinks, the
-    plugin is forced to use those as well.
+The account credentials section in the admin settings is where you'll
+enter your API Credentials for your SimplyRETS app. If you don't yet
+have a SimplyRETS app, the default *demo* credentials will be
+available.
 
-  - If your WordPress site is using 'pretty' permalinks, you can
-    choose between 'pretty' and 'extra pretty' SimplyRETS links in the
-    "Permalnks" section of the admin panel. Here are some basic
-    examples:
+= Single Listing Page Settings =
 
-  *Pretty*: http://yoursite.com/listings/{id}/{streetAddress}
-  *Extra Pretty*: http://yoursite.com/listings/{city}/{state}/{postalCode}/{streetAddress}/{id}
+These settings allow you to control various parts of the listing
+details pages, including the contact form and some of the fields that
+are shown.
+
+**Contact form lead capture**
+
+When this is enabled, a lead capture contact form will be shown at the
+bottom of listing details pages. In the *Send lead capture form
+submissions to* input, you can enter the email address where you'd
+like to receive lead emails.
+
+*Note: The WordPress admin email is used if no email is provided*
+
+**Show/Hide fields**
+
+Show and/or hide various parts of the listing details page:
+
+* Hide 'Listing meta information' fields from property details?
+  This option hides `listDate`, `modificationTimestamp`, `taxYear`,
+  and `taxAmmount` from listing details pages.
+
+* Do not show Agent/Office phone number and email address
+  If checked, the listing office and agent's contact information will
+  not be shown. Note that, in most cases, the name will still be
+  shown.
+
+* Hide 'Listing Remarks' (description) field from property details?
+  If checked, the listing description will not be dispayed.
+
+* Show additional room details?
+  If available, extra information about the listing's rooms will be
+  shown when this is enabled.
+
+* Show MLS status text if available (hide standardized status)?
+  If a `statusText` is available for the listing, show that instead of
+  the standardized status. Read more about `statusText`
+  [here](https://docs.simplyrets.com/api/index.html#!/default/get_properties)
+
+= Image gallery settings =
+
+There are two types of image galleries available for listing details
+pages: *fancy* and *classic*. Here, you can choose which one you'd
+like to use.
+
+**Permalinks**
+
+SimplyRETS has support for 'pretty' and 'ugly' permalinks. It will
+choose the best one based on your current configuration and there
+are a couple of options to fine-tune it.
+
+- If your WordPress site uses 'default' (ugly) permalinks, the
+  plugin is forced to use those as well.
+
+- If your WordPress site is using 'pretty' permalinks, you can
+  choose between 'pretty' and 'extra pretty' SimplyRETS links in the
+  "Permalnks" section of the admin panel. Here are some basic
+  examples:
+
+*Pretty*: http://yoursite.com/listings/{id}/{streetAddress}
+*Extra Pretty*: http://yoursite.com/listings/{city}/{state}/{postalCode}/{streetAddress}/{id}
 
 
 == MLS Compliance Settings ==
