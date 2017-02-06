@@ -521,6 +521,15 @@ HTML;
         // internal unique id
         $listing_uid = $listing->mlsId;
 
+        /**
+         * Get the listing status to show. Note that if the
+         * sr_show_mls_status_text admin option is set to true, we
+         * will show the listing's "statusText" and not the normalized
+         * status.
+         */
+        $listing_mls_status = SrListing::listingStatus($listing);
+        $mls_status = SimplyRetsApiHelper::srDetailsTable($listing_mls_status, "MLS Status");
+
         // price
         $listing_price = $listing->listPrice;
         $listing_price_USD = '$' . number_format( $listing_price );
@@ -585,9 +594,6 @@ HTML;
         // unit
         $listing_unit = $listing->address->unit;
         $unit = SimplyRetsApiHelper::srDetailsTable($listing_unit, "Unit");
-        // mls information
-        $listing_mls_status     = $listing->mls->status;
-        $mls_status = SimplyRetsApiHelper::srDetailsTable($listing_mls_status, "MLS Status");
         // int/ext features
         $listing_interiorFeatures = $listing->property->interiorFeatures;
         $interiorFeatures = SimplyRetsApiHelper::srDetailsTable($listing_interiorFeatures, "Features");
@@ -1211,7 +1217,6 @@ HTML;
             $listing_agent_name = $listing->agent->firstName . ' ' . $listing->agent->lastName;
             $lng                = $listing->geo->lng;
             $lat                = $listing->geo->lat;
-            $mls_status         = $listing->mls->status;
             $propType           = $listing->property->type;
             $bedrooms           = $listing->property->bedrooms;
             $bathsFull          = $listing->property->bathsFull;
@@ -1222,6 +1227,11 @@ HTML;
             $subdivision        = $listing->property->subdivision;
             $style              = $listing->property->style;
             $yearBuilt          = $listing->property->yearBuilt;
+
+            /**
+             * Listing status to show. This may return a statusText.
+             */
+            $mls_status = SrListing::listingStatus($listing);
 
             $addrFull = $address . ', ' . $city . ' ' . $zip;
             $listing_USD = $listing_price == "" ? "" : '$' . number_format( $listing_price );
@@ -1435,17 +1445,21 @@ HTML;
 
         foreach ( $response as $listing ) {
             $listing_uid = $listing->mlsId;
+            $listing_remarks  = $listing->remarks;
+
             // widget details
             $bedrooms = $listing->property->bedrooms;
             if( $bedrooms == null || $bedrooms == "" ) {
                 $bedrooms = 0;
             }
+
             $bathsFull   = $listing->property->bathsFull;
             if( $bathsFull == null || $bathsFull == "" ) {
                 $bathsFull = 0;
             }
-            $mls_status    = $listing->mls->status;
-            $listing_remarks  = $listing->remarks;
+
+            $mls_status = SrListing::listingStatus($listing);
+
             $listing_price = $listing->listPrice;
             $listing_USD   = '$' . number_format( $listing_price );
 
