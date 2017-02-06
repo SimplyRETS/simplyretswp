@@ -236,6 +236,19 @@ class SrUtils {
 }
 
 
+class SrListing {
+
+    /**
+     * Return a 'display-ready' status for a listing. Checks the
+     * sr_show_mls_status_text option and returns either the
+     * statusText or status for the listing.
+     */
+    public static function listingStatus($listing) {
+        $useStatusText = get_option('sr_show_mls_status_text', false);
+        return $useStatusText ? $listing->mls->statusText : $listing->mls->status;
+    }
+}
+
 
 class SrMessages {
 
