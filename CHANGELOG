@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.6
+* FEATURE: Add admin option to use "statusText" API field in place of the standardized status.
+
 ## 2.2.5
 * FEATURE: Add contact form info (name, email, listing) to the end of the email message body.
 
