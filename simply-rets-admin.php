@@ -42,6 +42,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_office_on_thumbnails');
       register_setting('sr_admin_settings', 'sr_thumbnail_idx_image');
       register_setting('sr_admin_settings', 'sr_custom_disclaimer');
+      register_setting('sr_admin_settings', 'sr_show_mls_status_text');
   }
 
   public static function adminMessages () {
@@ -234,6 +235,18 @@ class SrAdminSettings {
                         . checked(1, get_option('sr_additional_rooms'), false) . '/>'
                       ?>
                       Show additional room details?
+                    </label>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_show_mls_status_text" name="sr_show_mls_status_text" value="1" '
+                        . checked(1, get_option('sr_show_mls_status_text'), false) . '/>'
+                      ?>
+                      Show MLS status text if available (hide standardized status)?
                     </label>
                   </td>
                 </tr>
