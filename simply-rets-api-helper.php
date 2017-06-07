@@ -1305,7 +1305,6 @@ HTML;
              * TODO: Create a ranking system 1 - 10 to smartly replace missing values
              */
             $bedsMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($bedrooms, 'Bedrooms');
-            $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsFull, 'Full Baths');
             $areaMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup(
                 $area, '<span class="sr-listing-area-sqft">SqFt</span>'
             );
@@ -1324,9 +1323,19 @@ HTML;
                 $yearMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($subdivision, "");
             }
 
-            if(empty($bathsFull) || $bathsFull == 0 && is_numeric($bathsTotal)) {
-                $realBaths   = $bathsTotal + 0;
-                $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($realBaths, "Bath");
+
+            /**
+             * Get the 'best' number for the total baths.
+             * Prioritize 'bathrooms' (eg, total baths) over
+             * bathsFull, and only fallback to bathsFull if bathrooms
+             * is not available.
+             */
+            $bathsMarkup;
+            if(is_numeric($bathsTotal)) {
+                $total_baths = $bathsTotal + 0; // strips extraneous decimals
+                $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($total_baths, 'Bath');
+            } else {
+                $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsFull, 'Full Baths');
             }
 
 
