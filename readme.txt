@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 4.7.2
-Stable tag: 2.2.6
+Tested up to: 4.8
+Stable tag: 2.3.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,8 +235,12 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.3.0 =
+* FEATURE: Prioritize bathrooms over bathsFull in results list details
+* UPDATE: Update compatibility with latest WordPress version 4.8
+
 = 2.2.6 =
- * FEATURE: Add admin option to use "statusText" API field in place of the standardized status.
+* FEATURE: Add admin option to use "statusText" API field in place of the standardized status.
 
 = 2.2.5 =
 * FEATURE: Add contact form info (name, email, listing) to the end of the email message body.
