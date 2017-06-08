@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.0
+* FEATURE: Prioritize bathrooms over bathsFull in results list details
+* UPDATE: Update compatibility with latest WordPress version 4.8
+
 ## 2.2.6
 * FEATURE: Add admin option to use "statusText" API field in place of the standardized status.
 
