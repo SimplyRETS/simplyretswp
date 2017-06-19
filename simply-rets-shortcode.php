@@ -390,8 +390,17 @@ HTML;
         $lotsize    = array_key_exists('lotsize',  $atts) ? $atts['lotsize']  : '';
         $area       = array_key_exists('area',     $atts) ? $atts['area']     : '';
         $adv_features      = isset($_GET['sr_features']) ? $_GET['sr_features'] : array();
-        $adv_cities        = isset($_GET['sr_cities']) ? $_GET['sr_cities']     : array();
         $adv_neighborhoods = isset($_GET['sr_neighborhoods']) ? $_GET['sr_neighborhoods']     : array();
+
+        /*
+         * Get the initial values for `cities`. If a query parameter
+           is set, use-that, otherwise check for a 'cities' attribute
+           on the [sr_search_form] short-code
+         */
+        $adv_cities = isset($_GET['sr_cities']) ? $_GET['sr_cities'] : array();
+        if (empty($adv_cities) && array_key_exists('cities', $atts)) {
+            $adv_cities = $atts['cities'];
+        }
 
         if( !$sort  == "" ) {
             $sort_price_hl = ($sort == "-listprice") ? "selected" : '';
