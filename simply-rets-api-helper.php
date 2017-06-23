@@ -1210,6 +1210,7 @@ HTML;
             $listing_price      = $listing->listPrice;
             $remarks            = $listing->remarks;
             $city               = $listing->address->city;
+            $state              = $listing->address->state;
             $county             = $listing->geo->county;
             $address            = $listing->address->full;
             $zip                = $listing->address->postalCode;
@@ -1342,8 +1343,15 @@ HTML;
             // append markup for this listing to the content
             $resultsMarkup .= <<<HTML
               <hr>
-              <div class="sr-listing">
+              <div class="sr-listing" itemscope itemtype="http://schema.org/SingleFamilyResidence">
+                <span class="sr-hide" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                  <span itemprop="streetAddress">$address</span>
+                  <span itemprop="addressLocality">$city</span>
+                  <span itemprop="addressRegion">$state</span>
+                  <span itemptop="postalCode">$zip</span>
+                </span>
                 <a href="$link">
+                  <meta itemprop="image" content="$main_photo"></meta>
                   <div class="sr-photo" style="background-image:url('$main_photo');">
                   </div>
                 </a>
@@ -1372,6 +1380,10 @@ HTML;
                     </span>
                     $compliance_markup
                   </div>
+                </div>
+                <div class="sr-screen-reader" itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+                  <meta content="$lat" itemprop="latitude">
+                  <meta content="$lng" itemprop="longitude"
                 </div>
               </div>
 HTML;

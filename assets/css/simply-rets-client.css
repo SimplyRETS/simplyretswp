@@ -18,6 +18,21 @@ CSS to add styles.
 *Licensed under the GNU GPL version 3 or later.*
 */
 
+.sr-hide {
+    display: none !important;
+}
+
+.sr-screen-reader {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
 /*
 Listing Results
 ===
@@ -70,7 +85,6 @@ of the image, use this class.
     background-position: center center;
     background-repeat: no-repeat;
 }
-
 
 /*
 Primary Data
@@ -177,7 +191,6 @@ is to change the `margin-left` property to align better in some themes.
     width: 70%;
 }
 
-
 /*
 Notice that we also provide you with `sr-data-column` for
 managing the spacing and margin between the two columns of
@@ -190,8 +203,6 @@ secondary data. For example, set the `.sr-data-column` to
     vertical-align: top;
     min-width: 15%;
 }
-
-
 
 /*
 Listing Details
@@ -248,10 +259,10 @@ without affecting the overall look of the section.
 ```
 */
 .sr-primary-details {
-  display: flex;
-  justify-content: space-between;
-  clear: both;
-  padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    clear: both;
+    padding-top: 15px;
 }
 
 /*
@@ -370,7 +381,6 @@ standard class names like `button` and `btn`.
     margin-top: 5px;
     margin-bottom: 10px !important;
 }
-
 
 /**
  * SimplyRETS Search Form Widget
@@ -564,7 +574,7 @@ elsewhere, this should be a breeze.
 ```
 
 */
-.sr-slider{
+.sr-slider {
     max-width: 650px;
     width: 100%;
     position: relative;
@@ -574,7 +584,7 @@ elsewhere, this should be a breeze.
     transition: all 0.5s;
 }
 
-.sr-slider>img{
+.sr-slider > img {
     position: absolute;
     left: 0;
     top: 0;
@@ -604,7 +614,7 @@ elsewhere, this should be a breeze.
     display: none;
 }
 
-.sr-slider input[name='slide_switch']:checked+label {
+.sr-slider input[name='slide_switch']:checked + label {
     border-color: #666;
     opacity: 1;
 }
@@ -612,7 +622,7 @@ elsewhere, this should be a breeze.
     opacity: 0;
     transform: scale(1.1);
 }
-.sr-slider input[name='slide_switch']:checked+label+img {
+.sr-slider input[name='slide_switch']:checked + label + img {
     opacity: 1;
     transform: scale(1);
 }
@@ -634,7 +644,6 @@ elsewhere, this should be a breeze.
 .galleria-errors {
     display: none !important;
 }
-
 
 /**
   * Advanced Search Form
@@ -660,7 +669,6 @@ elsewhere, this should be a breeze.
 .sr-adv-search-wrap .sr-minmax-filters {
     margin-bottom: 0px;
 }
-
 
 /** Single Column */
 .sr-adv-search-part .sr-adv-search-col1 {
@@ -755,7 +763,6 @@ elsewhere, this should be a breeze.
         width: 50%;
     }
 }
-
 
 /*
  * Responsive CSS
@@ -855,7 +862,6 @@ elsewhere, this should be a breeze.
     font-size: 23px !important;
 }
 
-
 /** Listing Slider */
 .sr-listing-slider-item {
     padding: 10px;
@@ -873,8 +879,7 @@ elsewhere, this should be a breeze.
     margin-top: 10px;
 }
 
-.sr-listing-slider-item-price,
-.sr-listing-slider-item-specs {
+.sr-listing-slider-item-price, .sr-listing-slider-item-specs {
     margin-bottom: 5px !important;
     text-align: center;
 }
