@@ -533,7 +533,8 @@ HTML;
         // price
         $listing_price = $listing->listPrice;
         $listing_price_USD = '$' . number_format( $listing_price );
-        $price = SimplyRetsApiHelper::srDetailsTable($listing_price_USD, "Price");
+        $listing_price_markup = "<span itemprop='offers' itemscope itemtype='http://schema.org/Offer'><span itemprop='price' content='$listing_price'>$listing_price_USD</span><meta itemprop='priceCurrency' content='USD'></span>";
+        $price = SimplyRetsApiHelper::srDetailsTable($listing_price_markup, "Price");
         // type
         $listing_type = $listing->property->type;
         $type = SimplyRetsApiHelper::srDetailsTable($listing_type, "Property Type");
@@ -1000,7 +1001,17 @@ HTML;
 
         // listing markup
         $cont .= <<<HTML
-          <div class="sr-details" style="text-align:left;">
+          <div class="sr-details" itemscope itemtype="http://schema.org/Product" style="text-align:left;">
+            <link itemprop="additionalType" href="http://www.productontology.org/id/Real_estate">
+            <span class="sr-screen-reader" itemprop="name" content="$listing_address, $listing_city, $listing_state $listing_postal_code">
+              <span itemscope itemtype="http://schema.org/PostalAddress">
+                <span itemprop="streetAddress">$listing_address</span>
+                <span itemprop="addressLocality">$listing_city</span>
+                <span itemprop="addressRegion">$listing_state</span>
+                <span itemptop="postalCode">$listing_postal_code</span>
+              </span>
+            </span>
+            <meta itemprop="image" content="$photos[0]">
             <p class="sr-details-links" style="clear:both;">
               $mapLink
               $more_photos
@@ -1025,21 +1036,23 @@ HTML;
                   Galleria.run('.sr-gallery');
               }
             </script>
-            <div class="sr-primary-details">
-              <div class="sr-detail" id="sr-primary-details-beds">
-                <h3>$listing_bedrooms <small>Beds</small></h3>
+            <div itemprop="description">
+              <div class="sr-primary-details">
+                <div class="sr-detail" id="sr-primary-details-beds">
+                  <h3>$listing_bedrooms <small>Beds</small></h3>
+                </div>
+                <div class="sr-detail" id="sr-primary-details-baths">
+                  <h3>$primary_baths<small> Baths</small></h3>
+                </div>
+                <div class="sr-detail" id="sr-primary-details-size">
+                  <h3>$area <small class="sr-listing-area-sqft">SqFt</small></h3>
+                </div>
+                <div class="sr-detail" id="sr-primary-details-status">
+                  <h3>$listing_mls_status</h3>
+                </div>
               </div>
-              <div class="sr-detail" id="sr-primary-details-baths">
-                <h3>$primary_baths<small> Baths</small></h3>
-              </div>
-              <div class="sr-detail" id="sr-primary-details-size">
-                <h3>$area <small class="sr-listing-area-sqft">SqFt</small></h3>
-              </div>
-              <div class="sr-detail" id="sr-primary-details-status">
-                <h3>$listing_mls_status</h3>
-              </div>
-            </div>
-            $remarks_markup
+              $remarks_markup
+            </div> 
             <table style="width:100%;">
               <thead>
                 <tr>
