@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.3.1 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.3.2 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.3.1 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.3.2 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -1614,7 +1614,6 @@ HTML;
             $price   = $l->listPrice;
             $photos  = $l->photos;
             $beds    = $l->property->bedrooms;
-            $baths   = $l->property->bathsFull;
             $area    = $l->property->area;
 
             $priceUSD = '$' . number_format( $price );
@@ -1638,6 +1637,24 @@ HTML;
                 $photo = trim($photos[0]);
                 $photo = str_replace("\\", "", $photo);
             }
+
+            /**
+             * Get the best number for 'baths'. Prioritize `bathrooms`
+             * over `bathsFull`, and only use `bathsFull` if
+             * `bathrooms` is not available. This is the same display
+             * logic used in the [sr_listings] short-code.
+             */
+            $bathsFull  = $l->property->bathsFull;
+            $bathsTotal = $l->property->bathrooms;
+
+            $baths = 0;
+            if (is_numeric($bathsTotal)) {
+                $baths = $bathsTotal + 0; // Strips extraneous decimals
+            } else {
+                $baths = $bathsFull;
+            }
+
+            var_dump($baths);
 
             /**
              * Show listing brokerage, if applicable
