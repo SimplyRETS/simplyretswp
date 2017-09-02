@@ -937,6 +937,22 @@ HTML;
         $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
 
 
+        /**
+         * Show "Listing by" if sr_agent_office_above_the_fold is
+         * enabled
+         */
+        $hasAgentOfficeData = !empty($office) AND !empty($listing_agent_name);
+        if (get_option('sr_agent_office_above_the_fold') && $hasAgentOfficeData) {
+            $listing_by = 'Listing by: '
+                        . "<strong>$listing_agent_name</strong>"
+                        . ', '
+                        . "<strong>$office</strong>";
+            $listing_by_markup = "<p>$listing_by</p>";
+        } else {
+            $listing_by = '';
+        }
+
+
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
         // Build details link for map marker
@@ -1001,6 +1017,7 @@ HTML;
         // listing markup
         $cont .= <<<HTML
           <div class="sr-details" style="text-align:left;">
+            $listing_by_markup
             <p class="sr-details-links" style="clear:both;">
               $mapLink
               $more_photos
