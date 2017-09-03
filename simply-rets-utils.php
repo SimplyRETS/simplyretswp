@@ -233,6 +233,65 @@ class SrUtils {
         }
     }
 
+    /**
+     * Created the "Listing by" markup if
+     * sr_agent_office_above_the_fold is enabled. This also handles
+     * showing the correct info when only the agent name, or only the
+     * office name is available.
+     */
+    public static function mkAgentOfficeAboveTheFold($agent, $office) {
+
+        // Initialize variables
+        $listing_by;
+        $listing_by_markup;
+
+        // Ensure we have all the info we need
+        $agentOfficeAboveTheFoldEnabled = get_option(
+            'sr_agent_office_above_the_fold',
+            false
+        );
+
+        if ($agentOfficeAboveTheFoldEnabled) {
+
+            if (!empty($agent) AND !empty($office)) {
+
+                /**
+                 * Agent and office are available, show both of them
+                 */
+                $listing_by .= "Listing by: ";
+                $listing_by .= "<strong>$agent</strong>, ";
+                $listing_by .= "<strong>$office</strong>";
+                $listing_by_markup = "<p>$listing_by</p>";
+
+            } elseif (empty($agent) AND !empty($office)) {
+
+                /**
+                 * Only office name is available, show that
+                 */
+                $listing_by = "Listing by: <strong>$office</strong>";
+                $listing_by_markup = "<p>$listing_by</p>";
+
+            } elseif (!empty($agent) AND empty($office)) {
+
+                /**
+                 * Only agent name is available, show that
+                 */
+                $listing_by = "Listing by: <strong>$agent</strong>";
+                $listing_by_markup = "<p>$listing_by</p>";
+
+            } else {
+
+                /**
+                 * No agen or office available, don't show anything
+                 */
+                $listing_by = "";
+                $listing_by_markup = "";
+            }
+        }
+
+        return $listing_by_markup;
+    }
+
 }
 
 

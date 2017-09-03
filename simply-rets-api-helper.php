@@ -934,23 +934,19 @@ HTML;
         }
 
 
+        /**
+         * Create the custom compliance markup
+         */
         $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
 
 
         /**
-         * Show "Listing by" if sr_agent_office_above_the_fold is
-         * enabled
+         * Create the "Listing by" markup
          */
-        $hasAgentOfficeData = !empty($office) AND !empty($listing_agent_name);
-        if (get_option('sr_agent_office_above_the_fold') && $hasAgentOfficeData) {
-            $listing_by = 'Listing by: '
-                        . "<strong>$listing_agent_name</strong>"
-                        . ', '
-                        . "<strong>$office</strong>";
-            $listing_by_markup = "<p>$listing_by</p>";
-        } else {
-            $listing_by = '';
-        }
+        $listing_by_markup = SrUtils::mkAgentOfficeAboveTheFold(
+            $listing_agent_name,
+            $listing_office
+        );
 
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
@@ -1670,8 +1666,6 @@ HTML;
             } else {
                 $baths = $bathsFull;
             }
-
-            var_dump($baths);
 
             /**
              * Show listing brokerage, if applicable
