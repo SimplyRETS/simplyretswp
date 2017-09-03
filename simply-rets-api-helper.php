@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.3.2 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.3.3 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.3.2 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.3.3 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -934,7 +934,19 @@ HTML;
         }
 
 
+        /**
+         * Create the custom compliance markup
+         */
         $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
+
+
+        /**
+         * Create the "Listing by" markup
+         */
+        $listing_by_markup = SrUtils::mkAgentOfficeAboveTheFold(
+            $listing_agent_name,
+            $listing_office
+        );
 
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
@@ -1001,6 +1013,7 @@ HTML;
         // listing markup
         $cont .= <<<HTML
           <div class="sr-details" style="text-align:left;">
+            $listing_by_markup
             <p class="sr-details-links" style="clear:both;">
               $mapLink
               $more_photos
@@ -1653,8 +1666,6 @@ HTML;
             } else {
                 $baths = $bathsFull;
             }
-
-            var_dump($baths);
 
             /**
              * Show listing brokerage, if applicable

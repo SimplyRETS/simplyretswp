@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3.3
+* FEATURE: Add compliance option for showing agent/office above the fold on single listing pages
+
 ## 2.3.2
 * FEATURE: Prioritize bathrooms over bathsFull in [sr_listings_slider]
 * UPDATE: Update compatibility with latest WordPress version 4.8.1
