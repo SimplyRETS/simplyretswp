@@ -289,7 +289,7 @@ var getSearchFormValues = function() {
 
 
 /**
- * Our Map Class
+ * Our SimplyRETSMap Class
  * Holds some state for working with the map:
  */
 function SimplyRETSMap() {
