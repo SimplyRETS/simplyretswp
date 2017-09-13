@@ -44,6 +44,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_custom_disclaimer');
       register_setting('sr_admin_settings', 'sr_show_mls_status_text');
       register_setting('sr_admin_settings', 'sr_agent_office_above_the_fold');
+      register_setting('sr_admin_settings', 'sr_show_mls_trademark_symbol');
   }
 
   public static function adminMessages () {
@@ -321,6 +322,22 @@ class SrAdminSettings {
                           name="sr_thumbnail_idx_image"
                           value="<?php echo esc_attr( get_option('sr_thumbnail_idx_image') ); ?>"
                       />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h3>MLS trademark symbol</h3>
+            <table>
+              <tbody>
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_show_mls_trademark_symbol" name="sr_show_mls_trademark_symbol" value="1" '
+                        . checked(1, get_option('sr_show_mls_trademark_symbol'), false) . '/>'
+                      ?>
+                        Show trademark symbol next to MLS text (eg, "MLS®")
+                    </label>
                   </td>
                 </tr>
               </tbody>

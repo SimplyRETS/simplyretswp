@@ -53,6 +53,7 @@ class SimplyRetsCustomPostPages {
         add_option('sr_office_on_thumbnails', false);
         add_option('sr_thumbnail_idx_image', '');
         add_option('sr_agent_office_above_the_fold', false);
+        add_option('sr_show_mls_trademark_symbol', false);
 
         flush_rewrite_rules();
     }
