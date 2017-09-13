@@ -61,6 +61,8 @@ class SrShortcodes {
                      ? "<div class=\"sr-map-search-list-view\"></div>"
                      : "";
 
+        $MLS_text = SrUtils::mkMLSText();
+
         if(!empty($atts['search_form'])) {
 
             $single_vendor = SrUtils::isSingleVendor();
@@ -91,7 +93,7 @@ class SrShortcodes {
                         <div class="sr-search-field" id="sr-search-keywords">
                           <input name="sr_keywords"
                                  type="text"
-                                 placeholder="Subdivision, Zipcode, MLS Area, MLS Number, or Market Area"
+                                 placeholder="Subdivision, Zipcode, $MLS_text Area, $MLS_text Number, or Market Area"
                           />
                         </div>
 
@@ -354,6 +356,7 @@ HTML;
         ob_start();
         $home_url = get_home_url();
         $singleVendor = SrUtils::isSingleVendor();
+        $MLS_text = SrUtils::mkMLSText();
 
         if( !is_array($atts) ) {
             $atts = array();
@@ -509,7 +512,7 @@ HTML;
                       <div class="sr-search-field" id="sr-search-keywords">
                         <input name="sr_keywords"
                                type="text"
-                               placeholder="Subdivision, Zipcode, MLS Area, MLS Number, or Market Area"
+                               placeholder="Subdivision, Zipcode, <?php echo $MLS_text ?> Area, <?php echo $MLS_text ?> Number, or Market Area"
                                value="<?php echo $keywords ?>" />
                       </div>
 
@@ -641,7 +644,7 @@ HTML;
               <div class="sr-search-field" id="sr-search-keywords">
                 <input name="sr_keywords"
                        type="text"
-                       placeholder="Subdivision, Zipcode, MLS Area, MLS Number, or Market Area"
+                       placeholder="Subdivision, Zipcode, <?php echo $MLS_text ?> Area, <?php echo $MLS_text ?> Number, or Market Area"
                        value="<?php echo $keywords ?>" />
               </div>
 
