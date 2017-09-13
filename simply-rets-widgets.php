@@ -43,6 +43,8 @@ class srFeaturedListingWidget extends WP_Widget {
     /** admin widget form --  @see WP_Widget::form */
     function form( $instance ) {
         $singleVendor = SrUtils::isSingleVendor();
+        $MLS_text = SrUtils::mkMLSText();
+
         $title  = esc_attr($instance['title']);
         $mlsid  = esc_attr($instance['mlsid']);
         $vendor = esc_attr($instance['vendor']);
@@ -61,7 +63,7 @@ class srFeaturedListingWidget extends WP_Widget {
 
         <p>
             <label for="<?php echo $this->get_field_id('mlsid'); ?>">
-                <?php _e('Listing MLS Id:'); ?>
+                <?php _e('Listing ' . $MLS_text . ' Id:'); ?>
             </label>
             <input class="widefat"
                    id="<?php echo $this->get_field_id('mlsid'); ?>"
@@ -138,6 +140,8 @@ class srAgentListingWidget extends WP_Widget {
     /** admin widget form --  @see WP_Widget::form */
     function form( $instance ) {
         $singleVendor = SrUtils::isSingleVendor();
+        $MLS_text = SrUtils::mkMLSText();
+
         $title = esc_attr($instance['title']);
         $agent = esc_attr($instance['agent']);
         $limit = esc_attr($instance['limit']);
@@ -156,7 +160,7 @@ class srAgentListingWidget extends WP_Widget {
 
         <p>
           <label for="<?php echo $this->get_field_id('agent'); ?>">
-                <?php _e('Agent MLS Id:'); ?>
+                <?php _e('Agent ' . $MLS_text . ' Id:'); ?>
           </label>
           <input class="widefat"
                          id="<?php echo $this->get_field_id('agent'); ?>"
@@ -244,6 +248,8 @@ class srRandomListingWidget extends WP_Widget {
     /** admin widget form --  @see WP_Widget::form */
     function form( $instance ) {
         $singleVendor = SrUtils::isSingleVendor();
+        $MLS_text = SrUtils::mkMLSText();
+
         $title  = esc_attr($instance['title']);
         $mlsids = esc_attr($instance['mlsids']);
         $vendor = esc_attr($instance['vendor']);
@@ -262,7 +268,7 @@ class srRandomListingWidget extends WP_Widget {
 
         <p>
             <label for="<?php echo $this->get_field_id('mlsids'); ?>">
-                <?php _e('MLS Id\'s (comma separated):'); ?>
+                <?php _e($MLS_text . ' Id\'s (comma separated):'); ?>
             </label>
             <input class="widefat"
                    id="<?php echo $this->get_field_id('mlsids'); ?>"
