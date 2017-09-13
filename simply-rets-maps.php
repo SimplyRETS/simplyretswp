@@ -84,6 +84,9 @@ class SrSearchMap {
         $style,
         $compliance_markup
     ) {
+
+        $MLS_text = SrUtils::mkMLSText();
+
         $markup = <<<HTML
             <div class="sr-iw-inner">
               <h4 class="sr-iw-addr">$address<small> $price</small></h4>
@@ -97,7 +100,7 @@ class SrSearchMap {
               </div>
               <hr>
               <div class="sr-iw-inner__secondary">
-                <p><strong>MLS #:</strong> $mlsid</p>
+                <p><strong>$MLS_text #:</strong> $mlsid</p>
                 <p><strong>Area:</strong> $area SqFt</p>
                 <p><strong>Property Type:</strong> $propType</p>
                 <p><strong>Property Style:</strong> $style</p>
