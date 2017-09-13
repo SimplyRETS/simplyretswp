@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3.4
+* FIX: Fix critical Google maps error in [sr_map_search] short-code
+
 ## 2.3.3
 * FEATURE: Add compliance option for showing agent/office above the fold on single listing pages
 
