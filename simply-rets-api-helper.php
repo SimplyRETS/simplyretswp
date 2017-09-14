@@ -1131,7 +1131,7 @@ HTML;
               $school_data
               <thead>
                 <tr>
-                  <th colspan="3"><h5>Mls Information</h5></th></tr></thead>
+                  <th colspan="3"><h5>$MLS_text Information</h5></th></tr></thead>
               <tbody>
                 $days_on_market
                 $mls_status
