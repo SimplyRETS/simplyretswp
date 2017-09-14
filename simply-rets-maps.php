@@ -84,6 +84,9 @@ class SrSearchMap {
         $style,
         $compliance_markup
     ) {
+
+        $MLS_text = SrUtils::mkMLSText();
+
         $markup = <<<HTML
             <div class="sr-iw-inner">
               <h4 class="sr-iw-addr">$address<small> $price</small></h4>
@@ -97,7 +100,7 @@ class SrSearchMap {
               </div>
               <hr>
               <div class="sr-iw-inner__secondary">
-                <p><strong>MLS #:</strong> $mlsid</p>
+                <p><strong>$MLS_text #:</strong> $mlsid</p>
                 <p><strong>Area:</strong> $area SqFt</p>
                 <p><strong>Property Type:</strong> $propType</p>
                 <p><strong>Property Style:</strong> $style</p>
@@ -132,6 +135,7 @@ HTML;
 
             $permalink_struct = get_option('permalink_structure');
             $showStatusText = get_option('sr_show_mls_status_text', false);
+            $showMlsTrademark = get_option('sr_show_mls_trademark_symbol', false);
             $site_root = get_site_url();
 
             header("Content-Type: application/json");
@@ -149,6 +153,7 @@ HTML;
                 "post"   => $_POST,
                 "permalink_structure" => $permalink_struct,
                 "show_mls_status_text" => $showStatusText,
+                "show_mls_trademark_symbol" => $showMlsTrademark,
                 "site_root" => $site_root
             );
 

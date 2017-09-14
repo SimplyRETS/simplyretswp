@@ -101,9 +101,10 @@ var buildUglyLink = function(mlsId, address, root) {
 }
 
 
-var genMarkerPopup = function(listing, linkStyle, siteRoot, idxImg, officeOnThumbnails, statusText) {
+var genMarkerPopup = function(listing, linkStyle, siteRoot, idxImg, officeOnThumbnails, statusText, mlsTrademark) {
 
     var stat  = statusText ? listing.mls.statusText : listing.mls.status;
+    var mlsText = Boolean(mlsTrademark) ? "MLS®" : "MLS"
     var baths = listing.property.bathsFull || "n/a";
     var beds  = listing.property.bedrooms  || "n/a";
     var style = listing.property.style     || "Res" ;
@@ -137,7 +138,7 @@ var genMarkerPopup = function(listing, linkStyle, siteRoot, idxImg, officeOnThum
        '  <hr>' +
        '  <div class="sr-iw-inner__secondary">' +
        '    <p><strong>Price: </strong>$' + price + '</p>' +
-       '    <p><strong>MLS #: </strong>' + mlnum + '</p>' +
+       '    <p><strong>' + mlsText + ' #: </strong>' + mlnum + '</p>' +
        '    <p><strong>Area: </strong>' + sqft + '</p>' +
        '    <p><strong>Property Type: </strong>' + type + '</p>' +
        '    <p><strong>Property Style: </strong>' + style + '</p>' +
@@ -155,7 +156,7 @@ var genMarkerPopup = function(listing, linkStyle, siteRoot, idxImg, officeOnThum
 }
 
 
-var makeMapMarkers = function(map, listings, linkStyle, siteRoot, idxImg, officeOnThumbnails, statusText) {
+var makeMapMarkers = function(map, listings, linkStyle, siteRoot, idxImg, officeOnThumbnails, statusText, mlsTrademark) {
     // if(!listings || listings.length < 1) return [];
 
     var markers = [];
@@ -170,7 +171,7 @@ var makeMapMarkers = function(map, listings, linkStyle, siteRoot, idxImg, office
 
             var bound  = new google.maps.LatLng(listing.geo.lat, listing.geo.lng);
 
-            var popup  = genMarkerPopup(listing, linkStyle, siteRoot, idxImg, officeOnThumbnails, statusText);
+            var popup  = genMarkerPopup(listing, linkStyle, siteRoot, idxImg, officeOnThumbnails, statusText, mlsTrademark);
 
             var window = new google.maps.InfoWindow({
                 content: popup
@@ -507,6 +508,7 @@ SimplyRETSMap.prototype.handleRequest = function(that, data) {
     var officeOnThumbnails = document.getElementById('sr-map-search').dataset.officeOnThumbnails;
     var linkStyle = data.permalink_structure === "" ? "default" : "pretty";
     var statusText = data.show_mls_status_text;
+    var mlsTrademark = data.show_mls_trademark_symbol;
 
     that.siteRoot = data.site_root
     that.linkStyle = linkStyle;
@@ -520,7 +522,8 @@ SimplyRETSMap.prototype.handleRequest = function(that, data) {
                                 , that.siteRoot
                                 , idxImg
                                 , officeOnThumbnails
-                                , statusText );
+                                , statusText
+                                , mlsTrademark );
 
     that.bounds   = markers.bounds;
     that.markers  = markers.markers;

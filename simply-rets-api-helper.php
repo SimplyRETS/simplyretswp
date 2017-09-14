@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.3.4 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.3.5 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.3.4 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.3.5 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -521,6 +521,9 @@ HTML;
         // internal unique id
         $listing_uid = $listing->mlsId;
 
+        // Get the text "MLS"
+        $MLS_text = SrUtils::mkMLSText();
+
         /**
          * Get the listing status to show. Note that if the
          * sr_show_mls_status_text admin option is set to true, we
@@ -528,7 +531,7 @@ HTML;
          * status.
          */
         $listing_mls_status = SrListing::listingStatus($listing);
-        $mls_status = SimplyRetsApiHelper::srDetailsTable($listing_mls_status, "MLS Status");
+        $mls_status = SimplyRetsApiHelper::srDetailsTable($listing_mls_status, $MLS_text . " Status");
 
         // price
         $listing_price = $listing->listPrice;
@@ -572,7 +575,7 @@ HTML;
         $geo_market_area = SimplyRetsApiHelper::srDetailsTable($listing_market_area, "Market Area");
         // mls area
         $listing_mlsarea = $listing->mls->area;
-        $mls_area = SimplyRetsApiHelper::srDetailsTable($listing_mlsarea, "MLS Area");
+        $mls_area = SimplyRetsApiHelper::srDetailsTable($listing_mlsarea, $MLS_text . " Area");
         // tax data
         $listing_taxdata = $listing->tax->id;
         $tax_data = SimplyRetsApiHelper::srDetailsTable($listing_taxdata, "Tax ID");
@@ -605,7 +608,7 @@ HTML;
         $yearBuilt = SimplyRetsApiHelper::srDetailsTable($listing_yearBuilt, "Year Built");
         // listing id (MLS #)
         $listing_mlsid = $listing->listingId;
-        $mlsid = SimplyRetsApiHelper::srDetailsTable($listing_mlsid, "MLS #");
+        $mlsid = SimplyRetsApiHelper::srDetailsTable($listing_mlsid, $MLS_text . " #");
         // heating
         $listing_heating = $listing->property->heating;
         $heating = SimplyRetsApiHelper::srDetailsTable($listing_heating, "Heating");
@@ -858,7 +861,7 @@ HTML;
 
         if( get_option('sr_show_leadcapture') ) {
             $contact_text = 'Contact us about this listing';
-            $cf_listing = $listing_address . ' ( MLS #' . $listing_mlsid . ' )';
+            $cf_listing = $listing_address . ' ( ' . $MLS_text . ' #' . $listing_mlsid . ' )';
             $contact_markup = SimplyRetsApiHelper::srContactFormMarkup($cf_listing);
         } else {
             $contact_text = '';
@@ -1128,7 +1131,7 @@ HTML;
               $school_data
               <thead>
                 <tr>
-                  <th colspan="3"><h5>Mls Information</h5></th></tr></thead>
+                  <th colspan="3"><h5>$MLS_text Information</h5></th></tr></thead>
               <tbody>
                 $days_on_market
                 $mls_status
@@ -1185,6 +1188,8 @@ HTML;
 
         $vendor       = isset($settings['vendor'])   ? $settings['vendor']   : '';
         $map_setting  = isset($settings['show_map']) ? $settings['show_map'] : '';
+
+        $MLS_text = SrUtils::mkMLSText();
 
         /** Allow override of "map_position" admin setting on a per short-code basis */
         $map_position = isset($settings['map_position']) ? $settings['map_position'] : $map_position;
@@ -1323,7 +1328,7 @@ HTML;
             );
             $yearMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($yearBuilt, 'Built in', true);
             $cityMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($city, 'Located in', true);
-            $mlsidMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($mlsid, 'MLS #:', true);
+            $mlsidMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($mlsid, $MLS_text . ' #:', true);
 
             if( $area == 0 ) {
                 $areaMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsHalf, 'Half Baths', false);

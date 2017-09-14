@@ -292,6 +292,21 @@ class SrUtils {
         return $listing_by_markup;
     }
 
+    /**
+     * Return the text "MLS". If the 'sr_show_mls_trademark_symbol'
+     * admin option is enabled, the trademark symbol is returned with
+     * the text: MLS®
+     */
+    public static function mkMLSText() {
+        $td = get_option('sr_show_mls_trademark_symbol', false);
+
+        if (empty($td)) {
+            return "MLS";
+        } else {
+            return "MLS®";
+        }
+    }
+
 }
 
 
