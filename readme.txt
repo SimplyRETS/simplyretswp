@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.8.1
-Stable tag: 2.3.4
+Stable tag: 2.3.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -234,6 +234,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.3.5 =
+* FEATURE: Add admin compliance option to show trademark symbol next to "MLS" text.
 
 = 2.3.4 =
 * FIX: Fix critical Google maps error in [sr_map_search] short-code
