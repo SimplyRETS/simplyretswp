@@ -741,58 +741,52 @@ class SimplyRetsCustomPostPages {
                 "map_position" => $map_position
             );
 
-            foreach( $listing_params as $param => $val ) {
-                if( !$val == '' ) {
-                    $filters_string .= ' ' . $param . '=\'' . $val . '\'';
+
+            /**
+             * The next two blocks create a string of attributes that
+             * will be added to the (dynamically injected)
+             * sr_search_form short-code on the new page. This is so,
+             * if a user is viewing results and goes to the "next"
+             * page, the search form values stay in tact.
+             */
+
+            // Combine sr_q and _keywords into 1 string.
+            $kw_string = implode(
+                "; ",
+                get_query_var('sr_q', array()) + array(get_query_var('sr_keywords', ''))
+            );
+
+            $filters_string = '';
+            $next_atts = $listing_params + array(
+                "q" => $kw_string,
+                "advanced" => $advanced == "true" ? "true" : "false"
+            );
+
+            foreach( $next_atts as $param => $att ) {
+                if( !$att == '' ) {
+                    $filters_string .= ' ' . $param . '=\'' . $att . '\'';
                 }
             }
 
-            /**
-             * Make advanced search page with new query
-             */
-            if( !$advanced || !$advanced == "true" ) {
-              $qs = '?'
-                  . http_build_query( array_filter( $listing_params ) )
-                  . $features_string
-                  . $cities_string
-                  . $counties_string
-                  . $neighborhoods_string
-                  . $agents_string
-                  . $ptypes_string
-                  . $statuses_string
-                  . $amenities_string
-                  . $q_string;
 
-              $qs = str_replace(' ', '%20', $qs);
-              $listings_content = SimplyRetsApiHelper::retrieveRetsListings($qs, $settings);
-              $content .= do_shortcode( "[sr_search_form  $filters_string]");
-              $content .= $listings_content;
-              return $content;
+            // Final API query string
+            $qs = '?'
+                . http_build_query( array_filter( $listing_params ) )
+                . $features_string
+                . $cities_string
+                . $counties_string
+                . $neighborhoods_string
+                . $agents_string
+                . $ptypes_string
+                . $statuses_string
+                . $amenities_string
+                . $q_string;
 
-            /**
-             * Make regular search page with new query
-             */
-            } else {
+            $qs = str_replace(' ', '%20', $qs);
 
-              $qs = '?';
-              $qs .= http_build_query( array_filter( $listing_params ) );
-              $qs .= $features_string;
-              $qs .= $cities_string;
-              $qs .= $counties_string;
-              $qs .= $agents_string;
-              $qs .= $ptypes_string;
-              $qs .= $neighborhoods_string;
-              $qs .= $statuses_string;
-              $qs .= $amenities_string;
-              $qs .= $q_string;
-
-              $qs = str_replace(' ', '%20', $qs);
-              $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs );
-
-              $content .= do_shortcode( "[sr_search_form  advanced='True' $filters_string]");
-              $content .= $listings_content;
-              return $content;
-            }
+            $listings_content = SimplyRetsApiHelper::retrieveRetsListings($qs, $settings);
+            $content .= do_shortcode( "[sr_search_form  $filters_string]");
+            $content .= $listings_content;
 
             return $content;
         }
