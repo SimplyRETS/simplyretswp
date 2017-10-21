@@ -537,8 +537,6 @@ class SimplyRetsCustomPostPages {
             $maxbaths = get_query_var( 'sr_maxbaths', '' );
             $minprice = get_query_var( 'sr_minprice', '' );
             $maxprice = get_query_var( 'sr_maxprice', '' );
-            $keywords = get_query_var( 'sr_keywords', '' )
-                      . get_query_var( 'sr_q',        '' );
             $brokers  = get_query_var( 'sr_brokers', '' );
             $water    = get_query_var( 'water', '' );
             /** Pagination */
@@ -669,6 +667,39 @@ class SimplyRetsCustomPostPages {
             }
 
             /**
+             * If `sr_q` is set, the user clicked a pagination link
+             * (next/prev), and `sr_q` will possibly be an array of
+             * values. Those translate to multiple `q` params in the
+             * API request.
+             */
+            $q_string = '';
+
+            $kws = isset($_GET['sr_q']) ? $_GET['sr_q'] : '';
+            if(!empty($kws)) {
+                foreach((array)$kws as $key => $kw) {
+                    $q_string .= "&q=$kw";
+                }
+            }
+
+            /**
+             * If `sr_keywords` is set, the user submitted a search
+             * form. This will always be a string, but it may contain
+             * multiple searches separated by a ';'. If so, split and
+             * translate them to multiple `q` parameters in the API
+             * request.
+             */
+            $sfq = isset($_GET['sr_keywords']) ? $_GET['sr_keywords'] : '';
+            if(!empty($sfq)) {
+                $splitkw = explode(';', $sfq);
+                if(!empty($splitkw)) {
+                    foreach( $splitkw as $key => $value) {
+                        $trimmedkw = trim($value);
+                        $q_string .= "&q=$trimmedkw";
+                    }
+                }
+            }
+
+            /**
              * Make a new array with all query parameters.
              *
              * Note: We're only using params that weren't transformed
@@ -676,7 +707,6 @@ class SimplyRetsCustomPostPages {
              */
 
             $listing_params = array(
-                "q"         => $keywords,
                 "brokers"   => $brokers,
                 "minbeds"   => $minbeds,
                 "maxbeds"   => $maxbeds,
@@ -730,7 +760,8 @@ class SimplyRetsCustomPostPages {
                   . $agents_string
                   . $ptypes_string
                   . $statuses_string
-                  . $amenities_string;
+                  . $amenities_string
+                  . $q_string;
 
               $qs = str_replace(' ', '%20', $qs);
               $listings_content = SimplyRetsApiHelper::retrieveRetsListings($qs, $settings);
@@ -753,6 +784,7 @@ class SimplyRetsCustomPostPages {
               $qs .= $neighborhoods_string;
               $qs .= $statuses_string;
               $qs .= $amenities_string;
+              $qs .= $q_string;
 
               $qs = str_replace(' ', '%20', $qs);
               $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs );
