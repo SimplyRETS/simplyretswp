@@ -537,8 +537,6 @@ class SimplyRetsCustomPostPages {
             $maxbaths = get_query_var( 'sr_maxbaths', '' );
             $minprice = get_query_var( 'sr_minprice', '' );
             $maxprice = get_query_var( 'sr_maxprice', '' );
-            $keywords = get_query_var( 'sr_keywords', '' )
-                      . get_query_var( 'sr_q',        '' );
             $brokers  = get_query_var( 'sr_brokers', '' );
             $water    = get_query_var( 'water', '' );
             /** Pagination */
@@ -669,6 +667,39 @@ class SimplyRetsCustomPostPages {
             }
 
             /**
+             * If `sr_q` is set, the user clicked a pagination link
+             * (next/prev), and `sr_q` will possibly be an array of
+             * values. Those translate to multiple `q` params in the
+             * API request.
+             */
+            $q_string = '';
+
+            $kws = isset($_GET['sr_q']) ? $_GET['sr_q'] : '';
+            if(!empty($kws)) {
+                foreach((array)$kws as $key => $kw) {
+                    $q_string .= "&q=$kw";
+                }
+            }
+
+            /**
+             * If `sr_keywords` is set, the user submitted a search
+             * form. This will always be a string, but it may contain
+             * multiple searches separated by a ';'. If so, split and
+             * translate them to multiple `q` parameters in the API
+             * request.
+             */
+            $sfq = isset($_GET['sr_keywords']) ? $_GET['sr_keywords'] : '';
+            if(!empty($sfq)) {
+                $splitkw = explode(';', $sfq);
+                if(!empty($splitkw)) {
+                    foreach( $splitkw as $key => $value) {
+                        $trimmedkw = trim($value);
+                        $q_string .= "&q=$trimmedkw";
+                    }
+                }
+            }
+
+            /**
              * Make a new array with all query parameters.
              *
              * Note: We're only using params that weren't transformed
@@ -676,7 +707,6 @@ class SimplyRetsCustomPostPages {
              */
 
             $listing_params = array(
-                "q"         => $keywords,
                 "brokers"   => $brokers,
                 "minbeds"   => $minbeds,
                 "maxbeds"   => $maxbeds,
@@ -711,56 +741,52 @@ class SimplyRetsCustomPostPages {
                 "map_position" => $map_position
             );
 
-            foreach( $listing_params as $param => $val ) {
-                if( !$val == '' ) {
-                    $filters_string .= ' ' . $param . '=\'' . $val . '\'';
+
+            /**
+             * The next two blocks create a string of attributes that
+             * will be added to the (dynamically injected)
+             * sr_search_form short-code on the new page. This is so,
+             * if a user is viewing results and goes to the "next"
+             * page, the search form values stay in tact.
+             */
+
+            // Combine sr_q and _keywords into 1 string.
+            $kw_string = implode(
+                "; ",
+                get_query_var('sr_q', array()) + array(get_query_var('sr_keywords', ''))
+            );
+
+            $filters_string = '';
+            $next_atts = $listing_params + array(
+                "q" => $kw_string,
+                "advanced" => $advanced == "true" ? "true" : "false"
+            );
+
+            foreach( $next_atts as $param => $att ) {
+                if( !$att == '' ) {
+                    $filters_string .= ' ' . $param . '=\'' . $att . '\'';
                 }
             }
 
-            /**
-             * Make advanced search page with new query
-             */
-            if( !$advanced || !$advanced == "true" ) {
-              $qs = '?'
-                  . http_build_query( array_filter( $listing_params ) )
-                  . $features_string
-                  . $cities_string
-                  . $counties_string
-                  . $neighborhoods_string
-                  . $agents_string
-                  . $ptypes_string
-                  . $statuses_string
-                  . $amenities_string;
 
-              $qs = str_replace(' ', '%20', $qs);
-              $listings_content = SimplyRetsApiHelper::retrieveRetsListings($qs, $settings);
-              $content .= do_shortcode( "[sr_search_form  $filters_string]");
-              $content .= $listings_content;
-              return $content;
+            // Final API query string
+            $qs = '?'
+                . http_build_query( array_filter( $listing_params ) )
+                . $features_string
+                . $cities_string
+                . $counties_string
+                . $neighborhoods_string
+                . $agents_string
+                . $ptypes_string
+                . $statuses_string
+                . $amenities_string
+                . $q_string;
 
-            /**
-             * Make regular search page with new query
-             */
-            } else {
+            $qs = str_replace(' ', '%20', $qs);
 
-              $qs = '?';
-              $qs .= http_build_query( array_filter( $listing_params ) );
-              $qs .= $features_string;
-              $qs .= $cities_string;
-              $qs .= $counties_string;
-              $qs .= $agents_string;
-              $qs .= $ptypes_string;
-              $qs .= $neighborhoods_string;
-              $qs .= $statuses_string;
-              $qs .= $amenities_string;
-
-              $qs = str_replace(' ', '%20', $qs);
-              $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $qs );
-
-              $content .= do_shortcode( "[sr_search_form  advanced='True' $filters_string]");
-              $content .= $listings_content;
-              return $content;
-            }
+            $listings_content = SimplyRetsApiHelper::retrieveRetsListings($qs, $settings);
+            $content .= do_shortcode( "[sr_search_form  $filters_string]");
+            $content .= $listings_content;
 
             return $content;
         }
