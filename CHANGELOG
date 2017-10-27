@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3.7
+* BUGFIX: Fix invalid markup in [sr_map_search] short-code search form.
+
 ## 2.3.6
 * FEATURE: Add support for multiple values in the `q` parameter.
 
