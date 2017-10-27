@@ -100,7 +100,7 @@ class SrShortcodes {
                         <div class="sr-search-field" id="sr-search-ptype">
                           <select name="sr_ptype">
                             <option value="">Property Type</option>
-                            <?php echo $type_options; ?>
+                            $type_options;
                           </select>
                         </div>
                       </div>
@@ -128,10 +128,10 @@ class SrShortcodes {
                         </div>
                       </div>
 
-                      <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
-                      <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
-                      <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
-                      <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
+                      <input type="hidden" name="sr_vendor"  value="$vendor" />
+                      <input type="hidden" name="sr_brokers" value="$brokers" />
+                      <input type="hidden" name="sr_agent"   value="$agent" />
+                      <input type="hidden" name="limit"      value="$limit" />
 
                       <div>
                           <input class="submit button btn" type="submit" value="Search Properties">
