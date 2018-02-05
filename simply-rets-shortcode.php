@@ -691,11 +691,6 @@ HTML;
               </div>
             </div>
 
-            <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
-            <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
-            <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
-            <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
-
             <div>
                 <input class="submit button btn" type="submit" value="Search Properties">
 
@@ -709,6 +704,12 @@ HTML;
                     </select>
                 </div>
             </div>
+
+            <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
+            <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
+            <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
+            <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
+            <input type="hidden" name="status"     value="<?php echo $adv_status; ?>" />
 
           </form>
         </div>
