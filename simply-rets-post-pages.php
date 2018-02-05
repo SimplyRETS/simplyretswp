@@ -594,6 +594,7 @@ class SimplyRetsCustomPostPages {
              */
             $statuses = isset($_GET['sr_status']) ? $_GET['sr_status'] : $status;
             $statuses_string = '';
+            $statuses_attribute = '';
 
             if(!is_array($statuses) && !empty($statuses)) {
                 if(strpos($statuses, ";") !== FALSE) {
@@ -601,14 +602,18 @@ class SimplyRetsCustomPostPages {
                 } else {
                     $statuses_string = "&status=$statuses";
                 }
+
+                $statuses_attribute = $statuses;
             }
+
             if(is_array($statuses) && !empty($statuses)) {
                 foreach((array)$statuses as $key => $stat) {
                     $final = trim($stat);
                     $statuses_string .= "&status=$final";
                 }
-            }
 
+                $statuses_attribute = implode(";", $statuses);
+            }
 
             /**
              * The loops below check if the short-code has multiple
@@ -756,12 +761,15 @@ class SimplyRetsCustomPostPages {
                 get_query_var('sr_q', array()) + array(get_query_var('sr_keywords', ''))
             );
 
-            $filters_string = '';
             $next_atts = $listing_params + array(
                 "q" => $kw_string,
+                "status" => $statuses_attribute,
                 "advanced" => $advanced == "true" ? "true" : "false"
             );
 
+            // Create a string of attributes to put on the
+            // [sr_search_form] short-code.
+            $filters_string = '';
             foreach( $next_atts as $param => $att ) {
                 if( !$att == '' ) {
                     $filters_string .= ' ' . $param . '=\'' . $att . '\'';
