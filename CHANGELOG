@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3.8
+* FEATURE: Add support for "status" attribute on [sr_search_form] (non-advanced version only).
+
 ## 2.3.7
 * BUGFIX: Fix invalid markup in [sr_map_search] short-code search form.
 
