@@ -703,8 +703,12 @@ SimplyRETSMap.prototype.initEventListeners = function() {
 
     // fetch initial listings when map is loaded
     this.addEventListener(this.map, 'idle', function() {
+
+        var initPoints = getInitialPoints()
+        var points = initPoints ? initPoints : []
+
         if(!that.loaded) {
-            that.sendRequest([], {}).done(function(data) {
+            that.sendRequest(points, {}).done(function(data) {
                 that.handleRequest(that, data);
                 that.loaded = true;
             });
@@ -727,6 +731,35 @@ SimplyRETSMap.prototype.initEventListeners = function() {
     return;
 
 };
+
+/*
+ * If the user set the `pointsQuery` attribute on the [sr_map_search]
+ * short-code, then get and parse those points to be passed into the
+ * intial query for loading listings. This is for use-cases where the
+ * user wants to show a pre-defined area on the map search.
+ */
+function getInitialPoints() {
+    var initPoints = document.getElementById('sr-map-search').dataset.initialPoints;
+
+    if (!initPoints) {
+        return null
+    }
+
+    var splitPoints = initPoints.split('&')
+    var ps = []
+
+    for (var idx = 0; idx < splitPoints.length; idx++) {
+        var thisP = splitPoints[idx]
+        var cleaned = thisP.replace('points=', '')
+
+        ps[idx] = {
+            name: 'points',
+            value: cleaned,
+        }
+    }
+
+    return ps
+}
 
 
 var startMap = function() {

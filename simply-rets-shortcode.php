@@ -47,6 +47,16 @@ class SrShortcodes {
         $limit    = isset($atts['limit'])   ? $atts['limit']   : '';
         $type_att = isset($atts['type'])    ? $atts['type'] : '';
 
+        // Allow setting initial "points" on the [sr_map_search]
+        // short-code. This is a bit tricky becausae of the way WP
+        // parses short-code attributes (eg, we can't use characters
+        // like "[" or "]", so the user has to pass in a query string
+        // as if they were calling the API.
+        // This data is set on the `data-initial-points` attribute,
+        // and the client-side code checks for that and sends it with
+        // the initial query for displaying listings.
+        $initial_points = isset($atts['pointsquery']) ? $atts['pointsquery'] : '';
+
         $content     = "";
         $search_form = "";
         $gmaps_key   = get_option('sr_google_api_key', '');
@@ -55,6 +65,7 @@ class SrShortcodes {
         $map_markup  = "<div id='sr-map-search'
                              data-api-key='{$gmaps_key}'
                              data-idx-img='{$idx_img}'
+                             data-initial-points='{$initial_points}'
                              data-office-on-thumbnails='{$office_on_thumbnails}'
                              data-vendor='{$vendor}'></div>";
         $list_markup = !empty($atts['list_view'])
