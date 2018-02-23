@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3.9
+* FEATURE: Add more address information to single listing page titles for improved indexing.
+
 ## 2.3.8
 * FEATURE: Add support for "status" attribute on [sr_search_form] (non-advanced version only).
 
