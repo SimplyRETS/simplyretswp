@@ -71,16 +71,23 @@ class SrUtils {
 
         // Listing details
         $listing_id = $listing->mlsId;
+
+        $listing_city = $listing->address->city;
+        $listing_state = $listing->address->state;
+        $listing_zip = $listing->address->postalCode;
         $listing_address = $listing->address->full;
+
+        $listing_address_full = $listing_address
+                              . ', '
+                              . $listing_city
+                              . ', '
+                              . $listing_state
+                              . ' '
+                              . $listing_zip;
 
         if($prettify && $custom_permalink_struct === "pretty_extra") {
 
-            $listing_city = $listing->address->city;
-            $listing_state = $listing->address->state;
-            $listing_zip = $listing->address->postalCode;
-
-
-            $url .= "/listings/$listing_city/$listing_state/$listing_zip/$listing_address/$listing_id";
+            $url .= "/listings/$listing_city/$listing_state/$listing_zip/$listing_address_full/$listing_id";
 
             if(!empty($query)) {
                 $url .= "?" . $query;
@@ -88,7 +95,7 @@ class SrUtils {
 
         } elseif($prettify && $custom_permalink_struct === "pretty") {
 
-            $url .= "/listings/$listing_id/$listing_address";
+            $url .= "/listings/$listing_id/$listing_address_full";
 
             if(!empty($query)) {
                 $url .= "?" . $query;
@@ -98,7 +105,7 @@ class SrUtils {
 
             $url .= "?sr-listings=sr-single"
                  .  "&listing_id=$listing_id"
-                 .  "&listing_title=$listing_address";
+                 .  "&listing_title=$listing_address_full";
 
             if(!empty($query)) {
                 $url .= "&" . $query;
@@ -106,8 +113,10 @@ class SrUtils {
 
         }
 
+        // URL encode special characters
         $url = str_replace(' ', '+', $url);
         $url = str_replace('#', '%23', $url);
+        $url = str_replace(',', '%2C', $url);
 
         return $url;
     }
