@@ -101,7 +101,16 @@ var buildUglyLink = function(mlsId, address, root) {
 }
 
 
-var genMarkerPopup = function(listing, linkStyle, siteRoot, idxImg, officeOnThumbnails, statusText, mlsTrademark) {
+var genMarkerPopup = function(
+    listing,
+    linkStyle,
+    siteRoot,
+    idxImg,
+    officeOnThumbnails,
+    agentOnThumbnails,
+    statusText,
+    mlsTrademark
+) {
 
     var stat  = statusText ? listing.mls.statusText : listing.mls.status;
     var mlsText = Boolean(mlsTrademark) ? "MLS®" : "MLS"
@@ -118,6 +127,9 @@ var genMarkerPopup = function(listing, linkStyle, siteRoot, idxImg, officeOnThum
               : 'https://s3-us-west-2.amazonaws.com/simplyrets/trial/properties/defprop.jpg';
     var office = officeOnThumbnails && listing.office.name
                ? listing.office.name
+               : ""
+    var agent = agentOnThumbnails && listing.agent.firstName
+               ? listing.agent.firstName + ' ' + listing.agent.lastName
                : ""
 
     var link = linkStyle === "pretty"
@@ -142,7 +154,8 @@ var genMarkerPopup = function(listing, linkStyle, siteRoot, idxImg, officeOnThum
        '    <p><strong>Area: </strong>' + sqft + '</p>' +
        '    <p><strong>Property Type: </strong>' + type + '</p>' +
        '    <p><strong>Property Style: </strong>' + style + '</p>' +
-       '    <p><strong>Listing office: </strong>'+ office + '</p>' +
+       (office ? '<p><strong>Listing office: </strong>'+ office + '</p>' : '') +
+       (agent ? '<p><strong>Listing agent: </strong>'+ agent + '</p>' : '') +
        '    <img src="' + idxImg + '"/>' +
        '  </div>' +
        '  <hr>' +
@@ -156,8 +169,17 @@ var genMarkerPopup = function(listing, linkStyle, siteRoot, idxImg, officeOnThum
 }
 
 
-var makeMapMarkers = function(map, listings, linkStyle, siteRoot, idxImg, officeOnThumbnails, statusText, mlsTrademark) {
-    // if(!listings || listings.length < 1) return [];
+var makeMapMarkers = function(
+    map,
+    listings,
+    linkStyle,
+    siteRoot,
+    idxImg,
+    officeOnThumbnails,
+    agentOnThumbnails,
+    statusText,
+    mlsTrademark
+) {
 
     var markers = [];
     var bounds  = new google.maps.LatLngBounds();
@@ -171,7 +193,16 @@ var makeMapMarkers = function(map, listings, linkStyle, siteRoot, idxImg, office
 
             var bound  = new google.maps.LatLng(listing.geo.lat, listing.geo.lng);
 
-            var popup  = genMarkerPopup(listing, linkStyle, siteRoot, idxImg, officeOnThumbnails, statusText, mlsTrademark);
+            var popup  = genMarkerPopup(
+                listing,
+                linkStyle,
+                siteRoot,
+                idxImg,
+                officeOnThumbnails,
+                agentOnThumbnails,
+                statusText,
+                mlsTrademark
+            );
 
             var window = new google.maps.InfoWindow({
                 content: popup
@@ -506,6 +537,7 @@ SimplyRETSMap.prototype.handleRequest = function(that, data) {
 
     var idxImg = document.getElementById('sr-map-search').dataset.idxImg;
     var officeOnThumbnails = document.getElementById('sr-map-search').dataset.officeOnThumbnails;
+    var agentOnThumbnails = document.getElementById('sr-map-search').dataset.agentOnThumbnails;
     var linkStyle = data.permalink_structure === "" ? "default" : "pretty";
     var statusText = data.show_mls_status_text;
     var mlsTrademark = data.show_mls_trademark_symbol;
@@ -522,6 +554,7 @@ SimplyRETSMap.prototype.handleRequest = function(that, data) {
                                 , that.siteRoot
                                 , idxImg
                                 , officeOnThumbnails
+                                , agentOnThumbnails
                                 , statusText
                                 , mlsTrademark );
 
