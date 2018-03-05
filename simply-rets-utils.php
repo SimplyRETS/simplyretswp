@@ -189,32 +189,63 @@ class SrUtils {
     }
 
 
-    public static function mkListingSummaryCompliance($listing_office) {
+    /**
+     * Create markup for showing various MLS compliance information
+     * based on users current admin settings.
+     */
+    public static function mkListingSummaryCompliance($listing_office, $listing_agent) {
 
+        /** Get current settings */
         $office_on_thumbnails = get_option('sr_office_on_thumbnails', false);
+        $agent_on_thumbnails = get_option('sr_agent_on_thumbnails', false);
         $idx_img_on_thumbnails = get_option('sr_thumbnail_idx_image', false);
 
-        $listing_office_markup  = "";
+        /** Helpers if agent or office CAN and SHOULD be shown */
+        $show_agent = !empty($agent_on_thumbnails) && !empty($listing_agent);
+        $show_office = !empty($office_on_thumbnails) && !empty($listing_office);
+
+        /** Initial markup */
+        $listing_by = "";
         $listing_idx_img_markup = "";
 
-        if (!empty($listing_office) && !empty($office_on_thumbnails)) {
-            $listing_office_markup = "Listing broker: {$listing_office}";
+        /**
+         * Create a "Listing by" string that shows some combination of
+         * listing agent and/or office depending on current settings.
+         */
+        if ($show_office || $show_agent) {
+            $listing_by = "Listing by ";
+
+            if ($show_agent) {
+                $listing_by .= $listing_agent;
+            }
+
+            if ($show_office) {
+                if ($show_agent) {
+                    $listing_by .= ", {$listing_office}";
+                } else {
+                    $listing_by .= $listing_office;
+                }
+            }
         }
 
-        if ($idx_img_on_thumbnails !== false && !empty($idx_img_on_thumbnails)) {
+        /**
+         * Create an <img> element if IDX image is available and
+         * setting is enabled.
+         */
+        if (!empty($idx_img_on_thumbnails) && !empty($idx_img_on_thumbnails)) {
             $listing_idx_img_markup = "<img src=\"{$idx_img_on_thumbnails}\"/>";
         }
 
 
         // Add a line break if both fields are enabled
-        if (!empty($listing_office_markup) && !empty($listing_idx_img_markup)) {
-
-            return "{$listing_office_markup}<br/>{$listing_idx_img_markup}";
-
+        if (!empty($listing_by) && !empty($listing_idx_img_markup)) {
+            return "<span class='sr-listing-summary-compliance'>"
+                . "{$listing_by}<br/>{$listing_idx_img_markup}"
+                . "</span>";
         } else {
-
-            return "{$listing_office_markup} {$listing_idx_img_markup}";
-
+            return "<span class='sr-listing-summary-compliance'>"
+                . "{$listing_by} {$listing_idx_img_markup}"
+                . "</span>";
         }
 
     }

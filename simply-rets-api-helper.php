@@ -940,7 +940,7 @@ HTML;
         /**
          * Create the custom compliance markup
          */
-        $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
+        $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office, $listing_agent_name);
 
 
         /**
@@ -1286,7 +1286,7 @@ HTML;
              * Show 'Listing Courtesy of ...' if setting is enabled
              */
             $listing_office = $listing->office->name;
-            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
+            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office, $listing_agent_name);
 
 
             /************************************************
@@ -1676,7 +1676,8 @@ HTML;
              * Show listing brokerage, if applicable
              */
             $listing_office  = $l->office->name;
-            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
+            $listing_agent = $l->agent->firstName . ' ' . $l->agent->lastName;
+            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office, $listing_agent);
 
             $inner .= <<<HTML
                 <div class="sr-listing-slider-item">
