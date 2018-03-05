@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 4.8.1
-Stable tag: 2.3.9
+Tested up to: 4.9.4
+Stable tag: 2.3.10
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,9 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.3.10 =
+* FEATURE: Add compliance option to show agent name on listing summary thumbnails.
+
 = 2.3.9 =
 * FEATURE: Add more address information to single listing page titles for improved indexing.
 
@@ -266,45 +269,6 @@ listing sidebar widget.
 = 2.3.0 =
 * FEATURE: Prioritize bathrooms over bathsFull in results list details
 * UPDATE: Update compatibility with latest WordPress version 4.8
-
-= 2.2.6 =
-* FEATURE: Add admin option to use "statusText" API field in place of the standardized status.
-
-= 2.2.5 =
-* FEATURE: Add contact form info (name, email, listing) to the end of the email message body.
-
-= 2.2.4 =
-* BUGFIX: Don't send empty 'status' and 'type' parameters to the API.
-* DOCUMENTATION: Update documentation for 'area' parameter.
-
-= 2.2.3 =
-* DOCUMENTATION: Remove unsupported 'lotsize' parameter from documentation.
-
-= 2.2.2 =
-* FEATURE: Add support for more API fields including Garage Spaces, HOA, and more.
-
-= 2.2.1 =
-* FIX: Fix pagination links when using 'counties' parameter
-
-= 2.2.0 =
-* FEATURE: Add support for showing an IDX image with all listing thumbnails
-* FEATURE: Add support for showing Listing Broker on all listing thumbnails
-* FEATURE: Add support for setting custom disclaimer text.
-* FIX: Don't crop images so watermarks are always shown.
-
-= 2.1.3 =
-* FEATURE: Add support for multiple counties in sr_listings short-code
-
-= 2.1.2 =
-* FIX: Fix missing vendor files
-
-= 2.1.1 =
-* FIX: Check in missing files for maps
-
-= 2.1.0 =
-* FIX: Add admin option for Google Maps API key (which is now required for maps to show on new sites).
-* BUG: Fix 'vendor' parameter initialization in sr_listings_slider short-code
-* BUG: Fix 'vendor' parameter initialization in sr_map_search short-code
 
 **View the complete CHANGELOG:** [here](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 
