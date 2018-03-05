@@ -1501,6 +1501,10 @@ HTML;
             $main_photo = $listingPhotos[0];
             $main_photo = str_replace("\\", "", $main_photo);
 
+            // Compliance markup (agent/office)
+            $listing_office  = $listing->office->name;
+            $listing_agent = $listing->agent->firstName . ' ' . $listing->agent->lastName;
+            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office, $listing_agent);
 
             $vendor = isset($settings['vendor']) ? $settings['vendor'] : '';
             // create link to listing
@@ -1528,6 +1532,9 @@ HTML;
                   <div id="sr-listing-wdgt-remarks">
                     <p>$listing_remarks</p>
                   </div>
+                </div>
+                <div>
+                  <i>$compliance_markup</i>
                 </div>
                 <div id="sr-listing-wdgt-btn">
                   <a href="$link">
