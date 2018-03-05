@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.3.9 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.3.10 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.3.9 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.3.10 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -940,7 +940,7 @@ HTML;
         /**
          * Create the custom compliance markup
          */
-        $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
+        $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office, $listing_agent_name);
 
 
         /**
@@ -1286,7 +1286,7 @@ HTML;
              * Show 'Listing Courtesy of ...' if setting is enabled
              */
             $listing_office = $listing->office->name;
-            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
+            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office, $listing_agent_name);
 
 
             /************************************************
@@ -1501,6 +1501,10 @@ HTML;
             $main_photo = $listingPhotos[0];
             $main_photo = str_replace("\\", "", $main_photo);
 
+            // Compliance markup (agent/office)
+            $listing_office  = $listing->office->name;
+            $listing_agent = $listing->agent->firstName . ' ' . $listing->agent->lastName;
+            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office, $listing_agent);
 
             $vendor = isset($settings['vendor']) ? $settings['vendor'] : '';
             // create link to listing
@@ -1528,6 +1532,9 @@ HTML;
                   <div id="sr-listing-wdgt-remarks">
                     <p>$listing_remarks</p>
                   </div>
+                </div>
+                <div>
+                  <i>$compliance_markup</i>
                 </div>
                 <div id="sr-listing-wdgt-btn">
                   <a href="$link">
@@ -1676,7 +1683,8 @@ HTML;
              * Show listing brokerage, if applicable
              */
             $listing_office  = $l->office->name;
-            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office);
+            $listing_agent = $l->agent->firstName . ' ' . $l->agent->lastName;
+            $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office, $listing_agent);
 
             $inner .= <<<HTML
                 <div class="sr-listing-slider-item">

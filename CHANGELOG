@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3.10
+* FEATURE: Add compliance option to show agent name on listing summary thumbnails.
+
 ## 2.3.9
 * FEATURE: Add more address information to single listing page titles for improved indexing.
 
