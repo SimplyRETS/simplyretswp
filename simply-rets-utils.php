@@ -201,8 +201,8 @@ class SrUtils {
         $idx_img_on_thumbnails = get_option('sr_thumbnail_idx_image', false);
 
         /** Helpers if agent or office CAN and SHOULD be shown */
-        $show_agent = !empty($agent_on_thumbnails) && !empty($listing_agent);
-        $show_office = !empty($office_on_thumbnails) && !empty($listing_office);
+        $show_agent = !empty($agent_on_thumbnails) && !empty(trim($listing_agent));
+        $show_office = !empty($office_on_thumbnails) && !empty(trim($listing_office));
 
         /** Initial markup */
         $listing_by = "";
