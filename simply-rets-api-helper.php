@@ -632,7 +632,7 @@ HTML;
         $accessibility = SimplyRetsApiHelper::srDetailsTable($listing_accessibility, "Accessibility");
         // waterfront
         $listing_water = $listing->property->water;
-        $water = SimplyRetsApiHelper::srDetailsTable($listing_water, "Water front");
+        $water = SimplyRetsApiHelper::srDetailsTable($listing_water, "Waterfront");
         // listing date
         $listing_list_date = $listing->listDate;
         if($listing_list_date) { $list_date_formatted = date("M j, Y", strtotime($listing_list_date)); }
