@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3.11
+* FIX: Update "Water" label to "Waterfront" on details pages for clarity.
+
 ## 2.3.10
 * FEATURE: Add compliance option to show agent name on listing summary thumbnails.
 
