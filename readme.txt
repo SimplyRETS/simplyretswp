@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.9.4
-Stable tag: 2.3.10
+Stable tag: 2.3.11
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -234,6 +234,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.3.11 =
+* FIX: Update "Water" label to "Waterfront" on details pages for clarity.
 
 = 2.3.10 =
 * FEATURE: Add compliance option to show agent name on listing summary thumbnails.
