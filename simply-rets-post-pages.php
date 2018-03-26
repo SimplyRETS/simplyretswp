@@ -757,10 +757,9 @@ class SimplyRetsCustomPostPages {
              */
 
             // Combine sr_q and _keywords into 1 string.
-            $kw_string = implode(
-                "; ",
-                get_query_var('sr_q', array()) + array(get_query_var('sr_keywords', ''))
-            );
+            $sr_q = get_query_var('sr_q', '');
+            $sr_kw = get_query_var('sr_keywords', '');
+            $kw_string = implode("; ", array($sr_q) + array($sr_kw));
 
             $next_atts = $listing_params + array(
                 "q" => $kw_string,
