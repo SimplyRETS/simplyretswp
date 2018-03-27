@@ -763,6 +763,7 @@ class SimplyRetsCustomPostPages {
 
             $next_atts = $listing_params + array(
                 "q" => $kw_string,
+                "agent" => get_query_var('sr_agent', ''),
                 "status" => $statuses_attribute,
                 "advanced" => $advanced == "true" ? "true" : "false"
             );
