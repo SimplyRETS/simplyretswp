@@ -725,7 +725,7 @@ elsewhere, this should be a breeze.
     margin: 10px 25px 0px 0px;
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 576px) {
     .sr-adv-search-part li {
         width: 50%;
     }
@@ -760,7 +760,8 @@ elsewhere, this should be a breeze.
 /*
  * Responsive CSS
 */
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 576px) {
+
     /*
      * Search results
      */
@@ -768,6 +769,7 @@ elsewhere, this should be a breeze.
         display: block;
         width: 100%;
     }
+
     .sr-primary-data {
         display: block;
         width: 100%;
@@ -775,21 +777,36 @@ elsewhere, this should be a breeze.
         padding-bottom: 5px;
         clear: both;
     }
+
     .sr-primary-data h4 {
         padding-right: 15px;
     }
+
     .sr-secondary-data {
         display: block;
         width: 100%;
     }
+
     /*
      * Search form
      */
     .sr-minmax-filters {
         display: block;
     }
-    #sr-search-ptype {
+
+    .sr-minmax-filters #sr-search-ptype,
+    .sr-minmax-filters #sr-search-keywords {
         width: 85%;
+    }
+
+    .sr-minmax-filters #sr-search-ptype select {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    #sr-search-wrapper .sr-sort-wrapper {
+        float: left;
+        margin-bottom: 15px;
     }
 }
 
