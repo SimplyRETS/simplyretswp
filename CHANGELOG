@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.1
+* FIX: Update responsive media queries for bigger mobile device screen sizes.
+
 ## 2.4.0
 * FIX: Fix exception when searching with "q" parameter during pagination.
 * FIX: Retain 'agent' filter on search form during pagination.
