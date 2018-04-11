@@ -873,15 +873,19 @@ HTML;
          * Check for ListHub Analytics
          */
         if( get_option( 'sr_listhub_analytics' ) ) {
+
             $lh_analytics = SimplyRetsApiHelper::srListhubAnalytics();
-            if( get_option( 'sr_listhub_analytics_id' ) ) {
-                $metrics_id = get_option( 'sr_listhub_analytics_id' );
+            $lh_id = get_option('sr_listhub_analytics_id', false);
+            $lh_test = get_option('sr_listhub_analytics_test_events') ? 1 : false;
+
+            if($lh_id) {
                 $lh_send_details = SimplyRetsApiHelper::srListhubSendDetails(
-                    $metrics_id
-                    , true
+                      $lh_id
+                    , $lh_test
                     , $listing_mlsid
                     , $postal_code
                 );
+
                 $lh_analytics .= $lh_send_details;
             }
         } else {
@@ -1731,7 +1735,7 @@ HTML;
 
     public static function srListhubSendDetails( $m, $t, $mlsid, $zip=NULL ) {
         $metrics_id = $m;
-        $test       = $t;
+        $test       = json_encode($t);
         $mlsid      = $mlsid;
         $zipcode    = $zip;
 

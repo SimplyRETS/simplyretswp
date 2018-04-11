@@ -36,6 +36,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_additional_rooms');
       register_setting('sr_admin_settings', 'sr_listhub_analytics');
       register_setting('sr_admin_settings', 'sr_listhub_analytics_id');
+      register_setting('sr_admin_settings', 'sr_listhub_analytics_test_events');
       register_setting('sr_admin_settings', 'sr_search_map_position');
       register_setting('sr_admin_settings', 'sr_permalink_structure');
       register_setting('sr_admin_settings', 'sr_google_api_key');
@@ -481,6 +482,17 @@ class SrAdminSettings {
                         . checked(1, get_option('sr_listhub_analytics'), false) . '/>'
                       ?>
                       Enable Listhub Analytics? <i>(requires an account with Listhub)</i>
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_listhub_analytics_test_events" name="sr_listhub_analytics_test_events" value="1" '
+                        . checked(1, get_option('sr_listhub_analytics_test_events'), false) . '/>'
+                      ?>
+                      Send test events to ListHub <i>(disable for live events)</i>
                     </label>
                   </td>
                 </tr>
