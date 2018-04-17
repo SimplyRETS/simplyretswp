@@ -665,6 +665,14 @@ class SimplyRetsCustomPostPages {
                     $neighborhoods_string .= "&neighborhoods=$neighborhood";
                 }
             }
+
+            $postalCodes = isset($_GET['sr_postalCodes']) ? $_GET['sr_postalCodes'] : '';
+            if(!empty($postalCodes)) {
+                foreach((array)$postalCodes as $key => $postalCode) {
+                    $postalCodes_string .= "&postalCodes=$postalCode";
+                }
+            }
+
             $amenities = isset($_GET['sr_amenities']) ? $_GET['sr_amenities'] : '';
             if(!empty($amenities)) {
                 foreach((array)$amenities as $key => $amenity) {
@@ -785,6 +793,7 @@ class SimplyRetsCustomPostPages {
                 . $cities_string
                 . $counties_string
                 . $neighborhoods_string
+                . $postalCodes_string
                 . $agents_string
                 . $ptypes_string
                 . $statuses_string
