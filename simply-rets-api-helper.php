@@ -883,7 +883,7 @@ HTML;
                       $lh_id
                     , $lh_test
                     , $listing_mlsid
-                    , $postal_code
+                    , $listing_postal_code
                 );
 
                 $lh_analytics .= $lh_send_details;
