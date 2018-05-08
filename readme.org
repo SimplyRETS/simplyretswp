@@ -1,10 +1,10 @@
 * SimplyRETS WP [[https://travis-ci.org/SimplyRETS/simplyretswp.svg?branch=master]]
 
   This is the official repository of the SimplyRETS Wordpress plugin
-  client.
-
-  SimplyRETS enables you to embed *your* live real estate listings
+  client. SimplyRETS enables you to embed *your* live real estate listings
   directly on your site simply and easily.
+  
+  *[[http://wordpress-demo.simplyrets.com][Check out the demo site]]*
 
   The Wordpress plugin provides you a simply way to connect to your
   SimplyRETS account and start showing your real estate listings
