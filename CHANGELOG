@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2.4.5
+* FEATURE: Support `water` parameter on [sr_search_form].
 * FEATURE: Support `null` address in sr-single permalinks.
 
 ## 2.4.4
