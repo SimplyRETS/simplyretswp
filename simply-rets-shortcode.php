@@ -384,6 +384,7 @@ HTML;
         $vendor  = isset($atts['vendor'])  ? $atts['vendor']  : '';
         $brokers = isset($atts['brokers']) ? $atts['brokers'] : '';
         $agent   = isset($atts['agent'])   ? $atts['agent']   : '';
+        $water   = isset($atts['water'])   ? $atts['water']   : '';
         $limit   = isset($atts['limit'])   ? $atts['limit']   : '';
         $config_type = isset($atts['type']) ? $atts['type']   : '';
 
@@ -624,6 +625,7 @@ HTML;
 
                 </div>
 
+                <input type="hidden" name="water"   value="<?php echo $water; ?>"  />
                 <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
                 <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
                 <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
@@ -709,6 +711,7 @@ HTML;
                 </div>
             </div>
 
+            <input type="hidden" name="water"   value="<?php echo $water; ?>"  />
             <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
             <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
             <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
