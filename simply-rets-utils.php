@@ -77,14 +77,14 @@ class SrUtils {
         $listing_zip = $listing->address->postalCode;
         $listing_address = $listing->address->full;
 
+        // A listing might not have a null address if a flag like
+        // "Display address" is set to false. This just removes the
+        // comma in these cases, but the rest of the address remains
+        // the same.
+        $comma = $listing_address ? ', ' : '';
+
         $listing_address_full = $listing_address
-                              // A listing might not have a null
-                              // address if a flag like "Display
-                              // address" is set to false. This just
-                              // removes the comma in these cases, but
-                              // the rest of the address remains the
-                              // same.
-                              . $listing_address ? ', ' : ''
+                              . $comma
                               . $listing_city
                               . ', '
                               . $listing_state
