@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.6
+* ENHANCEMENT: Link to new documentation in WP readme.
+
 ## 2.4.5
 * FEATURE: Support `water` parameter on [sr_search_form].
 * FEATURE: Support `null` address in sr-single permalinks.

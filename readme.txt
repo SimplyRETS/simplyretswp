@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.9.4
-Stable tag: 2.4.5
+Stable tag: 2.4.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -232,6 +232,9 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.4.6 =
+* ENHANCEMENT: Link to new documentation in WP readme.
+
 = 2.4.5 =
 * FEATURE: Support `water` parameter on [sr_search_form].
 * FEATURE: Support `null` address in sr-single permalinks.
@@ -251,44 +254,6 @@ listing sidebar widget.
 = 2.4.0 =
 * FIX: Fix exception when searching with "q" parameter during pagination.
 * FIX: Retain 'agent' filter on search form during pagination.
-
-= 2.3.11 =
-* FIX: Update "Water" label to "Waterfront" on details pages for clarity.
-
-= 2.3.10 =
-* FEATURE: Add compliance option to show agent name on listing summary thumbnails.
-
-= 2.3.9 =
-* FEATURE: Add more address information to single listing page titles for improved indexing.
-
-= 2.3.8 =
-* FEATURE: Add support for "status" attribute on [sr_search_form] (non-advanced version only).
-
-= 2.3.7 =
-* BUGFIX: Fix invalid markup in `[sr_map_search]` short-code search form.
-
-= 2.3.6 =
-* FEATURE: Add support for multiple values in the `q` parameter.
-
-= 2.3.5 =
-* FEATURE: Add admin compliance option to show trademark symbol next to "MLS" text.
-
-= 2.3.4 =
-* FIX: Fix critical Google maps error in [sr_map_search] short-code
-
-= 2.3.3 =
-* FEATURE: Add compliance option for showing agent/office above the fold on single listing pages
-
-= 2.3.2 =
-* FEATURE: Prioritize bathrooms over bathsFull in [sr_listings_slider]
-* UPDATE: Update compatibility with latest WordPress version 4.8.1
-
-= 2.3.1 =
-* BUGFIX: Allow default 'cities' to be selected in advanced search form
-
-= 2.3.0 =
-* FEATURE: Prioritize bathrooms over bathsFull in results list details
-* UPDATE: Update compatibility with latest WordPress version 4.8
 
 **View the complete CHANGELOG:** [here](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 
