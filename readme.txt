@@ -4,12 +4,9 @@ Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.9.4
-Stable tag: 2.4.5
+Stable tag: 2.4.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-
-Show your Real Estate listings on your Wordpress site. SimplyRETS provides a very simple set up and full control over your listings.
-
 
 == Description ==
 
@@ -24,13 +21,13 @@ on the market, with over 25 different ways to create unique pages of
 listings on your site. No iframes, great SEO, and a modern and
 customizable interface for a modern Real Estate site.
 
-To get *your* listings showing through the plugin, you need 3 things:
+To get *your* listings showing through the plugin there's only three steps:
 
-* [Create an account with SimplyRETS](https://simplyrets.com/account)
-* Use the RETS credentials from your MLS to [create an app](https://simplyrets.com/blog/getting-set-up.html).
-* Start getting LIVE listings right on your site!
+1. [Create an account with SimplyRETS](https://simplyrets.com/account)
+2. Use the RETS credentials from your MLS to [create an app](https://simplyrets.com/blog/getting-set-up.html).
+3. Start getting LIVE listings right on your site!
 
-**To get started, check out the [Documentation page](https://wordpress.org/plugins/simply-rets/other_notes/)**
+**[View plugin examples and documentation](http://wordpress-demo.simplyrets.com/documentation)**
 
 **[Visit our website](https://simplyrets.com)**
 
@@ -42,7 +39,7 @@ listings showing by putting the following short-code on *any* page:
 
 But that's just a start! There are many ways you can show and filter
 the listings - check out the
-[full documentation](https://wordpress.org/plugins/simply-rets/other_notes/).
+**[full documentation](http://wordpress-demo.simplyrets.com/documentation)**.
 
 
 = The 5 Minute Setup =
@@ -59,7 +56,7 @@ awesome real estate website.
 = Features & Documentation =
 
 To use the available widgets, and short-codes - start by reading over
-[the Documentation page](https://wordpress.org/plugins/simply-rets/other_notes/).
+[the Documentation page](http://wordpress-demo.simplyrets.com/documentation).
 
 The [GitHub README](https://github.com/rbros/simplyretswp) also provides a good starting
 point for developers looking to customize some features.
@@ -235,6 +232,9 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.4.6 =
+* ENHANCEMENT: Link to new documentation in WP readme.
+
 = 2.4.5 =
 * FEATURE: Support `water` parameter on [sr_search_form].
 * FEATURE: Support `null` address in sr-single permalinks.
@@ -255,44 +255,6 @@ listing sidebar widget.
 * FIX: Fix exception when searching with "q" parameter during pagination.
 * FIX: Retain 'agent' filter on search form during pagination.
 
-= 2.3.11 =
-* FIX: Update "Water" label to "Waterfront" on details pages for clarity.
-
-= 2.3.10 =
-* FEATURE: Add compliance option to show agent name on listing summary thumbnails.
-
-= 2.3.9 =
-* FEATURE: Add more address information to single listing page titles for improved indexing.
-
-= 2.3.8 =
-* FEATURE: Add support for "status" attribute on [sr_search_form] (non-advanced version only).
-
-= 2.3.7 =
-* BUGFIX: Fix invalid markup in `[sr_map_search]` short-code search form.
-
-= 2.3.6 =
-* FEATURE: Add support for multiple values in the `q` parameter.
-
-= 2.3.5 =
-* FEATURE: Add admin compliance option to show trademark symbol next to "MLS" text.
-
-= 2.3.4 =
-* FIX: Fix critical Google maps error in [sr_map_search] short-code
-
-= 2.3.3 =
-* FEATURE: Add compliance option for showing agent/office above the fold on single listing pages
-
-= 2.3.2 =
-* FEATURE: Prioritize bathrooms over bathsFull in [sr_listings_slider]
-* UPDATE: Update compatibility with latest WordPress version 4.8.1
-
-= 2.3.1 =
-* BUGFIX: Allow default 'cities' to be selected in advanced search form
-
-= 2.3.0 =
-* FEATURE: Prioritize bathrooms over bathsFull in results list details
-* UPDATE: Update compatibility with latest WordPress version 4.8
-
 **View the complete CHANGELOG:** [here](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 
 
@@ -309,6 +271,8 @@ listing sidebar widget.
 
 
 == Documentation ==
+
+**[See the full plugin examples and documentation here](http://wordpress-demo.simplyrets.com/documentation)**
 
 The SimplyRETS plugin makes it easy an intuitive to show your listings
 on your site in a way that *you* want. There's virtually no
