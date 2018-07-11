@@ -8,9 +8,6 @@ Stable tag: 2.4.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Show your Real Estate listings on your Wordpress site. SimplyRETS provides a very simple set up and full control over your listings.
-
-
 == Description ==
 
 = Getting Started =
@@ -24,13 +21,13 @@ on the market, with over 25 different ways to create unique pages of
 listings on your site. No iframes, great SEO, and a modern and
 customizable interface for a modern Real Estate site.
 
-To get *your* listings showing through the plugin, you need 3 things:
+To get *your* listings showing through the plugin there's only three steps:
 
-* [Create an account with SimplyRETS](https://simplyrets.com/account)
-* Use the RETS credentials from your MLS to [create an app](https://simplyrets.com/blog/getting-set-up.html).
-* Start getting LIVE listings right on your site!
+1. [Create an account with SimplyRETS](https://simplyrets.com/account)
+2. Use the RETS credentials from your MLS to [create an app](https://simplyrets.com/blog/getting-set-up.html).
+3. Start getting LIVE listings right on your site!
 
-**To get started, check out the [Documentation page](https://wordpress.org/plugins/simply-rets/other_notes/)**
+**[View plugin examples and documentation](http://wordpress-demo.simplyrets.com/documentation)**
 
 **[Visit our website](https://simplyrets.com)**
 
@@ -42,7 +39,7 @@ listings showing by putting the following short-code on *any* page:
 
 But that's just a start! There are many ways you can show and filter
 the listings - check out the
-[full documentation](https://wordpress.org/plugins/simply-rets/other_notes/).
+**[full documentation](http://wordpress-demo.simplyrets.com/documentation)**.
 
 
 = The 5 Minute Setup =
@@ -59,7 +56,7 @@ awesome real estate website.
 = Features & Documentation =
 
 To use the available widgets, and short-codes - start by reading over
-[the Documentation page](https://wordpress.org/plugins/simply-rets/other_notes/).
+[the Documentation page](http://wordpress-demo.simplyrets.com/documentation).
 
 The [GitHub README](https://github.com/rbros/simplyretswp) also provides a good starting
 point for developers looking to customize some features.
@@ -309,6 +306,8 @@ listing sidebar widget.
 
 
 == Documentation ==
+
+**[See the full plugin examples and documentation here](http://wordpress-demo.simplyrets.com/documentation)**
 
 The SimplyRETS plugin makes it easy an intuitive to show your listings
 on your site in a way that *you* want. There's virtually no
