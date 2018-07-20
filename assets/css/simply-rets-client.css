@@ -198,7 +198,8 @@ secondary data. For example, set the `.sr-data-column` to
 styling:
 */
 .sr-listing .more-details-wrapper {
-    margin-top: 25px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 .sr-listing .result-compliance-markup {
