@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.4.6 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.4.7 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.4.6 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.4.7 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -1369,31 +1369,33 @@ HTML;
                   <div class="sr-photo" style="background-image:url('$main_photo');">
                   </div>
                 </a>
-                <div class="sr-primary-data">
-                  <a href="$link">
-                    <h4>$address
-                    <span class="sr-price"><i>$listing_USD</i></span></h4>
-                  </a>
-                </div>
-                <div class="sr-secondary-data">
-                  <ul class="sr-data-column">
-                    $cityMarkup
-                    $yearMarkup
-                    $mlsidMarkup
-                  </ul>
-                  <ul class="sr-data-column">
-                    $bedsMarkup
-                    $bathsMarkup
-                    $areaMarkup
-                  </ul>
-                </div>
-                <div style="clear:both;">
-                  <div style="text-align:right;display:block">
-                    <span style="position:absolute;left:0">
-                      <a href="$link">More details</a>
-                    </span>
-                    $compliance_markup
+                <div class="sr-listing-data-wrapper">
+                  <div class="sr-primary-data">
+                    <a href="$link">
+                      <h4>$address
+                      <span class="sr-price"><i>$listing_USD</i></span></h4>
+                    </a>
                   </div>
+                  <div class="sr-secondary-data">
+                    <ul class="sr-data-column">
+                      $cityMarkup
+                      $yearMarkup
+                      $mlsidMarkup
+                    </ul>
+                    <ul class="sr-data-column">
+                      $bedsMarkup
+                      $bathsMarkup
+                      $areaMarkup
+                    </ul>
+                  </div>
+                </div>
+                <div class="more-details-wrapper">
+                  <span class="more-details-link">
+                      <a href="$link">More details</a>
+                  </span>
+                  <span class="result-compliance-markup">
+                    $compliance_markup
+                  </span>
                 </div>
               </div>
 HTML;

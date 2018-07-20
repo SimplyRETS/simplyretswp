@@ -62,7 +62,6 @@ of the image, use this class.
 .sr-photo {
     position: relative;
     display: inline-block;
-    float: left;
     height: 155px;
     width: 30%;
     overflow: hidden;
@@ -101,10 +100,15 @@ color is a light grey. This is very simply to change by setting:
 ```
 
 */
-.sr-primary-data {
-    width: 70%;
+.sr-listing-data-wrapper {
     display: inline-block;
+    position: relative;
+    width: 69%;
     vertical-align: top;
+}
+.sr-primary-data {
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: #eee;
 }
 .sr-primary-data h4 {
@@ -171,10 +175,8 @@ is to change the `margin-left` property to align better in some themes.
 
 */
 .sr-secondary-data {
-    display: inline-block;
     vertical-align: top;
     padding-top: 10px;
-    width: 70%;
 }
 
 
@@ -191,6 +193,18 @@ secondary data. For example, set the `.sr-data-column` to
     min-width: 15%;
 }
 
+/*
+"More details" and compliance markup shown by the listing uses this
+styling:
+*/
+.sr-listing .more-details-wrapper {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.sr-listing .result-compliance-markup {
+    float: right;
+}
 
 
 /*
