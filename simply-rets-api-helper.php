@@ -1369,23 +1369,25 @@ HTML;
                   <div class="sr-photo" style="background-image:url('$main_photo');">
                   </div>
                 </a>
-                <div class="sr-primary-data">
-                  <a href="$link">
-                    <h4>$address
-                    <span class="sr-price"><i>$listing_USD</i></span></h4>
-                  </a>
-                </div>
-                <div class="sr-secondary-data">
-                  <ul class="sr-data-column">
-                    $cityMarkup
-                    $yearMarkup
-                    $mlsidMarkup
-                  </ul>
-                  <ul class="sr-data-column">
-                    $bedsMarkup
-                    $bathsMarkup
-                    $areaMarkup
-                  </ul>
+                <div class="sr-listing-data-wrapper">
+                  <div class="sr-primary-data">
+                    <a href="$link">
+                      <h4>$address
+                      <span class="sr-price"><i>$listing_USD</i></span></h4>
+                    </a>
+                  </div>
+                  <div class="sr-secondary-data">
+                    <ul class="sr-data-column">
+                      $cityMarkup
+                      $yearMarkup
+                      $mlsidMarkup
+                    </ul>
+                    <ul class="sr-data-column">
+                      $bedsMarkup
+                      $bathsMarkup
+                      $areaMarkup
+                    </ul>
+                  </div>
                 </div>
                 <div class="more-details-wrapper">
                   <span class="more-details-link">
