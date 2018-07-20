@@ -1387,13 +1387,13 @@ HTML;
                     $areaMarkup
                   </ul>
                 </div>
-                <div style="clear:both;">
-                  <div style="text-align:right;display:block">
-                    <span style="position:absolute;left:0">
+                <div class="more-details-wrapper">
+                  <span class="more-details-link">
                       <a href="$link">More details</a>
-                    </span>
+                  </span>
+                  <span class="result-compliance-markup">
                     $compliance_markup
-                  </div>
+                  </span>
                 </div>
               </div>
 HTML;

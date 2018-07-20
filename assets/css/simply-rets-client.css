@@ -191,6 +191,17 @@ secondary data. For example, set the `.sr-data-column` to
     min-width: 15%;
 }
 
+/*
+"More details" and compliance markup shown by the listing uses this
+styling:
+*/
+.sr-listing .more-details-wrapper {
+    margin-top: 25px;
+}
+
+.sr-listing .result-compliance-markup {
+    float: right;
+}
 
 
 /*
