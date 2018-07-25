@@ -3,10 +3,14 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 4.9.4
-Stable tag: 2.4.7
+Tested up to: 4.9.7
+Stable tag: 2.4.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
+Show your Real Estate listings on your website, simply! SimplyRETS
+makes it easy to search and display listings from your MLS on your
+website, and gives you full control over your data.
 
 == Description ==
 
@@ -231,6 +235,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.4.8 =
+* ENHANCEMENT: Fix README teaser and update plugin directory banner image.
 
 = 2.4.7 =
 * FIX: Fix more details link CSS and markup to be more compatible.
