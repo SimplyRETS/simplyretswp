@@ -1,10 +1,10 @@
 === SimplyRETS ===
 Author: SimplyRETS
 Contributors: SimplyRETS
-Tags: rets, idx, real estate listings, real estate, listings, rets listings, simply rets, realtor, rets feed, idx feed
+Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.9.7
-Stable tag: 2.4.8
+Stable tag: 2.4.9
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.4.9 =
+* ENHANCEMENT: Use `typeText` field in additional room details.
 
 = 2.4.8 =
 * ENHANCEMENT: Fix README teaser and update plugin directory banner image.
