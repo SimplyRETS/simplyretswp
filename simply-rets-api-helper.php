@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.4.8 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.4.9 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.4.8 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.4.9 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -425,6 +425,7 @@ class SimplyRetsApiHelper {
                     <tr data-attribute="$data_attr">
                       <td>$name</td>
                       <td colspan="2">$val</td>
+                    </tr>
 HTML;
             } elseif ($additional && !$desc) {
                 $val = <<<HTML
@@ -432,15 +433,18 @@ HTML;
                       <td>$name</td>
                       <td>$val</td>
                       <td>$additional</td>
+                    </tr>
 HTML;
             } else {
                 $val = <<<HTML
                     <tr data-attribute="$data_attr">
-                      <td rowspan="2" style="vertical-align: middle">$name</td>
+                      <td rowspan="2" style="vertical-align: middle;border-bottom:solid 1px #eee;">$name</td>
                       <td colspan="1">$val</td>
                       <td colspan="1">$additional</td>
+                    </tr>
                     <tr data-attribute="$data_attr">
                       <td colspan="2">$desc</td>
+                    </tr>
 HTML;
             }
         }
@@ -772,7 +776,7 @@ HTML;
                 $levelText = empty($level) ? '' : SrUtils::ordinalSuffix($level) . " level";
                 $roomsMarkup .= SimplyRetsApiHelper::srDetailsTable(
                     $roomSize,
-                    $room->type,
+                    $room->typeText,
                     $levelText,
                     $room->description
                 );

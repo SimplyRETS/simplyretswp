@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.9
+* ENHANCEMENT: Use `typeText` field in additional room details.
+
 ## 2.4.8
 * ENHANCEMENT: Fix README teaser and update plugin directory banner image.
 
