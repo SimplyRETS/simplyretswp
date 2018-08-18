@@ -1224,13 +1224,30 @@ HTML;
             $response = array($response);
         }
 
+        $mappable_listings = array_filter($response, 'SrSearchMap::mappable');
+        $mappable_geos = SrSearchMap::uniqGeo($mappable_listings);
 
         $map       = SrSearchMap::mapWithDefaults();
         $mapHelper = SrSearchMap::srMapHelper();
-        $map->setAutoZoom(true);
         $markerCount = 0;
 
-        foreach( $response as $listing ) {
+        /**
+         * If only one listing (or one unique lat/lng) is being
+         * mapped, set a custom zoom level because the default is way
+         * to far in.
+         */
+        if (count($mappable_geos) <= 1) {
+            $map->setCenter(
+                $mappable_listings[0]->geo->lat,
+                $mappable_listings[0]->geo->lng,
+                true
+            );
+            $map->setMapOption('zoom', 12);
+        } else {
+            $map->setAutoZoom(true);
+        }
+
+        foreach( $mappable_listings as $listing ) {
             $listing_uid        = $listing->mlsId;
             $mlsid              = $listing->listingId;
             $listing_price      = $listing->listPrice;

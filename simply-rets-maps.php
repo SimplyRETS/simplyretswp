@@ -165,4 +165,31 @@ HTML;
         return;
     }
 
+    /**
+     * Returns true if a listing has lat/lng - false otherwise.
+     */
+    public static function mappable($arr) {
+        $lat = $arr->geo->lat;
+        $lng = $arr->geo->lng;
+
+        if (empty($lat) OR empty($lng)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Given a list of listings, return the number of unique lat/lng
+     * pairs.
+     */
+    public static function uniqGeo($arr) {
+        $tmp_geos = array();
+
+        foreach($arr as $a) {
+            $temp_geos[$a->geo->lat][$a->geo->lng] = 1;
+        }
+
+        return $tmp_geos;
+    }
 }
