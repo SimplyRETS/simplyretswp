@@ -165,4 +165,38 @@ HTML;
         return;
     }
 
+    /**
+     * Returns true if a listing has lat/lng - false otherwise.
+     */
+    public static function mappable($arr) {
+        $lat = $arr->geo->lat;
+        $lng = $arr->geo->lng;
+
+        if (empty($lat) OR empty($lng)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function filter_mappable($arr) {
+        return array_filter($arr, 'SrSearchMap::mappable');
+    }
+
+    /**
+     * Given a list of listings, return the number of unique lat/lng
+     * pairs.
+     */
+    public static function uniqGeos($arr) {
+        $tmp_geos = array();
+
+        foreach($arr as $a) {
+            $tmp_geos[$a->geo->lat . $a->geo->lng] = array(
+                $a->geo->lat,
+                $a->geo->lng
+            );
+        }
+
+        return array_values($tmp_geos);
+    }
 }

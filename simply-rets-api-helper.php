@@ -1224,11 +1224,28 @@ HTML;
             $response = array($response);
         }
 
+        $mappable_listings = SrSearchMap::filter_mappable($response);
+        $uniq_geos = SrSearchMap::uniqGeos($mappable_listings);
 
         $map       = SrSearchMap::mapWithDefaults();
         $mapHelper = SrSearchMap::srMapHelper();
-        $map->setAutoZoom(true);
         $markerCount = 0;
+
+        /**
+         * If only one listing (or one unique lat/lng) is being
+         * mapped, set a custom zoom level because the default is way
+         * to far in.
+         */
+        if (count($uniq_geos) === 1) {
+            $map->setCenter(
+                $uniq_geos[0][0],
+                $uniq_geos[0][1],
+                true
+            );
+            $map->setMapOption('zoom', 12);
+        } else {
+            $map->setAutoZoom(true);
+        }
 
         foreach( $response as $listing ) {
             $listing_uid        = $listing->mlsId;
