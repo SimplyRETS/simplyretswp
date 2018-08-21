@@ -179,17 +179,24 @@ HTML;
         return true;
     }
 
+    public static function filter_mappable($arr) {
+        return array_filter($arr, 'SrSearchMap::mappable');
+    }
+
     /**
      * Given a list of listings, return the number of unique lat/lng
      * pairs.
      */
-    public static function uniqGeo($arr) {
+    public static function uniqGeos($arr) {
         $tmp_geos = array();
 
         foreach($arr as $a) {
-            $temp_geos[$a->geo->lat][$a->geo->lng] = 1;
+            $tmp_geos[$a->geo->lat . $a->geo->lng] = array(
+                $a->geo->lat,
+                $a->geo->lng
+            );
         }
 
-        return $tmp_geos;
+        return array_values($tmp_geos);
     }
 }

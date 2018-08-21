@@ -1224,8 +1224,8 @@ HTML;
             $response = array($response);
         }
 
-        $mappable_listings = array_filter($response, 'SrSearchMap::mappable');
-        $mappable_geos = SrSearchMap::uniqGeo($mappable_listings);
+        $mappable_listings = SrSearchMap::filter_mappable($response);
+        $uniq_geos = SrSearchMap::uniqGeos($mappable_listings);
 
         $map       = SrSearchMap::mapWithDefaults();
         $mapHelper = SrSearchMap::srMapHelper();
@@ -1236,7 +1236,7 @@ HTML;
          * mapped, set a custom zoom level because the default is way
          * to far in.
          */
-        if (count($mappable_geos) <= 1) {
+        if (count($uniq_geos) <= 1) {
             $map->setCenter(
                 $mappable_listings[0]->geo->lat,
                 $mappable_listings[0]->geo->lng,
@@ -1247,7 +1247,7 @@ HTML;
             $map->setAutoZoom(true);
         }
 
-        foreach( $mappable_listings as $listing ) {
+        foreach( $response as $listing ) {
             $listing_uid        = $listing->mlsId;
             $mlsid              = $listing->listingId;
             $listing_price      = $listing->listPrice;
