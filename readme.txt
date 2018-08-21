@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.9.7
-Stable tag: 2.4.9
+Stable tag: 2.4.10
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.4.10 =
+* ENHANCEMENT: Improve default map zoom when only one pin is on the map.
 
 = 2.4.9 =
 * ENHANCEMENT: Use `typeText` field in additional room details.

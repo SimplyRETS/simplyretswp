@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.10
+* ENHANCEMENT: Improve default map zoom when only one pin is on the map.
+
 ## 2.4.9
 * ENHANCEMENT: Use `typeText` field in additional room details.
 
