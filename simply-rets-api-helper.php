@@ -1236,10 +1236,10 @@ HTML;
          * mapped, set a custom zoom level because the default is way
          * to far in.
          */
-        if (count($uniq_geos) <= 1) {
+        if (count($uniq_geos) === 1) {
             $map->setCenter(
-                $mappable_listings[0]->geo->lat,
-                $mappable_listings[0]->geo->lng,
+                $uniq_geos[0][0],
+                $uniq_geos[0][1],
                 true
             );
             $map->setMapOption('zoom', 12);
