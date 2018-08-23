@@ -3,7 +3,7 @@
   This is the official repository of the SimplyRETS Wordpress plugin
   client. SimplyRETS enables you to embed *your* live real estate listings
   directly on your site simply and easily.
-  
+
   *[[http://wordpress-demo.simplyrets.com][Check out the demo site]]*
 
   The Wordpress plugin provides you a simply way to connect to your
@@ -30,16 +30,21 @@
 
 ** Installation
 
-*** Install from .zip file
-    - Download the `.zip` file from [[https://github.com/SimplyRETS/simplyretswp/releases][the releases page]].
+*** Install in WordPress from =.zip= file
+    - Download the `.zip` file from bottom of [[https://wordpress.org/plugins/simply-rets/advanced/#download-previous-link][the WordPress releases page]].
     - In your Wordpress dashboard, go to 'Plugins' -> 'Add New'.
       Choose 'Upload a New Plugin' and upload the `.zip` file.
     - Activate it through the =Plugins -> Installed plugins= page of your Wordpress dashboard.
 
-*** Extract from .zip file
-    - Download the `.zip` file from [[https://github.com/SimplyRETS/simplyretswp/releases][the releases page]].
+*** Extract from =.zip= file into WordPress
+    - Download the =.zip= file from bottom of [[https://wordpress.org/plugins/simply-rets/advanced/#download-previous-link][the WordPress releases page]].
     - Unzip the file in your Wordpress site's =wp-content/plugins/= directory.
     - Activate it through the =Plugins -> Installed plugins= page of your Wordpress dashboard.
+
+**NOTE: If you download the =.zip= file from the [[https://github.com/SimplyRETS/simplyretswp/releases][GitHub releases]] page
+the vendor artifacts are not included in the bundle. You must unzip
+the zip file and run =composer install= in the unzipped directly
+before installing the plugin.**
 
 *** Activating
     Once the plugin is installed via one of the methods above, you
