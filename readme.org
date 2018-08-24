@@ -41,10 +41,10 @@
     - Unzip the file in your Wordpress site's =wp-content/plugins/= directory.
     - Activate it through the =Plugins -> Installed plugins= page of your Wordpress dashboard.
 
-**NOTE: If you download the =.zip= file from the [[https://github.com/SimplyRETS/simplyretswp/releases][GitHub releases]] page
-the vendor artifacts are not included in the bundle. You must unzip
-the zip file and run =composer install= in the unzipped directly
-before installing the plugin.**
+ #+BEGIN_QUOTE
+NOTE: If you download the ~.zip~ file from the [[https://github.com/SimplyRETS/simplyretswp/releases][GitHub releases]] page the vendor artifacts are not included in the bundle. You must unzip the zip file and run ~composer install~ in the unzipped directory before installing the plugin.
+ #+END_QUOTE
+
 
 *** Activating
     Once the plugin is installed via one of the methods above, you
