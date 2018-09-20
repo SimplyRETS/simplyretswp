@@ -387,6 +387,7 @@ HTML;
         $water   = isset($atts['water'])   ? $atts['water']   : '';
         $limit   = isset($atts['limit'])   ? $atts['limit']   : '';
         $config_type = isset($atts['type']) ? $atts['type']   : '';
+        $counties = isset($atts['counties']) ? $atts['counties'] : '';
 
         if($config_type === '') {
             $config_type = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
@@ -629,6 +630,7 @@ HTML;
                 <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
                 <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
                 <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
+                <input type="hidden" name="sr_counties" value="<?php echo $counties; ?>" />
                 <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
 
 
@@ -715,6 +717,7 @@ HTML;
             <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
             <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
             <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
+            <input type="hidden" name="sr_counties" value="<?php echo $counties; ?>" />
             <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
             <input type="hidden" name="status"     value="<?php echo $adv_status; ?>" />
 
