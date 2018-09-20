@@ -194,6 +194,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_neighborhoods";
         $vars[] = "sr_amenities";
         $vars[] = "sr_features";
+        $vars[] = "sr_counties";
         // multi-mls
         $vars[] = "vendor";
         $vars[] = "sr_vendor";
