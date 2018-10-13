@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.4.12
+* ENHANCEMENT: Support default 'limit' on [sr_map_search]
+
 ## 2.4.11
 * ENHANCEMENT: Support default 'counties' on [sr_search_form]
 
