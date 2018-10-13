@@ -127,6 +127,13 @@ HTML;
     }
 
 
+    /**
+     * This is the handler for API requests made from the
+     * sr_map_search short-code. The client makes an AJAX request, we
+     * take the `parameters` (a query string) and pass it to the API
+     * request directly.  We return a glob of HTML that is then
+     * rendered on the client.
+     */
     public static function update_int_map_data() {
 
         // Ensure we only capture SimplyRETS requests
