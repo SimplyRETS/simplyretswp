@@ -180,7 +180,7 @@ HTML;
      * to show a single listing.
      * ie, [sr_residential mlsid="12345"]
      */
-    public function sr_residential_shortcode( $atts ) {
+    public static function sr_residential_shortcode( $atts ) {
         global $wp_query;
 
         /**

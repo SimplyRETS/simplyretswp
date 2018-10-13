@@ -161,9 +161,14 @@ class SrUtils {
      * @result $arr - the query string in array form
      */
     public static function proper_parse_str($str) {
+
+        if (empty($str)) {
+            return array();
+        }
+
         $arr = array();
-        # split on outer delimiter
         $pairs = explode('&', $str);
+
         foreach ($pairs as $i) {
 
             list($name,$value) = explode('=', $i, 2);
@@ -289,7 +294,6 @@ class SrUtils {
 
         // Initialize variables
         $listing_by;
-        $listing_by_markup;
 
         // Ensure we have all the info we need
         $agentOfficeAboveTheFoldEnabled = get_option(
@@ -307,7 +311,7 @@ class SrUtils {
                 $listing_by .= "Listing by: ";
                 $listing_by .= "<strong>$agent</strong>, ";
                 $listing_by .= "<strong>$office</strong>";
-                $listing_by_markup = "<p>$listing_by</p>";
+                return "<p>$listing_by</p>";
 
             } elseif (empty($agent) AND !empty($office)) {
 
@@ -315,7 +319,7 @@ class SrUtils {
                  * Only office name is available, show that
                  */
                 $listing_by = "Listing by: <strong>$office</strong>";
-                $listing_by_markup = "<p>$listing_by</p>";
+                return "<p>$listing_by</p>";
 
             } elseif (!empty($agent) AND empty($office)) {
 
@@ -323,19 +327,14 @@ class SrUtils {
                  * Only agent name is available, show that
                  */
                 $listing_by = "Listing by: <strong>$agent</strong>";
-                $listing_by_markup = "<p>$listing_by</p>";
+                return "<p>$listing_by</p>";
 
             } else {
-
-                /**
-                 * No agen or office available, don't show anything
-                 */
-                $listing_by = "";
-                $listing_by_markup = "";
+                return "";
             }
         }
 
-        return $listing_by_markup;
+        return "";
     }
 
     /**

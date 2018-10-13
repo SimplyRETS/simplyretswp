@@ -286,18 +286,17 @@ class SimplyRetsApiHelper {
     // Parse 'X-SimplyRETS-LastUpdate' from API response headers
     // and return the value
     public static function srLastUpdateHeaderParser($headers) {
-
         $parsed_headers = http_parse_headers($headers);
-        $last_update = $parsed_headers['X-SimplyRETS-LastUpdate'];
+        $last_update_hdr = 'X-SimplyRETS-LastUpdate';
+
+        // Use current timestamp if API doesn't have one
+        if (empty($parsed_headers['X-SimplyRETS-LastUpdate'])) {
+            return date("M, d Y h:i a");
+        }
 
         // Get LastUpdate header value and format the date/time
+        $last_update = $parsed_headers['X-SimplyRETS-LastUpdate'];
         $hdr = date("M, d Y h:i a", strtotime($last_update));
-
-        // Use current timestamp if header didn't exist or failed for
-        // some reason.
-        if (empty($hdr)) {
-            $hdr = date("M, d Y h:i a");
-        }
 
         return $hdr;
     }
@@ -307,7 +306,7 @@ class SimplyRetsApiHelper {
 
         // get link val from header
         $pag_links = array();
-        preg_match('/^Link: ([^\r\n]*)[\r\n]*$/m', $linkHeader, $matches);
+        $match_count = preg_match('/^Link: ([^\r\n]*)[\r\n]*$/m', $linkHeader, $matches);
         unset($matches[0]);
 
         foreach( $matches as $key => $val ) {
@@ -325,8 +324,9 @@ class SimplyRetsApiHelper {
             }
         }
 
-        $prev_link = $prevLink[1];
-        $next_link = $nextLink[1];
+        $prev_link = $match_count > 0 AND $prevLink[1] ? $prevLink[1] : "";
+        $next_link = $match_count > 0 AND $nextLink[1] ? $nextLink[1] : "";
+
         $pag_links['prev'] = $prev_link;
         $pag_links['next'] = $next_link;
 
@@ -336,15 +336,12 @@ class SimplyRetsApiHelper {
          */
         foreach( $pag_links as $key=>$link ) {
             $link_parts = parse_url( $link );
-
             $no_prefix = array('offset', 'limit', 'type', 'water');
 
-            // Do NOT use the builtin parse_str, use our custom function
-            // proper_parse_str instead
-            // parse_str( $link_parts['query'], $output );
-            $output = SrUtils::proper_parse_str($link_parts['query']);
+            $query_part = !empty($link_parts['query']) ? $link_parts['query'] : NULL;
+            $output = SrUtils::proper_parse_str($query_part);
 
-            if( !empty( $output ) && !in_array(NULL, $output, true) ) {
+            if (!empty( $output ) && !in_array(NULL, $output, true)) {
                 foreach( $output as $query=>$parameter) {
                     if( $query == 'type' ) {
                         $output['sr_p' . $query] = $output[$query];
@@ -456,7 +453,7 @@ HTML;
     /**
      * Build the photo gallery shown on single listing details pages
      */
-    public static function srDetailsGallery( $photos ) {
+    public static function srDetailsGallery($photos, $address) {
         $photo_gallery = array();
 
         if( empty($photos) ) {
@@ -541,6 +538,9 @@ HTML;
         $listing_price = $listing->listPrice;
         $listing_price_USD = '$' . number_format( $listing_price );
         $price = SimplyRetsApiHelper::srDetailsTable($listing_price_USD, "Price");
+        // DOM
+        $listing_days_on_market = $listing->mls->daysOnMarket;
+        $days_on_market = SimplyRetsApiHelper::srDetailsTable($listing_days_on_market, "Days on market");
         // type
         $listing_type = $listing->property->type;
         $type = SimplyRetsApiHelper::srDetailsTable($listing_type, "Property Type");
@@ -656,7 +656,7 @@ HTML;
         $lotsizeareaunits_markup  = SimplyRetsApiHelper::srDetailsTable($listing_lotSizeAreaUnits, "Lot Size Area Units");
         // acres
         $listing_acres = $listing->property->acres;
-        $acres_markup  = SimplyRetsApiHelper::srDetailsTable($acres, "Acres");
+        $acres_markup  = SimplyRetsApiHelper::srDetailsTable($listing_acres, "Acres");
         // street address info
         $listing_postal_code = $listing->address->postalCode;
         $postal_code = SimplyRetsApiHelper::srDetailsTable($listing_postal_code, "Postal Code");
@@ -752,8 +752,10 @@ HTML;
 
         // Rooms data
         $roomsMarkup = '';
-        if(is_array($listing->property->rooms)) {
+        $has_rooms = !empty($listing->property->rooms)
+                   AND is_array($listing->property-rooms);
 
+        if($has_rooms == TRUE) {
             $rooms = $listing->property->rooms;
 
             usort($rooms, function ($a, $b) {
@@ -785,7 +787,7 @@ HTML;
 
         // photo gallery
         $photos         = $listing->photos;
-        $photo_gallery  = SimplyRetsApiHelper::srDetailsGallery( $photos );
+        $photo_gallery  = SimplyRetsApiHelper::srDetailsGallery($photos, $listing->address->full);
         $gallery_markup = $photo_gallery['markup'];
         $more_photos    = $photo_gallery['more'];
         $dummy          = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
@@ -905,7 +907,10 @@ HTML;
         $listing_agent_name  = $listing->agent->firstName . ' ' . $listing->agent->lastName;
 
         $listing_agent_email;
-        if($show_contact_info) {
+        $has_agent_contact_info = !empty($listing->agent->contact)
+                                AND !empty($listing->agent->contact->email);
+
+        if($show_contact_info AND $has_agent_contact_info) {
             $listing_agent_email = $listing->agent->contact->email;
         } else {
             $listing_agent_email = '';
@@ -924,17 +929,21 @@ HTML;
 
         $agent = SimplyRetsApiHelper::srDetailsTable($listing_agent_name, "Listing Agent");
 
-        $listing_agent_phone = $listing->agent->contact->office;
+        $listing_agent_phone = $has_agent_contact_info ? $listing->agent->contact->office : '';
         $agent_phone = SimplyRetsApiHelper::srDetailsTable($listing_agent_phone, "Listing Agent Phone");
 
 
         // Office
+        $has_office_contact_info = !empty($listing->agent->contact)
+                                 AND !empty($listing->agent->contact->email);
+
         $listing_office = $listing->office->name;
         $office = SimplyRetsApiHelper::srDetailsTable($listing_office, "Listing Office");
-        $listing_office_phone = $listing->office->contact->office;
+
+        $listing_office_phone = $has_office_contact_info ? $listing->office->contact->office : '';
         $officePhone = SimplyRetsApiHelper::srDetailsTable($listing_office_phone, "Listing Office Phone");
 
-        $listing_office_email = $listing->office->contact->email;
+        $listing_office_email = $has_office_contact_info ? $listing->office->contact->email : '';
         $officeEmail = SimplyRetsApiHelper::srDetailsTable($listing_office_email, "Listing Office Email");
 
         /* If show_contact_info is false, stub these fields */
@@ -968,7 +977,7 @@ HTML;
             !empty($vendor) ? array("sr_vendor" => $vendor) : array()
         );
 
-        $addrFull = $address . ', ' . $city . ' ' . $zip;
+        $addrFull = $address . ', ' . $city . ' ' . $listing_postal_code;
 
         if( $listing_lat  && $listing_longitude ) {
             /**
@@ -982,7 +991,7 @@ HTML;
                 $link,
                 $main_photo,
                 $address,
-                $listing_USD,
+                $listing_price_USD,
                 $listing_bedrooms,
                 $listing_bathsFull,
                 $listing_mls_status,
@@ -1579,6 +1588,7 @@ HTML;
 
 
     public static function srContactFormMarkup($listing) {
+        $markup = '';
         $markup .= '<hr>';
         $markup .= '<div id="sr-contact-form">';
         $markup .= '<h3>Contact us about this listing</h3>';

@@ -14,7 +14,7 @@ add_action("admin_notices", array("SrAdminSettings", "adminMessages"));
 
 class SrAdminSettings {
 
-  function add_to_admin_menu() {
+  public static function add_to_admin_menu() {
       add_options_page('SimplyRETS Settings'
                        , 'SimplyRETS'
                        , 'manage_options'
@@ -23,7 +23,7 @@ class SrAdminSettings {
       );
   }
 
-  function register_admin_settings() {
+  public static function register_admin_settings() {
       register_setting('sr_admin_settings', 'sr_api_name');
       register_setting('sr_admin_settings', 'sr_api_key');
       register_setting('sr_admin_settings', 'sr_contact_page');
@@ -82,7 +82,7 @@ class SrAdminSettings {
       }
   }
 
-  function sr_admin_page() {
+  public static function sr_admin_page() {
       global $wpdb;
       $logo_path = plugin_dir_url(__FILE__) . 'assets/img/logo_button.png';
 
