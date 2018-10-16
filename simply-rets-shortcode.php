@@ -37,6 +37,12 @@ class SrShortcodes {
     }
 
 
+    /**
+     * [sr_map_search] - we return HTML with a special element that
+     * the client attaches to to render a searchable map. This is
+     * different from the other short-codes in that mostly everything
+     * after this point is handled by the client.
+     */
     public static function sr_int_map_search($atts) {
         if(!is_array($atts)) $atts = array();
 
@@ -44,7 +50,7 @@ class SrShortcodes {
         $vendor   = isset($atts['vendor'])  ? $atts['vendor']  : '';
         $brokers  = isset($atts['brokers']) ? $atts['brokers'] : '';
         $agent    = isset($atts['agent'])   ? $atts['agent']   : '';
-        $limit    = isset($atts['limit'])   ? $atts['limit']   : '';
+        $limit    = isset($atts['limit'])   ? $atts['limit'] : '25';
         $type_att = isset($atts['type'])    ? $atts['type'] : '';
 
         $content     = "";
@@ -59,6 +65,7 @@ class SrShortcodes {
                              data-idx-img='{$idx_img}'
                              data-office-on-thumbnails='{$office_on_thumbnails}'
                              data-agent-on-thumbnails='{$agent_on_thumbnails}'
+                             data-limit='{$limit}'
                              data-vendor='{$vendor}'></div>";
 
         $list_markup = !empty($atts['list_view'])

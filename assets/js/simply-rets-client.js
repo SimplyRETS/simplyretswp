@@ -249,7 +249,6 @@ var updatePagination = function(that) {
         nextEl = null,
         pagWrapper = $_('.sr-pagination');
 
-
     if(pagWrapper.length) {
 
         pagWrapper.empty(); // clear the current pagination elements
@@ -264,11 +263,11 @@ var updatePagination = function(that) {
             pag = prev + next;
         }
 
-        if(that.offset === 0 && that.listings.length < 25) {
+        if(that.offset === 0 && that.listings.length < that.limit) {
             pag = null;
         }
 
-        if(that.offset > 0 && that.listings.length < 25) {
+        if(that.offset > 0 && that.listings.length < that.limit) {
             pag = prev;
         }
 
@@ -326,6 +325,9 @@ var getSearchFormValues = function() {
  */
 function SimplyRETSMap() {
 
+    var vendor = document.getElementById('sr-map-search').dataset.vendor
+    var limit = document.getElementById('sr-map-search').dataset.limit
+
     this.element    = 'sr-map-search';
     this.bounds     = [];
     this.markers    = [];
@@ -337,15 +339,16 @@ function SimplyRETSMap() {
     this.loaded     = false;
     this.options    = { zoom: 8 }
     this.pagination = null;
-    this.limit      = 25;
     this.offset     = 0;
     this.linkStyle  = 'default';
     this.siteRoot   = window.location.href
-    this.vendor     = document.getElementById('sr-map-search').dataset.vendor;
+    this.vendor     = vendor;
+    this.limit      = limit;
 
-    this.map     = new google.maps.Map(
+    this.map = new google.maps.Map(
         document.getElementById('sr-map-search'), this.options
     );
+
     this.loadMsg = new google.maps.InfoWindow({
         map: null,
         content: "Loading..."
@@ -636,12 +639,11 @@ SimplyRETSMap.prototype.sendRequest = function(points, params, paginate) {
 
         if(paginate === "next") {
             scrollToAnchor('sr-search-wrapper');
-            this.offset = this.offset + this.limit;
+            this.offset = Number(this.offset) + Number(this.limit);
         } else if(paginate === "prev") {
             scrollToAnchor('sr-search-wrapper');
-            this.offset = this.offset - this.limit;
+            this.offset = Number(this.offset) - Number(this.limit);
         }
-
     }
 
     var limit  = this.limit;
