@@ -17,7 +17,7 @@ website, and gives you full control over your data.
 = Getting Started =
 
 SimplyRETS allows you to display and search your Real Estate listings
-directly on your Wordpress site. And it call be set up in less than 5
+directly on your Wordpress site. And it can all be set up in less than 5
 minutes!
 
 The SimplyRETS Plugin has the most filtering options of any IDX Plugin
