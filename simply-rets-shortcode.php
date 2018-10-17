@@ -187,7 +187,7 @@ HTML;
      * to show a single listing.
      * ie, [sr_residential mlsid="12345"]
      */
-    public function sr_residential_shortcode( $atts ) {
+    public static function sr_residential_shortcode( $atts ) {
         global $wp_query;
 
         /**
@@ -430,12 +430,10 @@ HTML;
             $adv_cities = $atts['cities'];
         }
 
-        if( !$sort  == "" ) {
-            $sort_price_hl = ($sort == "-listprice") ? "selected" : '';
-            $sort_price_lh = ($sort == "listprice")  ? "selected" : '';
-            $sort_date_hl  = ($sort == "-listdate")  ? "selected" : '';
-            $sort_date_lh  = ($sort == "listdate")   ? "selected" : '';
-        }
+        $sort_price_hl = ($sort == "-listprice") ? "selected" : '';
+        $sort_price_lh = ($sort == "listprice")  ? "selected" : '';
+        $sort_date_hl  = ($sort == "-listdate")  ? "selected" : '';
+        $sort_date_lh  = ($sort == "listdate")   ? "selected" : '';
 
         /**
          * Advanced Search Form.
@@ -447,6 +445,7 @@ HTML;
          * *amenities (int/ext), *status (active, pending, sold), area.
          */
         $type_options             = '';
+        $status_options           = "";
         $available_property_types = get_option("sr_adv_search_meta_types_$vendor", array());
         $default_type_option      = '<option value="">Property Type</option>';
 
@@ -475,6 +474,7 @@ HTML;
             }
         }
 
+        $city_options = "";
         $adv_search_cities = get_option("sr_adv_search_meta_city_$vendor", array());
         sort($adv_search_cities);
         foreach( (array)$adv_search_cities as $key=>$city ) {
@@ -491,6 +491,7 @@ HTML;
             }
         }
 
+        $location_options = "";
         $adv_search_neighborhoods= get_option("sr_adv_search_meta_neighborhoods_$vendor", array());
         sort( $adv_search_neighborhoods );
         foreach( (array)$adv_search_neighborhoods as $key=>$neighborhood) {
@@ -499,6 +500,7 @@ HTML;
         }
 
 
+        $features_options = "";
         $adv_search_features = get_option("sr_adv_search_meta_features_$vendor", array());
         sort( $adv_search_features );
         foreach( (array)$adv_search_features as $key=>$feature) {

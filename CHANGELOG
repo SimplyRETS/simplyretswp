@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.0
+* FIX: Fix all known PHP warnings while in WP_DEBUG mode (yay!)
+* CHANGE: Add div element wrapper to search results list
+
 ## 2.4.12
 * ENHANCEMENT: Support default 'limit' on [sr_map_search]
 
