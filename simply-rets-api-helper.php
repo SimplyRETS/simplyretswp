@@ -306,7 +306,7 @@ class SimplyRetsApiHelper {
 
         // get link val from header
         $pag_links = array();
-        $match_count = preg_match('/^Link: ([^\r\n]*)[\r\n]*$/m', $linkHeader, $matches);
+        preg_match('/^Link: ([^\r\n]*)[\r\n]*$/m', $linkHeader, $matches);
         unset($matches[0]);
 
         foreach( $matches as $key => $val ) {
@@ -315,7 +315,6 @@ class SimplyRetsApiHelper {
                 if( strpos( $part, 'rel="prev"' ) == true ) {
                     $part = trim( $part );
                     preg_match( '/^<(.*)>/', $part, $prevLink );
-                    // $prevLink = $part;
                 }
                 if( strpos( $part, 'rel="next"' ) == true ) {
                     $part = trim( $part );
@@ -323,13 +322,11 @@ class SimplyRetsApiHelper {
                 }
             }
         }
-
-        $prev_link = $match_count > 0 AND $prevLink[1] ? $prevLink[1] : "";
-        $next_link = $match_count > 0 AND $nextLink[1] ? $nextLink[1] : "";
+        $prev_link = (!empty($prevLink) AND $prevLink[1]) ? $prevLink[1] : "";
+        $next_link = (!empty($nextLink) AND $nextLink[1]) ? $nextLink[1] : "";
 
         $pag_links['prev'] = $prev_link;
         $pag_links['next'] = $next_link;
-
 
         /**
          * Transform query parameters to what the Wordpress client needs
@@ -1256,6 +1253,7 @@ HTML;
             $map->setAutoZoom(true);
         }
 
+        $resultsMarkup = "";
         foreach( $response as $listing ) {
             $listing_uid        = $listing->mlsId;
             $mlsid              = $listing->listingId;
@@ -1432,6 +1430,7 @@ HTML;
 
         }
 
+        $resultsMarkup = "<div id=\"sr-listings-results-list\">{$resultsMarkup}</div>";
         $markerCount > 0 ? $mapMarkup = $mapHelper->render($map) : $mapMarkup = '';
 
         if( $map_setting == 'false' ) {

@@ -95,8 +95,8 @@ class SimplyRetsCustomPostPages {
 		$rules = array(
             'listings/([^&]+)/([^&]+)/([^&]+)/([^&]+)/([^&]+)/?$'
             => 'index.php?sr-listings=sr-single&sr_city=$matches[1]&sr_state=$matches[2]&sr_zip=$matches[3]&listing_title=$matches[4]&listing_id=$matches[5]',
-			"listings/(.*)/(.*)?$"
-                => "index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]"
+			'listings/(.*)/(.*)?$'
+                => 'index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]'
 		);
         return $incoming + $rules;
     }
@@ -633,6 +633,7 @@ class SimplyRetsCustomPostPages {
              */
 
             $features = isset($_GET['sr_features']) ? $_GET['sr_features'] : '';
+            $features_string = "";
             if(!empty($features)) {
                 foreach((array)$features as $key => $feature) {
                     $features_string .= "&features=$feature";
@@ -640,6 +641,7 @@ class SimplyRetsCustomPostPages {
             }
 
             $cities = isset($_GET['sr_cities']) ? $_GET['sr_cities'] : '';
+            $cities_string = "";
             if(!empty($cities)) {
                 foreach((array)$cities as $key => $city) {
                     $cities_string .= "&cities=$city";
@@ -647,6 +649,7 @@ class SimplyRetsCustomPostPages {
             }
 
             $counties = isset($_GET['sr_counties']) ? $_GET['sr_counties'] : '';
+            $counties_string = "";
             if(!empty($counties)) {
                 foreach((array)$counties as $key => $county) {
                     $counties_string .= "&counties=$county";
@@ -654,6 +657,7 @@ class SimplyRetsCustomPostPages {
             }
 
             $agents = isset($_GET['sr_agent']) ? $_GET['sr_agent'] : '';
+            $agents_string = "";
             if(!empty($agents)) {
                 foreach((array)$agents as $key => $agent) {
                     $agents_string .= "&agent=$agent";
@@ -661,6 +665,7 @@ class SimplyRetsCustomPostPages {
             }
 
             $neighborhoods = isset($_GET['sr_neighborhoods']) ? $_GET['sr_neighborhoods'] : '';
+            $neighborhoods_string = "";
             if(!empty($neighborhoods)) {
                 foreach((array)$neighborhoods as $key => $neighborhood) {
                     $neighborhoods_string .= "&neighborhoods=$neighborhood";
@@ -668,6 +673,7 @@ class SimplyRetsCustomPostPages {
             }
 
             $postalCodes = isset($_GET['sr_postalCodes']) ? $_GET['sr_postalCodes'] : '';
+            $postalCodes_string = "";
             if(!empty($postalCodes)) {
                 foreach((array)$postalCodes as $key => $postalCode) {
                     $postalCodes_string .= "&postalCodes=$postalCode";
@@ -675,6 +681,7 @@ class SimplyRetsCustomPostPages {
             }
 
             $amenities = isset($_GET['sr_amenities']) ? $_GET['sr_amenities'] : '';
+            $amenities_string = "";
             if(!empty($amenities)) {
                 foreach((array)$amenities as $key => $amenity) {
                     $amenities_string .= "&amenities=$amenity";
@@ -839,11 +846,12 @@ class SimplyRetsCustomPostPages {
 
         // if we catch a singlelisting query, create a new post on the fly
         global $wp_query;
+        $wpq = $wp_query->query;
 
-        if( $wp_query->query['sr-listings'] == 'sr-search'
-            AND array_key_exists("listing_id", $wp_query->query_vars)
-            AND array_key_exists("listing_title", $wp_query->query_vars)
-            OR $wp_query->query['sr-listings'] == "sr-single"
+        if( (!empty($wpq['sr-listings']) AND $wpq['sr-listings'] == 'sr-search') AND
+            array_key_exists("listing_id", $wp_query->query_vars) AND
+            array_key_exists("listing_title", $wp_query->query_vars) OR
+            (!empty($wpq['sr-listings']) AND $wpq['sr-listings'] == "sr-single")
         ) {
 
             $post_id    = urldecode(get_query_var( 'listing_id', '' ));
@@ -872,7 +880,7 @@ class SimplyRetsCustomPostPages {
             return $posts + array($post);
         }
         // if we catch a search results query, create a new post on the fly
-        if( $wp_query->query['sr-listings'] == "sr-search" ) {
+        if(!empty($wpq['sr-listings']) AND $wpq['sr-listings'] == "sr-search") {
 
             $post_id = get_query_var( 'sr_minprice', '9998' );
 
