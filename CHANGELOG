@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.5.1
+* FIX: Fix error when loading multiple maps with [sr_listings]
+
 ## 2.5.0
 * FIX: Fix all known PHP warnings while in WP_DEBUG mode (yay!)
 * CHANGE: Add div element wrapper to search results list
