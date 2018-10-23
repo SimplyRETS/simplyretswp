@@ -782,7 +782,7 @@ $_(document).ready(function() {
 
     if(document.getElementById('sr-map-search')) {
 
-        if(typeof google === 'object' && typeof googlemaps === 'object') {
+        if(typeof google === 'object' && typeof google.maps === 'object') {
             // google.maps exists - start map
             startMap();
 
