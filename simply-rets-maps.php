@@ -49,6 +49,13 @@ class SrSearchMap {
         // not have this problem.
         $map->setAsync(false);
 
+        $map->setLibraries(array(
+            "autocomplete",
+            "drawing",
+            "places",
+            "vizualization"
+        ));
+
         $map->setStylesheetOptions(array(
             'width' => '100%',
             'height' =>  '550px'
