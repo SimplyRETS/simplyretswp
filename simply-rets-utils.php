@@ -382,6 +382,12 @@ class SrMessages {
             );
         }
 
+        /** Use custom message from admin settings, if set. */
+        $customMsg = get_option('sr_custom_no_results_message');
+        if ($customMsg !== false && $customMsg !== "") {
+            return $customMsg;
+        }
+
         $noResultsMsg = "<br><p><strong>There are 0 listings that match this search. "
                          . "Please try to broaden your search criteria or feel free to try again later.</p></strong>";
         return $noResultsMsg;

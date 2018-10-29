@@ -44,6 +44,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_agent_on_thumbnails');
       register_setting('sr_admin_settings', 'sr_thumbnail_idx_image');
       register_setting('sr_admin_settings', 'sr_custom_disclaimer');
+      register_setting('sr_admin_settings', 'sr_custom_no_results_message');
       register_setting('sr_admin_settings', 'sr_show_mls_status_text');
       register_setting('sr_admin_settings', 'sr_agent_office_above_the_fold');
       register_setting('sr_admin_settings', 'sr_show_mls_trademark_symbol');
@@ -99,6 +100,15 @@ class SrAdminSettings {
       // so we can properly sanitize the input.
       if (isset( $_POST['sr_custom_disclaimer'] )) {
           update_option('sr_custom_disclaimer', htmlentities(stripslashes($_POST['sr_custom_disclaimer'])));
+      }
+
+      // Custom POST handler for updating the custom disclaimer
+      // so we can properly sanitize the input.
+      if (isset( $_POST['sr_custom_no_results_message'] )) {
+          update_option(
+              'sr_custom_no_results_message',
+              htmlentities(stripslashes($_POST['sr_custom_no_results_message']))
+          );
       }
 
       ?>
@@ -517,8 +527,8 @@ class SrAdminSettings {
               <textarea
                   id="sr_custom_disclaimer"
                   name="sr_custom_disclaimer"
-                  cols="75"
-                  rows="10"><?php echo esc_attr( get_option('sr_custom_disclaimer') ); ?></textarea>
+                  cols="50"
+                  rows="8"><?php echo esc_attr( get_option('sr_custom_disclaimer') ); ?></textarea>
               <ul>
                   <li>
                       - Use the variable "{lastUpdate}" to interpolate
@@ -528,6 +538,25 @@ class SrAdminSettings {
                       - You can use HTML or plain text.
                   </li>
               </ul>
+              <?php submit_button(); ?>
+          </form>
+        </div>
+        <div>
+          <h3>No search results message</h3>
+          <p>The messasge shown when a search doesn't return results.</p>
+          <form method="post" action="options-general.php?page=simplyrets-admin.php">
+              <textarea
+                  id="sr_custom_no_results_message"
+                  name="sr_custom_no_results_message"
+                  cols="50"
+                  rows="5"><?php echo esc_attr( get_option('sr_custom_no_results_message') ); ?></textarea>
+              <div>
+                  <i>
+                      Default: There are 0 listings that match this
+                      search. Try broadening your search criteria or
+                      try again later.
+                  </i>
+              </div>
               <?php submit_button(); ?>
           </form>
         </div>
