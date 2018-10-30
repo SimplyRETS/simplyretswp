@@ -32,8 +32,23 @@ class SrSearchMap {
 
     public static function mapWithDefaults() {
         $map = new Map();
-        $map->setAsync(true);
-        $map->setHtmlContainerId('sr_map_canvas');
+
+        // Generate an ident for the map so you can render mutliple
+        // maps on the same page. This isn't the most stable solution,
+        // but we don't have unique identifiers about the current
+        // short-code (and even if we did, it's very possible someone
+        // might want to show two of the same short-codes on the same
+        // page.
+        $ident = rand();
+        $map->setHtmlContainerId("{$ident}");
+
+        // Don't use async so that you can render multiple maps on the
+        // same page. When `async` is true, each map (each short-code)
+        // fetches it's own Google Maps script, causing conflict
+        // errors if there are multiple on the same page. Async does
+        // not have this problem.
+        $map->setAsync(false);
+
         $map->setStylesheetOptions(array(
             'width' => '100%',
             'height' =>  '550px'
