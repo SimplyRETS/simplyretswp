@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.5.3
+* FIX: Fix logic for loading custom single-sr-listings.php template.
+
 ## 2.5.2
 * ENHANCEMENT: Add admin option to customize no search results message.
 
