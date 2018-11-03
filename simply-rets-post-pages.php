@@ -471,7 +471,7 @@ class SimplyRetsCustomPostPages {
 
 
     // TODO: not sure if this is entirely necessary...at one time it was
-    function srClearComments() {
+    public static function srClearComments() {
         global $post;
         if ( !( is_singular() && ( have_comments() || 'open' == $post->comment_status ) ) ) {
             return;
@@ -483,26 +483,31 @@ class SimplyRetsCustomPostPages {
     }
 
 
-    public static function srLoadPostTemplate() {
+    public static function srLoadPostTemplate($single) {
         $query_object = get_queried_object();
         $sr_post_type = 'sr-listings';
-        $page_template = get_post_meta( $query_object->ID, 'sr_page_template', true );
 
+        // If this isn't a SimplyRETS page, return default template
+        if ($query_object->post_type !== $sr_post_type) {
+            return $single;
+        }
 
-
+        // The user can use a custom template if the file name is:
+        // single-sr-listings.php
         $default_templates    = array();
-        $default_templates[]  = "single-{$query_object->post_type}-{$query_object->post_name}.php";
         $default_templates[]  = "single-{$query_object->post_type}.php";
         $default_templates[]  = "page.php";
 
-        // only apply our template to our CPT pages
-        if ( $query_object->post_type == $sr_post_type ) {
-            if ( !empty( $page_template ) ) {
-                $default_templates = $page_template;
-            }
+        // If the user is using a "SimplyRETS Page", they may select a
+        // specific template from the current theme.
+        $page_template = get_post_meta($query_object->ID, 'sr_page_template', true);
+        if (!empty($page_template)) {
+            $default_templates = $page_template;
         }
 
-        $new_template = locate_template( $default_templates, false );
+        // Resolve path to the template
+        $new_template = locate_template($default_templates, false);
+
         return $new_template;
     }
 
