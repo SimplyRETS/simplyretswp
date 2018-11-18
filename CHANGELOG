@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.5.4
+* ENHANCEMENT: Show sale price for Closed listings on details pages.
+
 ## 2.5.3
 * FIX: Fix logic for loading custom single-sr-listings.php template.
 
