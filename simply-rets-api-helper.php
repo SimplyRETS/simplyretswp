@@ -535,6 +535,13 @@ HTML;
         $listing_price = $listing->listPrice;
         $listing_price_USD = '$' . number_format( $listing_price );
         $price = SimplyRetsApiHelper::srDetailsTable($listing_price_USD, "Price");
+
+        $listing_close_price = null;
+        if ($listing->mls->status === "Closed" AND !empty($listing->sales)) {
+            $listing_close_price = '$' . number_format($listing->sales->closePrice);
+        }
+        $close_price = SimplyRetsApiHelper::srDetailsTable($listing_close_price, "Close price");
+
         // DOM
         $listing_days_on_market = $listing->mls->daysOnMarket;
         $days_on_market = SimplyRetsApiHelper::srDetailsTable($listing_days_on_market, "Days on market");
@@ -1076,6 +1083,7 @@ HTML;
                   <th colspan="3"><h5>Property Details</h5></th></tr></thead>
               <tbody>
                 $price
+                $close_price
                 $bedrooms
                 $bathsFull
                 $bathsHalf
