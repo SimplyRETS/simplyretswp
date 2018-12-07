@@ -159,11 +159,13 @@ HTML;
             $showStatusText = get_option('sr_show_mls_status_text', false);
             $showMlsTrademark = get_option('sr_show_mls_trademark_symbol', false);
             $site_root = get_site_url();
+            $vendor = array_key_exists("vendor", $_POST) ? $_POST["vendor"] : "";
 
             header("Content-Type: application/json");
 
             $markup_opts = array(
-                "show_map" => "false"
+                "show_map" => "false",
+                "vendor" => $vendor
             );
 
             $req = SimplyRetsApiHelper::makeApiRequest("?".$_POST['parameters']);

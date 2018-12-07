@@ -86,18 +86,20 @@ var scrollToAnchor = function(aid) {
 }
 
 
-var buildPrettyLink = function(mlsId, address, root) {
+var buildPrettyLink = function(mlsId, address, root, vendor) {
     return root
          + "/listings/"
          + mlsId + "/"
          + address
+         + (vendor ? ("?sr_vendor=" + vendor) : "");
 }
 
-var buildUglyLink = function(mlsId, address, root) {
+var buildUglyLink = function(mlsId, address, root, vendor) {
     return root
          + "?sr-listings=sr-single"
          + "&listing_id=" + mlsId
-         + "&listing_title=" + address;
+         + "&listing_title=" + address
+         + (vendor ? ("&sr_vendor=" + vendor) : "");
 }
 
 
@@ -109,7 +111,8 @@ var genMarkerPopup = function(
     officeOnThumbnails,
     agentOnThumbnails,
     statusText,
-    mlsTrademark
+    mlsTrademark,
+    vendor
 ) {
 
     var stat  = statusText ? listing.mls.statusText : listing.mls.status;
@@ -133,8 +136,8 @@ var genMarkerPopup = function(
                : ""
 
     var link = linkStyle === "pretty"
-             ? buildPrettyLink(listing.mlsId, listing.address.full, siteRoot)
-             : buildUglyLink(listing.mlsId, listing.address.full, siteRoot);
+             ? buildPrettyLink(listing.mlsId, listing.address.full, siteRoot, vendor)
+             : buildUglyLink(listing.mlsId, listing.address.full, siteRoot, vendor);
 
     var markup = '' +
        '<div class="sr-iw-inner">' +
@@ -178,7 +181,8 @@ var makeMapMarkers = function(
     officeOnThumbnails,
     agentOnThumbnails,
     statusText,
-    mlsTrademark
+    mlsTrademark,
+    vendor
 ) {
 
     var markers = [];
@@ -201,7 +205,8 @@ var makeMapMarkers = function(
                 officeOnThumbnails,
                 agentOnThumbnails,
                 statusText,
-                mlsTrademark
+                mlsTrademark,
+                vendor
             );
 
             var window = new google.maps.InfoWindow({
@@ -551,15 +556,18 @@ SimplyRETSMap.prototype.handleRequest = function(that, data) {
     var listings = data.result.response.length > 0
                  ? data.result.response
                  : [];
-    var markers  = makeMapMarkers(that.map
-                                , listings
-                                , that.linkStyle
-                                , that.siteRoot
-                                , idxImg
-                                , officeOnThumbnails
-                                , agentOnThumbnails
-                                , statusText
-                                , mlsTrademark );
+    var markers  = makeMapMarkers(
+        that.map,
+        listings,
+        that.linkStyle,
+        that.siteRoot,
+        idxImg,
+        officeOnThumbnails,
+        agentOnThumbnails,
+        statusText,
+        mlsTrademark,
+        that.vendor
+    );
 
     that.bounds   = markers.bounds;
     that.markers  = markers.markers;
@@ -671,6 +679,7 @@ SimplyRETSMap.prototype.sendRequest = function(points, params, paginate) {
             action: 'update_int_map_data', // server controller
             data: pointsQ,
             parameters: query,
+            vendor: vendor
         },
     });
 
