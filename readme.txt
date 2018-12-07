@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 4.9.7
-Stable tag: 2.5.3
+Stable tag: 2.5.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.5.4 =
+* FIX: Fix `vendor` parameter on [sr_map_search] short-code.
 
 = 2.5.3 =
 * FIX: Fix logic for loading custom single-sr-listings.php template.
