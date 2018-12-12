@@ -48,6 +48,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_show_mls_status_text');
       register_setting('sr_admin_settings', 'sr_agent_office_above_the_fold');
       register_setting('sr_admin_settings', 'sr_show_mls_trademark_symbol');
+      register_setting('sr_admin_settings', 'sr_disable_listing_details_map');
   }
 
   public static function adminMessages () {
@@ -200,6 +201,22 @@ class SrAdminSettings {
                   <td>
                     <p><strong>Send Lead Capture forms submissions to:<p></strong>
                     <input type="email" name="sr_leadcapture_recipient" value="<?php echo esc_attr( get_option('sr_leadcapture_recipient') ); ?>" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h3>Map settings</h3>
+            <table>
+              <tbody>
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_disable_listing_details_map" name="sr_disable_listing_details_map" value="1" '
+                        . checked(1, get_option('sr_disable_listing_details_map'), false) . '/>'
+                      ?>
+                        Disable map view on listing details page
+                    </label>
                   </td>
                 </tr>
               </tbody>

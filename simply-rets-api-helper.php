@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.5.4 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.5.5 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.5.4 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.5.5 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -976,10 +976,12 @@ HTML;
 
         $addrFull = $address . ', ' . $city . ' ' . $listing_postal_code;
 
-        if( $listing_lat  && $listing_longitude ) {
-            /**
-             * Google Map for single listing
-             **************************************************/
+        /**
+         * Google Map for single listing
+         */
+        $hide_map = get_option('sr_disable_listing_details_map', false);
+
+        if( $listing_lat  && $listing_longitude && !$hide_map ) {
             $map       = SrSearchMap::mapWithDefaults();
             $marker    = SrSearchMap::markerWithDefaults();
             $iw        = SrSearchMap::infoWindowWithDefaults();
