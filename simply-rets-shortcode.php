@@ -87,9 +87,9 @@ class SrShortcodes {
             $type_options = "";
             foreach($prop_types as $key=>$type) {
                 if( $type == $type_att) {
-                    $type_options .= "<option value='$type' selected />$type</option>";
+                    $type_options .= "<option value='$type' selected>$type</option>";
                 } else {
-                    $type_options .= "<option value='$type' />$type</option>";
+                    $type_options .= "<option value='$type'>$type</option>";
                 }
             }
 

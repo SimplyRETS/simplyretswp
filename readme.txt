@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 4.9.7
-Stable tag: 2.5.4
+Tested up to: 5.0.0
+Stable tag: 2.5.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,11 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.5.5 =
+* ENHANCEMENT: Add admin option to disable maps on listing details pages.
+* ENHANCEMENT: Increase compatibility tag for WordPress 5.0
+* FIX: Fix issue with generating invalid markup
 
 = 2.5.4 =
 * FIX: Fix `vendor` parameter on [sr_map_search] short-code.
