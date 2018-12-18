@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.5.6
+* FIX: Remove extra markup from listing details map info window.
+
 ## 2.5.5
 * ENHANCEMENT: Add admin option to disable maps on listing details pages.
 * ENHANCEMENT: Increase compatibility tag for WordPress 5.0
