@@ -989,7 +989,7 @@ HTML;
             $iwCont    = SrSearchMap::infoWindowMarkup(
                 $link,
                 $main_photo,
-                $address,
+                $listing_address,
                 $listing_price_USD,
                 $listing_bedrooms,
                 $listing_bathsFull,
