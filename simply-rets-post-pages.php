@@ -677,11 +677,15 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
+            /** Parse multiple postalCodes from short-code parameter */
             $postalCodes = isset($_GET['sr_postalCodes']) ? $_GET['sr_postalCodes'] : '';
             $postalCodes_string = "";
-            if(!empty($postalCodes)) {
-                foreach((array)$postalCodes as $key => $postalCode) {
-                    $postalCodes_string .= "&postalCodes=$postalCode";
+            $postalCodes_arr = is_array($postalCodes) ? $postalCodes : explode(";", $postalCodes);
+
+            if(is_array($postalCodes_arr) && !empty($postalCodes_arr)) {
+                foreach((array)$postalCodes_arr as $key => $zip) {
+                    $final = trim($zip);
+                    $postalCodes_string .= "&postalCodes=$zip";
                 }
             }
 
@@ -786,7 +790,8 @@ class SimplyRetsCustomPostPages {
                 "q" => $kw_string,
                 "agent" => get_query_var('sr_agent', ''),
                 "status" => $statuses_attribute,
-                "advanced" => $advanced == "true" ? "true" : "false"
+                "advanced" => $advanced == "true" ? "true" : "false",
+                "postalCodes" => $postalCodes
             );
 
             // Create a string of attributes to put on the
