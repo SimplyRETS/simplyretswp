@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 5.0.0
-Stable tag: 2.5.6
+Stable tag: 2.5.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.5.7 =
+* ENHANCEMENT: Add support for `postalCodes` parameter on [sr_search_form].
 
 = 2.5.6 =
 * FIX: Remove extra markup from listing details map info window.
