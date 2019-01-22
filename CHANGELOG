@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.5.8
+* FIX: Fix [sr_search_form] API query when no postalCodes are specified.
+
 ## 2.5.7
 * ENHANCEMENT: Add support for `postalCodes` parameter on [sr_search_form].
 
