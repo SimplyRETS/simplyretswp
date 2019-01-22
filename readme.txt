@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 5.0.0
-Stable tag: 2.5.7
+Stable tag: 2.5.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -236,6 +236,9 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.5.8 =
+* FIX: Fix [sr_search_form] API query when no postalCodes are specified.
+
 = 2.5.7 =
 * ENHANCEMENT: Add support for `postalCodes` parameter on [sr_search_form].
 
@@ -263,51 +266,12 @@ listing sidebar widget.
 * FIX: Fix all known PHP warnings while in WP_DEBUG mode (yay!)
 * CHANGE: Add div element wrapper to search results list
 
-= 2.4.12 =
-* ENHANCEMENT: Support default 'limit' on [sr_map_search]
-
-= 2.4.11 =
-* ENHANCEMENT: Support default 'counties' on [sr_search_form]
-
-= 2.4.10 =
-* ENHANCEMENT: Improve default map zoom when only one pin is on the map.
-
-= 2.4.9 =
-* ENHANCEMENT: Use `typeText` field in additional room details.
-
-= 2.4.8 =
-* ENHANCEMENT: Fix README teaser and update plugin directory banner image.
-
-= 2.4.7 =
-* FIX: Fix more details link CSS and markup to be more compatible.
-
-= 2.4.6 =
-* ENHANCEMENT: Link to new documentation in WP readme.
-
-= 2.4.5 =
-* FEATURE: Support `water` parameter on [sr_search_form].
-* FEATURE: Support `null` address in sr-single permalinks.
-
-= 2.4.4 =
-* FIX: Fix 'zip' field in ListHub analytics request.
-
-= 2.4.3 =
-* FIX: Retain 'postalCodes' parameter when paginating search results.
-
-= 2.4.2 =
-* UPDATE: Add admin option to enable/disable ListHub analytics test events.
-
-= 2.4.1 =
-* FIX: Update responsive media queries for bigger mobile device screen sizes.
-
-= 2.4.0 =
-* FIX: Fix exception when searching with "q" parameter during pagination.
-* FIX: Retain 'agent' filter on search form during pagination.
-
-**View the complete CHANGELOG:** [here](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
-
+[**View the complete CHANGELOG here**](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 
 == Upgrade Notice ==
+
+= 2.5.7 =
+**Please upgrade to v2.5.8**. A bug was introduced in v2.5.7 that will make the [sr_search_form] work incorrectly if there are *no* `postalCodes` parameters set. This bug is fixed in v2.5.8 and is available in your WordPress dashboard.
 
 = 2.0.0 =
 **There are some changes you should be aware of**

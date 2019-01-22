@@ -684,8 +684,11 @@ class SimplyRetsCustomPostPages {
 
             if(is_array($postalCodes_arr) && !empty($postalCodes_arr)) {
                 foreach((array)$postalCodes_arr as $key => $zip) {
-                    $final = trim($zip);
-                    $postalCodes_string .= "&postalCodes=$zip";
+                    // Don't send empty postalCodes parameters to the API
+                    if (!empty($zip)) {
+                        $final = trim($zip);
+                        $postalCodes_string .= "&postalCodes=$zip";
+                    }
                 }
             }
 
