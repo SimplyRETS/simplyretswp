@@ -24,6 +24,30 @@ function srRegisterWidgets() {
 }
 
 
+class SrWidgetHelper {
+
+    /*
+     * Create an API query string from $params : {array}.
+     * Specifically, this adds all Basic statuses to the default query
+     * since it is not configurable from the widget settings. Ie,
+     * ActiveUnderContract. We could also use the
+     * `sr_adv_search_meta_status_` data from the DB to use all
+     * statuses this user has access to.
+     */
+    public static function mkApiQueryString($params) {
+        $qs = "?status=Active"
+            . "&status=Pending"
+            . "&status=ActiveUnderContract";
+
+        foreach((array)$params as $key=>$value) {
+            $qs .= "&{$key}={$value}";
+        }
+
+        return $qs;
+    }
+}
+
+
 class srFeaturedListingWidget extends WP_Widget {
 
     /** constructor */
@@ -107,8 +131,11 @@ class srFeaturedListingWidget extends WP_Widget {
 
         // populate content
         if( $mlsid ) {
-            $qs = "?q=$mlsid&vendor=$vendor";
-            $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $qs, $settings );
+            $qs = SrWidgetHelper::mkApiQueryString(
+                array("q" => $mlsid, "vendor" => $vendor)
+            );
+
+            $cont .= SimplyRetsApiHelper::retrieveWidgetListing($qs, $settings);
         } else {
             $cont .= "No listing found";
         }
@@ -215,10 +242,15 @@ class srAgentListingWidget extends WP_Widget {
 
        // populate content
        if( $agent && $limit ) {
-           $params['agent'] = $agent;
-           $params['limit'] = $limit;
-           $params['vendor'] = $vendor;
-           $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $params, $settings );
+           $qs = SrWidgetHelper::mkApiQueryString(
+               array(
+                   "agent" => $agent,
+                   "limit" => $limit,
+                   "vendor" => $vendor
+               )
+           );
+
+           $cont .= SimplyRetsApiHelper::retrieveWidgetListing($qs, $settings);
        } else {
            $cont .= "No listing found";
        }
@@ -317,8 +349,11 @@ class srRandomListingWidget extends WP_Widget {
 
         // populate content
         if( $mlsid ) {
-            $qs = "?q=$mlsid&vendor=$vendor";
-            $cont .= SimplyRetsApiHelper::retrieveWidgetListing( $qs, $settings );
+            $qs = SrWidgetHelper::mkApiQueryString(
+                array("q" => $mlsid, "vendor" => $vendor)
+            );
+
+            $cont .= SimplyRetsApiHelper::retrieveWidgetListing($qs, $settings);
         } else {
             $cont .= "No listing found";
         }
