@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 5.0.0
-Stable tag: 2.5.8
+Tested up to: 5.0.3
+Stable tag: 2.6.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,10 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.6.0 =
+* ENHANCEMENT: Allow `neighborhoods`, `cities`, and `counties` parameters on [sr_search_form].
+* ENHANCEMENT: Support ActiveUnderContract listings in SimplyRETS widgets.
 
 = 2.5.8 =
 * FIX: Fix [sr_search_form] API query when no postalCodes are specified.
