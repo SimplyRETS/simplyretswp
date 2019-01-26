@@ -819,7 +819,7 @@ class SimplyRetsCustomPostPages {
                 "postalCodes" => $postalCodes,
                 "cities" => $cities,
                 "counties" => $counties,
-                "neighborhoods" => $neighborhood
+                "neighborhoods" => $neighborhoods
             );
 
             // Create a string of attributes to put on the
