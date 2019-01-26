@@ -430,7 +430,7 @@ HTML;
          */
         $adv_cities = isset($_GET['sr_cities']) ? $_GET['sr_cities'] : array();
         if (empty($adv_cities) && array_key_exists('cities', $atts)) {
-            $adv_cities = $atts['cities'];
+            $adv_cities = explode(";", $atts['cities']);
         }
 
         $sort_price_hl = ($sort == "-listprice") ? "selected" : '';
