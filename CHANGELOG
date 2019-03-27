@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.6.1
+* FIX: Fix class and ID attributes on advanced search form markup.
+
 ## 2.6.0
 * ENHANCEMENT: Allow `neighborhoods`, `cities`, and `counties` parameters on [sr_search_form].
 * ENHANCEMENT: Support ActiveUnderContract listings in SimplyRETS widgets.

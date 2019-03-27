@@ -562,9 +562,11 @@ HTML;
                       <input step="1000" min="0" type="number" name="sr_maxprice" placeholder="1000000" value="<?php echo $maxprice; ?>"/>
                     </div>
 
-                    <div class="sr-adv-search-col4">
-                      <label for="sr-adv-minprice"><strong>Bedrooms</strong></label>
-                      <select name="sr_minbeds" id="sr-adv-minbeds">
+                    <div class="sr-adv-search-col4" id="sr-adv-minbeds">
+                      <label for="sr_minbeds" id="sr-adv-minbeds-label">
+                          <strong>Bedrooms</strong>
+                      </label>
+                      <select name="sr_minbeds" id="sr-adv-minbeds-select">
                         <option value="<?php echo $minbeds; ?>"><?php echo $minbeds; ?>+</option>
                         <option value="1">1+</option>
                         <option value="2">2+</option>
@@ -576,9 +578,12 @@ HTML;
                         <option value="8">8+</option>
                       </select>
                     </div>
-                    <div class="sr-adv-search-col4">
-                      <label><strong>Bathrooms</strong></label>
-                      <select name="sr_minbaths" id="sr-adv-minbaths">
+
+                    <div class="sr-adv-search-col4" id="sr-adv-minbaths">
+                      <label for="sr_minbaths" id="sr-adv-minbaths-label">
+                          <strong>Bathrooms</strong>
+                      </label>
+                      <select name="sr_minbaths" id="sr-adv-minbaths-select">
                         <option value="<?php echo $minbaths; ?>"><?php echo $minbaths; ?>+</option>
                         <option value="1">1+</option>
                         <option value="2">2+</option>
@@ -593,33 +598,35 @@ HTML;
                   </div>
 
                   <div class="sr-minmax-filters">
-                    <div class="sr-adv-search-col2">
-                      <label><strong>Status</strong></label>
-                      <select name="status" id="sr-adv-search-status">
+                    <div class="sr-adv-search-col2" id="sr-adv-status">
+                      <label for="status" id="sr-adv-status-label">
+                          <strong>Status</strong>
+                      </label>
+                      <select name="status" id="sr-adv-status-select">
                         <option value="">All</option>
                         <?php echo $status_options; ?>
                       </select>
                     </div>
-                    <div class="sr-adv-search-col4">
-                      <label for="sr-adv-lotsize"><strong>Lot Size</strong></label>
+                    <div class="sr-adv-search-col4" id="sr-adv-lotsize">
+                      <label for="sr_lotsize"><strong>Lot Size</strong></label>
                       <input type="number" name="sr_lotsize" placeholder="3500" value="<?php echo $lotsize; ?>"/>
                     </div>
-                    <div class="sr-adv-search-col4">
-                      <label><strong>Area (SqFt)</strong></label>
+                    <div class="sr-adv-search-col4" id="sr-adv-area">
+                      <label for="sr_area"><strong>Area (SqFt)</strong></label>
                       <input type="number" name="sr_area" value="<?php echo $area; ?>" placeholder="1500" />
                     </div>
                   </div>
 
 
                   <div class="sr-minmax-filters">
-                    <div class="sr-adv-search-col2">
+                    <div class="sr-adv-search-col2" id="sr-adv-cities">
                       <label><strong>Cities</strong></label>
                       <select name='sr_cities[]' multiple>
                         <?php echo $city_options ?>
                       </select>
                     </div>
 
-                    <div class="sr-adv-search-col2">
+                    <div class="sr-adv-search-col2" id="sr-adv-neighborhoods">
                       <label><strong>Locations</strong></label>
                       <select name="sr_neighborhoods[]" multiple>
                         <?php echo $location_options ?>
