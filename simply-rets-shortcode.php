@@ -268,6 +268,15 @@ HTML;
                 $ptypes_string = str_replace(' ', '%20', $ptypes_string );
             }
 
+            if(isset($listing_params['subtype']) && !empty($listing_params['subtype'])) {
+                $subtypes = explode(';', $listing_params['subtype']);
+                foreach($subtypes as $key => $subtype) {
+                    $subtype = trim($subtype);
+                    $subtypes_string .= "subtype=$subtype&";
+                }
+                $subtypes_string = str_replace(' ', '%20', $subtypes_string);
+            }
+
             if( isset( $listing_params['postalcodes'] ) && !empty( $listing_params['postalcodes'] ) ) {
                 $postalcodes = explode( ';', $listing_params['postalcodes'] );
                 foreach( $postalcodes as $key => $postalcode  ) {
@@ -321,6 +330,7 @@ HTML;
                     && $key !== 'cities'
                     && $key !== 'agent'
                     && $key !== 'type'
+                    && $key !== 'subtype'
                     && $key !== 'status'
                     && $key !== 'q'
                 ) {
@@ -339,6 +349,7 @@ HTML;
             $qs .= $params_string;
             $qs .= $agents_string;
             $qs .= $ptypes_string;
+            $qs .= $subtypes_string;
             $qs .= $statuses_string;
             $qs .= $q_string;
 
@@ -394,6 +405,7 @@ HTML;
         $water   = isset($atts['water'])   ? $atts['water']   : '';
         $limit   = isset($atts['limit'])   ? $atts['limit']   : '';
         $config_type = isset($atts['type']) ? $atts['type']   : '';
+        $subtype = isset($atts['subtype']) ? $atts['subtype'] : '';
         $counties = isset($atts['counties']) ? $atts['counties'] : '';
         $postalCodes = isset($atts['postalcodes']) ? $atts['postalcodes'] : '';
         $neighborhoods = isset($atts['neighborhoods']) ? $atts['neighborhoods'] : '';
@@ -649,6 +661,7 @@ HTML;
                 <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
                 <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
                 <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
+                <input type="hidden" name="sr_subtype" value="<?php echo $subtype; ?>" />
                 <input type="hidden" name="sr_counties" value="<?php echo $counties; ?>" />
                 <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
                 <input type="hidden" name="sr_postalCodes" value="<?php echo $postalCodes; ?>" />
@@ -737,6 +750,7 @@ HTML;
             <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
             <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
             <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
+            <input type="hidden" name="sr_subtype" value="<?php echo $subtype; ?>" />
             <input type="hidden" name="sr_counties" value="<?php echo $counties; ?>" />
             <input type="hidden" name="sr_postalCodes" value="<?php echo $postalCodes; ?>" />
             <input type="hidden" name="sr_neighborhoods" value="<?php echo $neighborhoods; ?>" />

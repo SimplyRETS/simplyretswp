@@ -181,6 +181,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_keywords";
         $vars[] = "sr_type";
         $vars[] = "sr_ptype";
+        $vars[] = "sr_subtype";
         $vars[] = "sr_agent";
         $vars[] = "sr_brokers";
         $vars[] = "sr_sort";
@@ -519,6 +520,7 @@ class SimplyRetsCustomPostPages {
     public static function parseGetParameter($name, $key, $params) {
         $param = isset($_GET[$name]) ? $_GET[$name] : "";
         $param_arr = is_array($param) ? $param : explode(";", $param);
+        $param_att = is_array($param) ? implode(";", $param) : $param;
         $param_str = "";
 
         if(is_array($param_arr) && !empty($param_arr)) {
@@ -530,7 +532,11 @@ class SimplyRetsCustomPostPages {
             }
         }
 
-        return array("param" => $param, "query" => $param_str);
+        return array(
+            "param" => $param,
+            "query" => $param_str,
+            "att" => $param_att
+        );
     }
 
     public static function srPostDefaultContent( $content ) {
@@ -692,6 +698,17 @@ class SimplyRetsCustomPostPages {
             $postalCodes = $postalCodesData["param"];
             $postalCodes_string = $postalCodesData["query"];
 
+            /** Parse multiple subtypes from short-code parameter */
+            $subtypeData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_subtype",
+                "subtype",
+                $_GET
+            );
+
+            $subtype = $subtypeData["param"];
+            $subtype_att = $subtypeData["att"];
+            $subtype_string = $subtypeData["query"];
+
             /** Parse multiple cities from short-code parameter */
             $citiesData = SimplyRetsCustomPostPages::parseGetParameter(
                 "sr_cities",
@@ -816,6 +833,7 @@ class SimplyRetsCustomPostPages {
                 "agent" => get_query_var('sr_agent', ''),
                 "status" => $statuses_attribute,
                 "advanced" => $advanced == "true" ? "true" : "false",
+                "subtype" => $subtype_att,
                 "postalCodes" => $postalCodes,
                 "cities" => $cities,
                 "counties" => $counties,
@@ -842,6 +860,7 @@ class SimplyRetsCustomPostPages {
                 . $postalCodes_string
                 . $agents_string
                 . $ptypes_string
+                . $subtype_string
                 . $statuses_string
                 . $amenities_string
                 . $q_string;
