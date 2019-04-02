@@ -48,6 +48,46 @@ class SrUtils {
     }
 
     /**
+     * Normalize a property type abbreviation into the full text.
+     */
+    public static function normalizePropertyType($type) {
+        $normalized_type = null;
+
+        switch($type) {
+            case "RES":
+                $normalized_type = "Residential";
+                break;
+
+            case "CND":
+                $normalized_type = "Condominium";
+                break;
+
+            case "RNT":
+                $normalized_type = "Rental";
+                break;
+
+            case "CRE":
+                $normalized_type = "Commercial";
+                break;
+
+            case "LND":
+                $normalized_type = "Land";
+                break;
+
+            case "MLF":
+                $normalized_type = "MultiFamily";
+                break;
+
+            case "FRM":
+                $normalized_type = "Farm";
+                break;
+
+        }
+
+        return $normalized_type;
+    }
+
+    /**
      * Builds a link to a listings' details page. Used in search results.
      */
     public static function buildDetailsLink($listing, $params = array()) {

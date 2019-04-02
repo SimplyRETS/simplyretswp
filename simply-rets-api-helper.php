@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.6.1 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.6.2 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.6.1 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.6.2 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -539,8 +539,15 @@ HTML;
         $listing_days_on_market = $listing->mls->daysOnMarket;
         $days_on_market = SimplyRetsApiHelper::srDetailsTable($listing_days_on_market, "Days on market");
         // type
-        $listing_type = $listing->property->type;
+        $listing_type = SrUtils::normalizePropertyType($listing->property->type);
         $type = SimplyRetsApiHelper::srDetailsTable($listing_type, "Property Type");
+        // subtype
+        $listing_subType_ = $listing->property->subType;
+        $listing_subTypeText = $listing->property->subTypeText;
+        $listing_subType = !empty($listing_subType_)
+                         ? $listing_subType_
+                         : $listing_subTypeText;
+        $subType = SimplyRetsApiHelper::srDetailsTable($listing_subType, "Sub Type");
         // bedrooms
         $listing_bedrooms = $listing->property->bedrooms;
         $bedrooms = SimplyRetsApiHelper::srDetailsTable($listing_bedrooms, "Bedrooms");
@@ -1089,6 +1096,8 @@ HTML;
                 $lotsizeareaunits_markup
                 $acres_markup
 
+                $type
+                $subType
                 $stories
                 $interiorFeatures
                 $exteriorFeatures
