@@ -193,7 +193,6 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_area";
         $vars[] = "sr_cities";
         $vars[] = "sr_neighborhoods";
-        $vars[] = "sr_amenities";
         $vars[] = "sr_features";
         $vars[] = "sr_counties";
         // multi-mls
@@ -588,105 +587,33 @@ class SimplyRetsCustomPostPages {
             $map_position = get_query_var('sr_map_position',
                                           get_option('sr_search_map_position'));
 
+            /** Parse multiple agent from short-code parameter */
+            $ptypeData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_ptype",
+                "type",
+                $_GET
+            );
 
-            /**
-             * Format the 'type' parameter.
-             * Note that the 'type' might come in as an Array or a
-             * String.  For strings, we split on ";" to support
-             * multiple property types only if the string is not
-             * empty.  Arrays are concated into multiple type=
-             * parameters.
-             */
-            $p_types = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
-            $ptypes_string = '';
-            if(!is_array($p_types) && !empty($p_types)) {
-                if(strpos($p_types, ";") !== FALSE) {
-                    $p_types = explode(';', $p_types);
-                } else {
-                    $ptypes_string = "&type=$p_types";
-                }
-            }
-            if(is_array($p_types) && !empty($p_types)) {
-                foreach((array)$p_types as $key => $ptype) {
-                    $final = trim($ptype);
-                    $ptypes_string .= "&type=$final";
-                }
-            }
+            /** Parse multiple agent from short-code parameter */
+            $statusData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_status",
+                "status",
+                $_GET
+            );
 
+            /** Parse multiple agent from short-code parameter */
+            $featuresData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_features",
+                "features",
+                $_GET
+            );
 
-            /**
-             * Format the 'status' parameter.
-             * Note that the 'status' might come in as an Array or a
-             * String.  For strings, we split on ";" to support
-             * multiple statuses only if the string is not empty.
-             * Arrays are concated into multiple status= parameters.
-             *
-             * NOTE: it is important to not send an empty status
-             * parameter, for example "status=" to the API, as it will
-             * interpret it as Active, whereas _no_ status parameter
-             * is Active and Pending.
-             */
-            $statuses = isset($_GET['sr_status']) ? $_GET['sr_status'] : $status;
-            $statuses_string = '';
-            $statuses_attribute = '';
-
-            if(!is_array($statuses) && !empty($statuses)) {
-                if(strpos($statuses, ";") !== FALSE) {
-                    $statuses = explode(';', $statuses);
-                } else {
-                    $statuses_string = "&status=$statuses";
-                }
-
-                $statuses_attribute = $statuses;
-            }
-
-            if(is_array($statuses) && !empty($statuses)) {
-                foreach((array)$statuses as $key => $stat) {
-                    $final = trim($stat);
-                    $statuses_string .= "&status=$final";
-                }
-
-                $statuses_attribute = implode(";", $statuses);
-            }
-
-            /**
-             * The loops below check if the short-code has multiple
-             * values for any query parameter. Eg, multiple cities.
-             * Since they support multiple, we do the following for
-             * each:
-             *
-             *
-             * - Split string on ';' delimeter (which returns a single
-                 item array if there is none)
-             *
-             * - Make each array item into a query (eg, &status=Closed)
-             *
-             * - Concat them together (eg,&status=Active&status=Closed)
-             */
-
-            $features = isset($_GET['sr_features']) ? $_GET['sr_features'] : '';
-            $features_string = "";
-            if(!empty($features)) {
-                foreach((array)$features as $key => $feature) {
-                    $features_string .= "&features=$feature";
-                }
-            }
-
-            $agents = isset($_GET['sr_agent']) ? $_GET['sr_agent'] : '';
-            $agents_string = "";
-            if(!empty($agents)) {
-                foreach((array)$agents as $key => $agent) {
-                    $agents_string .= "&agent=$agent";
-                }
-            }
-
-            $amenities = isset($_GET['sr_amenities']) ? $_GET['sr_amenities'] : '';
-            $amenities_string = "";
-            if(!empty($amenities)) {
-                foreach((array)$amenities as $key => $amenity) {
-                    $amenities_string .= "&amenities=$amenity";
-                }
-            }
+            /** Parse multiple agent from short-code parameter */
+            $agentData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_agent",
+                "agent",
+                $_GET
+            );
 
             /** Parse multiple postalCodes from short-code parameter */
             $postalCodesData = SimplyRetsCustomPostPages::parseGetParameter(
@@ -695,19 +622,12 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $postalCodes = $postalCodesData["param"];
-            $postalCodes_string = $postalCodesData["query"];
-
             /** Parse multiple subtypes from short-code parameter */
             $subtypeData = SimplyRetsCustomPostPages::parseGetParameter(
                 "sr_subtype",
                 "subtype",
                 $_GET
             );
-
-            $subtype = $subtypeData["param"];
-            $subtype_att = $subtypeData["att"];
-            $subtype_string = $subtypeData["query"];
 
             /** Parse multiple cities from short-code parameter */
             $citiesData = SimplyRetsCustomPostPages::parseGetParameter(
@@ -716,9 +636,6 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $cities = $citiesData["param"];
-            $cities_string = $citiesData["query"];
-
             /** Parse multiple counties from short-code parameter */
             $countiesData = SimplyRetsCustomPostPages::parseGetParameter(
                 "sr_counties",
@@ -726,18 +643,12 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $counties = $countiesData["param"];
-            $counties_string = $countiesData["query"];
-
             /** Parse multiple neighborhoods from short-code parameter */
             $neighborhoodsData = SimplyRetsCustomPostPages::parseGetParameter(
                 "sr_neighborhoods",
                 "neighborhoods",
                 $_GET
             );
-
-            $neighborhoods = $neighborhoodsData["param"];
-            $neighborhoods_string = $neighborhoodsData["query"];
 
             /**
              * If `sr_q` is set, the user clicked a pagination link
@@ -830,14 +741,15 @@ class SimplyRetsCustomPostPages {
 
             $next_atts = $listing_params + array(
                 "q" => $kw_string,
-                "agent" => get_query_var('sr_agent', ''),
-                "status" => $statuses_attribute,
+                "agent" => $agentData["att"],
+                "status" => $statusData["att"],
                 "advanced" => $advanced == "true" ? "true" : "false",
-                "subtype" => $subtype_att,
-                "postalCodes" => $postalCodes,
-                "cities" => $cities,
-                "counties" => $counties,
-                "neighborhoods" => $neighborhoods
+                "type" => $ptypeData["att"],
+                "subtype" => $subtypeData["att"],
+                "postalCodes" => $postalCodesData["att"],
+                "cities" => $citiesData["att"],
+                "counties" => $countiesData["att"],
+                "neighborhoods" => $neighborhoodsData["att"]
             );
 
             // Create a string of attributes to put on the
@@ -853,16 +765,15 @@ class SimplyRetsCustomPostPages {
             // Final API query string
             $qs = '?'
                 . http_build_query( array_filter( $listing_params ) )
-                . $features_string
-                . $cities_string
-                . $counties_string
-                . $neighborhoods_string
-                . $postalCodes_string
-                . $agents_string
-                . $ptypes_string
-                . $subtype_string
-                . $statuses_string
-                . $amenities_string
+                . $featuresData["query"]
+                . $citiesData["query"]
+                . $countiesData["query"]
+                . $neighborhoodsData["query"]
+                . $postalCodesData["query"]
+                . $agentData["query"]
+                . $ptypeData["query"]
+                . $subtypeData["query"]
+                . $statusData["query"]
                 . $q_string;
 
             $qs = str_replace(' ', '%20', $qs);
