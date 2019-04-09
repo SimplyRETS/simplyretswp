@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.6.3
+* ENHANCEMENT: Show listing close price on property details page
+
 ## 2.6.2
 * ENHANCEMENT: Display property type and subtype on listing details page
 * ENHANCEMENT: Add support for subtype parameter on [sr_listings] and [sr_search_form]
