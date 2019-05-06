@@ -88,6 +88,17 @@ class SrUtils {
     }
 
     /**
+     * Remove trailing "County" (or "county") from a county name so it
+     * can be shown within our details builder, or in other use-cases
+     * where "County" may be appended manually.
+     */
+    public static function normalizeCountyText($county) {
+        $county_text = str_replace(" County", "", $county);
+        $county_text = str_replace(" county", "", $county_text);
+        return $county_text;
+    }
+
+    /**
      * Builds a link to a listings' details page. Used in search results.
      */
     public static function buildDetailsLink($listing, $params = array()) {

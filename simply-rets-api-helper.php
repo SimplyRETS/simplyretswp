@@ -1384,7 +1384,11 @@ HTML;
             if( $area == 0 ) {
                 $areaMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsHalf, 'Half Baths', false);
                 if( $areaMarkup == 0 ) {
-                    $areaMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($county, "County", false);
+                    $areaMarkup = SimplyRetsApiHelper::resultDataColumnMarkup(
+                        SrUtils::normalizeCountyText($county),
+                        "County",
+                        false
+                    );
                 }
             }
 
