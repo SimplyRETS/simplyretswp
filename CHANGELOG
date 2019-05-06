@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.6.4
+* FIX: Fix issue where the text "County" is duplicated on search result pages.
+
 ## 2.6.3
 * ENHANCEMENT: Show listing close price on property details page
 
