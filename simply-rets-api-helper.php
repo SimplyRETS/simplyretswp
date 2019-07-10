@@ -988,8 +988,6 @@ HTML;
             !empty($vendor) ? array("sr_vendor" => $vendor) : array()
         );
 
-        $addrFull = $address . ', ' . $city . ' ' . $listing_postal_code;
-
         /**
          * Google Map for single listing
          */
@@ -1301,8 +1299,8 @@ HTML;
              * Listing status to show. This may return a statusText.
              */
             $mls_status = SrListing::listingStatus($listing);
+            $full_address = SrUtils::buildFullAddressString($listing);
 
-            $addrFull = $address . ', ' . $city . ' ' . $zip;
             $listing_USD = $listing_price == "" ? "" : '$' . number_format( $listing_price );
 
             if( $bedrooms == null || $bedrooms == "" ) {
@@ -1349,7 +1347,7 @@ HTML;
                 $iwCont = SrSearchMap::infoWindowMarkup(
                     $link,
                     $main_photo,
-                    $address,
+                    $full_address,
                     $listing_USD,
                     $bedrooms,
                     $bathsFull,
@@ -1423,8 +1421,9 @@ HTML;
                 <div class="sr-listing-data-wrapper">
                   <div class="sr-primary-data">
                     <a href="$link">
-                      <h4>$address
-                      <span class="sr-price"><i>$listing_USD</i></span></h4>
+                      <h4>$full_address
+                        <small class="sr-price"><i> - $listing_USD</i></small>
+                      </h4>
                     </a>
                   </div>
                   <div class="sr-secondary-data">
