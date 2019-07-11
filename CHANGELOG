@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.7.0
+* ENHANCEMENT: Show full address with city, state, and zip for listings in search results.
+
 ## 2.6.4
 * FIX: Fix issue where the text "County" is duplicated on search result pages.
 
