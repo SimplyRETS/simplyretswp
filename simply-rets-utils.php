@@ -99,6 +99,25 @@ class SrUtils {
     }
 
     /**
+     * Render a listings full address with state and postalCode
+     * <street address>, <city>, <state> <zip>
+     */
+    public static function buildFullAddressString($listing) {
+
+        $city = $listing->address->city;
+        $state = $listing->address->state;
+        $zip = $listing->address->postalCode;
+        $address = $listing->address->full;
+
+        // A listing might have a null address if a flag like "Display
+        // address" is set to false. This just removes the comma in
+        // these cases, but the rest of the address remains the same.
+        $comma = $address ? ', ' : '';
+
+        return $address . $comma . $city . ', ' . $state . ' ' . $zip;
+    }
+
+    /**
      * Builds a link to a listings' details page. Used in search results.
      */
     public static function buildDetailsLink($listing, $params = array()) {
@@ -122,25 +141,11 @@ class SrUtils {
 
         // Listing details
         $listing_id = $listing->mlsId;
-
         $listing_city = $listing->address->city;
         $listing_state = $listing->address->state;
         $listing_zip = $listing->address->postalCode;
         $listing_address = $listing->address->full;
-
-        // A listing might not have a null address if a flag like
-        // "Display address" is set to false. This just removes the
-        // comma in these cases, but the rest of the address remains
-        // the same.
-        $comma = $listing_address ? ', ' : '';
-
-        $listing_address_full = $listing_address
-                              . $comma
-                              . $listing_city
-                              . ', '
-                              . $listing_state
-                              . ' '
-                              . $listing_zip;
+        $listing_address_full = SrUtils::buildFullAddressString($listing);
 
         if($prettify && $custom_permalink_struct === "pretty_extra") {
 

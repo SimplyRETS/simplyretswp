@@ -104,7 +104,7 @@ class SrSearchMap {
 
         $markup = <<<HTML
             <div class="sr-iw-inner">
-              <h4 class="sr-iw-addr">$address<small> $price</small></h4>
+              <h4 class="sr-iw-addr">$address<small> - $price</small></h4>
               <div class="sr-iw-inner__img">
                 <a href='$link'>
                   <img id="sr-iw-inner__img-img" src='$photo'>

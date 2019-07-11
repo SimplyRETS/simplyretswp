@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 5.1.1
-Stable tag: 2.6.4
+Stable tag: 2.7.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.7.0 =
+* ENHANCEMENT: Show full address with city, state, and zip for listings in search results.
 
 = 2.6.4 =
 * FIX: Fix issue where the text "County" is duplicated on search result pages.

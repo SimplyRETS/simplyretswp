@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.6.4 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.7.0 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.6.4 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.7.0 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -988,8 +988,6 @@ HTML;
             !empty($vendor) ? array("sr_vendor" => $vendor) : array()
         );
 
-        $addrFull = $address . ', ' . $city . ' ' . $listing_postal_code;
-
         /**
          * Google Map for single listing
          */
@@ -1301,8 +1299,8 @@ HTML;
              * Listing status to show. This may return a statusText.
              */
             $mls_status = SrListing::listingStatus($listing);
+            $full_address = SrUtils::buildFullAddressString($listing);
 
-            $addrFull = $address . ', ' . $city . ' ' . $zip;
             $listing_USD = $listing_price == "" ? "" : '$' . number_format( $listing_price );
 
             if( $bedrooms == null || $bedrooms == "" ) {
@@ -1349,7 +1347,7 @@ HTML;
                 $iwCont = SrSearchMap::infoWindowMarkup(
                     $link,
                     $main_photo,
-                    $address,
+                    $full_address,
                     $listing_USD,
                     $bedrooms,
                     $bathsFull,
@@ -1423,8 +1421,9 @@ HTML;
                 <div class="sr-listing-data-wrapper">
                   <div class="sr-primary-data">
                     <a href="$link">
-                      <h4>$address
-                      <span class="sr-price"><i>$listing_USD</i></span></h4>
+                      <h4>$full_address
+                        <small class="sr-price"><i> - $listing_USD</i></small>
+                      </h4>
                     </a>
                   </div>
                   <div class="sr-secondary-data">
