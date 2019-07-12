@@ -238,6 +238,7 @@ listing sidebar widget.
 
 = 2.7.0 =
 * ENHANCEMENT: Show full address with city, state, and zip for listings in search results.
+* ENHANCEMENT: Add more meta information to the images in the fancy gallery.
 
 = 2.6.4 =
 * FIX: Fix issue where the text "County" is duplicated on search result pages.
