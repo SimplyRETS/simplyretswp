@@ -20,9 +20,16 @@ class SimplyRetsApiHelper {
         return $response_markup;
     }
 
+    public static function retrieveOpenHousesResults($params, $settings = NULL) {
+        $request_url = SimplyRetsApiHelper::srRequestUrlBuilder($params, "openhouses");
+        $response = SimplyRetsApiHelper::srApiRequest($request_url);
+        $response_markup  = SimplyRetsOpenHouses::openHousesSearchResults($response);
+
+        return $response_markup;
+    }
 
     public static function retrieveListingDetails( $listing_id ) {
-        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder($listing_id, true);
+        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder($listing_id, "properties", true);
         $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
         $response_markup  = SimplyRetsApiHelper::srResidentialDetailsGenerator( $request_response );
 
@@ -68,10 +75,15 @@ class SimplyRetsApiHelper {
      *
      * base url for local development: http://localhost:3001/properties
     */
-    public static function srRequestUrlBuilder($params, $single_listing = false) {
+    public static function srRequestUrlBuilder(
+        $params,
+        $endpoint = "properties",
+        $single_listing = false
+    ) {
+
         $authid   = get_option( 'sr_api_name' );
         $authkey  = get_option( 'sr_api_key' );
-        $base_url = "https://{$authid}:{$authkey}@api.simplyrets.com/properties";
+        $base_url = "https://{$authid}:{$authkey}@api.simplyrets.com/{$endpoint}";
 
         // Return early for /properties/{mlsId} requests
         if ($single_listing === true) {

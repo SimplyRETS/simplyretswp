@@ -453,7 +453,7 @@ class SrMessages {
     public static function noResultsMsg($response) {
 
         $response = (array)$response;
-        if(isset($response['message'])) {
+        if(array_key_exists("message", $response)) {
             return (
                 '<br><p><strong>'
                 . $response['message']
@@ -470,23 +470,6 @@ class SrMessages {
         $noResultsMsg = "<br><p><strong>There are 0 listings that match this search. "
                          . "Please try to broaden your search criteria or feel free to try again later.</p></strong>";
         return $noResultsMsg;
-    }
-
-}
-
-
-
-class SrViews {
-
-    public static function listDateResults( $date ) {
-        $markup = <<<HTML
-            <li>
-                <span>Listed on $date</span>
-            </li>
-HTML;
-
-        return $markup;
-
     }
 
 }

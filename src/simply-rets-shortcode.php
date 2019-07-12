@@ -192,6 +192,13 @@ HTML;
     }
 
 
+    public static function sr_openhouses_shortcode($atts) {
+        $search_parameters = !is_array($atts) ? array() : $atts;
+        $listings_content = SimplyRetsApiHelper::retrieveOpenHousesResults($search_parameters);
+        return $listings_content;
+    }
+
+
     /**
      * [sr_residential] - Residential Listings Shortcode
      *
@@ -384,22 +391,6 @@ HTML;
         $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params, $atts );
         return $listings_content;
     }
-
-
-    /**
-     * Open Houses Shortcode - [sr_openhouses]
-     *
-     * this is pulling condos and obviously needs to be pulling open houses
-     */
-    public static function sr_openhouses_shortcode() {
-        $listing_params = array(
-            "type" => "cnd"
-        );
-        $listings_content = SimplyRetsApiHelper::retrieveRetsListings( $listing_params );
-        $listings_content = "Sorry we could not find any open houses that match your search.";
-        return $listings_content;
-    }
-
 
     /**
      * Search Form Shortcode - [sr_search_form]
