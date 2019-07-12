@@ -450,7 +450,8 @@ HTML;
     /**
      * Build the photo gallery shown on single listing details pages
      */
-    public static function srDetailsGallery($photos, $address) {
+    public static function srDetailsGallery($listing) {
+        $photos = $listing->photos;
         $photo_gallery = array();
 
         if( empty($photos) ) {
@@ -481,14 +482,39 @@ HTML;
                 return $photo_gallery;
 
             } else {
+                // Details shown for each image in the gallery
+                $photos_count = count($photos);
+                $full_address = SrUtils::buildFullAddressString($listing);
+                $remarks_ellipsis = strlen($listing->remarks) >= 200 ? "..." : "";
+                $remarks = substr($listing->remarks, 0, 200) . $remarks_ellipsis;
+
+                $description_style = "font-style:normal;"
+                                   . "font:initial;"
+                                   . "font-size:13px;"
+                                   . "padding-top:10px;"
+                                   . "line-height:1.25";
+
                 $more = '';
                 $markup .= '<div class="sr-gallery" id="sr-fancy-gallery">';
-                foreach( $photos as $photo ) {
-                    $markup .= "<img src='$photo' data-title='$address'>";
+
+                foreach( $photos as $idx=>$photo ) {
+                    $num = $idx + 1;
+                    $img_description = "<div>"
+                                     . "  <div>Photo {$num} of {$photos_count}</div>"
+                                     . "  <div style=\"{$description_style}\">"
+                                     . "    {$remarks}"
+                                     . "  </div>"
+                                     . "</div>";
+
+                    $markup .= "<img src='$photo' "
+                            . "data-title='$full_address'"
+                            . "data-description='$img_description'>";
                 }
+
                 $markup .= "</div>";
                 $photo_gallery['markup'] = $markup;
                 $photo_gallery['more'] = $more;
+
                 return $photo_gallery;
             }
         }
@@ -676,7 +702,8 @@ HTML;
         $country = SimplyRetsApiHelper::srDetailsTable($listing_country, "Country");
 
         $listing_address = $listing->address->full;
-        $address = SimplyRetsApiHelper::srDetailsTable($listing_address, "Address");
+        $full_address = SrUtils::buildFullAddressString($listing);
+        $address = SimplyRetsApiHelper::srDetailsTable($full_address, "Address");
 
         $listing_city = $listing->address->city;
         $city = SimplyRetsApiHelper::srDetailsTable($listing_city, "City");
@@ -798,11 +825,11 @@ HTML;
 
         // photo gallery
         $photos         = $listing->photos;
-        $photo_gallery  = SimplyRetsApiHelper::srDetailsGallery($photos, $listing->address->full);
+        $photo_gallery  = SimplyRetsApiHelper::srDetailsGallery($listing);
         $gallery_markup = $photo_gallery['markup'];
         $more_photos    = $photo_gallery['more'];
         $dummy          = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
-        !empty($photos) ? $main_photo = $photos[0] : $main_photo = $dummy;
+        $main_photo     = !empty($photos) ? $photos[0] : $dummy;
 
         // geographic data
         if($geo_directions
@@ -878,7 +905,7 @@ HTML;
 
         if( get_option('sr_show_leadcapture') ) {
             $contact_text = 'Contact us about this listing';
-            $cf_listing = $listing_address . ' ( ' . $MLS_text . ' #' . $listing_mlsid . ' )';
+            $cf_listing = $full_address . ' ( ' . $MLS_text . ' #' . $listing_mlsid . ' )';
             $contact_markup = SimplyRetsApiHelper::srContactFormMarkup($cf_listing);
         } else {
             $contact_text = '';
@@ -1001,7 +1028,7 @@ HTML;
             $iwCont    = SrSearchMap::infoWindowMarkup(
                 $link,
                 $main_photo,
-                $listing_address,
+                $full_address,
                 $listing_price_USD,
                 $listing_bedrooms,
                 $listing_bathsFull,
