@@ -17,13 +17,26 @@ class SimplyRetsOpenHouses {
      */
     public static function openHousesSearchResults($search_response) {
         $markup = "";
+        $res = $search_response["response"];
 
-        if(!array_key_exists("response", $search_response)) {
-            return $markup;
-        }
+        if(array_key_exists("error", $res)) {
 
-        foreach($search_response["response"] as $idx=>$oh) {
-            $markup .= SimplyRetsOpenHouses::openHouseSearchResultMarkup($oh);
+            $markup = <<<HTML
+              <div class="sr-error-message">
+                <p>
+                  <strong>Error: {$res->error}</strong>
+                  <br/>
+                  <span>{$res->help}</span>
+                </p>
+              </div>
+HTML;
+
+        } else {
+
+            foreach($res as $idx=>$oh) {
+                $markup .= SimplyRetsOpenHouses::openHouseSearchResultMarkup($oh);
+            }
+
         }
 
         return $markup;
