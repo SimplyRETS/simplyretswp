@@ -487,6 +487,7 @@ HTML;
                 $full_address = SrUtils::buildFullAddressString($listing);
                 $remarks_ellipsis = strlen($listing->remarks) >= 200 ? "..." : "";
                 $remarks = substr($listing->remarks, 0, 200) . $remarks_ellipsis;
+                $remarks_html = esc_html($remarks);
 
                 $description_style = "font-style:normal;"
                                    . "font:initial;"
@@ -502,7 +503,7 @@ HTML;
                     $img_description = "<div>"
                                      . "  <div>Photo {$num} of {$photos_count}</div>"
                                      . "  <div style=\"{$description_style}\">"
-                                     . "    {$remarks}"
+                                     . "    {$remarks_html}"
                                      . "  </div>"
                                      . "</div>";
 
