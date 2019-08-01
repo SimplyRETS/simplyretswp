@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 5.1.1
-Stable tag: 2.7.0
+Stable tag: 2.7.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -236,6 +236,9 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.7.1 =
+* FIX: Properly escape remarks for HTML used in fance image gallery.
+
 = 2.7.0 =
 * ENHANCEMENT: Show full address with city, state, and zip for listings in search results.
 * ENHANCEMENT: Add more meta information to the images in the fancy gallery.
@@ -256,36 +259,6 @@ listing sidebar widget.
 = 2.6.0 =
 * ENHANCEMENT: Allow `neighborhoods`, `cities`, and `counties` parameters on [sr_search_form].
 * ENHANCEMENT: Support ActiveUnderContract listings in SimplyRETS widgets.
-
-= 2.5.8 =
-* FIX: Fix [sr_search_form] API query when no postalCodes are specified.
-
-= 2.5.7 =
-* ENHANCEMENT: Add support for `postalCodes` parameter on [sr_search_form].
-
-= 2.5.6 =
-* FIX: Remove extra markup from listing details map info window.
-
-= 2.5.5 =
-* ENHANCEMENT: Add admin option to disable maps on listing details pages.
-* ENHANCEMENT: Increase compatibility tag for WordPress 5.0
-* FIX: Fix issue with generating invalid markup
-
-= 2.5.4 =
-* FIX: Fix `vendor` parameter on [sr_map_search] short-code.
-
-= 2.5.3 =
-* FIX: Fix logic for loading custom single-sr-listings.php template.
-
-= 2.5.2 =
-* ENHANCEMENT: Add admin option to customize no search results message.
-
-= 2.5.1 =
-* FIX: Fix error when loading multiple maps with [sr_listings]
-
-= 2.5.0 =
-* FIX: Fix all known PHP warnings while in WP_DEBUG mode (yay!)
-* CHANGE: Add div element wrapper to search results list
 
 [**View the complete CHANGELOG here**](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 
