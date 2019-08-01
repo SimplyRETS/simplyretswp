@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.7.0 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.7.1 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -209,7 +209,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.7.0 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.7.1 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -487,6 +487,7 @@ HTML;
                 $full_address = SrUtils::buildFullAddressString($listing);
                 $remarks_ellipsis = strlen($listing->remarks) >= 200 ? "..." : "";
                 $remarks = substr($listing->remarks, 0, 200) . $remarks_ellipsis;
+                $remarks_html = esc_html($remarks);
 
                 $description_style = "font-style:normal;"
                                    . "font:initial;"
@@ -502,7 +503,7 @@ HTML;
                     $img_description = "<div>"
                                      . "  <div>Photo {$num} of {$photos_count}</div>"
                                      . "  <div style=\"{$description_style}\">"
-                                     . "    {$remarks}"
+                                     . "    {$remarks_html}"
                                      . "  </div>"
                                      . "</div>";
 

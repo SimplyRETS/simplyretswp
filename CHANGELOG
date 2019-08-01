@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.7.1
+* FIX: Properly escape remarks for HTML used in fance image gallery.
+
 ## 2.7.0
 * ENHANCEMENT: Show full address with city, state, and zip for listings in search results.
 * ENHANCEMENT: Add more meta information to the images in the fancy gallery.
