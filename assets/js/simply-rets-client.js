@@ -310,7 +310,20 @@ var getSearchFormValues = function() {
         maxbaths = $_('.sr-int-map-search-wrapper #sr-search-maxbaths input').val(),
         sort     = $_('.sr-int-map-search-wrapper .sr-sort-wrapper select').val();
 
-    return {
+    var defParamsData = document.getElementById("sr-map-search").dataset.defaultParameters
+    var defLimit = document.getElementById("sr-map-search").dataset.limit
+
+    var defParams;
+    try {
+        defParams = JSON.parse(defParamsData)
+    } catch(e) {
+        defParams = {}
+    }
+
+    // Merge the default parameters on the short-code with the
+    // user-selected parameters. If the user hasn't selected a value
+    // for an input, fallback to the default.
+    var params = Object.assign({}, {
         q:        keyword,
         type:     ptype,
         sort:     sort,
@@ -320,7 +333,26 @@ var getSearchFormValues = function() {
         maxbeds:  maxbeds,
         minbaths: minbaths,
         maxbaths: maxbaths,
-    }
+    }, defParams, { limit: defLimit })
+
+    var query = "?";
+
+    Object.keys(params).map(function(key) {
+        var p = params[key]
+        if (!p) return
+
+        if (p.indexOf(";") !== -1) {
+            p.split(";").map(function(v) {
+                var val = encodeURIComponent(v.trim())
+                query += (key + "=" + val + "&")
+            })
+        } else {
+            var val = encodeURIComponent(p.trim())
+            query += (key + "=" + val + "&")
+        }
+    })
+
+    return query
 }
 
 
@@ -658,26 +690,18 @@ SimplyRETSMap.prototype.sendRequest = function(points, params, paginate) {
     var offset = this.offset;
     var vendor = this.vendor
 
-    /** Remove unused keys */
-    for (var p in params) {
-        if(params[p] === null || params[p] === undefined || params[p] === "") {
-            delete params[p];
-        }
-    }
-
     /** URL Encode them all */
     var pointsQ = $_.param(points);
-    var paramsQ = $_.param(params);
-
-    /** Put the query in a string and send the request */
-    var query = pointsQ + "&limit=" + limit + "&offset=" + offset + "&vendor=" + vendor + "&" + paramsQ;
+    var query = params
+              + (vendor ? ("vendor=" + vendor + "&") : "")
+              + "offset=" + offset + "&"
+              + pointsQ
 
     var req = $_.ajax({
         type: 'post',
         url: sr_ajaxUrl, // defined in <head>
         data: {
             action: 'update_int_map_data', // server controller
-            data: pointsQ,
             parameters: query,
             vendor: vendor
         },
@@ -748,7 +772,9 @@ SimplyRETSMap.prototype.initEventListeners = function() {
     // fetch initial listings when map is loaded
     this.addEventListener(this.map, 'idle', function() {
         if(!that.loaded) {
-            that.sendRequest([], {}).done(function(data) {
+            var query = that.searchFormValues()
+
+            that.sendRequest([], query).done(function(data) {
                 that.handleRequest(that, data);
                 that.loaded = true;
             });
@@ -813,3 +839,37 @@ $_(document).ready(function() {
     }
 
 });
+
+/**
+ * Polyfills for browser compatibility
+ */
+
+// Object.assign polyfill for older browsers
+// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+if (typeof Object.assign !== 'function') {
+    Object.defineProperty(Object, "assign", {
+        value: function assign(target, varArgs) {
+            'use strict';
+            if (target === null || target === undefined) {
+                throw new TypeError('Cannot convert undefined or null to object');
+            }
+
+            var to = Object(target);
+
+            for (var index = 1; index < arguments.length; index++) {
+                var nextSource = arguments[index];
+
+                if (nextSource !== null && nextSource !== undefined) {
+                    for (var nextKey in nextSource) {
+                        if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                            to[nextKey] = nextSource[nextKey];
+                        }
+                    }
+                }
+            }
+            return to;
+        },
+        writable: true,
+        configurable: true
+    });
+}
