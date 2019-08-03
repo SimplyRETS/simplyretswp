@@ -323,17 +323,17 @@ var getSearchFormValues = function() {
     // Merge the default parameters on the short-code with the
     // user-selected parameters. If the user hasn't selected a value
     // for an input, fallback to the default.
-    var params = Object.assign({}, {
-        q:        keyword,
-        type:     ptype,
+    var params = Object.assign({}, defParams, {
+        q:        keyword || defParams.q,
+        type:     ptype || defParams.type,
         sort:     sort,
-        minprice: minprice,
-        maxprice: maxprice,
-        minbeds:  minbeds,
-        maxbeds:  maxbeds,
-        minbaths: minbaths,
-        maxbaths: maxbaths,
-    }, defParams, { limit: defLimit })
+        minprice: minprice || defParams.minprice,
+        maxprice: maxprice || defParams.maxprice,
+        minbeds:  minbeds || defParams.minbeds,
+        maxbeds:  maxbeds || defParams.maxbeds,
+        minbaths: minbaths || defParams.minbaths,
+        maxbaths: maxbaths || defParams.maxbaths,
+    }, { limit: defLimit })
 
     var query = "?";
 
@@ -608,8 +608,10 @@ SimplyRETSMap.prototype.handleRequest = function(that, data) {
     if(listings.length < 1)
         that.offset = 0;
 
-    if(that.loaded === false)
+    if (!this.shape) {
         that.map.fitBounds(that.bounds);
+        that.map.setZoom(12)
+    }
 
     replaceListingMarkup(data.markup);
 
@@ -728,12 +730,13 @@ SimplyRETSMap.prototype.setDrawingManager = function() {
         },
         // markerOptions: { icon: 'custom/icon/here.png' },
         rectangleOptions: {
+            editable: true,
             fillOpacity: 0.1,
             fillColor: 'green',
             strokeColor: 'green'
         },
         polygonOptions: {
-            // editable: true
+            editable: true,
             fillOpacity: 0.1,
             fillColor: 'green',
             strokeColor: 'green'
@@ -745,6 +748,12 @@ SimplyRETSMap.prototype.setDrawingManager = function() {
     this.addEventListener(drawingManager, 'rectanglecomplete', function(overlay) {
         var q = that.handleRectangleDraw(that, overlay);
 
+        overlay.addListener("click", function() {
+            that.shape = null
+            that.bounds = []
+            overlay.setMap(null)
+        })
+
         that.sendRequest(q.points, q.query).done(function(data) {
             that.handleRequest(that, data);
         });
@@ -753,6 +762,12 @@ SimplyRETSMap.prototype.setDrawingManager = function() {
 
     this.addEventListener(drawingManager, 'polygoncomplete', function(overlay) {
         var q = that.handlePolygonDraw(that, overlay);
+
+        overlay.addListener("click", function() {
+            that.shape = null
+            that.bounds = []
+            overlay.setMap(null)
+        })
 
         that.sendRequest(q.points, q.query).done(function(data) {
             that.handleRequest(that, data);
