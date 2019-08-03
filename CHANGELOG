@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.7.2
+* ENHANCEMENT: Support all valid API parameters on [sr_map_search] short-code.
+
 ## 2.7.1
 * FIX: Properly escape remarks for HTML used in fance image gallery.
 
