@@ -421,7 +421,7 @@ SimplyRETSMap.prototype.getRectanglePoints = function(rec) {
     });
 
     this.bounds = bounds;
-    this.map.fitBounds(bounds);
+    this.map.fitBounds(this.bounds);
 
     return latLngs;
 }
@@ -459,7 +459,7 @@ SimplyRETSMap.prototype.getPolygonPoints = function(polygon) {
     });
 
     this.bounds = bounds;
-    this.map.fitBounds(bounds);
+    this.map.fitBounds(this.bounds);
 
     return latLngs;
 
@@ -610,7 +610,6 @@ SimplyRETSMap.prototype.handleRequest = function(that, data) {
 
     if (!this.shape) {
         that.map.fitBounds(that.bounds);
-        that.map.setZoom(12)
     }
 
     replaceListingMarkup(data.markup);
@@ -688,7 +687,6 @@ SimplyRETSMap.prototype.sendRequest = function(points, params, paginate) {
         }
     }
 
-    var limit  = this.limit;
     var offset = this.offset;
     var vendor = this.vendor
 
