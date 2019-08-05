@@ -60,12 +60,22 @@ class SrShortcodes {
         $office_on_thumbnails = get_option('sr_office_on_thumbnails', false);
         $agent_on_thumbnails = get_option('sr_agent_on_thumbnails', false);
 
+        // Delete attributes that aren't API parameters
+        $default_parameters = array_diff_key($atts, [
+            "list_view" => true,
+            "search_form" => true
+        ]);
+
+        // JSON encode the default search parameters for the frontend.
+        $default_parameters_json = json_encode($default_parameters);
+
         $map_markup  = "<div id='sr-map-search'
                              data-api-key='{$gmaps_key}'
                              data-idx-img='{$idx_img}'
                              data-office-on-thumbnails='{$office_on_thumbnails}'
                              data-agent-on-thumbnails='{$agent_on_thumbnails}'
                              data-limit='{$limit}'
+                             data-default-parameters='{$default_parameters_json}'
                              data-vendor='{$vendor}'></div>";
 
         $list_markup = !empty($atts['list_view'])

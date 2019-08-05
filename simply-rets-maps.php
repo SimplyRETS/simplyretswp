@@ -168,7 +168,7 @@ HTML;
                 "vendor" => $vendor
             );
 
-            $req = SimplyRetsApiHelper::makeApiRequest("?".$_POST['parameters']);
+            $req = SimplyRetsApiHelper::makeApiRequest($_POST['parameters']);
             $con = SimplyRetsApiHelper::srResidentialResultsGenerator($req, $markup_opts);
 
             $response = array(
