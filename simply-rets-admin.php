@@ -49,6 +49,12 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_agent_office_above_the_fold');
       register_setting('sr_admin_settings', 'sr_show_mls_trademark_symbol');
       register_setting('sr_admin_settings', 'sr_disable_listing_details_map');
+      register_setting('sr_admin_settings', 'sr_default_idx_filter', array(
+          "default" => "null"
+      ));
+      register_setting('sr_admin_settings', 'sr_idx_address_display_text', array(
+          "default" => "Undisclosed address"
+      ));
   }
 
   public static function adminMessages () {
@@ -378,6 +384,96 @@ class SrAdminSettings {
                       ?>
                         Show trademark symbol next to MLS text (eg, "MLS®")
                     </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Default IDX filter (Display rules)</h3>
+            <p>
+                <i>Note: </i>You can override this on any short-code by using
+                <a href="https://wordpress-demo.simplyrets.com/documentation">
+                    the <code>idx</code> attribute.
+                </a>
+            </p>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <label>
+                        <?php echo
+                        '<input type="radio" id="sr_default_idx_filter" name="sr_default_idx_filter" value="null" '
+                        . checked("null", get_option('sr_default_idx_filter'), false) . '/>'
+                        ?>
+                        Show listings approved for IDX display and IDX address display
+                        <strong><i> (default)</i></strong>
+                    </label>
+                    <br/>
+                    <small style="margin-left:25px">
+                        This is the default option and probably the one you want if you're unsure.
+                    </small>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>
+                        <?php echo
+                        '<input type="radio" id="sr_default_idx_filter" name="sr_default_idx_filter" value="listing" '
+                        . checked("listing", get_option('sr_default_idx_filter'), false) . '/>'
+                        ?>
+                        Show listings approved for IDX display and ignore IDX address display rules
+                    </label>
+                    <br/>
+                    <small style="margin-left:25px">
+                        Show listings approved for IDX display, but ignore any restrictions on displaying
+                        the address.
+                    </small>
+                    <br/>
+                    <p style="margin-left:25px">
+                        <strong>
+                            Suppressed address text replacement
+                        </strong>
+                        <br/>
+                        <small>
+                            Show this text in place of the address for IDX address display restricted listings.
+                        </small>
+                        <br/>
+                        <input type="text" name="sr_idx_address_display_text" value="<?php echo esc_attr( get_option("sr_idx_address_display_text") ); ?>" />
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>
+                        <?php echo
+                        '<input type="radio" id="sr_default_idx_filter" name="sr_default_idx_filter" value="address" '
+                        . checked("address", get_option('sr_default_idx_filter'), false) . '/>'
+                        ?>
+                        Show listings NOT approved for IDX display, but are approved for IDX address display.
+                    </label>
+                    <br/>
+                    <small style="margin-left:25px">
+                        Show listings that are NOT approved for IDX display, but are approved for IDX address display.
+                    </small>
+                    <br/>
+                    <small style="margin-left:25px">
+                        Check the display rules and requirements with your data feed provider before using this option.
+                    </small>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>
+                        <?php echo
+                        '<input type="radio" id="sr_default_idx_filter" name="sr_default_idx_filter" value="ignore" '
+                        . checked("ignore", get_option('sr_default_idx_filter'), false) . '/>'
+                        ?>
+                        Ignore all IDX restrictions
+                    </label>
+                    <br/>
+                    <small style="margin-left:25px">
+                        This is the default option and probably the one you want if you're unsure.
+                    </small>
                   </td>
                 </tr>
               </tbody>
