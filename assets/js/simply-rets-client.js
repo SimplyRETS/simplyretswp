@@ -838,8 +838,9 @@ $_(document).ready(function() {
             var key = document.getElementById('sr-map-search').dataset.apiKey;
 
             // if google.maps doesn't exist - load it, then start map
-            var url = "https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=drawing&callback=startMap" +
-                      "&key=" + key;
+            var url = "https://maps.googleapis.com/maps/api/js?"
+                    + "libraries=drawing&callback=startMap"
+                    + "&key=" + key;
 
             var script = document.createElement("script");
 

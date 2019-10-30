@@ -104,6 +104,17 @@ class SrUtils {
      */
     public static function buildFullAddressString($listing) {
 
+        $idxAddress = $listing->internetAddressDisplay;
+        $idxListing = $listing->internetEntireListingDisplay;
+
+        if ($idxAddress === false) {
+            $idxAddressReplacement = get_option(
+                "sr_idx_address_display_text",
+                "Undisclosed address"
+            );
+            return $idxAddressReplacement;
+        }
+
         $city = $listing->address->city;
         $state = $listing->address->state;
         $zip = $listing->address->postalCode;
@@ -430,7 +441,7 @@ class SrMessages {
     public static function noResultsMsg($response) {
 
         $response = (array)$response;
-        if($response['message']) {
+        if(isset($response['message'])) {
             return (
                 '<br><p><strong>'
                 . $response['message']

@@ -424,10 +424,9 @@ HTML;
         if($config_type === '') {
             $config_type = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
         }
-        if(empty($vendor) && $singleVendor === true) {
+        if(empty($vendor) && $singleVendor === true && !empty($availableVendors)) {
             $vendor = $availableVendors[0];
         }
-        $vendorOptions = "_$vendor";
 
         /** User Facing Parameters */
         $minbeds    = array_key_exists('minbeds',  $atts) ? $atts['minbeds']  : '';
