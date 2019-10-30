@@ -22,7 +22,7 @@ class SimplyRetsApiHelper {
 
 
     public static function retrieveListingDetails( $listing_id ) {
-        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder( $listing_id );
+        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder($listing_id, true);
         $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
         $response_markup  = SimplyRetsApiHelper::srResidentialDetailsGenerator( $request_response );
 
@@ -68,21 +68,32 @@ class SimplyRetsApiHelper {
      *
      * base url for local development: http://localhost:3001/properties
     */
-    public static function srRequestUrlBuilder( $params ) {
+    public static function srRequestUrlBuilder($params, $single_listing = false) {
         $authid   = get_option( 'sr_api_name' );
         $authkey  = get_option( 'sr_api_key' );
         $base_url = "https://{$authid}:{$authkey}@api.simplyrets.com/properties";
 
-        if( is_array( $params ) ) {
-            $filters_query = http_build_query( array_filter( $params ) );
-            $request_url = "{$base_url}?{$filters_query}";
-            return $request_url;
-
-        } else {
-            $request_url = $base_url . $params;
-            return $request_url;
+        // Return early for /properties/{mlsId} requests
+        if ($single_listing === true) {
+            return $base_url . $params;
         }
 
+        // Parse params into an array
+        $params_arr = !is_array($params)
+                    ? SrUtils::proper_parse_str(ltrim($params, "?"))
+                    : $params;
+
+        // Apply the default `idx` setting if not provided
+        if (!array_key_exists("idx", $params_arr)) {
+            $def_idx_setting = get_option("sr_default_idx_filter", "null");
+            $params_arr["idx"] = $def_idx_setting;
+        }
+
+        // Build query string from parameters
+        $params_str = http_build_query($params_arr);
+        $request_url = $base_url . "?" . $params_str;
+
+        return $request_url;
     }
 
     public static function srApiOptionsRequest( $url ) {
@@ -637,7 +648,8 @@ HTML;
         $listing_subdivision = $listing->property->subdivision;
         $subdivision = SimplyRetsApiHelper::srDetailsTable($listing_subdivision, "Subdivision");
         // unit
-        $listing_unit = $listing->address->unit;
+        $listing_unit_value = $listing->address->unit;
+        $listing_unit = $listing->internetAddressDisplay === false ? null : $listing_unit_value;
         $unit = SimplyRetsApiHelper::srDetailsTable($listing_unit, "Unit");
         // int/ext features
         $listing_interiorFeatures = $listing->property->interiorFeatures;
@@ -677,7 +689,9 @@ HTML;
         $water = SimplyRetsApiHelper::srDetailsTable($listing_water, "Waterfront");
         // listing date
         $listing_list_date = $listing->listDate;
-        if($listing_list_date) { $list_date_formatted = date("M j, Y", strtotime($listing_list_date)); }
+        $list_date_formatted = $listing_list_date
+                             ? date("M j, Y", strtotime($listing_list_date))
+                             : null;
         $list_date = SimplyRetsApiHelper::srDetailsTable($list_date_formatted, "Listing Date");
         // listing date modified
         $listing_modified = $listing->modified;
@@ -1720,8 +1734,8 @@ HTML;
         }
 
         foreach($listings as $l) {
+            $address = SrUtils::buildFullAddressString($l);
             $uid     = $l->mlsId;
-            $address = $l->address->full;
             $price   = $l->listPrice;
             $photos  = $l->photos;
             $beds    = $l->property->bedrooms;

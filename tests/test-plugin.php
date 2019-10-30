@@ -8,9 +8,9 @@ class SampleTest extends WP_UnitTestCase {
     function testCreatePost() {
         $this->factory->post->create_many( 5 );
     }
-    
+
     function testSingleListingRequest() {
-        $mlsid = '123456';
+        $mlsid = '/123456';
         $response = SimplyRetsApiHelper::srRequestUrlBuilder( $mlsid );
         $this->assertTrue( is_string( $response ) );
     }
