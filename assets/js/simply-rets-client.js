@@ -684,6 +684,8 @@ SimplyRETSMap.prototype.sendRequest = function(points, params, paginate) {
         } else if(paginate === "prev") {
             scrollToAnchor('sr-search-wrapper');
             this.offset = Number(this.offset) - Number(this.limit);
+        } else if (paginate === "reset") {
+            this.offset = 0
         }
     }
 
@@ -801,7 +803,7 @@ SimplyRETSMap.prototype.initEventListeners = function() {
             points = params.points,
             query  = params.query;
 
-        that.sendRequest(points, query).done(function(data) {
+        that.sendRequest(points, query, "reset").done(function(data) {
             that.handleRequest(that, data);
         });
 

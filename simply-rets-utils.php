@@ -105,20 +105,15 @@ class SrUtils {
     public static function buildFullAddressString($listing) {
 
         $idxAddress = $listing->internetAddressDisplay;
-        $idxListing = $listing->internetEntireListingDisplay;
-
-        if ($idxAddress === false) {
-            $idxAddressReplacement = get_option(
-                "sr_idx_address_display_text",
-                "Undisclosed address"
-            );
-            return $idxAddressReplacement;
-        }
+        $address = $idxAddress === false
+                 ? $idxAddressReplacement = get_option(
+                     "sr_idx_address_display_text",
+                     "Undisclosed address"
+                 ) : $listing->address->full;
 
         $city = $listing->address->city;
         $state = $listing->address->state;
         $zip = $listing->address->postalCode;
-        $address = $listing->address->full;
 
         // A listing might have a null address if a flag like "Display
         // address" is set to false. This just removes the comma in
