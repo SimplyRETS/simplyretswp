@@ -51,6 +51,7 @@ class SrShortcodes {
         $brokers  = isset($atts['brokers']) ? $atts['brokers'] : '';
         $agent    = isset($atts['agent'])   ? $atts['agent']   : '';
         $limit    = isset($atts['limit'])   ? $atts['limit'] : '25';
+        $idx      = isset($atts['idx'])     ? $atts['idx'] : '';
         $type_att = isset($atts['type'])    ? $atts['type'] : '';
 
         $content     = "";
@@ -152,6 +153,7 @@ class SrShortcodes {
                       <input type="hidden" name="sr_vendor"  value="$vendor" />
                       <input type="hidden" name="sr_brokers" value="$brokers" />
                       <input type="hidden" name="sr_agent"   value="$agent" />
+                      <input type="hidden" name="sr_idx"     value="$idx" />
                       <input type="hidden" name="limit"      value="$limit" />
 
                       <div>
@@ -413,6 +415,7 @@ HTML;
         $brokers = isset($atts['brokers']) ? $atts['brokers'] : '';
         $agent   = isset($atts['agent'])   ? $atts['agent']   : '';
         $water   = isset($atts['water'])   ? $atts['water']   : '';
+        $idx     = isset($atts['idx'])   ? $atts['idx']       : '';
         $limit   = isset($atts['limit'])   ? $atts['limit']   : '';
         $config_type = isset($atts['type']) ? $atts['type']   : '';
         $subtype = isset($atts['subtype']) ? $atts['subtype'] : '';
@@ -667,6 +670,7 @@ HTML;
                 </div>
 
                 <input type="hidden" name="water"   value="<?php echo $water; ?>"  />
+                <input type="hidden" name="sr_idx"   value="<?php echo $idx; ?>"  />
                 <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
                 <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
                 <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
@@ -756,6 +760,7 @@ HTML;
             </div>
 
             <input type="hidden" name="water"   value="<?php echo $water; ?>"  />
+            <input type="hidden" name="sr_idx"   value="<?php echo $idx; ?>"  />
             <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
             <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
             <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
