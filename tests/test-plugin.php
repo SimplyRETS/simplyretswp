@@ -11,7 +11,7 @@ class SampleTest extends WP_UnitTestCase {
 
     function testSingleListingRequest() {
         $mlsid = '/123456';
-        $response = SimplyRetsApiHelper::srRequestUrlBuilder( $mlsid );
+        $response = SimplyRetsApiHelper::srRequestUrlBuilder($mlsid, true);
         $this->assertTrue( is_string( $response ) );
     }
 }
