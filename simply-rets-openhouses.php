@@ -25,8 +25,6 @@ class SimplyRetsOpenHouses {
               <div class="sr-error-message">
                 <p>
                   <strong>Error: {$res->error}</strong>
-                  <br/>
-                  <span>{$res->help}</span>
                 </p>
               </div>
 HTML;
@@ -63,13 +61,37 @@ HTML;
             $listing_agent
         );
 
-        date_default_timezone_set("America/Los_Angeles");
-        $date = date("F j, Y", strtotime($openhouse->startTime));
-        $day = date("F j", strtotime($openhouse->startTime));
+        /**
+         * Some MLS's don't use UTC timestamps; this allows the user
+         * to specify a timezone used to parse/convert the MLS's open
+         * house times for display.
+         */
+        $default_time_zone = get_option("sr_date_default_timezone", "");
+        if (!empty($default_time_zone)) {
+            date_default_timezone_set($default_time_zone);
+        }
+
+        // Open house date information
+        $date = date("M jS", strtotime($openhouse->startTime));
+        $day = date("D", strtotime($openhouse->startTime));
+        $day_date = "<span>{$day}, {$date}</span>";
+
+        // Open house time information
         $start = date("g:ia", strtotime($openhouse->startTime));
         $end = date("g:ia", strtotime($openhouse->endTime));
-        $tz = date("e", strtotime($openhouse->startTime));
-        $time = "<span>{$start} - {$end}</span>";
+        $start_end_time = "<span>{$start} - {$end}</span>";
+
+        $banner_style = "position:absolute;z-index:1;padding:10px;font-size:1.2rem;width:30%;"
+                      . "background-color:green;border-radius:2px;color:white;bottom:3%;"
+                      . "line-height:1.5";
+
+        $open_house_banner = "<div style=\"{$banner_style}\">"
+                           . "  <strong>Open house</strong>"
+                           . "  <br/>"
+                           . "  {$day_date}"
+                           . "  <br/>"
+                           . "  {$start_end_time}"
+                           . "</div>";
 
         $status = $listing->mls->status;
         $bedrooms = !empty($listing->property->bedrooms)
@@ -79,30 +101,26 @@ HTML;
         $bathrooms = !empty($listing->property->bathrooms)
                    ? "<strong>Bathrooms: </strong> {$listing->property->bathrooms}<br/>"
                    : !empty($listing->bathsFull)
-                   ? "<strong>Baths full: </strong> {$listing->property->bathsFull}<br/>"
+                   ? "<strong>Full baths: </strong> {$listing->property->bathsFull}<br/>"
                    : "";
 
         $mls_area = $listing->mls->area;
         $county = $listing->geo->county;
+        $city = $listing->address->city;
         $area = !empty($mls_area)
               ? strlen($mls_area) >= 50 ? "{$mls_area}..." : "{$mls_area}"
               : !empty($county)
               ? strlen($county) >= 50 ? "{$county}..." : "{$county}"
+              : !empty($city)
+              ? strlen($city) >= 50 ? "{$city}..." : "{$city}"
               : "";
-        $area = "<strong>Area: </strong> {$area}<br/>";
+        $area = empty($area) ? "" : "<strong>Area: </strong> {$area}<br/>";
 
         $living_area = !empty($listing->property->area)
                      ? number_format($listing->property->area)
                      : "";
 
-        $sqft = !empty($living_area) ? "<strong>SqFt: </strong>{$living_area}sqft<br/>" : "";
-
-        $banner_style = "position:absolute;z-index:1;padding:10px;font-size:1.1rem;width:30%;"
-                      . "background-color:green;border-radius:2px;color:white;bottom:3%";
-
-        $open_house_banner = "<div style=\"{$banner_style}\">"
-                      . "Open house {$day}, {$time}"
-                      . "</div>";
+        $sqft = !empty($living_area) ? "<strong>SqFt: </strong>{$living_area} sqft<br/>" : "";
 
         return <<<HTML
           <hr>
@@ -122,7 +140,7 @@ HTML;
               </div>
               <div class="sr-secondary-data">
                 <p class="sr-data-column">
-                  <strong>Listing status: </strong> $status<br/>
+                  <strong>Status: </strong> $status<br/>
                   <strong>MLS #: </strong> $listing_id<br/>
                   $area
                 </p>
