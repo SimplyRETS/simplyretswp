@@ -80,7 +80,7 @@ class SimplyRetsApiHelper {
 
         // Parse params into an array
         $params_arr = !is_array($params)
-                    ? SrUtils::proper_parse_str(ltrim($params, "?"))
+                    ? SrUtils::proper_parse_str(ltrim(urldecode($params), "?"))
                     : $params;
 
         // Apply the default `idx` setting if not provided
@@ -90,7 +90,7 @@ class SimplyRetsApiHelper {
         }
 
         // Build query string from parameters
-        $params_str = http_build_query($params_arr);
+        $params_str = SrUtils::proper_build_query($params_arr);
         $request_url = $base_url . "?" . $params_str;
 
         return $request_url;
