@@ -244,6 +244,7 @@ HTML;
             /**
              * Neighborhoods filter is being used - check for multiple values and build query accordingly
              */
+            $neighborhoods_string = "";
             if( isset( $listing_params['neighborhoods'] ) && !empty( $listing_params['neighborhoods'] ) ) {
                 $neighborhoods = explode( ';', $listing_params['neighborhoods'] );
                 foreach( $neighborhoods as $key => $neighborhood ) {
@@ -253,6 +254,7 @@ HTML;
                 $neighborhoods_string = str_replace(' ', '%20', $neighborhoods_string );
             }
 
+            $cities_string = "";
             if( isset( $listing_params['cities'] ) && !empty( $listing_params['cities'] ) ) {
                 $cities = explode( ';', $listing_params['cities'] );
                 foreach( $cities as $key => $city ) {
@@ -262,6 +264,7 @@ HTML;
                 $cities_string = str_replace(' ', '%20', $cities_string );
             }
 
+            $agents_string = "";
             if( isset( $listing_params['agent'] ) && !empty( $listing_params['agent'] ) ) {
                 $agents = explode( ';', $listing_params['agent'] );
                 foreach( $agents as $key => $agent ) {
@@ -271,6 +274,7 @@ HTML;
                 $agents_string = str_replace(' ', '%20', $agents_string );
             }
 
+            $ptypes_string = "";
             if( isset( $listing_params['type'] ) && !empty( $listing_params['type'] ) ) {
                 $ptypes = explode( ';', $listing_params['type'] );
                 foreach($ptypes as $key => $ptype) {
@@ -280,6 +284,7 @@ HTML;
                 $ptypes_string = str_replace(' ', '%20', $ptypes_string );
             }
 
+            $subtypes_string = "";
             if(isset($listing_params['subtype']) && !empty($listing_params['subtype'])) {
                 $subtypes = explode(';', $listing_params['subtype']);
                 foreach($subtypes as $key => $subtype) {
@@ -289,6 +294,7 @@ HTML;
                 $subtypes_string = str_replace(' ', '%20', $subtypes_string);
             }
 
+            $postalcodes_string = "";
             if( isset( $listing_params['postalcodes'] ) && !empty( $listing_params['postalcodes'] ) ) {
                 $postalcodes = explode( ';', $listing_params['postalcodes'] );
                 foreach( $postalcodes as $key => $postalcode  ) {
@@ -298,6 +304,7 @@ HTML;
                 $postalcodes_string = str_replace(' ', '%20', $postalcodes_string );
             }
 
+            $counties_string = "";
             if( isset( $listing_params['counties'] ) && !empty( $listing_params['counties'] ) ) {
                 $counties = explode( ';', $listing_params['counties'] );
                 foreach( $counties as $key => $county ) {
@@ -307,6 +314,7 @@ HTML;
                 $counties_string = str_replace(' ', '%20', $counties_string );
             }
 
+            $q_string = "";
             if( isset( $listing_params['q'] ) && !empty( $listing_params['q'] ) ) {
                 $keywords = explode( ';', $listing_params['q'] );
                 foreach( $keywords as $key => $keyword ) {
@@ -319,6 +327,7 @@ HTML;
             /**
              * Multiple statuses
              */
+            $statuses_string = "";
             if( isset( $listing_params['status'] ) && !empty( $listing_params['status'] ) ) {
 
                 $statuses = explode( ';', $listing_params['status'] );
@@ -334,6 +343,7 @@ HTML;
             /**
              * Build a regular query string for everything else
              */
+            $params_string = "";
             foreach( $listing_params as $key => $value ) {
                 // Skip params that support multiple
                 if( $key !== 'postalcodes'
