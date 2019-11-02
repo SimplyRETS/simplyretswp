@@ -192,10 +192,22 @@ HTML;
     }
 
 
-    public static function sr_openhouses_shortcode($atts) {
-        $search_parameters = !is_array($atts) ? array() : $atts;
-        $listings_content = SimplyRetsApiHelper::retrieveOpenHousesResults($search_parameters);
-        return $listings_content;
+    public static function sr_openhouses_shortcode($atts = array()) {
+        $param_str = "?";
+
+        // Build a query string from the options provided on the short-code
+        if (is_array($atts)) {
+            foreach ($atts as $param=>$value) {
+                foreach (explode(";", $value) as $i=>$v) {
+                    $val = trim($v);
+                    $param_str .= "{$param}={$val}&";
+                }
+            }
+        }
+
+        $content = SimplyRetsApiHelper::retrieveOpenHousesResults($param_str);
+
+        return $content;
     }
 
 

@@ -16,12 +16,15 @@ class SimplyRetsOpenHouses {
      * Generate markup /openhouses search response.
      */
     public static function openHousesSearchResults($search_response) {
-        $markup = "";
         $res = $search_response["response"];
+        $pag = $search_response["pagination"];
+
+        $markup = "";
+        $pagination = SrUtils::buildPaginationLinks($pag);
 
         if(array_key_exists("error", $res)) {
 
-            $markup = <<<HTML
+            $markup .= <<<HTML
               <div class="sr-error-message">
                 <p>
                   <strong>Error: {$res->error}</strong>
@@ -29,12 +32,22 @@ class SimplyRetsOpenHouses {
               </div>
 HTML;
 
+        } else if (count($res) === 0) {
+
+            return SrMessages::noResultsMsg($res);
+
         } else {
 
             foreach($res as $idx=>$oh) {
                 $markup .= SimplyRetsOpenHouses::openHouseSearchResultMarkup($oh);
             }
 
+            $markup .= <<<HTML
+              <div class="sr-pagination-wrapper">
+                <hr/>
+                {$pagination["prev"]} {$pagination["next"]}
+              </div>
+HTML;
         }
 
         return $markup;
@@ -88,9 +101,7 @@ HTML;
         $open_house_banner = "<div style=\"{$banner_style}\">"
                            . "  <strong>Open house</strong>"
                            . "  <br/>"
-                           . "  {$day_date}"
-                           . "  <br/>"
-                           . "  {$start_end_time}"
+                           . "  {$day_date} &middot; {$start_end_time}"
                            . "</div>";
 
         $status = $listing->mls->status;
