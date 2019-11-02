@@ -233,6 +233,10 @@ class SrUtils {
 
         foreach ($pairs as $i) {
 
+            if (empty($i)) {
+                continue;
+            }
+
             list($name,$value) = explode('=', $i, 2);
 
             if( isset($arr[$name]) ) {

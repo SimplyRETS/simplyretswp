@@ -560,6 +560,9 @@ HTML;
         // Get the text "MLS"
         $MLS_text = SrUtils::mkMLSText();
 
+        // Display permissions
+        $internetAddressDisplay = $listing->internetAddressDisplay;
+
         /**
          * Get the listing status to show. Note that if the
          * sr_show_mls_status_text admin option is set to true, we
@@ -612,10 +615,10 @@ HTML;
         $listing_fireplaces = $listing->property->fireplaces;
         $fireplaces = SimplyRetsApiHelper::srDetailsTable($listing_fireplaces, "Fireplaces");
         // Long
-        $listing_longitude = $listing->geo->lng;
+        $listing_longitude = $internetAddressDisplay === FALSE ? NULL : $listing->geo->lng;
         $geo_longitude = SimplyRetsApiHelper::srDetailsTable($listing_longitude, "Longitude");
         // Long
-        $listing_lat = $listing->geo->lat;
+        $listing_lat = $internetAddressDisplay === FALSE ? NULL : $listing->geo->lat;
         $geo_latitude = SimplyRetsApiHelper::srDetailsTable($listing_lat, "Latitude");
         // County
         $listing_county = $listing->geo->county;
@@ -649,7 +652,7 @@ HTML;
         $subdivision = SimplyRetsApiHelper::srDetailsTable($listing_subdivision, "Subdivision");
         // unit
         $listing_unit_value = $listing->address->unit;
-        $listing_unit = $listing->internetAddressDisplay === false ? null : $listing_unit_value;
+        $listing_unit = $internetAddressDisplay === FALSE ? NULL : $listing_unit_value;
         $unit = SimplyRetsApiHelper::srDetailsTable($listing_unit, "Unit");
         // int/ext features
         $listing_interiorFeatures = $listing->property->interiorFeatures;
@@ -1336,6 +1339,7 @@ HTML;
             $subdivision        = $listing->property->subdivision;
             $style              = $listing->property->style;
             $yearBuilt          = $listing->property->yearBuilt;
+            $internetAddressDisplay = $listing->internetAddressDisplay;
 
             /**
              * Listing status to show. This may return a statusText.
@@ -1383,7 +1387,7 @@ HTML;
             /************************************************
              * Make our map marker for this listing
              */
-            if( $lat && $lng ) {
+            if($lat && $lng && $internetAddressDisplay !== FALSE) {
                 $marker = SrSearchMap::markerWithDefaults();
                 $iw     = SrSearchMap::infoWindowWithDefaults();
                 $iwCont = SrSearchMap::infoWindowMarkup(
