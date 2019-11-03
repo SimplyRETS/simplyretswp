@@ -684,6 +684,8 @@ SimplyRETSMap.prototype.sendRequest = function(points, params, paginate) {
         } else if(paginate === "prev") {
             scrollToAnchor('sr-search-wrapper');
             this.offset = Number(this.offset) - Number(this.limit);
+        } else if (paginate === "reset") {
+            this.offset = 0
         }
     }
 
@@ -801,7 +803,7 @@ SimplyRETSMap.prototype.initEventListeners = function() {
             points = params.points,
             query  = params.query;
 
-        that.sendRequest(points, query).done(function(data) {
+        that.sendRequest(points, query, "reset").done(function(data) {
             that.handleRequest(that, data);
         });
 
@@ -838,8 +840,9 @@ $_(document).ready(function() {
             var key = document.getElementById('sr-map-search').dataset.apiKey;
 
             // if google.maps doesn't exist - load it, then start map
-            var url = "https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=drawing&callback=startMap" +
-                      "&key=" + key;
+            var url = "https://maps.googleapis.com/maps/api/js?"
+                    + "libraries=drawing&callback=startMap"
+                    + "&key=" + key;
 
             var script = document.createElement("script");
 

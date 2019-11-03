@@ -104,10 +104,16 @@ class SrUtils {
      */
     public static function buildFullAddressString($listing) {
 
+        $idxAddress = $listing->internetAddressDisplay;
+        $address = $idxAddress === false
+                 ? $idxAddressReplacement = get_option(
+                     "sr_idx_address_display_text",
+                     "Undisclosed address"
+                 ) : $listing->address->full;
+
         $city = $listing->address->city;
         $state = $listing->address->state;
         $zip = $listing->address->postalCode;
-        $address = $listing->address->full;
 
         // A listing might have a null address if a flag like "Display
         // address" is set to false. This just removes the comma in
@@ -227,6 +233,10 @@ class SrUtils {
 
         foreach ($pairs as $i) {
 
+            if (empty($i)) {
+                continue;
+            }
+
             list($name,$value) = explode('=', $i, 2);
 
             if( isset($arr[$name]) ) {
@@ -245,6 +255,19 @@ class SrUtils {
         return $arr;
     }
 
+    /**
+     * Build a query string from an array of parameters. NOTE: This
+     * function REMOVES array indexes ([0]) from parameters names that
+     * are specified multiple times. For example:
+     *
+     * http_build_query: q[0]=first&q[1]=second
+     * proper_build_query: q=first&q=second
+     */
+    public static function proper_build_query($params = array()) {
+        $array_indice_regex = "/%5B(?:[0-9]|[1-9][0-9]+)%5D=/";
+        $query_str = http_build_query($params);
+        return preg_replace($array_indice_regex, "=", $query_str);
+    }
 
     public static function ordinalSuffix($number) {
         $ends = array('th','st','nd','rd','th','th','th','th','th','th');
@@ -430,7 +453,7 @@ class SrMessages {
     public static function noResultsMsg($response) {
 
         $response = (array)$response;
-        if($response['message']) {
+        if(isset($response['message'])) {
             return (
                 '<br><p><strong>'
                 . $response['message']

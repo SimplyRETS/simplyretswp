@@ -51,6 +51,7 @@ class SrShortcodes {
         $brokers  = isset($atts['brokers']) ? $atts['brokers'] : '';
         $agent    = isset($atts['agent'])   ? $atts['agent']   : '';
         $limit    = isset($atts['limit'])   ? $atts['limit'] : '25';
+        $idx      = isset($atts['idx'])     ? $atts['idx'] : '';
         $type_att = isset($atts['type'])    ? $atts['type'] : '';
 
         $content     = "";
@@ -152,6 +153,7 @@ class SrShortcodes {
                       <input type="hidden" name="sr_vendor"  value="$vendor" />
                       <input type="hidden" name="sr_brokers" value="$brokers" />
                       <input type="hidden" name="sr_agent"   value="$agent" />
+                      <input type="hidden" name="sr_idx"     value="$idx" />
                       <input type="hidden" name="limit"      value="$limit" />
 
                       <div>
@@ -242,6 +244,7 @@ HTML;
             /**
              * Neighborhoods filter is being used - check for multiple values and build query accordingly
              */
+            $neighborhoods_string = "";
             if( isset( $listing_params['neighborhoods'] ) && !empty( $listing_params['neighborhoods'] ) ) {
                 $neighborhoods = explode( ';', $listing_params['neighborhoods'] );
                 foreach( $neighborhoods as $key => $neighborhood ) {
@@ -251,6 +254,7 @@ HTML;
                 $neighborhoods_string = str_replace(' ', '%20', $neighborhoods_string );
             }
 
+            $cities_string = "";
             if( isset( $listing_params['cities'] ) && !empty( $listing_params['cities'] ) ) {
                 $cities = explode( ';', $listing_params['cities'] );
                 foreach( $cities as $key => $city ) {
@@ -260,6 +264,7 @@ HTML;
                 $cities_string = str_replace(' ', '%20', $cities_string );
             }
 
+            $agents_string = "";
             if( isset( $listing_params['agent'] ) && !empty( $listing_params['agent'] ) ) {
                 $agents = explode( ';', $listing_params['agent'] );
                 foreach( $agents as $key => $agent ) {
@@ -269,6 +274,7 @@ HTML;
                 $agents_string = str_replace(' ', '%20', $agents_string );
             }
 
+            $ptypes_string = "";
             if( isset( $listing_params['type'] ) && !empty( $listing_params['type'] ) ) {
                 $ptypes = explode( ';', $listing_params['type'] );
                 foreach($ptypes as $key => $ptype) {
@@ -278,6 +284,7 @@ HTML;
                 $ptypes_string = str_replace(' ', '%20', $ptypes_string );
             }
 
+            $subtypes_string = "";
             if(isset($listing_params['subtype']) && !empty($listing_params['subtype'])) {
                 $subtypes = explode(';', $listing_params['subtype']);
                 foreach($subtypes as $key => $subtype) {
@@ -287,6 +294,7 @@ HTML;
                 $subtypes_string = str_replace(' ', '%20', $subtypes_string);
             }
 
+            $postalcodes_string = "";
             if( isset( $listing_params['postalcodes'] ) && !empty( $listing_params['postalcodes'] ) ) {
                 $postalcodes = explode( ';', $listing_params['postalcodes'] );
                 foreach( $postalcodes as $key => $postalcode  ) {
@@ -296,6 +304,7 @@ HTML;
                 $postalcodes_string = str_replace(' ', '%20', $postalcodes_string );
             }
 
+            $counties_string = "";
             if( isset( $listing_params['counties'] ) && !empty( $listing_params['counties'] ) ) {
                 $counties = explode( ';', $listing_params['counties'] );
                 foreach( $counties as $key => $county ) {
@@ -305,6 +314,7 @@ HTML;
                 $counties_string = str_replace(' ', '%20', $counties_string );
             }
 
+            $q_string = "";
             if( isset( $listing_params['q'] ) && !empty( $listing_params['q'] ) ) {
                 $keywords = explode( ';', $listing_params['q'] );
                 foreach( $keywords as $key => $keyword ) {
@@ -317,6 +327,7 @@ HTML;
             /**
              * Multiple statuses
              */
+            $statuses_string = "";
             if( isset( $listing_params['status'] ) && !empty( $listing_params['status'] ) ) {
 
                 $statuses = explode( ';', $listing_params['status'] );
@@ -332,6 +343,7 @@ HTML;
             /**
              * Build a regular query string for everything else
              */
+            $params_string = "";
             foreach( $listing_params as $key => $value ) {
                 // Skip params that support multiple
                 if( $key !== 'postalcodes'
@@ -413,6 +425,7 @@ HTML;
         $brokers = isset($atts['brokers']) ? $atts['brokers'] : '';
         $agent   = isset($atts['agent'])   ? $atts['agent']   : '';
         $water   = isset($atts['water'])   ? $atts['water']   : '';
+        $idx     = isset($atts['idx'])   ? $atts['idx']       : '';
         $limit   = isset($atts['limit'])   ? $atts['limit']   : '';
         $config_type = isset($atts['type']) ? $atts['type']   : '';
         $subtype = isset($atts['subtype']) ? $atts['subtype'] : '';
@@ -424,10 +437,9 @@ HTML;
         if($config_type === '') {
             $config_type = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
         }
-        if(empty($vendor) && $singleVendor === true) {
+        if(empty($vendor) && $singleVendor === true && !empty($availableVendors)) {
             $vendor = $availableVendors[0];
         }
-        $vendorOptions = "_$vendor";
 
         /** User Facing Parameters */
         $minbeds    = array_key_exists('minbeds',  $atts) ? $atts['minbeds']  : '';
@@ -668,6 +680,7 @@ HTML;
                 </div>
 
                 <input type="hidden" name="water"   value="<?php echo $water; ?>"  />
+                <input type="hidden" name="sr_idx"   value="<?php echo $idx; ?>"  />
                 <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
                 <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
                 <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
@@ -757,6 +770,7 @@ HTML;
             </div>
 
             <input type="hidden" name="water"   value="<?php echo $water; ?>"  />
+            <input type="hidden" name="sr_idx"   value="<?php echo $idx; ?>"  />
             <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
             <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
             <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />

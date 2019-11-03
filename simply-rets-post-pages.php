@@ -185,6 +185,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_agent";
         $vars[] = "sr_brokers";
         $vars[] = "sr_sort";
+        $vars[] = "sr_idx";
         $vars[] = "water";
         // post type
         $vars[] = "sr-listings";
@@ -582,12 +583,12 @@ class SimplyRetsCustomPostPages {
             $lotsize   = get_query_var( 'sr_lotsize', '' );
             $area      = get_query_var( 'sr_area', '' );
             $sort      = get_query_var( 'sr_sort', '' );
+            $idx       = get_query_var( 'sr_idx', '' );
             /** multi mls */
             $vendor    = get_query_var('sr_vendor', '');
 
             $map_position = get_query_var('sr_map_position',
                                           get_option('sr_search_map_position'));
-
 
             /**
              * Format the 'type' parameter.
@@ -788,6 +789,7 @@ class SimplyRetsCustomPostPages {
                 "minprice"  => $minprice,
                 "maxprice"  => $maxprice,
                 "water"     => $water,
+                "idx"       => $idx,
 
                 /** Pagination */
                 "limit"     => $limit,
