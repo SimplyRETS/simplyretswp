@@ -1594,7 +1594,7 @@ HTML;
             $listing_USD   = '$' . number_format( $listing_price );
 
             // widget title
-            $address = $listing->address->full;
+            $address = SrUtils::buildFullAddressString($listing);
 
             // widget photo
             $listingPhotos = $listing->photos;
