@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.8.0
+* ENHANCEMENT: Add support for `idx` admin option and short-code parameter.
+
 ## 2.7.2
 * ENHANCEMENT: Support all valid API parameters on [sr_map_search] short-code.
 
