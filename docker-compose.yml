@@ -1,0 +1,32 @@
+version: '3.4'
+services:
+  wordpress:
+    image: visiblevc/wordpress:latest
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse
+    ports:
+      - 8080:80
+      - 443:443
+    volumes:
+      - ./src:/app/wp-content/plugins/simplyretswp # Plugin development
+    environment:
+      DB_HOST: db # must match db service name below
+      DB_NAME: wordpress
+      DB_PASS: root # must match below
+      # Install default plugins 
+      # PLUGINS: >-
+      #   [WP-API]https://github.com/WP-API/WP-API/archive/master.zip,
+      URL_REPLACE: localhost:8080
+      WP_DEBUG: 'true'
+  db:
+    image: mariadb:10
+    ports:
+      - 3306:3306
+    volumes:
+      - data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+volumes:
+  data: {}
