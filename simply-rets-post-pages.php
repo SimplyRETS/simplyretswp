@@ -177,6 +177,10 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_maxbeds";
         $vars[] = "sr_minbaths";
         $vars[] = "sr_maxbaths";
+        $vars[] = "sr_minyear";
+        $vars[] = "sr_maxyear";
+        $vars[] = "sr_minacres";
+        $vars[] = "sr_maxacres";
         $vars[] = "sr_q";
         $vars[] = "sr_keywords";
         $vars[] = "sr_type";
@@ -572,6 +576,10 @@ class SimplyRetsCustomPostPages {
             $maxbaths = get_query_var( 'sr_maxbaths', '' );
             $minprice = get_query_var( 'sr_minprice', '' );
             $maxprice = get_query_var( 'sr_maxprice', '' );
+            $minyear = get_query_var( 'sr_minyear', '' );
+            $maxyear = get_query_var( 'sr_maxyear', '' );
+            $minacres = get_query_var( 'sr_minacres', '' );
+            $maxacres = get_query_var( 'sr_maxacres', '' );
             $brokers  = get_query_var( 'sr_brokers', '' );
             $water    = get_query_var( 'water', '' );
             /** Pagination */
@@ -788,6 +796,10 @@ class SimplyRetsCustomPostPages {
                 "maxbaths"  => $maxbaths,
                 "minprice"  => $minprice,
                 "maxprice"  => $maxprice,
+                "minyear"   => $minyear,
+                "maxyear"   => $maxyear,
+                "minacres"  => $minacres,
+                "maxacres"  => $maxacres,
                 "water"     => $water,
                 "idx"       => $idx,
 
