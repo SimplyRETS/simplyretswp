@@ -1,6 +1,6 @@
 .phony: deps
 deps:
-	composer --working-dir=src/ install
+	composer install --prefer-source --no-interaction --dev --working-dir=src/
 
 .phony: dev
 dev: deps

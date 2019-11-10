@@ -13,7 +13,7 @@ env:
 
 before_script:
     - composer self-update
-    - composer install --prefer-source --no-interaction --dev
-    - chmod +x tests/init.sh && bash tests/init.sh $TRAVIS_PHP_VERSION $WP_VERSION
+    - make deps
+    - chmod +x src/tests/init.sh && bash src/tests/init.sh $TRAVIS_PHP_VERSION $WP_VERSION
 
-script: phpunit
+script: cd src && phpunit

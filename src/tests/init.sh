@@ -16,4 +16,4 @@ fi
 
 echo "[init-tests.sh] Using WP_VERSION $WP_VERSION"
 
-bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+bash src/bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
