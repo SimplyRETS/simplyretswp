@@ -13,6 +13,46 @@
 class SimplyRetsOpenHouses {
 
     /**
+     * Get open house data for a listingId.
+     * Return an empty array if no openhouses exist.
+     */
+    public static function getOpenHousesByListingId($listing_id) {
+        $response = SimplyRetsApiHelper::makeApiRequest(
+            array("listingId" => $listing_id, "startdate" => "2019-11-11"),
+            "openhouses"
+        );
+
+        return $response["response"];
+    }
+
+    public static function getOpenHouseDateTimes($openhouse) {
+        /**
+         * Some MLS's don't use UTC timestamps; this allows the user
+         * to specify a timezone used to parse/convert the MLS's open
+         * house times for display.
+         */
+        $default_time_zone = get_option("sr_date_default_timezone", "");
+        if (!empty($default_time_zone)) {
+            date_default_timezone_set($default_time_zone);
+        }
+
+        // Open house date information
+        $date = date("M jS", strtotime($openhouse->startTime));
+        $day = date("D", strtotime($openhouse->startTime));
+        $day_date = "<span>{$day}, {$date}</span>";
+
+        // Open house time information
+        $start = date("g:ia", strtotime($openhouse->startTime));
+        $end = date("g:ia", strtotime($openhouse->endTime));
+        $start_end_time = "<span>{$start} - {$end}</span>";
+
+        return array(
+            "day" => $day_date,
+            "time" => $start_end_time
+        );
+    }
+
+    /**
      * Generate markup /openhouses search response.
      */
     public static function openHousesSearchResults($search_response) {
@@ -74,25 +114,12 @@ HTML;
             $listing_agent
         );
 
-        /**
-         * Some MLS's don't use UTC timestamps; this allows the user
-         * to specify a timezone used to parse/convert the MLS's open
-         * house times for display.
-         */
-        $default_time_zone = get_option("sr_date_default_timezone", "");
-        if (!empty($default_time_zone)) {
-            date_default_timezone_set($default_time_zone);
-        }
+        $openhouse_times = SimplyRetsOpenHouses::getOpenHouseDateTimes(
+            $openhouse
+        );
 
-        // Open house date information
-        $date = date("M jS", strtotime($openhouse->startTime));
-        $day = date("D", strtotime($openhouse->startTime));
-        $day_date = "<span>{$day}, {$date}</span>";
-
-        // Open house time information
-        $start = date("g:ia", strtotime($openhouse->startTime));
-        $end = date("g:ia", strtotime($openhouse->endTime));
-        $start_end_time = "<span>{$start} - {$end}</span>";
+        $day = $openhouse_times["day"];
+        $time = $openhouse_times["time"];
 
         $banner_style = "position:absolute;z-index:1;padding:10px;font-size:1.2rem;width:30%;"
                       . "background-color:green;border-radius:2px;color:white;bottom:3%;"
@@ -101,7 +128,7 @@ HTML;
         $open_house_banner = "<div style=\"{$banner_style}\">"
                            . "  <strong>Open house</strong>"
                            . "  <br/>"
-                           . "  {$day_date} &middot; {$start_end_time}"
+                           . "  {$day} &middot; {$time}"
                            . "</div>";
 
         $status = $listing->mls->status;

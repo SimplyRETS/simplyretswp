@@ -569,20 +569,19 @@ class SimplyRetsCustomPostPages {
             global $wp_query;
 
             $parameters = $wp_query->query;
-            $allowed = array_flip(["/sr_/", "limit", "offset"]);
             $searchParameters = array_intersect_key(
                 $parameters,
                 array_flip(
                     array_merge(
                         preg_grep('/sr_.*/', array_keys($parameters)),
-                        preg_grep('/(limit|offset)/', array_keys($parameters)),
+                        preg_grep('/(limit|offset)/', array_keys($parameters))
                     )
                 )
             );
 
             $shortcodeAttributes = array_combine(
                 preg_replace("/sr_/", "", array_keys($searchParameters)),
-                array_values($searchParameters),
+                array_values($searchParameters)
             );
 
             $nextAttributes = "";
