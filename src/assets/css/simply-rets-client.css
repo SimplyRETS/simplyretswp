@@ -226,6 +226,10 @@ for the whole page with this class.
 */
 
 .sr-details {
+    margin-top: 10px;
+}
+
+.sr-details table {
     margin-top: 15px;
 }
 
@@ -314,6 +318,26 @@ the class or the id, depending on what you need.
 
 .sr-remarks-details p {
     line-height: 20px !important;
+    margin-bottom: 0px;
+    padding-bottom: 5px;
+}
+
+.sr-listing-openhouses-banner {
+    border-left: solid 1px #eee;
+    border-right: solid 1px #eee;
+    border-top: solid 1px #eee;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+}
+
+.sr-listing-openhouses-banner h3 {
+    margin-bottom: 5px;
+}
+
+.sr-listing-openhouses-banner-item {
+    display: inline-block;
+    width: 25%;
 }
 
 /*

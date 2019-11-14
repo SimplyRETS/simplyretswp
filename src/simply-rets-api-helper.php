@@ -1042,15 +1042,14 @@ HTML;
 
         $upcoming_openhouses = count($openhouses);
         $next_openhouses = $upcoming_openhouses > 0
-                         ? array_slice($openhouses, 0, 3)
+                         ? array_slice($openhouses, 0, 4)
                          : NULL;
 
         $next_openhouses_banner = "";
         if ($next_openhouses) {
 
             $next_openhouses_details = "";
-            $next_openhouses_item_style = "display:inline-block; width:33%";
-            $next_openhouses_item_class = "display:inline-block; width:33%";
+            $next_openhouses_item_class = "sr-listing-openhouses-banner-item";
 
             foreach($next_openhouses as $next_oh) {
 
@@ -1062,20 +1061,19 @@ HTML;
                 $next_oh_time = $next_oh_times["time"];
 
                 $next_openhouses_details .=
-                      "<div class=\"{$next_openhouses_item_class}\""
-                    . "     style=\"{$next_openhouses_item_style}\">"
+                      "<div class=\"{$next_openhouses_item_class}\">"
                     . "  <strong>{$next_oh_day}</strong>"
                     . "  <br/>"
                     . "  <span>{$next_oh_time}</span>"
                     . "</div>";
             }
 
+            $upcoming_openhouses_text =
+                $upcoming_openhouses === 1 ? "upcoming open house" : "upcoming open houses";
+
             $next_openhouses_banner = <<<HTML
-                <div style="margin-top:15px;margin-bottom:15px"
-                     class="sr-listing-openhouses-banner">
-                  <h2 style="margin-top:5px">
-                    $upcoming_openhouses upcoming open houses
-                  </h2>
+                <div class="sr-listing-openhouses-banner">
+                  <h3>$upcoming_openhouses $upcoming_openhouses_text</h3>
                   $next_openhouses_details
                 </div>
 HTML;
