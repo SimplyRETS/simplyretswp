@@ -18,7 +18,7 @@ class SimplyRetsOpenHouses {
      */
     public static function getOpenHousesByListingId($listing_id) {
         $response = SimplyRetsApiHelper::makeApiRequest(
-            array("listingId" => $listing_id, "startdate" => "2019-11-11"),
+            array("listingId" => $listing_id, "startdate" => date("Y-m-d")),
             "openhouses"
         );
 
