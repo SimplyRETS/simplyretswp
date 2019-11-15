@@ -338,6 +338,7 @@ the class or the id, depending on what you need.
 .sr-listing-openhouses-banner-item {
     display: inline-block;
     width: 25%;
+    padding-bottom: 5px;
 }
 
 /*

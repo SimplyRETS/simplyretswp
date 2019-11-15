@@ -1043,9 +1043,7 @@ HTML;
         );
 
         $upcoming_openhouses = count($openhouses);
-        $next_openhouses = $upcoming_openhouses > 0
-                         ? array_slice($openhouses, 0, 4)
-                         : NULL;
+        $next_openhouses = $upcoming_openhouses > 0 ? $openhouses : NULL;
 
         $next_openhouses_banner = "";
         if ($next_openhouses) {
