@@ -17,10 +17,13 @@ class SimplyRetsOpenHouses {
      * Return an empty array if no openhouses exist.
      */
     public static function getOpenHousesByListingId($listing_id) {
-        $response = SimplyRetsApiHelper::makeApiRequest(
-            array("listingId" => $listing_id, "startdate" => date("Y-m-d")),
-            "openhouses"
-        );
+        $params = array_filter([
+            "listingId" => $listing_id,
+            "startdate" => date("Y-m-d"),
+            "vendor" => get_query_var("sr_vendor", NULL)
+        ]);
+
+        $response = SimplyRetsApiHelper::makeApiRequest($params, "openhouses");
 
         return $response["response"];
     }
@@ -55,7 +58,7 @@ class SimplyRetsOpenHouses {
     /**
      * Generate markup /openhouses search response.
      */
-    public static function openHousesSearchResults($search_response) {
+    public static function openHousesSearchResults($search_response, $settings) {
         $res = $search_response["response"];
         $pag = $search_response["pagination"];
 
@@ -78,8 +81,12 @@ HTML;
 
         } else {
 
+            // Generate markup for each open house result
             foreach($res as $idx=>$oh) {
-                $markup .= SimplyRetsOpenHouses::openHouseSearchResultMarkup($oh);
+                $markup .= SimplyRetsOpenHouses::openHouseSearchResultMarkup(
+                    $oh,
+                    $settings
+                );
             }
 
             $markup .= <<<HTML
@@ -96,17 +103,18 @@ HTML;
     /**
      * Generate markup for a single open house search result
      */
-    public static function openHouseSearchResultMarkup($openhouse) {
+    public static function openHouseSearchResultMarkup($openhouse, $settings) {
         $listing = $openhouse->listing;
         $full_address = SrUtils::buildFullAddressString($listing);
-        $details_link = SrUtils::buildDetailsLink($listing);
         $list_price_fmtd = '$' . number_format($listing->listPrice);
         $listing_id = $listing->listingId;
 
+        // Photo markup and styles
         $dummy = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
         $main_photo = !empty($listing->photos) ? $listing->photos[0] : $dummy;
         $photo_style = "background-image:url('$main_photo');background-size:cover;";
 
+        // Agent/office compliance markup
         $listing_office = $listing->office->name;
         $listing_agent = $listing->agent->firstName . ' ' . $listing->agent->lastName;
         $compliance_markup = SrUtils::mkListingSummaryCompliance(
@@ -114,10 +122,15 @@ HTML;
             $listing_agent
         );
 
-        $openhouse_times = SimplyRetsOpenHouses::getOpenHouseDateTimes(
-            $openhouse
-        );
+        // Listing details page link
+        $link_settings = array_key_exists("vendor", $settings) ? array(
+            "sr_vendor" => $settings["vendor"]
+        ) : array();
 
+        $details_link = SrUtils::buildDetailsLink($listing, $link_settings);
+
+        // Open house times
+        $openhouse_times = SimplyRetsOpenHouses::getOpenHouseDateTimes($openhouse);
         $day = $openhouse_times["day"];
         $time = $openhouse_times["time"];
 

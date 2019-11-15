@@ -21,11 +21,13 @@ class SimplyRetsApiHelper {
     }
 
     public static function retrieveOpenHousesResults($params, $settings = NULL) {
-        $request_url = SimplyRetsApiHelper::srRequestUrlBuilder($params, "openhouses");
-        $response = SimplyRetsApiHelper::srApiRequest($request_url);
-        $response_markup  = SimplyRetsOpenHouses::openHousesSearchResults($response);
+        $api_url = SimplyRetsApiHelper::srRequestUrlBuilder($params, "openhouses");
+        $api_response = SimplyRetsApiHelper::srApiRequest($api_url);
 
-        return $response_markup;
+        return SimplyRetsOpenHouses::openHousesSearchResults(
+            $api_response,
+            $settings
+        );
     }
 
     public static function retrieveListingDetails( $listing_id ) {
@@ -1041,9 +1043,7 @@ HTML;
         );
 
         $upcoming_openhouses = count($openhouses);
-        $next_openhouses = $upcoming_openhouses > 0
-                         ? array_slice($openhouses, 0, 4)
-                         : NULL;
+        $next_openhouses = $upcoming_openhouses > 0 ? $openhouses : NULL;
 
         $next_openhouses_banner = "";
         if ($next_openhouses) {

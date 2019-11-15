@@ -194,6 +194,7 @@ HTML;
 
     public static function sr_openhouses_shortcode($atts = array()) {
         $param_str = "?";
+        $settings = array();
 
         // Build a query string from the options provided on the short-code
         if (is_array($atts)) {
@@ -202,12 +203,18 @@ HTML;
                     $val = trim($v);
                     $param_str .= "{$param}={$val}&";
                 }
+
+                // Pass certain settings through as an array
+                if ($param === "vendor") {
+                    $settings["vendor"] = $value;
+                }
             }
         }
 
-        $content = SimplyRetsApiHelper::retrieveOpenHousesResults($param_str);
-
-        return $content;
+        return SimplyRetsApiHelper::retrieveOpenHousesResults(
+            $param_str,
+            $settings
+        );
     }
 
 
