@@ -20,9 +20,16 @@ class SimplyRetsApiHelper {
         return $response_markup;
     }
 
+    public static function retrieveOpenHousesResults($params, $settings = NULL) {
+        $request_url = SimplyRetsApiHelper::srRequestUrlBuilder($params, "openhouses");
+        $response = SimplyRetsApiHelper::srApiRequest($request_url);
+        $response_markup  = SimplyRetsOpenHouses::openHousesSearchResults($response);
+
+        return $response_markup;
+    }
 
     public static function retrieveListingDetails( $listing_id ) {
-        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder($listing_id, true);
+        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder($listing_id, "properties", true);
         $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
         $response_markup  = SimplyRetsApiHelper::srResidentialDetailsGenerator( $request_response );
 
@@ -46,8 +53,12 @@ class SimplyRetsApiHelper {
     }
 
 
-    public static function makeApiRequest($params) {
-        $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder($params);
+    public static function makeApiRequest($params, $endpoint = "properties") {
+        $request_url = SimplyRetsApiHelper::srRequestUrlBuilder(
+            $params,
+            $endpoint
+        );
+
         $request_response = SimplyRetsApiHelper::srApiRequest($request_url);
 
         return $request_response;
@@ -68,10 +79,15 @@ class SimplyRetsApiHelper {
      *
      * base url for local development: http://localhost:3001/properties
     */
-    public static function srRequestUrlBuilder($params, $single_listing = false) {
+    public static function srRequestUrlBuilder(
+        $params,
+        $endpoint = "properties",
+        $single_listing = false
+    ) {
+
         $authid   = get_option( 'sr_api_name' );
         $authkey  = get_option( 'sr_api_key' );
-        $base_url = "https://{$authid}:{$authkey}@api.simplyrets.com/properties";
+        $base_url = "https://{$authid}:{$authkey}@api.simplyrets.com/{$endpoint}";
 
         // Return early for /properties/{mlsId} requests
         if ($single_listing === true) {
@@ -141,8 +157,10 @@ class SimplyRetsApiHelper {
         $url      = "https://{$authid}:{$authkey}@api.simplyrets.com/";
         $options  = SimplyRetsApiHelper::srApiOptionsRequest( $url );
         $vendors  = $options->vendors;
+        $endpoints = $options->endpoints;
 
         update_option("sr_adv_search_meta_vendors", $vendors);
+        update_option("sr_adv_search_meta_endpoints", $endpoints);
 
         foreach((array)$vendors as $vendor) {
             $vendorUrl = $url . "properties?vendor=$vendor";
@@ -539,6 +557,12 @@ HTML;
         $br = "<br>";
         $cont = "";
         $contact_page = get_option('sr_contact_page');
+
+        // Boolean for fetching open houses
+        $has_openhouses = in_array(
+            "/openhouses",
+            get_option("sr_adv_search_meta_endpoints", array())
+        );
 
         $last_update = $listing['lastUpdate'];
         $listing = $listing['response'];
@@ -1009,6 +1033,52 @@ HTML;
             $officeEmail = '';
         }
 
+        /**
+         * If user has EnterpriseAccess, check for open houses
+         */
+        $openhouses = SimplyRetsOpenHouses::getOpenHousesByListingId(
+            $listing->listingId
+        );
+
+        $upcoming_openhouses = count($openhouses);
+        $next_openhouses = $upcoming_openhouses > 0
+                         ? array_slice($openhouses, 0, 4)
+                         : NULL;
+
+        $next_openhouses_banner = "";
+        if ($next_openhouses) {
+
+            $next_openhouses_details = "";
+            $next_openhouses_item_class = "sr-listing-openhouses-banner-item";
+
+            foreach($next_openhouses as $next_oh) {
+
+                $next_oh_times = SimplyRetsOpenHouses::getOpenHouseDateTimes(
+                    $next_oh
+                );
+
+                $next_oh_day = $next_oh_times["day"];
+                $next_oh_time = $next_oh_times["time"];
+
+                $next_openhouses_details .=
+                      "<div class=\"{$next_openhouses_item_class}\">"
+                    . "  <strong>{$next_oh_day}</strong>"
+                    . "  <br/>"
+                    . "  <span>{$next_oh_time}</span>"
+                    . "</div>";
+            }
+
+            $upcoming_openhouses_text =
+                $upcoming_openhouses === 1 ? "upcoming open house" : "upcoming open houses";
+
+            $next_openhouses_banner = <<<HTML
+                <div class="sr-listing-openhouses-banner">
+                  <h3>$upcoming_openhouses $upcoming_openhouses_text</h3>
+                  $next_openhouses_details
+                </div>
+HTML;
+        }
+
 
         /**
          * Create the custom compliance markup
@@ -1129,6 +1199,9 @@ HTML;
               </div>
             </div>
             $remarks_markup
+            <div>
+              $next_openhouses_banner
+            </div>
             <table style="width:100%;">
               <thead>
                 <tr>

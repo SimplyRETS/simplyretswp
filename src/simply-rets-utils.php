@@ -190,27 +190,35 @@ class SrUtils {
     }
 
     public static function buildPaginationLinks( $pagination ) {
-        $pag = array(
-            'prev' => '',
-            'next' => ''
+        $prevPagination = $pagination["prev"];
+        $nextPagination = $pagination["next"];
+        $destination = $prevPagination && strpos($prevPagination, "/openhouses") ||
+                       $nextPagination && strpos($nextPagination, "/openhouses")
+                     ? "sr-openhouses"
+                     : "sr-search";
+
+        $siteUrl = get_home_url() . "/?sr-listings={$destination}&";
+        $paginationLinks = array('prev' => '', 'next' => '');
+        $apiUrls = array(
+            "https://api.simplyrets.com/properties?",
+            "https://api.simplyrets.com/openhouses?",
         );
-        $siteUrl = get_home_url() . '/?sr-listings=sr-search&';
 
-        if( $pagination['prev'] !== null && !empty($pagination['prev'] ) ) {
-            $previous = $pagination['prev'];
-            $prev = str_replace( 'https://api.simplyrets.com/properties?', $siteUrl, $previous );
+
+        if($prevPagination !== null && !empty($prevPagination)) {
+            $prev = str_replace($apiUrls, $siteUrl, $prevPagination);
             $prev_link = "<a href='{$prev}'>Prev</a>";
-            $pag['prev'] = $prev_link;
+            $paginationLinks['prev'] = $prev_link;
         }
 
-        if( $pagination['next'] !== null && !empty($pagination['next'] ) ) {
-            $nextLink = $pagination['next'];
-            $next = str_replace( 'https://api.simplyrets.com/properties?', $siteUrl, $nextLink );
-            $next_link = "| <a href='{$next}'>Next</a>";
-            $pag['next'] = $next_link;
+        if($nextPagination !== null && !empty($nextPagination)) {
+            $next = str_replace($apiUrls, $siteUrl, $nextPagination);
+            $maybe_pipe = $prevPagination && !empty($prevPagination) ? "|" : "";
+            $next_link = "{$maybe_pipe} <a href='{$next}'>Next</a>";
+            $paginationLinks['next'] = $next_link;
         }
 
-        return $pag;
+        return $paginationLinks;
     }
 
 
@@ -453,7 +461,7 @@ class SrMessages {
     public static function noResultsMsg($response) {
 
         $response = (array)$response;
-        if(isset($response['message'])) {
+        if(array_key_exists("message", $response)) {
             return (
                 '<br><p><strong>'
                 . $response['message']
@@ -470,23 +478,6 @@ class SrMessages {
         $noResultsMsg = "<br><p><strong>There are 0 listings that match this search. "
                          . "Please try to broaden your search criteria or feel free to try again later.</p></strong>";
         return $noResultsMsg;
-    }
-
-}
-
-
-
-class SrViews {
-
-    public static function listDateResults( $date ) {
-        $markup = <<<HTML
-            <li>
-                <span>Listed on $date</span>
-            </li>
-HTML;
-
-        return $markup;
-
     }
 
 }

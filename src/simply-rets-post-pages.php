@@ -565,6 +565,34 @@ class SimplyRetsCustomPostPages {
             return $content;
         }
 
+        if ($page_name === "sr-openhouses") {
+            global $wp_query;
+
+            $parameters = $wp_query->query;
+            $searchParameters = array_intersect_key(
+                $parameters,
+                array_flip(
+                    array_merge(
+                        preg_grep('/sr_.*/', array_keys($parameters)),
+                        preg_grep('/(limit|offset)/', array_keys($parameters))
+                    )
+                )
+            );
+
+            $shortcodeAttributes = array_combine(
+                preg_replace("/sr_/", "", array_keys($searchParameters)),
+                array_values($searchParameters)
+            );
+
+            $nextAttributes = "";
+            foreach($shortcodeAttributes as $name=>$value) {
+                $nextValue = is_array($value) ? implode("; ", $value) : $value;
+                $nextAttributes .= $name . '="' . $nextValue . '" ';
+            }
+
+            return do_shortcode( "[sr_openhouses $nextAttributes]");
+        }
+
         if ( $page_name == 'sr-search' ) {
             $minbeds  = get_query_var( 'sr_minbeds',  '' );
             $maxbeds  = get_query_var( 'sr_maxbeds',  '' );
@@ -955,6 +983,26 @@ class SimplyRetsCustomPostPages {
                 "post_parent"    => 0,
                 "post_status"    => "publish",
                 "post_title"     => "Search Results",
+                "post_type"      => "sr-listings"
+            );
+
+            return $posts + array($post);
+        }
+
+        if(!empty($wpq['sr-listings']) AND $wpq['sr-listings'] == "sr-openhouses") {
+
+            $post = (object)array(
+                "ID"             => "sr-openhouses-dynamic-post",
+                "comment_count"  => 0,
+                "comment_status" => "closed",
+                "ping_status"    => "closed",
+                "post_author"    => 1,
+                "post_name"      => "Open houses search results",
+                "post_date"      => date("c"),
+                "post_date_gmt"  => gmdate("c"),
+                "post_parent"    => 0,
+                "post_status"    => "publish",
+                "post_title"     => "Open houses search results",
                 "post_type"      => "sr-listings"
             );
 

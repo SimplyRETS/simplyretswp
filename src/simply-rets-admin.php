@@ -55,7 +55,25 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_idx_address_display_text', array(
           "default" => "Undisclosed address"
       ));
+      register_setting('sr_admin_settings', 'sr_date_default_timezone', array(
+          "default" => ""
+      ));
   }
+
+  public static $timezones = array(
+      "Eastern (US)" => "America/New_York",
+      "Central (US)" => "America/Chicago",
+      "Mountain (US)" => "America/Denver",
+      "Pacific (US)" => "America/Los_Angeles",
+      "Alaska (US)" => "America/Anchorage",
+      "Hawaii (US)" => "Pacific/Honolulu",
+      "Newfoundland (Canada)" => "America/St_Johns",
+      "Atlantic (Canada)" => "America/Halifax",
+      "Eastern (Canada)" => "America/Toronto",
+      "Central (Canada)" => "America/Winnipeg",
+      "Mountain (Canada)" => "America/Edmonton",
+      "Pacific (Canada)" => "America/Vancouver"
+  );
 
   public static function adminMessages () {
       $page_created = get_option("sr_demo_page_created", false);
@@ -320,6 +338,41 @@ class SrAdminSettings {
           </div>
           <?php submit_button(); ?>
           <hr>
+
+          <div class="sr-admin-open-house-settings">
+            <h2>Open house settings</h2>
+            <h3 style="margin-bottom:5px;">
+                Default timezone
+            </h3>
+            <table>
+              <tbody>
+                <tr>
+                  <td colspan="2">
+                      <select name="sr_date_default_timezone">
+                          <option value="">None</option>
+                          <?php foreach(SrAdminSettings::$timezones as $txt=>$tz) { ?>
+                              <option
+                                  value="<?php echo $tz; ?>"
+                                  <?php selected(
+                                      get_option("sr_date_default_timezone"), $tz);
+                                  ?>>
+                                  <?php echo $txt; ?>
+                              </option>
+                          <?php } ?>
+                      </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p style="margin-top:0px;">
+                Select the timezone used to display open house start
+                and end times.<br/>If you don't want to convert any
+                timestamps, select "None".
+            </p>
+          </div>
+          <?php submit_button(); ?>
+          <hr>
+
           <div class="sr-admin-settings">
             <h2>Listing Compliance Settings</h2>
             <h3>Show listing agent and office information</h3>

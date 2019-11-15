@@ -13,3 +13,7 @@ stop:
 .phony: logs
 logs:
 	docker-compose logs -f wordpress
+
+.phony: zip
+zip: deps
+	zip -r simplyretswp-dev.zip src/
