@@ -1038,15 +1038,15 @@ HTML;
         /**
          * If user has EnterpriseAccess, check for open houses
          */
-        $openhouses = SimplyRetsOpenHouses::getOpenHousesByListingId(
+        $openhouses = $has_openhouses ? SimplyRetsOpenHouses::getOpenHousesByListingId(
             $listing->listingId
-        );
+        ) : array();
 
         $upcoming_openhouses = count($openhouses);
         $next_openhouses = $upcoming_openhouses > 0 ? $openhouses : NULL;
 
         $next_openhouses_banner = "";
-        if ($next_openhouses) {
+        if ($has_openhouses && $next_openhouses) {
 
             $next_openhouses_details = "";
             $next_openhouses_item_class = "sr-listing-openhouses-banner-item";
