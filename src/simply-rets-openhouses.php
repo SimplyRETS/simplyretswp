@@ -24,8 +24,13 @@ class SimplyRetsOpenHouses {
         ]);
 
         $response = SimplyRetsApiHelper::makeApiRequest($params, "openhouses");
+        $data = $response["response"];
 
-        return $response["response"];
+        if (!is_array($data) && property_exists($data, "error")) {
+            return array();
+        } else {
+            return $data;
+        }
     }
 
     public static function getOpenHouseDateTimes($openhouse) {
