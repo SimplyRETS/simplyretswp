@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.8.2
+* FIX: Add error handling for openhouses API requests
+
 ## 2.8.1
 * ENHANCEMENT: Add support for open houses short-code and search results.
 
