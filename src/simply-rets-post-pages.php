@@ -941,13 +941,20 @@ class SimplyRetsCustomPostPages {
             (!empty($wpq['sr-listings']) AND $wpq['sr-listings'] == "sr-single")
         ) {
 
-            $post_id    = urldecode(get_query_var( 'listing_id', '' ));
-            $post_addr  = urldecode(get_query_var( 'listing_title', '' ));
-            $post_price = urldecode(get_query_var( 'listing_price', '' ));
+            $post_id    = urldecode(get_query_var('listing_id', ''));
+            $post_price = urldecode(get_query_var('listing_price', ''));
+            $post_addr  = SrUtils::decodeStringForUrl(
+                urldecode(get_query_var('listing_title', ''))
+            );
 
             $listing_USD = $post_price == '' ? '' : '$' . number_format( $post_price );
             $title_normalize = "background-color:transparent;padding:0px;";
-            $post_title = "{$post_addr} <span style='{$title_normalize}'><small><i> {$listing_USD}</i></small></span>";
+            $post_title = "{$post_addr} "
+                        . "<span style='{$title_normalize}'>"
+                        . "  <small>"
+                        . "    <i> {$listing_USD}</i>"
+                        . "  </small>"
+                        . "</span>";
 
             $post = (object)array(
                 "ID"             => $post_id,
