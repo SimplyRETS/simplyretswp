@@ -124,6 +124,21 @@ class SrUtils {
     }
 
     /**
+     * Encode specific characters in a string to work in a URL. For
+     * example, a `/` character cannot be normally encoded as %2F
+     * because Apache url decodes the string and treats it as a path
+     * separator. See: https://stackoverflow.com/a/3235361/3464723
+     */
+    public static function encodeStringForUrl($str) {
+        return str_replace("/", "_", $str);
+    }
+
+    // Decode a string encoded with `encodeStringForUrl`
+    public static function decodeStringForUrl($str) {
+        return str_replace("_", "/", $str);
+    }
+
+    /**
      * Builds a link to a listings' details page. Used in search results.
      */
     public static function buildDetailsLink($listing, $params = array()) {
@@ -150,8 +165,11 @@ class SrUtils {
         $listing_city = $listing->address->city;
         $listing_state = $listing->address->state;
         $listing_zip = $listing->address->postalCode;
+
         $listing_address = $listing->address->full;
-        $listing_address_full = SrUtils::buildFullAddressString($listing);
+        $listing_address_full = SrUtils::encodeStringForUrl(
+            SrUtils::buildFullAddressString($listing)
+        );
 
         if($prettify && $custom_permalink_struct === "pretty_extra") {
 
