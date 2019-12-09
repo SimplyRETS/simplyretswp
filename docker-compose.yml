@@ -15,9 +15,12 @@ services:
       DB_HOST: db # must match db service name below
       DB_NAME: wordpress
       DB_PASS: root # must match below
-      # Install default plugins 
-      # PLUGINS: >-
-      #   [WP-API]https://github.com/WP-API/WP-API/archive/master.zip,
+      # Install default plugins
+      PLUGINS: >-
+        [WP-API]https://github.com/WP-API/WP-API/archive/master.zip,
+        (local)simply-rets
+      THEMES: >-
+        oceanwp
       URL_REPLACE: localhost:8080
       WP_DEBUG: 'true'
   db:
