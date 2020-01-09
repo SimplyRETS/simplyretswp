@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.8.4
+* FIX: Fix incorrectly generated og:url meta tag.
+
 ## 2.8.3
 * FIX: Handle "/" characters in single listing page URLs.
 
