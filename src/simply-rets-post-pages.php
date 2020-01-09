@@ -92,12 +92,11 @@ class SimplyRetsCustomPostPages {
     }
 
     public static function srAddRewriteRules($incoming) {
-		$rules = array(
-            'listings/([^&]+)/([^&]+)/([^&]+)/([^&]+)/([^&]+)/?$'
-            => 'index.php?sr-listings=sr-single&sr_city=$matches[1]&sr_state=$matches[2]&sr_zip=$matches[3]&listing_title=$matches[4]&listing_id=$matches[5]',
-			'listings/(.*)/(.*)?$'
-                => 'index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]'
-		);
+	$rules = array(
+            'listings/([^&]+)/([^&]+)/([^&]+)/([^&]+)/([^&]+)/?$' => 'index.php?sr-listings=sr-single&sr_city=$matches[1]&sr_state=$matches[2]&sr_zip=$matches[3]&listing_title=$matches[4]&listing_id=$matches[5]',
+	    'listings/(.*)/(.*)?$' => 'index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]'
+	);
+
         return $incoming + $rules;
     }
 
@@ -957,7 +956,6 @@ class SimplyRetsCustomPostPages {
                         . "</span>";
 
             $post = (object)array(
-                "ID"             => $post_id,
                 "comment_count"  => 0,
                 "comment_status" => "closed",
                 "ping_status"    => "closed",
@@ -976,10 +974,7 @@ class SimplyRetsCustomPostPages {
         // if we catch a search results query, create a new post on the fly
         if(!empty($wpq['sr-listings']) AND $wpq['sr-listings'] == "sr-search") {
 
-            $post_id = get_query_var( 'sr_minprice', '9998' );
-
             $post = (object)array(
-                "ID"             => $post_id,
                 "comment_count"  => 0,
                 "comment_status" => "closed",
                 "ping_status"    => "closed",
@@ -999,7 +994,6 @@ class SimplyRetsCustomPostPages {
         if(!empty($wpq['sr-listings']) AND $wpq['sr-listings'] == "sr-openhouses") {
 
             $post = (object)array(
-                "ID"             => "sr-openhouses-dynamic-post",
                 "comment_count"  => 0,
                 "comment_status" => "closed",
                 "ping_status"    => "closed",
