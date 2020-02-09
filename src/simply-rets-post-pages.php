@@ -405,6 +405,7 @@ class SimplyRetsCustomPostPages {
         } else {
             $current_nonce = NULL;
         }
+
         $is_autosaving = wp_is_post_autosave( $post_id );
         $is_revision   = wp_is_post_revision( $post_id );
         $valid_nonce   = ( isset( $current_nonce ) && wp_verify_nonce( $current_nonce, basename( __FILE__ ) ) ) ? 'true' : 'false';
@@ -415,10 +416,8 @@ class SimplyRetsCustomPostPages {
 
         if( isset($_POST['sr_filters']) ) {
             $sr_filters = $_POST['sr_filters'];
-        } else {
-            $sr_filters = NULL;
+            return update_post_meta( $post_id, 'sr_filters', $sr_filters );
         }
-        update_post_meta( $post_id, 'sr_filters', $sr_filters );
     }
 
     public static function postTemplateMetaBoxMarkup( $post ) {
@@ -454,6 +453,7 @@ class SimplyRetsCustomPostPages {
         } else {
             $current_nonce = NULL;
         }
+
         $is_autosaving = wp_is_post_autosave( $post_id );
         $is_revision   = wp_is_post_revision( $post_id );
         $valid_nonce   = ( isset( $current_nonce ) && wp_verify_nonce( $current_nonce, basename( __FILE__ ) ) ) ? 'true' : 'false';
@@ -464,10 +464,8 @@ class SimplyRetsCustomPostPages {
 
         if( isset($_POST['sr_page_template']) ) {
             $sr_page_template = $_POST['sr_page_template'];
-        } else {
-            $sr_page_template = NULL;
+            return update_post_meta( $post_id, 'sr_page_template', $sr_page_template );
         }
-        update_post_meta( $post_id, 'sr_page_template', $sr_page_template );
     }
 
 
