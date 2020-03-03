@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.8.7
+* FIX: Fix URL encoding in [sr_listings]/[sr_openhouses] short-codes.
+
 ## 2.8.6
 * FIX: Refactor how attributes are parsed from [sr_listings]/[sr_openhouses] short-codes.
 
