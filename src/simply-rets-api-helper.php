@@ -1329,23 +1329,21 @@ HTML;
         $pagination        = $response['pagination'];   // get pagination links out of response
         $lastUpdate        = $response['lastUpdate'];   // get lastUpdate time out of response
         $response          = $response['response'];     // get listing data out of response
-        $map_position      = get_option('sr_search_map_position', 'list_only');
+        $MLS_text          = SrUtils::mkMLSText();
         $show_listing_meta = SrUtils::srShowListingMeta();
         $pag               = SrUtils::buildPaginationLinks( $pagination );
         $prev_link         = $pag['prev'];
         $next_link         = $pag['next'];
 
-        $vendor       = isset($settings['vendor'])   ? $settings['vendor']   : '';
-        $map_setting  = isset($settings['show_map']) ? $settings['show_map'] : '';
-
-        $MLS_text = SrUtils::mkMLSText();
-
         /** Allow override of "map_position" admin setting on a per short-code basis */
-        $map_position = isset($settings['map_position']) ? $settings['map_position'] : $map_position;
+        $map_setting = isset($settings['show_map']) ? $settings['show_map'] : '';
+        $map_position = isset($settings['map_position'])
+                      ? $settings['map_position']
+                      : get_option('sr_search_map_position', 'map_above');
 
-        if(empty($vendor)) {
-            $vendor = get_query_var('sr_vendor', '');
-        }
+        $vendor = isset($settings['vendor'])
+                ? $settings['vendor']
+                : get_query_var('sr_vendor', '');
 
         /*
          * check for an error code in the array first, if it's
