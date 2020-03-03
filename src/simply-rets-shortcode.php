@@ -191,24 +191,32 @@ HTML;
 
     }
 
-    public static function parseShortcodeAttributes(
-        $atts,
-        $setting_atts = array()
-    ) {
-        $query = "";
+    /**
+     * Take an array of short-code attributes and parse them. Returns:
+     *   - params: an array of API search parameters
+     *   - settings: a key/value of settings (non-search attributes)
+     */
+    public static function parseShortcodeAttributes($atts, $setting_atts = array()) {
+        $params = array();
         $settings = array();
 
-        foreach ($atts as $param=>$value) {
-            // Update settings, don't add them to the API query
+        foreach ($atts as $param=>$value_) {
+            // Ensure "&" is not HTML encoded
+            // https://stackoverflow.com/a/20078112/3464723
+            $value = str_replace("&amp;", "&", $value_);
+
+            // Parse settings, don't add them to the API query
             if (in_array($param, $setting_atts)) {
                 $settings[$param] = $value;
                 break;
             }
 
-            foreach (explode(";", $value) as $i=>$v) {
-                $val = trim($v);
-                $query .= "{$param}={$val}&";
+            $values = explode(";", $value);
+            foreach($values as $idx=>$val) {
+                $values[$idx] = trim($val);
             }
+
+            $params[$param] = count($values) > 1 ? $values : $value;
 
             // Pass certain settings through as an array
             if ($param === "vendor") {
@@ -216,14 +224,14 @@ HTML;
             }
         }
 
-        return array("query" => $query, "settings" => $settings);
+        return array("params" => $params, "settings" => $settings);
     }
 
     public static function sr_openhouses_shortcode($atts = array()) {
         $data = SrShortcodes::parseShortcodeAttributes($atts);
 
         return SimplyRetsApiHelper::retrieveOpenHousesResults(
-            $data["query"],
+            $data["params"],
             $data["settings"]
         );
     }
@@ -249,7 +257,7 @@ HTML;
         }
 
         return SimplyRetsApiHelper::retrieveRetsListings(
-            $data["query"],
+            $data["params"],
             $data["settings"]
         );
     }
