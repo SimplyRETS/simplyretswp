@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.8.6
+* FIX: Refactor how attributes are parsed from [sr_listings]/[sr_openhouses] short-codes.
+
 ## 2.8.5
 * FIX: Don't create rows with NULL values in wp_postmeta.
 
