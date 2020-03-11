@@ -197,8 +197,11 @@ HTML;
      *   - settings: a key/value of settings (non-search attributes)
      */
     public static function parseShortcodeAttributes($atts, $setting_atts = array()) {
-        $params = array();
-        $settings = array();
+        $attributes = array("params" => array(), "settings" => array());
+
+        if (!$atts) {
+            return $attributes;
+        }
 
         foreach ($atts as $param=>$value_) {
             // Ensure "&" is not HTML encoded
@@ -207,7 +210,7 @@ HTML;
 
             // Parse settings, don't add them to the API query
             if (in_array($param, $setting_atts)) {
-                $settings[$param] = $value;
+                $attributes["settings"][$param] = $value;
                 break;
             }
 
@@ -216,15 +219,15 @@ HTML;
                 $values[$idx] = trim($val);
             }
 
-            $params[$param] = count($values) > 1 ? $values : $value;
+            $attributes["params"][$param] = count($values) > 1 ? $values : $value;
 
-            // Pass certain settings through as an array
+            // Add vendor to params and settings
             if ($param === "vendor") {
-                $settings["vendor"] = $value;
+                $attributes["settings"]["vendor"] = $value;
             }
         }
 
-        return array("params" => $params, "settings" => $settings);
+        return $attributes;
     }
 
     public static function sr_openhouses_shortcode($atts = array()) {
