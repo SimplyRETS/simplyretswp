@@ -814,14 +814,11 @@ HTML;
 
 
         // Determine the best field to show in the primary-details section
-        $primary_baths = "";
-        if(is_numeric($listing_bathsTotal)) {
-            $primary_baths = $listing_bathsTotal + 0; // strips extraneous decimals
-        } elseif(!empty($listing_bathsFull)) {
-            $primary_baths = $listing_bathsFull;
-        } else {
-            $primary_baths = 'n/a';
-        }
+        $primary_baths = SrListing::getBathroomsDisplay(
+            $listing_bathsTotal,
+            $listing_bathsFull,
+            true
+        );
 
 
         if( $listing_bedrooms == null || $listing_bedrooms == "" ) {
@@ -1189,7 +1186,7 @@ HTML;
                 <h3>$listing_bedrooms <small>Beds</small></h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-baths">
-                <h3>$primary_baths<small> Baths</small></h3>
+                <h3>$primary_baths</h3>
               </div>
               <div class="sr-detail" id="sr-primary-details-size">
                 <h3>$area <small class="sr-listing-area-sqft">SqFt</small></h3>
@@ -1511,21 +1508,10 @@ HTML;
                 $yearMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($subdivision, "");
             }
 
-
-            /**
-             * Get the 'best' number for the total baths.
-             * Prioritize 'bathrooms' (eg, total baths) over
-             * bathsFull, and only fallback to bathsFull if bathrooms
-             * is not available.
-             */
-            $bathsMarkup;
-            if(is_numeric($bathsTotal)) {
-                $total_baths = $bathsTotal + 0; // strips extraneous decimals
-                $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($total_baths, 'Bath');
-            } else {
-                $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsFull, 'Full Baths');
-            }
-
+            $bathrooms_display = SrListing::getBathroomsDisplay(
+                $bathsTotal,
+                $bathsFull
+            );
 
             // append markup for this listing to the content
             $resultsMarkup .= <<<HTML
@@ -1551,7 +1537,7 @@ HTML;
                     </ul>
                     <ul class="sr-data-column">
                       $bedsMarkup
-                      $bathsMarkup
+                      <li>$bathrooms_display</li>
                       $areaMarkup
                     </ul>
                   </div>
@@ -1654,10 +1640,10 @@ HTML;
                 $bedrooms = 0;
             }
 
-            $bathsFull   = $listing->property->bathsFull;
-            if( $bathsFull == null || $bathsFull == "" ) {
-                $bathsFull = 0;
-            }
+            $bathrooms_display = SrListing::getBathroomsDisplay(
+                $listing->property->bathrooms,
+                $listing->property->bathsFull
+            );
 
             $mls_status = SrListing::listingStatus($listing);
 
@@ -1700,7 +1686,7 @@ HTML;
                 </a>
                 <div class="sr-listing-wdgt-primary">
                   <div id="sr-listing-wdgt-details">
-                    <span>$bedrooms Bed | $bathsFull Bath | $mls_status </span>
+                    <span>$bedrooms Bed | $bathrooms_display | $mls_status </span>
                   </div>
                   <hr>
                   <div id="sr-listing-wdgt-remarks">
@@ -1838,21 +1824,12 @@ HTML;
                 $photo = str_replace("\\", "", $photo);
             }
 
-            /**
-             * Get the best number for 'baths'. Prioritize `bathrooms`
-             * over `bathsFull`, and only use `bathsFull` if
-             * `bathrooms` is not available. This is the same display
-             * logic used in the [sr_listings] short-code.
-             */
             $bathsFull  = $l->property->bathsFull;
             $bathsTotal = $l->property->bathrooms;
-
-            $baths = 0;
-            if (is_numeric($bathsTotal)) {
-                $baths = $bathsTotal + 0; // Strips extraneous decimals
-            } else {
-                $baths = $bathsFull;
-            }
+            $bathrooms_display = SrListing::getBathroomsDisplay(
+                $bathsTotal,
+                $bathsFull
+            );
 
             /**
              * Show listing brokerage, if applicable
@@ -1869,7 +1846,7 @@ HTML;
                   <a href="$link">
                     <h4 class="sr-listing-slider-item-address">$address <small>$priceUSD</small></h4>
                   </a>
-                  <p class="sr-listing-slider-item-specs">$beds bed / $baths bath / $area SqFt</p>
+                  <p class="sr-listing-slider-item-specs">$beds Bed / $bathrooms_display / $area SqFt</p>
                   <p class="sr-listing-slider-item-specs">$compliance_markup</p>
                 </div>
 HTML;

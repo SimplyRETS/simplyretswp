@@ -471,6 +471,30 @@ class SrListing {
         $useStatusText = get_option('sr_show_mls_status_text', false);
         return $useStatusText ? $listing->mls->statusText : $listing->mls->status;
     }
+
+    /**
+     * Return a 'display-ready' number of bathrooms for a
+     * listing. Checks for `.property.bathrooms` first, and then
+     * `.property.bathsFull`, and pluralizes the "bath(s)" text.
+     */
+    public static function getBathroomsDisplay(
+        $bathrooms,
+        $bathsFull = 0,
+        $small_text = false
+    ) {
+        if (is_numeric($bathrooms)) {
+            $s = $bathrooms > 1 ? "s" : "";
+            $e = $small_text ? "<small>Bath$s</small>" : "Bath$s";
+
+            return "$bathrooms $e";
+        }
+
+        $s = $bathsFull > 1 ? "s" : "";
+        $b = $bathsFull > 0 ? $bathsFull : "n/a";
+        $e = $small_text ? "<small>Full bath$s</small>" : "Full bath$s";
+
+        return "$b Full bath$s";
+    }
 }
 
 
