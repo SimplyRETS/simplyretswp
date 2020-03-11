@@ -117,7 +117,7 @@ class srFeaturedListingWidget extends WP_Widget {
         $mlsid = $instance['mlsid'];
         $vendor = $instance['vendor'];
 
-        $cont .= $before_widget;
+        $cont = $before_widget;
         // populate title
         if( $title ) {
             $cont .= $before_title . $title . $after_title;
@@ -228,7 +228,7 @@ class srAgentListingWidget extends WP_Widget {
        $limit  = $instance['limit'];
        $vendor = $instance['vendor'];
 
-       $cont .= $before_widget;
+       $cont = $before_widget;
        // populate title
        if( $title ) {
            $cont .= $before_title . $title . $after_title;
@@ -334,7 +334,7 @@ class srRandomListingWidget extends WP_Widget {
 
         $mlsid = trim($mlsids_arr[array_rand($mlsids_arr)]);
 
-        $cont .= $before_widget;
+        $cont = $before_widget;
 
         // populate title
         if( $title ) {
@@ -415,7 +415,7 @@ class srSearchFormWidget extends WP_Widget {
         $title  = apply_filters('widget_title', $instance['title']);
         $vendor = apply_filters('widget_vendor', $instance['vendor']);
 
-        $cont .= $before_widget;
+        $cont = $before_widget;
 
         // populate title
         if( $title ) {
