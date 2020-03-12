@@ -1785,7 +1785,7 @@ HTML;
 
     public static function srListingSliderGenerator( $response, $settings ) {
         $listings = $response['response'];
-        $inner;
+        $inner = "";
 
         $last_update = $response['lastUpdate'];
         $disclaimer = SrUtils::mkDisclaimerText($last_update);
@@ -1859,7 +1859,9 @@ HTML;
                 $inner
               </div>
               <br/>
-              $disclaimer
+              <div id="simplyrets-listings-slider-disclaimer" style="text-align:center;">
+                $disclaimer
+              </div>
             </div>
 HTML;
 
