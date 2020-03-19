@@ -197,8 +197,11 @@ HTML;
      *   - settings: a key/value of settings (non-search attributes)
      */
     public static function parseShortcodeAttributes($atts, $setting_atts = array()) {
-        $params = array();
-        $settings = array();
+        $attributes = array("params" => array(), "settings" => $setting_atts);
+
+        if (!$atts) {
+            return $attributes;
+        }
 
         foreach ($atts as $param=>$value_) {
             // Ensure "&" is not HTML encoded
@@ -206,8 +209,8 @@ HTML;
             $value = str_replace("&amp;", "&", $value_);
 
             // Parse settings, don't add them to the API query
-            if (in_array($param, $setting_atts)) {
-                $settings[$param] = $value;
+            if (array_key_exists($param, $setting_atts)) {
+                $attributes["settings"][$param] = $value;
                 break;
             }
 
@@ -216,15 +219,15 @@ HTML;
                 $values[$idx] = trim($val);
             }
 
-            $params[$param] = count($values) > 1 ? $values : $value;
+            $attributes["params"][$param] = count($values) > 1 ? $values : $value;
 
-            // Pass certain settings through as an array
+            // Add vendor to params and settings
             if ($param === "vendor") {
-                $settings["vendor"] = $value;
+                $attributes["settings"]["vendor"] = $value;
             }
         }
 
-        return array("params" => $params, "settings" => $settings);
+        return $attributes;
     }
 
     public static function sr_openhouses_shortcode($atts = array()) {
@@ -245,7 +248,7 @@ HTML;
      * ie, [sr_residential mlsid="12345"]
      */
     public static function sr_residential_shortcode($atts = array ()) {
-        $setting_atts = array("map_position", "show_map");
+        $setting_atts = array("map_position" => "map_above", "show_map" => "true");
         $data = SrShortcodes::parseShortcodeAttributes($atts, $setting_atts);
 
         // Use /properties/:id if `mlsid` parameter is used
@@ -655,20 +658,18 @@ HTML;
      * TODO: sr_listings_slider should support attributes that can
      * take multiple values (eg, postalCodes, counties). #32
      */
-    public static function sr_listing_slider_shortcode( $atts ) {
+    public static function sr_listing_slider_shortcode($atts = array()) {
         ob_start();
-        $settings = array();
 
-        $atts['limit'] = empty($atts['limit']) ? 8 : $atts['limit'];
+        $def_params = array("limit" => "12");
+        $def_settings = array("random" => "false");
+        $def_atts = array_merge($def_params, is_array($atts) ? $atts : array());
 
-        if ($atts['vendor']) {
-            $settings['vendor'] = $atts['vendor'];
-        }
+        $data = SrShortcodes::parseShortcodeAttributes($def_atts, $def_settings);
 
-        $settings['random'] = empty($atts['random']) ? NULL : $atts['random'];
-        $slider = SimplyRetsApiHelper::retrieveListingsSlider($atts, $settings);
-
-        echo $slider;
+        echo SimplyRetsApiHelper::retrieveListingsSlider(
+            $data["params"], $data["settings"]
+        );
 
         return ob_get_clean();
     }
