@@ -1116,7 +1116,10 @@ HTML;
                 $full_address,
                 $listing_price_USD,
                 $listing_bedrooms,
-                $listing_bathsFull,
+                SrListing::getBathroomsDisplay(
+                    $listing_bathsTotal,
+                    $listing_bathsFull
+                ),
                 $listing_mls_status,
                 $listing_mlsid,
                 $listing_type,
@@ -1464,7 +1467,10 @@ HTML;
                     $full_address,
                     $listing_USD,
                     $bedrooms,
-                    $bathsFull,
+                    SrListing::getBathroomsDisplay(
+                        $bathsTotal,
+                        $bathsFull
+                    ),
                     $mls_status,
                     $mlsid,
                     $propType,

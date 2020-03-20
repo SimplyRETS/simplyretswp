@@ -156,7 +156,7 @@ HTML;
 
         $bathrooms = !empty($listing->property->bathrooms)
                    ? "<strong>Bathrooms: </strong> {$listing->property->bathrooms}<br/>"
-                   : !empty($listing->bathsFull)
+                   : !empty($listing->property->bathsFull)
                    ? "<strong>Full baths: </strong> {$listing->property->bathsFull}<br/>"
                    : "";
 

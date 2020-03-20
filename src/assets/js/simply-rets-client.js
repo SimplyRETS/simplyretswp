@@ -117,8 +117,8 @@ var genMarkerPopup = function(
 
     var stat  = statusText ? listing.mls.statusText : listing.mls.status;
     var mlsText = Boolean(mlsTrademark) ? "MLS®" : "MLS"
-    var baths = listing.property.bathsFull || "n/a";
     var beds  = listing.property.bedrooms  || "n/a";
+    var baths = getBathroomsDisplay();
     var style = listing.property.style     || "Res" ;
     var type  = listing.property.type      || "Res";
     var sqft  = listing.property.area      || "n/a";
@@ -148,7 +148,7 @@ var genMarkerPopup = function(
        '    </a>' +
        '  </div>' +
        '  <div class="sr-iw-inner__primary">' +
-       '    <p>' + beds + ' Beds | ' + baths + ' Baths | ' + stat + '</p>' +
+       '    <p>' + beds + ' Beds | ' + baths + ' | ' + stat + '</p>' +
        '  </div>' +
        '  <hr>' +
        '  <div class="sr-iw-inner__secondary">' +
@@ -169,6 +169,17 @@ var genMarkerPopup = function(
 
     return markup;
 
+    function getBathroomsDisplay() {
+        if (listing.property.bathrooms) {
+            var s = listing.property.bathrooms > 1 ? "s" : "";
+            return listing.property.bathrooms + " Bath" + s;
+        } else if (listing.property.bathsFull) {
+            var s = listing.property.bathsFull > 1 ? "s" : "";
+            return listing.property.bathsFull + " Full Bath" + s;
+        } else {
+            return "n/a Baths";
+        }
+    }
 }
 
 
