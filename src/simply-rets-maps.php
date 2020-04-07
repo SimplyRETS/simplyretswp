@@ -91,7 +91,7 @@ class SrSearchMap {
         $address,
         $price,
         $beds,
-        $baths,
+        $baths_display,
         $status,
         $mlsid,
         $propType,
@@ -111,7 +111,7 @@ class SrSearchMap {
                 </a>
               </div>
               <div class="sr-iw-inner__primary">
-                <p>$beds Bed | $baths Bath | $status </p>
+                <p>$beds Bed | $baths_display | $status </p>
               </div>
               <hr>
               <div class="sr-iw-inner__secondary">

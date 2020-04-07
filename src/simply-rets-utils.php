@@ -82,6 +82,10 @@ class SrUtils {
                 $normalized_type = "Farm";
                 break;
 
+            case "MBL":
+                $normalized_type = "Mobile Home";
+                break;
+
         }
 
         return $normalized_type;
