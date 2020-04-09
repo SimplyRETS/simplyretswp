@@ -721,8 +721,8 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $postalCodes = $postalCodesData["param"];
-            $postalCodes_string = $postalCodesData["query"];
+            $postalCodes_att = $postalCodesData["att"];
+            $postalCodes_query = $postalCodesData["query"];
 
             /** Parse multiple subtypes from short-code parameter */
             $subtypeData = SimplyRetsCustomPostPages::parseGetParameter(
@@ -731,9 +731,8 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $subtype = $subtypeData["param"];
             $subtype_att = $subtypeData["att"];
-            $subtype_string = $subtypeData["query"];
+            $subtype_query = $subtypeData["query"];
 
             /** Parse multiple cities from short-code parameter */
             $citiesData = SimplyRetsCustomPostPages::parseGetParameter(
@@ -742,8 +741,8 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $cities = $citiesData["param"];
-            $cities_string = $citiesData["query"];
+            $cities_att = $citiesData["att"];
+            $cities_query = $citiesData["query"];
 
             /** Parse multiple counties from short-code parameter */
             $countiesData = SimplyRetsCustomPostPages::parseGetParameter(
@@ -752,8 +751,8 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $counties = $countiesData["param"];
-            $counties_string = $countiesData["query"];
+            $counties_att = $countiesData["att"];
+            $counties_query = $countiesData["query"];
 
             /** Parse multiple neighborhoods from short-code parameter */
             $neighborhoodsData = SimplyRetsCustomPostPages::parseGetParameter(
@@ -762,8 +761,18 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $neighborhoods = $neighborhoodsData["param"];
-            $neighborhoods_string = $neighborhoodsData["query"];
+            $neighborhoods_att = $neighborhoodsData["att"];
+            $neighborhoods_query = $neighborhoodsData["query"];
+
+            /** Parse multiple exteriorFeatures from short-code parameter */
+            $exteriorFeaturesData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_exteriorFeatures",
+                "exteriorFeatures",
+                $_GET
+            );
+
+            $exteriorFeatures_att = $exteriorFeaturesData["att"];
+            $exteriorFeatures_query = $exteriorFeaturesData["query"];
 
             /**
              * If `sr_q` is set, the user clicked a pagination link
@@ -861,10 +870,11 @@ class SimplyRetsCustomPostPages {
                 "status" => $statuses_attribute,
                 "advanced" => $advanced == "true" ? "true" : "false",
                 "subtype" => $subtype_att,
-                "postalCodes" => $postalCodes,
-                "cities" => $cities,
-                "counties" => $counties,
-                "neighborhoods" => $neighborhoods
+                "postalCodes" => $postalCodes_att,
+                "cities" => $cities_att,
+                "counties" => $counties_att,
+                "neighborhoods" => $neighborhoods_att,
+                "exteriorFeatures" => $exteriorFeatures_att
             );
 
             // Create a string of attributes to put on the
@@ -876,20 +886,20 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
-
             // Final API query string
             $qs = '?'
                 . http_build_query( array_filter( $listing_params ) )
                 . $features_string
-                . $cities_string
-                . $counties_string
-                . $neighborhoods_string
-                . $postalCodes_string
+                . $cities_query
+                . $counties_query
+                . $neighborhoods_query
+                . $postalCodes_query
                 . $agents_string
                 . $ptypes_string
-                . $subtype_string
+                . $subtype_query
                 . $statuses_string
                 . $amenities_string
+                . $exteriorFeatures_query
                 . $q_string;
 
             $qs = str_replace(' ', '%20', $qs);

@@ -192,6 +192,23 @@ HTML;
     }
 
     /**
+     * WordPress downcases all attribute names. This function will
+     * take a downcased parameter and convert it to the SimplyRETS
+     * parameter name.
+     */
+    public static function attributeNameToParameter($name) {
+        $fixes = array(
+            "exteriorfeatures" => "exteriorFeatures",
+            "postalcodes" => "postalCodes",
+            "mingaragespaces" => "minGarageSpaces",
+            "maxgaragespaces" => "maxGarageSpaces",
+            "salesagent" => "salesAgent"
+        );
+
+        return array_key_exists($name, $fixes) ? $fixes[$name] : $name;
+    }
+
+    /**
      * Take an array of short-code attributes and parse them. Returns:
      *   - params: an array of API search parameters
      *   - settings: a key/value of settings (non-search attributes)
@@ -207,6 +224,7 @@ HTML;
             // Ensure "&" is not HTML encoded
             // https://stackoverflow.com/a/20078112/3464723
             $value = str_replace("&amp;", "&", $value_);
+            $name = SrShortcodes::attributeNameToParameter($param);
 
             // Parse settings, don't add them to the API query
             if (array_key_exists($param, $setting_atts)) {
@@ -219,7 +237,7 @@ HTML;
                 $values[$idx] = trim($val);
             }
 
-            $attributes["params"][$param] = count($values) > 1 ? $values : $value;
+            $attributes["params"][$name] = count($values) > 1 ? $values : $value;
 
             // Add vendor to params and settings
             if ($param === "vendor") {
