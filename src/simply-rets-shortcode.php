@@ -229,7 +229,7 @@ HTML;
             // Parse settings, don't add them to the API query
             if (array_key_exists($param, $setting_atts)) {
                 $attributes["settings"][$param] = $value;
-                break;
+                continue;
             }
 
             $values = explode(";", $value);

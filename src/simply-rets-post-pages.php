@@ -597,7 +597,6 @@ class SimplyRetsCustomPostPages {
             $maxbaths = get_query_var( 'sr_maxbaths', '' );
             $minprice = get_query_var( 'sr_minprice', '' );
             $maxprice = get_query_var( 'sr_maxprice', '' );
-            $brokers  = get_query_var( 'sr_brokers', '' );
             $water    = get_query_var( 'water', '' );
             /** Pagination */
             $limit    = get_query_var( 'limit', '' );
@@ -698,14 +697,6 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
-            $agents = isset($_GET['sr_agent']) ? $_GET['sr_agent'] : '';
-            $agents_string = "";
-            if(!empty($agents)) {
-                foreach((array)$agents as $key => $agent) {
-                    $agents_string .= "&agent=$agent";
-                }
-            }
-
             $amenities = isset($_GET['sr_amenities']) ? $_GET['sr_amenities'] : '';
             $amenities_string = "";
             if(!empty($amenities)) {
@@ -713,6 +704,26 @@ class SimplyRetsCustomPostPages {
                     $amenities_string .= "&amenities=$amenity";
                 }
             }
+
+            /** Parse multiple brokers from short-code parameter */
+            $brokersData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_brokers",
+                "brokers",
+                $_GET
+            );
+
+            $brokers_att = $brokersData["att"];
+            $brokers_query = $brokersData["query"];
+
+            /** Parse multiple agent from short-code parameter */
+            $agentData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_agent",
+                "agent",
+                $_GET
+            );
+
+            $agent_att = $agentData["att"];
+            $agent_query = $agentData["query"];
 
             /** Parse multiple postalCodes from short-code parameter */
             $postalCodesData = SimplyRetsCustomPostPages::parseGetParameter(
@@ -815,7 +826,6 @@ class SimplyRetsCustomPostPages {
              */
 
             $listing_params = array(
-                "brokers"   => $brokers,
                 "minbeds"   => $minbeds,
                 "maxbeds"   => $maxbeds,
                 "minbaths"  => $minbaths,
@@ -866,10 +876,11 @@ class SimplyRetsCustomPostPages {
 
             $next_atts = $listing_params + array(
                 "q" => $kw_string,
-                "agent" => get_query_var('sr_agent', ''),
                 "status" => $statuses_attribute,
                 "advanced" => $advanced == "true" ? "true" : "false",
                 "subtype" => $subtype_att,
+                "agent" => $agent_att,
+                "brokers" => $brokers_att,
                 "postalCodes" => $postalCodes_att,
                 "cities" => $cities_att,
                 "counties" => $counties_att,
@@ -889,12 +900,13 @@ class SimplyRetsCustomPostPages {
             // Final API query string
             $qs = '?'
                 . http_build_query( array_filter( $listing_params ) )
+                . $agent_query
+                . $brokers_query
                 . $features_string
                 . $cities_query
                 . $counties_query
                 . $neighborhoods_query
                 . $postalCodes_query
-                . $agents_string
                 . $ptypes_string
                 . $subtype_query
                 . $statuses_string
