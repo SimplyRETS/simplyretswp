@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.8.9
+* FIX: Fix parsing multiple `brokers` parameters in [sr_search_form].
+* EHANCEMENT: Support `exteriorFeatures` parameter on all short-codes.
+
 ## 2.8.8
 * FIX: Use consistent logic when displaying total or full baths in listing previews.
 
