@@ -597,7 +597,6 @@ class SimplyRetsCustomPostPages {
             $maxbaths = get_query_var( 'sr_maxbaths', '' );
             $minprice = get_query_var( 'sr_minprice', '' );
             $maxprice = get_query_var( 'sr_maxprice', '' );
-            $brokers  = get_query_var( 'sr_brokers', '' );
             $water    = get_query_var( 'water', '' );
             /** Pagination */
             $limit    = get_query_var( 'limit', '' );
@@ -698,14 +697,6 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
-            $agents = isset($_GET['sr_agent']) ? $_GET['sr_agent'] : '';
-            $agents_string = "";
-            if(!empty($agents)) {
-                foreach((array)$agents as $key => $agent) {
-                    $agents_string .= "&agent=$agent";
-                }
-            }
-
             $amenities = isset($_GET['sr_amenities']) ? $_GET['sr_amenities'] : '';
             $amenities_string = "";
             if(!empty($amenities)) {
@@ -714,6 +705,26 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
+            /** Parse multiple brokers from short-code parameter */
+            $brokersData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_brokers",
+                "brokers",
+                $_GET
+            );
+
+            $brokers_att = $brokersData["att"];
+            $brokers_query = $brokersData["query"];
+
+            /** Parse multiple agent from short-code parameter */
+            $agentData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_agent",
+                "agent",
+                $_GET
+            );
+
+            $agent_att = $agentData["att"];
+            $agent_query = $agentData["query"];
+
             /** Parse multiple postalCodes from short-code parameter */
             $postalCodesData = SimplyRetsCustomPostPages::parseGetParameter(
                 "sr_postalCodes",
@@ -721,8 +732,8 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $postalCodes = $postalCodesData["param"];
-            $postalCodes_string = $postalCodesData["query"];
+            $postalCodes_att = $postalCodesData["att"];
+            $postalCodes_query = $postalCodesData["query"];
 
             /** Parse multiple subtypes from short-code parameter */
             $subtypeData = SimplyRetsCustomPostPages::parseGetParameter(
@@ -731,9 +742,8 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $subtype = $subtypeData["param"];
             $subtype_att = $subtypeData["att"];
-            $subtype_string = $subtypeData["query"];
+            $subtype_query = $subtypeData["query"];
 
             /** Parse multiple cities from short-code parameter */
             $citiesData = SimplyRetsCustomPostPages::parseGetParameter(
@@ -742,8 +752,8 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $cities = $citiesData["param"];
-            $cities_string = $citiesData["query"];
+            $cities_att = $citiesData["att"];
+            $cities_query = $citiesData["query"];
 
             /** Parse multiple counties from short-code parameter */
             $countiesData = SimplyRetsCustomPostPages::parseGetParameter(
@@ -752,8 +762,8 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $counties = $countiesData["param"];
-            $counties_string = $countiesData["query"];
+            $counties_att = $countiesData["att"];
+            $counties_query = $countiesData["query"];
 
             /** Parse multiple neighborhoods from short-code parameter */
             $neighborhoodsData = SimplyRetsCustomPostPages::parseGetParameter(
@@ -762,8 +772,18 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
-            $neighborhoods = $neighborhoodsData["param"];
-            $neighborhoods_string = $neighborhoodsData["query"];
+            $neighborhoods_att = $neighborhoodsData["att"];
+            $neighborhoods_query = $neighborhoodsData["query"];
+
+            /** Parse multiple exteriorFeatures from short-code parameter */
+            $exteriorFeaturesData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_exteriorFeatures",
+                "exteriorFeatures",
+                $_GET
+            );
+
+            $exteriorFeatures_att = $exteriorFeaturesData["att"];
+            $exteriorFeatures_query = $exteriorFeaturesData["query"];
 
             /**
              * If `sr_q` is set, the user clicked a pagination link
@@ -806,7 +826,6 @@ class SimplyRetsCustomPostPages {
              */
 
             $listing_params = array(
-                "brokers"   => $brokers,
                 "minbeds"   => $minbeds,
                 "maxbeds"   => $maxbeds,
                 "minbaths"  => $minbaths,
@@ -857,14 +876,16 @@ class SimplyRetsCustomPostPages {
 
             $next_atts = $listing_params + array(
                 "q" => $kw_string,
-                "agent" => get_query_var('sr_agent', ''),
                 "status" => $statuses_attribute,
                 "advanced" => $advanced == "true" ? "true" : "false",
                 "subtype" => $subtype_att,
-                "postalCodes" => $postalCodes,
-                "cities" => $cities,
-                "counties" => $counties,
-                "neighborhoods" => $neighborhoods
+                "agent" => $agent_att,
+                "brokers" => $brokers_att,
+                "postalCodes" => $postalCodes_att,
+                "cities" => $cities_att,
+                "counties" => $counties_att,
+                "neighborhoods" => $neighborhoods_att,
+                "exteriorFeatures" => $exteriorFeatures_att
             );
 
             // Create a string of attributes to put on the
@@ -876,20 +897,21 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
-
             // Final API query string
             $qs = '?'
                 . http_build_query( array_filter( $listing_params ) )
+                . $agent_query
+                . $brokers_query
                 . $features_string
-                . $cities_string
-                . $counties_string
-                . $neighborhoods_string
-                . $postalCodes_string
-                . $agents_string
+                . $cities_query
+                . $counties_query
+                . $neighborhoods_query
+                . $postalCodes_query
                 . $ptypes_string
-                . $subtype_string
+                . $subtype_query
                 . $statuses_string
                 . $amenities_string
+                . $exteriorFeatures_query
                 . $q_string;
 
             $qs = str_replace(' ', '%20', $qs);
