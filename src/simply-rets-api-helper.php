@@ -107,6 +107,11 @@ class SimplyRetsApiHelper {
             $params_arr["idx"] = $def_idx_setting;
         }
 
+        // Apply the default `idx` setting if not provided
+        if (!array_key_exists("count", $params_arr)) {
+            $params_arr["count"] = false;
+        }
+
         // Build query string from parameters
         $params_str = SrUtils::proper_build_query($params_arr);
         $request_url = $base_url . "?" . $params_str;
