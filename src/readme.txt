@@ -236,6 +236,9 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.8.10 =
+* ENHANCEMENT: Set `count=false` on API queries by default to improve response time.
+
 = 2.8.9 =
 * FIX: Fix parsing multiple `brokers` parameters in `[sr_search_form]`.
 * EHANCEMENT: Support `exteriorFeatures` parameter on all short-codes.
