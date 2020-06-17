@@ -1,24 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "11f811a25982885aa2822c06871ec3a2",
-    "content-hash": "787345aa111ffcc393e123cd47095185",
+    "content-hash": "21452211e7751bf32aa2f11a04125fe8",
     "packages": [
         {
             "name": "egeloen/google-map",
-            "version": "dev-dev-stable",
+            "version": "dev-fix-loading-google-jsapi",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CodyReichert/ivory-google-map.git",
-                "reference": "5abf51ecea561f03c09f372b2219ecfffc8a4b80"
+                "reference": "166c5e506774e1a7f6b2662405b18485fda5e9e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CodyReichert/ivory-google-map/zipball/5abf51ecea561f03c09f372b2219ecfffc8a4b80",
-                "reference": "5abf51ecea561f03c09f372b2219ecfffc8a4b80",
+                "url": "https://api.github.com/repos/CodyReichert/ivory-google-map/zipball/166c5e506774e1a7f6b2662405b18485fda5e9e6",
+                "reference": "166c5e506774e1a7f6b2662405b18485fda5e9e6",
                 "shasum": ""
             },
             "require": {
@@ -60,9 +59,9 @@
                 "google map"
             ],
             "support": {
-                "source": "https://github.com/CodyReichert/ivory-google-map/tree/dev-stable"
+                "source": "https://github.com/CodyReichert/ivory-google-map/tree/fix-loading-google-jsapi"
             },
-            "time": "2016-07-25 20:17:54"
+            "time": "2020-06-17T17:58:06+00:00"
         },
         {
             "name": "egeloen/json-builder",
@@ -114,24 +113,97 @@
                 "builder",
                 "json"
             ],
-            "time": "2014-11-08 10:51:34"
+            "time": "2014-11-08T10:51:34+00:00"
         },
         {
-            "name": "symfony/property-access",
-            "version": "v2.8.8",
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/property-access.git",
-                "reference": "8fa1fe88f80fd8baefcc71d7cb3007c977d769bd"
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "e94c8b1bbe2bc77507a1056cdb06451c75b427f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-access/zipball/8fa1fe88f80fd8baefcc71d7cb3007c977d769bd",
-                "reference": "8fa1fe88f80fd8baefcc71d7cb3007c977d769bd",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/e94c8b1bbe2bc77507a1056cdb06451c75b427f9",
+                "reference": "e94c8b1bbe2bc77507a1056cdb06451c75b427f9",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9"
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-ctype": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.17-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gert de Pagter",
+                    "email": "BackEndTea@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-12T16:14:59+00:00"
+        },
+        {
+            "name": "symfony/property-access",
+            "version": "v2.8.52",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/property-access.git",
+                "reference": "c8f10191183be9bb0d5a1b8364d3891f1bde07b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/c8f10191183be9bb0d5a1b8364d3891f1bde07b6",
+                "reference": "c8f10191183be9bb0d5a1b8364d3891f1bde07b6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9",
+                "symfony/polyfill-ctype": "~1.8"
             },
             "type": "library",
             "extra": {
@@ -174,7 +246,7 @@
                 "property path",
                 "reflection"
             ],
-            "time": "2016-06-29 05:29:29"
+            "time": "2018-11-11T11:18:13+00:00"
         },
         {
             "name": "widop/http-adapter",
@@ -236,7 +308,7 @@
                 "http",
                 "request"
             ],
-            "time": "2014-07-20 18:29:58"
+            "time": "2014-07-20T18:29:58+00:00"
         }
     ],
     "packages-dev": [],
@@ -248,5 +320,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
