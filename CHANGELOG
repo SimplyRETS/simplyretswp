@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.9.0
+* FIX: Update `ivory-google-map` vendor library to fix issue loading Google Maps.
+
 ## 2.8.10
 * ENHANCEMENT: Set `count=false` on API queries by default to improve response time.
 
