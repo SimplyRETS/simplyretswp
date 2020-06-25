@@ -428,21 +428,7 @@ HTML;
                  ."<label><input name='sr_features[]' type='checkbox' value='$feature' $checked />$feature</label></li>";
         }
 
-
-        // currently unused
-        // $adv_search_counties = get_option( 'sr_adv_search_meta_county' );
-        // foreach( $adv_search_counties as $key=>$county) {
-        //     $county_options .= "<option value='$county' />$county</option>";
-        // }
-
-        // currently unused
-        // $adv_search_amenities = get_option( 'sr_adv_search_option_amenities' );
-        // foreach( $adv_search_amenities as $key=>$amenity) {
-        //     $amenity_options .= "<li class='sr-adv-search-option'>"
-        //         ."<label><input name='sr_features[]' type='checkbox' value='$amenity' />$amenity</label></li>";
-        // }
-
-        if( array_key_exists('advanced', $atts) && $atts['advanced'] == 'true' || $atts['advanced'] == 'True' ) {
+        if(array_key_exists('advanced', $atts) && ($atts['advanced'] == 'true' || $atts['advanced'] == 'True')) {
             ?>
 
             <div class="sr-adv-search-wrap">

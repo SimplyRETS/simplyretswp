@@ -568,7 +568,7 @@ HTML;
         // Boolean for fetching open houses
         $has_openhouses = in_array(
             "/openhouses",
-            get_option("sr_adv_search_meta_endpoints", array())
+            (array)get_option("sr_adv_search_meta_endpoints", array())
         );
 
         $last_update = $listing['lastUpdate'];
@@ -579,8 +579,8 @@ HTML;
          * The error code comes from the UrlBuilder function.
         */
         if($listing == NULL
-           || array_key_exists("error", $listing)
-           || array_key_exists("errors", $listing)) {
+           || property_exists($listing, "error")
+           || property_exists($listing, "errors")) {
             $err = SrMessages::noResultsMsg((array)$listing);
             return $err;
         }
