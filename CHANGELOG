@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.9.1
+* FIX: Update code to fix various PHP warnings and notices.
+
 ## 2.9.0
 * FIX: Update `ivory-google-map` vendor library to fix issue loading Google Maps.
 

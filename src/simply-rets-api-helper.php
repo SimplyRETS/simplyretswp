@@ -124,7 +124,7 @@ class SimplyRetsApiHelper {
         $php_version = phpversion();
         $site_url = get_site_url();
 
-        $ua_string     = "SimplyRETSWP/2.9.0 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.9.1 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -245,7 +245,7 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
 
-        $ua_string     = "SimplyRETSWP/2.9.0 Wordpress/{$wp_version} PHP/{$php_version}";
+        $ua_string     = "SimplyRETSWP/2.9.1 Wordpress/{$wp_version} PHP/{$php_version}";
         $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
@@ -568,7 +568,7 @@ HTML;
         // Boolean for fetching open houses
         $has_openhouses = in_array(
             "/openhouses",
-            get_option("sr_adv_search_meta_endpoints", array())
+            (array)get_option("sr_adv_search_meta_endpoints", array())
         );
 
         $last_update = $listing['lastUpdate'];
@@ -579,8 +579,8 @@ HTML;
          * The error code comes from the UrlBuilder function.
         */
         if($listing == NULL
-           || array_key_exists("error", $listing)
-           || array_key_exists("errors", $listing)) {
+           || property_exists($listing, "error")
+           || property_exists($listing, "errors")) {
             $err = SrMessages::noResultsMsg((array)$listing);
             return $err;
         }

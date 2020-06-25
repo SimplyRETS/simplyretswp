@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 5.4
-Stable tag: 2.9.0
+Tested up to: 5.4.2
+Stable tag: 2.9.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.9.1 =
+* FIX: Update code to fix various PHP warnings and notices.
 
 = 2.9.0 =
 * FIX: Update `ivory-google-map` vendor library to fix issue loading Google Maps.
