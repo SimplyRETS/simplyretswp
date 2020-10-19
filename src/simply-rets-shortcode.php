@@ -202,7 +202,8 @@ HTML;
             "postalcodes" => "postalCodes",
             "mingaragespaces" => "minGarageSpaces",
             "maxgaragespaces" => "maxGarageSpaces",
-            "salesagent" => "salesAgent"
+            "salesagent" => "salesAgent",
+            "subtypetext" => "subTypeText"
         );
 
         return array_key_exists($name, $fixes) ? $fixes[$name] : $name;
@@ -311,6 +312,7 @@ HTML;
         $limit   = isset($atts['limit'])   ? $atts['limit']   : '';
         $config_type = isset($atts['type']) ? $atts['type']   : '';
         $subtype = isset($atts['subtype']) ? $atts['subtype'] : '';
+        $subTypeText = isset($atts['subtypetext']) ? $atts['subtypetext'] : '';
         $counties = isset($atts['counties']) ? $atts['counties'] : '';
         $postalCodes = isset($atts['postalcodes']) ? $atts['postalcodes'] : '';
         $neighborhoods = isset($atts['neighborhoods']) ? $atts['neighborhoods'] : '';
@@ -553,6 +555,7 @@ HTML;
                 <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
                 <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
                 <input type="hidden" name="sr_subtype" value="<?php echo $subtype; ?>" />
+                <input type="hidden" name="sr_subTypeText" value="<?php echo $subTypeText; ?>" />
                 <input type="hidden" name="sr_counties" value="<?php echo $counties; ?>" />
                 <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
                 <input type="hidden" name="sr_postalCodes" value="<?php echo $postalCodes; ?>" />
@@ -643,6 +646,7 @@ HTML;
             <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
             <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
             <input type="hidden" name="sr_subtype" value="<?php echo $subtype; ?>" />
+            <input type="hidden" name="sr_subTypeText" value="<?php echo $subTypeText; ?>" />
             <input type="hidden" name="sr_counties" value="<?php echo $counties; ?>" />
             <input type="hidden" name="sr_postalCodes" value="<?php echo $postalCodes; ?>" />
             <input type="hidden" name="sr_neighborhoods" value="<?php echo $neighborhoods; ?>" />

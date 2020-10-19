@@ -181,6 +181,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_type";
         $vars[] = "sr_ptype";
         $vars[] = "sr_subtype";
+        $vars[] = "sr_subTypeText";
         $vars[] = "sr_agent";
         $vars[] = "sr_brokers";
         $vars[] = "sr_sort";
@@ -745,6 +746,16 @@ class SimplyRetsCustomPostPages {
             $subtype_att = $subtypeData["att"];
             $subtype_query = $subtypeData["query"];
 
+            /** Parse multiple subtypes from short-code parameter */
+            $subTypeTextData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_subTypeText",
+                "subTypeText",
+                $_GET
+            );
+
+            $subTypeText_att = $subTypeTextData["att"];
+            $subTypeText_query = $subTypeTextData["query"];
+
             /** Parse multiple cities from short-code parameter */
             $citiesData = SimplyRetsCustomPostPages::parseGetParameter(
                 "sr_cities",
@@ -879,6 +890,7 @@ class SimplyRetsCustomPostPages {
                 "status" => $statuses_attribute,
                 "advanced" => $advanced == "true" ? "true" : "false",
                 "subtype" => $subtype_att,
+                "subTypeText" => $subTypeText_att,
                 "agent" => $agent_att,
                 "brokers" => $brokers_att,
                 "postalCodes" => $postalCodes_att,
@@ -909,6 +921,7 @@ class SimplyRetsCustomPostPages {
                 . $postalCodes_query
                 . $ptypes_string
                 . $subtype_query
+                . $subTypeText_query
                 . $statuses_string
                 . $amenities_string
                 . $exteriorFeatures_query

@@ -621,12 +621,10 @@ HTML;
         $listing_type = SrUtils::normalizePropertyType($listing->property->type);
         $type = SimplyRetsApiHelper::srDetailsTable($listing_type, "Property Type");
         // subtype
-        $listing_subType_ = $listing->property->subType;
+        $listing_subType = $listing->property->subType;
+        $subType = SimplyRetsApiHelper::srDetailsTable($listing_subType, "Sub type");
         $listing_subTypeText = $listing->property->subTypeText;
-        $listing_subType = !empty($listing_subType_)
-                         ? $listing_subType_
-                         : $listing_subTypeText;
-        $subType = SimplyRetsApiHelper::srDetailsTable($listing_subType, "Sub Type");
+        $subTypeText = SimplyRetsApiHelper::srDetailsTable($listing_subTypeText, "MLS Sub type");
         // bedrooms
         $listing_bedrooms = $listing->property->bedrooms;
         $bedrooms = SimplyRetsApiHelper::srDetailsTable($listing_bedrooms, "Bedrooms");
@@ -1227,6 +1225,7 @@ HTML;
 
                 $type
                 $subType
+                $subTypeText
                 $stories
                 $interiorFeatures
                 $exteriorFeatures
