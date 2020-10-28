@@ -309,6 +309,27 @@ var updatePagination = function(that) {
 }
 
 
+function normalizeParameters(params) {
+    var obj = {}
+
+    Object.keys(params).map(function(key) {
+        if (key === "subtypetext")
+            return obj.subTypeText = params[key]
+        if (key === "exteriorfeatures")
+            return obj.exteriorFeatures = params[key]
+        if (key === "mingaragespaces")
+            return obj.minGarageSpaces = params[key]
+        if (key === "maxgaragespaces")
+            return obj.maxGarageSpaces = params[key]
+        if (key === "salesagent")
+            return obj.salesAgent = params[key]
+
+        return obj[key] = params[key]
+    })
+
+    return obj
+}
+
 var getSearchFormValues = function() {
 
     var keyword  = $_('.sr-int-map-search-wrapper #sr-search-keywords > input[type="text"]').val(),
@@ -334,7 +355,7 @@ var getSearchFormValues = function() {
     // Merge the default parameters on the short-code with the
     // user-selected parameters. If the user hasn't selected a value
     // for an input, fallback to the default.
-    var params = Object.assign({}, defParams, {
+    var params = Object.assign({}, normalizeParameters(defParams), {
         q:        keyword || defParams.q,
         type:     ptype || defParams.type,
         sort:     sort,
