@@ -203,7 +203,8 @@ HTML;
             "mingaragespaces" => "minGarageSpaces",
             "maxgaragespaces" => "maxGarageSpaces",
             "salesagent" => "salesAgent",
-            "subtypetext" => "subTypeText"
+            "subtypetext" => "subTypeText",
+            "speciallistingconditions" => "specialListingConditions"
         );
 
         return array_key_exists($name, $fixes) ? $fixes[$name] : $name;
@@ -317,6 +318,7 @@ HTML;
         $postalCodes = isset($atts['postalcodes']) ? $atts['postalcodes'] : '';
         $neighborhoods = isset($atts['neighborhoods']) ? $atts['neighborhoods'] : '';
         $cities = isset($atts['cities']) ? $atts['cities'] : '';
+        $specialListingConditions = isset($atts['speciallistingconditions']) ? $atts['speciallistingconditions'] : '';
 
         if($config_type === '') {
             $config_type = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
@@ -559,7 +561,11 @@ HTML;
                 <input type="hidden" name="sr_counties" value="<?php echo $counties; ?>" />
                 <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
                 <input type="hidden" name="sr_postalCodes" value="<?php echo $postalCodes; ?>" />
-
+                <input
+                    type="hidden"
+                    name="sr_specialListingConditions"
+                    value="<?php echo $specialListingConditions; ?>"
+                />
 
                 <div>
                     <button class="btn button submit btn-submit" style="display:inline-block;">Search</button>
@@ -653,6 +659,11 @@ HTML;
             <input type="hidden" name="sr_cities" value="<?php echo $cities; ?>" />
             <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
             <input type="hidden" name="status"     value="<?php echo $adv_status; ?>" />
+            <input
+                type="hidden"
+                name="sr_specialListingConditions"
+                value="<?php echo $specialListingConditions; ?>"
+            />
 
           </form>
         </div>
