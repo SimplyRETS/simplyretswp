@@ -323,6 +323,8 @@ function normalizeParameters(params) {
             return obj.maxGarageSpaces = params[key]
         if (key === "salesagent")
             return obj.salesAgent = params[key]
+        if (key === "speciallistingconditions")
+            return obj.specialListingConditions = params[key]
 
         return obj[key] = params[key]
     })
