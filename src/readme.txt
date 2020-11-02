@@ -236,6 +236,11 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.9.2 =
+* FEATURE: Add support for `specialListingConditions` search parameter.
+* FEATURE: Add support for `subTypeText` search parameter.
+* FEATURE: Add `subTypeText` to information on single listing pages.
+
 = 2.9.1 =
 * FIX: Update code to fix various PHP warnings and notices.
 
