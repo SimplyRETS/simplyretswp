@@ -764,6 +764,11 @@ HTML;
         $listing_terms = $listing->terms;
         $terms = SimplyRetsApiHelper::srDetailsTable($listing_terms, "Terms");
 
+        $listing_special_listing_conditions = $listing->specialListingConditions;
+        $special_listing_conditions = SimplyRetsApiHelper::srDetailsTable(
+            $listing_special_listing_conditions, "Special listing conditions"
+        );
+
         $listing_lease_term = $listing->leaseTerm;
         $lease_term = SimplyRetsApiHelper::srDetailsTable($listing_lease_term, "Lease Term");
 
@@ -1278,6 +1283,7 @@ HTML;
                 $officeEmail
                 $agent
                 $agent_phone
+                $special_listing_conditions
                 $terms
                 $virtual_tour
               </tbody>
