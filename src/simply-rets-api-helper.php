@@ -769,6 +769,11 @@ HTML;
             $listing_special_listing_conditions, "Special listing conditions"
         );
 
+        $listing_ownership = $listing->ownership;
+        $ownership = SimplyRetsApiHelper::srDetailsTable(
+            $listing_ownership, "Ownership"
+        );
+
         $listing_lease_term = $listing->leaseTerm;
         $lease_term = SimplyRetsApiHelper::srDetailsTable($listing_lease_term, "Lease Term");
 
@@ -1284,6 +1289,7 @@ HTML;
                 $agent
                 $agent_phone
                 $special_listing_conditions
+                $ownership
                 $terms
                 $virtual_tour
               </tbody>
