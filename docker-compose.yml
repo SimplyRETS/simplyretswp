@@ -15,9 +15,7 @@ services:
       DB_HOST: db # must match db service name below
       DB_NAME: wordpress
       DB_PASS: root # must match below
-      # Install default plugins
       PLUGINS: >-
-        [WP-API]https://github.com/WP-API/WP-API/archive/master.zip,
         (local)simply-rets
       THEMES: >-
         oceanwp
