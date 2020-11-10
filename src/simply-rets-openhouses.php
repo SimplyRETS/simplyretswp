@@ -154,23 +154,20 @@ HTML;
                   ? "<strong>Bedrooms: </strong> {$listing->property->bedrooms}<br/>"
                   : "";
 
-        $bathrooms = !empty($listing->property->bathrooms)
+        $bathrooms = (!empty($listing->property->bathrooms)
                    ? "<strong>Bathrooms: </strong> {$listing->property->bathrooms}<br/>"
-                   : !empty($listing->property->bathsFull)
+                   : !empty($listing->property->bathsFull))
                    ? "<strong>Full baths: </strong> {$listing->property->bathsFull}<br/>"
                    : "";
 
         $mls_area = $listing->mls->area;
         $county = $listing->geo->county;
         $city = $listing->address->city;
-        $area = !empty($mls_area)
-              ? strlen($mls_area) >= 50 ? "{$mls_area}..." : "{$mls_area}"
-              : !empty($county)
-              ? strlen($county) >= 50 ? "{$county}..." : "{$county}"
-              : !empty($city)
-              ? strlen($city) >= 50 ? "{$city}..." : "{$city}"
-              : "";
-        $area = empty($area) ? "" : "<strong>Area: </strong> {$area}<br/>";
+
+        // Find a non-empty field for geographical location
+        $area = !empty($mls_area) ? "<strong>MLS area: </strong> {$mls_area}<br/>" : "";
+        $area = empty($area) && !empty($county) ? "<strong>County: </strong> {$county}<br/>" : "";
+        $area = empty($area) && !empty($city) ? "<strong>City: </strong> {$city}<br/>" : "";
 
         $living_area = !empty($listing->property->area)
                      ? number_format($listing->property->area)
