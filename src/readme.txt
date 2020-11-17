@@ -236,6 +236,12 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.9.3 =
+* FEATURE: Add support for `ownership` filter.
+* FEATURE: Show ownership information on listing details page.
+* FEATURE: Show special listing conditions on listing details page.
+* FIX: Fix various PHP warnings
+
 = 2.9.2 =
 * FEATURE: Add support for `specialListingConditions` search parameter.
 * FEATURE: Add support for `subTypeText` search parameter.
