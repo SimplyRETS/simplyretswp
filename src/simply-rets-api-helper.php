@@ -483,6 +483,15 @@ HTML;
 
 
 
+    public static function normalizeListingPhotoUrl($url) {
+        $force_https = get_option("sr_listing_force_image_https", false);
+
+        if ($force_https) {
+            return str_replace("http://", "https://", $url);
+        } else {
+            return $url;
+        }
+    }
     /**
      * Build the photo gallery shown on single listing details pages
      */
@@ -505,10 +514,11 @@ HTML;
                 $more = '<span id="sr-toggle-gallery">See more photos</span> |';
                 $markup .= "<div class='sr-slider'><img class='sr-slider-img-act' src='$main_photo'>";
                 foreach( $photos as $photo ) {
+                    $image_url = SimplyRetsApiHelper::normalizeListingPhotoUrl($photo);
                     $markup .=
                         "<input class='sr-slider-input' type='radio' name='slide_switch' id='id$photo_counter' value='$photo' />";
                     $markup .= "<label for='id$photo_counter'>";
-                    $markup .= "  <img src='$photo' width='100'>";
+                    $markup .= "  <img src='$image_url' width='100'>";
                     $markup .= "</label>";
                     $photo_counter++;
                 }
@@ -536,6 +546,7 @@ HTML;
 
                 foreach( $photos as $idx=>$photo ) {
                     $num = $idx + 1;
+                    $image_url = SimplyRetsApiHelper::normalizeListingPhotoUrl($photo);
                     $img_description = "<div>"
                                      . "  <div>Photo {$num} of {$photos_count}</div>"
                                      . "  <div style=\"{$description_style}\">"
@@ -543,7 +554,7 @@ HTML;
                                      . "  </div>"
                                      . "</div>";
 
-                    $markup .= "<img src='$photo' "
+                    $markup .= "<img src='$image_url' "
                             . "data-title='$full_address'"
                             . "data-description='$img_description'>";
                 }
@@ -1456,6 +1467,7 @@ HTML;
             }
             $main_photo = trim($listingPhotos[0]);
             $main_photo = str_replace("\\", "", $main_photo);
+            $main_photo = SimplyRetsApiHelper::normalizeListingPhotoUrl($main_photo);
 
             // listing link to details
             $link = SrUtils::buildDetailsLink(
