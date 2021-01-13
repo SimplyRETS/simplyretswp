@@ -58,6 +58,9 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_date_default_timezone', array(
           "default" => ""
       ));
+      register_setting('sr_admin_settings', 'sr_listing_force_image_https', array(
+          "default" => false
+      ));
   }
 
   public static $timezones = array(
@@ -331,6 +334,32 @@ class SrAdminSettings {
                       ?>
                       Classic Gallery
                     </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br/>
+            <table>
+              <tbody>
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_listing_force_image_https" name="sr_listing_force_image_https" value="1" '
+                        . checked(1, get_option('sr_listing_force_image_https'), false) . '/>'
+                      ?>
+                        Force images to load using <code>https://</code>
+                    </label>
+                    <br/>
+                    <p style="padding-left:25px;max-width:350px;margin-bottom:0px">
+                        <small>
+                            Enabling this loads all images using
+                            <code>https://</code> to prevent a Mixed
+                            Content warning in the browser on sites
+                            using SSL. (Note that not all data
+                            providers support HTTPS image URLs.)
+                        </small>
+                    </p>
                   </td>
                 </tr>
               </tbody>
