@@ -894,7 +894,9 @@ HTML;
         $gallery_markup = $photo_gallery['markup'];
         $more_photos    = $photo_gallery['more'];
         $dummy          = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
-        $main_photo     = !empty($photos) ? $photos[0] : $dummy;
+
+        $main_photo = !empty($photos) ? $photos[0] : $dummy;
+        $main_photo = SimplyRetsApiHelper::normalizeListingPhotoUrl($main_photo);
 
         // geographic data
         if($geo_directions
@@ -1694,6 +1696,7 @@ HTML;
             }
             $main_photo = $listingPhotos[0];
             $main_photo = str_replace("\\", "", $main_photo);
+            $main_photo = SimplyRetsApiHelper::normalizeListingPhotoUrl($main_photo);
 
             // Compliance markup (agent/office)
             $listing_office  = $listing->office->name;
