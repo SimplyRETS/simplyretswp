@@ -1856,6 +1856,7 @@ HTML;
             } else {
                 $photo = trim($photos[0]);
                 $photo = str_replace("\\", "", $photo);
+                $photo = SimplyRetsApiHelper::normalizeListingPhotoUrl($photo);
             }
 
             $bathsFull  = $l->property->bathsFull;
