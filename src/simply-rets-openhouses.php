@@ -117,6 +117,7 @@ HTML;
         // Photo markup and styles
         $dummy = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
         $main_photo = !empty($listing->photos) ? $listing->photos[0] : $dummy;
+        $photo_url = SimplyRetsApiHelper::normalizeListingPhotoUrl($main_photo);
         $photo_style = "background-image:url('$main_photo');background-size:cover;";
 
         // Agent/office compliance markup
