@@ -765,6 +765,9 @@ class SimplyRetsCustomPostPages {
                 $_GET
             );
 
+            $specialListingConditions_att = $specialListingConditionsData["att"];
+            $specialListingConditions_query = $specialListingConditionsData["query"];
+
             /** Parse multiple subtypes from short-code parameter */
             $ownershipData = SimplyRetsCustomPostPages::parseGetParameter(
                 "sr_ownership",
