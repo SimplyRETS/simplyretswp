@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.9.5
+* FEATURE: Support force image SSL option on widgets and open houses.
+* FIX: Fix PHP warnings in SimplyRETSWP widgets.
+
 ## 2.9.4
 * FEATURE: Add option to always load images over `https`.
 
