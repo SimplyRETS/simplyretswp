@@ -102,6 +102,19 @@ var buildUglyLink = function(mlsId, address, root, vendor) {
          + (vendor ? ("&sr_vendor=" + vendor) : "");
 }
 
+var normalizeListingPhotoUrl = function(url) {
+    var forceHttps = document
+        .getElementById("sr-map-search")
+        .dataset
+        .forceImageHttps
+
+    if (forceHttps) {
+        return url.replace(/^http:\/\//i, 'https://')
+    } else {
+        return url
+    }
+}
+
 
 var genMarkerPopup = function(
     listing,
@@ -126,7 +139,7 @@ var genMarkerPopup = function(
     var price = listing.listPrice          || "Unknown";
     var addr  = listing.address.full       || "Unknown";
     var photo = listing.photos.length > 1
-              ? listing.photos[0]
+              ? normalizeListingPhotoUrl(listing.photos[0])
               : 'https://s3-us-west-2.amazonaws.com/simplyrets/trial/properties/defprop.jpg';
     var office = officeOnThumbnails && listing.office.name
                ? listing.office.name

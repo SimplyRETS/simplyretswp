@@ -60,6 +60,7 @@ class SrShortcodes {
         $idx_img     = get_option('sr_thumbnail_idx_image');
         $office_on_thumbnails = get_option('sr_office_on_thumbnails', false);
         $agent_on_thumbnails = get_option('sr_agent_on_thumbnails', false);
+        $force_image_https = get_option('sr_listing_force_image_https', false);
 
         // Delete attributes that aren't API parameters
         $default_parameters = array_diff_key($atts, [
@@ -75,6 +76,7 @@ class SrShortcodes {
                              data-idx-img='{$idx_img}'
                              data-office-on-thumbnails='{$office_on_thumbnails}'
                              data-agent-on-thumbnails='{$agent_on_thumbnails}'
+                             data-force-image-https='{$force_image_https}'
                              data-limit='{$limit}'
                              data-default-parameters='{$default_parameters_json}'
                              data-vendor='{$vendor}'></div>";
