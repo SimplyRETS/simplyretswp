@@ -65,13 +65,21 @@ class srFeaturedListingWidget extends WP_Widget {
     }
 
     /** admin widget form --  @see WP_Widget::form */
-    function form( $instance ) {
+    function form($instance) {
+        $default_options = array(
+            "title" => "Featured listing",
+            "mlsid" => "",
+            "vendor" => "",
+        );
+
+        $widget = wp_parse_args((array)$instance, $default_options);
+
         $singleVendor = SrUtils::isSingleVendor();
         $MLS_text = SrUtils::mkMLSText();
 
-        $title  = esc_attr($instance['title']);
-        $mlsid  = esc_attr($instance['mlsid']);
-        $vendor = esc_attr($instance['vendor']);
+        $title  = esc_attr($widget['title']);
+        $mlsid  = esc_attr($widget['mlsid']);
+        $vendor = esc_attr($widget['vendor']);
 
         ?>
         <p>
@@ -165,14 +173,23 @@ class srAgentListingWidget extends WP_Widget {
     }
 
     /** admin widget form --  @see WP_Widget::form */
-    function form( $instance ) {
+    function form($instance) {
+        $default_options = array(
+            "title" => "My listings",
+            "limit" => "5",
+            "agent" => "",
+            "vendor" => "",
+        );
+
+        $widget = wp_parse_args((array)$instance, $default_options);
+
         $singleVendor = SrUtils::isSingleVendor();
         $MLS_text = SrUtils::mkMLSText();
 
-        $title = esc_attr($instance['title']);
-        $agent = esc_attr($instance['agent']);
-        $limit = esc_attr($instance['limit']);
-        $vendor = esc_attr($instance['vendor']);
+        $title = esc_attr($widget['title']);
+        $agent = esc_attr($widget['agent']);
+        $limit = esc_attr($widget['limit']);
+        $vendor = esc_attr($widget['vendor']);
 
         ?>
         <p>
@@ -279,12 +296,20 @@ class srRandomListingWidget extends WP_Widget {
 
     /** admin widget form --  @see WP_Widget::form */
     function form( $instance ) {
+        $default_options = array(
+            "title" => "Random listing",
+            "mlsids" => "",
+            "vendor" => "",
+        );
+
+        $widget = wp_parse_args((array)$instance, $default_options);
+
         $singleVendor = SrUtils::isSingleVendor();
         $MLS_text = SrUtils::mkMLSText();
 
-        $title  = esc_attr($instance['title']);
-        $mlsids = esc_attr($instance['mlsids']);
-        $vendor = esc_attr($instance['vendor']);
+        $title  = esc_attr($widget['title']);
+        $mlsids = esc_attr($widget['mlsids']);
+        $vendor = esc_attr($widget['vendor']);
 
         ?>
         <p>
@@ -380,10 +405,17 @@ class srSearchFormWidget extends WP_Widget {
     }
 
     /** admin widget form --  @see WP_Widget::form */
-    function form( $instance ) {
+    function form($instance) {
+        $default_options = array(
+            "title" => "Search listings",
+            "vendor" => "",
+        );
+
+        $widget = wp_parse_args((array)$instance, $default_options);
+
         $singleVendor = SrUtils::isSingleVendor();
-        $title  = esc_attr($instance['title']);
-        $vendor = esc_attr($instance['vendor']);
+        $title  = esc_attr($widget['title']);
+        $vendor = esc_attr($widget['vendor']);
 
         ?>
         <p>
