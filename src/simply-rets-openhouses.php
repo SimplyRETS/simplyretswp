@@ -115,9 +115,7 @@ HTML;
         $listing_id = $listing->listingId;
 
         // Photo markup and styles
-        $dummy = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
-        $main_photo = !empty($listing->photos) ? $listing->photos[0] : $dummy;
-        $photo_url = SimplyRetsApiHelper::normalizeListingPhotoUrl($main_photo);
+        $main_photo = SrListing::mainPhotoOrDefault($listing);
         $photo_style = "background-image:url('$main_photo');background-size:cover;";
 
         // Agent/office compliance markup

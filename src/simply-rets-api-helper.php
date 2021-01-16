@@ -483,15 +483,6 @@ HTML;
 
 
 
-    public static function normalizeListingPhotoUrl($url) {
-        $force_https = get_option("sr_listing_force_image_https", false);
-
-        if ($force_https) {
-            return str_replace("http://", "https://", $url);
-        } else {
-            return $url;
-        }
-    }
     /**
      * Build the photo gallery shown on single listing details pages
      */
@@ -500,11 +491,11 @@ HTML;
         $photo_gallery = array();
 
         if( empty($photos) ) {
-             $main_photo = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
-             $markup = "<img src='$main_photo'>";
-             $photo_gallery['markup'] = $markup;
-             $photo_gallery['more']   = '';
-             return $photo_gallery;
+            $main_photo = SrListing::mainPhotoOrDefault($listing);
+            $markup = "<img src='$main_photo'>";
+            $photo_gallery['markup'] = $markup;
+            $photo_gallery['more']   = '';
+            return $photo_gallery;
 
         } else {
             $markup = '';
@@ -514,7 +505,7 @@ HTML;
                 $more = '<span id="sr-toggle-gallery">See more photos</span> |';
                 $markup .= "<div class='sr-slider'><img class='sr-slider-img-act' src='$main_photo'>";
                 foreach( $photos as $photo ) {
-                    $image_url = SimplyRetsApiHelper::normalizeListingPhotoUrl($photo);
+                    $image_url = SrListing::normalizeListingPhotoUrl($photo);
                     $markup .=
                         "<input class='sr-slider-input' type='radio' name='slide_switch' id='id$photo_counter' value='$photo' />";
                     $markup .= "<label for='id$photo_counter'>";
@@ -546,7 +537,7 @@ HTML;
 
                 foreach( $photos as $idx=>$photo ) {
                     $num = $idx + 1;
-                    $image_url = SimplyRetsApiHelper::normalizeListingPhotoUrl($photo);
+                    $image_url = SrListing::normalizeListingPhotoUrl($photo);
                     $img_description = "<div>"
                                      . "  <div>Photo {$num} of {$photos_count}</div>"
                                      . "  <div style=\"{$description_style}\">"
@@ -893,10 +884,9 @@ HTML;
         $photo_gallery  = SimplyRetsApiHelper::srDetailsGallery($listing);
         $gallery_markup = $photo_gallery['markup'];
         $more_photos    = $photo_gallery['more'];
-        $dummy          = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
 
-        $main_photo = !empty($photos) ? $photos[0] : $dummy;
-        $main_photo = SimplyRetsApiHelper::normalizeListingPhotoUrl($main_photo);
+        $default_photo = SrListing::$default_photo;
+        $main_photo = SrListing::mainPhotoOrDefault($listing);
 
         // geographic data
         if($geo_directions
@@ -1201,7 +1191,7 @@ HTML;
                       height: 500,
                       width:  "90%",
                       showinfo: false,
-                      dummy: "$dummy",
+                      dummy: "$default_photo",
                       lightbox: true,
                       imageCrop: false,
                       imageMargin: 0,
@@ -1463,13 +1453,7 @@ HTML;
             }
 
             // listing photos
-            $listingPhotos = $listing->photos;
-            if( empty( $listingPhotos ) ) {
-                $listingPhotos[0] = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
-            }
-            $main_photo = trim($listingPhotos[0]);
-            $main_photo = str_replace("\\", "", $main_photo);
-            $main_photo = SimplyRetsApiHelper::normalizeListingPhotoUrl($main_photo);
+            $main_photo = SrListing::mainPhotoOrDefault($listing);
 
             // listing link to details
             $link = SrUtils::buildDetailsLink(
@@ -1689,14 +1673,8 @@ HTML;
             // widget title
             $address = SrUtils::buildFullAddressString($listing);
 
-            // widget photo
-            $listingPhotos = $listing->photos;
-            if( empty( $listingPhotos ) ) {
-                $listingPhotos[0] = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
-            }
-            $main_photo = $listingPhotos[0];
-            $main_photo = str_replace("\\", "", $main_photo);
-            $main_photo = SimplyRetsApiHelper::normalizeListingPhotoUrl($main_photo);
+            // Primary listing photo
+            $main_photo = SrListing::mainPhotoOrDefault($listing);
 
             // Compliance markup (agent/office)
             $listing_office  = $listing->office->name;
@@ -1835,14 +1813,14 @@ HTML;
             $address = SrUtils::buildFullAddressString($l);
             $uid     = $l->mlsId;
             $price   = $l->listPrice;
-            $photos  = $l->photos;
             $beds    = $l->property->bedrooms;
             $area    = $l->property->area;
 
             $priceUSD = '$' . number_format( $price );
+            $photo = SrListing::mainPhotoOrDefault($l);
+            $vendor = isset($settings['vendor']) ? $settings['vendor'] : '';
 
             // create link to listing
-            $vendor = isset($settings['vendor']) ? $settings['vendor'] : '';
             $link = SrUtils::buildDetailsLink(
                 $l,
                 !empty($vendor) ? array("sr_vendor" => $vendor) : array()
@@ -1852,14 +1830,6 @@ HTML;
                 $area = 'na';
             } else {
                 $area = number_format( $area );
-            }
-
-            if( empty( $photos ) ) {
-                $photo = plugins_url( 'assets/img/defprop.jpg', __FILE__ );
-            } else {
-                $photo = trim($photos[0]);
-                $photo = str_replace("\\", "", $photo);
-                $photo = SimplyRetsApiHelper::normalizeListingPhotoUrl($photo);
             }
 
             $bathsFull  = $l->property->bathsFull;
