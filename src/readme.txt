@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 5.6
-Stable tag: 2.9.5
+Stable tag: 2.9.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.9.6 =
+* FIX: Load default listing image from S3 and fix PHP warnings.
 
 = 2.9.5 =
 * FEATURE: Support force image SSL option on widgets and open houses.

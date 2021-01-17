@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.9.6
+* FIX: Load default listing image from S3 and fix PHP warnings.
+
 ## 2.9.5
 * FEATURE: Support force image SSL option on widgets and open houses.
 * FIX: Fix PHP warnings in SimplyRETSWP widgets.
