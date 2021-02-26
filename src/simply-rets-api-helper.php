@@ -663,6 +663,11 @@ HTML;
         // mls area
         $listing_mlsarea = $listing->mls->area;
         $mls_area = SimplyRetsApiHelper::srDetailsTable($listing_mlsarea, $MLS_text . " Area");
+        // mls area minor
+        $mls_area_minor = SimplyRetsApiHelper::srDetailsTable(
+            $listing->mls->areaMinor,
+            $MLS_text . " MLS area minor"
+        );
         // tax data
         $listing_taxdata = $listing->tax->id;
         $tax_data = SimplyRetsApiHelper::srDetailsTable($listing_taxdata, "Tax ID");
@@ -1309,6 +1314,7 @@ HTML;
                 $tax_year
                 $tax_annual_amount
                 $mls_area
+                $mls_area_minor
                 $mlsid
               </tbody>
             </table>
