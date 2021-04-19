@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.9.7
+* FIX: Correctly initialize multiple [sr_listings_slider] on a single page.
+
 ## 2.9.6
 * FIX: Load default listing image from S3 and fix PHP warnings.
 
