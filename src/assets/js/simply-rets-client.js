@@ -73,8 +73,8 @@ var advSearchFormToggler = function() {
 /** [sr_listings_slider] default number of items */
 var listingSliderCarousel = function() {
 
-    $_("#simplyrets-listings-slider").owlCarousel({
-        items: 4
+    $_(".sr-listing-carousel").each(function() {
+        $_(this).owlCarousel({ items: 4 })
     });
 
 }
