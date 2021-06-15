@@ -322,6 +322,7 @@ HTML;
         $cities = isset($atts['cities']) ? $atts['cities'] : '';
         $specialListingConditions = isset($atts['speciallistingconditions']) ? $atts['speciallistingconditions'] : '';
         $ownership = isset($atts['ownership']) ? $atts['ownership'] : '';
+        $salesAgent = isset($atts['salesagent']) ? $atts['salesagent'] : '';
 
         if($config_type === '') {
             $config_type = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
@@ -570,6 +571,7 @@ HTML;
                     value="<?php echo $specialListingConditions; ?>"
                 />
                 <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
+                <input type="hidden" name="sr_salesagent" value="<?php echo $salesAgent; ?>" />
 
                 <div>
                     <button class="btn button submit btn-submit" style="display:inline-block;">Search</button>
@@ -669,6 +671,7 @@ HTML;
                 value="<?php echo $specialListingConditions; ?>"
             />
             <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
+            <input type="hidden" name="sr_salesagent" value="<?php echo $salesagent; ?>" />
 
           </form>
         </div>

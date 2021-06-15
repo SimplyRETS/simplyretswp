@@ -184,6 +184,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_subTypeText";
         $vars[] = "sr_specialListingConditions";
         $vars[] = "sr_ownership";
+        $vars[] = "sr_salesAgent";
         $vars[] = "sr_agent";
         $vars[] = "sr_brokers";
         $vars[] = "sr_sort";
@@ -768,7 +769,7 @@ class SimplyRetsCustomPostPages {
             $specialListingConditions_att = $specialListingConditionsData["att"];
             $specialListingConditions_query = $specialListingConditionsData["query"];
 
-            /** Parse multiple subtypes from short-code parameter */
+            /** Parse multiple ownership's from short-code parameter */
             $ownershipData = SimplyRetsCustomPostPages::parseGetParameter(
                 "sr_ownership",
                 "ownership",
@@ -777,6 +778,16 @@ class SimplyRetsCustomPostPages {
 
             $ownership_att = $ownershipData["att"];
             $ownership_query = $ownershipData["query"];
+
+            /** Parse multiple salesAgent's from short-code parameter */
+            $salesAgentData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_salesAgent",
+                "salesAgent",
+                $_GET
+            );
+
+            $salesAgent_att = $salesAgentData["att"];
+            $salesAgent_query = $salesAgentData["query"];
 
             /** Parse multiple cities from short-code parameter */
             $citiesData = SimplyRetsCustomPostPages::parseGetParameter(
@@ -915,6 +926,7 @@ class SimplyRetsCustomPostPages {
                 "subTypeText" => $subTypeText_att,
                 "specialListingConditions" => $specialListingConditions_att,
                 "ownership" => $ownership_att,
+                "salesAgent" => $salesAgent_att,
                 "agent" => $agent_att,
                 "brokers" => $brokers_att,
                 "postalCodes" => $postalCodes_att,
@@ -948,6 +960,7 @@ class SimplyRetsCustomPostPages {
                 . $subTypeText_query
                 . $specialListingConditions_query
                 . $ownership_query
+                . $salesAgent_query
                 . $statuses_string
                 . $amenities_string
                 . $exteriorFeatures_query
