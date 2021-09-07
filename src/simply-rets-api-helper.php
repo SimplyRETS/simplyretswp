@@ -847,7 +847,7 @@ HTML;
         // Rooms data
         $roomsMarkup = '';
         $has_rooms = !empty($listing->property->rooms)
-                   AND is_array($listing->property-rooms);
+                   AND is_array($listing->property->rooms);
 
         if($has_rooms == TRUE) {
             $rooms = $listing->property->rooms;
