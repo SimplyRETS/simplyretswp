@@ -107,9 +107,9 @@ class SimplyRetsApiHelper {
             $params_arr["idx"] = $def_idx_setting;
         }
 
-        // Apply the default `idx` setting if not provided
+        // Disable `count` parameter if not already set
         if (!array_key_exists("count", $params_arr)) {
-            $params_arr["count"] = false;
+            $params_arr["count"] = "false";
         }
 
         // Build query string from parameters
