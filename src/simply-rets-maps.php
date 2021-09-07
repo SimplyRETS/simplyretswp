@@ -54,6 +54,42 @@ class SrSearchMap {
             'height' =>  '550px'
         ));
 
+        $map->setMapOption('styles' , array(
+            array('featureType' => 'administrative', 'elementType' => 'all', 'stylers' => array(
+                array('saturation' => '-100')
+            )),
+            array('featureType' => 'administrative.province', 'elementType' => 'all', 'stylers' => array(
+                array('visibility' => 'off')
+            )),
+            array('featureType' => 'landscape', 'elementType' => 'all', 'stylers' => array(
+                array('saturation' => '-100', 'lightness' => '65', 'visibility' => 'on')
+            )),
+            array('featureType' => 'poi', 'elementType' => 'all', 'stylers' => array(
+                array('saturation' => '-100', 'lightness' => '50', 'visibility' => 'simplified')
+            )),
+            array('featureType' => 'road', 'elementType' => 'all', 'stylers' => array(
+                array('saturation' => '-100')
+            )),
+            array('featureType' => 'road.highway', 'elementType' => 'all', 'stylers' => array(
+                array('visibility' => 'simplified')
+            )),
+            array('featureType' => 'road.arterial', 'elementType' => 'all', 'stylers' => array(
+                array('lightness' => '30')
+            )),
+            array('featureType' => 'road.local', 'elementType' => 'all', 'stylers' => array(
+                array('lightness' => '40')
+            )),
+            array('featureType' => 'transit', 'elementType' => 'all', 'stylers' => array(
+                array('saturation' => '-100', 'visibility' => 'simplified')
+            )),
+            array('featureType' => 'water', 'elementType' => 'geometry', 'stylers' => array(
+                array('color' => '#919191', 'saturation' => '-25', 'lightness' => '-97')
+            )),
+            array('featureType' => 'water', 'elementType' => 'labels', 'stylers' => array(
+                array('lightness' => '-25', 'saturation' => '-100')
+            ))
+        ));
+
         // Set API key if user has added one.
         $apik = get_option('sr_google_api_key');
         if (!empty($apik)) {
