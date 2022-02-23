@@ -781,6 +781,28 @@ HTML;
             $listing_ownership, "Ownership"
         );
 
+        // Compliance/compensation data
+        $complianceData = $listing->compliance;
+        $compensation = "";
+        foreach ($complianceData as $compKey => $compValue) {
+            // Normalize camelCase keys to words
+            $compKey = ucfirst(preg_replace('/(?<=\\w)(?=[A-Z])/', ' $1', $compKey));
+
+            // Add $/% signs where necessary
+            if(!strpos($compValue, "%") AND !strpos($compValue, "$")) {
+                if ($compValue == 0) {
+                    $compValue = "0";
+                } else if ($compValue < 10) {
+                    $compValue = $compValue . "%";
+                } else {
+                    $compValue = "$" . $compValue;
+                }
+            }
+
+            // Append table row for this key/value
+            $compensation .= SimplyRetsApiHelper::srDetailsTable($compValue, $compKey);
+        }
+
         $listing_lease_term = $listing->leaseTerm;
         $lease_term = SimplyRetsApiHelper::srDetailsTable($listing_lease_term, "Lease Term");
 
@@ -1296,6 +1318,7 @@ HTML;
                 $officeEmail
                 $agent
                 $agent_phone
+                $compensation
                 $special_listing_conditions
                 $ownership
                 $terms
