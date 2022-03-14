@@ -783,24 +783,20 @@ HTML;
 
         // Compliance/compensation data
         $complianceData = $listing->compliance;
-        $compensation = "";
+        $complianceExtras = "";
         foreach ($complianceData as $compKey => $compValue) {
             // Normalize camelCase keys to words
             $compKey = ucfirst(preg_replace('/(?<=\\w)(?=[A-Z])/', ' $1', $compKey));
+            $complianceExtras .= SimplyRetsApiHelper::srDetailsTable($compValue, $compKey);
+        }
 
-            // Add $/% signs where necessary
-            if(!strpos($compValue, "%") AND !strpos($compValue, "$")) {
-                if ($compValue == 0) {
-                    $compValue = "0";
-                } else if ($compValue < 10) {
-                    $compValue = $compValue . "%";
-                } else {
-                    $compValue = "$" . $compValue;
-                }
-            }
-
-            // Append table row for this key/value
-            $compensation .= SimplyRetsApiHelper::srDetailsTable($compValue, $compKey);
+        $compensationDisclaimer = "";
+        if (!empty($complianceExtras)) {
+            $compensationDisclaimer .= SimplyRetsApiHelper::srDetailsTable(
+                "The offer of compensation is made only to participants of " .
+                "the MLS where the listing is filed.",
+                "Compensation Disclaimer"
+            );
         }
 
         $listing_lease_term = $listing->leaseTerm;
@@ -1318,7 +1314,8 @@ HTML;
                 $officeEmail
                 $agent
                 $agent_phone
-                $compensation
+                $complianceExtras
+                $compensationDisclaimer
                 $special_listing_conditions
                 $ownership
                 $terms
