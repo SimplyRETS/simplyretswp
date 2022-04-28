@@ -671,7 +671,7 @@ HTML;
                 value="<?php echo $specialListingConditions; ?>"
             />
             <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
-            <input type="hidden" name="sr_salesagent" value="<?php echo $salesagent; ?>" />
+            <input type="hidden" name="sr_salesagent" value="<?php echo $salesAgent; ?>" />
 
           </form>
         </div>
