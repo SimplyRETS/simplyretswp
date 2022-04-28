@@ -868,7 +868,6 @@ class SimplyRetsCustomPostPages {
              * Note: We're only using params that weren't transformed
              * above.
              */
-
             $listing_params = array(
                 "minbeds"   => $minbeds,
                 "maxbeds"   => $maxbeds,
@@ -904,19 +903,23 @@ class SimplyRetsCustomPostPages {
                 "map_position" => $map_position
             );
 
-
-            /**
-             * The next two blocks create a string of attributes that
-             * will be added to the (dynamically injected)
-             * sr_search_form short-code on the new page. This is so,
-             * if a user is viewing results and goes to the "next"
-             * page, the search form values stay in tact.
+            /*
+             * Create a string that will be passed to the `q`
+             * parameter in [sr_search_form q="STRING"].
+             *
+             * If `?sr_q` parameter has a value use/format that,
+             * else check for `?sr_keywords`
              */
-
-            // Combine sr_q and _keywords into 1 string.
-            $sr_q = get_query_var('sr_q', '');
-            $sr_kw = get_query_var('sr_keywords', '');
-            $kw_string = implode("; ", array($sr_q) + array($sr_kw));
+            $sr_q = get_query_var('sr_q');
+            $sr_kw = get_query_var('sr_keywords');
+            $kw_string;
+            if (is_string($sr_q) && $sr_q != "") {
+                $kw_string = $sr_q;
+            } elseif (is_array($sr_q)) {
+                $kw_string = implode("; ", $sr_q);
+            } else {
+                $kw_string = $sr_kw;
+            }
 
             $next_atts = $listing_params + array(
                 "q" => $kw_string,
