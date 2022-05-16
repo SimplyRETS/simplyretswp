@@ -189,6 +189,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_brokers";
         $vars[] = "sr_sort";
         $vars[] = "sr_idx";
+        $vars[] = "sr_style";
         $vars[] = "water";
         // post type
         $vars[] = "sr-listings";
@@ -709,6 +710,16 @@ class SimplyRetsCustomPostPages {
                 }
             }
 
+            /** Parse multiple `style` from short-code attributes */
+            $styleData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_style",
+                "style",
+                $_GET
+            );
+
+            $style_att = $styleData["att"];
+            $style_query = $styleData["query"];
+
             /** Parse multiple brokers from short-code parameter */
             $brokersData = SimplyRetsCustomPostPages::parseGetParameter(
                 "sr_brokers",
@@ -932,6 +943,7 @@ class SimplyRetsCustomPostPages {
                 "salesAgent" => $salesAgent_att,
                 "agent" => $agent_att,
                 "brokers" => $brokers_att,
+                "style" => $style_att,
                 "postalCodes" => $postalCodes_att,
                 "cities" => $cities_att,
                 "counties" => $counties_att,
@@ -953,6 +965,7 @@ class SimplyRetsCustomPostPages {
                 . http_build_query( array_filter( $listing_params ) )
                 . $agent_query
                 . $brokers_query
+                . $style_query
                 . $features_string
                 . $cities_query
                 . $counties_query
