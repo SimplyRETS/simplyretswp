@@ -911,6 +911,7 @@ class SimplyRetsCustomPostPages {
             );
 
             $settings = array(
+                "limit"     => $limit,
                 "map_position" => $map_position
             );
 
