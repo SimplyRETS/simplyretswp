@@ -1348,17 +1348,33 @@ HTML;
     }
 
 
-    public static function srResidentialResultsGenerator( $response, $settings ) {
-        $br                = "<br>";
+    public static function srResidentialResultsGenerator($request_response, $settings) {
         $cont              = "";
-        $pagination        = $response['pagination'];   // get pagination links out of response
-        $lastUpdate        = $response['lastUpdate'];   // get lastUpdate time out of response
-        $response          = $response['response'];     // get listing data out of response
+        $pagination        = $request_response['pagination'];
+        $lastUpdate        = $request_response['lastUpdate'];
+        $response          = $request_response['response'];
         $MLS_text          = SrUtils::mkMLSText();
         $show_listing_meta = SrUtils::srShowListingMeta();
-        $pag               = SrUtils::buildPaginationLinks( $pagination );
-        $prev_link         = $pag['prev'];
-        $next_link         = $pag['next'];
+
+        /*
+         * Check for an `.error` in the response and return it if it
+         * exists.  Check for NULL is mostly just redundancy.
+        */
+        if(!is_array($response) && property_exists($response, "error")) {
+            $error_message = SrMessages::noResultsMsg($response);
+            return $error_message;
+        }
+
+        if(!is_array($response)) {
+            $response = array($response);
+        }
+
+        /** Build pagination links HTML **/
+        $page_count = count($response);
+        $limit = isset($settings['limit']) ? $settings['limit'] : 20;
+        $pag = SrUtils::buildPaginationLinks( $pagination );
+        $prev_link = $pag['prev'];
+        $next_link = $page_count < $limit ? "" : $pag['next'];
 
         /** Allow override of "map_position" admin setting on a per short-code basis */
         $map_setting = isset($settings['show_map']) ? $settings['show_map'] : '';
@@ -1369,24 +1385,6 @@ HTML;
         $vendor = isset($settings['vendor'])
                 ? $settings['vendor']
                 : get_query_var('sr_vendor', '');
-
-        /*
-         * check for an error code in the array first, if it's
-         * there, return it - no need to do anything else.
-         * The error code comes from the UrlBuilder function.
-        */
-        if($response == NULL
-           || array_key_exists("errors", $response)
-           || array_key_exists("error", $response)
-        ) {
-            $err = SrMessages::noResultsMsg((array)$response);
-            return $err;
-        }
-
-        $response_size = sizeof($response);
-        if(!array_key_exists("0", $response)) {
-            $response = array($response);
-        }
 
         $mappable_listings = SrSearchMap::filter_mappable($response);
         $uniq_geos = SrSearchMap::uniqGeos($mappable_listings);
