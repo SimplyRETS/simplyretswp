@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.9.9
+* FIX: Improve display of pagination links on search result pages.
+
 ## 2.9.8
 * FIX: Support using multiple salesAgent values in short-code attributes.
 

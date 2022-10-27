@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 5.6
-Stable tag: 2.9.8
+Tested up to: 6.1
+Stable tag: 2.9.9
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -235,6 +235,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.9.9 =
+* FIX: Improve display of pagination links on search result pages.
 
 = 2.9.8 =
 * FIX: Support using multiple salesAgent values in short-code attributes.
