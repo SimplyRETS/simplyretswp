@@ -227,7 +227,12 @@ class SrAdminSettings {
                 <tr>
                   <td>
                     <p><strong>Send Lead Capture forms submissions to:<p></strong>
-                    <input type="email" name="sr_leadcapture_recipient" value="<?php echo esc_attr( get_option('sr_leadcapture_recipient') ); ?>" />
+                    <input
+                        type="email"
+                        name="sr_leadcapture_recipient"
+                        multiple
+                        value="<?php echo esc_attr( get_option('sr_leadcapture_recipient') ); ?>"
+                    />
                   </td>
                 </tr>
               </tbody>
