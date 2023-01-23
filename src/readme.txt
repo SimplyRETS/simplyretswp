@@ -1,7 +1,7 @@
 === SimplyRETS ===
 Author: SimplyRETS
 Contributors: SimplyRETS
-Tags: rets, idx, idx plugin, mls, mls listings, real estate, simply rets, realtor, rets feed, idx feed
+Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 6.1
 Stable tag: 2.9.10
@@ -9,8 +9,9 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Show your Real Estate listings on your website, simply! SimplyRETS
-makes it easy to search and display listings from your MLS on your
-website, and gives you full control over your data.
+makes it easy to search and display MLS listings on your WordPress
+website, and gives you full control over your data. Connect your
+**RETS** or **RESO Web API** feed to get started today.
 
 == Description ==
 
@@ -21,15 +22,15 @@ directly on your Wordpress site. And it can all be set up in less than 5
 minutes!
 
 The SimplyRETS Plugin has the most filtering options of any IDX Plugin
-on the market, with over 25 different ways to create unique pages of
+on the market, with many different ways to create unique pages of
 listings on your site. No iframes, great SEO, and a modern and
-customizable interface for a modern Real Estate site.
+customizable interface for a modern Real Estate website.
 
 To get *your* listings showing through the plugin there's only three steps:
 
 1. [Create an account with SimplyRETS](https://simplyrets.com/account)
-2. Use the RETS credentials from your MLS to [create an app](https://simplyrets.com/blog/getting-set-up.html).
-3. Start getting LIVE listings right on your site!
+2. Use RETS or RESO Web API credentials from your MLS to [create an app](https://simplyrets.com/blog/getting-set-up.html).
+3. Start showing live MLS listing data on your site!
 
 **[View plugin examples and documentation](http://wordpress-demo.simplyrets.com/documentation)**
 
@@ -99,13 +100,13 @@ visitors on your site to look at more properties. If you offer the
 fastest searching solution in your city, why would they go any where
 else?
 
-SimplyRETS uses the RETS (Real Estate Standards Organization)
-protocol. This allows you to be on the leading technical edge and
-provides you with many advantages of IDX (internet data exchange)
-including response speed, compatibility across multiple MLS areas, and
-up-time.  So while your competition is working on getting properties
-on their site, you can install the SimplyRETS Wordpress plugin and
-spend more time actually selling!
+SimplyRETS supports both RETS and RESO Web API feeds.  This allows you
+to be on the leading technical edge and provides you with many
+advantages of IDX (Internet Data Exchange) including response speed,
+compatibility across multiple MLS areas, and up-time.  So while your
+competition is working on getting properties on their site, you can
+install the SimplyRETS Wordpress plugin and spend more time actually
+selling!
 
 
 
@@ -194,7 +195,7 @@ will refresh on average every 2 hours.
 = Do I have to be signed up with an MLS provider? =
 
 Yes. In order for the plugin to show your listings, you first need to
-get a RETS feed set up with your MLS provider.
+set up a RETS or RESO Web API feed with your MLS provider.
 
 = I want to only show my listings, and not my whole office. Is that possible? =
 
