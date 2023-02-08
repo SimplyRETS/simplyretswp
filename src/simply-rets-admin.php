@@ -44,6 +44,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_agent_on_thumbnails');
       register_setting('sr_admin_settings', 'sr_thumbnail_idx_image');
       register_setting('sr_admin_settings', 'sr_custom_disclaimer');
+      register_setting('sr_admin_settings', 'sr_lastupdate_offset');
       register_setting('sr_admin_settings', 'sr_custom_no_results_message');
       register_setting('sr_admin_settings', 'sr_show_mls_status_text');
       register_setting('sr_admin_settings', 'sr_agent_office_above_the_fold');
@@ -129,6 +130,12 @@ class SrAdminSettings {
       if (isset( $_POST['sr_custom_disclaimer'] )) {
           update_option('sr_custom_disclaimer', htmlentities(stripslashes($_POST['sr_custom_disclaimer'])));
       }
+
+      // Custom POST handler for updating the lastUpdate offset
+      // so we can properly sanitize the input.
+      if (isset( $_POST['sr_lastupdate_offset'] )) {
+        update_option('sr_lastupdate_offset', htmlentities(stripslashes($_POST['sr_lastupdate_offset'])));
+    }
 
       // Custom POST handler for updating the custom disclaimer
       // so we can properly sanitize the input.
@@ -732,44 +739,64 @@ class SrAdminSettings {
             </table>
           </div>
           <?php submit_button(); ?>
-          <div>
-            <h3>Custom disclaimer</h3>
-            <p>Custom disclaimer to be shown with all short-codes</p>
-            <textarea
-                id="sr_custom_disclaimer"
-                name="sr_custom_disclaimer"
-                cols="50"
-                rows="8"><?php echo esc_attr( get_option('sr_custom_disclaimer') ); ?></textarea>
-            <ul>
-                <li>
-                    - Use the variable "{lastUpdate}" to interpolate
-                    the time of the last feed update.
-                </li>
-                <li>
-                    - You can use HTML or plain text.
-                </li>
-            </ul>
-          </div>
-          <?php submit_button(); ?>
-          <div>
-            <h3>No search results message</h3>
-            <p>The messasge shown when a search doesn't return results.</p>
-            <textarea
-                id="sr_custom_no_results_message"
-                name="sr_custom_no_results_message"
-                cols="50"
-                rows="5"><?php echo esc_attr( get_option('sr_custom_no_results_message') ); ?></textarea>
-            <div>
-                <i>
-                    Default: There are 0 listings that match this
-                    search. Try broadening your search criteria or
-                    try again later.
-                </i>
-            </div>
-            <?php submit_button(); ?>
-          </div>
         </form>
-      </div>
-    <?php
+        <hr>
+        <div>
+          <h3>Custom disclaimer</h3>
+          <p>Custom disclaimer to be shown with all short-codes</p>
+          <form method="post" action="options-general.php?page=simplyrets-admin.php">
+              <textarea
+                  id="sr_custom_disclaimer"
+                  name="sr_custom_disclaimer"
+                  cols="50"
+                  rows="8"><?php echo esc_attr( get_option('sr_custom_disclaimer') ); ?></textarea>
+              <ul>
+                  <li>
+                      - Use the variable "{lastUpdate}" to interpolate
+                      the time of the last feed update.
+                  </li>
+                  <li>
+                      - You can use HTML or plain text.
+                  </li>
+              </ul>
+              <?php submit_button(); ?>
+          </form>
+        </div>
+        <div>
+          <h3>lastUpdate Manual Offset</h3>
+          <p>Useful when data coming through the API isn't correctly accounting for timezones/UTC.</p>
+          <form method="post" action="options-general.php?page=simplyrets-admin.php">
+              <input
+                  type="text"
+                  name="sr_lastupdate_offset"
+                  value="<?php echo esc_attr( get_option('sr_lastupdate_offset') ); ?>"
+              />
+              <ul>
+                  <li>- Use a valid PHP date or time string (ie. '- 5 hours' or '+ 1 hour')</li>
+                  <li>- <a href="https://www.php.net/manual/en/datetime.formats.php" target="_blank">Valid formats</a>: <a href="https://www.php.net/manual/en/datetime.formats.php" target="_blank">time</a>, <a href="https://www.php.net/manual/en/datetime.formats.php" target="_blank">date</a>, <a href="https://www.php.net/manual/en/datetime.formats.php" target="_blank">compound</a>, and <a href="https://www.php.net/manual/en/datetime.formats.php" target="_blank">relative</a>.</li>
+              </ul>
+              <?php submit_button(); ?>
+          </form>
+        </div>
+        <div>
+          <h3>No search results message</h3>
+          <p>The messasge shown when a search doesn't return results.</p>
+          <form method="post" action="options-general.php?page=simplyrets-admin.php">
+              <textarea
+                  id="sr_custom_no_results_message"
+                  name="sr_custom_no_results_message"
+                  cols="50"
+                  rows="5"><?php echo esc_attr( get_option('sr_custom_no_results_message') ); ?></textarea>
+              <div>
+                  <i>
+                      Default: There are 0 listings that match this
+                      search. Try broadening your search criteria or
+                      try again later.
+                  </i>
+              </div>
+              <?php submit_button(); ?>
+          </form>
+        </div>
+        <?php
   }
 } ?>
