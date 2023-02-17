@@ -732,48 +732,44 @@ class SrAdminSettings {
             </table>
           </div>
           <?php submit_button(); ?>
+          <div>
+            <h3>Custom disclaimer</h3>
+            <p>Custom disclaimer to be shown with all short-codes</p>
+            <textarea
+                id="sr_custom_disclaimer"
+                name="sr_custom_disclaimer"
+                cols="50"
+                rows="8"><?php echo esc_attr( get_option('sr_custom_disclaimer') ); ?></textarea>
+            <ul>
+                <li>
+                    - Use the variable "{lastUpdate}" to interpolate
+                    the time of the last feed update.
+                </li>
+                <li>
+                    - You can use HTML or plain text.
+                </li>
+            </ul>
+          </div>
+          <?php submit_button(); ?>
+          <div>
+            <h3>No search results message</h3>
+            <p>The messasge shown when a search doesn't return results.</p>
+            <textarea
+                id="sr_custom_no_results_message"
+                name="sr_custom_no_results_message"
+                cols="50"
+                rows="5"><?php echo esc_attr( get_option('sr_custom_no_results_message') ); ?></textarea>
+            <div>
+                <i>
+                    Default: There are 0 listings that match this
+                    search. Try broadening your search criteria or
+                    try again later.
+                </i>
+            </div>
+            <?php submit_button(); ?>
+          </div>
         </form>
-        <hr>
-        <div>
-          <h3>Custom disclaimer</h3>
-          <p>Custom disclaimer to be shown with all short-codes</p>
-          <form method="post" action="options-general.php?page=simplyrets-admin.php">
-              <textarea
-                  id="sr_custom_disclaimer"
-                  name="sr_custom_disclaimer"
-                  cols="50"
-                  rows="8"><?php echo esc_attr( get_option('sr_custom_disclaimer') ); ?></textarea>
-              <ul>
-                  <li>
-                      - Use the variable "{lastUpdate}" to interpolate
-                      the time of the last feed update.
-                  </li>
-                  <li>
-                      - You can use HTML or plain text.
-                  </li>
-              </ul>
-              <?php submit_button(); ?>
-          </form>
-        </div>
-        <div>
-          <h3>No search results message</h3>
-          <p>The messasge shown when a search doesn't return results.</p>
-          <form method="post" action="options-general.php?page=simplyrets-admin.php">
-              <textarea
-                  id="sr_custom_no_results_message"
-                  name="sr_custom_no_results_message"
-                  cols="50"
-                  rows="5"><?php echo esc_attr( get_option('sr_custom_no_results_message') ); ?></textarea>
-              <div>
-                  <i>
-                      Default: There are 0 listings that match this
-                      search. Try broadening your search criteria or
-                      try again later.
-                  </i>
-              </div>
-              <?php submit_button(); ?>
-          </form>
-        </div>
-        <?php
+      </div>
+    <?php
   }
 } ?>
