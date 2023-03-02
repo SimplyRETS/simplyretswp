@@ -562,7 +562,7 @@ class SimplyRetsCustomPostPages {
                 )
             );
 
-            $resource = "/{$listing_id}?{$params}";
+            $resource = "/{$listing_id}?{$params}&include=compliance";
             $content .= SimplyRetsApiHelper::retrieveListingDetails( $resource );
             return $content;
         }

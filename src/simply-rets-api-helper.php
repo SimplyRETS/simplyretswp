@@ -781,6 +781,24 @@ HTML;
             $listing_ownership, "Ownership"
         );
 
+        // Compliance/compensation data
+        $complianceData = $listing->compliance;
+        $complianceExtras = "";
+        foreach ($complianceData as $compKey => $compValue) {
+            // Normalize camelCase keys to words
+            $compKey = ucfirst(preg_replace('/(?<=\\w)(?=[A-Z])/', ' $1', $compKey));
+            $complianceExtras .= SimplyRetsApiHelper::srDetailsTable($compValue, $compKey);
+        }
+
+        $compensationDisclaimer = "";
+        if (!empty($complianceExtras)) {
+            $compensationDisclaimer .= SimplyRetsApiHelper::srDetailsTable(
+                "The offer of compensation is made only to participants of " .
+                "the MLS where the listing is filed.",
+                "Compensation Disclaimer"
+            );
+        }
+
         $listing_lease_term = $listing->leaseTerm;
         $lease_term = SimplyRetsApiHelper::srDetailsTable($listing_lease_term, "Lease Term");
 
@@ -1296,6 +1314,8 @@ HTML;
                 $officeEmail
                 $agent
                 $agent_phone
+                $complianceExtras
+                $compensationDisclaimer
                 $special_listing_conditions
                 $ownership
                 $terms
