@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.9.11
+* FEATURE: Display compliance fields when available
+* FIX: Some values get cleared when saving admin settings
+
 ## 2.9.10
 * FEATURE: Allow multiple emails in lead capture admin setting.
 

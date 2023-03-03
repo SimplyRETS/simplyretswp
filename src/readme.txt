@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 6.1
-Stable tag: 2.9.10
+Stable tag: 2.9.11
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -237,6 +237,10 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.9.11 =
+* FEATURE: Display compliance fields when available
+* FIX: Some values get cleared when saving admin settings
+
 = 2.9.10 =
 * FEATURE: Allow multiple emails in lead capture admin setting.
 
@@ -309,33 +313,6 @@ listing sidebar widget.
 
 = 2.8.0 =
 * ENHANCEMENT: Add support for `idx` admin option and short-code parameter.
-
-= 2.7.2 =
-* ENHANCEMENT: Support all valid API parameters on [sr_map_search] short-code.
-
-= 2.7.1 =
-* FIX: Properly escape remarks for HTML used in fance image gallery.
-
-= 2.7.0 =
-* ENHANCEMENT: Show full address with city, state, and zip for listings in search results.
-* ENHANCEMENT: Add more meta information to the images in the fancy gallery.
-
-= 2.6.4 =
-* FIX: Fix issue where the text "County" is duplicated on search result pages.
-
-= 2.6.3 =
-* ENHANCEMENT: Show listing close price on property details page
-
-= 2.6.2 =
-* ENHANCEMENT: Display property type and subtype on listing details page
-* ENHANCEMENT: Add support for subtype parameter on [sr_listings] and [sr_search_form]
-
-= 2.6.1 =
-* FIX: Fix class and ID attributes on advanced search form markup.
-
-= 2.6.0 =
-* ENHANCEMENT: Allow `neighborhoods`, `cities`, and `counties` parameters on [sr_search_form].
-* ENHANCEMENT: Support ActiveUnderContract listings in SimplyRETS widgets.
 
 [**View the complete CHANGELOG here**](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 
