@@ -763,17 +763,16 @@ class SrAdminSettings {
         <div>
           <h3>lastUpdate Manual Offset</h3>
           <p>Useful when data coming through the API isn't correctly accounting for timezones/UTC.</p>
-            <input
-                type="text"
-                name="sr_lastupdate_offset"
-                value="<?php echo esc_attr( get_option('sr_lastupdate_offset') ); ?>"
-            />
-            <ul>
-                <li>- Use a valid PHP date or time string (ie. '- 5 hours' or '+ 1 hour')</li>
-                <li>- <a href="https://www.php.net/manual/en/datetime.formats.php" target="_blank">Valid formats</a>: <a href="https://www.php.net/manual/en/datetime.formats.time.php" target="_blank">time</a>, <a href="https://www.php.net/manual/en/datetime.formats.date.php" target="_blank">date</a>, <a href="https://www.php.net/manual/en/datetime.formats.compound.php" target="_blank">compound</a>, and <a href="https://www.php.net/manual/en/datetime.formats.relative.php" target="_blank">relative</a>.</li>
-            </ul>
-            <?php submit_button(); ?>
-          </form>
+          <input
+              type="text"
+              name="sr_lastupdate_offset"
+              value="<?php echo esc_attr( get_option('sr_lastupdate_offset') ); ?>"
+          />
+          <ul>
+              <li>- Use a valid PHP date or time string (ie. '- 5 hours' or '+ 1 hour')</li>
+              <li>- <a href="https://www.php.net/manual/en/datetime.formats.php" target="_blank">Valid formats</a>: <a href="https://www.php.net/manual/en/datetime.formats.time.php" target="_blank">time</a>, <a href="https://www.php.net/manual/en/datetime.formats.date.php" target="_blank">date</a>, <a href="https://www.php.net/manual/en/datetime.formats.compound.php" target="_blank">compound</a>, and <a href="https://www.php.net/manual/en/datetime.formats.relative.php" target="_blank">relative</a>.</li>
+          </ul>
+          <?php submit_button(); ?>
         </div>
         <hr>
         <div>
@@ -793,6 +792,7 @@ class SrAdminSettings {
           </div>
           <?php submit_button(); ?>
         </div>
+      </form>
     </div>
     <?php
   }
