@@ -739,61 +739,60 @@ class SrAdminSettings {
             </table>
           </div>
           <?php submit_button(); ?>
-        </form>
-        <hr>
-        <div>
-          <h3>Custom disclaimer</h3>
-          <p>Custom disclaimer to be shown with all short-codes</p>
-          <textarea
-              id="sr_custom_disclaimer"
-              name="sr_custom_disclaimer"
-              cols="50"
-              rows="8"><?php echo esc_attr( get_option('sr_custom_disclaimer') ); ?></textarea>
-          <ul>
-              <li>
-                  - Use the variable "{lastUpdate}" to interpolate
-                  the time of the last feed update.
-              </li>
-              <li>
-                  - You can use HTML or plain text.
-              </li>
-          </ul>
-        </div>
-        <?php submit_button(); ?>
-        <div>
-          <h3>lastUpdate Manual Offset</h3>
-          <p>Useful when data coming through the API isn't correctly accounting for timezones/UTC.</p>
-          <input
-              type="text"
-              name="sr_lastupdate_offset"
-              value="<?php echo esc_attr( get_option('sr_lastupdate_offset') ); ?>"
-          />
-          <ul>
-              <li>- Use a valid PHP date or time string (ie. '- 5 hours' or '+ 1 hour')</li>
-              <li>- <a href="https://www.php.net/manual/en/datetime.formats.php" target="_blank">Valid formats</a>: <a href="https://www.php.net/manual/en/datetime.formats.time.php" target="_blank">time</a>, <a href="https://www.php.net/manual/en/datetime.formats.date.php" target="_blank">date</a>, <a href="https://www.php.net/manual/en/datetime.formats.compound.php" target="_blank">compound</a>, and <a href="https://www.php.net/manual/en/datetime.formats.relative.php" target="_blank">relative</a>.</li>
-          </ul>
-          <?php submit_button(); ?>
-        </div>
-        <hr>
-        <div>
-          <h3>No search results message</h3>
-          <p>The messasge shown when a search doesn't return results.</p>
-          <textarea
-              id="sr_custom_no_results_message"
-              name="sr_custom_no_results_message"
-              cols="50"
-              rows="5"><?php echo esc_attr( get_option('sr_custom_no_results_message') ); ?></textarea>
+          <hr>
           <div>
-              <i>
-                  Default: There are 0 listings that match this
-                  search. Try broadening your search criteria or
-                  try again later.
-              </i>
+            <h3>Custom disclaimer</h3>
+            <p>Custom disclaimer to be shown with all short-codes</p>
+            <textarea
+                id="sr_custom_disclaimer"
+                name="sr_custom_disclaimer"
+                cols="50"
+                rows="8"><?php echo esc_attr( get_option('sr_custom_disclaimer') ); ?></textarea>
+            <ul>
+                <li>
+                    - Use the variable "{lastUpdate}" to interpolate
+                    the time of the last feed update.
+                </li>
+                <li>
+                    - You can use HTML or plain text.
+                </li>
+            </ul>
           </div>
           <?php submit_button(); ?>
-        </div>
-      </form>
-    </div>
+          <div>
+            <h3>lastUpdate Manual Offset</h3>
+            <p>Useful when data coming through the API isn't correctly accounting for timezones/UTC.</p>
+            <input
+                type="text"
+                name="sr_lastupdate_offset"
+                value="<?php echo esc_attr( get_option('sr_lastupdate_offset') ); ?>"
+            />
+            <ul>
+                <li>- Use a valid PHP date or time string (ie. '- 5 hours' or '+ 1 hour')</li>
+                <li>- <a href="https://www.php.net/manual/en/datetime.formats.php" target="_blank">Valid formats</a>: <a href="https://www.php.net/manual/en/datetime.formats.time.php" target="_blank">time</a>, <a href="https://www.php.net/manual/en/datetime.formats.date.php" target="_blank">date</a>, <a href="https://www.php.net/manual/en/datetime.formats.compound.php" target="_blank">compound</a>, and <a href="https://www.php.net/manual/en/datetime.formats.relative.php" target="_blank">relative</a>.</li>
+            </ul>
+            <?php submit_button(); ?>
+          </div>
+          <hr>
+          <div>
+            <h3>No search results message</h3>
+            <p>The messasge shown when a search doesn't return results.</p>
+            <textarea
+                id="sr_custom_no_results_message"
+                name="sr_custom_no_results_message"
+                cols="50"
+                rows="5"><?php echo esc_attr( get_option('sr_custom_no_results_message') ); ?></textarea>
+            <div>
+                <i>
+                    Default: There are 0 listings that match this
+                    search. Try broadening your search criteria or
+                    try again later.
+                </i>
+            </div>
+            <?php submit_button(); ?>
+          </div>
+        </form>
+      </div>
     <?php
   }
 } ?>
