@@ -197,6 +197,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_lotsize";
         $vars[] = "sr_area";
         $vars[] = "sr_cities";
+        $vars[] = "sr_state";
         $vars[] = "sr_neighborhoods";
         $vars[] = "sr_amenities";
         $vars[] = "sr_features";
@@ -810,6 +811,16 @@ class SimplyRetsCustomPostPages {
             $cities_att = $citiesData["att"];
             $cities_query = $citiesData["query"];
 
+            /** Parse multiple state from short-code parameter */
+            $stateData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_state",
+                "state",
+                $_GET
+            );
+
+            $state_att = $stateData["att"];
+            $state_query = $stateData["query"];
+
             /** Parse multiple counties from short-code parameter */
             $countiesData = SimplyRetsCustomPostPages::parseGetParameter(
                 "sr_counties",
@@ -947,6 +958,7 @@ class SimplyRetsCustomPostPages {
                 "style" => $style_att,
                 "postalCodes" => $postalCodes_att,
                 "cities" => $cities_att,
+                "state" => $state_att,
                 "counties" => $counties_att,
                 "neighborhoods" => $neighborhoods_att,
                 "exteriorFeatures" => $exteriorFeatures_att
@@ -969,6 +981,7 @@ class SimplyRetsCustomPostPages {
                 . $style_query
                 . $features_string
                 . $cities_query
+                . $state_query
                 . $counties_query
                 . $neighborhoods_query
                 . $postalCodes_query

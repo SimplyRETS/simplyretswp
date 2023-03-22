@@ -320,6 +320,7 @@ HTML;
         $postalCodes = isset($atts['postalcodes']) ? $atts['postalcodes'] : '';
         $neighborhoods = isset($atts['neighborhoods']) ? $atts['neighborhoods'] : '';
         $cities = isset($atts['cities']) ? $atts['cities'] : '';
+        $state = isset($atts['state']) ? $atts['state'] : '';
         $specialListingConditions = isset($atts['speciallistingconditions']) ? $atts['speciallistingconditions'] : '';
         $ownership = isset($atts['ownership']) ? $atts['ownership'] : '';
         $salesAgent = isset($atts['salesagent']) ? $atts['salesagent'] : '';
@@ -663,6 +664,7 @@ HTML;
             <input type="hidden" name="sr_postalCodes" value="<?php echo $postalCodes; ?>" />
             <input type="hidden" name="sr_neighborhoods" value="<?php echo $neighborhoods; ?>" />
             <input type="hidden" name="sr_cities" value="<?php echo $cities; ?>" />
+            <input type="hidden" name="sr_state" value="<?php echo $state; ?>" />
             <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
             <input type="hidden" name="status"     value="<?php echo $adv_status; ?>" />
             <input
