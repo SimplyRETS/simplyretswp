@@ -384,7 +384,11 @@ class SrUtils {
         if ($custom_disclaimer) {
 
             // Splice lastUpdate date into custom disclaimer
-            $built_disclaimer = str_replace('{lastUpdate}', $lastUpdate, $custom_disclaimer);
+            $built_disclaimer = str_replace(
+                '{lastUpdate}',
+                "<span class='utcToLocal'>$lastUpdate</span>",
+                $custom_disclaimer
+            );
 
             return html_entity_decode($built_disclaimer);
 

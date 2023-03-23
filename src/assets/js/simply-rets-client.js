@@ -901,6 +901,10 @@ $_(document).ready(function() {
         }
     }
 
+    document.querySelectorAll(".utcToLocal").forEach(function(i) {
+        i.innerText = new Date(i.innerText).toLocaleString()
+    })
+
 });
 
 /**
