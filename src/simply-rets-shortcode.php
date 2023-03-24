@@ -165,6 +165,7 @@ class SrShortcodes {
                               <label for="sr_sort">Sort by: </label>
                               <select class="select" name="sr_sort">
                                   <option value="">Sort Options</option>
+                                  <option value="-modified"> Recently modified</option>
                                   <option value="-listprice"> Price - High to Low</option>
                                   <option value="listprice"> Price - Low to High</option>
                                   <option value="-listdate"> List Date - New to Old</option>
@@ -358,6 +359,7 @@ HTML;
             $adv_cities = explode(";", $atts['cities']);
         }
 
+        $sort_price_mod = ($sort == "-modified") ? "selected" : '';
         $sort_price_hl = ($sort == "-listprice") ? "selected" : '';
         $sort_price_lh = ($sort == "listprice")  ? "selected" : '';
         $sort_date_hl  = ($sort == "-listdate")  ? "selected" : '';
@@ -579,6 +581,7 @@ HTML;
                     <div class="sr-sort-wrapper">
                         <label for="sr_sort">Sort by: </label>
                         <select name="sr_sort">
+                            <option value="-modified" <?php echo $sort_price_mod ?>> Recently modified</option>
                             <option value="-listprice" <?php echo $sort_price_hl ?>> Price - High to Low</option>
                             <option value="listprice"  <?php echo $sort_price_lh ?>> Price - Low to High</option>
                             <option value="-listdate"  <?php echo $sort_date_hl ?> > List Date - New to Old</option>
@@ -645,6 +648,7 @@ HTML;
                 <div class="sr-sort-wrapper">
                     <label for="sr_sort">Sort by: </label>
                     <select class="select" name="sr_sort">
+                        <option value="-modified" <?php echo $sort_price_mod ?>> Recently modified</option>
                         <option value="-listprice" <?php echo $sort_price_hl ?>> Price - High to Low</option>
                         <option value="listprice"  <?php echo $sort_price_lh ?>> Price - Low to High</option>
                         <option value="-listdate"  <?php echo $sort_date_hl ?> > List Date - New to Old</option>
