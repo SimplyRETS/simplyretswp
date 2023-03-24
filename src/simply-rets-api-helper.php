@@ -326,15 +326,13 @@ class SimplyRetsApiHelper {
         $last_update_hdr = 'X-SimplyRETS-LastUpdate';
 
         // Use current timestamp if API doesn't have one
-        if (empty($parsed_headers['X-SimplyRETS-LastUpdate'])) {
-            return date("M, d Y h:i a");
+        if (empty($parsed_headers[$last_update_hdr])) {
+            return date(DATE_ATOM, time());
         }
 
         // Get LastUpdate header value and format the date/time
-        $last_update = $parsed_headers['X-SimplyRETS-LastUpdate'];
-        $hdr = date("M, d Y h:i a", strtotime($last_update));
-
-        return $hdr;
+        $last_update = $parsed_headers[$last_update_hdr];
+        return $last_update;
     }
 
 
