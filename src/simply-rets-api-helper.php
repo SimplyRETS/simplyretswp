@@ -1373,17 +1373,14 @@ HTML;
         $MLS_text          = SrUtils::mkMLSText();
         $show_listing_meta = SrUtils::srShowListingMeta();
 
-        /*
-         * Check for an `.error` in the response and return it if it
-         * exists.  Check for NULL is mostly just redundancy.
-        */
+        /* Check for an and display any `.error` response */
         if(!is_array($response) && property_exists($response, "error")) {
-            $error_message = SrMessages::noResultsMsg($response);
-            return $error_message;
+            return SrMessages::noResultsMsg($response);
         }
 
-        if(!is_array($response)) {
-            $response = array($response);
+        /* Check for 0 matching listings (no results) */
+        if (empty($response)) {
+            return SrMessages::noResultsMsg($response);
         }
 
         /** Build pagination links HTML **/

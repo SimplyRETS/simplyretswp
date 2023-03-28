@@ -551,8 +551,10 @@ class SrMessages {
             return $customMsg;
         }
 
-        $noResultsMsg = "<br><p><strong>There are 0 listings that match this search. "
-                         . "Please try to broaden your search criteria or feel free to try again later.</p></strong>";
+        $noResultsMsg = "<p><strong>"
+                      . "0 listings matched your search. "
+                      . "Please try to broaden your search criteria or try again later."
+                      . "</strong></p>";
         return $noResultsMsg;
     }
 
