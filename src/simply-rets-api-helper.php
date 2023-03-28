@@ -1050,8 +1050,7 @@ HTML;
 
 
         // Office
-        $has_office_contact_info = !empty($listing->agent->contact)
-                                 AND !empty($listing->agent->contact->email);
+        $has_office_contact_info = !empty($listing->office->contact);
 
         $listing_office = $listing->office->name;
         $office = SimplyRetsApiHelper::srDetailsTable($listing_office, "Listing Office");
