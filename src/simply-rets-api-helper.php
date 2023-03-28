@@ -1114,19 +1114,31 @@ HTML;
 
 
         /**
-         * Create the custom compliance markup
+         * Create the custom compliance markup for map marker
          */
         $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office, $listing_agent_name);
 
 
         /**
-         * Create the "Listing by" markup
+         * Find available contact information to display
+         * Then, create the "Listing by" markup
          */
+        $attribution_contact = property_exists($complianceData, "attributionContact")
+                             ? $complianceData->attributionContact
+                             : NULL;
+        $listing_by_contact = current(array_filter(array(
+            $attribution_contact,
+            $listing_agent_phone,
+            $agent_email,
+            $listing_office_phone,
+            $listing_office_email,
+        )));
+
         $listing_by_markup = SrUtils::mkAgentOfficeAboveTheFold(
             $listing_agent_name,
-            $listing_office
+            $listing_office,
+            $listing_by_contact,
         );
-
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 

@@ -405,10 +405,10 @@ class SrUtils {
      * showing the correct info when only the agent name, or only the
      * office name is available.
      */
-    public static function mkAgentOfficeAboveTheFold($agent, $office) {
-
+    public static function mkAgentOfficeAboveTheFold($agent, $office, $contact = NULL) {
         // Initialize variables
-        $listing_by;
+        $listing_by = "";
+        $listing_by_contact = !empty($contact) ? ", $contact" : "";
 
         // Ensure we have all the info we need
         $agentOfficeAboveTheFoldEnabled = get_option(
@@ -426,6 +426,7 @@ class SrUtils {
                 $listing_by .= "Listing by: ";
                 $listing_by .= "<strong>$agent</strong>, ";
                 $listing_by .= "<strong>$office</strong>";
+                $listing_by .= "<strong>$listing_by_contact</strong>";
                 return "<p>$listing_by</p>";
 
             } elseif (empty($agent) AND !empty($office)) {
@@ -433,7 +434,8 @@ class SrUtils {
                 /**
                  * Only office name is available, show that
                  */
-                $listing_by = "Listing by: <strong>$office</strong>";
+                $listing_by .= "Listing by: <strong>$office</strong>";
+                $listing_by .= "<strong>$listing_by_contact</strong>";
                 return "<p>$listing_by</p>";
 
             } elseif (!empty($agent) AND empty($office)) {
@@ -442,6 +444,7 @@ class SrUtils {
                  * Only agent name is available, show that
                  */
                 $listing_by = "Listing by: <strong>$agent</strong>";
+                $listing_by .= "<strong>$listing_by_contact</strong>";
                 return "<p>$listing_by</p>";
 
             } else {
