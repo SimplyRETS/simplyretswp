@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 6.1
-Stable tag: 2.9.12
+Stable tag: 2.9.13
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -236,6 +236,13 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.9.13 =
+* FEATURE: Add "Recently modified" sort option to search form
+* FEATURE: Show contact information with list agent/office name in "above the fold"
+  compliance markup
+* FIX: Fix error displaying "0 matching results" message
+* FIX: Fix bug displaying list office phone number
 
 = 2.9.12 =
 * FEATURE: Add support for `state` parameter in [sr_search_form]
