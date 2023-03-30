@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: SimplyRETS
-Plugin URI: https://simplyrets.com
+Plugin Name: SimplyRETS Real Estate IDX
+Plugin URI: https://simplyrets.com/wordpress-idx-plugin
 Description: Show your Real Estate listings on your Wordpress site. SimplyRETS provides a very simple set up and full control over your listings.
 Author: SimplyRETS
 Version: 2.9.13

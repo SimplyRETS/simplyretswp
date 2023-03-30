@@ -1,4 +1,4 @@
-=== SimplyRETS ===
+=== SimplyRETS Real Estate IDX ===
 Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
