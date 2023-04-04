@@ -1143,6 +1143,7 @@ HTML;
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
 
         // Build details link for map marker
+        $vendor = get_query_var("sr_vendor", null);
         $link = SrUtils::buildDetailsLink(
             $listing,
             !empty($vendor) ? array("sr_vendor" => $vendor) : array()
