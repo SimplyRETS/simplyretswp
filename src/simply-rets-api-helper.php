@@ -1656,28 +1656,16 @@ HTML;
          * The error code comes from the UrlBuilder function.
         */
         $response = $response['response'];
-        $response_size = sizeof( $response );
+        $response_size = is_array($response) ? sizeof($response) : 0;
 
-        if($response == NULL
-           || array_key_exists( "error", $response )
-           || array_key_exists( "errors", $response )) {
-
-            $err = SrMessages::noResultsMsg($response);
-            return $err;
+        /* Check for an `.error` response */
+        if(!is_array($response) && property_exists($response, "error")) {
+            return SrMessages::noResultsMsg($response);
         }
 
-        if( array_key_exists( "error", $response ) ) {
-            $error = $response['error'];
-            $response_markup = "<hr><p>{$error}</p>";
-            return $response_markup;
-        }
-
-        if( !array_key_exists("0", $response ) ) {
-            $response = array( $response );
-        }
-
-        if( $response_size < 1 ) {
-            $response = array( $response );
+        /* Check for 0 matching listings (no results) */
+        if (empty($response)) {
+            return SrMessages::noResultsMsg($response);
         }
 
         foreach ( $response as $listing ) {
