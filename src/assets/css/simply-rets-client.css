@@ -41,6 +41,16 @@ sizes with this class.
     display: block;
 }
 
+.sr-listing-grid-item {
+    width: 32%;
+    display: inline-block;
+    margin: auto;
+    margin-top: 25px;
+    padding: 10px 0 10px 0;
+    vertical-align: top;
+}
+
+
 /*
 Result photo
 ---
@@ -70,6 +80,12 @@ of the image, use this class.
     background-repeat: no-repeat;
 }
 
+.sr-listing-grid-item .sr-photo {
+    height: 200px;
+    width: 100%;
+    display: block;
+    background-size: cover;
+}
 
 /*
 Primary Data
@@ -115,6 +131,11 @@ color is a light grey. This is very simply to change by setting:
     padding-left: 15px;
     margin-top: 10px !important;
     margin-bottom: 10px !important;
+}
+
+.sr-listing-grid-item .sr-listing-data-wrapper {
+    display: block;
+    width: 100%;
 }
 
 /*
@@ -204,6 +225,11 @@ styling:
 
 .sr-listing .result-compliance-markup {
     float: right;
+}
+
+.sr-listing-grid-item .result-compliance-markup {
+    display: block;
+    font-size: 12px;
 }
 
 

@@ -208,6 +208,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_vendor";
         // settings
         $vars[] = "sr_map_position";
+        $vars[] = "grid_view";
         return $vars;
     }
 
