@@ -1402,6 +1402,8 @@ HTML;
         $prev_link = $pag['prev'];
         $next_link = $page_count < $limit ? "" : $pag['next'];
 
+        $grid_view = $settings['grid_view'] == TRUE;
+
         /** Allow override of "map_position" admin setting on a per short-code basis */
         $map_setting = isset($settings['show_map']) ? $settings['show_map'] : '';
         $map_position = isset($settings['map_position'])
@@ -1610,45 +1612,86 @@ HTML;
                 "sr-data-column-bathrooms"
             );
 
-            // append markup for this listing to the content
-            $resultsMarkup .= <<<HTML
-              <hr>
-              <div class="sr-listing">
-                <a href="$link">
-                  <div class="sr-photo" style="background-image:url('$main_photo');">
-                  </div>
-                </a>
-                <div class="sr-listing-data-wrapper">
-                  <div class="sr-primary-data">
-                    <a href="$link">
-                      <h4>$full_address
-                        <small class="sr-price"><i> - $listing_USD</i></small>
-                      </h4>
-                    </a>
-                  </div>
-                  <div class="sr-secondary-data">
-                    <ul class="sr-data-column">
-                      $cityMarkup
-                      $yearMarkup
-                      $mlsidMarkup
-                    </ul>
-                    <ul class="sr-data-column">
-                      $bedsMarkup
-                      $bathsMarkup
-                      $areaMarkup
-                    </ul>
-                  </div>
-                </div>
-                <div class="more-details-wrapper">
-                  <span class="more-details-link">
-                      <a href="$link">More details</a>
-                  </span>
-                  <span class="result-compliance-markup">
-                    $compliance_markup
-                  </span>
-                </div>
-              </div>
+            if ($grid_view == true) {
+                // append markup for this listing to the content
+                $resultsMarkup .= <<<HTML
+                    <div class="sr-listing-grid-item">
+                      <a href="$link">
+                        <div class="sr-photo" style="background-image:url('$main_photo');">
+                        </div>
+                      </a>
+                      <div class="sr-listing-data-wrapper">
+                        <div class="sr-primary-data">
+                          <a href="$link">
+                            <h4>$full_address
+                              <small class="sr-price"><i> - $listing_USD</i></small>
+                            </h4>
+                          </a>
+                        </div>
+                        <div class="sr-secondary-data">
+                          <ul class="sr-data-column">
+                            $cityMarkup
+                            $yearMarkup
+                            $mlsidMarkup
+                          </ul>
+                          <ul class="sr-data-column">
+                            $bedsMarkup
+                            $bathsMarkup
+                            $areaMarkup
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="more-details-wrapper">
+                        <span class="more-details-link">
+                            <a href="$link">More details</a>
+                        </span>
+                        <span class="result-compliance-markup">
+                          $compliance_markup
+                        </span>
+                      </div>
+                    </div>
 HTML;
+            } else {
+                // append markup for this listing to the content
+                $resultsMarkup .= <<<HTML
+                    <hr>
+                    <div class="sr-listing">
+                      <a href="$link">
+                        <div class="sr-photo" style="background-image:url('$main_photo');">
+                        </div>
+                      </a>
+                      <div class="sr-listing-data-wrapper">
+                        <div class="sr-primary-data">
+                          <a href="$link">
+                            <h4>$full_address
+                              <small class="sr-price"><i> - $listing_USD</i></small>
+                            </h4>
+                          </a>
+                        </div>
+                        <div class="sr-secondary-data">
+                          <ul class="sr-data-column">
+                            $cityMarkup
+                            $yearMarkup
+                            $mlsidMarkup
+                          </ul>
+                          <ul class="sr-data-column">
+                            $bedsMarkup
+                            $bathsMarkup
+                            $areaMarkup
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="more-details-wrapper">
+                        <span class="more-details-link">
+                            <a href="$link">More details</a>
+                        </span>
+                        <span class="result-compliance-markup">
+                          $compliance_markup
+                        </span>
+                      </div>
+                    </div>
+HTML;
+            }
 
         }
 

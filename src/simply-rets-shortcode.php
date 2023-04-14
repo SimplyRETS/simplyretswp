@@ -272,7 +272,12 @@ HTML;
      * ie, [sr_residential mlsid="12345"]
      */
     public static function sr_residential_shortcode($atts = array ()) {
-        $setting_atts = array("map_position" => "map_above", "show_map" => "true");
+        $setting_atts = array(
+            "map_position" => "map_above",
+            "show_map" => "true",
+            "grid_view" => false,
+        );
+
         $data = SrShortcodes::parseShortcodeAttributes($atts, $setting_atts);
 
         // Use /properties/:id if `mlsid` parameter is used
