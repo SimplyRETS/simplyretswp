@@ -1363,18 +1363,17 @@ HTML;
     }
 
 
-    public static function resultDataColumnMarkup($val, $name, $reverse=false) {
-        if( $val == "" ) {
-            $val = "";
-        } else {
-            if($reverse == false) {
-                $val = "<li>$val $name</li>";
-            }
-            else {
-                $val = "<li>$name $val</li>";
-            }
+    public static function resultDataColumnMarkup($val, $name, $reverse=false, $id="") {
+        if (empty($val)) {
+            return "";
         }
-        return $val;
+
+        $li = "<li class='sr-data-column-item'";
+        $li .= $id ? " id='$id'>" : ">";
+        $li .= $reverse ? "$name $val" : "$val $name";
+        $li .= "</li>";
+
+        return $li;
     }
 
 
@@ -1536,32 +1535,79 @@ HTML;
              * If the field is empty, they'll be hidden
              * TODO: Create a ranking system 1 - 10 to smartly replace missing values
              */
-            $bedsMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($bedrooms, 'Bedrooms');
-            $areaMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup(
-                $area, '<span class="sr-listing-area-sqft">SqFt</span>'
+            $bedsMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup(
+                $bedrooms,
+                "Bedrooms",
+                false,
+                "sr-data-column-bedrooms"
             );
-            $yearMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($yearBuilt, 'Built in', true);
-            $cityMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup($city, 'Located in', true);
-            $mlsidMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($mlsid, $MLS_text . ' #:', true);
 
+            $areaMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup(
+                $area,
+                '<span class="sr-listing-area-sqft">SqFt</span>',
+                false,
+                "sr-data-column-living-area"
+            );
+
+            $yearMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup(
+                $yearBuilt,
+                'Built in',
+                true,
+                "sr-data-column-year-built"
+            );
+
+            $cityMarkup  = SimplyRetsApiHelper::resultDataColumnMarkup(
+                $city,
+                'Located in',
+                true,
+                "sr-data-column-city"
+            );
+
+            $mlsidMarkup = SimplyRetsApiHelper::resultDataColumnMarkup(
+                $mlsid,
+                $MLS_text . ' #:',
+                true,
+                "sr-data-column-mlsid"
+            );
+
+            // Use another field if SqFt is empty
             if( $area == 0 ) {
-                $areaMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($bathsHalf, 'Half Baths', false);
+                $areaMarkup = SimplyRetsApiHelper::resultDataColumnMarkup(
+                    $bathsHalf,
+                    'Half Baths',
+                    false,
+                    "sr-data-column-half-baths"
+                );
+
                 if( $areaMarkup == 0 ) {
                     $areaMarkup = SimplyRetsApiHelper::resultDataColumnMarkup(
                         SrUtils::normalizeCountyText($county),
                         "County",
-                        false
+                        false,
+                        "sr-data-column-county"
                     );
                 }
             }
 
             if( $yearBuilt == 0 ) {
-                $yearMarkup = SimplyRetsApiHelper::resultDataColumnMarkup($subdivision, "");
+                $yearMarkup = SimplyRetsApiHelper::resultDataColumnMarkup(
+                    $subdivision,
+                    "",
+                    false,
+                    "sr-data-column-subdivision"
+                );
             }
 
             $bathrooms_display = SrListing::getBathroomsDisplay(
                 $bathsTotal,
                 $bathsFull
+            );
+
+            $bathsMarkup = SimplyRetsApiHelper::resultDataColumnMarkup(
+                $bathrooms_display,
+                "",
+                false,
+                "sr-data-column-bathrooms"
             );
 
             // append markup for this listing to the content
@@ -1588,7 +1634,7 @@ HTML;
                     </ul>
                     <ul class="sr-data-column">
                       $bedsMarkup
-                      <li>$bathrooms_display</li>
+                      $bathsMarkup
                       $areaMarkup
                     </ul>
                   </div>
