@@ -618,7 +618,8 @@ class SimplyRetsCustomPostPages {
             $idx       = get_query_var( 'sr_idx', '' );
             /** multi mls */
             $vendor    = get_query_var('sr_vendor', '');
-
+            /** Settings */
+            $grid_view = get_query_var("grid_view", FALSE);
             $map_position = get_query_var('sr_map_position',
                                           get_option('sr_search_map_position'));
 
@@ -930,12 +931,14 @@ class SimplyRetsCustomPostPages {
                    SimplyRETS query parameters, but it's the easiest
                    way to get them back on the other side right now.
                 */
+                "grid_view" => $grid_view,
                 "map_position" => $map_position
             );
 
             $settings = array(
-                "limit"     => $limit,
-                "map_position" => $map_position
+                "limit" => $limit,
+                "map_position" => $map_position,
+                "grid_view" => $grid_view
             );
 
             /*
