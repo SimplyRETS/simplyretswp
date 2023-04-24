@@ -340,6 +340,9 @@ HTML;
             $vendor = $availableVendors[0];
         }
 
+        /** Settings */
+        $grid_view = isset($atts["grid_view"]) ? $atts["grid_view"] : FALSE;
+
         /** User Facing Parameters */
         $minbeds    = array_key_exists('minbeds',  $atts) ? $atts['minbeds']  : '';
         $maxbeds    = array_key_exists('maxbeds',  $atts) ? $atts['maxbeds']  : '';
@@ -583,6 +586,7 @@ HTML;
                 <input type="hidden" name="sr_areaMinor" value="<?php echo $areaMinor; ?>" />
                 <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
                 <input type="hidden" name="sr_salesagent" value="<?php echo $salesAgent; ?>" />
+                <input type="hidden" name="grid_view" value="<?php echo $grid_view; ?>" />
 
                 <div>
                     <button class="btn button submit btn-submit" style="display:inline-block;">Search</button>
@@ -679,6 +683,7 @@ HTML;
             <input type="hidden" name="sr_state" value="<?php echo $state; ?>" />
             <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
             <input type="hidden" name="status"     value="<?php echo $adv_status; ?>" />
+            <input type="hidden" name="grid_view" value="<?php echo $grid_view; ?>" />
             <input
                 type="hidden"
                 name="sr_specialListingConditions"

@@ -367,7 +367,7 @@ class SimplyRetsApiHelper {
          */
         foreach( $pag_links as $key=>$link ) {
             $link_parts = parse_url( $link );
-            $no_prefix = array('offset', 'limit', 'type', 'water');
+            $no_prefix = array('offset', 'limit', 'type', 'water', 'grid_view');
 
             $query_part = !empty($link_parts['query']) ? $link_parts['query'] : NULL;
             $output = SrUtils::proper_parse_str($query_part);
