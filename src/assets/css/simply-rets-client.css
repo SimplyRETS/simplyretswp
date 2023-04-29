@@ -59,15 +59,11 @@ of the image, use this class.
 ```
 
 */
-.sr-photo {
-    position: relative;
+img.sr-photo {
     display: inline-block;
     height: 155px;
     width: 30%;
     overflow: hidden;
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
 }
 
 
@@ -918,11 +914,9 @@ elsewhere, this should be a breeze.
     text-align: center;
 }
 
-.sr-listing-slider-item-img {
-    height: 170px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+img.sr-listing-slider-item-img {
+    height: 150px;
+    object-fit: cover;
 }
 
 .sr-listing-slider-item-address {

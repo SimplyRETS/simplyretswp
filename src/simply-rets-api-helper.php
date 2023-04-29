@@ -1569,8 +1569,12 @@ HTML;
               <hr>
               <div class="sr-listing">
                 <a href="$link">
-                  <div class="sr-photo" style="background-image:url('$main_photo');">
-                  </div>
+                  <img
+                    src="$main_photo"
+                    alt="$full_address - $listing_USD"
+                    title="$full_address - $listing_USD"
+                    class="sr-photo"
+                  />
                 </a>
                 <div class="sr-listing-data-wrapper">
                   <div class="sr-primary-data">
@@ -1868,7 +1872,12 @@ HTML;
             $inner .= <<<HTML
                 <div class="sr-listing-slider-item">
                   <a href="$link">
-                    <div class="sr-listing-slider-item-img" style="background-image: url('$photo')"></div>
+                    <img
+                      src="$photo"
+                      alt="$address - $priceUSD"
+                      title="$address - $priceUSD"
+                      class="sr-listing-slider-item-img"
+                   />
                   </a>
                   <a href="$link">
                     <h4 class="sr-listing-slider-item-address">$address <small>$priceUSD</small></h4>
