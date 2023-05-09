@@ -183,6 +183,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_subtype";
         $vars[] = "sr_subTypeText";
         $vars[] = "sr_specialListingConditions";
+        $vars[] = "sr_areaMinor";
         $vars[] = "sr_ownership";
         $vars[] = "sr_salesAgent";
         $vars[] = "sr_agent";
@@ -781,6 +782,16 @@ class SimplyRetsCustomPostPages {
             $specialListingConditions_att = $specialListingConditionsData["att"];
             $specialListingConditions_query = $specialListingConditionsData["query"];
 
+            /** Parse areaMinor from short-code parameter */
+            $areaMinorData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_areaMinor",
+                "areaMinor",
+                $_GET
+            );
+
+            $areaMinor_att = $areaMinorData["att"];
+            $areaMinor_query = $areaMinorData["query"];
+
             /** Parse multiple ownership's from short-code parameter */
             $ownershipData = SimplyRetsCustomPostPages::parseGetParameter(
                 "sr_ownership",
@@ -951,6 +962,7 @@ class SimplyRetsCustomPostPages {
                 "subtype" => $subtype_att,
                 "subTypeText" => $subTypeText_att,
                 "specialListingConditions" => $specialListingConditions_att,
+                "areaMinor" => $areaMinor_att,
                 "ownership" => $ownership_att,
                 "salesAgent" => $salesAgent_att,
                 "agent" => $agent_att,
@@ -989,6 +1001,7 @@ class SimplyRetsCustomPostPages {
                 . $subtype_query
                 . $subTypeText_query
                 . $specialListingConditions_query
+                . $areaMinor_query
                 . $ownership_query
                 . $salesAgent_query
                 . $statuses_string

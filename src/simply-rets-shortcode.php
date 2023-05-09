@@ -207,7 +207,8 @@ HTML;
             "maxgaragespaces" => "maxGarageSpaces",
             "salesagent" => "salesAgent",
             "subtypetext" => "subTypeText",
-            "speciallistingconditions" => "specialListingConditions"
+            "speciallistingconditions" => "specialListingConditions",
+            "areaminor" => "areaMinor"
         );
 
         return array_key_exists($name, $fixes) ? $fixes[$name] : $name;
@@ -323,6 +324,7 @@ HTML;
         $cities = isset($atts['cities']) ? $atts['cities'] : '';
         $state = isset($atts['state']) ? $atts['state'] : '';
         $specialListingConditions = isset($atts['speciallistingconditions']) ? $atts['speciallistingconditions'] : '';
+        $areaMinor = isset($atts['areaminor']) ? $atts['areaminor'] : '';
         $ownership = isset($atts['ownership']) ? $atts['ownership'] : '';
         $salesAgent = isset($atts['salesagent']) ? $atts['salesagent'] : '';
 
@@ -573,6 +575,7 @@ HTML;
                     name="sr_specialListingConditions"
                     value="<?php echo $specialListingConditions; ?>"
                 />
+                <input type="hidden" name="sr_areaMinor" value="<?php echo $areaMinor; ?>" />
                 <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
                 <input type="hidden" name="sr_salesagent" value="<?php echo $salesAgent; ?>" />
 
@@ -676,6 +679,7 @@ HTML;
                 name="sr_specialListingConditions"
                 value="<?php echo $specialListingConditions; ?>"
             />
+            <input type="hidden" name="sr_areaMinor" value="<?php echo $areaMinor; ?>" />
             <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
             <input type="hidden" name="sr_salesagent" value="<?php echo $salesAgent; ?>" />
 
