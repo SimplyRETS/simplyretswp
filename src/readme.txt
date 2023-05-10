@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 6.1
-Stable tag: 2.9.13
+Stable tag: 2.10.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -237,6 +237,13 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 2.10.0 =
+* FEATURE: Add grid_view option for sr_listings and sr_search_form
+* FEATURE: Add classes and IDs to sr-data-column markup
+* FEATURE: Add support for areaMinor filter
+* FEATURE: Rename plugin to SimplyRETS IDX
+* FIX: Fix misc warnings
+
 = 2.9.13 =
 * FEATURE: Add "Recently modified" sort option to search form
 * FEATURE: Show contact information with list agent/office name in "above the fold"
@@ -290,40 +297,6 @@ listing sidebar widget.
 
 = 2.9.0 =
 * FIX: Update `ivory-google-map` vendor library to fix issue loading Google Maps.
-
-= 2.8.10 =
-* ENHANCEMENT: Set `count=false` on API queries by default to improve response time.
-
-= 2.8.9 =
-* FIX: Fix parsing multiple `brokers` parameters in `[sr_search_form]`.
-* EHANCEMENT: Support `exteriorFeatures` parameter on all short-codes.
-
-= 2.8.8 =
-* FIX: Use consistent logic when displaying total or full baths in listing previews.
-
-= 2.8.7 =
-* FIX: Fix URL encoding in [sr_listings]/[sr_openhouses] short-codes.
-
-= 2.8.6 =
-* FIX: Refactor how attributes are parsed from [sr_listings]/[sr_openhouses] short-codes.
-
-= 2.8.5 =
-* FIX: Don't create rows with NULL values in wp_postmeta.
-
-= 2.8.4 =
-* FIX: Fix incorrectly generated og:url meta tag.
-
-= 2.8.3 =
-* FIX: Handle "/" characters in single listing page URLs.
-
-= 2.8.2 =
-* FIX: Add error handling for openhouses API requests
-
-= 2.8.1 =
-* ENHANCEMENT: Add support for open houses short-code and search results.
-
-= 2.8.0 =
-* ENHANCEMENT: Add support for `idx` admin option and short-code parameter.
 
 [**View the complete CHANGELOG here**](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 

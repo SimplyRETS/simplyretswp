@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.10.0
+* FEATURE: Add grid_view option for sr_listings and sr_search_form
+* FEATURE: Add classes and IDs to sr-data-column markup
+* FEATURE: Add support for areaMinor filter
+* FEATURE: Rename plugin to SimplyRETS IDX
+* FIX: Fix misc warnings
+
 ## 2.9.13
 * FEATURE: Add "Recently modified" sort option to search form
 * FEATURE: Show contact information with list agent/office name in "above the fold" compliance markup
