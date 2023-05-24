@@ -222,17 +222,7 @@ class SimplyRetsApiHelper {
 
         }
 
-
-        // foreach( $options as $key => $option ) {
-        //     if( !$option == NULL ) {
-        //         update_option( 'sr_adv_search_option_' . $key, $option );
-        //     } else {
-        //         echo '';
-        //     }
-        // }
-
         return;
-
     }
 
 
@@ -1002,10 +992,10 @@ HTML;
 
             if($lh_id) {
                 $lh_send_details = SimplyRetsApiHelper::srListhubSendDetails(
-                      $lh_id
-                    , $lh_test
-                    , $listing_mlsid
-                    , $listing_postal_code
+                    $lh_id,
+                    $lh_test,
+                    $listing_mlsid,
+                    $listing_postal_code
                 );
 
                 $lh_analytics .= $lh_send_details;
@@ -1131,13 +1121,13 @@ HTML;
             $listing_agent_phone,
             $agent_email,
             $listing_office_phone,
-            $listing_office_email,
+            $listing_office_email
         )));
 
         $listing_by_markup = SrUtils::mkAgentOfficeAboveTheFold(
             $listing_agent_name,
             $listing_office,
-            $listing_by_contact,
+            $listing_by_contact
         );
 
         $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
