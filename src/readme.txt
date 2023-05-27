@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 6.1
-Stable tag: 2.10.0
+Stable tag: 2.10.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -236,6 +236,9 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.10.1 =
+* FIX: Remove trailing commas to support older PHP versions
 
 = 2.10.0 =
 * FEATURE: Add grid_view option for sr_listings and sr_search_form
