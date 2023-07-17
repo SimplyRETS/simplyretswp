@@ -273,7 +273,7 @@ HTML;
      */
     public static function sr_residential_shortcode($atts = array ()) {
         $setting_atts = array(
-            "map_position" => "map_above",
+            "map_position" => get_option('sr_search_map_position', 'map_above'),
             "show_map" => "true",
             "grid_view" => false,
         );
