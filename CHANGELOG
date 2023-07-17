@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.10.2
+* FIX: Fix reading admin setting for map visibility
+* FIX: Fix hiding next link when results < limit
+
 ## 2.10.1
 * FIX: Remove trailing commas to support older PHP versions
 
