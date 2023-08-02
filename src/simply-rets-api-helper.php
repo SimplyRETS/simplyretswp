@@ -1367,7 +1367,7 @@ HTML;
     }
 
 
-    public static function srResidentialResultsGenerator($request_response, $settings, $params) {
+    public static function srResidentialResultsGenerator($request_response, $settings, $params = array()) {
         $cont              = "";
         $pagination        = $request_response['pagination'];
         $lastUpdate        = $request_response['lastUpdate'];
