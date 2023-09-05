@@ -1006,7 +1006,8 @@ HTML;
 
         ///////////////////////////////////////////////////////
 
-        $show_contact_info = SrUtils::showAgentContact();
+        $hide_contact_phone = get_option("sr_hide_agent_office_phone", false);
+        $hide_contact_email = get_option("sr_hide_agent_office_email", false);
 
         // agent data
         $listing_agent_id    = $listing->agent->id;
@@ -1016,7 +1017,7 @@ HTML;
         $has_agent_contact_info = !empty($listing->agent->contact)
                                 AND !empty($listing->agent->contact->email);
 
-        if($show_contact_info AND $has_agent_contact_info) {
+        if(!$hide_contact_email AND $has_agent_contact_info) {
             $listing_agent_email = $listing->agent->contact->email;
         } else {
             $listing_agent_email = '';
@@ -1051,11 +1052,14 @@ HTML;
         $listing_office_email = $has_office_contact_info ? $listing->office->contact->email : '';
         $officeEmail = SimplyRetsApiHelper::srDetailsTable($listing_office_email, "Listing Office Email");
 
-        /* If show_contact_info is false, stub these fields */
-        if(!$show_contact_info) {
+        /* Hide contact info if settings are enabled */
+        if($hide_contact_email) {
+            $officeEmail = '';
+        }
+
+        if($hide_contact_phone) {
             $agent_phone = '';
             $officePhone = '';
-            $officeEmail = '';
         }
 
         /**
