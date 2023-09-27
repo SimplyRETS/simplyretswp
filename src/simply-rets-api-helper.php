@@ -570,6 +570,7 @@ HTML;
         */
         if($listing == NULL
            || property_exists($listing, "error")
+           || property_exists($listing, "message")
            || property_exists($listing, "errors")) {
             $err = SrMessages::noResultsMsg((array)$listing);
             return $err;
@@ -1102,18 +1103,17 @@ HTML;
 HTML;
         }
 
-
         /**
          * Create the custom compliance markup for map marker
          */
         $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office, $listing_agent_name);
 
-
         /**
          * Find available contact information to display
          * Then, create the "Listing by" markup
          */
-        $attribution_contact = property_exists($complianceData, "attributionContact")
+        $attribution_contact = !empty($complianceData)
+                               && property_exists($complianceData, "attributionContact")
                              ? $complianceData->attributionContact
                              : NULL;
         $listing_by_contact = current(array_filter(array(
