@@ -918,16 +918,18 @@ HTML;
         }
 
         // school data
-        $listing_school_district = $listing->school->district;
+        $has_school_data = !empty($listing->school);
+
+        $listing_school_district = $has_school_data ? $listing->school->district : NULL;
         $school_district = SimplyRetsApiHelper::srDetailsTable($listing_school_district, "District");
         // elementary school
-        $listing_elementary = $listing->school->elementarySchool;
+        $listing_elementary = $has_school_data ? $listing->school->elementarySchool : NULL;
         $school_elementary = SimplyRetsApiHelper::srDetailsTable($listing_elementary, "Elementary School");
         // middle school
-        $listing_middle_school = $listing->school->middleSchool;
+        $listing_middle_school = $has_school_data ? $listing->school->middleSchool : NULL;
         $school_middle = SimplyRetsApiHelper::srDetailsTable($listing_middle_school, "Middle School");
         // high school
-        $listing_high_school = $listing->school->highSchool;
+        $listing_high_school = $has_school_data ? $listing->school->highSchool : NULL;
         $school_high = SimplyRetsApiHelper::srDetailsTable($listing_high_school, "High School");
 
         if($listing_school_district
