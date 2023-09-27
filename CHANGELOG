@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.10.4
+* FIX: Fix misc PHP warnings on single listing page
+
 ## 2.10.3
 * FIX: Fix error in [sr_map_search] short-code output
 
