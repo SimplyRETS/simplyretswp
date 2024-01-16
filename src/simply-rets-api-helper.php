@@ -962,9 +962,8 @@ HTML;
         }
 
         if( get_option('sr_show_listing_remarks') ) {
-            $show_remarks = false;
+            $remarks_markup = "";
         } else {
-            $show_remarks = true;
             $remarks = $listing->remarks;
             $remarks_markup = <<<HTML
             <div class="sr-remarks-details">
