@@ -288,6 +288,21 @@ class SrUtils {
     }
 
     /**
+     * Lookup header value from array.
+     * This helper function ensures a case insensitive lookup.
+     */
+    public static function getHeader($headers, $header_name) {
+        $header_name = strtolower($header_name);
+        $header_list = array_change_key_case($headers, CASE_LOWER);
+
+        if (array_key_exists($header_name, $header_list)) {
+            return $header_list[$header_name];
+        } else {
+            return NULL;
+        }
+    }
+
+    /**
      * Build a query string from an array of parameters. NOTE: This
      * function REMOVES array indexes ([0]) from parameters names that
      * are specified multiple times. For example:

@@ -260,8 +260,9 @@ class SimplyRetsApiHelper {
             $header = substr( $request, 0, $header_size );
             $body   = substr( $request, $header_size );
 
-            $pag_links = SimplyRetsApiHelper::srPaginationParser($header);
-            $last_update = SimplyRetsApiHelper::srLastUpdateHeaderParser($header);
+            $headers = http_parse_headers($header);
+            $pag_links = SimplyRetsApiHelper::srPaginationParser($headers);
+            $last_update = SimplyRetsApiHelper::srLastUpdateHeaderParser($headers);
 
             // decode the reponse body
             $response_array = json_decode( $body );
@@ -312,25 +313,23 @@ class SimplyRetsApiHelper {
     // Parse 'X-SimplyRETS-LastUpdate' from API response headers
     // and return the value
     public static function srLastUpdateHeaderParser($headers) {
-        $parsed_headers = http_parse_headers($headers);
-        $last_update_hdr = 'X-SimplyRETS-LastUpdate';
+        $last_update = SrUtils::getHeader($headers, 'X-SimplyRETS-LastUpdate');
 
         // Use current timestamp if API doesn't have one
-        if (empty($parsed_headers[$last_update_hdr])) {
+        if (empty($last_update)) {
             return date(DATE_ATOM, time());
         }
 
-        // Get LastUpdate header value and format the date/time
-        $last_update = $parsed_headers[$last_update_hdr];
         return $last_update;
     }
 
 
-    public static function srPaginationParser( $linkHeader ) {
+    public static function srPaginationParser($headers) {
+        $link_header = SrUtils::getHeader($headers, "Link");
 
         // get link val from header
         $pag_links = array();
-        preg_match('/^Link: ([^\r\n]*)[\r\n]*$/m', $linkHeader, $matches);
+        preg_match('/^([^\r\n]*)[\r\n]*$/m', $link_header, $matches);
         unset($matches[0]);
 
         foreach( $matches as $key => $val ) {
