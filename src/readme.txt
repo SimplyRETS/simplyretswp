@@ -3,7 +3,7 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 6.4.2
+Tested up to: 6.4.3
 Stable tag: 2.10.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -236,6 +236,11 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.10.5 =
+* FIX: Prefer list agent "cell" field over "office" field
+* FIX: Fix warning when listing remarks doesn't exist
+* UPDATE: Use case-insensitive header lookup for HTTP/2 support
 
 = 2.10.4 =
 * FIX: Fix misc PHP warnings on single listing page

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.10.5
+* FIX: Prefer list agent "cell" field over "office" field
+* FIX: Fix warning when listing remarks doesn't exist
+* UPDATE: Use case-insensitive header lookup for HTTP/2 support
+
 ## 2.10.4
 * FIX: Fix misc PHP warnings on single listing page
 
