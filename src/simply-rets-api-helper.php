@@ -1036,7 +1036,11 @@ HTML;
 
         $agent = SimplyRetsApiHelper::srDetailsTable($listing_agent_name, "Listing Agent");
 
-        $listing_agent_phone = $has_agent_contact_info ? $listing->agent->contact->office : '';
+        $listing_agent_cell_phone = $has_agent_contact_info ? $listing->agent->contact->cell : '';
+        $listing_agent_office_phone = $has_agent_contact_info ? $listing->agent->contact->office: '';
+        $listing_agent_phone = $listing_agent_cell_phone
+                             ? $listing_agent_cell_phone
+                             : $listing_agent_office_phone;
         $agent_phone = SimplyRetsApiHelper::srDetailsTable($listing_agent_phone, "Listing Agent Phone");
 
 
