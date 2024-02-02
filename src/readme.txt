@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 6.4.3
-Stable tag: 2.10.4
+Stable tag: 2.10.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
