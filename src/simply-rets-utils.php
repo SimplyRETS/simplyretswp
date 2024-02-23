@@ -121,12 +121,13 @@ class SrUtils {
         $state = $listing->address->state;
         $zip = $listing->address->postalCode;
 
-        // A listing might have a null address if a flag like "Display
-        // address" is set to false. This just removes the comma in
-        // these cases, but the rest of the address remains the same.
-        $comma = $address ? ', ' : '';
+        // When `internetAddressDisplay` is false, some feeds may also
+        // exclude city, state, and zip. This ensures that commas are
+        // only used when these fields exist.
+        $comma1 = ($address AND ($city OR $state OR $zip)) ? ', ' : '';
+        $comma2 = $city ? ', ' : '';
 
-        return $address . $comma . $city . ', ' . $state . ' ' . $zip;
+        return $address . $comma1 . $city . $comma2 . $state . ' ' . $zip;
     }
 
     /**
