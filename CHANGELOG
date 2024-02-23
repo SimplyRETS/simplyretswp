@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.10.6
+* FIX: Remove commas in address when city, state, or zip doesn't exist
+* UPDATE: Update link to demo and documentation site
+
 ## 2.10.5
 * FIX: Prefer list agent "cell" field over "office" field
 * FIX: Fix warning when listing remarks doesn't exist
