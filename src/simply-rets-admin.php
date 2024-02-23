@@ -149,11 +149,8 @@ class SrAdminSettings {
             <a target="_blank" href="http://simplyrets.com">
                 simplyrets.com
             </a> |
-            <a target="_blank" href="https://wordpress.org/plugins/simply-rets/other_notes/">
-                Plugin Docs
-            </a> |
-            <a target="_blank" href="http://docs.simplyrets.com">
-                API Docs
+            <a target="_blank" href="https://wordpress-demo.simplyrets.com/">
+                Plugin demo and documentation
             </a> |
             <a target="_blank" href="http://status.simplyrets.com">
                 Service Status
@@ -199,7 +196,7 @@ class SrAdminSettings {
               </tbody>
             </table>
           </div>
-          <div>
+          <div style="margin-top: 15px;">
             <span>
               <i>Note - to use the SimplyRETS demo data, you can use these  API credentials: </i>
               <strong>API Key: </strong><span>simplyrets</span>
