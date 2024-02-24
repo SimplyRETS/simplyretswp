@@ -206,6 +206,7 @@ HTML;
             "mingaragespaces" => "minGarageSpaces",
             "maxgaragespaces" => "maxGarageSpaces",
             "salesagent" => "salesAgent",
+            "salesoffice" => "salesOffice",
             "subtypetext" => "subTypeText",
             "speciallistingconditions" => "specialListingConditions",
             "areaminor" => "areaMinor"
@@ -332,6 +333,7 @@ HTML;
         $areaMinor = isset($atts['areaminor']) ? $atts['areaminor'] : '';
         $ownership = isset($atts['ownership']) ? $atts['ownership'] : '';
         $salesAgent = isset($atts['salesagent']) ? $atts['salesagent'] : '';
+        $salesOffice = isset($atts['salesoffice']) ? $atts['salesoffice'] : '';
 
         if($config_type === '') {
             $config_type = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
@@ -586,6 +588,7 @@ HTML;
                 <input type="hidden" name="sr_areaMinor" value="<?php echo $areaMinor; ?>" />
                 <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
                 <input type="hidden" name="sr_salesagent" value="<?php echo $salesAgent; ?>" />
+                <input type="hidden" name="sr_salesoffice" value="<?php echo $salesOffice; ?>" />
                 <input type="hidden" name="grid_view" value="<?php echo $grid_view; ?>" />
 
                 <div>
@@ -692,6 +695,7 @@ HTML;
             <input type="hidden" name="sr_areaMinor" value="<?php echo $areaMinor; ?>" />
             <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
             <input type="hidden" name="sr_salesagent" value="<?php echo $salesAgent; ?>" />
+            <input type="hidden" name="sr_salesoffice" value="<?php echo $salesOffice; ?>" />
 
           </form>
         </div>
