@@ -526,6 +526,15 @@ class SrListing {
     }
 
     /**
+     * Create a CSS class name for a standard status
+     */
+    public static function listingStatusClass($status) {
+        $status = strtolower($status);
+
+        return "sr-listing-status-{$status}";
+    }
+
+    /**
      * Return a 'display-ready' number of bathrooms for a
      * listing. Checks for `.property.bathrooms` first, and then
      * `.property.bathsFull`, and pluralizes the "bath(s)" text.
