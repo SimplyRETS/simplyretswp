@@ -163,13 +163,13 @@ HTML;
 
             header("Content-Type: application/json");
 
-            $markup_opts = array(
-                "show_map" => "false",
-                "vendor" => $vendor
-            );
+
+            $settings_ = $_POST['settings'];
+            $def_settings = array("show_map" => "false", "vendor" => $vendor);
+            $settings = array_merge($settings_, $def_settings);
 
             $req = SimplyRetsApiHelper::makeApiRequest($_POST['parameters']);
-            $con = SimplyRetsApiHelper::srResidentialResultsGenerator($req, $markup_opts);
+            $con = SimplyRetsApiHelper::srResidentialResultsGenerator($req, $settings);
 
             $response = array(
                 "result" => $req,

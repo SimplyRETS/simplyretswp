@@ -411,6 +411,7 @@ function SimplyRETSMap() {
 
     var vendor = document.getElementById('sr-map-search').dataset.vendor
     var limit = document.getElementById('sr-map-search').dataset.limit
+    var settings = document.getElementById("sr-map-search").dataset.defaultSettings
 
     this.element    = 'sr-map-search';
     this.bounds     = [];
@@ -428,6 +429,7 @@ function SimplyRETSMap() {
     this.siteRoot   = window.location.href
     this.vendor     = vendor;
     this.limit      = limit;
+    this.settings   = JSON.parse(settings);
 
     this.map = new google.maps.Map(
         document.getElementById('sr-map-search'), this.options
@@ -737,7 +739,8 @@ SimplyRETSMap.prototype.sendRequest = function(points, params, paginate) {
     }
 
     var offset = this.offset;
-    var vendor = this.vendor
+    var vendor = this.vendor;
+    var settings = this.settings;
 
     /** URL Encode them all */
     var pointsQ = $_.param(points);
@@ -752,6 +755,7 @@ SimplyRETSMap.prototype.sendRequest = function(points, params, paginate) {
         data: {
             action: 'update_int_map_data', // server controller
             parameters: query,
+            settings: settings,
             vendor: vendor
         },
     });
