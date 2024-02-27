@@ -62,14 +62,19 @@ class SrShortcodes {
         $agent_on_thumbnails = get_option('sr_agent_on_thumbnails', false);
         $force_image_https = get_option('sr_listing_force_image_https', false);
 
-        // Delete attributes that aren't API parameters
-        $default_parameters = array_diff_key($atts, [
-            "list_view" => true,
-            "search_form" => true
-        ]);
+        $markup_settings = array(
+            "list_view" => false,
+            "search_form" => false,
+            "grid_view" => false
+        );
 
-        // JSON encode the default search parameters for the frontend.
-        $default_parameters_json = json_encode($default_parameters);
+        // Delete attributes that aren't API parameters
+        $api_parameters = array_diff_key($atts, $markup_settings);
+        $api_parameters_json = json_encode($api_parameters);
+
+        // Delete attributes that are API parameters
+        $markup_settings = array_diff_key($atts, $api_parameters);
+        $markup_settings_json = json_encode($markup_settings);
 
         $map_markup  = "<div id='sr-map-search'
                              data-api-key='{$gmaps_key}'
@@ -78,10 +83,11 @@ class SrShortcodes {
                              data-agent-on-thumbnails='{$agent_on_thumbnails}'
                              data-force-image-https='{$force_image_https}'
                              data-limit='{$limit}'
-                             data-default-parameters='{$default_parameters_json}'
+                             data-default-settings='{$markup_settings_json}'
+                             data-default-parameters='{$api_parameters_json}'
                              data-vendor='{$vendor}'></div>";
 
-        $list_markup = !empty($atts['list_view'])
+        $list_markup = isset($atts["list_view"]) || isset($atts["grid_view"])
                      ? "<div class=\"sr-map-search-list-view\"></div>"
                      : "";
 
