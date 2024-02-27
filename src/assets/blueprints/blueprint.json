@@ -1,0 +1,39 @@
+{
+    "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+    "landingPage": "/simplyrets-demo-page/",
+    "preferredVersions": {
+        "php": "8.2",
+        "wp": "latest"
+    },
+    "steps": [
+        {
+            "step": "login",
+            "username": "admin",
+            "password": "password"
+        },
+        {
+            "step": "installTheme",
+            "themeZipFile": {
+                "resource": "wordpress.org/themes",
+                "slug": "Astra"
+            },
+            "options": {
+                "activate": true
+            }
+        },
+        {
+            "step": "installPlugin",
+            "pluginZipFile": {
+                "resource": "wordpress.org/plugins",
+                "slug": "simply-rets"
+            },
+            "options": {
+                "activate": true
+            }
+        },
+        {
+            "step": "wpCLI",
+            "command": "wp post create --post-type=page --post-status=publish --post-name=simplyrets-listings --post-content=\"[sr_map_search search_form=\"true\" list_view=\"true\"]\""
+        }
+    ]
+}
