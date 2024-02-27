@@ -241,7 +241,6 @@ HTML;
             // Parse settings, don't add them to the API query
             if (array_key_exists($param, $setting_atts)) {
                 $attributes["settings"][$param] = $value;
-                continue;
             }
 
             $values = explode(";", $value);
@@ -250,11 +249,6 @@ HTML;
             }
 
             $attributes["params"][$name] = count($values) > 1 ? $values : $value;
-
-            // Add vendor to params and settings
-            if ($param === "vendor") {
-                $attributes["settings"]["vendor"] = $value;
-            }
         }
 
         return $attributes;
@@ -282,6 +276,8 @@ HTML;
             "map_position" => get_option('sr_search_map_position', 'map_above'),
             "show_map" => "true",
             "grid_view" => false,
+            "vendor" => "",
+            "limit" => 20
         );
 
         $data = SrShortcodes::parseShortcodeAttributes($atts, $setting_atts);
@@ -348,6 +344,7 @@ HTML;
 
         /** Settings */
         $grid_view = isset($atts["grid_view"]) ? $atts["grid_view"] : FALSE;
+        $show_map = isset($atts["show_map"]) ? $atts["show_map"] : TRUE;
 
         /** User Facing Parameters */
         $minbeds    = array_key_exists('minbeds',  $atts) ? $atts['minbeds']  : '';
@@ -593,6 +590,7 @@ HTML;
                 <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
                 <input type="hidden" name="sr_salesagent" value="<?php echo $salesAgent; ?>" />
                 <input type="hidden" name="grid_view" value="<?php echo $grid_view; ?>" />
+                <input type="hidden" name="show_map" value="<?php echo $show_map; ?>" />
 
                 <div>
                     <button class="btn button submit btn-submit" style="display:inline-block;">Search</button>
@@ -690,6 +688,7 @@ HTML;
             <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
             <input type="hidden" name="status"     value="<?php echo $adv_status; ?>" />
             <input type="hidden" name="grid_view" value="<?php echo $grid_view; ?>" />
+            <input type="hidden" name="show_map" value="<?php echo $show_map; ?>" />
             <input
                 type="hidden"
                 name="sr_specialListingConditions"

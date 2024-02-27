@@ -208,6 +208,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_vendor";
         // settings
         $vars[] = "sr_map_position";
+        $vars[] = "show_map";
         $vars[] = "grid_view";
         return $vars;
     }
@@ -619,7 +620,8 @@ class SimplyRetsCustomPostPages {
             /** multi mls */
             $vendor    = get_query_var('sr_vendor', '');
             /** Settings */
-            $grid_view = get_query_var("grid_view", FALSE);
+            $grid_view = get_query_var("grid_view", false);
+            $show_map = get_query_var("show_map", true);
             $map_position = get_query_var('sr_map_position',
                                           get_option('sr_search_map_position'));
 
@@ -932,12 +934,14 @@ class SimplyRetsCustomPostPages {
                    way to get them back on the other side right now.
                 */
                 "grid_view" => $grid_view,
+                "show_map" => $show_map,
                 "map_position" => $map_position
             );
 
             $settings = array(
                 "limit" => $limit,
                 "map_position" => $map_position,
+                "show_map" => $show_map,
                 "grid_view" => $grid_view
             );
 

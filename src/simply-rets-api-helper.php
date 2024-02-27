@@ -15,7 +15,7 @@ class SimplyRetsApiHelper {
     public static function retrieveRetsListings( $params, $settings = NULL ) {
         $request_url      = SimplyRetsApiHelper::srRequestUrlBuilder( $params );
         $request_response = SimplyRetsApiHelper::srApiRequest( $request_url );
-        $response_markup  = SimplyRetsApiHelper::srResidentialResultsGenerator($request_response, $settings, $params);
+        $response_markup  = SimplyRetsApiHelper::srResidentialResultsGenerator($request_response, $settings);
 
         return $response_markup;
     }
@@ -356,7 +356,7 @@ class SimplyRetsApiHelper {
          */
         foreach( $pag_links as $key=>$link ) {
             $link_parts = parse_url( $link );
-            $no_prefix = array('offset', 'limit', 'type', 'water', 'grid_view');
+            $no_prefix = array('offset', 'limit', 'type', 'water', 'grid_view', "show_map");
 
             $query_part = !empty($link_parts['query']) ? $link_parts['query'] : NULL;
             $output = SrUtils::proper_parse_str($query_part);
@@ -1371,7 +1371,7 @@ HTML;
     }
 
 
-    public static function srResidentialResultsGenerator($request_response, $settings, $params = array()) {
+    public static function srResidentialResultsGenerator($request_response, $settings) {
         $cont              = "";
         $pagination        = $request_response['pagination'];
         $lastUpdate        = $request_response['lastUpdate'];
@@ -1391,7 +1391,7 @@ HTML;
 
         /** Build pagination links HTML **/
         $page_count = count($response);
-        $limit = isset($params['limit']) ? $params['limit'] : 20;
+        $limit = isset($settings['limit']) ? $settings['limit'] : 20;
         $pag = SrUtils::buildPaginationLinks( $pagination );
         $prev_link = $pag['prev'];
         $next_link = $page_count < $limit ? "" : $pag['next'];
