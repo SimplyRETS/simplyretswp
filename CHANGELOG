@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.11.0
+* ADD: Add status banner to results lists
+* ADD: Add support for grid_view on [sr_map_search] shortcode
+* IMPROVE: Improve responsive CSS for grid_view
+* FIX: Fix some options not working after pagination
+
 ## 2.10.6
 * FIX: Remove commas in address when city, state, or zip doesn't exist
 * UPDATE: Update link to demo and documentation site

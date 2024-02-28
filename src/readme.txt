@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 6.4.3
-Stable tag: 2.10.6
+Stable tag: 2.11.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -236,6 +236,12 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.11.0 =
+* ADD: Add status banner to results lists
+* ADD: Add support for grid_view on [sr_map_search] shortcode
+* IMPROVE: Improve responsive CSS for grid_view
+* FIX: Fix some options not working after pagination
 
 = 2.10.6 =
 * FIX: Remove commas in address when city, state, or zip doesn't exist
