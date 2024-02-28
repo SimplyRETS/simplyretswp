@@ -45,15 +45,16 @@ sizes with this class.
     clear: both;
 }
 
-.sr-listing-grid-item {
-    margin-top: 25px;
-}
-
 .sr-listings-grid-view {
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 15px;
+}
+
+.sr-listings-grid-view .sr-listing-grid-item {
+    margin-top: 25px;
+    width: 100%;
 }
 
 .sr-pagination-wrapper {
