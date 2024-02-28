@@ -41,13 +41,25 @@ sizes with this class.
     display: block;
 }
 
+#sr-listings-results-list {
+    clear: both;
+}
+
 .sr-listing-grid-item {
-    width: 32%;
-    display: inline-block;
-    margin: auto;
     margin-top: 25px;
-    padding: 10px 0 10px 0;
-    vertical-align: top;
+}
+
+.sr-listings-grid-view {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 15px;
+}
+
+.sr-pagination-wrapper {
+    clear: both;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 
@@ -251,7 +263,10 @@ styling:
 
 .sr-listing-grid-item .result-compliance-markup {
     display: block;
-    font-size: 12px;
+}
+
+.result-compliance-markup {
+    font-size: 90%;
 }
 
 
@@ -565,6 +580,7 @@ Most of these elements also have id's for you to use specifically.
     padding: 0px;
     padding-top: 0px;
     padding-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 #sr-search-wrapper form {
@@ -847,7 +863,21 @@ elsewhere, this should be a breeze.
 /*
  * Responsive CSS
 */
+
+@media screen and (max-width: 768px) {
+
+    .sr-listings-grid-view {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 10px;
+    }
+}
+
 @media screen and (max-width: 576px) {
+
+    /* Grid view results */
+    .sr-listings-grid-view {
+        grid-template-columns: 100%;
+    }
 
     /*
      * Search results

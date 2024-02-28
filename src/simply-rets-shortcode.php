@@ -274,7 +274,6 @@ HTML;
     public static function sr_residential_shortcode($atts = array ()) {
         $setting_atts = array(
             "map_position" => get_option('sr_search_map_position', 'map_above'),
-            "show_map" => "true",
             "grid_view" => false,
             "vendor" => "",
             "limit" => 20
@@ -344,7 +343,7 @@ HTML;
 
         /** Settings */
         $grid_view = isset($atts["grid_view"]) ? $atts["grid_view"] : FALSE;
-        $show_map = isset($atts["show_map"]) ? $atts["show_map"] : TRUE;
+        $show_map = isset($atts["show_map"]) ? $atts["show_map"] : "true";
 
         /** User Facing Parameters */
         $minbeds    = array_key_exists('minbeds',  $atts) ? $atts['minbeds']  : '';
