@@ -275,6 +275,7 @@ HTML;
         $setting_atts = array(
             "map_position" => get_option('sr_search_map_position', 'map_above'),
             "grid_view" => false,
+            "show_map" => true,
             "vendor" => "",
             "limit" => 20
         );
