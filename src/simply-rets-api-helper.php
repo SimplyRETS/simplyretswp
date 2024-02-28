@@ -1399,7 +1399,7 @@ HTML;
         $grid_view = $settings['grid_view'] == TRUE;
 
         /** Allow override of "map_position" admin setting on a per short-code basis */
-        $map_setting = isset($settings['show_map']) ? $settings['show_map'] : '';
+        $map_setting = isset($settings['show_map']) ? $settings['show_map'] : true;
         $map_position = isset($settings['map_position'])
                       ? $settings['map_position']
                       : get_option('sr_search_map_position', 'map_above');
@@ -1700,10 +1700,13 @@ HTML;
 
         }
 
-        $resultsMarkup = "<div id=\"sr-listings-results-list\">{$resultsMarkup}</div>";
+        $markupGridViewClass = $grid_view == true ? "sr-listings-grid-view" : "";
+        $resultsMarkup = "<div id='sr-listings-results-list' class='{$markupGridViewClass}'>"
+                       . "{$resultsMarkup}"
+                       . "</div>";
         $markerCount > 0 ? $mapMarkup = $mapHelper->render($map) : $mapMarkup = '';
 
-        if( $map_setting == 'false' ) {
+        if( $map_setting === "false" ) {
             $mapMarkup = '';
         }
 
@@ -1733,8 +1736,10 @@ HTML;
 
         $disclaimer_text = SrUtils::mkDisclaimerText($lastUpdate);
 
-        $cont .= "<hr><p class='sr-pagination'>$prev_link $next_link</p>";
-        $cont .= "<br>{$disclaimer_text}";
+        $cont .= "<div class='sr-pagination-wrapper'>"
+               . "  <p class='sr-pagination'>$prev_link $next_link</p>"
+               . "  <div class='sr-disclaimer-text'>{$disclaimer_text}</div>"
+               . "</div>";
 
         return $cont;
 
