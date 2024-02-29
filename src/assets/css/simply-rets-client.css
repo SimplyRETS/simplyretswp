@@ -101,9 +101,10 @@ of the image, use this class.
 }
 
 .sr-listing-status-banner {
-    padding: 10px;
+    padding: 5px 10px;
     color: white;
     font-weight: 700;
+    display: inline-block;
     background-color: rgba(128, 128, 128, 0.75);
 }
 
