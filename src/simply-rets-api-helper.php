@@ -1462,7 +1462,10 @@ HTML;
              */
             $mls_status = SrListing::listingStatus($listing);
             $full_address = SrUtils::buildFullAddressString($listing);
-            $status_class = SrListing::listingStatusClass($listing->mls->status);
+            $status_class = "sr-listing-status-" . strtolower($listing->mls->status);
+            $status_banner_class = SrListing::listingStatusBannerClass(
+                $listing->mls->status
+            );
 
             $listing_USD = $listing_price == "" ? "" : '$' . number_format( $listing_price );
 
@@ -1610,11 +1613,11 @@ HTML;
             if ($grid_view == true) {
                 // append markup for this listing to the content
                 $resultsMarkup .= <<<HTML
-                    <div class="sr-listing-grid-item" id="{$status_class}">
+                    <div class="sr-listing-grid-item {$status_class}">
                       <a href="$link">
                         <div class="sr-photo" style="background-image:url('$main_photo');">
-                            <span class="sr-listing-status {$status_class}">
-                                <span class="sr-listing-status-text">
+                            <span class="sr-listing-status-banner {$status_banner_class}">
+                                <span class="sr-listing-status-banner-text">
                                     $mls_status
                                 </span>
                             </span>
@@ -1655,11 +1658,11 @@ HTML;
                 // append markup for this listing to the content
                 $resultsMarkup .= <<<HTML
                     <hr>
-                    <div class="sr-listing" id="{$status_class}">
+                    <div class="sr-listing {$status_class}">
                       <a href="$link">
                         <div class="sr-photo" style="background-image:url('$main_photo');">
-                            <span class="sr-listing-status {$status_class}">
-                                <span class="sr-listing-status-text">
+                            <span class="sr-listing-status-banner {$status_banner_class}">
+                                <span class="sr-listing-status-banner-text">
                                     $mls_status
                                 </span>
                             </span>

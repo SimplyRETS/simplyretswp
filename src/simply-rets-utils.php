@@ -528,10 +528,10 @@ class SrListing {
     /**
      * Create a CSS class name for a standard status
      */
-    public static function listingStatusClass($status) {
+    public static function listingStatusBannerClass($status) {
         $status = strtolower($status);
 
-        return "sr-listing-status-{$status}";
+        return "sr-listing-status-banner-{$status}";
     }
 
     /**
