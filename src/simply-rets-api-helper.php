@@ -1460,14 +1460,15 @@ HTML;
             /**
              * Listing status to show. This may return a statusText.
              */
+            $standard_status = $listing->mls->status;
             $mls_status = SrListing::listingStatus($listing);
             $full_address = SrUtils::buildFullAddressString($listing);
-            $status_class = "sr-listing-status-" . strtolower($listing->mls->status);
-            $status_banner_class = SrListing::listingStatusBannerClass(
-                $listing->mls->status
-            );
+            $status_class = "sr-listing-status-" . strtolower($standard_status);
+            $status_banner_class = SrListing::listingStatusBannerClass($standard_status);
 
-            $listing_USD = $listing_price == "" ? "" : '$' . number_format( $listing_price );
+            $close_price = $standard_status === "Closed" ? $listing->sales->closePrice : NULL;
+            $display_price = $close_price ? $close_price : $listing_price;
+            $listing_USD = $display_price == "" ? "" : '$' . number_format($display_price);
 
             if( $bedrooms == null || $bedrooms == "" ) {
                 $bedrooms = 0;
