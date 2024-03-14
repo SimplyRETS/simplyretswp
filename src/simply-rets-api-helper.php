@@ -1463,8 +1463,17 @@ HTML;
             $standard_status = $listing->mls->status;
             $mls_status = SrListing::listingStatus($listing);
             $full_address = SrUtils::buildFullAddressString($listing);
+
             $status_class = "sr-listing-status-" . strtolower($standard_status);
             $status_banner_class = SrListing::listingStatusBannerClass($standard_status);
+
+            $status_banner_info = "";
+            if($standard_status === "Closed") {
+                $close_date = date("m/d/y", strtotime($listing->sales->closeDate));
+                $status_banner_info = "<span class='sr-listing-status-banner-close-date'>"
+                                    . "{$close_date}"
+                                    . "</span>";
+            }
 
             $close_price = $standard_status === "Closed" ? $listing->sales->closePrice : NULL;
             $display_price = $close_price ? $close_price : $listing_price;
@@ -1619,7 +1628,7 @@ HTML;
                         <div class="sr-photo" style="background-image:url('$main_photo');">
                             <span class="sr-listing-status-banner {$status_banner_class}">
                                 <span class="sr-listing-status-banner-text">
-                                    $mls_status
+                                    $mls_status $status_banner_info
                                 </span>
                             </span>
                         </div>
