@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.11.1
+* ADD: Add CloseDate to closed listing thumbnails
+* IMPROVE: Improve CSS selectors for listing thumbnail status banner
+* IMPROVE: Use sale price on closed listing thumbnails
+
 ## 2.11.0
 * ADD: Add status banner to results lists
 * ADD: Add support for grid_view on [sr_map_search] shortcode
