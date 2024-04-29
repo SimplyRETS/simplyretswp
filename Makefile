@@ -10,6 +10,11 @@ dev: deps
 stop:
 	docker-compose stop
 
+.phony: restart
+restart:
+	docker-compose stop
+	docker-compose up -d
+
 .phony: logs
 logs:
 	docker-compose logs -f wordpress
