@@ -534,7 +534,7 @@ HTML;
 
                     $markup .= "<img src='$image_url' "
                             . "data-title='$full_address'"
-                            . "data-description='$img_description'>";
+                            . "data-description='" . htmlentities($img_description) . "'>";
                 }
 
                 $markup .= "</div>";
