@@ -155,7 +155,8 @@ class SimplyRetsCustomPostPages {
             'hierarchical'    => true,
             'taxonomies'      => array(),
             'supports'        => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
-            'rewrite'         => true
+            'rewrite'         => true,
+            'show_in_rest'    => true,
         );
         register_post_type( 'sr-listings', $args );
     }
@@ -496,6 +497,16 @@ class SimplyRetsCustomPostPages {
     public static function srLoadPostTemplate($single) {
         $query_object = get_queried_object();
         $sr_post_type = 'sr-listings';
+
+        /**
+        * If current theme is a Block Theme, return original arg. The
+        * 'Single' block template will be used by default, or the user
+        * can create a custom template for 'Single: SimplyRETS Page'
+        * in the Block Theme Editor settings.
+        */
+        if(function_exists("wp_is_block_theme") && wp_is_block_theme()) {
+            return $single;
+        }
 
         // If this isn't a SimplyRETS page, return default template
         if ($query_object->post_type !== $sr_post_type) {
