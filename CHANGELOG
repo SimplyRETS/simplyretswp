@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.11.2
+* FEATURE: Add support for Block Theme templates
+* FEATURE: Add support for lotDescription filter
+* IMPROVE: Use consistent h3 in basic and advanced search form
+* IMPROVE: Normalize CamelCase property types in search form dropdown
+
 ## 2.11.1
 * ADD: Add CloseDate to closed listing thumbnails
 * IMPROVE: Improve CSS selectors for listing thumbnail status banner

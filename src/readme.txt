@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 6.4.3
-Stable tag: 2.11.1
+Tested up to: 6.6.1
+Stable tag: 2.11.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -236,6 +236,12 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.11.2 =
+* FEATURE: Add support for Block Theme templates
+* FEATURE: Add support for lotDescription filter
+* IMPROVE: Use consistent h3 in basic and advanced search form
+* IMPROVE: Normalize CamelCase property types in search form dropdown
 
 = 2.11.1 =
 * ADD: Add CloseDate to closed listing thumbnails
