@@ -330,6 +330,8 @@ function normalizeParameters(params) {
             return obj.subTypeText = params[key]
         if (key === "exteriorfeatures")
             return obj.exteriorFeatures = params[key]
+        if (key === "lotdescription")
+            return obj.lotDescription = params[key]
         if (key === "mingaragespaces")
             return obj.minGarageSpaces = params[key]
         if (key === "maxgaragespaces")

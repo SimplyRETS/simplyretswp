@@ -208,6 +208,7 @@ HTML;
     public static function attributeNameToParameter($name) {
         $fixes = array(
             "exteriorfeatures" => "exteriorFeatures",
+            "lotdescription" => "lotDescription",
             "postalcodes" => "postalCodes",
             "mingaragespaces" => "minGarageSpaces",
             "maxgaragespaces" => "maxGarageSpaces",
