@@ -191,6 +191,8 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_sort";
         $vars[] = "sr_idx";
         $vars[] = "sr_style";
+        $vars[] = "sr_exteriorFeatures";
+        $vars[] = "sr_lotDescription";
         $vars[] = "water";
         // post type
         $vars[] = "sr-listings";
@@ -866,6 +868,16 @@ class SimplyRetsCustomPostPages {
             $exteriorFeatures_att = $exteriorFeaturesData["att"];
             $exteriorFeatures_query = $exteriorFeaturesData["query"];
 
+            /** Parse multiple lotDescription filters from short-code parameter */
+            $lotDescriptionData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_lotDescription",
+                "lotDescription",
+                $_GET
+            );
+
+            $lotDescription_att = $lotDescriptionData["att"];
+            $lotDescription_query = $lotDescriptionData["query"];
+
             /**
              * If `sr_q` is set, the user clicked a pagination link
              * (next/prev), and `sr_q` will possibly be an array of
@@ -981,7 +993,8 @@ class SimplyRetsCustomPostPages {
                 "state" => $state_att,
                 "counties" => $counties_att,
                 "neighborhoods" => $neighborhoods_att,
-                "exteriorFeatures" => $exteriorFeatures_att
+                "exteriorFeatures" => $exteriorFeatures_att,
+                "lotDescription" => $lotDescription_att
             );
 
             // Create a string of attributes to put on the
@@ -1015,6 +1028,7 @@ class SimplyRetsCustomPostPages {
                 . $statuses_string
                 . $amenities_string
                 . $exteriorFeatures_query
+                . $lotDescription_query
                 . $q_string;
 
             $qs = str_replace(' ', '%20', $qs);
