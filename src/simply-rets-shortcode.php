@@ -460,7 +460,7 @@ HTML;
               <form method="get" class="sr-search" action="<?php echo $home_url; ?>">
                 <input type="hidden" name="sr-listings" value="sr-search">
                 <input type="hidden" name="advanced" value="true">
-                <h2>Advanced Listings Search</h2>
+                <h3>Advanced Listings Search</h3>
                 <div class="sr-adv-search-minmax sr-adv-search-part">
 
                   <div class="sr-adv-search-col1">
