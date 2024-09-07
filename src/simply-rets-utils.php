@@ -2,7 +2,7 @@
 
 /*
  *
- * simply-rets-utils.php - Copyright (C) 2014-2015 SimplyRETS
+ * simply-rets-utils.php - Copyright (C) 2014-2024 SimplyRETS
  * This file provides general utilities for the SimplyRETS plugin.
  *
 */

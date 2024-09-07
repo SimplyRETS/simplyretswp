@@ -7,7 +7,7 @@ Author: SimplyRETS
 Version: 2.11.2
 License: GNU General Public License v3 or later
 
-Copyright (c) SimplyRETS 2014 - 2015
+Copyright (c) SimplyRETS 2014 - 2024
 
 */
 

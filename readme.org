@@ -81,7 +81,7 @@ NOTE: If you download the ~.zip~ file from the [[https://github.com/SimplyRETS/s
 ** License
    *This software is licensed under the GNU General Publice License Version 3.0*
 
-   Copyright (C) 2014-2015 SimplyRETS
+   Copyright (C) 2014-2024 SimplyRETS
    Authored by: Cody Reichert
 
    This program is free software: you can redistribute it and/or modify
