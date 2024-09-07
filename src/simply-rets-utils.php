@@ -72,6 +72,10 @@ class SrUtils {
                 $normalized_type = "Commercial";
                 break;
 
+            case "CLE":
+                $normalized_type = "Commercial Lease";
+                break;
+
             case "LND":
                 $normalized_type = "Land";
                 break;
