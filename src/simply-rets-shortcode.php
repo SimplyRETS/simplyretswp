@@ -103,6 +103,11 @@ class SrShortcodes {
             $prop_types    = get_option("sr_adv_search_meta_types_$vendor"
                                         , array("Residential", "Condominium", "Rental"));
 
+            // Split types like CommercialLease into two words
+            foreach($prop_types as $key=>$t) {
+                $prop_types[$key] = implode(" ", preg_split('/(?<=\\w)(?=[A-Z])/', $t));
+            }
+
             $type_options = "";
             foreach($prop_types as $key=>$type) {
                 if( $type == $type_att) {
@@ -394,6 +399,14 @@ HTML;
 
         if( empty( $available_property_types ) ) {
             $available_property_types = array("Residential", "Condominium", "Rental" );
+        }
+
+        // Split types like CommercialLease into two words
+        foreach($available_property_types as $key=>$t) {
+            $available_property_types[$key] = implode(
+                " ",
+                preg_split('/(?<=\\w)(?=[A-Z])/', $t)
+            );
         }
 
         if((is_array($config_type) == TRUE) && isset($_GET['sr_ptype'])) {
