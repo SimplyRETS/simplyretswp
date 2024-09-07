@@ -1,7 +1,7 @@
 <?php
 
 /*
- * simply-rets-admin.php - Copyright (C) 2014-2015 SimplyRETS
+ * simply-rets-admin.php - Copyright (C) 2014-2024 SimplyRETS
  * This file provides the logic for the SimplyRETS admin panel settings and features pages.
  *
 */

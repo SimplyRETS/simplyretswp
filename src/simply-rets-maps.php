@@ -2,7 +2,7 @@
 
 /*
  *
- * simply-rets-maps.php - Copyright (C) 2014-2015 SimplyRETS
+ * simply-rets-maps.php - Copyright (C) 2014-2024 SimplyRETS
  * This file provides the logic for the simply-rets custom post type pages.
  *
 */

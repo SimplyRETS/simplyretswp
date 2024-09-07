@@ -1,6 +1,6 @@
 /**
  *
- * simply-rets-client.js - Copyright (c) 2014-2015 SimplyRETS
+ * simply-rets-client.js - Copyright (c) 2014-2024 SimplyRETS
  *
  * This file provides the client side javascript for the
  * SimplyRETS Wordpress plugin.
