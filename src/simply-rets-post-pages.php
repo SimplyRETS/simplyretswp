@@ -187,6 +187,7 @@ class SimplyRetsCustomPostPages {
         $vars[] = "sr_areaMinor";
         $vars[] = "sr_ownership";
         $vars[] = "sr_salesAgent";
+        $vars[] = "sr_salesOffice";
         $vars[] = "sr_agent";
         $vars[] = "sr_brokers";
         $vars[] = "sr_sort";
@@ -829,6 +830,16 @@ class SimplyRetsCustomPostPages {
             $salesAgent_att = $salesAgentData["att"];
             $salesAgent_query = $salesAgentData["query"];
 
+            /** Parse multiple salesOffice's from short-code parameter */
+            $salesOfficeData = SimplyRetsCustomPostPages::parseGetParameter(
+                "sr_salesOffice",
+                "salesOffice",
+                $_GET
+            );
+
+            $salesOffice_att = $salesOfficeData["att"];
+            $salesOffice_query = $salesOfficeData["query"];
+
             /** Parse multiple cities from short-code parameter */
             $citiesData = SimplyRetsCustomPostPages::parseGetParameter(
                 "sr_cities",
@@ -996,6 +1007,7 @@ class SimplyRetsCustomPostPages {
                 "areaMinor" => $areaMinor_att,
                 "ownership" => $ownership_att,
                 "salesAgent" => $salesAgent_att,
+                "salesOffice" => $salesOffice_att,
                 "agent" => $agent_att,
                 "brokers" => $brokers_att,
                 "style" => $style_att,
@@ -1036,6 +1048,7 @@ class SimplyRetsCustomPostPages {
                 . $areaMinor_query
                 . $ownership_query
                 . $salesAgent_query
+                . $salesOffice_query
                 . $statuses_string
                 . $amenities_string
                 . $exteriorFeatures_query
