@@ -1858,6 +1858,14 @@ HTML;
 
 
     public static function srContactFormMarkup($listing) {
+        $custom_form = get_option('sr_leadcapture_custom_form', false);
+
+        // Use custom form if configured
+        if ($custom_form != false) {
+            return do_shortcode($custom_form);
+        }
+
+        // Default lead capture form
         $markup = '';
         $markup .= '<hr>';
         $markup .= '<div id="sr-contact-form">';

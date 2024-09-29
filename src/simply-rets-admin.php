@@ -33,6 +33,7 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_listing_gallery');
       register_setting('sr_admin_settings', 'sr_show_leadcapture');
       register_setting('sr_admin_settings', 'sr_leadcapture_recipient');
+      register_setting('sr_admin_settings', 'sr_leadcapture_custom_form');
       register_setting('sr_admin_settings', 'sr_additional_rooms');
       register_setting('sr_admin_settings', 'sr_listhub_analytics');
       register_setting('sr_admin_settings', 'sr_listhub_analytics_id');
@@ -128,6 +129,15 @@ class SrAdminSettings {
       // so we can properly sanitize the input.
       if (isset( $_POST['sr_custom_disclaimer'] )) {
           update_option('sr_custom_disclaimer', htmlentities(stripslashes($_POST['sr_custom_disclaimer'])));
+      }
+
+      // Custom POST handler for updating the custom lead capture form
+      // so we can properly sanitize the input.
+      if (isset( $_POST['sr_leadcapture_custom_form'] )) {
+          update_option(
+              'sr_leadcapture_custom_form',
+              htmlentities(stripslashes($_POST['sr_leadcapture_custom_form']))
+          );
       }
 
       // Custom POST handler for updating the custom disclaimer
@@ -230,6 +240,18 @@ class SrAdminSettings {
                         multiple
                         value="<?php echo esc_attr( get_option('sr_leadcapture_recipient') ); ?>"
                     />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <strong>Use custom Custom lead capture form HTML or shortcode
+                          <small>
+                              <i>(leave blank to use default form)</i>
+                          </small>
+                      </strong>
+                    </p>
+                    <textarea id="sr_leadcapture_custom_form" name="sr_leadcapture_custom_form" cols="35" rows="6"><?php echo esc_attr( get_option('sr_leadcapture_custom_form') ); ?></textarea>
                   </td>
                 </tr>
               </tbody>
