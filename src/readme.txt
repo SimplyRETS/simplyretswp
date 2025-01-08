@@ -238,7 +238,8 @@ listing sidebar widget.
 == Changelog ==
 
 = 2.11.3 =
-* FIX: Support exteriorFeatures filter on [sr_search_form]
+* ADD: Use custom currency code, if provided
+* FIX: Support exteriorFeatures/lotDescription filter on [sr_search_form]
 * FIX: Don't plot listings with IDX address restrictions on maps
 
 = 2.11.2 =
