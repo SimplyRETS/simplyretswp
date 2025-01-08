@@ -340,6 +340,7 @@ HTML;
         $areaMinor = isset($atts['areaminor']) ? $atts['areaminor'] : '';
         $ownership = isset($atts['ownership']) ? $atts['ownership'] : '';
         $salesAgent = isset($atts['salesagent']) ? $atts['salesagent'] : '';
+        $exteriorFeatures = isset($atts['exteriorfeatures']) ? $atts['exteriorfeatures'] : '';
 
         if($config_type === '') {
             $config_type = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
@@ -603,6 +604,7 @@ HTML;
                 <input type="hidden" name="sr_areaMinor" value="<?php echo $areaMinor; ?>" />
                 <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
                 <input type="hidden" name="sr_salesagent" value="<?php echo $salesAgent; ?>" />
+                <input type="hidden" name="sr_exteriorFeatures" value="<?php echo $exteriorFeatures; ?>" />
                 <input type="hidden" name="grid_view" value="<?php echo $grid_view; ?>" />
                 <input type="hidden" name="show_map" value="<?php echo $show_map; ?>" />
 
@@ -711,6 +713,7 @@ HTML;
             <input type="hidden" name="sr_areaMinor" value="<?php echo $areaMinor; ?>" />
             <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
             <input type="hidden" name="sr_salesagent" value="<?php echo $salesAgent; ?>" />
+            <input type="hidden" name="sr_exteriorFeatures" value="<?php echo $exteriorFeatures; ?>" />
 
           </form>
         </div>
