@@ -3,8 +3,8 @@ Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
-Tested up to: 6.6.1
-Stable tag: 2.11.2
+Tested up to: 6.7.1
+Stable tag: 2.11.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -236,6 +236,10 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 2.11.3 =
+* FIX: Support exteriorFeatures filter on [sr_search_form]
+* FIX: Don't plot listings with IDX address restrictions on maps
 
 = 2.11.2 =
 * FEATURE: Add support for Block Theme templates
