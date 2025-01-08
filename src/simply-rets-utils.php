@@ -134,6 +134,28 @@ class SrUtils {
         return $address . $comma1 . $city . $comma2 . $state . ' ' . $zip;
     }
 
+    // If a non-USD currency is used, do not use the $ symbol. Instead,
+    // prepend the currency code to the list price, with no spaces.
+    public static function formatListingPrice($listing, $use_close_price = FALSE) {
+        $price = number_format($listing->listPrice);
+        $compliance = $listing->compliance;
+        $symbol = "$";
+
+        if (empty($price)) {
+            return "";
+        }
+
+        if (!empty($compliance) && property_exists($compliance, "currency")) {
+            $currency = $compliance->currency;
+
+            if (!empty($currency) && $currency !== "USD") {
+                $symbol = $currency;
+            }
+        }
+
+        return $symbol . $price;
+    }
+
     /**
      * Encode specific characters in a string to work in a URL. For
      * example, a `/` character cannot be normally encoded as %2F
