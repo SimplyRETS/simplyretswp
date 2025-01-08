@@ -231,7 +231,7 @@ HTML;
      *   - params: an array of API search parameters
      *   - settings: a key/value of settings (non-search attributes)
      */
-    public static function parseShortcodeAttributes($atts, $setting_atts = array()) {
+    public static function parseShortcodeAttributes($atts, $setting_atts = array(), $explode_values = TRUE) {
         $attributes = array("params" => array(), "settings" => $setting_atts);
 
         if (!$atts) {
@@ -239,9 +239,10 @@ HTML;
         }
 
         foreach ($atts as $param=>$value_) {
-            // Ensure "&" is not HTML encoded
-            // https://stackoverflow.com/a/20078112/3464723
-            $value = str_replace("&amp;", "&", $value_);
+
+            // 1. Escape values for use in HTML attributes
+            // 2. Ensure "&" is not HTML encoded (https://stackoverflow.com/a/20078112/3464723)
+            $value = str_replace("&amp;", "&", esc_attr($value_));
             $name = SrShortcodes::attributeNameToParameter($param);
 
             // Parse settings, don't add them to the API query
@@ -249,12 +250,19 @@ HTML;
                 $attributes["settings"][$param] = $value;
             }
 
-            $values = explode(";", $value);
-            foreach($values as $idx=>$val) {
-                $values[$idx] = trim($val);
-            }
+            // By default, attributes with multiple values separated by
+            // a semicolon are split into an array. To byass this, set
+            // explode_values is set to false.
+            if ($explode_values == TRUE) {
+                $values = explode(";", $value);
+                foreach($values as $idx=>$val) {
+                    $values[$idx] = trim($val);
+                }
 
-            $attributes["params"][$name] = count($values) > 1 ? $values : $value;
+                $attributes["params"][$name] = count($values) > 1 ? $values : $value;
+            } else {
+                $attributes["params"][$name] = $value;
+            }
         }
 
         return $attributes;
@@ -309,75 +317,83 @@ HTML;
      * optional parameters to have default searches:
      * ie, [sr_search_form q="city"] or [sr_search_form minprice="500000"]
      */
-    public static function sr_search_form_shortcode( $atts ) {
+    public static function sr_search_form_shortcode($atts) {
         ob_start();
         $home_url = get_home_url();
         $singleVendor = SrUtils::isSingleVendor();
         $MLS_text = SrUtils::mkMLSText();
-
-        if( !is_array($atts) ) {
-            $atts = array();
-        }
-
         $availableVendors = get_option('sr_adv_search_meta_vendors', array());
 
-        /** Configuration Parameters (shortcode attributes) */
-        $vendor  = isset($atts['vendor'])  ? $atts['vendor']  : '';
-        $brokers = isset($atts['brokers']) ? $atts['brokers'] : '';
-        $agent   = isset($atts['agent'])   ? $atts['agent']   : '';
-        $water   = isset($atts['water'])   ? $atts['water']   : '';
-        $idx     = isset($atts['idx'])   ? $atts['idx']       : '';
-        $limit   = isset($atts['limit'])   ? $atts['limit']   : '';
-        $config_type = isset($atts['type']) ? $atts['type']   : '';
-        $subtype = isset($atts['subtype']) ? $atts['subtype'] : '';
-        $subTypeText = isset($atts['subtypetext']) ? $atts['subtypetext'] : '';
-        $counties = isset($atts['counties']) ? $atts['counties'] : '';
-        $postalCodes = isset($atts['postalcodes']) ? $atts['postalcodes'] : '';
-        $neighborhoods = isset($atts['neighborhoods']) ? $atts['neighborhoods'] : '';
-        $cities = isset($atts['cities']) ? $atts['cities'] : '';
-        $state = isset($atts['state']) ? $atts['state'] : '';
-        $specialListingConditions = isset($atts['speciallistingconditions']) ? $atts['speciallistingconditions'] : '';
-        $areaMinor = isset($atts['areaminor']) ? $atts['areaminor'] : '';
-        $ownership = isset($atts['ownership']) ? $atts['ownership'] : '';
-        $salesAgent = isset($atts['salesagent']) ? $atts['salesagent'] : '';
-        $exteriorFeatures = isset($atts['exteriorfeatures']) ? $atts['exteriorfeatures'] : '';
-        $lotDescription = isset($atts['lotDescription']) ? $atts['lotDescription'] : '';
+        if( !is_array($atts) ) { $atts = array(); }
 
+        // Properly escape and sanitize all values that are being
+        // printed into an HTML attribute. See:
+        // https://developer.wordpress.org/apis/security/escaping/
+        $escaped_attributes = SrShortcodes::parseShortcodeAttributes(
+            $atts,
+            array(),
+            false
+        );
+
+        $attributes = $escaped_attributes["params"];
+
+        /** Configuration Parameters (shortcode attributes) */
+        $vendor  = isset($attributes['vendor'])  ? $attributes['vendor']  : '';
+        $brokers = isset($attributes['brokers']) ? $attributes['brokers'] : '';
+        $agent   = isset($attributes['agent'])   ? $attributes['agent']   : '';
+        $water   = isset($attributes['water'])   ? $attributes['water']   : '';
+        $idx     = isset($attributes['idx'])   ? $attributes['idx']       : '';
+        $limit   = isset($attributes['limit'])   ? $attributes['limit']   : '';
+        $subtype = isset($attributes['subtype']) ? $attributes['subtype'] : '';
+        $subTypeText = isset($attributes['subtypetext']) ? $attributes['subtypetext'] : '';
+        $counties = isset($attributes['counties']) ? $attributes['counties'] : '';
+        $postalCodes = isset($attributes['postalcodes']) ? $attributes['postalcodes'] : '';
+        $neighborhoods = isset($attributes['neighborhoods']) ? $attributes['neighborhoods'] : '';
+        $cities = isset($attributes['cities']) ? $attributes['cities'] : '';
+        $state = isset($attributes['state']) ? $attributes['state'] : '';
+        $specialListingConditions = isset($attributes['speciallistingconditions']) ? $attributes['speciallistingconditions'] : '';
+        $areaMinor = isset($attributes['areaminor']) ? $attributes['areaminor'] : '';
+        $ownership = isset($attributes['ownership']) ? $attributes['ownership'] : '';
+        $salesAgent = isset($attributes['salesagent']) ? $attributes['salesagent'] : '';
+        $exteriorFeatures = isset($attributes['exteriorfeatures']) ? $attributes['exteriorfeatures'] : '';
+        $lotDescription = isset($attributes['lotDescription']) ? $attributes['lotDescription'] : '';
+
+        $config_type = isset($attributes['type']) ? $attributes['type']   : '';
         if($config_type === '') {
             $config_type = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
         }
+
         if(empty($vendor) && $singleVendor === true && !empty($availableVendors)) {
             $vendor = $availableVendors[0];
         }
 
         /** Settings */
-        $grid_view = isset($atts["grid_view"]) ? $atts["grid_view"] : FALSE;
-        $show_map = isset($atts["show_map"]) ? $atts["show_map"] : "true";
+        $grid_view = isset($attributes["grid_view"]) ? $attributes["grid_view"] : FALSE;
+        $show_map = isset($attributes["show_map"]) ? $attributes["show_map"] : "true";
 
         /** User Facing Parameters */
-        $minbeds    = array_key_exists('minbeds',  $atts) ? $atts['minbeds']  : '';
-        $maxbeds    = array_key_exists('maxbeds',  $atts) ? $atts['maxbeds']  : '';
-        $minbaths   = array_key_exists('minbaths', $atts) ? $atts['minbaths'] : '';
-        $maxbaths   = array_key_exists('maxbaths', $atts) ? $atts['maxbaths'] : '';
-        $minprice   = array_key_exists('minprice', $atts) ? $atts['minprice'] : '';
-        $maxprice   = array_key_exists('maxprice', $atts) ? $atts['maxprice'] : '';
-        $keywords   = array_key_exists('q',        $atts) ? $atts['q']        : '';
-        $sort       = array_key_exists('sort',     $atts) ? $atts['sort']     : '';
+        $minbeds    = array_key_exists('minbeds',  $attributes) ? $attributes['minbeds']  : '';
+        $maxbeds    = array_key_exists('maxbeds',  $attributes) ? $attributes['maxbeds']  : '';
+        $minbaths   = array_key_exists('minbaths', $attributes) ? $attributes['minbaths'] : '';
+        $maxbaths   = array_key_exists('maxbaths', $attributes) ? $attributes['maxbaths'] : '';
+        $minprice   = array_key_exists('minprice', $attributes) ? $attributes['minprice'] : '';
+        $maxprice   = array_key_exists('maxprice', $attributes) ? $attributes['maxprice'] : '';
+        $keywords   = array_key_exists('q',        $attributes) ? $attributes['q']        : '';
+        $sort       = array_key_exists('sort',     $attributes) ? $attributes['sort']     : '';
+
         /** Advanced Search Parameters */
-        $adv_status = array_key_exists('status',   $atts) ? $atts['status']   : '';
-        $lotsize    = array_key_exists('lotsize',  $atts) ? $atts['lotsize']  : '';
-        $area       = array_key_exists('area',     $atts) ? $atts['area']     : '';
+        $adv_status = array_key_exists('status',   $attributes) ? $attributes['status']   : '';
+        $lotsize    = array_key_exists('lotsize',  $attributes) ? $attributes['lotsize']  : '';
+        $area       = array_key_exists('area',     $attributes) ? $attributes['area']     : '';
         $adv_features      = isset($_GET['sr_features']) ? $_GET['sr_features'] : array();
         $adv_neighborhoods = isset($_GET['sr_neighborhoods']) ? $_GET['sr_neighborhoods']     : array();
 
-        /*
-         * Get the initial values for `cities`. If a query parameter
-           is set, use-that, otherwise check for a 'cities' attribute
-           on the [sr_search_form] short-code
-         */
+        // Get the initial values for `cities`. If a query parameter
+        // is set, use-that, otherwise check for a 'cities' attribute
+        // on the [sr_search_form] short-code
         $adv_cities = isset($_GET['sr_cities']) ? $_GET['sr_cities'] : array();
-        if (empty($adv_cities) && array_key_exists('cities', $atts)) {
-            $adv_cities = explode(";", $atts['cities']);
+        if (empty($adv_cities) && array_key_exists('cities', $attributes)) {
+            $adv_cities = explode(";", $attributes['cities']);
         }
 
         $sort_price_mod = ($sort == "-modified") ? "selected" : '';
@@ -468,7 +484,7 @@ HTML;
                  ."<label><input name='sr_features[]' type='checkbox' value='$feature' $checked />$feature</label></li>";
         }
 
-        if(array_key_exists('advanced', $atts) && ($atts['advanced'] == 'true' || $atts['advanced'] == 'True')) {
+        if(array_key_exists('advanced', $attributes) && ($attributes['advanced'] == 'true' || $attributes['advanced'] == 'True')) {
             ?>
 
             <div class="sr-adv-search-wrap">
