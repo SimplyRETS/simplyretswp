@@ -107,6 +107,11 @@ class SimplyRetsApiHelper {
             $params_arr["idx"] = $def_idx_setting;
         }
 
+        // Apply `include=compliance` if not set
+        if (!array_key_exists("include", $params_arr)) {
+            $params_arr["include"] = "compliance";
+        }
+
         // Disable `count` parameter if not already set
         if (!array_key_exists("count", $params_arr)) {
             $params_arr["count"] = "false";
@@ -594,13 +599,14 @@ HTML;
         $mls_status = SimplyRetsApiHelper::srDetailsTable($listing_mls_status, $MLS_text . " Status");
 
         // price
-        $listing_price = $listing->listPrice;
-        $listing_price_USD = '$' . number_format( $listing_price );
-        $price = SimplyRetsApiHelper::srDetailsTable($listing_price_USD, "Price");
+        $price_to_display = SrUtils::formatListingPrice($listing, false);
+        $price = SimplyRetsApiHelper::srDetailsTable($price_to_display, "Price");
+
         // close price
-        $listing_close_price = !empty($listing->sales) && !empty($listing->sales->closePrice)
-                             ? '$' . number_format($listing->sales->closePrice)
-                             : null;
+        $listing_close_price = "";
+        if (!empty($listing->sales) && !empty($listing->sales->closePrice)) {
+            $listing_close_price = SrUtils::formatListingPrice($listing, true);
+        }
         $close_price = SimplyRetsApiHelper::srDetailsTable(
             $listing_close_price, "Close Price"
         );
@@ -1157,7 +1163,7 @@ HTML;
                 $link,
                 $main_photo,
                 $full_address,
-                $listing_price_USD,
+                $price_to_display,
                 $listing_bedrooms,
                 SrListing::getBathroomsDisplay(
                     $listing_bathsTotal,
@@ -1475,9 +1481,10 @@ HTML;
                                     . "</span>";
             }
 
-            $close_price = $standard_status === "Closed" ? $listing->sales->closePrice : NULL;
-            $display_price = $close_price ? $close_price : $listing_price;
-            $listing_USD = $display_price == "" ? "" : '$' . number_format($display_price);
+            $price_to_display = SrUtils::formatListingPrice(
+                $listing,
+                $standard_status === "Closed"
+            );
 
             if( $bedrooms == null || $bedrooms == "" ) {
                 $bedrooms = 0;
@@ -1519,7 +1526,7 @@ HTML;
                     $link,
                     $main_photo,
                     $full_address,
-                    $listing_USD,
+                    $price_to_display,
                     $bedrooms,
                     SrListing::getBathroomsDisplay(
                         $bathsTotal,
@@ -1637,7 +1644,9 @@ HTML;
                         <div class="sr-primary-data">
                           <a href="$link">
                             <h4>$full_address
-                              <small class="sr-price"><i> - $listing_USD</i></small>
+                              <small class="sr-price">
+                                <i> - $price_to_display</i>
+                              </small>
                             </h4>
                           </a>
                         </div>
@@ -1682,7 +1691,9 @@ HTML;
                         <div class="sr-primary-data">
                           <a href="$link">
                             <h4>$full_address
-                              <small class="sr-price"><i> - $listing_USD</i></small>
+                              <small class="sr-price">
+                                <i> - $price_to_display</i>
+                              </small>
                             </h4>
                           </a>
                         </div>
@@ -1798,8 +1809,10 @@ HTML;
 
             $mls_status = SrListing::listingStatus($listing);
 
-            $listing_price = $listing->listPrice;
-            $listing_USD   = '$' . number_format( $listing_price );
+            $price_to_display = SrUtils::formatListingPrice(
+                $listing,
+                $listing->mls->status === "Closed"
+            );
 
             // widget title
             $address = SrUtils::buildFullAddressString($listing);
@@ -1824,7 +1837,7 @@ HTML;
               <div class="sr-listing-wdgt">
                 <a href="$link">
                   <h5>$address
-                    <small> - $listing_USD </small>
+                    <small> - $price_to_display </small>
                   </h5>
                 </a>
                 <a href="$link">
@@ -1943,11 +1956,14 @@ HTML;
         foreach($listings as $l) {
             $address = SrUtils::buildFullAddressString($l);
             $uid     = $l->mlsId;
-            $price   = $l->listPrice;
             $beds    = $l->property->bedrooms;
             $area    = $l->property->area;
 
-            $priceUSD = '$' . number_format( $price );
+            $price_to_display = SrUtils::formatListingPrice(
+                $l,
+                $l->mls->status === "Closed"
+            );
+
             $photo = SrListing::mainPhotoOrDefault($l);
             $vendor = isset($settings['vendor']) ? $settings['vendor'] : '';
 
@@ -1983,7 +1999,7 @@ HTML;
                     <div class="sr-listing-slider-item-img" style="background-image: url('$photo')"></div>
                   </a>
                   <a href="$link">
-                    <h4 class="sr-listing-slider-item-address">$address <small>$priceUSD</small></h4>
+                    <h4 class="sr-listing-slider-item-address">$address <small>$price_to_display</small></h4>
                   </a>
                   <p class="sr-listing-slider-item-specs">$beds Bed / $bathrooms_display / $area SqFt</p>
                   <p class="sr-listing-slider-item-specs">$compliance_markup</p>
