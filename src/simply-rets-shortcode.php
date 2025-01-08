@@ -277,7 +277,7 @@ HTML;
      * to show a single listing.
      * ie, [sr_residential mlsid="12345"]
      */
-    public static function sr_residential_shortcode($atts = array ()) {
+    public static function sr_residential_shortcode($atts = array()) {
         $setting_atts = array(
             "map_position" => get_option('sr_search_map_position', 'map_above'),
             "grid_view" => false,
@@ -285,17 +285,22 @@ HTML;
             "vendor" => "",
             "limit" => 20
         );
-
+    
         $data = SrShortcodes::parseShortcodeAttributes($atts, $setting_atts);
-
+    
+        // Add filter for type="Reduced"
+        if (!empty($atts['type']) && strtolower($atts['type']) === 'reduced') {
+            $data["params"]["listPrice__lt"] = "originalListPrice"; // Assuming this is the correct filter key
+        }
+    
         // Use /properties/:id if `mlsid` parameter is used
-        if(!empty($atts['mlsid'])) {
+        if (!empty($atts['mlsid'])) {
             $qs = "/{$atts['mlsid']}"
-                . !empty($atts['vendor']) ? "&vendor={$atts['vendor']}" : "";
-
+                . (!empty($atts['vendor']) ? "&vendor={$atts['vendor']}" : "");
+    
             return SimplyRetsApiHelper::retrieveRetsListings($qs, $data["settings"]);
         }
-
+    
         return SimplyRetsApiHelper::retrieveRetsListings(
             $data["params"],
             $data["settings"]
