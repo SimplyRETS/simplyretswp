@@ -39,7 +39,7 @@ class SrSearchMap {
         // short-code (and even if we did, it's very possible someone
         // might want to show two of the same short-codes on the same
         // page.
-        $ident = rand();
+        $ident = wp_rand();
         $map->setHtmlContainerId("{$ident}");
 
         // Don't use async so that you can render multiple maps on the
