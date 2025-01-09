@@ -484,11 +484,14 @@ HTML;
                  ."<label><input name='sr_features[]' type='checkbox' value='$feature' $checked />$feature</label></li>";
         }
 
+        $q_placeholder = "Subdivision, Zipcode, "
+                       . $MLS_text . " area, " . $MLS_text . " #, etc";
+
         if(array_key_exists('advanced', $attributes) && ($attributes['advanced'] == 'true' || $attributes['advanced'] == 'True')) {
             ?>
 
             <div class="sr-adv-search-wrap">
-              <form method="get" class="sr-search" action="<?php echo $home_url; ?>">
+              <form method="get" class="sr-search" action="<?php echo esc_url($home_url); ?>">
                 <input type="hidden" name="sr-listings" value="sr-search">
                 <input type="hidden" name="advanced" value="true">
                 <h3>Advanced Listings Search</h3>
@@ -500,14 +503,14 @@ HTML;
                       <div class="sr-search-field" id="sr-search-keywords">
                         <input name="sr_keywords"
                                type="text"
-                               placeholder="Subdivision, Zipcode, <?php echo $MLS_text ?> Area, <?php echo $MLS_text ?> Number, or Market Area"
-                               value="<?php echo $keywords ?>" />
+                               placeholder="<?php echo esc_attr($q_placeholder); ?>"
+                               value="<?php echo esc_attr($keywords); ?>" />
                       </div>
 
                       <div class="sr-search-field" id="sr-search-ptype">
                         <select name="sr_ptype">
-                          <?php echo $default_type_option; ?>
-                          <?php echo $type_options; ?>
+                          <?php echo esc_html($default_type_option); ?>
+                          <?php echo esc_html($type_options); ?>
                         </select>
                       </div>
                     </div>
@@ -516,8 +519,8 @@ HTML;
                   <div class="sr-minmax-filters">
                     <div class="sr-adv-search-col2 sr-adv-search-price">
                       <label><strong>Price Range</strong></label>
-                      <input step="1000" min="0" type="number" name="sr_minprice" placeholder="10000" value="<?php echo $minprice; ?>"/>
-                      <input step="1000" min="0" type="number" name="sr_maxprice" placeholder="1000000" value="<?php echo $maxprice; ?>"/>
+                      <input step="1000" min="0" type="number" name="sr_minprice" placeholder="10000" value="<?php echo esc_attr($minprice); ?>"/>
+                      <input step="1000" min="0" type="number" name="sr_maxprice" placeholder="1000000" value="<?php echo esc_attr($maxprice); ?>"/>
                     </div>
 
                     <div class="sr-adv-search-col4" id="sr-adv-minbeds">
@@ -525,7 +528,9 @@ HTML;
                           <strong>Bedrooms</strong>
                       </label>
                       <select name="sr_minbeds" id="sr-adv-minbeds-select">
-                        <option value="<?php echo $minbeds; ?>"><?php echo $minbeds; ?>+</option>
+                        <option value="<?php echo esc_attr($minbeds); ?>">
+                          <?php echo esc_html($minbeds); ?>+
+                        </option>
                         <option value="1">1+</option>
                         <option value="2">2+</option>
                         <option value="3">3+</option>
@@ -542,7 +547,9 @@ HTML;
                           <strong>Bathrooms</strong>
                       </label>
                       <select name="sr_minbaths" id="sr-adv-minbaths-select">
-                        <option value="<?php echo $minbaths; ?>"><?php echo $minbaths; ?>+</option>
+                        <option value="<?php echo esc_attr($minbaths); ?>">
+                          <?php echo esc_attr($minbaths); ?>+
+                        </option>
                         <option value="1">1+</option>
                         <option value="2">2+</option>
                         <option value="3">3+</option>
@@ -562,16 +569,16 @@ HTML;
                       </label>
                       <select name="status" id="sr-adv-status-select">
                         <option value="">All</option>
-                        <?php echo $status_options; ?>
+                        <?php echo esc_html($status_options); ?>
                       </select>
                     </div>
                     <div class="sr-adv-search-col4" id="sr-adv-lotsize">
                       <label for="sr_lotsize"><strong>Lot Size</strong></label>
-                      <input type="number" name="sr_lotsize" placeholder="3500" value="<?php echo $lotsize; ?>"/>
+                      <input type="number" name="sr_lotsize" placeholder="3500" value="<?php echo esc_attr($lotsize); ?>"/>
                     </div>
                     <div class="sr-adv-search-col4" id="sr-adv-area">
                       <label for="sr_area"><strong>Area (SqFt)</strong></label>
-                      <input type="number" name="sr_area" value="<?php echo $area; ?>" placeholder="1500" />
+                      <input type="number" name="sr_area" value="<?php echo esc_attr($area); ?>" placeholder="1500" />
                     </div>
                   </div>
 
@@ -580,14 +587,14 @@ HTML;
                     <div class="sr-adv-search-col2" id="sr-adv-cities">
                       <label><strong>Cities</strong></label>
                       <select name='sr_cities[]' multiple>
-                        <?php echo $city_options ?>
+                        <?php echo esc_html($city_options); ?>
                       </select>
                     </div>
 
                     <div class="sr-adv-search-col2" id="sr-adv-neighborhoods">
                       <label><strong>Locations</strong></label>
                       <select name="sr_neighborhoods[]" multiple>
-                        <?php echo $location_options ?>
+                        <?php echo esc_html($location_options); ?>
                       </select>
                     </div>
                   </div>
@@ -596,46 +603,46 @@ HTML;
                     <div class="sr-adv-search-amenities-wrapper">
                       <label><strong>Features</strong></label>
                       <div class="sr-adv-search-amenities-wrapper-inner">
-                        <?php echo $features_options; ?>
+                        <?php echo esc_html($features_options); ?>
                       </div>
                     </div>
                   </div>
 
                 </div>
 
-                <input type="hidden" name="water"   value="<?php echo $water; ?>"  />
-                <input type="hidden" name="sr_idx"   value="<?php echo $idx; ?>"  />
-                <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
-                <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
-                <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
-                <input type="hidden" name="sr_subtype" value="<?php echo $subtype; ?>" />
-                <input type="hidden" name="sr_subTypeText" value="<?php echo $subTypeText; ?>" />
-                <input type="hidden" name="sr_counties" value="<?php echo $counties; ?>" />
-                <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
-                <input type="hidden" name="sr_postalCodes" value="<?php echo $postalCodes; ?>" />
+                <input type="hidden" name="water" value="<?php echo esc_attr($water); ?>"  />
+                <input type="hidden" name="sr_idx" value="<?php echo esc_attr($idx); ?>"  />
+                <input type="hidden" name="sr_vendor" value="<?php echo esc_attr($vendor); ?>"  />
+                <input type="hidden" name="sr_brokers" value="<?php echo esc_attr($brokers); ?>" />
+                <input type="hidden" name="sr_agent" value="<?php echo esc_attr($agent); ?>" />
+                <input type="hidden" name="sr_subtype" value="<?php echo esc_attr($subtype); ?>" />
+                <input type="hidden" name="sr_subTypeText" value="<?php echo esc_attr($subTypeText); ?>" />
+                <input type="hidden" name="sr_counties" value="<?php echo esc_attr($counties); ?>" />
+                <input type="hidden" name="limit" value="<?php echo esc_attr($limit); ?>" />
+                <input type="hidden" name="sr_postalCodes" value="<?php echo esc_attr($postalCodes); ?>" />
                 <input
                     type="hidden"
                     name="sr_specialListingConditions"
-                    value="<?php echo $specialListingConditions; ?>"
+                    value="<?php echo esc_attr($specialListingConditions); ?>"
                 />
-                <input type="hidden" name="sr_areaMinor" value="<?php echo $areaMinor; ?>" />
-                <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
-                <input type="hidden" name="sr_salesagent" value="<?php echo $salesAgent; ?>" />
-                <input type="hidden" name="sr_exteriorFeatures" value="<?php echo $exteriorFeatures; ?>" />
-                <input type="hidden" name="sr_lotDescription" value="<?php echo $lotDescription; ?>" />
-                <input type="hidden" name="grid_view" value="<?php echo $grid_view; ?>" />
-                <input type="hidden" name="show_map" value="<?php echo $show_map; ?>" />
+                <input type="hidden" name="sr_areaMinor" value="<?php echo esc_attr($areaMinor); ?>" />
+                <input type="hidden" name="sr_ownership" value="<?php echo esc_attr($ownership); ?>" />
+                <input type="hidden" name="sr_salesagent" value="<?php echo esc_attr($salesAgent); ?>" />
+                <input type="hidden" name="sr_exteriorFeatures" value="<?php echo esc_attr($exteriorFeatures); ?>" />
+                <input type="hidden" name="sr_lotDescription" value="<?php echo esc_attr($lotDescription); ?>" />
+                <input type="hidden" name="grid_view" value="<?php echo esc_attr($grid_view); ?>" />
+                <input type="hidden" name="show_map" value="<?php echo esc_attr($show_map); ?>" />
 
                 <div>
                     <button class="btn button submit btn-submit" style="display:inline-block;">Search</button>
                     <div class="sr-sort-wrapper">
                         <label for="sr_sort">Sort by: </label>
                         <select name="sr_sort">
-                            <option value="-modified" <?php echo $sort_price_mod ?>> Recently modified</option>
-                            <option value="-listprice" <?php echo $sort_price_hl ?>> Price - High to Low</option>
-                            <option value="listprice"  <?php echo $sort_price_lh ?>> Price - Low to High</option>
-                            <option value="-listdate"  <?php echo $sort_date_hl ?> > List Date - New to Old</option>
-                            <option value="listdate"   <?php echo $sort_date_lh ?> > List date - Old to New</option>
+                            <option value="-modified" <?php  echo esc_attr($sort_price_mod); ?>> Recently modified</option>
+                            <option value="-listprice" <?php echo esc_attr($sort_price_hl); ?>> Price - High to Low</option>
+                            <option value="listprice" <?php echo esc_attr($sort_price_lh); ?>> Price - Low to High</option>
+                            <option value="-listdate" <?php echo esc_attr($sort_date_hl); ?> > List Date - New to Old</option>
+                            <option value="listdate" <?php echo esc_attr($sort_date_lh); ?> > List date - Old to New</option>
                         </select>
                     </div>
                 </div>
@@ -650,45 +657,45 @@ HTML;
         ?>
         <div id="sr-search-wrapper">
           <h3>Search Listings</h3>
-          <form method="get" class="sr-search" action="<?php echo $home_url; ?>">
+          <form method="get" class="sr-search" action="<?php echo esc_url($home_url); ?>">
             <input type="hidden" name="sr-listings" value="sr-search">
 
             <div class="sr-minmax-filters">
               <div class="sr-search-field" id="sr-search-keywords">
                 <input name="sr_keywords"
                        type="text"
-                       placeholder="Subdivision, Zipcode, <?php echo $MLS_text ?> Area, <?php echo $MLS_text ?> Number, or Market Area"
-                       value="<?php echo $keywords ?>" />
+                       placeholder="<?php echo esc_attr($q_placeholder); ?>"
+                       value="<?php echo esc_attr($keywords); ?>" />
               </div>
 
               <div class="sr-search-field" id="sr-search-ptype">
                 <select name="sr_ptype">
-                  <?php echo $default_type_option; ?>
-                  <?php echo $type_options; ?>
+                  <?php echo esc_html($default_type_option); ?>
+                  <?php echo esc_html($type_options); ?>
                 </select>
               </div>
             </div>
 
             <div class="sr-minmax-filters">
               <div class="sr-search-field" id="sr-search-minprice">
-                <input name="sr_minprice" step="1000" min="0" type="number" value="<?php echo $minprice; ?>" placeholder="Min Price.." />
+                <input name="sr_minprice" step="1000" min="0" type="number" value="<?php echo esc_attr($minprice); ?>" placeholder="Min Price.." />
               </div>
               <div class="sr-search-field" id="sr-search-maxprice">
-                <input name="sr_maxprice" step="1000" min="0" type="number" value="<?php echo $maxprice; ?>" placeholder="Max Price.." />
+                <input name="sr_maxprice" step="1000" min="0" type="number" value="<?php echo esc_attr($maxprice); ?>" placeholder="Max Price.." />
               </div>
 
               <div class="sr-search-field" id="sr-search-minbeds">
-                <input name="sr_minbeds" min="0" type="number" value="<?php echo $minbeds; ?>" placeholder="Min Beds.." />
+                <input name="sr_minbeds" min="0" type="number" value="<?php echo esc_attr($minbeds); ?>" placeholder="Min Beds.." />
               </div>
               <div class="sr-search-field" id="sr-search-maxbeds">
-                <input name="sr_maxbeds" min="0" type="number" value="<?php echo $maxbeds; ?>" placeholder="Max Beds.." />
+                <input name="sr_maxbeds" min="0" type="number" value="<?php echo esc_attr($maxbeds); ?>" placeholder="Max Beds.." />
               </div>
 
               <div class="sr-search-field" id="sr-search-minbaths">
-                <input name="sr_minbaths" min="0" type="number" value="<?php echo $minbaths; ?>" placeholder="Min Baths.." />
+                <input name="sr_minbaths" min="0" type="number" value="<?php echo esc_attr($minbaths); ?>" placeholder="Min Baths.." />
               </div>
               <div class="sr-search-field" id="sr-search-maxbaths">
-                <input name="sr_maxbaths" min="0" type="number" value="<?php echo $maxbaths; ?>" placeholder="Max Baths.." />
+                <input name="sr_maxbaths" min="0" type="number" value="<?php echo esc_attr($maxbaths); ?>" placeholder="Max Baths.." />
               </div>
             </div>
 
@@ -698,41 +705,41 @@ HTML;
                 <div class="sr-sort-wrapper">
                     <label for="sr_sort">Sort by: </label>
                     <select class="select" name="sr_sort">
-                        <option value="-modified" <?php echo $sort_price_mod ?>> Recently modified</option>
-                        <option value="-listprice" <?php echo $sort_price_hl ?>> Price - High to Low</option>
-                        <option value="listprice"  <?php echo $sort_price_lh ?>> Price - Low to High</option>
-                        <option value="-listdate"  <?php echo $sort_date_hl ?> > List Date - New to Old</option>
-                        <option value="listdate"   <?php echo $sort_date_lh ?> > List date - Old to New</option>
+                        <option value="-modified"  <?php echo esc_attr($sort_price_mod); ?>> Recently modified</option>
+                        <option value="-listprice" <?php echo esc_attr($sort_price_hl); ?>> Price - High to Low</option>
+                        <option value="listprice"  <?php echo esc_attr($sort_price_lh); ?>> Price - Low to High</option>
+                        <option value="-listdate"  <?php echo esc_attr($sort_date_hl); ?> > List Date - New to Old</option>
+                        <option value="listdate"   <?php echo esc_attr($sort_date_lh); ?> > List date - Old to New</option>
                     </select>
                 </div>
             </div>
 
-            <input type="hidden" name="water"   value="<?php echo $water; ?>"  />
-            <input type="hidden" name="sr_idx"   value="<?php echo $idx; ?>"  />
-            <input type="hidden" name="sr_vendor"  value="<?php echo $vendor; ?>"  />
-            <input type="hidden" name="sr_brokers" value="<?php echo $brokers; ?>" />
-            <input type="hidden" name="sr_agent"   value="<?php echo $agent; ?>" />
-            <input type="hidden" name="sr_subtype" value="<?php echo $subtype; ?>" />
-            <input type="hidden" name="sr_subTypeText" value="<?php echo $subTypeText; ?>" />
-            <input type="hidden" name="sr_counties" value="<?php echo $counties; ?>" />
-            <input type="hidden" name="sr_postalCodes" value="<?php echo $postalCodes; ?>" />
-            <input type="hidden" name="sr_neighborhoods" value="<?php echo $neighborhoods; ?>" />
-            <input type="hidden" name="sr_cities" value="<?php echo $cities; ?>" />
-            <input type="hidden" name="sr_state" value="<?php echo $state; ?>" />
-            <input type="hidden" name="limit"      value="<?php echo $limit; ?>" />
-            <input type="hidden" name="status"     value="<?php echo $adv_status; ?>" />
-            <input type="hidden" name="grid_view" value="<?php echo $grid_view; ?>" />
-            <input type="hidden" name="show_map" value="<?php echo $show_map; ?>" />
+            <input type="hidden" name="water" value="<?php echo esc_attr($water); ?>"  />
+            <input type="hidden" name="sr_idx" value="<?php echo esc_attr($idx); ?>"  />
+            <input type="hidden" name="sr_vendor" value="<?php echo esc_attr($vendor); ?>"  />
+            <input type="hidden" name="sr_brokers" value="<?php echo esc_attr($brokers); ?>" />
+            <input type="hidden" name="sr_agent" value="<?php echo esc_attr($agent); ?>" />
+            <input type="hidden" name="sr_subtype" value="<?php echo esc_attr($subtype); ?>" />
+            <input type="hidden" name="sr_subTypeText" value="<?php echo esc_attr($subTypeText); ?>" />
+            <input type="hidden" name="sr_counties" value="<?php echo esc_attr($counties); ?>" />
+            <input type="hidden" name="sr_postalCodes" value="<?php echo esc_attr($postalCodes); ?>" />
+            <input type="hidden" name="sr_neighborhoods" value="<?php echo esc_attr($neighborhoods); ?>" />
+            <input type="hidden" name="sr_cities" value="<?php echo esc_attr($cities); ?>" />
+            <input type="hidden" name="sr_state" value="<?php echo esc_attr($state); ?>" />
+            <input type="hidden" name="limit" value="<?php echo esc_attr($limit); ?>" />
+            <input type="hidden" name="status" value="<?php echo esc_attr($adv_status); ?>" />
+            <input type="hidden" name="grid_view" value="<?php echo esc_attr($grid_view); ?>" />
+            <input type="hidden" name="show_map" value="<?php echo esc_attr($show_map); ?>" />
             <input
                 type="hidden"
                 name="sr_specialListingConditions"
-                value="<?php echo $specialListingConditions; ?>"
+                value="<?php echo esc_attr($specialListingConditions); ?>"
             />
-            <input type="hidden" name="sr_areaMinor" value="<?php echo $areaMinor; ?>" />
-            <input type="hidden" name="sr_ownership" value="<?php echo $ownership; ?>" />
-            <input type="hidden" name="sr_salesagent" value="<?php echo $salesAgent; ?>" />
-            <input type="hidden" name="sr_exteriorFeatures" value="<?php echo $exteriorFeatures; ?>" />
-            <input type="hidden" name="sr_lotDescription" value="<?php echo $lotDescription; ?>" />
+            <input type="hidden" name="sr_areaMinor" value="<?php echo esc_attr($areaMinor); ?>" />
+            <input type="hidden" name="sr_ownership" value="<?php echo esc_attr($ownership); ?>" />
+            <input type="hidden" name="sr_salesagent" value="<?php echo esc_attr($salesAgent); ?>" />
+            <input type="hidden" name="sr_exteriorFeatures" value="<?php echo esc_attr($exteriorFeatures); ?>" />
+            <input type="hidden" name="sr_lotDescription" value="<?php echo esc_attr($lotDescription); ?>" />
 
           </form>
         </div>
@@ -747,19 +754,15 @@ HTML;
      * take multiple values (eg, postalCodes, counties). #32
      */
     public static function sr_listing_slider_shortcode($atts = array()) {
-        ob_start();
-
         $def_params = array("limit" => "12");
         $def_settings = array("random" => "false");
         $def_atts = array_merge($def_params, is_array($atts) ? $atts : array());
 
         $data = SrShortcodes::parseShortcodeAttributes($def_atts, $def_settings);
 
-        echo SimplyRetsApiHelper::retrieveListingsSlider(
-            $data["params"], $data["settings"]
+        return SimplyRetsApiHelper::retrieveListingsSlider(
+            $data["params"],
+            $data["settings"]
         );
-
-        return ob_get_clean();
     }
-
 }
