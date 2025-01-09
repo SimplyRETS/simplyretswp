@@ -458,7 +458,8 @@ class SimplyRetsApiHelper {
             'simply-rets-client-js',
             plugins_url('assets/js/simply-rets-client.js', __FILE__),
             array('jquery'),
-            SIMPLYRETSWP_VERSION
+            SIMPLYRETSWP_VERSION,
+            array("in_footer" => false)
         );
         wp_enqueue_script('simply-rets-client-js');
 
@@ -467,7 +468,8 @@ class SimplyRetsApiHelper {
             'simply-rets-galleria-js',
             plugins_url('assets/galleria/galleria-1.4.2.min.js', __FILE__),
             array('jquery'),
-            SIMPLYRETSWP_VERSION
+            SIMPLYRETSWP_VERSION,
+            array("in_footer" => false)
         );
         wp_enqueue_script('simply-rets-galleria-js');
 
@@ -476,7 +478,8 @@ class SimplyRetsApiHelper {
             'simply-rets-listing-slider-js',
             plugins_url('assets/js/owl.carousel.min.js', __FILE__),
             array('jquery'),
-            SIMPLYRETSWP_VERSION
+            SIMPLYRETSWP_VERSION,
+            array("in_footer" => false)
         );
         wp_enqueue_script('simply-rets-listing-slider-js');
     }
