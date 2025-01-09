@@ -296,7 +296,7 @@ class SimplyRetsCustomPostPages {
               Minimum Price:
             </label>
             <input id="minprice" type="number" name="sr_filters[minprice]"
-              value="<?php print_r( $min_price_filter ); ?>"/>
+              value="<?php echo esc_attr($min_price_filter); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -306,7 +306,7 @@ class SimplyRetsCustomPostPages {
               Maximum Price:
             </label>
             <input id="maxprice" type="number" name="sr_filters[maxprice]"
-              value="<?php print_r( $max_price_filter ); ?>"/>
+              value="<?php echo esc_attr($max_price_filter); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -316,7 +316,7 @@ class SimplyRetsCustomPostPages {
               Minimum Bedrooms:
             </label>
             <input id="minbeds" type="number" name="sr_filters[minbeds]"
-              value="<?php print_r( $min_bed_filter ); ?>"/>
+              value="<?php echo esc_attr($min_bed_filter); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -326,7 +326,7 @@ class SimplyRetsCustomPostPages {
               Maximum Bedrooms:
             </label>
             <input id="maxbeds" type="number" name="sr_filters[maxbeds]"
-              value="<?php print_r( $max_bed_filter ); ?>"/>
+              value="<?php echo esc_attr($max_bed_filter); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -336,7 +336,7 @@ class SimplyRetsCustomPostPages {
               Minimum Bathrooms:
             </label>
             <input id="minbaths" type="number" name="sr_filters[minbaths]"
-              value="<?php print_r( $min_bath_filter ); ?>"/>
+              value="<?php echo esc_attr($min_bath_filter); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -346,7 +346,7 @@ class SimplyRetsCustomPostPages {
               Maximum Bathrooms:
             </label>
             <input id="maxbaths" type="number" name="sr_filters[maxbaths]"
-              value="<?php print_r( $max_bath_filisting_typelter ); ?>"/>
+              value="<?php echo esc_attr($max_bath_filisting_typelter); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -356,7 +356,7 @@ class SimplyRetsCustomPostPages {
               Listing Agent ID:
             </label>
             <input id="agent" type="number" name="sr_filters[agent]"
-              value="<?php print_r( $agent_id_filter ); ?>"/>
+              value="<?php echo esc_attr($agent_id_filter); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -366,7 +366,7 @@ class SimplyRetsCustomPostPages {
               Property Type:
             </label>
             <input id="type" type="text" name="sr_filters[type]"
-              value="<?php print_r( $listing_type_filter ); ?>"/>
+              value="<?php echo esc_attr($listing_type_filter); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
@@ -376,16 +376,12 @@ class SimplyRetsCustomPostPages {
               Amount of listings to show:
             </label>
             <input id="limit" type="text" name="sr_filters[limit]"
-              value="<?php print_r( $limit_filter ); ?>"/>
+              value="<?php echo esc_attr($limit_filter); ?>"/>
             <span class="sr-remove-filter">Remove Filter</span>
           </div>
 
         </div>
         <?php
-
-        // echo '<br>Current filters: <br>'; print_r( $sr_filters );
-        // echo '<br>';
-        // ^TODO: Remove degbug
 
         // on page load, if there are any filters already saved, load them,
         // show the input field, and remove the option from the dropdown
@@ -397,8 +393,8 @@ class SimplyRetsCustomPostPages {
                 ?>
                 <script>
                     var filterArea = jQuery('.current-filters');
-                    var key = jQuery(<?php print_r( $key ); ?>);
-                    var val = <?php echo json_encode( $val ); ?>;
+                    var key = jQuery(<?php echo esc_js($key); ?>);
+                    var val = <?php echo wp_json_encode($val); ?>;
                     var parent = key.parent();
 
                     key.val(val); // set value to $key
