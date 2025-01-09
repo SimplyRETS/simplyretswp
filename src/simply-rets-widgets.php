@@ -464,7 +464,9 @@ class srSearchFormWidget extends WP_Widget {
             $ven = $availableVendors[0];
         }
 
-        $current_type = empty($_GET['sr_ptype']) ? '' : $_GET['sr_ptype'];
+        $current_type = empty($_GET['sr_ptype']) ? '' : sanitize_text_field(
+            wp_unslash($_GET['sr_ptype'])
+        );
 
         $adv_search_types = get_option("sr_adv_search_meta_types_$ven",
                                        array("Residential", "Condominium", "Rental" ));
@@ -480,59 +482,71 @@ class srSearchFormWidget extends WP_Widget {
 
 
         $home_url = get_home_url();
-        $search_form_markup = <<<HTML
+        ob_start();
+        ?>
           <div class="sr-search-widget">
-            <form method="get" class="sr-search" action="$home_url">
-              <input type="hidden" name="sr-listings" value="sr-search">
+              <form
+                  method="get"
+                  class="sr-search"
+                  action="<?php echo esc_url($home_url); ?>">
+                  <input type="hidden" name="sr-listings" value="sr-search">
 
-              <div class="sr-search-field" id="sr-search-keywords">
-                <input name="sr_keywords" type="text" placeholder="Subdivision, Zipcode, or Keywords" />
-              </div>
+                  <div class="sr-search-field" id="sr-search-keywords">
+                      <input
+                          name="sr_keywords"
+                          type="text"
+                          placeholder="Subdivision, Zipcode, or Keywords"
+                      />
+                  </div>
 
-              <div class="sr-search-field" id="sr-search-ptype">
-                <select name="sr_ptype">
-                  <option value="">Property Type</option>
-                  $type_options
-                </select>
-              </div>
+                  <div class="sr-search-field" id="sr-search-ptype">
+                      <select name="sr_ptype">
+                          <option value="">Property Type</option>
+                          <?php echo esc_html($type_options); ?>
+                      </select>
+                  </div>
 
-              <div class="sr-search-widget-filters">
-                <div class="sr-search-widget-field" id="sr-search-minprice">
-                  <input name="sr_minprice" step="1000" min="0" type="number" placeholder="Min Price.." />
-                </div>
-                <div class="sr-search-widget-field" id="sr-search-maxprice">
-                  <input name="sr_maxprice" step="1000" min="0" type="number" placeholder="Max Price.." />
-                </div>
+                  <div class="sr-search-widget-filters">
+                      <div class="sr-search-widget-field" id="sr-search-minprice">
+                          <input name="sr_minprice" step="1000" min="0" type="number" placeholder="Min Price.." />
+                      </div>
+                      <div class="sr-search-widget-field" id="sr-search-maxprice">
+                          <input name="sr_maxprice" step="1000" min="0" type="number" placeholder="Max Price.." />
+                      </div>
 
-                <div class="sr-search-widget-field" id="sr-search-minbeds">
-                  <input name="sr_minbeds" min="0" type="number" placeholder="Min Beds.." />
-                </div>
-                <div class="sr-search-widget-field" id="sr-search-maxbeds">
-                  <input name="sr_maxbeds" min="0" type="number" placeholder="Max Beds.." />
-                </div>
+                      <div class="sr-search-widget-field" id="sr-search-minbeds">
+                          <input name="sr_minbeds" min="0" type="number" placeholder="Min Beds.." />
+                      </div>
+                      <div class="sr-search-widget-field" id="sr-search-maxbeds">
+                          <input name="sr_maxbeds" min="0" type="number" placeholder="Max Beds.." />
+                      </div>
 
-                <div class="sr-search-widget-field" id="sr-search-minbaths">
-                  <input name="sr_minbaths" min="0" type="number" placeholder="Min Baths.." />
-                </div>
-                <div class="sr-search-widget-field" id="sr-search-maxbaths">
-                  <input name="sr_maxbaths" min="0" type="number" placeholder="Max Baths.." />
-                </div>
-              </div>
-
-              <input type="hidden" name="sr_vendor" value="$vendor" >
-
-              <input class="submit button btn" type="submit" value="Search Properties">
-
-            </form>
+                      <div class="sr-search-widget-field" id="sr-search-minbaths">
+                          <input name="sr_minbaths" min="0" type="number" placeholder="Min Baths.." />
+                      </div>
+                      <div class="sr-search-widget-field" id="sr-search-maxbaths">
+                          <input name="sr_maxbaths" min="0" type="number" placeholder="Max Baths.." />
+                      </div>
+                  </div>
+                  <input
+                      type="hidden"
+                      name="sr_vendor"
+                      value="<?php echo esc_html($vendor); ?>"
+                  />
+                  <input
+                      class="submit button btn"
+                      type="submit"
+                      value="Search Properties"
+                  />
+              </form>
           </div>
-HTML;
+          <?php
+
+        $search_form_markup = ob_get_clean();
 
         // populate content
-        $cont .= $search_form_markup;
+        $cont .= $search_form_markup . $after_widget;
 
-        $cont .= $after_widget;
         echo esc_html($cont);
-
     }
-
 }
