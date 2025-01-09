@@ -534,6 +534,7 @@ HTML;
         if( empty($photos) ) {
             $main_photo = SrListing::mainPhotoOrDefault($listing);
             $main_photo_url = esc_url($main_photo);
+            // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
             $markup = "<img src='$main_photo_url'>";
             $photo_gallery['markup'] = $markup;
             $photo_gallery['more']   = '';
@@ -545,6 +546,7 @@ HTML;
                 $photo_counter = 0;
                 $main_photo = esc_url($photos[0]);
                 $more = '<span id="sr-toggle-gallery">See more photos</span> |';
+                // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
                 $markup .= "<div class='sr-slider'><img class='sr-slider-img-act' src='$main_photo'>";
                 foreach( $photos as $photo ) {
                     $image = SrListing::normalizeListingPhotoUrl($photo);
@@ -553,6 +555,7 @@ HTML;
                     $markup .=
                         "<input class='sr-slider-input' type='radio' name='slide_switch' id='id$photo_counter' value='$photo' />";
                     $markup .= "<label for='id$photo_counter'>";
+                    // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
                     $markup .= "  <img src='$image_url' width='100'>";
                     $markup .= "</label>";
                     $photo_counter++;
@@ -591,6 +594,7 @@ HTML;
                                      . "  </div>"
                                      . "</div>";
 
+                    // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
                     $markup .= "<img src='$image_url' "
                             . "data-title='$full_address'"
                             . "data-description='" . htmlentities($img_description) . "'>";
@@ -1896,6 +1900,7 @@ HTML;
                   </h5>
                 </a>
                 <a href="$link">
+                  // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
                   <img src="$main_photo_url" width="100%" alt="$address">
                 </a>
                 <div class="sr-listing-wdgt-primary">
