@@ -141,25 +141,35 @@ class SimplyRetsApiHelper {
             $curl_info = curl_version();
 
             // init curl and set options
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_init
             $ch = curl_init();
             $curl_version = $curl_info['version'];
             $headers[] = $accept_header;
 
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt( $ch, CURLOPT_URL, $url );
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt( $ch, CURLOPT_USERAGENT, $ua_string . " cURL/{$curl_version}" );
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt( $ch, CURLOPT_USERAGENT, $ua_string . " cURL/{$curl_version}" );
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt( $ch, CURLOPT_REFERER, $site_url );
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, "OPTIONS" );
 
             // make request to api
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_exec
             $request = curl_exec( $ch );
 
             // decode the reponse body
             $response_array = json_decode( $request );
 
             // close curl connection and return value
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_close
             curl_close( $ch );
             return $response_array;
 
@@ -255,20 +265,28 @@ class SimplyRetsApiHelper {
 
         if( is_callable( 'curl_init' ) ) {
             // init curl and set options
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_init
             $ch = curl_init();
             $curl_info = curl_version();
             $curl_version = $curl_info['version'];
             $headers[] = $accept_header;
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt( $ch, CURLOPT_URL, $url );
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt( $ch, CURLOPT_USERAGENT, $ua_string . " cURL/{$curl_version}" );
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt( $ch, CURLOPT_HEADER, true );
 
             // make request to api
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_exec
             $request = curl_exec( $ch );
 
             // get header size to parse out of response
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_getinfo
             $header_size = curl_getinfo( $ch, CURLINFO_HEADER_SIZE );
 
             // separate header/body out of response
@@ -288,6 +306,7 @@ class SimplyRetsApiHelper {
             $srResponse['response'] = $response_array;
 
             // close curl connection
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_close
             curl_close( $ch );
             return $srResponse;
 
@@ -299,6 +318,7 @@ class SimplyRetsApiHelper {
                 )
             );
             $context = stream_context_create( $options );
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
             $request = file_get_contents( $url, false, $context );
             $response_array = json_decode( $request );
 
