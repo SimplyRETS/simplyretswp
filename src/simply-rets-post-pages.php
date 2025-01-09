@@ -239,16 +239,24 @@ class SimplyRetsCustomPostPages {
     }
 
     public static function postFilterMetaBoxJs() {
-        wp_register_script( 'simply-rets-admin-js'
-                            , plugins_url( 'assets/js/simply-rets-admin.js', __FILE__ )
-                            , array( 'jquery' )
+        wp_register_script(
+            'simply-rets-admin-js',
+            plugins_url('assets/js/simply-rets-admin.js', __FILE__),
+            array('jquery'),
+            SIMPLYRETSWP_VERSION,
+            array("in_footer" => false)
         );
-        wp_enqueue_script( 'simply-rets-admin-js' );
+        wp_enqueue_script('simply-rets-admin-js');
     }
 
     public static function postFilterMetaBoxCss() {
-        wp_register_style( 'simply-rets-admin-css', plugins_url( 'assets/css/simply-rets-admin.css', __FILE__ ) );
-        wp_enqueue_style( 'simply-rets-admin-css' );
+        wp_register_style(
+            'simply-rets-admin-css',
+            plugins_url('assets/css/simply-rets-admin.css', __FILE__),
+            array(),
+            SIMPLYRETSWP_VERSION
+        );
+        wp_enqueue_style('simply-rets-admin-css');
 
     }
 
