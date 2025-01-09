@@ -12,6 +12,7 @@ Copyright (c) SimplyRETS 2014 - 2024
 */
 
 /* Code starts here */
+const SIMPLYRETSWP_VERSION = "v2.11.3";
 
 $plugin = plugin_basename(__FILE__);
 $php_version = phpversion();

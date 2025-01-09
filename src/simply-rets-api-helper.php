@@ -128,9 +128,14 @@ class SimplyRetsApiHelper {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
         $site_url = get_site_url();
+        $plugin_version = SIMPLYRETSWP_VERSION;
 
-        $ua_string     = "SimplyRETSWP/2.11.3 Wordpress/{$wp_version} PHP/{$php_version}";
-        $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
+        $ua_string = "SimplyRETSWP/{$plugin_version} "
+                   . "Wordpress/{$wp_version} "
+                   . "PHP/{$php_version}";
+
+        $accept_header = "Accept: application/json; "
+                       . "q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
             $curl_info = curl_version();
@@ -239,9 +244,14 @@ class SimplyRetsApiHelper {
     public static function srApiRequest( $url ) {
         $wp_version = get_bloginfo('version');
         $php_version = phpversion();
+        $plugin_version = SIMPLYRETSWP_VERSION;
 
-        $ua_string     = "SimplyRETSWP/2.11.3 Wordpress/{$wp_version} PHP/{$php_version}";
-        $accept_header = "Accept: application/json; q=0.2, application/vnd.simplyrets-v0.1+json";
+        $ua_string = "SimplyRETSWP/{$plugin_version}"
+                   . "Wordpress/{$wp_version} "
+                   . "PHP/{$php_version}";
+
+        $accept_header = "Accept: application/json; "
+                       . "q=0.2, application/vnd.simplyrets-v0.1+json";
 
         if( is_callable( 'curl_init' ) ) {
             // init curl and set options
@@ -395,41 +405,60 @@ class SimplyRetsApiHelper {
 
     public static function simplyRetsClientCss() {
         // client side css
-        wp_register_style('simply-rets-client-css',
-                          plugins_url('assets/css/simply-rets-client.css', __FILE__));
+        wp_register_style(
+            'simply-rets-client-css',
+            plugins_url('assets/css/simply-rets-client.css', __FILE__),
+            array(),
+            SIMPLYRETSWP_VERSION
+        );
         wp_enqueue_style('simply-rets-client-css');
 
         // listings slider css
-        wp_register_style('simply-rets-carousel',
-                          'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css');
-        wp_enqueue_style('simply-rets-carousel');
+        wp_register_style(
+            'simply-rets-listing-slider-css',
+            plugins_url('assets/css/owl.carousel.min.css', __FILE__),
+            array(),
+            SIMPLYRETSWP_VERSION
+        );
+        wp_enqueue_style('simply-rets-listing-slider-css');
 
-        // listings slider css
-        wp_register_style('simply-rets-carousel-theme',
-                          'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css');
-        wp_enqueue_style('simply-rets-carousel-theme');
-
+        // listings slider theme css
+        wp_register_style(
+            'simply-rets-listing-slider-theme-css',
+            plugins_url('assets/css/owl.theme.min.css', __FILE__),
+            array("simply-rets-carousel"),
+            SIMPLYRETSWP_VERSION
+        );
+        wp_enqueue_style('simply-rets-listing-slider-theme-css');
     }
 
     public static function simplyRetsClientJs() {
         // client-side js
-        wp_register_script('simply-rets-client-js',
-                           plugins_url('assets/js/simply-rets-client.js', __FILE__),
-                           array('jquery'));
+        wp_register_script(
+            'simply-rets-client-js',
+            plugins_url('assets/js/simply-rets-client.js', __FILE__),
+            array('jquery'),
+            SIMPLYRETSWP_VERSION
+        );
         wp_enqueue_script('simply-rets-client-js');
 
         // image gallery js
-        wp_register_script('simply-rets-galleria-js',
-                           plugins_url('assets/galleria/galleria-1.4.2.min.js', __FILE__),
-                           array('jquery'));
+        wp_register_script(
+            'simply-rets-galleria-js',
+            plugins_url('assets/galleria/galleria-1.4.2.min.js', __FILE__),
+            array('jquery'),
+            SIMPLYRETSWP_VERSION
+        );
         wp_enqueue_script('simply-rets-galleria-js');
 
         // listings slider js
-        wp_register_script('simply-rets-carousel',
-                           'https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js',
-                           array('jquery'));
-        wp_enqueue_script('simply-rets-carousel');
-
+        wp_register_script(
+            'simply-rets-listing-slider-js',
+            plugins_url('assets/js/owl.carousel.min.js', __FILE__),
+            array('jquery'),
+            SIMPLYRETSWP_VERSION
+        );
+        wp_enqueue_script('simply-rets-listing-slider-js');
     }
 
 
