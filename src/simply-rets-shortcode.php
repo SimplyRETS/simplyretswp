@@ -70,11 +70,11 @@ class SrShortcodes {
 
         // Delete attributes that aren't API parameters
         $api_parameters = array_diff_key($atts, $markup_settings);
-        $api_parameters_json = json_encode($api_parameters);
+        $api_parameters_json = wp_json_encode($api_parameters);
 
         // Delete attributes that are API parameters
         $markup_settings = array_diff_key($atts, $api_parameters);
-        $markup_settings_json = json_encode($markup_settings);
+        $markup_settings_json = wp_json_encode($markup_settings);
 
         $map_markup  = "<div id='sr-map-search'
                              data-api-key='{$gmaps_key}'
