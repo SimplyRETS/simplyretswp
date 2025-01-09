@@ -111,6 +111,7 @@ class SrSearchMap {
             </h4>
             <div class="sr-iw-inner__img">
                 <a href="<?php echo esc_url($link); ?>">
+                    <?php // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
                     <img id="sr-iw-inner__img-img" src="<?php echo esc_url($photo); ?>">
                 </a>
             </div>

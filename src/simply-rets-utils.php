@@ -397,6 +397,7 @@ class SrUtils {
          * setting is enabled.
          */
         if (!empty($idx_img_on_thumbnails) && !empty($idx_img_on_thumbnails)) {
+            // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
             $listing_idx_img_markup = "<img src=\"{$idx_img_on_thumbnails}\"/>";
         }
 

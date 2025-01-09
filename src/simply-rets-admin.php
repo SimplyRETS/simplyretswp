@@ -142,6 +142,7 @@ class SrAdminSettings {
       ?>
       <div class="wrap sr-admin-wrap">
         <h2 id="message"></h2>
+        <?php // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
         <img class="sr-admin-logo" src="<?php echo esc_url($logo_path); ?>">
         <h1 class="sr-admin-title">SimplyRETS Admin Settings</h1>
         <div class="sr-doc-links">
