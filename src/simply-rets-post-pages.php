@@ -124,10 +124,10 @@ class SimplyRetsCustomPostPages {
     }
 
     public static function srPluginSettingsLink( $links ) {
-        $settings_link =
-            '<a href="' . admin_url( 'options-general.php?page=simplyrets-admin.php' ) . '">'
-            . __( 'Settings', 'SimplyRETS' )
-            . '</a>';
+        $settings_link = '<a href="'
+                       . admin_url('options-general.php?page=simplyrets-admin.php')
+                       . '">Settings</a>';
+
         array_unshift( $links, $settings_link );
         return $links;
     }
@@ -135,14 +135,14 @@ class SimplyRetsCustomPostPages {
     // Create our Custom Post Type
     public static function srRegisterPostType() {
         $labels = array(
-            'name'          => __( 'SimplyRETS' ),
-            'singular_name' => __( 'SimplyRETS Page' ),
-            'add_new_item'  => __( 'New SimplyRETS Page' ),
-            'edit_item'     => __( 'Edit SimplyRETS Page' ),
-            'new_item'      => __( 'New SimplyRETS Page' ),
-            'view_item'     => __( 'View SimplyRETS Page' ),
-            'all_items'     => __( 'All SimplyRETS Pages' ),
-            'search_items'  => __( 'Search SimplyRETS Pages' ),
+            'name'          => 'SimplyRETS',
+            'singular_name' => 'SimplyRETS Page',
+            'add_new_item'  => 'New SimplyRETS Page',
+            'edit_item'     => 'Edit SimplyRETS Page',
+            'new_item'      => 'New SimplyRETS Page',
+            'view_item'     => 'View SimplyRETS Page',
+            'all_items'     => 'All SimplyRETS Pages',
+            'search_items'  => 'Search SimplyRETS Pages',
         );
         $args = array(
             'public'          => true,
@@ -219,7 +219,7 @@ class SimplyRetsCustomPostPages {
     public static function postFilterMetaBox() {
         add_meta_box(
             'sr-meta-box-filter'
-            , __( 'Filter Results on This Page', 'sr-textdomain')
+            , 'Filter Results on This Page'
             , array('SimplyRetsCustomPostPages', 'postFilterMetaBoxMarkup')
             , 'sr-listings'
             , 'normal'
@@ -230,7 +230,7 @@ class SimplyRetsCustomPostPages {
     public static function postTemplateMetaBox() {
         add_meta_box(
              'sr-template-meta-box'
-             , __('Page Template', 'sr-textdomain')
+             , 'Page Template'
              , array( 'SimplyRetsCustomPostPages', 'postTemplateMetaBoxMarkup' )
              , 'sr-listings'
              , 'side'
@@ -271,7 +271,7 @@ class SimplyRetsCustomPostPages {
         ?>
         <div class="current-filters">
             <span class="filter-add">
-              <?php _e( 'Add new Filter' ); ?>
+                Add new filter
             </span>
             <select name="sr-filter-select" id="sr-filter-select">
                 <option> -- Select a Filter -- </option>

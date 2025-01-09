@@ -84,7 +84,7 @@ class srFeaturedListingWidget extends WP_Widget {
         ?>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>">
-                <?php _e('Title:'); ?>
+                Title:
             </label>
             <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
                    name="<?php echo $this->get_field_name('title'); ?>"
@@ -95,7 +95,7 @@ class srFeaturedListingWidget extends WP_Widget {
 
         <p>
             <label for="<?php echo $this->get_field_id('mlsid'); ?>">
-                <?php _e('Listing ' . $MLS_text . ' Id:'); ?>
+                <?php echo "Listing " . $MLS_text . " Id:" ?>
             </label>
             <input class="widefat"
                    id="<?php echo $this->get_field_id('mlsid'); ?>"
@@ -107,7 +107,7 @@ class srFeaturedListingWidget extends WP_Widget {
         <?php if(!$singleVendor) { ?>
             <p>
                 <label for="<?php echo $this->get_field_id('vendor'); ?>">
-                    <?php _e('Vendor:'); ?>
+                    Vendor:
                 </label>
                 <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
                        name="<?php echo $this->get_field_name('vendor'); ?>"
@@ -194,7 +194,7 @@ class srAgentListingWidget extends WP_Widget {
         ?>
         <p>
           <label for="<?php echo $this->get_field_id('title'); ?>">
-                <?php _e('Title:'); ?>
+              Title:
           </label>
           <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
                          name="<?php echo $this->get_field_name('title'); ?>"
@@ -204,7 +204,7 @@ class srAgentListingWidget extends WP_Widget {
 
         <p>
           <label for="<?php echo $this->get_field_id('agent'); ?>">
-                <?php _e('Agent ' . $MLS_text . ' Id:'); ?>
+                <?php echo "Agent " . $MLS_text . " Id:"; ?>
           </label>
           <input class="widefat"
                          id="<?php echo $this->get_field_id('agent'); ?>"
@@ -215,7 +215,7 @@ class srAgentListingWidget extends WP_Widget {
 
         <p>
           <label for="<?php echo $this->get_field_id('limit'); ?>">
-                <?php _e('Amount of listings to show:'); ?>
+                Number of listings to show:
           </label>
           <input class="widefat"
                          id="<?php echo $this->get_field_id('limit'); ?>"
@@ -226,7 +226,7 @@ class srAgentListingWidget extends WP_Widget {
         <?php if(!$singleVendor) { ?>
             <p>
                 <label for="<?php echo $this->get_field_id('vendor'); ?>">
-                    <?php _e('Vendor:'); ?>
+                    Vendor:
                 </label>
                 <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
                        name="<?php echo $this->get_field_name('vendor'); ?>"
@@ -314,7 +314,7 @@ class srRandomListingWidget extends WP_Widget {
         ?>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>">
-                <?php _e('Title:'); ?>
+                Title:
             </label>
           <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
                  name="<?php echo $this->get_field_name('title'); ?>"
@@ -325,7 +325,7 @@ class srRandomListingWidget extends WP_Widget {
 
         <p>
             <label for="<?php echo $this->get_field_id('mlsids'); ?>">
-                <?php _e($MLS_text . ' Id\'s (comma separated):'); ?>
+                <?php echo $MLS_text . " ID's (comma separated):"; ?>
             </label>
             <input class="widefat"
                    id="<?php echo $this->get_field_id('mlsids'); ?>"
@@ -337,7 +337,7 @@ class srRandomListingWidget extends WP_Widget {
         <?php if(!$singleVendor) { ?>
             <p>
                 <label for="<?php echo $this->get_field_id('vendor'); ?>">
-                    <?php _e('Vendor:'); ?>
+                    Vendor:
                 </label>
                 <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
                        name="<?php echo $this->get_field_name('vendor'); ?>"
@@ -420,7 +420,7 @@ class srSearchFormWidget extends WP_Widget {
         ?>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>">
-                <?php _e('Title:'); ?>
+                Title:
             </label>
             <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
                    name="<?php echo $this->get_field_name('title'); ?>"
@@ -430,7 +430,7 @@ class srSearchFormWidget extends WP_Widget {
         <?php if(!$singleVendor) { ?>
             <p>
                 <label for="<?php echo $this->get_field_id('vendor'); ?>">
-                    <?php _e('Vendor:'); ?>
+                    Vendor:
                 </label>
                 <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
                        name="<?php echo $this->get_field_name('vendor'); ?>"
