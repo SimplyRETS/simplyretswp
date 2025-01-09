@@ -86,7 +86,7 @@ class SrAdminSettings {
           return;
       } else {
           $notice = SimplyRetsCustomPostPages::onActivationNotice();
-          echo $notice;
+          echo esc_html($notice);
       }
   }
 
@@ -142,7 +142,7 @@ class SrAdminSettings {
       ?>
       <div class="wrap sr-admin-wrap">
         <h2 id="message"></h2>
-        <img class="sr-admin-logo" src="<?php echo $logo_path; ?>">
+        <img class="sr-admin-logo" src="<?php echo esc_url($logo_path); ?>">
         <h1 class="sr-admin-title">SimplyRETS Admin Settings</h1>
         <div class="sr-doc-links">
           <p>
@@ -383,11 +383,11 @@ class SrAdminSettings {
                           <option value="">None</option>
                           <?php foreach(SrAdminSettings::$timezones as $txt=>$tz) { ?>
                               <option
-                                  value="<?php echo $tz; ?>"
+                                  value="<?php echo esc_attr($tz); ?>"
                                   <?php selected(
                                       get_option("sr_date_default_timezone"), $tz);
                                   ?>>
-                                  <?php echo $txt; ?>
+                                  <?php echo esc_html($txt); ?>
                               </option>
                           <?php } ?>
                       </select>
