@@ -81,13 +81,11 @@ class SimplyRetsOpenHouses {
 
         if(array_key_exists("error", $res)) {
 
-            $markup .= <<<HTML
-              <div class="sr-error-message">
-                <p>
-                  <strong>Error: {$res->error}</strong>
-                </p>
-              </div>
-HTML;
+            $markup .= '<div class="sr-error-message">'
+                     . '  <p>'
+                     . '    <strong>Error: ' . $res->error . '</strong>'
+                     . '  </p>'
+                     . '</div>';
 
         } else if (count($res) === 0) {
 
@@ -103,12 +101,10 @@ HTML;
                 );
             }
 
-            $markup .= <<<HTML
-              <div class="sr-pagination-wrapper">
-                <hr/>
-                {$pagination["prev"]} {$pagination["next"]}
-              </div>
-HTML;
+            $markup .= '<div class="sr-pagination-wrapper">'
+                     . '<hr/>'
+                     . $pagination["prev"] . " &middot; " . $pagination["next"]
+                     . '</div>';
         }
 
         return $markup;
@@ -183,45 +179,53 @@ HTML;
 
         $sqft = !empty($living_area) ? "<strong>SqFt: </strong>{$living_area} sqft<br/>" : "";
 
-        return <<<HTML
+        ob_start();
+        ?>
           <hr>
           <div class="sr-listing">
-            <a href="$details_link" style="text-decoration:none">
-              $open_house_banner
-              <div class="sr-photo" style="$photo_style">
-              </div>
+              <a
+                  href="<?php echo esc_url($details_link); ?>"
+                  style="text-decoration:none">
+                  <?php echo wp_kses_post($open_house_banner); ?>
+                  <div
+                      class="sr-photo"
+                      style="<?php echo esc_attr($photo_style); ?>">
+                  </div>
             </a>
             <div class="sr-listing-data-wrapper">
               <div class="sr-primary-data">
-                <a href="$details_link">
-                  <h4>$full_address
-                    <small class="sr-price"><i> - $list_price_fmtd</i></small>
-                  </h4>
-                </a>
+                  <a href="<?php echo esc_url($details_link); ?>">
+                      <h4>
+                          <?php echo esc_html($full_address); ?>
+                          <small class="sr-price">
+                              <i> - <?php echo esc_html($list_price_fmtd); ?></i>
+                          </small>
+                      </h4>
+                  </a>
               </div>
               <div class="sr-secondary-data">
-                <p class="sr-data-column">
-                  <strong>Status: </strong> $status<br/>
-                  <strong>MLS #: </strong> $listing_id<br/>
-                  $area
-                </p>
-                <p class="sr-data-column">
-                  $bedrooms
-                  $bathrooms
-                  $sqft
+                  <p class="sr-data-column">
+                      <strong>Status: </strong> <?php echo esc_html($status); ?><br/>
+                      <strong>MLS #: </strong> <?php echo esc_html($listing_id); ?><br/>
+                      <?php echo wp_kses_post($area); ?>
+                  </p>
+                  <p class="sr-data-column">
+                      <?php echo wp_kses_post($bedrooms); ?>
+                      <?php echo wp_kses_post($bathrooms); ?>
+                      <?php echo wp_kses_post($sqft); ?>
                 </p>
               </div>
             </div>
             <div class="more-details-wrapper">
               <span style="visibility:hidden">clearfix</span>
               <span class="more-details-link" style="float:right">
-                  <a href="$details_link">More details</a>
+                  <a href="<?php echo esc_url($details_link); ?>">More details</a>
               </span>
               <span class="result-compliance-markup">
-                $compliance_markup
+                  <?php echo wp_kses_post($compliance_markup); ?>
               </span>
             </div>
           </div>
-HTML;
+          <?php
     }
 }
