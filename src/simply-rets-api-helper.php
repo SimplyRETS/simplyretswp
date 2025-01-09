@@ -322,7 +322,7 @@ class SimplyRetsApiHelper {
 
         // Use current timestamp if API doesn't have one
         if (empty($last_update)) {
-            return date(DATE_ATOM, time());
+            return gmdate(DATE_ATOM, time());
         }
 
         return $last_update;
@@ -728,12 +728,12 @@ HTML;
         // listing date
         $listing_list_date = $listing->listDate;
         $list_date_formatted = $listing_list_date
-                             ? date("M j, Y", strtotime($listing_list_date))
+                             ? gmdate("M j, Y", strtotime($listing_list_date))
                              : null;
         $list_date = SimplyRetsApiHelper::srDetailsTable($list_date_formatted, "Listing Date");
         // listing date modified
         $listing_modified = $listing->modified;
-        if($listing_modified) { $date_modified = date("M j, Y", strtotime($listing_modified)); }
+        if($listing_modified) { $date_modified = gmdate("M j, Y", strtotime($listing_modified)); }
         $date_modified_markup = SimplyRetsApiHelper::srDetailsTable($date_modified, "Listing Last Modified");
         // lot size
         $listing_lotSize = $listing->property->lotSize;
@@ -1480,7 +1480,7 @@ HTML;
 
             $status_banner_info = "";
             if($standard_status === "Closed") {
-                $close_date = date("m/d/y", strtotime($listing->sales->closeDate));
+                $close_date = gmdate("m/d/y", strtotime($listing->sales->closeDate));
                 $status_banner_info = "<span class='sr-listing-status-banner-close-date'>"
                                     . "{$close_date}"
                                     . "</span>";
