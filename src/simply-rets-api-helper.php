@@ -370,7 +370,7 @@ class SimplyRetsApiHelper {
          * Transform query parameters to what the Wordpress client needs
          */
         foreach( $pag_links as $key=>$link ) {
-            $link_parts = parse_url( $link );
+            $link_parts = wp_parse_url( $link );
             $no_prefix = array('offset', 'limit', 'type', 'water', 'grid_view', "show_map");
 
             $query_part = !empty($link_parts['query']) ? $link_parts['query'] : NULL;
@@ -2075,7 +2075,7 @@ HTML;
 
     public static function srListhubSendDetails( $m, $t, $mlsid, $zip=NULL ) {
         $metrics_id = $m;
-        $test       = json_encode($t);
+        $test       = wp_json_encode($t);
         $mlsid      = $mlsid;
         $zipcode    = $zip;
 
