@@ -536,7 +536,6 @@ class SrListing {
         if (empty($photos)) {
             return SrListing::$default_photo;
         } else {
-            $main_photo = str_replace("//", "", trim($photos[0]));
             return SrListing::normalizeListingPhotoUrl($photos[0]);
         }
     }
