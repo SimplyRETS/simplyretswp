@@ -19,7 +19,7 @@ class SimplyRetsOpenHouses {
     public static function getOpenHousesByListingId($listing_id) {
         $params = array_filter([
             "listingId" => $listing_id,
-            "startdate" => date("Y-m-d"),
+            "startdate" => gmdate("Y-m-d"),
             "vendor" => get_query_var("sr_vendor", NULL)
         ]);
 
@@ -39,19 +39,28 @@ class SimplyRetsOpenHouses {
          * to specify a timezone used to parse/convert the MLS's open
          * house times for display.
          */
-        $default_time_zone = get_option("sr_date_default_timezone", "");
-        if (!empty($default_time_zone)) {
-            date_default_timezone_set($default_time_zone);
-        }
+        $default_time_zone = timezone_name_get(
+            get_option("sr_date_default_timezone", wp_timezone())
+        );
+
+        $start_time_date = date_create(
+            $openhouse->startTime,
+            timezone_open($default_time_zone)
+        );
+
+        $end_time_date = date_create(
+            $openhouse->endTime,
+            timezone_open($default_time_zone)
+        );
 
         // Open house date information
-        $date = date("M jS", strtotime($openhouse->startTime));
-        $day = date("D", strtotime($openhouse->startTime));
+        $date = $start_time_date->format("M jS");
+        $day = $start_time_date->format("D");
         $day_date = "<span>{$day}, {$date}</span>";
 
         // Open house time information
-        $start = date("g:ia", strtotime($openhouse->startTime));
-        $end = date("g:ia", strtotime($openhouse->endTime));
+        $start = $start_time_date->format("g:ia");
+        $end = $end_time_date->format("g:ia");
         $start_end_time = "<span>{$start} - {$end}</span>";
 
         return array(
