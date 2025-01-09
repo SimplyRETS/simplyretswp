@@ -58,9 +58,9 @@ class srFeaturedListingWidget extends WP_Widget {
     /** save widget --  @see WP_Widget::update */
     function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
-        $instance['title'] = strip_tags($new_instance['title']);
-        $instance['mlsid'] = strip_tags($new_instance['mlsid']);
-        $instance['vendor'] = strip_tags($new_instance['vendor']);
+        $instance['title'] = wp_strip_all_tags($new_instance['title']);
+        $instance['mlsid'] = wp_strip_all_tags($new_instance['mlsid']);
+        $instance['vendor'] = wp_strip_all_tags($new_instance['vendor']);
         return $instance;
     }
 
@@ -165,10 +165,10 @@ class srAgentListingWidget extends WP_Widget {
     /** save widget --  @see WP_Widget::update */
     function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
-        $instance['title'] = strip_tags($new_instance['title']);
-        $instance['agent'] = strip_tags($new_instance['agent']);
-        $instance['limit'] = strip_tags($new_instance['limit']);
-        $instance['vendor'] = strip_tags($new_instance['vendor']);
+        $instance['title'] = wp_strip_all_tags($new_instance['title']);
+        $instance['agent'] = wp_strip_all_tags($new_instance['agent']);
+        $instance['limit'] = wp_strip_all_tags($new_instance['limit']);
+        $instance['vendor'] = wp_strip_all_tags($new_instance['vendor']);
         return $instance;
     }
 
@@ -288,9 +288,9 @@ class srRandomListingWidget extends WP_Widget {
     /** save widget --  @see WP_Widget::update */
     function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
-        $instance['title']  = strip_tags($new_instance['title']);
-        $instance['mlsids'] = strip_tags($new_instance['mlsids']);
-        $instance['vendor'] = strip_tags($new_instance['vendor']);
+        $instance['title']  = wp_strip_all_tags($new_instance['title']);
+        $instance['mlsids'] = wp_strip_all_tags($new_instance['mlsids']);
+        $instance['vendor'] = wp_strip_all_tags($new_instance['vendor']);
         return $instance;
     }
 
@@ -399,8 +399,8 @@ class srSearchFormWidget extends WP_Widget {
     /** save widget --  @see WP_Widget::update */
     function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
-        $instance['title']  = strip_tags($new_instance['title']);
-        $instance['vendor'] = strip_tags($new_instance['vendor']);
+        $instance['title']  = wp_strip_all_tags($new_instance['title']);
+        $instance['vendor'] = wp_strip_all_tags($new_instance['vendor']);
         return $instance;
     }
 
