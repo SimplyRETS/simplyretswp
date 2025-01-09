@@ -136,7 +136,7 @@ HTML;
     public static function defineAjaxUrl() {
         ?>
         <script>
-            var sr_ajaxUrl = "<?php echo admin_url('admin-ajax.php'); ?>"
+            var sr_ajaxUrl = "<?php echo esc_url(admin_url('admin-ajax.php')); ?>"
         </script>
         <?php
     }
