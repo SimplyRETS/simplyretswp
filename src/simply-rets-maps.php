@@ -102,34 +102,64 @@ class SrSearchMap {
 
         $MLS_text = SrUtils::mkMLSText();
 
-        $markup = <<<HTML
-            <div class="sr-iw-inner">
-              <h4 class="sr-iw-addr">$address<small> - $price</small></h4>
-              <div class="sr-iw-inner__img">
-                <a href='$link'>
-                  <img id="sr-iw-inner__img-img" src='$photo'>
+        ob_start();
+        ?>
+        <div class="sr-iw-inner">
+            <h4 class="sr-iw-addr">
+                <?php echo esc_html($address); ?>
+                <small> - <?php echo esc_html($price); ?></small>
+            </h4>
+            <div class="sr-iw-inner__img">
+                <a href="<?php echo esc_url($link); ?>">
+                    <img id="sr-iw-inner__img-img" src="<?php echo esc_url($photo); ?>">
                 </a>
-              </div>
-              <div class="sr-iw-inner__primary">
-                <p>$beds Bed | $baths_display | $status </p>
-              </div>
-              <hr>
-              <div class="sr-iw-inner__secondary">
-                <p><strong>$MLS_text #:</strong> $mlsid</p>
-                <p><strong>Area:</strong> $area SqFt</p>
-                <p><strong>Property Type:</strong> $propType</p>
-                <p><strong>Property Style:</strong> $style</p>
-                $compliance_markup
-              </div>
-              <hr>
-              <div class="sr-iw-inner__view-details">
-                <a href='$link' class='sr-iw-inner__details-link'>View Details</a>
-              </div>
             </div>
-HTML;
+            <div class="sr-iw-inner__primary">
+                <p>
+                    <?php echo esc_html($beds) . "bed | "; ?>
+                    <?php echo esc_html($baths_display) . " | "; ?>
+                    <?php echo esc_html($status); ?>
+                </p>
+            </div>
+            <hr>
+            <div class="sr-iw-inner__secondary">
+                <p>
+                    <strong>
+                        <?php echo esc_html($MLS_text) . " #: "; ?>
+                    </strong>
+                    <?php echo esc_html($mlsid); ?>
+                </p>
+                <p>
+                    <strong>Area: </strong>
+                    <?php echo esc_html($area) . "sqft"; ?>
+                </p>
+                <p>
+                    <strong>Property Type: </strong>
+                    <?php echo esc_html($propType); ?>
+                </p>
+                <p>
+                    <strong>Property Style: </strong>
+                    <?php echo esc_html($style); ?>
+                </p>
+                <p>
+                    <?php
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    echo html_entity_decode(esc_html($compliance_markup));
+                    ?>
+                </p>
+            </div>
+            <hr>
+            <div class="sr-iw-inner__view-details">
+                <a
+                    href="<?php echo esc_url($link); ?>"
+                    class='sr-iw-inner__details-link'>
+                    View Details
+                </a>
+            </div>
+        </div>
+        <?php
 
-        return $markup;
-
+        return ob_get_clean();
     }
 
 
