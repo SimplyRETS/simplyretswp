@@ -484,7 +484,8 @@ HTML;
 
         if( empty($photos) ) {
             $main_photo = SrListing::mainPhotoOrDefault($listing);
-            $markup = "<img src='$main_photo'>";
+            $main_photo_url = esc_url($main_photo);
+            $markup = "<img src='$main_photo_url'>";
             $photo_gallery['markup'] = $markup;
             $photo_gallery['more']   = '';
             return $photo_gallery;
@@ -493,11 +494,13 @@ HTML;
             $markup = '';
             if(get_option('sr_listing_gallery') == 'classic') {
                 $photo_counter = 0;
-                $main_photo = $photos[0];
+                $main_photo = esc_url($photos[0]);
                 $more = '<span id="sr-toggle-gallery">See more photos</span> |';
                 $markup .= "<div class='sr-slider'><img class='sr-slider-img-act' src='$main_photo'>";
                 foreach( $photos as $photo ) {
-                    $image_url = SrListing::normalizeListingPhotoUrl($photo);
+                    $image = SrListing::normalizeListingPhotoUrl($photo);
+                    $image_url = esc_url($image);
+
                     $markup .=
                         "<input class='sr-slider-input' type='radio' name='slide_switch' id='id$photo_counter' value='$photo' />";
                     $markup .= "<label for='id$photo_counter'>";
@@ -529,7 +532,9 @@ HTML;
 
                 foreach( $photos as $idx=>$photo ) {
                     $num = $idx + 1;
-                    $image_url = SrListing::normalizeListingPhotoUrl($photo);
+                    $image = SrListing::normalizeListingPhotoUrl($photo);
+                    $image_url = esc_url($image);
+
                     $img_description = "<div>"
                                      . "  <div>Photo {$num} of {$photos_count}</div>"
                                      . "  <div style=\"{$description_style}\">"
@@ -1819,6 +1824,7 @@ HTML;
 
             // Primary listing photo
             $main_photo = SrListing::mainPhotoOrDefault($listing);
+            $main_photo_url = esc_url($main_photo);
 
             // Compliance markup (agent/office)
             $listing_office  = $listing->office->name;
@@ -1841,7 +1847,7 @@ HTML;
                   </h5>
                 </a>
                 <a href="$link">
-                  <img src="$main_photo" width="100%" alt="$address">
+                  <img src="$main_photo_url" width="100%" alt="$address">
                 </a>
                 <div class="sr-listing-wdgt-primary">
                   <div id="sr-listing-wdgt-details">
