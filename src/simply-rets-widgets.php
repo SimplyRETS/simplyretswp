@@ -83,36 +83,36 @@ class srFeaturedListingWidget extends WP_Widget {
 
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id('title'); ?>">
+            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
                 Title:
             </label>
-            <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
-                   name="<?php echo $this->get_field_name('title'); ?>"
+            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
+                   name="<?php echo esc_attr($this->get_field_name('title')); ?>"
                    type="text"
-                   value="<?php echo $title; ?>"
+                   value="<?php echo esc_attr($title); ?>"
             />
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_id('mlsid'); ?>">
-                <?php echo "Listing " . $MLS_text . " Id:" ?>
+            <label for="<?php echo esc_attr($this->get_field_id('mlsid')); ?>">
+                <?php echo "Listing " . esc_html($MLS_text) . " Id:" ?>
             </label>
             <input class="widefat"
-                   id="<?php echo $this->get_field_id('mlsid'); ?>"
-                   name="<?php echo $this->get_field_name('mlsid'); ?>"
+                   id="<?php echo esc_attr($this->get_field_id('mlsid')); ?>"
+                   name="<?php echo esc_attr($this->get_field_name('mlsid')); ?>"
                    type="text"
-                   value="<?php echo $mlsid; ?>"
+                   value="<?php echo esc_attr($mlsid); ?>"
             />
         </p>
         <?php if(!$singleVendor) { ?>
             <p>
-                <label for="<?php echo $this->get_field_id('vendor'); ?>">
+                <label for="<?php echo esc_attr($this->get_field_id('vendor')); ?>">
                     Vendor:
                 </label>
-                <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
-                       name="<?php echo $this->get_field_name('vendor'); ?>"
+                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('vendor')); ?>"
+                       name="<?php echo esc_attr($this->get_field_name('vendor')); ?>"
                        type="text"
-                       value="<?php echo $vendor; ?>"
+                       value="<?php echo esc_attr($vendor); ?>"
                 />
             </p>
         <?php }
@@ -149,7 +149,7 @@ class srFeaturedListingWidget extends WP_Widget {
         }
 
         $cont .= $after_widget;
-        echo $cont;
+        echo esc_html($cont);
     }
 
 }
@@ -193,45 +193,45 @@ class srAgentListingWidget extends WP_Widget {
 
         ?>
         <p>
-          <label for="<?php echo $this->get_field_id('title'); ?>">
+          <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
               Title:
           </label>
-          <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
-                         name="<?php echo $this->get_field_name('title'); ?>"
+          <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
+                         name="<?php echo esc_attr($this->get_field_name('title')); ?>"
                          type="text"
-                         value="<?php echo $title; ?>" />
+                         value="<?php echo esc_attr($title); ?>" />
         </p>
 
         <p>
-          <label for="<?php echo $this->get_field_id('agent'); ?>">
-                <?php echo "Agent " . $MLS_text . " Id:"; ?>
+          <label for="<?php echo esc_attr($this->get_field_id('agent')); ?>">
+                <?php echo "Agent " . esc_html($MLS_text) . " Id:"; ?>
           </label>
           <input class="widefat"
-                         id="<?php echo $this->get_field_id('agent'); ?>"
-                         name="<?php echo $this->get_field_name('agent'); ?>"
+                         id="<?php echo esc_attr($this->get_field_id('agent')); ?>"
+                         name="<?php echo esc_attr($this->get_field_name('agent')); ?>"
                          type="text"
-                         value="<?php echo $agent; ?>" />
+                         value="<?php echo esc_attr($agent); ?>" />
         </p>
 
         <p>
-          <label for="<?php echo $this->get_field_id('limit'); ?>">
+          <label for="<?php echo esc_attr($this->get_field_id('limit')); ?>">
                 Number of listings to show:
           </label>
           <input class="widefat"
-                         id="<?php echo $this->get_field_id('limit'); ?>"
-                         name="<?php echo $this->get_field_name('limit'); ?>"
+                         id="<?php echo esc_attr($this->get_field_id('limit')); ?>"
+                         name="<?php echo esc_attr($this->get_field_name('limit')); ?>"
                          type="text"
-                         value="<?php echo $limit; ?>" />
+                         value="<?php echo esc_attr($limit); ?>" />
         </p>
         <?php if(!$singleVendor) { ?>
             <p>
-                <label for="<?php echo $this->get_field_id('vendor'); ?>">
+                <label for="<?php echo esc_attr($this->get_field_id('vendor')); ?>">
                     Vendor:
                 </label>
-                <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
-                       name="<?php echo $this->get_field_name('vendor'); ?>"
+                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('vendor')); ?>"
+                       name="<?php echo esc_attr($this->get_field_name('vendor')); ?>"
                        type="text"
-                       value="<?php echo $vendor; ?>"
+                       value="<?php echo esc_attr($vendor); ?>"
                 />
             </p>
         <?php }
@@ -273,7 +273,7 @@ class srAgentListingWidget extends WP_Widget {
        }
 
        $cont .= $after_widget;
-       echo $cont;
+       echo esc_html($cont);
     }
 
 }
@@ -313,36 +313,36 @@ class srRandomListingWidget extends WP_Widget {
 
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id('title'); ?>">
+            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
                 Title:
             </label>
-          <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
-                 name="<?php echo $this->get_field_name('title'); ?>"
+          <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
+                 name="<?php echo esc_attr($this->get_field_name('title')); ?>"
                  type="text"
-                 value="<?php echo $title; ?>"
+                 value="<?php echo esc_attr($title); ?>"
             />
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_id('mlsids'); ?>">
-                <?php echo $MLS_text . " ID's (comma separated):"; ?>
+            <label for="<?php echo esc_attr($this->get_field_id('mlsids')); ?>">
+                <?php echo esc_html($MLS_text) . " ID's (comma separated):"; ?>
             </label>
             <input class="widefat"
-                   id="<?php echo $this->get_field_id('mlsids'); ?>"
-                   name="<?php echo $this->get_field_name('mlsids'); ?>"
+                   id="<?php echo esc_attr($this->get_field_id('mlsids')); ?>"
+                   name="<?php echo esc_attr($this->get_field_name('mlsids')); ?>"
                    type="text"
-                   value="<?php echo $mlsids; ?>"
+                   value="<?php echo esc_attr($mlsids); ?>"
             />
         </p>
         <?php if(!$singleVendor) { ?>
             <p>
-                <label for="<?php echo $this->get_field_id('vendor'); ?>">
+                <label for="<?php echo esc_attr($this->get_field_id('vendor')); ?>">
                     Vendor:
                 </label>
-                <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
-                       name="<?php echo $this->get_field_name('vendor'); ?>"
+                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('vendor')); ?>"
+                       name="<?php echo esc_attr($this->get_field_name('vendor')); ?>"
                        type="text"
-                       value="<?php echo $vendor; ?>"
+                       value="<?php echo esc_attr($vendor); ?>"
                 />
             </p>
         <?php }
@@ -384,7 +384,7 @@ class srRandomListingWidget extends WP_Widget {
         }
 
         $cont .= $after_widget;
-        echo $cont;
+        echo esc_html($cont);
     }
 }
 
@@ -419,23 +419,23 @@ class srSearchFormWidget extends WP_Widget {
 
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id('title'); ?>">
+            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
                 Title:
             </label>
-            <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
-                   name="<?php echo $this->get_field_name('title'); ?>"
+            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
+                   name="<?php echo esc_attr($this->get_field_name('title')); ?>"
                    type="text"
-                   value="<?php echo $title; ?>" />
+                   value="<?php echo esc_attr($title); ?>" />
         </p>
         <?php if(!$singleVendor) { ?>
             <p>
-                <label for="<?php echo $this->get_field_id('vendor'); ?>">
+                <label for="<?php echo esc_attr($this->get_field_id('vendor')); ?>">
                     Vendor:
                 </label>
-                <input class="widefat" id="<?php echo $this->get_field_id('vendor'); ?>"
-                       name="<?php echo $this->get_field_name('vendor'); ?>"
+                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('vendor')); ?>"
+                       name="<?php echo esc_attr($this->get_field_name('vendor')); ?>"
                        type="text"
-                       value="<?php echo $vendor; ?>"
+                       value="<?php echo esc_attr($vendor); ?>"
                 />
             </p>
         <?php }
@@ -531,7 +531,7 @@ HTML;
         $cont .= $search_form_markup;
 
         $cont .= $after_widget;
-        echo $cont;
+        echo esc_html($cont);
 
     }
 
