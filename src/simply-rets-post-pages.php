@@ -443,7 +443,7 @@ class SimplyRetsCustomPostPages {
         $box_default_option = '<option value="">Default Template</option>';
         $box_option = '';
 
-        echo $box_label;
+        echo esc_html($box_label);
 
         foreach (  $template_options as $name=>$file ) {
             if ( $current_template == $file ) {
@@ -453,9 +453,9 @@ class SimplyRetsCustomPostPages {
             }
         }
 
-        echo $box_select;
-        echo $box_default_option;
-        echo $box_option;
+        echo esc_html($box_select);
+        echo esc_html($box_default_option);
+        echo esc_html($box_option);
         echo '</select>';
     }
 
