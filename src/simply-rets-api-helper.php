@@ -1699,97 +1699,95 @@ class SimplyRetsApiHelper {
 
             if ($grid_view == true) {
                 // append markup for this listing to the content
-                $resultsMarkup .= <<<HTML
-                    <div class="sr-listing-grid-item {$status_class}">
-                      <a href="$link">
-                        <div class="sr-photo" style="background-image:url('$main_photo');">
-                            <span class="sr-listing-status-banner {$status_banner_class}">
-                                <span class="sr-listing-status-banner-text">
-                                    $mls_status $status_banner_info
-                                </span>
-                            </span>
-                        </div>
-                      </a>
-                      <div class="sr-listing-data-wrapper">
-                        <div class="sr-primary-data">
-                          <a href="$link">
-                            <h4>$full_address
-                              <small class="sr-price">
-                                <i> - $price_to_display</i>
-                              </small>
-                            </h4>
-                          </a>
-                        </div>
-                        <div class="sr-secondary-data">
-                          <ul class="sr-data-column">
-                            $cityMarkup
-                            $yearMarkup
-                            $mlsidMarkup
-                          </ul>
-                          <ul class="sr-data-column">
-                            $bedsMarkup
-                            $bathsMarkup
-                            $areaMarkup
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="more-details-wrapper">
-                        <span class="more-details-link">
-                            <a href="$link">More details</a>
-                        </span>
-                        <span class="result-compliance-markup">
-                          $compliance_markup
-                        </span>
-                      </div>
-                    </div>
-HTML;
+                $resultsMarkup .=
+                      '<div class="sr-listing-grid-item ' . $status_class . '">'
+                    . '  <a href="' . $link . '">'
+                    . '    <div class="sr-photo" style="background-image:url(' . $main_photo . ');">'
+                    . '        <span class="sr-listing-status-banner ' . $status_banner_class . '">'
+                    . '            <span class="sr-listing-status-banner-text">'
+                    .                  $mls_status . $status_banner_info
+                    . '            </span>'
+                    . '        </span>'
+                    . '    </div>'
+                    . '  </a>'
+                    . '  <div class="sr-listing-data-wrapper">'
+                    . '    <div class="sr-primary-data">'
+                    . '      <a href="' . $link . '">'
+                    . '        <h4>' . $full_address
+                    . '          <small class="sr-price">'
+                    . '            <i> - ' . $price_to_display . '</i>'
+                    . '          </small>'
+                    . '        </h4>'
+                    . '      </a>'
+                    . '    </div>'
+                    . '    <div class="sr-secondary-data">'
+                    . '      <ul class="sr-data-column">'
+                    .          $cityMarkup
+                    .          $yearMarkup
+                    .          $mlsidMarkup
+                    . '      </ul>'
+                    . '      <ul class="sr-data-column">'
+                    .          $bedsMarkup
+                    .          $bathsMarkup
+                    .          $areaMarkup
+                    . '      </ul>'
+                    . '    </div>'
+                    . '  </div>'
+                    . '  <div class="more-details-wrapper">'
+                    . '    <span class="more-details-link">'
+                    . '        <a href="' . $link . '">More details</a>'
+                    . '    </span>'
+                    . '    <span class="result-compliance-markup">'
+                    .        $compliance_markup
+                    . '    </span>'
+                    . '  </div>'
+                    . '</div>';
             } else {
                 // append markup for this listing to the content
-                $resultsMarkup .= <<<HTML
-                    <hr>
-                    <div class="sr-listing {$status_class}">
-                      <a href="$link">
-                        <div class="sr-photo" style="background-image:url('$main_photo');">
-                            <span class="sr-listing-status-banner {$status_banner_class}">
-                                <span class="sr-listing-status-banner-text">
-                                    $mls_status
-                                </span>
-                            </span>
-                        </div>
-                      </a>
-                      <div class="sr-listing-data-wrapper">
-                        <div class="sr-primary-data">
-                          <a href="$link">
-                            <h4>$full_address
-                              <small class="sr-price">
-                                <i> - $price_to_display</i>
-                              </small>
-                            </h4>
-                          </a>
-                        </div>
-                        <div class="sr-secondary-data">
-                          <ul class="sr-data-column">
-                            $cityMarkup
-                            $yearMarkup
-                            $mlsidMarkup
-                          </ul>
-                          <ul class="sr-data-column">
-                            $bedsMarkup
-                            $bathsMarkup
-                            $areaMarkup
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="more-details-wrapper">
-                        <span class="more-details-link">
-                            <a href="$link">More details</a>
-                        </span>
-                        <span class="result-compliance-markup">
-                          $compliance_markup
-                        </span>
-                      </div>
-                    </div>
-HTML;
+                $resultsMarkup .=
+                      '<hr>'
+                    . '<div class="sr-listing ' . $status_class . '">'
+                    . '  <a href="' . $link . '">'
+                    . '    <div class="sr-photo" style="background-image:url(' . $main_photo . ');">'
+                    . '        <span class="sr-listing-status-banner ' . $status_banner_class . '">'
+                    . '            <span class="sr-listing-status-banner-text">'
+                    .                  $mls_status
+                    . '            </span>'
+                    . '        </span>'
+                    . '    </div>'
+                    . '  </a>'
+                    . '  <div class="sr-listing-data-wrapper">'
+                    . '    <div class="sr-primary-data">'
+                    . '      <a href="' . $link . '">'
+                    . '        <h4>' . $full_address
+                    . '          <small class="sr-price">'
+                    . '            <i> - ' . $price_to_display . '</i>'
+                    . '          </small>'
+                    . '        </h4>'
+                    . '      </a>'
+                    . '    </div>'
+                    . '    <div class="sr-secondary-data">'
+                    . '      <ul class="sr-data-column">'
+                    .          $cityMarkup
+                    .          $yearMarkup
+                    .          $mlsidMarkup
+                    . '      </ul>'
+                    . '      <ul class="sr-data-column">'
+                    .          $bedsMarkup
+                    .          $bathsMarkup
+                    .          $areaMarkup
+                    . '      </ul>'
+                    . '    </div>'
+                    . '  </div>'
+                    . '  <div class="more-details-wrapper">'
+                    . '    <span class="more-details-link">'
+                    . '        <a href="' . $link . '">More details</a>'
+                    . '    </span>'
+                    . '    <span class="result-compliance-markup">'
+                    .        $compliance_markup
+                    . '    </span>'
+                    . '  </div>'
+                    . '</div>';
             }
 
         }
@@ -1904,39 +1902,37 @@ HTML;
             );
 
             // append markup for this listing to the content
-            $cont .= <<<HTML
-              <div class="sr-listing-wdgt">
-                <a href="$link">
-                  <h5>$address
-                    <small> - $price_to_display </small>
-                  </h5>
-                </a>
-                <a href="$link">
-                  // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
-                  <img src="$main_photo_url" width="100%" alt="$address">
-                </a>
-                <div class="sr-listing-wdgt-primary">
-                  <div id="sr-listing-wdgt-details">
-                    <span>$bedrooms Bed | $bathrooms_display | $mls_status </span>
-                  </div>
-                  <hr>
-                  <div id="sr-listing-wdgt-remarks">
-                    <p>$listing_remarks</p>
-                  </div>
-                </div>
-                <div>
-                  <i>$compliance_markup</i>
-                </div>
-                <div id="sr-listing-wdgt-btn">
-                  <a href="$link">
-                    <button class="button btn">
-                      More about this listing
-                    </button>
-                  </a>
-                </div>
-              </div>
-HTML;
-
+            $cont .=
+                '<div class="sr-listing-wdgt">'
+              . '  <a href="' . $link . '">'
+              . '    <h5>' . $address
+              . '      <small> -' . $price_to_display . '</small>'
+              . '    </h5>'
+              . '  </a>'
+              . '  <a href="' . $link . '">'
+              . '    // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage'
+              . '    <img src="' . $main_photo_url . '" width="100%" alt="' . $address .'">'
+              . '  </a>'
+              . '  <div class="sr-listing-wdgt-primary">'
+              . '    <div id="sr-listing-wdgt-details">'
+              . '      <span>' . $bedrooms . ' Bed | ' . $bathrooms_display . ' | ' . $mls_status . '</span>'
+              . '    </div>'
+              . '    <hr>'
+              . '    <div id="sr-listing-wdgt-remarks">'
+              . '      <p>' . $listing_remarks . '</p>'
+              . '    </div>'
+              . '  </div>'
+              . '  <div>'
+              . '    <i>' . $compliance_markup . '</i>'
+              . '  </div>'
+              . '  <div id="sr-listing-wdgt-btn">'
+              . '    <a href="' . $link . '">'
+              . '      <button class="button btn">'
+              . '        More about this listing'
+              . '      </button>'
+              . '    </a>'
+              . '  </div>'
+              . '</div>';
         }
         return $cont;
     }
@@ -2065,32 +2061,29 @@ HTML;
             $listing_agent = $l->agent->firstName . ' ' . $l->agent->lastName;
             $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office, $listing_agent);
 
-            $inner .= <<<HTML
-                <div class="sr-listing-slider-item">
-                  <a href="$link">
-                    <div class="sr-listing-slider-item-img" style="background-image: url('$photo')"></div>
-                  </a>
-                  <a href="$link">
-                    <h4 class="sr-listing-slider-item-address">$address <small>$price_to_display</small></h4>
-                  </a>
-                  <p class="sr-listing-slider-item-specs">$beds Bed / $bathrooms_display / $area SqFt</p>
-                  <p class="sr-listing-slider-item-specs">$compliance_markup</p>
-                </div>
-HTML;
+            $inner .=
+                  '<div class="sr-listing-slider-item">'
+                . '  <a href="' . $link . '">'
+                . '    <div class="sr-listing-slider-item-img" style="background-image: url(' . $photo . ')"></div>'
+                . '  </a>'
+                . '  <a href="' . $link . '">'
+                . '    <h4 class="sr-listing-slider-item-address">' . $address . ' <small>' . $price_to_display . '</small></h4>'
+                . '  </a>'
+                . '  <p class="sr-listing-slider-item-specs">' . $beds . ' Bed / ' . $bathrooms_display . ' / ' . $area . ' SqFt</p>'
+                . '  <p class="sr-listing-slider-item-specs">' . $compliance_markup . '</p>'
+                . '</div>';
         }
 
-        $content = <<<HTML
-
-            <div>
-              <div id="simplyrets-listings-slider" class="sr-listing-carousel">
-                $inner
-              </div>
-              <br/>
-              <div id="simplyrets-listings-slider-disclaimer" style="text-align:center;">
-                $disclaimer
-              </div>
-            </div>
-HTML;
+        $content =
+              '<div>'
+            . '  <div id="simplyrets-listings-slider" class="sr-listing-carousel">'
+            .      $inner
+            . '  </div>'
+            . '  <div id="simplyrets-listings-slider-disclaimer" style="text-align:center;">'
+            .      $disclaimer
+            . '  </div>'
+            . '  <br/>'
+            . '</div>';
 
         return $content;
     }
