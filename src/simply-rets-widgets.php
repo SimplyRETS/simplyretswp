@@ -148,8 +148,7 @@ class srFeaturedListingWidget extends WP_Widget {
             $cont .= "No listing found";
         }
 
-        $cont .= $after_widget;
-        echo esc_html($cont);
+        echo wp_kses_post($cont . $after_widget);
     }
 
 }
@@ -272,8 +271,7 @@ class srAgentListingWidget extends WP_Widget {
            $cont .= "No listing found";
        }
 
-       $cont .= $after_widget;
-       echo esc_html($cont);
+       echo wp_kses_post($cont . $after_widget);
     }
 
 }
@@ -383,8 +381,7 @@ class srRandomListingWidget extends WP_Widget {
             $cont .= "No listing found";
         }
 
-        $cont .= $after_widget;
-        echo esc_html($cont);
+        echo wp_kses_post($cont . $after_widget);
     }
 }
 
@@ -547,6 +544,7 @@ class srSearchFormWidget extends WP_Widget {
         // populate content
         $cont .= $search_form_markup . $after_widget;
 
-        echo esc_html($cont);
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo $cont;
     }
 }
