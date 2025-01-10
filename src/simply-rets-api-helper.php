@@ -495,31 +495,27 @@ class SimplyRetsApiHelper {
         } else {
             $data_attr = str_replace(" ", "-", strtolower($name));
             if(!$additional && !$desc) {
-                $val = <<<HTML
-                    <tr data-attribute="$data_attr">
-                      <td>$name</td>
-                      <td colspan="2">$val</td>
-                    </tr>
-HTML;
+                $val = '<tr data-attribute="' . $data_attr . '">'
+                     . '  <td>' . $name . '</td>'
+                     . '  <td colspan="2">' . $val . '</td>'
+                     . '</tr>';
             } elseif ($additional && !$desc) {
-                $val = <<<HTML
-                    <tr data-attribute="$data_attr">
-                      <td>$name</td>
-                      <td>$val</td>
-                      <td>$additional</td>
-                    </tr>
-HTML;
+                $val = '<tr data-attribute="' . $data_attr . '">'
+                     . '  <td>' . $name . '</td>'
+                     . '  <td>' . $val . '</td>'
+                     . '  <td>' . $additional . '</td>'
+                     . '</tr>';
             } else {
-                $val = <<<HTML
-                    <tr data-attribute="$data_attr">
-                      <td rowspan="2" style="vertical-align: middle;border-bottom:solid 1px #eee;">$name</td>
-                      <td colspan="1">$val</td>
-                      <td colspan="1">$additional</td>
-                    </tr>
-                    <tr data-attribute="$data_attr">
-                      <td colspan="2">$desc</td>
-                    </tr>
-HTML;
+                $val = '<tr data-attribute="' . $data_attr . '">'
+                     . '  <td rowspan="2" style="vertical-align: middle;border-bottom:solid 1px #eee;">'
+                     .       $name
+                     . '  </td>'
+                     . '  <td colspan="1">' . $val . '</td>'
+                     . '  <td colspan="1">' . $additional . '</td>'
+                     . '  </tr>'
+                     . '  <tr data-attribute="' . $data_attr . '">'
+                     . '  <td colspan="2">' . $desc . '</td>'
+                     . '</tr>';
             }
         }
         return $val;
@@ -967,20 +963,21 @@ HTML;
         $main_photo = SrListing::mainPhotoOrDefault($listing);
 
         // geographic data
+        $geo_table_header = "";
         if($geo_directions
            || $listing_lat
            || $listing_longitude
            || $listing_county
            || $listing_market_area
         ) {
-            $geo_table_header = <<<HTML
-              <thead>
-                <tr>
-                  <th colspan="3"><h5>Geographic Data</h5></th></tr></thead>
-              <tbody>
-HTML;
-        } else {
-            $geo_table_header = "";
+            $geo_table_header = '<thead>'
+                              . '  <tr>'
+                              . '    <th colspan="3">'
+                              . '      <h5>Geographic Data</h5>'
+                              . '    </th>'
+                              . '  </tr>'
+                              . '</thead>'
+                              . '<tbody>';
         }
 
         // school data
@@ -998,24 +995,25 @@ HTML;
         $listing_high_school = $has_school_data ? $listing->school->highSchool : NULL;
         $school_high = SimplyRetsApiHelper::srDetailsTable($listing_high_school, "High School");
 
+        $school_data = "";
         if($listing_school_district
            || $listing_elementary
            || $listing_middle_school
            || $listing_high_school
         ) {
-            $school_data = <<<HTML
-              <thead>
-                <tr>
-                  <th colspan="3"><h5>School Information</h5></th></tr></thead>
-              <tbody>
-              $school_district
-              $school_elementary
-              $school_middle
-              $school_high
-              </tbody>
-HTML;
-        } else {
-            $school_data = "";
+            $school_data = '<thead>'
+                         . '  <tr>'
+                         . '    <th colspan="3">'
+                         . '      <h5>School Information</h5>'
+                         . '    </th>'
+                         . '  </tr>'
+                         . '</thead>'
+                         . '<tbody>'
+                         .    $school_district
+                         .    $school_elementary
+                         .    $school_middle
+                         .    $school_high
+                         . '</tbody>';
         }
 
         // list date and listing last modified
@@ -1032,11 +1030,9 @@ HTML;
             $remarks_markup = "";
         } else {
             $remarks = $listing->remarks;
-            $remarks_markup = <<<HTML
-            <div class="sr-remarks-details">
-              <p>$remarks</p>
-            </div>
-HTML;
+            $remarks_markup = '<div class="sr-remarks-details">'
+                            . '  <p>' . $remarks . '</p>'
+                            . '</div>';
         }
 
         if( get_option('sr_show_leadcapture') ) {
@@ -1166,12 +1162,13 @@ HTML;
             $upcoming_openhouses_text =
                 $upcoming_openhouses === 1 ? "upcoming open house" : "upcoming open houses";
 
-            $next_openhouses_banner = <<<HTML
-                <div class="sr-listing-openhouses-banner">
-                  <h3>$upcoming_openhouses $upcoming_openhouses_text</h3>
-                  $next_openhouses_details
-                </div>
-HTML;
+            $next_openhouses_banner = '<div class="sr-listing-openhouses-banner">'
+                                    . '  <h3>'
+                                    .     $upcoming_openhouses
+                                    .     $upcoming_openhouses_text
+                                    . '  </h3>'
+                                    .    $next_openhouses_details
+                                    . '</div>';
         }
 
         /**
@@ -1245,20 +1242,16 @@ HTML;
             $map->setAutoZoom(false);
             $map->setMapOption('zoom', 12);
             $mapM = $mapHelper->render($map);
-            $mapMarkup = <<<HTML
-                <hr>
-                <div id="details-map">
-                  <h3>Map View</h3>
-                  $mapM
-                </div>
-HTML;
-            $mapLink = <<<HTML
-              <span style="float:left;">
-                <a href="#details-map">
-                  View on map
-                </a>
-              </span>
-HTML;
+            $mapMarkup = '<hr>'
+                       . '<div id="details-map">'
+                       . '  <h3>Map View</h3>'
+                       .    $mapM
+                       . '</div>';
+            $mapLink = '<span style="float:left;">'
+                     . '  <a href="#details-map">'
+                     . '    View on map'
+                     . '  </a>'
+                     . '</span>';
         } else {
             $mapMarkup = '';
             $mapLink = '';
@@ -1267,152 +1260,168 @@ HTML;
 
 
         // listing markup
-        $cont .= <<<HTML
-          <div class="sr-details" style="text-align:left;">
-            $listing_by_markup
-            <p class="sr-details-links" style="clear:both;">
-              $mapLink
-              $more_photos
-              <span id="sr-listing-contact">
-                <a href="#sr-contact-form">$contact_text</a>
-              </span>
-            </p>
-            $gallery_markup
-            <script>
-              if(document.getElementById('sr-fancy-gallery')) {
-                  Galleria.loadTheme('$galleria_theme');
-                  Galleria.configure({
-                      height: 500,
-                      width:  "90%",
-                      showinfo: false,
-                      dummy: "$default_photo",
-                      lightbox: true,
-                      imageCrop: false,
-                      imageMargin: 0,
-                      fullscreenDoubleTap: true
-                  });
-                  Galleria.run('.sr-gallery');
-              }
-            </script>
-            <div class="sr-primary-details">
-              <div class="sr-detail" id="sr-primary-details-beds">
-                <h3>$listing_bedrooms <small>Beds</small></h3>
-              </div>
-              <div class="sr-detail" id="sr-primary-details-baths">
-                <h3>$primary_baths</h3>
-              </div>
-              <div class="sr-detail" id="sr-primary-details-size">
-                <h3>$area <small class="sr-listing-area-sqft">SqFt</small></h3>
-              </div>
-              <div class="sr-detail" id="sr-primary-details-status">
-                <h3>$listing_mls_status</h3>
-              </div>
-            </div>
-            $remarks_markup
-            <div>
-              $next_openhouses_banner
-            </div>
-            <table style="width:100%;">
-              <thead>
-                <tr>
-                  <th colspan="3"><h5>Property Details</h5></th></tr></thead>
-              <tbody>
-                $price
-                $close_price
-                $bedrooms
-                $bathsFull
-                $bathsHalf
-                $bathsTotal
-                $style
-                $lotsize_markup
+        $cont .=
+              '<div class="sr-details" style="text-align:left;">'
+            .    $listing_by_markup
+            . '  <p class="sr-details-links" style="clear:both;">'
+            .    $mapLink
+            .    $more_photos
+            . '   <span id="sr-listing-contact">'
+            . '     <a href="#sr-contact-form">' . $contact_text . '</a>'
+            . '   </span>'
+            . '   </p>'
+            .     $gallery_markup
+            . '   <script>'
+            . '     if(document.getElementById("sr-fancy-gallery")) {'
+            . '          Galleria.loadTheme("' . $galleria_theme . '");'
+            . '          Galleria.configure({'
+            . '              height: 500,'
+            . '              width:  "90%",'
+            . '              showinfo: false,'
+            . '              dummy: "' . $default_photo . '",'
+            . '              lightbox: true,'
+            . '              imageCrop: false,'
+            . '              imageMargin: 0,'
+            . '              fullscreenDoubleTap: true'
+            . '          });'
+            . '          Galleria.run(".sr-gallery");'
+            . '     }'
+            . '</script>'
+            . '<div class="sr-primary-details">'
+            . ' <div class="sr-detail" id="sr-primary-details-beds">'
+            . '   <h3>' . $listing_bedrooms . ' <small>Beds</small></h3>'
+            . ' </div>'
+            . ' <div class="sr-detail" id="sr-primary-details-baths">'
+            . '   <h3>' . $primary_baths . '</h3>'
+            . ' </div>'
+            . ' <div class="sr-detail" id="sr-primary-details-size">'
+            . '   <h3>'
+            .        $area . '<small class="sr-listing-area-sqft">SqFt</small>'
+            . '    </h3>'
+            . ' </div>'
+            . ' <div class="sr-detail" id="sr-primary-details-status">'
+            . '   <h3>' . $listing_mls_status . '</h3>'
+            . '</div>'
+            . '</div>'
+            .    $remarks_markup
+            . '<div>'
+            .    $next_openhouses_banner
+            . '</div>'
+            . '<table style="width:100%;">'
+            . '  <thead>'
+            . '    <tr>'
+            . '      <th colspan="3">'
+            . '        <h5>Property Details</h5>'
+            . '      </th>'
+            . '    </tr>'
+            . '  </thead>'
+            . '  <tbody>'
+            .      $price
+            .      $close_price
+            .      $bedrooms
+            .      $bathsFull
+            .      $bathsHalf
+            .      $bathsTotal
+            .      $style
+            .      $lotsize_markup
+            .      $lotsizearea_markup
+            .      $lotsizeareaunits_markup
+            .      $acres_markup
+            .      $type
+            .      $subType
+            .      $subTypeText
+            .      $stories
+            .      $interiorFeatures
+            .      $exteriorFeatures
+            .      $yearBuilt
+            .      $fireplaces
+            .      $subdivision
+            .      $view
+            .      $roof
+            .      $water
+            .      $heating
+            .      $foundation
+            .      $accessibility
+            .      $lot_description
+            .      $laundry_features
+            .      $pool
+            .      $parking_description
+            .      $parking_spaces
+            .      $garage_spaces
+            .      $association_name
+            .      $association_fee
+            .      $association_amenities
+            .      $additional_rooms
+            .      $roomsMarkup
+            . '  </tbody>'
+            .      $geo_table_header
+            .      $geo_directions
+            .      $geo_county
+            .      $geo_latitude
+            .      $geo_longitude
+            .      $geo_market_area
+            . '  </tbody>'
+            . '  <thead>'
+            . '    <tr>'
+            . '      <th colspan="3">'
+            . '        <h5>Address Information</h5>'
+            . '      </th>'
+            . '    </tr>'
+            . '  </thead>'
+            . '  <tbody>'
+            .      $address
+            .      $unit
+            .      $postal_code
+            .      $city
+            .      $cross_street
+            .      $state
+            .      $country
+            . '  </tbody>'
+            . '  <thead>'
+            . '    <tr>'
+            . '      <th colspan="3">'
+            . '        <h5>Listing Information</h5>'
+            . '      </th>'
+            . '    </tr>'
+            . '  </thead>'
+            . '    <tbody>'
+            .      $office
+            .      $officePhone
+            .      $officeEmail
+            .      $agent
+            .      $agent_phone
+            .      $complianceExtras
+            .      $compensationDisclaimer
+            .      $special_listing_conditions
+            .      $ownership
+            .      $terms
+            .      $virtual_tour
+            . '   </tbody>'
+            .     $school_data
+            . '  <thead>'
+            . '    <tr>'
+            . '      <th colspan="3">'
+            . '        <h5>' . $MLS_text . ' Information</h5>'
+            . '      </th>'
+            . '     </tr>'
+            . '  </thead>'
+            . '  <tbody>'
+            .       $days_on_market
+            .       $mls_status
+            .       $list_date
+            .       $date_modified_markup
+            .       $tax_data
+            .       $tax_year
+            .       $tax_annual_amount
+            .       $mls_area
+            .       $mls_area_minor
+            .       $mlsid
+            . '    </tbody>'
+            . '  </table>'
+            .    $mapMarkup
+            . '  <script>' . $lh_analytics . '</script>'
+            . '</div>';
 
-                $lotsizearea_markup
-                $lotsizeareaunits_markup
-                $acres_markup
-
-                $type
-                $subType
-                $subTypeText
-                $stories
-                $interiorFeatures
-                $exteriorFeatures
-                $yearBuilt
-                $fireplaces
-                $subdivision
-                $view
-                $roof
-                $water
-                $heating
-                $foundation
-                $accessibility
-                $lot_description
-                $laundry_features
-                $pool
-                $parking_description
-                $parking_spaces
-                $garage_spaces
-                $association_name
-                $association_fee
-                $association_amenities
-                $additional_rooms
-                $roomsMarkup
-              </tbody>
-              $geo_table_header
-                $geo_directions
-                $geo_county
-                $geo_latitude
-                $geo_longitude
-                $geo_market_area
-              </tbody>
-              <thead>
-                <tr>
-                  <th colspan="3"><h5>Address Information</h5></th></tr></thead>
-              <tbody>
-                $address
-                $unit
-                $postal_code
-                $city
-                $cross_street
-                $state
-                $country
-              </tbody>
-              <thead>
-                <tr>
-                  <th colspan="3"><h5>Listing Information</h5></th></tr></thead>
-              <tbody>
-                $office
-                $officePhone
-                $officeEmail
-                $agent
-                $agent_phone
-                $complianceExtras
-                $compensationDisclaimer
-                $special_listing_conditions
-                $ownership
-                $terms
-                $virtual_tour
-              </tbody>
-              $school_data
-              <thead>
-                <tr>
-                  <th colspan="3"><h5>$MLS_text Information</h5></th></tr></thead>
-              <tbody>
-                $days_on_market
-                $mls_status
-                $list_date
-                $date_modified_markup
-                $tax_data
-                $tax_year
-                $tax_annual_amount
-                $mls_area
-                $mls_area_minor
-                $mlsid
-              </tbody>
-            </table>
-            $mapMarkup
-            <script>$lh_analytics</script>
-          </div>
-HTML;
         $cont .= SimplyRetsApiHelper::srContactFormDeliver();
         $cont .= $contact_markup;
 
