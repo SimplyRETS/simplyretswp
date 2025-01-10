@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 6.7.1
-Stable tag: 2.11.3
+Stable tag: 3.0.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -237,6 +237,9 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 3.0.0 =
+* ENHANCEMENT: Major syntax and formatting updates to resolve wp plugin-check errors
+
 = 2.11.3 =
 * ADD: Use custom currency code, if provided
 * FIX: Support exteriorFeatures/lotDescription filter on [sr_search_form]
@@ -259,92 +262,12 @@ listing sidebar widget.
 * IMPROVE: Improve responsive CSS for grid_view
 * FIX: Fix some options not working after pagination
 
-= 2.10.6 =
-* FIX: Remove commas in address when city, state, or zip doesn't exist
-* UPDATE: Update link to demo and documentation site
-
-= 2.10.5 =
-* FIX: Prefer list agent "cell" field over "office" field
-* FIX: Fix warning when listing remarks doesn't exist
-* UPDATE: Use case-insensitive header lookup for HTTP/2 support
-
-= 2.10.4 =
-* FIX: Fix misc PHP warnings on single listing page
-
-= 2.10.3 =
-* FIX: Fix error in [sr_map_search] short-code output
-
-= 2.10.2 =
-* FIX: Fix reading admin setting for map visibility
-* FIX: Fix hiding next link when results < limit
-
-= 2.10.1 =
-* FIX: Remove trailing commas to support older PHP versions
-
-= 2.10.0 =
-* FEATURE: Add grid_view option for sr_listings and sr_search_form
-* FEATURE: Add classes and IDs to sr-data-column markup
-* FEATURE: Add support for areaMinor filter
-* FEATURE: Rename plugin to SimplyRETS IDX
-* FIX: Fix misc warnings
-
-= 2.9.13 =
-* FEATURE: Add "Recently modified" sort option to search form
-* FEATURE: Show contact information with list agent/office name in "above the fold"
-  compliance markup
-* FIX: Fix error displaying "0 matching results" message
-* FIX: Fix bug displaying list office phone number
-
-= 2.9.12 =
-* FEATURE: Add support for `state` parameter in [sr_search_form]
-* FEATURE: Localize {lastUpdate} timestamp in custom disclaimer
-
-= 2.9.11 =
-* FEATURE: Display compliance fields when available
-* FIX: Some values get cleared when saving admin settings
-
-= 2.9.10 =
-* FEATURE: Allow multiple emails in lead capture admin setting.
-
-= 2.9.9 =
-* FIX: Improve display of pagination links on search result pages.
-
-= 2.9.8 =
-* FIX: Support using multiple salesAgent values in short-code attributes.
-
-= 2.9.7 =
-* FIX: Correctly initialize multiple [sr_listings_slider] on a single page.
-
-= 2.9.6 =
-* FIX: Load default listing image from S3 and fix PHP warnings.
-
-= 2.9.5 =
-* FEATURE: Support force image SSL option on widgets and open houses.
-* FIX: Fix PHP warnings in SimplyRETSWP widgets.
-
-= 2.9.4 =
-* FEATURE: Add option to always load images over `https`.
-
-= 2.9.3 =
-* FEATURE: Add support for `ownership` filter.
-* FEATURE: Show ownership information on listing details page.
-* FEATURE: Show special listing conditions on listing details page.
-* FIX: Fix various PHP warnings
-
-= 2.9.2 =
-* FEATURE: Add support for `specialListingConditions` search parameter.
-* FEATURE: Add support for `subTypeText` search parameter.
-* FEATURE: Add `subTypeText` to information on single listing pages.
-
-= 2.9.1 =
-* FIX: Update code to fix various PHP warnings and notices.
-
-= 2.9.0 =
-* FIX: Update `ivory-google-map` vendor library to fix issue loading Google Maps.
-
 [**View the complete CHANGELOG here**](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 
 == Upgrade Notice ==
+
+= 3.0.0 =
+**Before you upgrade to v3**: If you have made custom changes to the plugin's PHP or HTML, please be aware that v3 comes with many minor formatting and stylistic changes. In most spots we have kept the overall structure the same, so be sure to check the code before applying any custom changes.
 
 = 2.5.7 =
 **Please upgrade to v2.5.8**. A bug was introduced in v2.5.7 that will make the [sr_search_form] work incorrectly if there are *no* `postalCodes` parameters set. This bug is fixed in v2.5.8 and is available in your WordPress dashboard.
