@@ -86,7 +86,7 @@ class SrAdminSettings {
           return;
       } else {
           $notice = SimplyRetsCustomPostPages::onActivationNotice();
-          echo esc_html($notice);
+          echo wp_kses_post($notice);
       }
   }
 
