@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0.0
+* ENHANCEMENT: Major syntax and formatting updates to resolve wp plugin-check errors
+
 ## 2.11.3
 * ADD: Use custom currency code, if provided
 * FIX: Support exteriorFeatures/lotDescription filter on [sr_search_form]
