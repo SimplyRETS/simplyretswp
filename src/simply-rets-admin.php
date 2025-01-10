@@ -85,8 +85,7 @@ class SrAdminSettings {
       if($page_created OR !$show_msg) {
           return;
       } else {
-          $notice = SimplyRetsCustomPostPages::onActivationNotice();
-          echo wp_kses_post($notice);
+          return SimplyRetsCustomPostPages::onActivationNotice();
       }
   }
 
