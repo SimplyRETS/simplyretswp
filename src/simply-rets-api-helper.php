@@ -1910,7 +1910,7 @@ class SimplyRetsApiHelper {
               . '    </h5>'
               . '  </a>'
               . '  <a href="' . $link . '">'
-              . '    // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage'
+              // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
               . '    <img src="' . $main_photo_url . '" width="100%" alt="' . $address .'">'
               . '  </a>'
               . '  <div class="sr-listing-wdgt-primary">'
