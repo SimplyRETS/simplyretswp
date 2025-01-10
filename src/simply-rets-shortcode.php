@@ -117,84 +117,74 @@ class SrShortcodes {
                 }
             }
 
-            $search_form = <<<HTML
-                <div class="sr-int-map-search-wrapper">
-                  <div id="sr-search-wrapper">
-                    <h3>Search Listings</h3>
-                    <form method="get" class="sr-search sr-map-search-form">
-                      <input type="hidden" name="sr-listings" value="sr-search">
-
-                      <div class="sr-minmax-filters">
-                        <div class="sr-search-field" id="sr-search-keywords">
-                          <input name="sr_keywords"
-                                 type="text"
-                                 placeholder="Subdivision, Zipcode, $MLS_text Area, $MLS_text Number, or Market Area"
-                          />
-                        </div>
-
-                        <div class="sr-search-field" id="sr-search-ptype">
-                          <select name="sr_ptype">
-                            <option value="">Property Type</option>
-                            $type_options;
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="sr-minmax-filters">
-                        <div class="sr-search-field" id="sr-search-minprice">
-                          <input name="sr_minprice" step="1000" min="0" type="number" placeholder="Min Price.." />
-                        </div>
-                        <div class="sr-search-field" id="sr-search-maxprice">
-                          <input name="sr_maxprice" step="1000" min="0" type="number" placeholder="Max Price.." />
-                        </div>
-
-                        <div class="sr-search-field" id="sr-search-minbeds">
-                          <input name="sr_minbeds" min="0" type="number" placeholder="Min Beds.." />
-                        </div>
-                        <div class="sr-search-field" id="sr-search-maxbeds">
-                          <input name="sr_maxbeds" min="0" type="number" placeholder="Max Beds.." />
-                        </div>
-
-                        <div class="sr-search-field" id="sr-search-minbaths">
-                          <input name="sr_minbaths" min="0" type="number" placeholder="Min Baths.." />
-                        </div>
-                        <div class="sr-search-field" id="sr-search-maxbaths">
-                          <input name="sr_maxbaths" min="0" type="number" placeholder="Max Baths.." />
-                        </div>
-                      </div>
-
-                      <input type="hidden" name="sr_vendor"  value="$vendor" />
-                      <input type="hidden" name="sr_brokers" value="$brokers" />
-                      <input type="hidden" name="sr_agent"   value="$agent" />
-                      <input type="hidden" name="sr_idx"     value="$idx" />
-                      <input type="hidden" name="limit"      value="$limit" />
-
-                      <div>
-                          <input class="submit button btn" type="submit" value="Search Properties">
-
-                          <div class="sr-sort-wrapper">
-                              <label for="sr_sort">Sort by: </label>
-                              <select class="select" name="sr_sort">
-                                  <option value="">Sort Options</option>
-                                  <option value="-modified"> Recently modified</option>
-                                  <option value="-listprice"> Price - High to Low</option>
-                                  <option value="listprice"> Price - Low to High</option>
-                                  <option value="-listdate"> List Date - New to Old</option>
-                                  <option value="listdate"> List date - Old to New</option>
-                              </select>
-                          </div>
-                      </div>
-                      <p style="margin-bottom:5px">
-                        <span><small><i>
-                          To make a search, set your parameters
-                          above and/or draw a section on the map.
-                        </i></small></span>
-                      </p>
-                    </form>
-                  </div>
-                </div>
-HTML;
-
+            $search_form =
+                  '<div class="sr-int-map-search-wrapper">'
+                . '  <div id="sr-search-wrapper">'
+                . '    <h3>Search Listings</h3>'
+                . '    <form method="get" class="sr-search sr-map-search-form">'
+                . '      <input type="hidden" name="sr-listings" value="sr-search">'
+                . '      <div class="sr-minmax-filters">'
+                . '        <div class="sr-search-field" id="sr-search-keywords">'
+                . '          <input name="sr_keywords"'
+                . '                 type="text"'
+                . '                 placeholder="Subdivision, Zipcode, ' . $MLS_text . ' Area, ' . $MLS_text . ' Number, or Market Area"'
+                . '          />'
+                . '        </div>'
+                . '        <div class="sr-search-field" id="sr-search-ptype">'
+                . '          <select name="sr_ptype">'
+                . '            <option value="">Property Type</option>'
+                .              $type_options
+                . '          </select>'
+                . '        </div>'
+                . '      </div>'
+                . '      <div class="sr-minmax-filters">'
+                . '        <div class="sr-search-field" id="sr-search-minprice">'
+                . '          <input name="sr_minprice" step="1000" min="0" type="number" placeholder="Min Price.." />'
+                . '        </div>'
+                . '        <div class="sr-search-field" id="sr-search-maxprice">'
+                . '          <input name="sr_maxprice" step="1000" min="0" type="number" placeholder="Max Price.." />'
+                . '        </div>'
+                . '        <div class="sr-search-field" id="sr-search-minbeds">'
+                . '          <input name="sr_minbeds" min="0" type="number" placeholder="Min Beds.." />'
+                . '        </div>'
+                . '        <div class="sr-search-field" id="sr-search-maxbeds">'
+                . '          <input name="sr_maxbeds" min="0" type="number" placeholder="Max Beds.." />'
+                . '        </div>'
+                . '        <div class="sr-search-field" id="sr-search-minbaths">'
+                . '          <input name="sr_minbaths" min="0" type="number" placeholder="Min Baths.." />'
+                . '        </div>'
+                . '        <div class="sr-search-field" id="sr-search-maxbaths">'
+                . '          <input name="sr_maxbaths" min="0" type="number" placeholder="Max Baths.." />'
+                . '        </div>'
+                . '      </div>'
+                . '      <input type="hidden" name="sr_vendor"  value="' . $vendor . '" />'
+                . '      <input type="hidden" name="sr_brokers" value="' . $brokers . '" />'
+                . '      <input type="hidden" name="sr_agent"   value="' . $agent . '" />'
+                . '      <input type="hidden" name="sr_idx"     value="' . $idx . '" />'
+                . '      <input type="hidden" name="limit"      value="' . $limit . '" />'
+                . '      <div>'
+                . '          <input class="submit button btn" type="submit" value="Search Properties">'
+                . '          <div class="sr-sort-wrapper">'
+                . '              <label for="sr_sort">Sort by: </label>'
+                . '              <select class="select" name="sr_sort">'
+                . '                  <option value="">Sort Options</option>'
+                . '                  <option value="-modified"> Recently modified</option>'
+                . '                  <option value="-listprice"> Price - High to Low</option>'
+                . '                  <option value="listprice"> Price - Low to High</option>'
+                . '                  <option value="-listdate"> List Date - New to Old</option>'
+                . '                  <option value="listdate"> List date - Old to New</option>'
+                . '              </select>'
+                . '          </div>'
+                . '      </div>'
+                . '      <p style="margin-bottom:5px">'
+                . '        <span><small><i>'
+                . '          To make a search, set your parameters'
+                . '          above and/or draw a section on the map.'
+                . '        </i></small></span>'
+                . '      </p>'
+                . '    </form>'
+                . '  </div>'
+                . '</div>';
         }
 
         $content .= $search_form;
