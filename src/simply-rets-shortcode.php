@@ -345,7 +345,7 @@ class SrShortcodes {
         $areaMinor = isset($attributes['areaminor']) ? $attributes['areaminor'] : '';
         $ownership = isset($attributes['ownership']) ? $attributes['ownership'] : '';
         $salesAgent = isset($attributes['salesagent']) ? $attributes['salesagent'] : '';
-        $exteriorFeatures = isset($attributes['exteriorfeatures']) ? $attributes['exteriorfeatures'] : '';
+        $exteriorFeatures = isset($attributes['exteriorFeatures']) ? $attributes['exteriorFeatures'] : '';
         $lotDescription = isset($attributes['lotDescription']) ? $attributes['lotDescription'] : '';
 
         $config_type = isset($attributes['type']) ? $attributes['type']   : '';
@@ -499,8 +499,12 @@ class SrShortcodes {
 
                       <div class="sr-search-field" id="sr-search-ptype">
                         <select name="sr_ptype">
-                          <?php echo esc_html($default_type_option); ?>
-                          <?php echo esc_html($type_options); ?>
+                            <?php
+                            // phpcs:ignore WordPress.Security.EscapeOutput.
+                            echo $default_type_option;
+                            // phpcs:ignore WordPress.Security.EscapeOutput.
+                            echo $type_options;
+                            ?>
                         </select>
                       </div>
                     </div>
@@ -660,8 +664,12 @@ class SrShortcodes {
 
               <div class="sr-search-field" id="sr-search-ptype">
                 <select name="sr_ptype">
-                  <?php echo esc_html($default_type_option); ?>
-                  <?php echo esc_html($type_options); ?>
+                    <?php
+                    // phpcs:ignore WordPress.Security.EscapeOutput.
+                    echo $default_type_option;
+                    // phpcs:ignore WordPress.Security.EscapeOutput.
+                    echo $type_options;
+                    ?>
                 </select>
               </div>
             </div>
