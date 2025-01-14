@@ -345,7 +345,7 @@ class SrShortcodes {
         $areaMinor = isset($attributes['areaminor']) ? $attributes['areaminor'] : '';
         $ownership = isset($attributes['ownership']) ? $attributes['ownership'] : '';
         $salesAgent = isset($attributes['salesagent']) ? $attributes['salesagent'] : '';
-        $exteriorFeatures = isset($attributes['exteriorfeatures']) ? $attributes['exteriorfeatures'] : '';
+        $exteriorFeatures = isset($attributes['exteriorFeatures']) ? $attributes['exteriorFeatures'] : '';
         $lotDescription = isset($attributes['lotDescription']) ? $attributes['lotDescription'] : '';
 
         $config_type = isset($attributes['type']) ? $attributes['type']   : '';
