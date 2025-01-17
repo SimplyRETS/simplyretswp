@@ -753,7 +753,7 @@ class SrShortcodes {
      */
     public static function sr_listing_slider_shortcode($atts = array()) {
         $def_params = array("limit" => "12");
-        $def_settings = array("random" => "false");
+        $def_settings = array("vendor" => "", "random" => "false");
         $def_atts = array_merge($def_params, is_array($atts) ? $atts : array());
 
         $data = SrShortcodes::parseShortcodeAttributes($def_atts, $def_settings);
