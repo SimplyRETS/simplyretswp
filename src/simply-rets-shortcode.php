@@ -606,7 +606,10 @@ class SrShortcodes {
                     <div class="sr-adv-search-amenities-wrapper">
                       <label><strong>Features</strong></label>
                       <div class="sr-adv-search-amenities-wrapper-inner">
-                        <?php echo wp_kses_post($features_options); ?>
+                      <?php
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        echo $features_options;
+                      ?>
                       </div>
                     </div>
                   </div>
