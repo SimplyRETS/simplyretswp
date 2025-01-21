@@ -563,7 +563,10 @@ class SrShortcodes {
                       </label>
                       <select name="status" id="sr-adv-status-select">
                         <option value="">All</option>
-                        <?php echo esc_html($status_options); ?>
+                        <?php
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        echo $status_options;
+                        ?>
                       </select>
                     </div>
                     <div class="sr-adv-search-col4" id="sr-adv-lotsize">
@@ -581,14 +584,20 @@ class SrShortcodes {
                     <div class="sr-adv-search-col2" id="sr-adv-cities">
                       <label><strong>Cities</strong></label>
                       <select name='sr_cities[]' multiple>
-                        <?php echo wp_kses_post($city_options); ?>
+                      <?php
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        echo $city_options;
+                      ?>
                       </select>
                     </div>
 
                     <div class="sr-adv-search-col2" id="sr-adv-neighborhoods">
                       <label><strong>Locations</strong></label>
                       <select name="sr_neighborhoods[]" multiple>
-                        <?php echo wp_kses_post($location_options); ?>
+                      <?php
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        echo $location_options;
+                      ?>
                       </select>
                     </div>
                   </div>
