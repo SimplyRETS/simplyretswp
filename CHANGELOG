@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0.2
+* FIX: Misc markup fixes in advanced search form and [sr_listings_slider]
+
 ## 3.0.1
 * FIX: Properly escape HTML output in SimplyRETS widgets
 
