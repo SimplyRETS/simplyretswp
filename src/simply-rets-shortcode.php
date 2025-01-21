@@ -581,14 +581,14 @@ class SrShortcodes {
                     <div class="sr-adv-search-col2" id="sr-adv-cities">
                       <label><strong>Cities</strong></label>
                       <select name='sr_cities[]' multiple>
-                        <?php echo esc_html($city_options); ?>
+                        <?php echo wp_kses_post($city_options); ?>
                       </select>
                     </div>
 
                     <div class="sr-adv-search-col2" id="sr-adv-neighborhoods">
                       <label><strong>Locations</strong></label>
                       <select name="sr_neighborhoods[]" multiple>
-                        <?php echo esc_html($location_options); ?>
+                        <?php echo wp_kses_post($location_options); ?>
                       </select>
                     </div>
                   </div>
@@ -597,7 +597,7 @@ class SrShortcodes {
                     <div class="sr-adv-search-amenities-wrapper">
                       <label><strong>Features</strong></label>
                       <div class="sr-adv-search-amenities-wrapper-inner">
-                        <?php echo esc_html($features_options); ?>
+                        <?php echo wp_kses_post($features_options); ?>
                       </div>
                     </div>
                   </div>
