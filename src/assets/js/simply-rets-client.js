@@ -217,7 +217,7 @@ var makeMapMarkers = function(
         var lat = listing.geo.lat,
             lng = listing.geo.lng;
 
-        if(lat && lng && listing.internetAddressDisplay) {
+        if(lat && lng && listing.internetAddressDisplay !== false) {
 
             var bound  = new google.maps.LatLng(listing.geo.lat, listing.geo.lng);
 
