@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 6.7.1
-Stable tag: 3.0.2
+Stable tag: 3.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -236,6 +236,12 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 3.0.3 =
+
+* FIX: Use correct permalink structure in [sr_map_search] map markers
+* FIX: Pass minyear/maxyear parameters to pagination links
+* FIX: Fix [sr_map_search] not rendering map markers on some sites
 
 = 3.0.2 =
 * FIX: Misc markup fixes in advanced search form and [sr_listings_slider]

@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.3
+
+* FIX: Use correct permalink structure in [sr_map_search] map markers
+* FIX: Pass minyear/maxyear parameters to pagination links
+* FIX: Fix [sr_map_search] not rendering map markers on some sites
+
 ## 3.0.2
 * FIX: Misc markup fixes in advanced search form and [sr_listings_slider]
 
