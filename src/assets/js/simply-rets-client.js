@@ -148,7 +148,7 @@ var genMarkerPopup = function(
                ? listing.agent.firstName + ' ' + listing.agent.lastName
                : ""
 
-    var link = linkStyle === "pretty"
+    var link = linkStyle === "pretty" || linkStyle === "pretty_extra"
              ? buildPrettyLink(listing.mlsId, listing.address.full, siteRoot, vendor)
              : buildUglyLink(listing.mlsId, listing.address.full, siteRoot, vendor);
 
@@ -629,7 +629,7 @@ SimplyRETSMap.prototype.handleRequest = function(that, data) {
     var idxImg = document.getElementById('sr-map-search').dataset.idxImg;
     var officeOnThumbnails = document.getElementById('sr-map-search').dataset.officeOnThumbnails;
     var agentOnThumbnails = document.getElementById('sr-map-search').dataset.agentOnThumbnails;
-    var linkStyle = data.permalink_structure === "" ? "default" : "pretty";
+    var linkStyle = data.permalink_structure
     var statusText = data.show_mls_status_text;
     var mlsTrademark = data.show_mls_trademark_symbol;
 

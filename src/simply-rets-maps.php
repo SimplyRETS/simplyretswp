@@ -186,7 +186,7 @@ class SrSearchMap {
         if(array_key_exists('action', $_POST)
            && $_POST['action'] === "update_int_map_data") {
 
-            $permalink_struct = get_option('permalink_structure');
+            $permalink_struct = get_option('sr_permalink_structure', false);
             $showStatusText = get_option('sr_show_mls_status_text', false);
             $showMlsTrademark = get_option('sr_show_mls_trademark_symbol', false);
             $site_root = get_site_url();
