@@ -34,14 +34,15 @@ class SimplyRetsOpenHouses {
     }
 
     public static function getOpenHouseDateTimes($openhouse) {
+        $user_tz = get_option("sr_date_default_timezone", FALSE);
+        $tz = !empty($user_tz) ? new DateTimeZone($user_tz) : wp_timezone();
+
         /**
          * Some MLS's don't use UTC timestamps; this allows the user
          * to specify a timezone used to parse/convert the MLS's open
          * house times for display.
          */
-        $default_time_zone = timezone_name_get(
-            get_option("sr_date_default_timezone", wp_timezone())
-        );
+        $default_time_zone = timezone_name_get($tz);
 
         $start_time_date = date_create(
             $openhouse->startTime,
