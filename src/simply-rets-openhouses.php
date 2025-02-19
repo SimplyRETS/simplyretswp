@@ -35,33 +35,25 @@ class SimplyRetsOpenHouses {
 
     public static function getOpenHouseDateTimes($openhouse) {
         $user_tz = get_option("sr_date_default_timezone", FALSE);
-        $tz = !empty($user_tz) ? new DateTimeZone($user_tz) : wp_timezone();
+        $timezone_name = !empty($user_tz) ?$user_tz : timezone_name_get(wp_timezone());
 
-        /**
-         * Some MLS's don't use UTC timestamps; this allows the user
-         * to specify a timezone used to parse/convert the MLS's open
-         * house times for display.
-         */
-        $default_time_zone = timezone_name_get($tz);
+        $start_timestamp_str = $openhouse->startTime;
+        $end_timestamp_str = $openhouse->endTime;
 
-        $start_time_date = date_create(
-            $openhouse->startTime,
-            timezone_open($default_time_zone)
-        );
+        $start_date = new DateTime($start_timestamp_str, new DateTimeZone("UTC"));
+        $start_date->setTimezone(new DateTimeZone($timezone_name));
 
-        $end_time_date = date_create(
-            $openhouse->endTime,
-            timezone_open($default_time_zone)
-        );
+        $end_date = new DateTime($end_timestamp_str, new DateTimeZone("UTC"));
+        $end_date->setTimezone(new DateTimeZone($timezone_name));
 
         // Open house date information
-        $date = $start_time_date->format("M jS");
-        $day = $start_time_date->format("D");
+        $date = $start_date->format("M jS");
+        $day = $start_date->format("D");
         $day_date = "<span>{$day}, {$date}</span>";
 
         // Open house time information
-        $start = $start_time_date->format("g:ia");
-        $end = $end_time_date->format("g:ia");
+        $start = $start_date->format("g:ia");
+        $end = $end_date->format("g:ia");
         $start_end_time = "<span>{$start} - {$end}</span>";
 
         return array(
