@@ -709,8 +709,13 @@ class SrShortcodes {
               </div>
             </div>
 
-            <div>
-                <input class="submit button btn" type="submit" value="Search Properties">
+            <div class="sr-search-submit-sort">
+                <div class="sr-search-submit-wrapper">
+                    <input
+                        class="submit button btn"
+                        type="submit"
+                        value="Search Properties" >
+                </div>
 
                 <div class="sr-sort-wrapper">
                     <label for="sr_sort">Sort by: </label>
