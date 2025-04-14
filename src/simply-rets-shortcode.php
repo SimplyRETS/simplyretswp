@@ -342,9 +342,9 @@ class SrShortcodes {
         $cities = isset($attributes['cities']) ? $attributes['cities'] : '';
         $state = isset($attributes['state']) ? $attributes['state'] : '';
         $specialListingConditions = isset($attributes['speciallistingconditions']) ? $attributes['speciallistingconditions'] : '';
-        $areaMinor = isset($attributes['areaminor']) ? $attributes['areaminor'] : '';
         $ownership = isset($attributes['ownership']) ? $attributes['ownership'] : '';
         $salesAgent = isset($attributes['salesagent']) ? $attributes['salesagent'] : '';
+        $areaMinor = isset($attributes['areaMinor']) ? $attributes['areaMinor'] : '';
         $exteriorFeatures = isset($attributes['exteriorFeatures']) ? $attributes['exteriorFeatures'] : '';
         $lotDescription = isset($attributes['lotDescription']) ? $attributes['lotDescription'] : '';
 
