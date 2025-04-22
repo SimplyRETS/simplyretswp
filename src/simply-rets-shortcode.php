@@ -337,7 +337,7 @@ class SrShortcodes {
         $subtype = isset($attributes['subtype']) ? $attributes['subtype'] : '';
         $subTypeText = isset($attributes['subtypetext']) ? $attributes['subtypetext'] : '';
         $counties = isset($attributes['counties']) ? $attributes['counties'] : '';
-        $postalCodes = isset($attributes['postalcodes']) ? $attributes['postalcodes'] : '';
+        $postalCodes = isset($attributes['postalCodes']) ? $attributes['postalCodes'] : '';
         $neighborhoods = isset($attributes['neighborhoods']) ? $attributes['neighborhoods'] : '';
         $cities = isset($attributes['cities']) ? $attributes['cities'] : '';
         $state = isset($attributes['state']) ? $attributes['state'] : '';
