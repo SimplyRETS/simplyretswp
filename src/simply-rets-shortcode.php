@@ -500,9 +500,9 @@ class SrShortcodes {
                       <div class="sr-search-field" id="sr-search-ptype">
                         <select name="sr_ptype">
                             <?php
-                            // phpcs:ignore WordPress.Security.EscapeOutput.
+                            // phpcs:ignore WordPress.Security.EscapeOutput
                             echo $default_type_option;
-                            // phpcs:ignore WordPress.Security.EscapeOutput.
+                            // phpcs:ignore WordPress.Security.EscapeOutput
                             echo $type_options;
                             ?>
                         </select>
@@ -677,9 +677,9 @@ class SrShortcodes {
               <div class="sr-search-field" id="sr-search-ptype">
                 <select name="sr_ptype">
                     <?php
-                    // phpcs:ignore WordPress.Security.EscapeOutput.
+                    // phpcs:ignore WordPress.Security.EscapeOutput
                     echo $default_type_option;
-                    // phpcs:ignore WordPress.Security.EscapeOutput.
+                    // phpcs:ignore WordPress.Security.EscapeOutput
                     echo $type_options;
                     ?>
                 </select>
