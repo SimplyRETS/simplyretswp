@@ -24,39 +24,48 @@ class SrAdminSettings {
   }
 
   public static function register_admin_settings() {
-      register_setting('sr_admin_settings', 'sr_api_name');
-      register_setting('sr_admin_settings', 'sr_api_key');
-      register_setting('sr_admin_settings', 'sr_contact_page');
-      register_setting('sr_admin_settings', 'sr_show_listingmeta');
-      register_setting('sr_admin_settings', 'sr_show_listing_remarks');
-      register_setting('sr_admin_settings', 'sr_show_agent_contact');
-      register_setting('sr_admin_settings', 'sr_listing_gallery');
-      register_setting('sr_admin_settings', 'sr_show_leadcapture');
-      register_setting('sr_admin_settings', 'sr_leadcapture_recipient');
-      register_setting('sr_admin_settings', 'sr_additional_rooms');
-      register_setting('sr_admin_settings', 'sr_listhub_analytics');
-      register_setting('sr_admin_settings', 'sr_listhub_analytics_id');
-      register_setting('sr_admin_settings', 'sr_listhub_analytics_test_events');
-      register_setting('sr_admin_settings', 'sr_search_map_position');
-      register_setting('sr_admin_settings', 'sr_permalink_structure');
-      register_setting('sr_admin_settings', 'sr_google_api_key');
-      register_setting('sr_admin_settings', 'sr_office_on_thumbnails');
-      register_setting('sr_admin_settings', 'sr_agent_on_thumbnails');
-      register_setting('sr_admin_settings', 'sr_thumbnail_idx_image');
-      register_setting('sr_admin_settings', 'sr_custom_disclaimer');
-      register_setting('sr_admin_settings', 'sr_custom_no_results_message');
-      register_setting('sr_admin_settings', 'sr_show_mls_status_text');
-      register_setting('sr_admin_settings', 'sr_agent_office_above_the_fold');
-      register_setting('sr_admin_settings', 'sr_show_mls_trademark_symbol');
-      register_setting('sr_admin_settings', 'sr_disable_listing_details_map');
+      $def_setting_opts = array(
+          "sanitize_callback" => "sanitize_text_field"
+      );
+
+      register_setting('sr_admin_settings', 'sr_api_name', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_api_key', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_contact_page', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_show_listingmeta', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_show_listing_remarks', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_show_agent_contact', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_listing_gallery', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_show_leadcapture', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_leadcapture_recipient', array(
+          "sanitize_callback" => "sanitize_email"
+      ));
+      register_setting('sr_admin_settings', 'sr_additional_rooms', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_listhub_analytics', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_listhub_analytics_id', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_listhub_analytics_test_events', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_search_map_position', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_permalink_structure', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_google_api_key', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_office_on_thumbnails', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_agent_on_thumbnails', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_thumbnail_idx_image', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_custom_disclaimer', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_custom_no_results_message', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_show_mls_status_text', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_agent_office_above_the_fold', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_show_mls_trademark_symbol', $def_setting_opts);
+      register_setting('sr_admin_settings', 'sr_disable_listing_details_map', $def_setting_opts);
       register_setting('sr_admin_settings', 'sr_default_idx_filter', array(
-          "default" => "null"
+          "default" => "null",
+          "sanitize_callback" => "sanitize_text_field"
       ));
       register_setting('sr_admin_settings', 'sr_idx_address_display_text', array(
-          "default" => "Undisclosed address"
+          "default" => "Undisclosed address",
+          "sanitize_callback" => "sanitize_text_field"
       ));
       register_setting('sr_admin_settings', 'sr_date_default_timezone', array(
-          "default" => ""
+          "default" => "",
+          "sanitize_callback" => "sanitize_text_field"
       ));
       register_setting('sr_admin_settings', 'sr_listing_force_image_https', array(
           "default" => false
