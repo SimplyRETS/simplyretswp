@@ -677,7 +677,7 @@ class SimplyRetsApiHelper {
         $listing_subType = $listing->property->subType;
         $subType = SimplyRetsApiHelper::srDetailsTable($listing_subType, "Sub type");
         $listing_subTypeText = $listing->property->subTypeText;
-        $subTypeText = SimplyRetsApiHelper::srDetailsTable($listing_subTypeText, "MLS Sub type");
+        $subTypeText = SimplyRetsApiHelper::srDetailsTable($listing_subTypeText, $MLS_text . " Sub type");
         // bedrooms
         $listing_bedrooms = $listing->property->bedrooms;
         $bedrooms = SimplyRetsApiHelper::srDetailsTable($listing_bedrooms, "Bedrooms");
