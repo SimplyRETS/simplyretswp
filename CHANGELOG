@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.4
+
+* FIX: Fix invalid phpcs alert due to period in suppression comment
+* FIX: Fix areaMinor and postalCodes params on paginated results pages
+
 ## 3.0.3
 
 * FIX: Use correct permalink structure in [sr_map_search] map markers
