@@ -35,21 +35,6 @@ class SrUtils {
     }
 
     /**
-     * The naming for the database option is backwards.
-     * If it's 'checked', we _don't_ show data.
-     */
-    public static function showAgentContact() {
-
-        if( get_option('sr_show_agent_contact') ) {
-            $show = false;
-        } else {
-            $show = true;
-        }
-
-        return $show;
-    }
-
-    /**
      * Normalize a property type abbreviation into the full text.
      */
     public static function normalizePropertyType($type) {

@@ -29,7 +29,6 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_contact_page');
       register_setting('sr_admin_settings', 'sr_show_listingmeta');
       register_setting('sr_admin_settings', 'sr_show_listing_remarks');
-      register_setting('sr_admin_settings', 'sr_show_agent_contact');
       register_setting('sr_admin_settings', 'sr_listing_gallery');
       register_setting('sr_admin_settings', 'sr_show_leadcapture');
       register_setting('sr_admin_settings', 'sr_leadcapture_recipient');
@@ -60,6 +59,17 @@ class SrAdminSettings {
       ));
       register_setting('sr_admin_settings', 'sr_listing_force_image_https', array(
           "default" => false
+      ));
+
+      register_setting('sr_admin_settings', 'sr_show_agent_contact');
+      $show_contact_default = get_option('sr_show_agent_contact', false);
+
+      register_setting("sr_admin_settings", "sr_hide_agent_office_phone", array(
+          "default" => $show_contact_default
+      ));
+
+      register_setting("sr_admin_settings", "sr_hide_agent_office_email", array(
+          "default" => $show_contact_default
       ));
   }
 
@@ -268,10 +278,21 @@ class SrAdminSettings {
                   <td colspan="2">
                     <label>
                       <?php echo
-                        '<input type="checkbox" id="sr_show_agent_contact" name="sr_show_agent_contact" value="1" '
-                        . checked(1, get_option('sr_show_agent_contact'), false) . '/>'
+                        '<input type="checkbox" id="sr_hide_agent_office_phone" name="sr_hide_agent_office_phone" value="1" '
+                        . checked(1, get_option('sr_hide_agent_office_phone'), false) . '/>'
                       ?>
-                      Do not show Agent and Office phone number and email address (names are still shown).
+                      Do not show agent/office phone numbers
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <?php echo
+                        '<input type="checkbox" id="sr_hide_agent_office_email" name="sr_hide_agent_office_email" value="1" '
+                        . checked(1, get_option('sr_hide_agent_office_email'), false) . '/>'
+                      ?>
+                      Do not show agent/office email addresses
                     </label>
                   </td>
                 </tr>
