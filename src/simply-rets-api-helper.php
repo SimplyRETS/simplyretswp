@@ -444,9 +444,9 @@ class SimplyRetsApiHelper {
 
         // listings slider theme css
         wp_register_style(
-            'simply-rets-listing-slider-theme-css',
-            plugins_url('assets/css/owl.theme.min.css', __FILE__),
-            array("simply-rets-carousel"),
+            'simply-rets-listing-slider-default-theme-css',
+            plugins_url('assets/css/owl.theme.default.min.css', __FILE__),
+            array(),
             SIMPLYRETSWP_VERSION
         );
         wp_enqueue_style('simply-rets-listing-slider-theme-css');
@@ -2076,7 +2076,7 @@ class SimplyRetsApiHelper {
 
         $content =
               '<div>'
-            . '  <div id="simplyrets-listings-slider" class="sr-listing-carousel">'
+            . '  <div id="simplyrets-listings-slider" class="owl-carousel owl-theme sr-listing-carousel">'
             .      $inner
             . '  </div>'
             . '  <div id="simplyrets-listings-slider-disclaimer" style="text-align:center;">'

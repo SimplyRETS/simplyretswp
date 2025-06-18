@@ -1027,3 +1027,30 @@ elsewhere, this should be a breeze.
 #sr-map-search img {
     margin: auto;
 }
+
+.owl-theme .owl-dots .owl-dot span {
+    width: 10px;
+    height: 10px;
+    margin: 5px 7px;
+    background: #D6D6D6;
+    display: block;
+    -webkit-backface-visibility: visible;
+    transition: opacity .2s ease;
+    border-radius: 30px;
+}
+
+.owl-nav, .owl-dots {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.owl-carousel .owl-nav button {
+    padding: initial !important;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.owl-theme .owl-dots .owl-dot.active span {
+    background: #869791;
+}

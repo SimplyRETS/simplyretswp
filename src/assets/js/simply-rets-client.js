@@ -73,8 +73,13 @@ var advSearchFormToggler = function() {
 /** [sr_listings_slider] default number of items */
 var listingSliderCarousel = function() {
 
-    $_(".sr-listing-carousel").each(function() {
-        $_(this).owlCarousel({ items: 4 })
+    $_(".owl-carousel").each(function() {
+        $_(this).owlCarousel({
+            items: 4,
+            loop: true,
+            nav: true,
+            slideBy: 4
+        })
     });
 
 }
