@@ -610,7 +610,6 @@ class SimplyRetsApiHelper {
 
     }
 
-
     public static function srResidentialDetailsGenerator( $listing ) {
         $br = "<br>";
         $cont = "";
@@ -838,6 +837,7 @@ class SimplyRetsApiHelper {
         foreach ($complianceData as $compKey => $compValue) {
             // Normalize camelCase keys to words
             $compKey = ucfirst(preg_replace('/(?<=\\w)(?=[A-Z])/', ' $1', $compKey));
+            $compKey = preg_replace(['/\bMls\b/', '/\bM L S\b/'], 'MLS', $compKey);
             $complianceExtras .= SimplyRetsApiHelper::srDetailsTable($compValue, $compKey);
         }
 
