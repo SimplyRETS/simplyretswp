@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.5
+
+* IMPROVE: Ensure compliance field keys are formatted for display correctly
+
 ## 3.0.4
 
 * FIX: Fix invalid phpcs alert due to period in suppression comment
