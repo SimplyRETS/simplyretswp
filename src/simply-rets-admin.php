@@ -99,23 +99,34 @@ class SrAdminSettings {
   }
 
   public static function createDemoPage() {
-      if(isset( $_POST['sr_create_demo_page'])) {
-          $demo_post = array(
-              "post_content" => "[sr_map_search search_form=\"true\" list_view=\"true\"]",
-              "post_name" => "simplyrets-listings",
-              "post_title" => "SimplyRETS Demo Page",
-              "post_status" => "publish",
-              "post_type" => "page"
-          );
-          $post_id = wp_insert_post($demo_post);
-          $permalink = get_post_permalink($post_id);
-          update_option("sr_demo_page_created", true);
-          wp_redirect($permalink);
-          exit();
-      } else if(isset( $_POST['sr_dismiss_admin_msg'])) {
-          update_option("sr_show_admin_message", false);
-      } else {
-          return;
+      $create_demo_page_nonce_action = 'sr_create_demo_page_nonce_action';
+      $create_demo_page_nonce_field = 'sr_create_demo_page_nonce_field';
+
+      if (isset($_POST['sr_create_demo_page'])) {
+          if (current_user_can('manage_options') &&
+              wp_verify_nonce($_POST[$create_demo_page_nonce_field], $create_demo_page_nonce_action)) {
+              $demo_post = array(
+                  "post_content" => "[sr_map_search search_form=\"true\" list_view=\"true\"]",
+                  "post_name" => "simplyrets-listings",
+                  "post_title" => "SimplyRETS Demo Page",
+                  "post_status" => "publish",
+                  "post_type" => "page"
+              );
+              $post_id = wp_insert_post($demo_post);
+              $permalink = get_post_permalink($post_id);
+              update_option("sr_demo_page_created", true);
+              wp_redirect($permalink);
+              exit();
+          }
+      }
+
+      $dismiss_admin_msg_nonce_action = 'sr_dismiss_admin_msg_nonce_action';
+      $dismiss_admin_msg_nonce_field = 'sr_dismiss_admin_msg_nonce_field';
+      if(isset( $_POST['sr_dismiss_admin_msg'])) {
+          if (current_user_can('manage_options') &&
+              wp_verify_nonce($_POST[$dismiss_admin_msg_nonce_field], $dismiss_admin_msg_nonce_action)) {
+              update_option("sr_show_admin_message", false);
+          }
       }
   }
 
@@ -123,13 +134,17 @@ class SrAdminSettings {
       global $wpdb;
       $logo_path = plugin_dir_url(__FILE__) . 'assets/img/logo_button.png';
 
-      // update meta data fields manually
-      if( isset( $_POST['sr_update_meta'] ) ) {
-          echo '<div id="setting-error-settings_updated" class="updated settings-error notice is-dismissible">'.
-               '<p><strong>Meta Data Updated!</strong></p>'.
-               '<button type="button" class="notice-dismiss">'.
-               '<span class="screen-reader-text">Dismiss this notice.</span></button></div>';
-          SimplyRetsApiHelper::srUpdateAdvSearchOptions();
+      // If meta data refresh action was posted, verify nonce and perform action
+      $update_meta_nonce_field = 'sr_update_meta_data_nonce_field';
+      $update_meta_nonce_action = 'sr_update_meta_data_nonce_action';
+      if(isset($_POST['sr_update_meta'])) {
+          if (wp_verify_nonce($_POST[$update_meta_nonce_field], $update_meta_nonce_action)) {
+              echo '<div id="setting-error-settings_updated" class="updated settings-error notice is-dismissible">'.
+                   '<p><strong>Meta Data Updated!</strong></p>'.
+                   '<button type="button" class="notice-dismiss">'.
+                   '<span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+              SimplyRetsApiHelper::srUpdateAdvSearchOptions();
+          }
       }
 
       // Custom POST handler for updating the custom disclaimer
@@ -168,10 +183,16 @@ class SrAdminSettings {
                 Support Request
             </a>
             <form method="post" action="options-general.php?page=simplyrets-admin.php" style="display:inline-block;">
-                <?php submit_button( "Refresh Meta Data", "submit", "sr_update_meta", 0 ); ?>
+                <?php
+                    wp_nonce_field($update_meta_nonce_action, $update_meta_nonce_field);
+                    submit_button( "Refresh Meta Data", "submit", "sr_update_meta", 0 );
+                ?>
             </form>
             <form method="post" action="options-general.php?page=simplyrets-admin.php" style="display:inline-block;">
-                <?php submit_button( "Create Demo Page", "submit", "sr_create_demo_page", 0 ); ?>
+                <?php
+                    wp_nonce_field('sr_create_demo_page_nonce_action', 'sr_create_demo_page_nonce_field');
+                    submit_button( "Create Demo Page", "submit", "sr_create_demo_page", 0 );
+                ?>
             </form>
           </p>
         </div>

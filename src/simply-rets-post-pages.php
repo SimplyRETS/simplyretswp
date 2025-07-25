@@ -101,26 +101,29 @@ class SimplyRetsCustomPostPages {
     }
 
     public static function onActivationNotice () {
-        return (
-            '<div id="setting-error-settings_updated" class="updated settings-error notice">'.
-            '<p>' .
-            '  <span>'.
-            '    <form id="admin-msg" method="post" action="options-general.php?page=simplyrets-admin.php">' .
-            '      <input type="hidden" name="sr_create_demo_page" value="1" />' .
-            '      <strong>SimplyRETS: </strong>' .
-            '      <button class="sr-admin-msg-btn" type="submit">Click here</button>' .
-            '      to set up a demo page!' .
-            '    </form>' .
-            '  </span>' .
-            '  <span style="float:right">' .
-            '    <form id="admin-dismiss" method="post" action="options-general.php?page=simplyrets-admin.php">' .
-            '      <input type="hidden" name="sr_dismiss_admin_msg" value="1" />' .
-            '      <button class="sr-admin-msg-btn" type="submit">Dismiss</button>' .
-            '    </form>' .
-            '  </span>' .
-            '</p>' .
-            '</div>'
-        );
+        $sr_dismiss_admin_msg_nonce_action = 'sr_dismiss_admin_msg_nonce_action';
+        $sr_dismiss_admin_msg_nonce_field = 'sr_dismiss_admin_msg_nonce_field';
+
+        $notice = '<div id="setting-error-settings_updated" class="updated settings-error notice">'
+                . '<p>'
+                . '  <span>'
+                . '    <form id="admin-msg" method="post" action="options-general.php?page=simplyrets-admin.php">'
+                . '      <input type="hidden" name="sr_create_demo_page" value="1" />'
+                . '      <strong>SimplyRETS: </strong>'
+                . '      <button class="sr-admin-msg-btn" type="submit">Click here</button> to set up a demo page!'
+                . '    </form>'
+                . '  </span>'
+                . '  <span style="float:right">'
+                . '    <form id="admin-dismiss" method="post" action="options-general.php?page=simplyrets-admin.php">'
+                .        wp_nonce_field($sr_dismiss_admin_msg_nonce_action, $sr_dismiss_admin_msg_nonce_field)
+                . '      <input type="hidden" name="sr_dismiss_admin_msg" value="1" />'
+                . '      <button class="sr-admin-msg-btn" type="submit">Dismiss</button>'
+                . '    </form>'
+                . '  </span>'
+                . '</p>'
+                . '</div>';
+
+        return $notice;
     }
 
     public static function srPluginSettingsLink( $links ) {
