@@ -49,8 +49,6 @@ class SrAdminSettings {
       register_setting('sr_admin_settings', 'sr_office_on_thumbnails', $def_setting_opts);
       register_setting('sr_admin_settings', 'sr_agent_on_thumbnails', $def_setting_opts);
       register_setting('sr_admin_settings', 'sr_thumbnail_idx_image', $def_setting_opts);
-      register_setting('sr_admin_settings', 'sr_custom_disclaimer', $def_setting_opts);
-      register_setting('sr_admin_settings', 'sr_custom_no_results_message', $def_setting_opts);
       register_setting('sr_admin_settings', 'sr_show_mls_status_text', $def_setting_opts);
       register_setting('sr_admin_settings', 'sr_agent_office_above_the_fold', $def_setting_opts);
       register_setting('sr_admin_settings', 'sr_show_mls_trademark_symbol', $def_setting_opts);
@@ -69,6 +67,21 @@ class SrAdminSettings {
       ));
       register_setting('sr_admin_settings', 'sr_listing_force_image_https', array(
           "default" => false
+      ));
+
+      // For the lead capture form, we trust the admin to input valid code.
+      // We use 'wp_unslash' which just removes slashes, but doesn't strip tags.
+      register_setting('sr_admin_settings', 'sr_leadcapture_custom_form', array(
+          'sanitize_callback' => 'wp_unslash'
+      ));
+
+      // For the other textareas, we allow safe HTML (like <a>, <strong>)
+      // but still strip dangerous tags (like <script>).
+      register_setting('sr_admin_settings', 'sr_custom_disclaimer', array(
+          'sanitize_callback' => 'wp_kses_post'
+      ));
+      register_setting('sr_admin_settings', 'sr_custom_no_results_message', array(
+          'sanitize_callback' => 'wp_kses_post'
       ));
   }
 
@@ -145,21 +158,6 @@ class SrAdminSettings {
                    '<span class="screen-reader-text">Dismiss this notice.</span></button></div>';
               SimplyRetsApiHelper::srUpdateAdvSearchOptions();
           }
-      }
-
-      // Custom POST handler for updating the custom disclaimer
-      // so we can properly sanitize the input.
-      if (isset( $_POST['sr_custom_disclaimer'] )) {
-          update_option('sr_custom_disclaimer', htmlentities(stripslashes($_POST['sr_custom_disclaimer'])));
-      }
-
-      // Custom POST handler for updating the custom disclaimer
-      // so we can properly sanitize the input.
-      if (isset( $_POST['sr_custom_no_results_message'] )) {
-          update_option(
-              'sr_custom_no_results_message',
-              htmlentities(stripslashes($_POST['sr_custom_no_results_message']))
-          );
       }
 
       ?>
@@ -260,6 +258,41 @@ class SrAdminSettings {
                         multiple
                         value="<?php echo esc_attr( get_option('sr_leadcapture_recipient') ); ?>"
                     />
+                  </td>
+                </tr>
+
+                <?php
+                  // Get the value and determine the initial state for the custom form
+                  $custom_form_value = get_option('sr_leadcapture_custom_form');
+                  $is_custom_form_enabled = !empty($custom_form_value);
+                ?>
+                <tr>
+                  <td colspan="2">
+                    <label>
+                      <input type="checkbox"
+                             id="sr_enable_custom_lead_form_toggle"
+                             value="1"
+                             <?php checked(true, $is_custom_form_enabled, true); ?>
+                      />
+                      Enable Custom lead capture form (HTML, PHP, or a shortcode)
+                    </label>
+                  </td>
+                </tr>
+
+                <tr id="sr_custom_lead_form_row" style="<?php echo $is_custom_form_enabled ? '' : 'display: none;'; ?>">
+                  <td>
+                    <p style="margin-top: 0; margin-left: 25px;">
+                      <small>
+                          <i>(leave blank to use default form)</i>
+                      </small>
+                    </p>
+                    <textarea id="sr_leadcapture_custom_form"
+                              name="sr_leadcapture_custom_form"
+                              style="margin-left: 25px;"
+                              cols="35"
+                              rows="6"
+                              <?php disabled(true, !$is_custom_form_enabled, true); ?>
+                    ><?php echo esc_textarea( $custom_form_value ); ?></textarea>
                   </td>
                 </tr>
               </tbody>
@@ -513,7 +546,6 @@ class SrAdminSettings {
             <table>
               <tbody>
 
-                <!-- idx=null (default) -->
                 <tr>
                   <td>
                     <label>
@@ -532,7 +564,6 @@ class SrAdminSettings {
                   </td>
                 </tr>
 
-                <!-- idx=listing -->
                 <tr>
                   <td>
                     <label>
@@ -564,7 +595,6 @@ class SrAdminSettings {
                   </td>
                 </tr>
 
-                <!-- idx=address -->
                 <tr>
                   <td>
                     <label>
@@ -584,7 +614,6 @@ class SrAdminSettings {
                   </td>
                 </tr>
 
-                <!-- idx=ignore -->
                 <tr>
                   <td>
                     <label>
@@ -766,7 +795,7 @@ class SrAdminSettings {
                 id="sr_custom_disclaimer"
                 name="sr_custom_disclaimer"
                 cols="50"
-                rows="8"><?php echo esc_attr( get_option('sr_custom_disclaimer') ); ?></textarea>
+                rows="8"><?php echo esc_textarea( get_option('sr_custom_disclaimer') ); ?></textarea>
             <ul>
                 <li>
                     - Use the variable "{lastUpdate}" to interpolate
@@ -785,7 +814,7 @@ class SrAdminSettings {
                 id="sr_custom_no_results_message"
                 name="sr_custom_no_results_message"
                 cols="50"
-                rows="5"><?php echo esc_attr( get_option('sr_custom_no_results_message') ); ?></textarea>
+                rows="5"><?php echo esc_textarea( get_option('sr_custom_no_results_message') ); ?></textarea>
             <div>
                 <i>
                     Default: There are 0 listings that match this
@@ -797,6 +826,32 @@ class SrAdminSettings {
           </div>
         </form>
       </div>
+      <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+          // Get the elements
+          const toggleCheckbox = document.getElementById('sr_enable_custom_lead_form_toggle');
+          const customFormRow = document.getElementById('sr_custom_lead_form_row');
+          const customFormTextarea = document.getElementById('sr_leadcapture_custom_form');
+
+          // Ensure all elements exist before adding listener
+          if (toggleCheckbox && customFormRow && customFormTextarea) {
+
+              toggleCheckbox.addEventListener('change', function() {
+                  if (this.checked) {
+                      // Show the textarea row
+                      customFormRow.style.display = ''; // Defaults to 'table-row'
+                      // Enable the textarea so it gets saved
+                      customFormTextarea.disabled = false;
+                  } else {
+                      // Hide the textarea row
+                      customFormRow.style.display = 'none';
+                      // Disable the textarea so it is not submitted
+                      customFormTextarea.disabled = true;
+                  }
+              });
+          }
+      });
+      </script>
     <?php
   }
 } ?>
