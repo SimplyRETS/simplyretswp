@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 6.8
-Stable tag: 3.0.5
+Stable tag: 3.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -236,6 +236,12 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 3.1.0 =
+
+* FEATURE: Add option to use custom contact form with code or a shortcode
+* IMPROVE: Upgrade owl-carousel and add navigation arrows to [sr_listings_slider]
+* IMPROVE: Improve misc sanitizations and verifications
 
 = 3.0.5 =
 

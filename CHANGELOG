@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0
+
+* FEATURE: Add option to use custom contact form with code or a shortcode
+* IMPROVE: Upgrade owl-carousel and add navigation arrows to [sr_listings_slider]
+* IMPROVE: Improve misc sanitizations and verifications
+
 ## 3.0.5
 
 * IMPROVE: Ensure compliance field keys are formatted for display correctly
