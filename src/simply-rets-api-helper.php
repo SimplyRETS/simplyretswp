@@ -629,10 +629,14 @@ class SimplyRetsApiHelper {
          * The error code comes from the UrlBuilder function.
         */
         if($listing == NULL
+           || property_exists($listing, "message")
            || property_exists($listing, "error")
            || property_exists($listing, "message")
            || property_exists($listing, "errors")) {
-            $err = SrMessages::noResultsMsg((array)$listing);
+            $err = SrMessages::noResultsMsg(
+                (array)$listing,
+                "Details for this listing are no longer available."
+            );
             return $err;
         }
 
