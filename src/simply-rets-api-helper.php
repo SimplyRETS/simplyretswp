@@ -1943,7 +1943,9 @@ class SimplyRetsApiHelper {
 
         // Use custom form if configured
         if ($custom_form != false) {
-            return do_shortcode($custom_form);
+            return '<div id="sr-contact-form">'
+                 . do_shortcode($custom_form)
+                 . '</div>' ;
         }
 
         // Default lead capture form
