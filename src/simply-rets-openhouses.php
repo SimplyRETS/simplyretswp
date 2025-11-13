@@ -39,19 +39,36 @@ class SimplyRetsOpenHouses {
          * to specify a timezone used to parse/convert the MLS's open
          * house times for display.
          */
-        $default_time_zone = timezone_name_get(
-            get_option("sr_date_default_timezone", wp_timezone())
-        );
 
-        $start_time_date = date_create(
-            $openhouse->startTime,
-            timezone_open($default_time_zone)
-        );
+        // 1. Get the setting.
+        $timezone_setting = get_option("sr_date_default_timezone", wp_timezone());
+        $timezone_name_string = '';
 
-        $end_time_date = date_create(
-            $openhouse->endTime,
-            timezone_open($default_time_zone)
-        );
+        // 2. Reliably get the timezone *string* name
+        if ($timezone_setting instanceof DateTimeZone) {
+            $timezone_name_string = timezone_name_get($timezone_setting);
+        } elseif (is_string($timezone_setting) && !empty($timezone_setting)) {
+            $timezone_name_string = $timezone_setting;
+        } else {
+            $timezone_name_string = wp_timezone_string();
+        }
+
+        // 3. Create a DateTimeZone object from the string
+        $display_time_zone_object = timezone_open($timezone_name_string);
+
+        // 4. Validation
+        if ($display_time_zone_object === false) {
+            // Fall back to the default WP timezone object
+            $display_time_zone_object = wp_timezone();
+        }
+
+        // 5. Create DateTime objects FROM the UTC string.
+        //    Since the string ends in 'Z', PHP correctly parses this as UTC.
+        $start_time_date = date_create($openhouse->startTime);
+        $end_time_date = date_create($openhouse->endTime);
+
+        $start_time_date->setTimezone($display_time_zone_object);
+        $end_time_date->setTimezone($display_time_zone_object);
 
         // Open house date information
         $date = $start_time_date->format("M jS");
@@ -59,6 +76,7 @@ class SimplyRetsOpenHouses {
         $day_date = "<span>{$day}, {$date}</span>";
 
         // Open house time information
+        // Example: 21:00Z will correctly become "3:00pm" (for UTC-6)
         $start = $start_time_date->format("g:ia");
         $end = $end_time_date->format("g:ia");
         $start_end_time = "<span>{$start} - {$end}</span>";
