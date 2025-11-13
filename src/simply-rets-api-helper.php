@@ -1160,7 +1160,7 @@ class SimplyRetsApiHelper {
             }
 
             $upcoming_openhouses_text =
-                $upcoming_openhouses === 1 ? "upcoming open house" : "upcoming open houses";
+                $upcoming_openhouses === 1 ? " upcoming open house" : " upcoming open houses";
 
             $next_openhouses_banner = '<div class="sr-listing-openhouses-banner">'
                                     . '  <h3>'
