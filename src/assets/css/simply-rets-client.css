@@ -601,6 +601,10 @@ Most of these elements also have id's for you to use specifically.
     margin-bottom: 10px;
 }
 
+.sr-minmax-filters input {
+    max-width: 100% !important;
+}
+
 #sr-search-keywords {
     width: 70%;
 }
@@ -824,10 +828,24 @@ elsewhere, this should be a breeze.
     width: 25%;
 }
 
-.sr-sort-wrapper {
+.sr-search-submit-sort .sr-search-submit-wrapper {
+    width: 50%;
     display: inline-block;
-    float: right;
-    margin: 10px 25px 0px 0px;
+}
+
+.sr-search-submit-sort .sr-search-sort-wrapper {
+    width: 50%;
+    display: inline-block;
+}
+
+.sr-sort-wrapper {
+    text-align: right;
+    display: inline-block;
+    width: 49%;
+}
+
+.sr-sort-wrapper select {
+    width: 50%;
 }
 
 @media screen and (max-width: 576px) {
