@@ -588,14 +588,13 @@ class SrListing {
 
 class SrMessages {
 
-    public static function noResultsMsg($response) {
+    public static function noResultsMsg($response, $msg) {
 
         $response = (array)$response;
+        $message = $msg ? $msg : $response['message'];
         if(array_key_exists("message", $response)) {
             return (
-                '<br><p><strong>'
-                . $response['message']
-                . '</br></p></strong>'
+                '<br><p><strong>' . $message . '</br></p></strong>'
             );
         }
 
