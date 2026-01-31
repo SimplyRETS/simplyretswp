@@ -22,6 +22,27 @@ class SrUtils {
         return true;
     }
 
+    // Return an array of available property types for a vendor
+    // Will return the first available vendor if no vendor ID is
+    // passed.
+    public static function getVendorPropertyTypes($v) {
+        $vendors = get_option('sr_adv_search_meta_vendors', array());
+        $def_types = array("Residential", "Condominium", "Rental");
+
+        // If vendor ID is provided, return available types for that vendor
+        if (!empty($v)) {
+            $types = get_option("sr_adv_search_meta_types_$v", $def_types);
+
+        } elseif (!empty($vendors[0])) {
+            $vendor = $vendors[0];
+            $types = get_option("sr_adv_search_meta_types_$vendor", $def_types);
+
+        } else {
+            $types = $def_types;
+        }
+
+        return $types;
+    }
 
     public static function srShowListingMeta() {
 
