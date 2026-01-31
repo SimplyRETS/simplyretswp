@@ -35,11 +35,20 @@ class SrWidgetHelper {
      * statuses this user has access to.
      */
     public static function mkApiQueryString($params) {
+        $vendor = $params["vendor"];
+        $ptypes = SrUtils::getVendorPropertyTypes($vendor);
+
         $qs = "?status=Active"
             . "&status=Pending"
             . "&status=ActiveUnderContract";
 
-        foreach ((array)$params as $key => $value) {
+        // Add all available property types to query string
+        foreach ($ptypes as $k=>$type) {
+            $qs .= "&type={$type}";
+        }
+
+        // Add configured parameters to query string
+        foreach((array)$params as $key=>$value) {
             $qs .= "&{$key}={$value}";
         }
 
@@ -455,10 +464,7 @@ class srSearchFormWidget extends WP_Widget {
             wp_unslash($_GET['sr_ptype'])
         );
 
-        $adv_search_types = get_option(
-            "sr_adv_search_meta_types_$ven",
-            array("Residential", "Condominium", "Rental")
-        );
+        $adv_search_types = SrUtils::getVendorPropertyTypes($ven);
 
         $type_options = '';
         foreach ((array)$adv_search_types as $key => $type) {
