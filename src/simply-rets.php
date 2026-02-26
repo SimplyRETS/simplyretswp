@@ -26,6 +26,7 @@ require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-shortcode.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-widgets.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-maps.php' );
+require_once( plugin_dir_path(__FILE__) . 'simply-rets-setup.php' );
 
 
 if ( is_admin() ) {
@@ -44,8 +45,8 @@ add_shortcode( 'sr_map_search',      array( 'SrShortcodes', 'sr_int_map_search' 
 add_action( 'widgets_init', 'srRegisterWidgets' );
 add_action( 'wp_enqueue_scripts', array( 'SimplyRetsApiHelper', 'simplyRetsClientCss' ) );
 add_action( 'wp_enqueue_scripts', array( 'SimplyRetsApiHelper', 'simplyRetsClientJs' ) );
-add_filter( 'query_vars', array( 'SimplyRetsCustomPostPages', 'srQueryVarsInit' ) );
+add_filter( 'query_vars', array( 'SimplyRetsSetup', 'srQueryVarsInit' ) );
 add_filter( "plugin_action_links_{$plugin}", array( 'SimplyRetsCustomPostPages', 'srPluginSettingsLink' ) );
 
-register_activation_hook( __FILE__,   array('SimplyRetsCustomPostPages', 'srActivate' ) );
-register_deactivation_hook( __FILE__, array('SimplyRetsCustomPostPages', 'srDeactivate' ) );
+register_activation_hook( __FILE__,   array('SimplyRetsSetup', 'srActivate' ) );
+register_deactivation_hook( __FILE__, array('SimplyRetsSetup', 'srDeactivate' ) );

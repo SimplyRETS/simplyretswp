@@ -1076,7 +1076,7 @@ class SimplyRetsApiHelper {
         $listing_agent_id    = $listing->agent->id;
         $listing_agent_name  = $listing->agent->firstName . ' ' . $listing->agent->lastName;
 
-        $listing_agent_email;
+        $listing_agent_email = '';
         $has_agent_contact_info = !empty($listing->agent->contact)
                                 AND !empty($listing->agent->contact->email);
 
