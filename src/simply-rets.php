@@ -23,6 +23,7 @@ require_once( plugin_dir_path(__FILE__) . 'simply-rets-utils.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-post-pages.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-openhouses.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
+require_once( plugin_dir_path(__FILE__) . 'simply-rets-query-parser.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-shortcode.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-widgets.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-maps.php' );
