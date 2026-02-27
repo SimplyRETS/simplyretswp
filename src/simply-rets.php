@@ -22,6 +22,7 @@ require __DIR__.'/vendor/autoload.php';
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-utils.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-post-pages.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-openhouses.php' );
+require_once( plugin_dir_path(__FILE__) . 'simply-rets-renderer.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-api-helper.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-query-parser.php' );
 require_once( plugin_dir_path(__FILE__) . 'simply-rets-shortcode.php' );

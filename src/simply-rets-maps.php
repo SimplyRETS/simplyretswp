@@ -200,7 +200,7 @@ class SrSearchMap {
             $settings = array_merge($settings_, $def_settings);
 
             $req = SimplyRetsApiHelper::makeApiRequest($_POST['parameters']);
-            $con = SimplyRetsApiHelper::srResidentialResultsGenerator($req, $settings);
+            $con = SimplyRetsRenderer::srResidentialResultsGenerator($req, $settings);
 
             $response = array(
                 "result" => $req,
