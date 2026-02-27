@@ -450,6 +450,16 @@ class SimplyRetsApiHelper {
             SIMPLYRETSWP_VERSION
         );
         wp_enqueue_style('simply-rets-listing-slider-theme-css');
+
+        if(get_option('sr_listing_gallery') == 'fancy') {
+            wp_register_style(
+                'simply-rets-galleria-classic-theme-css',
+                plugins_url('assets/galleria/themes/classic/galleria.classic.css', __FILE__),
+                array(),
+                SIMPLYRETSWP_VERSION
+            );
+            wp_enqueue_style('simply-rets-galleria-classic-theme-css');
+        }
     }
 
     public static function simplyRetsClientJs() {
