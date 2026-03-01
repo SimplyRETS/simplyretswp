@@ -170,7 +170,7 @@ class SimplyRetsSetup {
         // client side css
         wp_register_style(
             'simply-rets-client-css',
-            plugins_url('assets/css/simply-rets-client.css', dirname(__FILE__)),
+            plugins_url('assets/css/simply-rets-client.css', __FILE__),
             array(),
             SIMPLYRETSWP_VERSION
         );
@@ -179,7 +179,7 @@ class SimplyRetsSetup {
         // listings slider css
         wp_register_style(
             'simply-rets-listing-slider-css',
-            plugins_url('assets/css/owl.carousel.min.css', dirname(__FILE__)),
+            plugins_url('assets/css/owl.carousel.min.css', __FILE__),
             array(),
             SIMPLYRETSWP_VERSION
         );
@@ -188,7 +188,7 @@ class SimplyRetsSetup {
         // listings slider theme css
         wp_register_style(
             'simply-rets-listing-slider-default-theme-css',
-            plugins_url('assets/css/owl.theme.default.min.css', dirname(__FILE__)),
+            plugins_url('assets/css/owl.theme.default.min.css', __FILE__),
             array(),
             SIMPLYRETSWP_VERSION
         );
@@ -197,7 +197,7 @@ class SimplyRetsSetup {
         if (get_option('sr_listing_gallery') == 'fancy') {
             wp_register_style(
                 'simply-rets-galleria-classic-theme-css',
-                plugins_url('assets/galleria/themes/classic/galleria.classic.css', dirname(__FILE__)),
+                plugins_url('assets/galleria/themes/classic/galleria.classic.css', __FILE__),
                 array(),
                 SIMPLYRETSWP_VERSION
             );
@@ -209,7 +209,7 @@ class SimplyRetsSetup {
         // client-side js
         wp_register_script(
             'simply-rets-client-js',
-            plugins_url('assets/js/simply-rets-client.js', dirname(__FILE__)),
+            plugins_url('assets/js/simply-rets-client.js', __FILE__),
             array('jquery'),
             SIMPLYRETSWP_VERSION,
             array("in_footer" => false)
@@ -219,7 +219,7 @@ class SimplyRetsSetup {
         // image gallery js
         wp_register_script(
             'simply-rets-galleria-js',
-            plugins_url('assets/galleria/galleria-1.4.2.min.js', dirname(__FILE__)),
+            plugins_url('assets/galleria/galleria-1.4.2.min.js', __FILE__),
             array('jquery'),
             SIMPLYRETSWP_VERSION,
             array("in_footer" => false)
@@ -229,7 +229,7 @@ class SimplyRetsSetup {
         // listings slider js
         wp_register_script(
             'simply-rets-listing-slider-js',
-            plugins_url('assets/js/owl.carousel.min.js', dirname(__FILE__)),
+            plugins_url('assets/js/owl.carousel.min.js', __FILE__),
             array('jquery'),
             SIMPLYRETSWP_VERSION,
             array("in_footer" => false)
