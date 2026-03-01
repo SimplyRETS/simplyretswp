@@ -11,21 +11,21 @@ class SimplyRetsSetup {
 
     public static function srActivate() {
         SimplyRetsSetup::srRegisterPostType();
-        SimplyRetsApiHelper::srUpdateAdvSearchOptions();
+        SimplyRetsApiClient::srUpdateAdvSearchOptions();
 
         wp_schedule_event(
-            get_option('sr_adv_search_meta_timestamp')
-            , 'daily'
-            , 'sr_update_adv_search_options_action'
+            get_option('sr_adv_search_meta_timestamp'),
+            'daily',
+            'sr_update_adv_search_options_action'
         );
 
-        add_option( 'sr_api_name', 'simplyrets' );
-        add_option( 'sr_api_key', 'simplyrets' );
-        add_option( 'sr_listing_gallery', 'fancy' );
-        add_option( 'sr_show_leadcapture', true );
-        add_option( 'sr_search_map_position', 'map_above');
+        add_option('sr_api_name', 'simplyrets');
+        add_option('sr_api_key', 'simplyrets');
+        add_option('sr_listing_gallery', 'fancy');
+        add_option('sr_show_leadcapture', true);
+        add_option('sr_search_map_position', 'map_above');
 
-        add_option( 'sr_permalink_structure', 'pretty' );
+        add_option('sr_permalink_structure', 'pretty');
 
         add_option('sr_show_admin_message', 1);
         add_option('sr_demo_page_created', false);
@@ -64,7 +64,7 @@ class SimplyRetsSetup {
             'top'
         );
 
-        if(!isset($rules['%listings%'])) {
+        if (!isset($rules['%listings%'])) {
             flush_rewrite_rules();
         }
 
@@ -72,10 +72,10 @@ class SimplyRetsSetup {
     }
 
     public static function srAddRewriteRules($incoming) {
-	$rules = array(
+        $rules = array(
             'listings/([^&]+)/([^&]+)/([^&]+)/([^&]+)/([^&]+)/?$' => 'index.php?sr-listings=sr-single&sr_city=$matches[1]&sr_state=$matches[2]&sr_zip=$matches[3]&listing_title=$matches[4]&listing_id=$matches[5]',
-	    'listings/(.*)/(.*)?$' => 'index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]'
-	);
+            'listings/(.*)/(.*)?$' => 'index.php?sr-listings=sr-single&listing_id=$matches[1]&listing_title=$matches[2]'
+        );
 
         return $incoming + $rules;
     }
@@ -102,14 +102,14 @@ class SimplyRetsSetup {
             'capability_type' => 'page',
             'hierarchical'    => true,
             'taxonomies'      => array(),
-            'supports'        => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
+            'supports'        => array('title', 'editor', 'thumbnail', 'page-attributes'),
             'rewrite'         => true,
             'show_in_rest'    => true,
         );
-        register_post_type( 'sr-listings', $args );
+        register_post_type('sr-listings', $args);
     }
 
-    public static function srQueryVarsInit( $vars ) {
+    public static function srQueryVarsInit($vars) {
         global $wp_query;
         $vars[] = "listing_id";
         $vars[] = "listing_title";
