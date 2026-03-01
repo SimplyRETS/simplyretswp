@@ -82,7 +82,6 @@ class SimplyRetsRenderer {
                 $photo_gallery['markup'] = $markup;
                 $photo_gallery['more'] = $more;
                 return $photo_gallery;
-
             } else {
                 // Details shown for each image in the gallery
                 $photos_count = count($photos);
@@ -579,12 +578,12 @@ class SimplyRetsRenderer {
          */
         if (get_option('sr_listhub_analytics')) {
 
-            $lh_analytics = SimplyRetsApiHelper::srListhubAnalytics();
+            $lh_analytics = SimplyRetsAnalytics::srListhubAnalytics();
             $lh_id = get_option('sr_listhub_analytics_id', false);
             $lh_test = get_option('sr_listhub_analytics_test_events') ? 1 : false;
 
             if ($lh_id) {
-                $lh_send_details = SimplyRetsApiHelper::srListhubSendDetails(
+                $lh_send_details = SimplyRetsAnalytics::srListhubSendDetails(
                     $lh_id,
                     $lh_test,
                     $listing_mlsid,
@@ -951,7 +950,7 @@ class SimplyRetsRenderer {
             . '  <script>' . $lh_analytics . '</script>'
             . '</div>';
 
-        $cont .= SimplyRetsApiHelper::srContactFormDeliver();
+        $cont .= SimplyRetsContactForm::srContactFormDeliver();
         $cont .= $contact_markup;
 
         // Add disclaimer to the bottom of the page

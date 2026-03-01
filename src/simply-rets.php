@@ -30,6 +30,8 @@ require_once(plugin_dir_path(__FILE__) . 'simply-rets-shortcode.php');
 require_once(plugin_dir_path(__FILE__) . 'simply-rets-widgets.php');
 require_once(plugin_dir_path(__FILE__) . 'simply-rets-maps.php');
 require_once(plugin_dir_path(__FILE__) . 'simply-rets-setup.php');
+require_once(plugin_dir_path(__FILE__) . 'simply-rets-contact-form.php');
+require_once(plugin_dir_path(__FILE__) . 'simply-rets-analytics.php');
 
 
 if (is_admin()) {
@@ -46,8 +48,8 @@ add_shortcode('sr_listings_slider', array('SrShortcodes', 'sr_listing_slider_sho
 add_shortcode('sr_map_search',      array('SrShortcodes', 'sr_int_map_search'));
 
 add_action('widgets_init', 'srRegisterWidgets');
-add_action('wp_enqueue_scripts', array('SimplyRetsApiHelper', 'simplyRetsClientCss'));
-add_action('wp_enqueue_scripts', array('SimplyRetsApiHelper', 'simplyRetsClientJs'));
+add_action('wp_enqueue_scripts', array('SimplyRetsSetup', 'simplyRetsClientCss'));
+add_action('wp_enqueue_scripts', array('SimplyRetsSetup', 'simplyRetsClientJs'));
 add_filter('query_vars', array('SimplyRetsSetup', 'srQueryVarsInit'));
 add_filter("plugin_action_links_{$plugin}", array('SimplyRetsCustomPostPages', 'srPluginSettingsLink'));
 
