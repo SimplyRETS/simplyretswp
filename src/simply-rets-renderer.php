@@ -11,32 +11,32 @@ class SimplyRetsRenderer {
      * pages to hide fields that are null.
      */
     public static function srDetailsTable($val, $name, $additional = NULL, $desc = NULL) {
-        if( $val == "" ) {
+        if ($val == "") {
             $val = "";
         } else {
             $data_attr = str_replace(" ", "-", strtolower($name));
-            if(!$additional && !$desc) {
+            if (!$additional && !$desc) {
                 $val = '<tr data-attribute="' . $data_attr . '">'
-                     . '  <td>' . $name . '</td>'
-                     . '  <td colspan="2">' . $val . '</td>'
-                     . '</tr>';
+                    . '  <td>' . $name . '</td>'
+                    . '  <td colspan="2">' . $val . '</td>'
+                    . '</tr>';
             } elseif ($additional && !$desc) {
                 $val = '<tr data-attribute="' . $data_attr . '">'
-                     . '  <td>' . $name . '</td>'
-                     . '  <td>' . $val . '</td>'
-                     . '  <td>' . $additional . '</td>'
-                     . '</tr>';
+                    . '  <td>' . $name . '</td>'
+                    . '  <td>' . $val . '</td>'
+                    . '  <td>' . $additional . '</td>'
+                    . '</tr>';
             } else {
                 $val = '<tr data-attribute="' . $data_attr . '">'
-                     . '  <td rowspan="2" style="vertical-align: middle;border-bottom:solid 1px #eee;">'
-                     .       $name
-                     . '  </td>'
-                     . '  <td colspan="1">' . $val . '</td>'
-                     . '  <td colspan="1">' . $additional . '</td>'
-                     . '  </tr>'
-                     . '  <tr data-attribute="' . $data_attr . '">'
-                     . '  <td colspan="2">' . $desc . '</td>'
-                     . '</tr>';
+                    . '  <td rowspan="2" style="vertical-align: middle;border-bottom:solid 1px #eee;">'
+                    .       $name
+                    . '  </td>'
+                    . '  <td colspan="1">' . $val . '</td>'
+                    . '  <td colspan="1">' . $additional . '</td>'
+                    . '  </tr>'
+                    . '  <tr data-attribute="' . $data_attr . '">'
+                    . '  <td colspan="2">' . $desc . '</td>'
+                    . '</tr>';
             }
         }
         return $val;
@@ -50,7 +50,7 @@ class SimplyRetsRenderer {
         $photos = $listing->photos;
         $photo_gallery = array();
 
-        if( empty($photos) ) {
+        if (empty($photos)) {
             $main_photo = SrListing::mainPhotoOrDefault($listing);
             $main_photo_url = esc_url($main_photo);
             // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
@@ -58,16 +58,15 @@ class SimplyRetsRenderer {
             $photo_gallery['markup'] = $markup;
             $photo_gallery['more']   = '';
             return $photo_gallery;
-
         } else {
             $markup = '';
-            if(get_option('sr_listing_gallery') == 'classic') {
+            if (get_option('sr_listing_gallery') == 'classic') {
                 $photo_counter = 0;
                 $main_photo = esc_url($photos[0]);
                 $more = '<span id="sr-toggle-gallery">See more photos</span> |';
                 // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
                 $markup .= "<div class='sr-slider'><img class='sr-slider-img-act' src='$main_photo'>";
-                foreach( $photos as $photo ) {
+                foreach ($photos as $photo) {
                     $image = SrListing::normalizeListingPhotoUrl($photo);
                     $image_url = esc_url($image);
 
@@ -93,30 +92,30 @@ class SimplyRetsRenderer {
                 $remarks_html = esc_html($remarks);
 
                 $description_style = "font-style:normal;"
-                                   . "font:initial;"
-                                   . "font-size:13px;"
-                                   . "padding-top:10px;"
-                                   . "line-height:1.25";
+                    . "font:initial;"
+                    . "font-size:13px;"
+                    . "padding-top:10px;"
+                    . "line-height:1.25";
 
                 $more = '';
                 $markup .= '<div class="sr-gallery" id="sr-fancy-gallery">';
 
-                foreach( $photos as $idx=>$photo ) {
+                foreach ($photos as $idx => $photo) {
                     $num = $idx + 1;
                     $image = SrListing::normalizeListingPhotoUrl($photo);
                     $image_url = esc_url($image);
 
                     $img_description = "<div>"
-                                     . "  <div>Photo {$num} of {$photos_count}</div>"
-                                     . "  <div style=\"{$description_style}\">"
-                                     . "    {$remarks_html}"
-                                     . "  </div>"
-                                     . "</div>";
+                        . "  <div>Photo {$num} of {$photos_count}</div>"
+                        . "  <div style=\"{$description_style}\">"
+                        . "    {$remarks_html}"
+                        . "  </div>"
+                        . "</div>";
 
                     // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
                     $markup .= "<img src='$image_url' "
-                            . "data-title='$full_address'"
-                            . "data-description='" . htmlentities($img_description) . "'>";
+                        . "data-title='$full_address'"
+                        . "data-description='" . htmlentities($img_description) . "'>";
                 }
 
                 $markup .= "</div>";
@@ -127,11 +126,10 @@ class SimplyRetsRenderer {
             }
         }
         return $photo_gallery;
-
     }
 
 
-    public static function srResidentialDetailsGenerator( $listing ) {
+    public static function srResidentialDetailsGenerator($listing) {
         $br = "<br>";
         $cont = "";
         $contact_page = get_option('sr_contact_page');
@@ -149,10 +147,12 @@ class SimplyRetsRenderer {
          * there, return it - no need to do anything else.
          * The error code comes from the UrlBuilder function.
         */
-        if($listing == NULL
-           || property_exists($listing, "error")
-           || property_exists($listing, "message")
-           || property_exists($listing, "errors")) {
+        if (
+            $listing == NULL
+            || property_exists($listing, "error")
+            || property_exists($listing, "message")
+            || property_exists($listing, "errors")
+        ) {
             $err = SrMessages::noResultsMsg((array)$listing);
             return $err;
         }
@@ -185,7 +185,8 @@ class SimplyRetsRenderer {
             $listing_close_price = SrUtils::formatListingPrice($listing, true);
         }
         $close_price = SimplyRetsRenderer::srDetailsTable(
-            $listing_close_price, "Close Price"
+            $listing_close_price,
+            "Close Price"
         );
         // DOM
         $listing_days_on_market = $listing->mls->daysOnMarket;
@@ -227,7 +228,7 @@ class SimplyRetsRenderer {
         $geo_county = SimplyRetsRenderer::srDetailsTable($listing_county, "County");
         // County
         $listing_directions = $listing->geo->directions;
-        $geo_directions = SimplyRetsRenderer::srDetailsTable($listing_directions , "Directions");
+        $geo_directions = SimplyRetsRenderer::srDetailsTable($listing_directions, "Directions");
         // Market Area
         $listing_market_area = $listing->geo->marketArea;
         $geo_market_area = SimplyRetsRenderer::srDetailsTable($listing_market_area, "Market Area");
@@ -300,12 +301,14 @@ class SimplyRetsRenderer {
         // listing date
         $listing_list_date = $listing->listDate;
         $list_date_formatted = $listing_list_date
-                             ? gmdate("M j, Y", strtotime($listing_list_date))
-                             : null;
+            ? gmdate("M j, Y", strtotime($listing_list_date))
+            : null;
         $list_date = SimplyRetsRenderer::srDetailsTable($list_date_formatted, "Listing Date");
         // listing date modified
         $listing_modified = $listing->modified;
-        if($listing_modified) { $date_modified = gmdate("M j, Y", strtotime($listing_modified)); }
+        if ($listing_modified) {
+            $date_modified = gmdate("M j, Y", strtotime($listing_modified));
+        }
         $date_modified_markup = SimplyRetsRenderer::srDetailsTable($date_modified, "Listing Last Modified");
         // lot size
         $listing_lotSize = $listing->property->lotSize;
@@ -344,12 +347,14 @@ class SimplyRetsRenderer {
 
         $listing_special_listing_conditions = $listing->specialListingConditions;
         $special_listing_conditions = SimplyRetsRenderer::srDetailsTable(
-            $listing_special_listing_conditions, "Special listing conditions"
+            $listing_special_listing_conditions,
+            "Special listing conditions"
         );
 
         $listing_ownership = $listing->ownership;
         $ownership = SimplyRetsRenderer::srDetailsTable(
-            $listing_ownership, "Ownership"
+            $listing_ownership,
+            "Ownership"
         );
 
         // Compliance/compensation data
@@ -366,7 +371,7 @@ class SimplyRetsRenderer {
         if (!empty($complianceExtras)) {
             $compensationDisclaimer .= SimplyRetsRenderer::srDetailsTable(
                 "The offer of compensation is made only to participants of " .
-                "the MLS where the listing is filed.",
+                    "the MLS where the listing is filed.",
                 "Compensation Disclaimer"
             );
         }
@@ -389,7 +394,8 @@ class SimplyRetsRenderer {
 
         $listing_parking_description = $listing->property->parking->description;
         $parking_description = SimplyRetsRenderer::srDetailsTable(
-            $listing_parking_description, "Parking Description"
+            $listing_parking_description,
+            "Parking Description"
         );
 
         // association data
@@ -401,7 +407,8 @@ class SimplyRetsRenderer {
 
         $listing_association_amenities = $listing->association->amenities;
         $association_amenities = SimplyRetsRenderer::srDetailsTable(
-            $listing_association_amenities, "Association Amenities"
+            $listing_association_amenities,
+            "Association Amenities"
         );
 
         // Virtual tour URL
@@ -409,9 +416,8 @@ class SimplyRetsRenderer {
         if (!empty($listing_virtual_tour)) {
             // Make the URL a link
             $listing_virtual_tour = "<a href='$listing_virtual_tour' target='_blank'>"
-                                  . $listing_virtual_tour
-                                  . "</a>";
-
+                . $listing_virtual_tour
+                . "</a>";
         }
 
         $virtual_tour = SimplyRetsRenderer::srDetailsTable($listing_virtual_tour, "Virtual Tour URL");
@@ -419,8 +425,8 @@ class SimplyRetsRenderer {
 
         // area
         $area = $listing->property->area == 0
-              ? 'n/a'
-              : number_format($listing->property->area);
+            ? 'n/a'
+            : number_format($listing->property->area);
 
 
         // Determine the best field to show in the primary-details section
@@ -431,10 +437,10 @@ class SimplyRetsRenderer {
         );
 
 
-        if( $listing_bedrooms == null || $listing_bedrooms == "" ) {
+        if ($listing_bedrooms == null || $listing_bedrooms == "") {
             $listing_bedrooms = 0;
         }
-        if( $listing_bathsFull == null || $listing_bathsFull == "" ) {
+        if ($listing_bathsFull == null || $listing_bathsFull == "") {
             $listing_bathsFull = 0;
         }
 
@@ -442,13 +448,13 @@ class SimplyRetsRenderer {
         // Rooms data
         $roomsMarkup = '';
         $has_rooms = !empty($listing->property->rooms)
-                   AND is_array($listing->property->rooms);
+            and is_array($listing->property->rooms);
 
-        if($has_rooms == TRUE) {
+        if ($has_rooms == TRUE) {
             $rooms = $listing->property->rooms;
 
             usort($rooms, function ($a, $b) {
-                return (is_null($a->level) OR $a->level == "") ? 1 : -1;
+                return (is_null($a->level) or $a->level == "") ? 1 : -1;
             });
 
             $roomsMarkup .= count($rooms) < 1 ? "" : "
@@ -456,9 +462,9 @@ class SimplyRetsRenderer {
                 <tr>
                   <th colspan=\"3\"><h5>Room Details</h5></th></tr></thead>";
 
-            foreach($rooms as $room) {
+            foreach ($rooms as $room) {
 
-                if(!is_null($room->dimensions)) {
+                if (!is_null($room->dimensions)) {
                     $roomSize = $room->dimensions;
                 } else {
                     $roomSize = "$room->length" .  " x " . "$room->width";
@@ -485,20 +491,21 @@ class SimplyRetsRenderer {
 
         // geographic data
         $geo_table_header = "";
-        if($geo_directions
-           || $listing_lat
-           || $listing_longitude
-           || $listing_county
-           || $listing_market_area
+        if (
+            $geo_directions
+            || $listing_lat
+            || $listing_longitude
+            || $listing_county
+            || $listing_market_area
         ) {
             $geo_table_header = '<thead>'
-                              . '  <tr>'
-                              . '    <th colspan="3">'
-                              . '      <h5>Geographic Data</h5>'
-                              . '    </th>'
-                              . '  </tr>'
-                              . '</thead>'
-                              . '<tbody>';
+                . '  <tr>'
+                . '    <th colspan="3">'
+                . '      <h5>Geographic Data</h5>'
+                . '    </th>'
+                . '  </tr>'
+                . '</thead>'
+                . '<tbody>';
         }
 
         // school data
@@ -517,29 +524,30 @@ class SimplyRetsRenderer {
         $school_high = SimplyRetsRenderer::srDetailsTable($listing_high_school, "High School");
 
         $school_data = "";
-        if($listing_school_district
-           || $listing_elementary
-           || $listing_middle_school
-           || $listing_high_school
+        if (
+            $listing_school_district
+            || $listing_elementary
+            || $listing_middle_school
+            || $listing_high_school
         ) {
             $school_data = '<thead>'
-                         . '  <tr>'
-                         . '    <th colspan="3">'
-                         . '      <h5>School Information</h5>'
-                         . '    </th>'
-                         . '  </tr>'
-                         . '</thead>'
-                         . '<tbody>'
-                         .    $school_district
-                         .    $school_elementary
-                         .    $school_middle
-                         .    $school_high
-                         . '</tbody>';
+                . '  <tr>'
+                . '    <th colspan="3">'
+                . '      <h5>School Information</h5>'
+                . '    </th>'
+                . '  </tr>'
+                . '</thead>'
+                . '<tbody>'
+                .    $school_district
+                .    $school_elementary
+                .    $school_middle
+                .    $school_high
+                . '</tbody>';
         }
 
         // list date and listing last modified
         $show_listing_meta = SrUtils::srShowListingMeta();
-        if($show_listing_meta !== true) {
+        if ($show_listing_meta !== true) {
             $list_date = '';
             $date_modified_markup = '';
             $tax_data = '';
@@ -547,16 +555,16 @@ class SimplyRetsRenderer {
             $tax_annual_amount = '';
         }
 
-        if( get_option('sr_show_listing_remarks') ) {
+        if (get_option('sr_show_listing_remarks')) {
             $remarks_markup = "";
         } else {
             $remarks = $listing->remarks;
             $remarks_markup = '<div class="sr-remarks-details">'
-                            . '  <p>' . $remarks . '</p>'
-                            . '</div>';
+                . '  <p>' . $remarks . '</p>'
+                . '</div>';
         }
 
-        if( get_option('sr_show_leadcapture') ) {
+        if (get_option('sr_show_leadcapture')) {
             $contact_text = 'Contact us about this listing';
             $cf_listing = $full_address . ' ( ' . $MLS_text . ' #' . $listing_mlsid . ' )';
             $contact_markup = SimplyRetsRenderer::srContactFormMarkup($cf_listing);
@@ -569,13 +577,13 @@ class SimplyRetsRenderer {
         /**
          * Check for ListHub Analytics
          */
-        if( get_option( 'sr_listhub_analytics' ) ) {
+        if (get_option('sr_listhub_analytics')) {
 
             $lh_analytics = SimplyRetsApiHelper::srListhubAnalytics();
             $lh_id = get_option('sr_listhub_analytics_id', false);
             $lh_test = get_option('sr_listhub_analytics_test_events') ? 1 : false;
 
-            if($lh_id) {
+            if ($lh_id) {
                 $lh_send_details = SimplyRetsApiHelper::srListhubSendDetails(
                     $lh_id,
                     $lh_test,
@@ -599,9 +607,9 @@ class SimplyRetsRenderer {
 
         $listing_agent_email = '';
         $has_agent_contact_info = !empty($listing->agent->contact)
-                                AND !empty($listing->agent->contact->email);
+            and !empty($listing->agent->contact->email);
 
-        if($show_contact_info AND $has_agent_contact_info) {
+        if ($show_contact_info and $has_agent_contact_info) {
             $listing_agent_email = $listing->agent->contact->email;
         } else {
             $listing_agent_email = '';
@@ -609,22 +617,22 @@ class SimplyRetsRenderer {
 
         // agent email is available
         $agent_email = trim($listing_agent_email);
-        if(!empty($agent_email)) {
+        if (!empty($agent_email)) {
             $listing_agent_name = "<a href='mailto:$listing_agent_email'>$listing_agent_name</a>";
         }
         //agent name is not available - use their id
         $agent_name = trim($listing_agent_name);
-        if(empty($agent_name)) {
+        if (empty($agent_name)) {
             $listing_agent_name = $listing_agent_id;
         }
 
         $agent = SimplyRetsRenderer::srDetailsTable($listing_agent_name, "Listing Agent");
 
         $listing_agent_cell_phone = $has_agent_contact_info ? $listing->agent->contact->cell : '';
-        $listing_agent_office_phone = $has_agent_contact_info ? $listing->agent->contact->office: '';
+        $listing_agent_office_phone = $has_agent_contact_info ? $listing->agent->contact->office : '';
         $listing_agent_phone = $listing_agent_cell_phone
-                             ? $listing_agent_cell_phone
-                             : $listing_agent_office_phone;
+            ? $listing_agent_cell_phone
+            : $listing_agent_office_phone;
         $agent_phone = SimplyRetsRenderer::srDetailsTable($listing_agent_phone, "Listing Agent Phone");
 
 
@@ -641,7 +649,7 @@ class SimplyRetsRenderer {
         $officeEmail = SimplyRetsRenderer::srDetailsTable($listing_office_email, "Listing Office Email");
 
         /* If show_contact_info is false, stub these fields */
-        if(!$show_contact_info) {
+        if (!$show_contact_info) {
             $agent_phone = '';
             $officePhone = '';
             $officeEmail = '';
@@ -663,7 +671,7 @@ class SimplyRetsRenderer {
             $next_openhouses_details = "";
             $next_openhouses_item_class = "sr-listing-openhouses-banner-item";
 
-            foreach($next_openhouses as $next_oh) {
+            foreach ($next_openhouses as $next_oh) {
 
                 $next_oh_times = SimplyRetsOpenHouses::getOpenHouseDateTimes(
                     $next_oh
@@ -673,7 +681,7 @@ class SimplyRetsRenderer {
                 $next_oh_time = $next_oh_times["time"];
 
                 $next_openhouses_details .=
-                      "<div class=\"{$next_openhouses_item_class}\">"
+                    "<div class=\"{$next_openhouses_item_class}\">"
                     . "  <strong>{$next_oh_day}</strong>"
                     . "  <br/>"
                     . "  <span>{$next_oh_time}</span>"
@@ -684,12 +692,12 @@ class SimplyRetsRenderer {
                 $upcoming_openhouses === 1 ? " upcoming open house" : " upcoming open houses";
 
             $next_openhouses_banner = '<div class="sr-listing-openhouses-banner">'
-                                    . '  <h3>'
-                                    .     $upcoming_openhouses
-                                    .     $upcoming_openhouses_text
-                                    . '  </h3>'
-                                    .    $next_openhouses_details
-                                    . '</div>';
+                . '  <h3>'
+                .     $upcoming_openhouses
+                .     $upcoming_openhouses_text
+                . '  </h3>'
+                .    $next_openhouses_details
+                . '</div>';
         }
 
         /**
@@ -702,9 +710,9 @@ class SimplyRetsRenderer {
          * Then, create the "Listing by" markup
          */
         $attribution_contact = !empty($complianceData)
-                               && property_exists($complianceData, "attributionContact")
-                             ? $complianceData->attributionContact
-                             : NULL;
+            && property_exists($complianceData, "attributionContact")
+            ? $complianceData->attributionContact
+            : NULL;
         $listing_by_contact = current(array_filter(array(
             $attribution_contact,
             $listing_agent_phone,
@@ -733,7 +741,7 @@ class SimplyRetsRenderer {
          */
         $hide_map = get_option('sr_disable_listing_details_map', false);
 
-        if( $listing_lat  && $listing_longitude && !$hide_map ) {
+        if ($listing_lat  && $listing_longitude && !$hide_map) {
             $map       = SrSearchMap::mapWithDefaults();
             $marker    = SrSearchMap::markerWithDefaults();
             $iw        = SrSearchMap::infoWindowWithDefaults();
@@ -764,15 +772,15 @@ class SimplyRetsRenderer {
             $map->setMapOption('zoom', 12);
             $mapM = $mapHelper->render($map);
             $mapMarkup = '<hr>'
-                       . '<div id="details-map">'
-                       . '  <h3>Map View</h3>'
-                       .    $mapM
-                       . '</div>';
+                . '<div id="details-map">'
+                . '  <h3>Map View</h3>'
+                .    $mapM
+                . '</div>';
             $mapLink = '<span style="float:left;">'
-                     . '  <a href="#details-map">'
-                     . '    View on map'
-                     . '  </a>'
-                     . '</span>';
+                . '  <a href="#details-map">'
+                . '    View on map'
+                . '  </a>'
+                . '</span>';
         } else {
             $mapMarkup = '';
             $mapLink = '';
@@ -782,7 +790,7 @@ class SimplyRetsRenderer {
 
         // listing markup
         $cont .=
-              '<div class="sr-details" style="text-align:left;">'
+            '<div class="sr-details" style="text-align:left;">'
             .    $listing_by_markup
             . '  <p class="sr-details-links" style="clear:both;">'
             .    $mapLink
@@ -954,7 +962,7 @@ class SimplyRetsRenderer {
     }
 
 
-    public static function resultDataColumnMarkup($val, $name, $reverse=false, $id="") {
+    public static function resultDataColumnMarkup($val, $name, $reverse = false, $id = "") {
         if (empty($val)) {
             return "";
         }
@@ -967,8 +975,6 @@ class SimplyRetsRenderer {
         return $li;
     }
 
-
-
     public static function srResidentialResultsGenerator($request_response, $settings) {
         $cont              = "";
         $pagination        = $request_response['pagination'];
@@ -978,7 +984,7 @@ class SimplyRetsRenderer {
         $show_listing_meta = SrUtils::srShowListingMeta();
 
         /* Check for an and display any `.error` response */
-        if(!is_array($response) && property_exists($response, "error")) {
+        if (!is_array($response) && property_exists($response, "error")) {
             return SrMessages::noResultsMsg($response);
         }
 
@@ -990,7 +996,7 @@ class SimplyRetsRenderer {
         /** Build pagination links HTML **/
         $page_count = count($response);
         $limit = isset($settings['limit']) ? $settings['limit'] : 20;
-        $pag = SrUtils::buildPaginationLinks( $pagination );
+        $pag = SrUtils::buildPaginationLinks($pagination);
         $prev_link = $pag['prev'];
         $next_link = $page_count < $limit ? "" : $pag['next'];
 
@@ -999,12 +1005,12 @@ class SimplyRetsRenderer {
         /** Allow override of "map_position" admin setting on a per short-code basis */
         $map_setting = isset($settings['show_map']) ? $settings['show_map'] : true;
         $map_position = isset($settings['map_position'])
-                      ? $settings['map_position']
-                      : get_option('sr_search_map_position', 'map_above');
+            ? $settings['map_position']
+            : get_option('sr_search_map_position', 'map_above');
 
         $vendor = isset($settings['vendor'])
-                ? $settings['vendor']
-                : get_query_var('sr_vendor', '');
+            ? $settings['vendor']
+            : get_query_var('sr_vendor', '');
 
         $mappable_listings = SrSearchMap::filter_mappable($response);
         $uniq_geos = SrSearchMap::uniqGeos($mappable_listings);
@@ -1030,7 +1036,7 @@ class SimplyRetsRenderer {
         }
 
         $resultsMarkup = "";
-        foreach( $response as $listing ) {
+        foreach ($response as $listing) {
             $listing_uid        = $listing->mlsId;
             $mlsid              = $listing->listingId;
             $listing_price      = $listing->listPrice;
@@ -1066,11 +1072,11 @@ class SimplyRetsRenderer {
             $status_banner_class = SrListing::listingStatusBannerClass($standard_status);
 
             $status_banner_info = "";
-            if($standard_status === "Closed") {
+            if ($standard_status === "Closed") {
                 $close_date = gmdate("m/d/y", strtotime($listing->sales->closeDate));
                 $status_banner_info = "<span class='sr-listing-status-banner-close-date'>"
-                                    . "{$close_date}"
-                                    . "</span>";
+                    . "{$close_date}"
+                    . "</span>";
             }
 
             $price_to_display = SrUtils::formatListingPrice(
@@ -1078,17 +1084,17 @@ class SimplyRetsRenderer {
                 $standard_status === "Closed"
             );
 
-            if( $bedrooms == null || $bedrooms == "" ) {
+            if ($bedrooms == null || $bedrooms == "") {
                 $bedrooms = 0;
             }
-            if( $bathsFull == null || $bathsFull == "" ) {
+            if ($bathsFull == null || $bathsFull == "") {
                 $bathsFull = 0;
             }
-            if( $bathsHalf == null || $bathsHalf == "" ) {
+            if ($bathsHalf == null || $bathsHalf == "") {
                 $bathsHalf = 0;
             }
-            if( !$area == 0 ) {
-                $area = number_format( $area );
+            if (!$area == 0) {
+                $area = number_format($area);
             }
 
             // listing photos
@@ -1111,7 +1117,7 @@ class SimplyRetsRenderer {
             /************************************************
              * Make our map marker for this listing
              */
-            if($lat && $lng && $internetAddressDisplay !== FALSE) {
+            if ($lat && $lng && $internetAddressDisplay !== FALSE) {
                 $marker = SrSearchMap::markerWithDefaults();
                 $iw     = SrSearchMap::infoWindowWithDefaults();
                 $iwCont = SrSearchMap::infoWindowMarkup(
@@ -1180,7 +1186,7 @@ class SimplyRetsRenderer {
             );
 
             // Use another field if SqFt is empty
-            if( $area == 0 ) {
+            if ($area == 0) {
                 $areaMarkup = SimplyRetsRenderer::resultDataColumnMarkup(
                     $bathsHalf,
                     'Half Baths',
@@ -1188,7 +1194,7 @@ class SimplyRetsRenderer {
                     "sr-data-column-half-baths"
                 );
 
-                if( $areaMarkup == 0 ) {
+                if ($areaMarkup == 0) {
                     $areaMarkup = SimplyRetsRenderer::resultDataColumnMarkup(
                         SrUtils::normalizeCountyText($county),
                         "County",
@@ -1198,7 +1204,7 @@ class SimplyRetsRenderer {
                 }
             }
 
-            if( $yearBuilt == 0 ) {
+            if ($yearBuilt == 0) {
                 $yearMarkup = SimplyRetsRenderer::resultDataColumnMarkup(
                     $subdivision,
                     "",
@@ -1222,7 +1228,7 @@ class SimplyRetsRenderer {
             if ($grid_view == true) {
                 // append markup for this listing to the content
                 $resultsMarkup .=
-                      '<div class="sr-listing-grid-item ' . $status_class . '">'
+                    '<div class="sr-listing-grid-item ' . $status_class . '">'
                     . '  <a href="' . $link . '">'
                     . '    <div class="sr-photo" style="background-image:url(' . $main_photo . ');">'
                     . '        <span class="sr-listing-status-banner ' . $status_banner_class . '">'
@@ -1267,7 +1273,7 @@ class SimplyRetsRenderer {
             } else {
                 // append markup for this listing to the content
                 $resultsMarkup .=
-                      '<hr>'
+                    '<hr>'
                     . '<div class="sr-listing ' . $status_class . '">'
                     . '  <a href="' . $link . '">'
                     . '    <div class="sr-photo" style="background-image:url(' . $main_photo . ');">'
@@ -1311,56 +1317,45 @@ class SimplyRetsRenderer {
                     . '  </div>'
                     . '</div>';
             }
-
         }
 
         $markupGridViewClass = $grid_view == true ? "sr-listings-grid-view" : "";
         $resultsMarkup = "<div id='sr-listings-results-list' class='{$markupGridViewClass}'>"
-                       . "{$resultsMarkup}"
-                       . "</div>";
+            . "{$resultsMarkup}"
+            . "</div>";
         $markerCount > 0 ? $mapMarkup = $mapHelper->render($map) : $mapMarkup = '';
 
-        if( $map_setting === "false" ) {
+        if ($map_setting === "false") {
             $mapMarkup = '';
         }
 
-        if( $map_position == 'list_only' )
-        {
+        if ($map_position == 'list_only') {
             $cont .= $resultsMarkup;
-        }
-        elseif( $map_position == 'map_only' )
-        {
+        } elseif ($map_position == 'map_only') {
             $cont .= $mapMarkup;
-        }
-        elseif( $map_position == 'map_above' )
-        {
+        } elseif ($map_position == 'map_above') {
             $cont .= $mapMarkup;
             $cont .= $resultsMarkup;
-        }
-        elseif( $map_position == 'map_below' )
-        {
+        } elseif ($map_position == 'map_below') {
             $cont .= $resultsMarkup;
             $cont .= '<hr>';
             $cont .= $mapMarkup;
-        }
-        else
-        {
+        } else {
             $cont .= $resultsMarkup;
         }
 
         $disclaimer_text = SrUtils::mkDisclaimerText($lastUpdate);
 
         $cont .= "<div class='sr-pagination-wrapper'>"
-               . "  <p class='sr-pagination'>$prev_link $next_link</p>"
-               . "  <div class='sr-disclaimer-text'>{$disclaimer_text}</div>"
-               . "</div>";
+            . "  <p class='sr-pagination'>$prev_link $next_link</p>"
+            . "  <div class='sr-disclaimer-text'>{$disclaimer_text}</div>"
+            . "</div>";
 
         return $cont;
-
     }
 
 
-    public static function srWidgetListingGenerator( $response, $settings ) {
+    public static function srWidgetListingGenerator($response, $settings) {
         $br   = "<br>";
         $cont = "";
 
@@ -1373,7 +1368,7 @@ class SimplyRetsRenderer {
         $response_size = is_array($response) ? sizeof($response) : 0;
 
         /* Check for an `.error` response */
-        if(!is_array($response) && property_exists($response, "error")) {
+        if (!is_array($response) && property_exists($response, "error")) {
             return SrMessages::noResultsMsg($response);
         }
 
@@ -1382,13 +1377,13 @@ class SimplyRetsRenderer {
             return SrMessages::noResultsMsg($response);
         }
 
-        foreach ( $response as $listing ) {
+        foreach ($response as $listing) {
             $listing_uid = $listing->mlsId;
             $listing_remarks  = $listing->remarks;
 
             // widget details
             $bedrooms = $listing->property->bedrooms;
-            if( $bedrooms == null || $bedrooms == "" ) {
+            if ($bedrooms == null || $bedrooms == "") {
                 $bedrooms = 0;
             }
 
@@ -1426,35 +1421,35 @@ class SimplyRetsRenderer {
             // append markup for this listing to the content
             $cont .=
                 '<div class="sr-listing-wdgt">'
-              . '  <a href="' . $link . '">'
-              . '    <h5>' . $address
-              . '      <small> -' . $price_to_display . '</small>'
-              . '    </h5>'
-              . '  </a>'
-              . '  <a href="' . $link . '">'
-              // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
-              . '    <img src="' . $main_photo_url . '" width="100%" alt="' . $address .'">'
-              . '  </a>'
-              . '  <div class="sr-listing-wdgt-primary">'
-              . '    <div id="sr-listing-wdgt-details">'
-              . '      <span>' . $bedrooms . ' Bed | ' . $bathrooms_display . ' | ' . $mls_status . '</span>'
-              . '    </div>'
-              . '    <hr>'
-              . '    <div id="sr-listing-wdgt-remarks">'
-              . '      <p>' . $listing_remarks . '</p>'
-              . '    </div>'
-              . '  </div>'
-              . '  <div>'
-              . '    <i>' . $compliance_markup . '</i>'
-              . '  </div>'
-              . '  <div id="sr-listing-wdgt-btn">'
-              . '    <a href="' . $link . '">'
-              . '      <button class="button btn">'
-              . '        More about this listing'
-              . '      </button>'
-              . '    </a>'
-              . '  </div>'
-              . '</div>';
+                . '  <a href="' . $link . '">'
+                . '    <h5>' . $address
+                . '      <small> -' . $price_to_display . '</small>'
+                . '    </h5>'
+                . '  </a>'
+                . '  <a href="' . $link . '">'
+                // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
+                . '    <img src="' . $main_photo_url . '" width="100%" alt="' . $address . '">'
+                . '  </a>'
+                . '  <div class="sr-listing-wdgt-primary">'
+                . '    <div id="sr-listing-wdgt-details">'
+                . '      <span>' . $bedrooms . ' Bed | ' . $bathrooms_display . ' | ' . $mls_status . '</span>'
+                . '    </div>'
+                . '    <hr>'
+                . '    <div id="sr-listing-wdgt-remarks">'
+                . '      <p>' . $listing_remarks . '</p>'
+                . '    </div>'
+                . '  </div>'
+                . '  <div>'
+                . '    <i>' . $compliance_markup . '</i>'
+                . '  </div>'
+                . '  <div id="sr-listing-wdgt-btn">'
+                . '    <a href="' . $link . '">'
+                . '      <button class="button btn">'
+                . '        More about this listing'
+                . '      </button>'
+                . '    </a>'
+                . '  </div>'
+                . '</div>';
         }
         return $cont;
     }
@@ -1466,8 +1461,8 @@ class SimplyRetsRenderer {
         // Use custom form if configured
         if ($custom_form != false) {
             return '<div id="sr-contact-form">'
-                 . do_shortcode($custom_form)
-                 . '</div>' ;
+                . do_shortcode($custom_form)
+                . '</div>';
         }
 
         // Default lead capture form
@@ -1475,49 +1470,48 @@ class SimplyRetsRenderer {
         $markup .= '<hr>';
         $markup .= '<div id="sr-contact-form">';
         $markup .= '<h3>Contact us about this listing</h3>';
-        $markup .= '<form action="' . esc_url( $_SERVER['REQUEST_URI'] ) . '" method="post">';
+        $markup .= '<form action="' . esc_url($_SERVER['REQUEST_URI']) . '" method="post">';
         $markup .= '<p>';
         $markup .= '<input type="hidden" name="sr-cf-listing" value="' . $listing . '" />';
         $markup .= 'Your Name (required) <br/>';
         $markup .= '<input type="text" name="sr-cf-name" value="'
-            . ( isset( $_POST["sr-cf-name"] ) ? esc_attr( $_POST["sr-cf-name"] ) : '' ) . '" size="40" />';
+            . (isset($_POST["sr-cf-name"]) ? esc_attr($_POST["sr-cf-name"]) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Your Email (required) <br/>';
         $markup .= '<input type="email" name="sr-cf-email" value="'
-            . ( isset( $_POST["sr-cf-email"] ) ? esc_attr( $_POST["sr-cf-email"] ) : '' ) . '" size="40" />';
+            . (isset($_POST["sr-cf-email"]) ? esc_attr($_POST["sr-cf-email"]) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Subject (required) <br/>';
         $markup .= '<input type="text" name="sr-cf-subject" value="'
-            . ( isset( $_POST["sr-cf-subject"] ) ? esc_attr( $_POST["sr-cf-subject"] ) : '' ) . '" size="40" />';
+            . (isset($_POST["sr-cf-subject"]) ? esc_attr($_POST["sr-cf-subject"]) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Your Message (required) <br/>';
         $markup .= '<textarea rows="10" cols="35" name="sr-cf-message">'
-            . ( isset( $_POST["sr-cf-message"] ) ? esc_attr( $_POST["sr-cf-message"] ) : '' ) . '</textarea>';
+            . (isset($_POST["sr-cf-message"]) ? esc_attr($_POST["sr-cf-message"]) : '') . '</textarea>';
         $markup .= '</p>';
         $markup .= '<p><input class="btn button btn-submit" type="submit" name="sr-cf-submitted" value="Send"></p>';
         $markup .= '</form>';
         $markup .= '</div>';
 
         return $markup;
-
     }
 
 
-    public static function srListingSliderGenerator( $response, $settings ) {
+    public static function srListingSliderGenerator($response, $settings) {
         $listings = $response['response'];
         $inner = "";
 
         $last_update = $response['lastUpdate'];
         $disclaimer = SrUtils::mkDisclaimerText($last_update);
 
-        if(!empty($settings['random']) && $settings['random'] === "true") {
+        if (!empty($settings['random']) && $settings['random'] === "true") {
             shuffle($listings);
         }
 
-        foreach($listings as $l) {
+        foreach ($listings as $l) {
             $address = SrUtils::buildFullAddressString($l);
             $uid     = $l->mlsId;
             $beds    = $l->property->bedrooms;
@@ -1537,10 +1531,10 @@ class SimplyRetsRenderer {
                 !empty($vendor) ? array("sr_vendor" => $vendor) : array()
             );
 
-            if( $area == 0 ) {
+            if ($area == 0) {
                 $area = 'na';
             } else {
-                $area = number_format( $area );
+                $area = number_format($area);
             }
 
             $bathsFull  = $l->property->bathsFull;
@@ -1558,7 +1552,7 @@ class SimplyRetsRenderer {
             $compliance_markup = SrUtils::mkListingSummaryCompliance($listing_office, $listing_agent);
 
             $inner .=
-                  '<div class="sr-listing-slider-item">'
+                '<div class="sr-listing-slider-item">'
                 . '  <a href="' . $link . '">'
                 . '    <div class="sr-listing-slider-item-img" style="background-image: url(' . $photo . ')"></div>'
                 . '  </a>'
@@ -1571,7 +1565,7 @@ class SimplyRetsRenderer {
         }
 
         $content =
-              '<div>'
+            '<div>'
             . '  <div id="simplyrets-listings-slider" class="owl-carousel owl-theme sr-listing-carousel">'
             .      $inner
             . '  </div>'
@@ -1583,6 +1577,4 @@ class SimplyRetsRenderer {
 
         return $content;
     }
-
-
 }

@@ -8,17 +8,24 @@
 */
 
 
-add_action('wp_head',
-           array('SrSearchMap', 'defineAjaxUrl'));
+add_action(
+    'wp_head',
+    array('SrSearchMap', 'defineAjaxUrl')
+);
 
-add_action('wp_ajax_nopriv_update_int_map_data',
-           array('SrSearchMap', 'update_int_map_data'));
+add_action(
+    'wp_ajax_nopriv_update_int_map_data',
+    array('SrSearchMap', 'update_int_map_data')
+);
 
-add_action('wp_ajax_update_int_map_data',
-           array('SrSearchMap', 'update_int_map_data'));
+add_action(
+    'wp_ajax_update_int_map_data',
+    array('SrSearchMap', 'update_int_map_data')
+);
 
 
 /* Code starts here */
+
 use Ivory\GoogleMap\Map,
     Ivory\GoogleMap\Helper\MapHelper,
     Ivory\GoogleMap\MapTypeId,
@@ -103,7 +110,7 @@ class SrSearchMap {
         $MLS_text = SrUtils::mkMLSText();
 
         ob_start();
-        ?>
+?>
         <div class="sr-iw-inner">
             <h4 class="sr-iw-addr">
                 <?php echo esc_html($address); ?>
@@ -111,7 +118,8 @@ class SrSearchMap {
             </h4>
             <div class="sr-iw-inner__img">
                 <a href="<?php echo esc_url($link); ?>">
-                    <?php // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
+                    <?php // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage 
+                    ?>
                     <img id="sr-iw-inner__img-img" src="<?php echo esc_url($photo); ?>">
                 </a>
             </div>
@@ -158,18 +166,18 @@ class SrSearchMap {
                 </a>
             </div>
         </div>
-        <?php
+    <?php
 
         return ob_get_clean();
     }
 
 
     public static function defineAjaxUrl() {
-        ?>
+    ?>
         <script>
             var sr_ajaxUrl = "<?php echo esc_url(admin_url('admin-ajax.php')); ?>"
         </script>
-        <?php
+<?php
     }
 
 
@@ -183,8 +191,10 @@ class SrSearchMap {
     public static function update_int_map_data() {
 
         // Ensure we only capture SimplyRETS requests
-        if(array_key_exists('action', $_POST)
-           && $_POST['action'] === "update_int_map_data") {
+        if (
+            array_key_exists('action', $_POST)
+            && $_POST['action'] === "update_int_map_data"
+        ) {
 
             $permalink_struct = get_option('sr_permalink_structure', false);
             $showStatusText = get_option('sr_show_mls_status_text', false);
@@ -199,7 +209,7 @@ class SrSearchMap {
             $def_settings = array("show_map" => "false", "vendor" => $vendor);
             $settings = array_merge($settings_, $def_settings);
 
-            $req = SimplyRetsApiHelper::makeApiRequest($_POST['parameters']);
+            $req = SimplyRetsApiClient::makeApiRequest($_POST['parameters']);
             $con = SimplyRetsRenderer::srResidentialResultsGenerator($req, $settings);
 
             $response = array(
@@ -214,7 +224,6 @@ class SrSearchMap {
 
 
             wp_send_json($response);
-
         }
 
         return;
@@ -227,7 +236,7 @@ class SrSearchMap {
         $lat = $arr->geo->lat;
         $lng = $arr->geo->lng;
 
-        if (empty($lat) OR empty($lng)) {
+        if (empty($lat) or empty($lng)) {
             return false;
         }
 
@@ -245,7 +254,7 @@ class SrSearchMap {
     public static function uniqGeos($arr) {
         $tmp_geos = array();
 
-        foreach($arr as $a) {
+        foreach ($arr as $a) {
             $tmp_geos[$a->geo->lat . $a->geo->lng] = array(
                 $a->geo->lat,
                 $a->geo->lng

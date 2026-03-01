@@ -11,7 +11,7 @@ class SampleTest extends WP_UnitTestCase {
 
     function testSingleListingRequest() {
         $params = '/123456';
-        $result = SimplyRetsApiHelper::srRequestUrlBuilder($params, "properties", true);
+        $result = SimplyRetsApiClient::srRequestUrlBuilder($params, "properties", true);
 
         $this->assertTrue(is_string($result));
     }
