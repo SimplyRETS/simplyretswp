@@ -1,4 +1,8 @@
 {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "intelephense.format.braces": "k&r",
     "intelephense.files.maxSize": 10000000,
     "intelephense.files.exclude": [
         "**/.git/**",
