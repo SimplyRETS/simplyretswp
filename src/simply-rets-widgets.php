@@ -39,7 +39,7 @@ class SrWidgetHelper {
             . "&status=Pending"
             . "&status=ActiveUnderContract";
 
-        foreach((array)$params as $key=>$value) {
+        foreach ((array)$params as $key => $value) {
             $qs .= "&{$key}={$value}";
         }
 
@@ -56,7 +56,7 @@ class srFeaturedListingWidget extends WP_Widget {
     }
 
     /** save widget --  @see WP_Widget::update */
-    function update( $new_instance, $old_instance ) {
+    function update($new_instance, $old_instance) {
         $instance = $old_instance;
         $instance['title'] = wp_strip_all_tags($new_instance['title']);
         $instance['mlsid'] = wp_strip_all_tags($new_instance['mlsid']);
@@ -81,16 +81,15 @@ class srFeaturedListingWidget extends WP_Widget {
         $mlsid  = esc_attr($widget['mlsid']);
         $vendor = esc_attr($widget['vendor']);
 
-        ?>
+?>
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
                 Title:
             </label>
             <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('title')); ?>"
-                   type="text"
-                   value="<?php echo esc_attr($title); ?>"
-            />
+                name="<?php echo esc_attr($this->get_field_name('title')); ?>"
+                type="text"
+                value="<?php echo esc_attr($title); ?>" />
         </p>
 
         <p>
@@ -98,36 +97,34 @@ class srFeaturedListingWidget extends WP_Widget {
                 <?php echo "Listing " . esc_html($MLS_text) . " Id:" ?>
             </label>
             <input class="widefat"
-                   id="<?php echo esc_attr($this->get_field_id('mlsid')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('mlsid')); ?>"
-                   type="text"
-                   value="<?php echo esc_attr($mlsid); ?>"
-            />
+                id="<?php echo esc_attr($this->get_field_id('mlsid')); ?>"
+                name="<?php echo esc_attr($this->get_field_name('mlsid')); ?>"
+                type="text"
+                value="<?php echo esc_attr($mlsid); ?>" />
         </p>
-        <?php if(!$singleVendor) { ?>
+        <?php if (!$singleVendor) { ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('vendor')); ?>">
                     Vendor:
                 </label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('vendor')); ?>"
-                       name="<?php echo esc_attr($this->get_field_name('vendor')); ?>"
-                       type="text"
-                       value="<?php echo esc_attr($vendor); ?>"
-                />
+                    name="<?php echo esc_attr($this->get_field_name('vendor')); ?>"
+                    type="text"
+                    value="<?php echo esc_attr($vendor); ?>" />
             </p>
         <?php }
     }
 
     /** front end widget render -- @see WP_Widget::widget */
-    function widget( $args, $instance ) {
-        extract( $args );
+    function widget($args, $instance) {
+        extract($args);
         $title = apply_filters('widget_title', $instance['title']);
         $mlsid = $instance['mlsid'];
         $vendor = $instance['vendor'];
 
         $cont = $before_widget;
         // populate title
-        if( $title ) {
+        if ($title) {
             $cont .= $before_title . $title . $after_title;
         } else {
             $cont .= $before_title . $after_title;
@@ -138,7 +135,7 @@ class srFeaturedListingWidget extends WP_Widget {
         );
 
         // populate content
-        if( $mlsid ) {
+        if ($mlsid) {
             $qs = SrWidgetHelper::mkApiQueryString(
                 array("q" => $mlsid, "vendor" => $vendor)
             );
@@ -150,7 +147,6 @@ class srFeaturedListingWidget extends WP_Widget {
 
         echo wp_kses_post($cont . $after_widget);
     }
-
 }
 
 class srAgentListingWidget extends WP_Widget {
@@ -162,7 +158,7 @@ class srAgentListingWidget extends WP_Widget {
 
 
     /** save widget --  @see WP_Widget::update */
-    function update( $new_instance, $old_instance ) {
+    function update($new_instance, $old_instance) {
         $instance = $old_instance;
         $instance['title'] = wp_strip_all_tags($new_instance['title']);
         $instance['agent'] = wp_strip_all_tags($new_instance['agent']);
@@ -192,88 +188,86 @@ class srAgentListingWidget extends WP_Widget {
 
         ?>
         <p>
-          <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
-              Title:
-          </label>
-          <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
-                         name="<?php echo esc_attr($this->get_field_name('title')); ?>"
-                         type="text"
-                         value="<?php echo esc_attr($title); ?>" />
+            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
+                Title:
+            </label>
+            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
+                name="<?php echo esc_attr($this->get_field_name('title')); ?>"
+                type="text"
+                value="<?php echo esc_attr($title); ?>" />
         </p>
 
         <p>
-          <label for="<?php echo esc_attr($this->get_field_id('agent')); ?>">
+            <label for="<?php echo esc_attr($this->get_field_id('agent')); ?>">
                 <?php echo "Agent " . esc_html($MLS_text) . " Id:"; ?>
-          </label>
-          <input class="widefat"
-                         id="<?php echo esc_attr($this->get_field_id('agent')); ?>"
-                         name="<?php echo esc_attr($this->get_field_name('agent')); ?>"
-                         type="text"
-                         value="<?php echo esc_attr($agent); ?>" />
+            </label>
+            <input class="widefat"
+                id="<?php echo esc_attr($this->get_field_id('agent')); ?>"
+                name="<?php echo esc_attr($this->get_field_name('agent')); ?>"
+                type="text"
+                value="<?php echo esc_attr($agent); ?>" />
         </p>
 
         <p>
-          <label for="<?php echo esc_attr($this->get_field_id('limit')); ?>">
+            <label for="<?php echo esc_attr($this->get_field_id('limit')); ?>">
                 Number of listings to show:
-          </label>
-          <input class="widefat"
-                         id="<?php echo esc_attr($this->get_field_id('limit')); ?>"
-                         name="<?php echo esc_attr($this->get_field_name('limit')); ?>"
-                         type="text"
-                         value="<?php echo esc_attr($limit); ?>" />
+            </label>
+            <input class="widefat"
+                id="<?php echo esc_attr($this->get_field_id('limit')); ?>"
+                name="<?php echo esc_attr($this->get_field_name('limit')); ?>"
+                type="text"
+                value="<?php echo esc_attr($limit); ?>" />
         </p>
-        <?php if(!$singleVendor) { ?>
+        <?php if (!$singleVendor) { ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('vendor')); ?>">
                     Vendor:
                 </label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('vendor')); ?>"
-                       name="<?php echo esc_attr($this->get_field_name('vendor')); ?>"
-                       type="text"
-                       value="<?php echo esc_attr($vendor); ?>"
-                />
+                    name="<?php echo esc_attr($this->get_field_name('vendor')); ?>"
+                    type="text"
+                    value="<?php echo esc_attr($vendor); ?>" />
             </p>
         <?php }
     }
 
     /** front end widget render -- @see WP_Widget::widget */
-    function widget( $args, $instance ) {
-       extract( $args );
-       $title  = apply_filters('widget_title', $instance['title']);
-       $agent  = $instance['agent'];
-       $limit  = $instance['limit'];
-       $vendor = $instance['vendor'];
+    function widget($args, $instance) {
+        extract($args);
+        $title  = apply_filters('widget_title', $instance['title']);
+        $agent  = $instance['agent'];
+        $limit  = $instance['limit'];
+        $vendor = $instance['vendor'];
 
-       $cont = $before_widget;
-       // populate title
-       if( $title ) {
-           $cont .= $before_title . $title . $after_title;
-       } else {
-           $cont .= $before_title . $after_title;
-       }
+        $cont = $before_widget;
+        // populate title
+        if ($title) {
+            $cont .= $before_title . $title . $after_title;
+        } else {
+            $cont .= $before_title . $after_title;
+        }
 
-       $settings = array(
-           'vendor' => $vendor
-       );
+        $settings = array(
+            'vendor' => $vendor
+        );
 
-       // populate content
-       if( $agent && $limit ) {
-           $qs = SrWidgetHelper::mkApiQueryString(
-               array(
-                   "agent" => $agent,
-                   "limit" => $limit,
-                   "vendor" => $vendor
-               )
-           );
+        // populate content
+        if ($agent && $limit) {
+            $qs = SrWidgetHelper::mkApiQueryString(
+                array(
+                    "agent" => $agent,
+                    "limit" => $limit,
+                    "vendor" => $vendor
+                )
+            );
 
-           $cont .= SimplyRetsApiHelper::retrieveWidgetListing($qs, $settings);
-       } else {
-           $cont .= "No listing found";
-       }
+            $cont .= SimplyRetsApiHelper::retrieveWidgetListing($qs, $settings);
+        } else {
+            $cont .= "No listing found";
+        }
 
-       echo wp_kses_post($cont . $after_widget);
+        echo wp_kses_post($cont . $after_widget);
     }
-
 }
 
 class srRandomListingWidget extends WP_Widget {
@@ -284,7 +278,7 @@ class srRandomListingWidget extends WP_Widget {
     }
 
     /** save widget --  @see WP_Widget::update */
-    function update( $new_instance, $old_instance ) {
+    function update($new_instance, $old_instance) {
         $instance = $old_instance;
         $instance['title']  = wp_strip_all_tags($new_instance['title']);
         $instance['mlsids'] = wp_strip_all_tags($new_instance['mlsids']);
@@ -293,7 +287,7 @@ class srRandomListingWidget extends WP_Widget {
     }
 
     /** admin widget form --  @see WP_Widget::form */
-    function form( $instance ) {
+    function form($instance) {
         $default_options = array(
             "title" => "Random listing",
             "mlsids" => "",
@@ -314,11 +308,10 @@ class srRandomListingWidget extends WP_Widget {
             <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
                 Title:
             </label>
-          <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
-                 name="<?php echo esc_attr($this->get_field_name('title')); ?>"
-                 type="text"
-                 value="<?php echo esc_attr($title); ?>"
-            />
+            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
+                name="<?php echo esc_attr($this->get_field_name('title')); ?>"
+                type="text"
+                value="<?php echo esc_attr($title); ?>" />
         </p>
 
         <p>
@@ -326,41 +319,39 @@ class srRandomListingWidget extends WP_Widget {
                 <?php echo esc_html($MLS_text) . " ID's (comma separated):"; ?>
             </label>
             <input class="widefat"
-                   id="<?php echo esc_attr($this->get_field_id('mlsids')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('mlsids')); ?>"
-                   type="text"
-                   value="<?php echo esc_attr($mlsids); ?>"
-            />
+                id="<?php echo esc_attr($this->get_field_id('mlsids')); ?>"
+                name="<?php echo esc_attr($this->get_field_name('mlsids')); ?>"
+                type="text"
+                value="<?php echo esc_attr($mlsids); ?>" />
         </p>
-        <?php if(!$singleVendor) { ?>
+        <?php if (!$singleVendor) { ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('vendor')); ?>">
                     Vendor:
                 </label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('vendor')); ?>"
-                       name="<?php echo esc_attr($this->get_field_name('vendor')); ?>"
-                       type="text"
-                       value="<?php echo esc_attr($vendor); ?>"
-                />
+                    name="<?php echo esc_attr($this->get_field_name('vendor')); ?>"
+                    type="text"
+                    value="<?php echo esc_attr($vendor); ?>" />
             </p>
         <?php }
     }
 
     /** front end widget render -- @see WP_Widget::widget */
-    function widget( $args, $instance ) {
-        extract( $args );
+    function widget($args, $instance) {
+        extract($args);
 
         $vendor = apply_filters('widget_title', $instance['vendor']);
         $title  = apply_filters('widget_title', $instance['title']);
         $mlsids = $instance['mlsids'];
-        $mlsids_arr = explode( ',', $mlsids );
+        $mlsids_arr = explode(',', $mlsids);
 
         $mlsid = trim($mlsids_arr[array_rand($mlsids_arr)]);
 
         $cont = $before_widget;
 
         // populate title
-        if( $title ) {
+        if ($title) {
             $cont .= $before_title . $title . $after_title;
         } else {
             $cont .= $before_title . $after_title;
@@ -371,7 +362,7 @@ class srRandomListingWidget extends WP_Widget {
         );
 
         // populate content
-        if( $mlsid ) {
+        if ($mlsid) {
             $qs = SrWidgetHelper::mkApiQueryString(
                 array("q" => $mlsid, "vendor" => $vendor)
             );
@@ -394,7 +385,7 @@ class srSearchFormWidget extends WP_Widget {
     }
 
     /** save widget --  @see WP_Widget::update */
-    function update( $new_instance, $old_instance ) {
+    function update($new_instance, $old_instance) {
         $instance = $old_instance;
         $instance['title']  = wp_strip_all_tags($new_instance['title']);
         $instance['vendor'] = wp_strip_all_tags($new_instance['vendor']);
@@ -420,34 +411,33 @@ class srSearchFormWidget extends WP_Widget {
                 Title:
             </label>
             <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('title')); ?>"
-                   type="text"
-                   value="<?php echo esc_attr($title); ?>" />
+                name="<?php echo esc_attr($this->get_field_name('title')); ?>"
+                type="text"
+                value="<?php echo esc_attr($title); ?>" />
         </p>
-        <?php if(!$singleVendor) { ?>
+        <?php if (!$singleVendor) { ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('vendor')); ?>">
                     Vendor:
                 </label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('vendor')); ?>"
-                       name="<?php echo esc_attr($this->get_field_name('vendor')); ?>"
-                       type="text"
-                       value="<?php echo esc_attr($vendor); ?>"
-                />
+                    name="<?php echo esc_attr($this->get_field_name('vendor')); ?>"
+                    type="text"
+                    value="<?php echo esc_attr($vendor); ?>" />
             </p>
-        <?php }
+<?php }
     }
 
     /** front end widget render -- @see WP_Widget::widget */
-    function widget( $args, $instance ) {
-        extract( $args );
+    function widget($args, $instance) {
+        extract($args);
         $title  = apply_filters('widget_title', $instance['title']);
         $vendor = apply_filters('widget_vendor', $instance['vendor']);
 
         $cont = $before_widget;
 
         // populate title
-        if( $title ) {
+        if ($title) {
             $cont .= $before_title . $title . $after_title;
         } else {
             $cont .= $before_title . $after_title;
@@ -457,7 +447,7 @@ class srSearchFormWidget extends WP_Widget {
         $singleVendor = SrUtils::isSingleVendor();
         $availableVendors = get_option('sr_adv_search_meta_vendors', array());
         $ven = isset($vendor) ? $vendor  : '';
-        if(empty($ven) && $singleVendor === true) {
+        if (empty($ven) && $singleVendor === true) {
             $ven = $availableVendors[0];
         }
 
@@ -465,81 +455,33 @@ class srSearchFormWidget extends WP_Widget {
             wp_unslash($_GET['sr_ptype'])
         );
 
-        $adv_search_types = get_option("sr_adv_search_meta_types_$ven",
-                                       array("Residential", "Condominium", "Rental" ));
+        $adv_search_types = get_option(
+            "sr_adv_search_meta_types_$ven",
+            array("Residential", "Condominium", "Rental")
+        );
 
         $type_options = '';
-        foreach( (array)$adv_search_types as $key=>$type) {
-            if( $type == $current_type) {
-                $type_options .= "<option value='$type' selected />$type</option>";
+        foreach ((array)$adv_search_types as $key => $type) {
+            if ($type == $current_type) {
+                $type_options .= "<option value='"
+                    . esc_attr($type)
+                    . "' selected>"
+                    . esc_html($type)
+                    . "</option>";
             } else {
-                $type_options .= "<option value='$type' />$type</option>";
+                $type_options .= "<option value='"
+                    . esc_attr($type)
+                    . "'>" . esc_html($type)
+                    . "</option>";
             }
         }
 
-
         $home_url = get_home_url();
-        ob_start();
-        ?>
-          <div class="sr-search-widget">
-              <form
-                  method="get"
-                  class="sr-search"
-                  action="<?php echo esc_url($home_url); ?>">
-                  <input type="hidden" name="sr-listings" value="sr-search">
-
-                  <div class="sr-search-field" id="sr-search-keywords">
-                      <input
-                          name="sr_keywords"
-                          type="text"
-                          placeholder="Subdivision, Zipcode, or Keywords"
-                      />
-                  </div>
-
-                  <div class="sr-search-field" id="sr-search-ptype">
-                      <select name="sr_ptype">
-                          <option value="">Property Type</option>
-                          <?php echo esc_html($type_options); ?>
-                      </select>
-                  </div>
-
-                  <div class="sr-search-widget-filters">
-                      <div class="sr-search-widget-field" id="sr-search-minprice">
-                          <input name="sr_minprice" step="1000" min="0" type="number" placeholder="Min Price.." />
-                      </div>
-                      <div class="sr-search-widget-field" id="sr-search-maxprice">
-                          <input name="sr_maxprice" step="1000" min="0" type="number" placeholder="Max Price.." />
-                      </div>
-
-                      <div class="sr-search-widget-field" id="sr-search-minbeds">
-                          <input name="sr_minbeds" min="0" type="number" placeholder="Min Beds.." />
-                      </div>
-                      <div class="sr-search-widget-field" id="sr-search-maxbeds">
-                          <input name="sr_maxbeds" min="0" type="number" placeholder="Max Beds.." />
-                      </div>
-
-                      <div class="sr-search-widget-field" id="sr-search-minbaths">
-                          <input name="sr_minbaths" min="0" type="number" placeholder="Min Baths.." />
-                      </div>
-                      <div class="sr-search-widget-field" id="sr-search-maxbaths">
-                          <input name="sr_maxbaths" min="0" type="number" placeholder="Max Baths.." />
-                      </div>
-                  </div>
-                  <input
-                      type="hidden"
-                      name="sr_vendor"
-                      value="<?php echo esc_html($vendor); ?>"
-                  />
-                  <input
-                      class="submit button btn"
-                      type="submit"
-                      value="Search Properties"
-                  />
-              </form>
-          </div>
-          <?php
-
-        $search_form_markup = ob_get_clean();
+        $search_form_markup = SimplyRetsRenderer::renderWidgetSearchForm(
+            $vendor,
+            $type_options,
+            $home_url
+        );
 
         // populate content
         $cont .= $search_form_markup . $after_widget;
