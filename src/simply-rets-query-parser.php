@@ -12,7 +12,7 @@ class SimplyRetsQueryParser {
      * query string, and an array of the values.
      */
     public static function parseGetParameter($name, $key, $params) {
-        $param = isset($_GET[$name]) ? $_GET[$name] : "";
+        $param = isset($_GET[$name]) ? map_deep(wp_unslash($_GET[$name]), 'sanitize_text_field') : "";
         $param_arr = is_array($param) ? $param : explode(";", $param);
         $param_att = is_array($param) ? implode(";", $param) : $param;
         $param_str = "";
@@ -71,7 +71,7 @@ class SimplyRetsQueryParser {
          * empty.  Arrays are concated into multiple type=
          * parameters.
          */
-        $p_types = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
+        $p_types = isset($_GET['sr_ptype']) ? map_deep(wp_unslash($_GET['sr_ptype']), 'sanitize_text_field') : '';
         $ptypes_string = '';
         if (!is_array($p_types) && !empty($p_types)) {
             if (strpos($p_types, ";") !== FALSE) {
@@ -100,7 +100,8 @@ class SimplyRetsQueryParser {
          * interpret it as Active, whereas _no_ status parameter
          * is Active and Pending.
          */
-        $statuses = isset($_GET['sr_status']) ? $_GET['sr_status'] : $status;
+        // Ensure $status is also properly sanitized if it was pulled from query var earlier
+        $statuses = isset($_GET['sr_status']) ? map_deep(wp_unslash($_GET['sr_status']), 'sanitize_text_field') : sanitize_text_field($status);
         $statuses_string = '';
         $statuses_attribute = '';
 
@@ -138,7 +139,7 @@ class SimplyRetsQueryParser {
          * - Concat them together (eg,&status=Active&status=Closed)
          */
 
-        $features = isset($_GET['sr_features']) ? $_GET['sr_features'] : '';
+        $features = isset($_GET['sr_features']) ? map_deep(wp_unslash($_GET['sr_features']), 'sanitize_text_field') : '';
         $features_string = "";
         if (!empty($features)) {
             foreach ((array)$features as $key => $feature) {
@@ -146,7 +147,7 @@ class SimplyRetsQueryParser {
             }
         }
 
-        $amenities = isset($_GET['sr_amenities']) ? $_GET['sr_amenities'] : '';
+        $amenities = isset($_GET['sr_amenities']) ? map_deep(wp_unslash($_GET['sr_amenities']), 'sanitize_text_field') : '';
         $amenities_string = "";
         if (!empty($amenities)) {
             foreach ((array)$amenities as $key => $amenity) {
@@ -322,7 +323,7 @@ class SimplyRetsQueryParser {
          */
         $q_string = '';
 
-        $kws = isset($_GET['sr_q']) ? $_GET['sr_q'] : '';
+        $kws = isset($_GET['sr_q']) ? map_deep(wp_unslash($_GET['sr_q']), 'sanitize_text_field') : '';
         if (!empty($kws)) {
             foreach ((array)$kws as $key => $kw) {
                 $q_string .= "&q=$kw";
@@ -336,7 +337,7 @@ class SimplyRetsQueryParser {
          * translate them to multiple `q` parameters in the API
          * request.
          */
-        $sfq = isset($_GET['sr_keywords']) ? $_GET['sr_keywords'] : '';
+        $sfq = isset($_GET['sr_keywords']) ? sanitize_text_field(wp_unslash($_GET['sr_keywords'])) : '';
         if (!empty($sfq)) {
             $splitkw = explode(';', $sfq);
             if (!empty($splitkw)) {

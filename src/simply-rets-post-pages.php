@@ -279,7 +279,7 @@ class SimplyRetsCustomPostPages {
         }
 
         if (isset($_POST['sr_filters'])) {
-            $sr_filters = $_POST['sr_filters'];
+            $sr_filters = sanitize_text_field(wp_unslash($_POST['sr_filters']));
             return update_post_meta($post_id, 'sr_filters', $sr_filters);
         }
     }
@@ -327,7 +327,7 @@ class SimplyRetsCustomPostPages {
         }
 
         if (isset($_POST['sr_page_template'])) {
-            $sr_page_template = $_POST['sr_page_template'];
+            $sr_page_template = sanitize_text_field(wp_unslash($_POST['sr_page_template']));
             return update_post_meta($post_id, 'sr_page_template', $sr_page_template);
         }
     }
@@ -564,4 +564,3 @@ class SimplyRetsCustomPostPages {
         return $posts;
     }
 }
-?>
