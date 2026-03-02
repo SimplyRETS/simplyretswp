@@ -15,11 +15,11 @@ class SimplyRetsContactForm {
         if (isset($_POST['sr-cf-submitted'])) {
 
             // sanitize form values
-            $listing = sanitize_text_field($_POST["sr-cf-listing"]);
-            $name    = sanitize_text_field($_POST["sr-cf-name"]);
-            $email   = sanitize_email($_POST["sr-cf-email"]);
-            $subject = sanitize_text_field($_POST["sr-cf-subject"]);
-            $message = esc_textarea($_POST["sr-cf-message"])
+            $listing = sanitize_text_field(wp_unslash($_POST["sr-cf-listing"]));
+            $name    = sanitize_text_field(wp_unslash($_POST["sr-cf-name"]));
+            $email   = sanitize_email(wp_unslash($_POST["sr-cf-email"]));
+            $subject = sanitize_text_field(wp_unslash($_POST["sr-cf-subject"]));
+            $message = esc_textarea(wp_unslash($_POST["sr-cf-message"]))
                 . "\r\n" . "\r\n"
                 . "Form submission information: "
                 . "\r\n"

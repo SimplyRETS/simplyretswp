@@ -200,16 +200,17 @@ class SrSearchMap {
             $showStatusText = get_option('sr_show_mls_status_text', false);
             $showMlsTrademark = get_option('sr_show_mls_trademark_symbol', false);
             $site_root = get_site_url();
-            $vendor = array_key_exists("vendor", $_POST) ? $_POST["vendor"] : "";
+            $vendor = array_key_exists("vendor", $_POST) ? sanitize_text_field(wp_unslash($_POST["vendor"])) : "";
 
             header("Content-Type: application/json");
 
 
-            $settings_ = $_POST['settings'];
+            $settings_ = map_deep(wp_unslash($_POST['settings']), 'sanitize_text_field');
             $def_settings = array("show_map" => "false", "vendor" => $vendor);
             $settings = array_merge($settings_, $def_settings);
 
-            $req = SimplyRetsApiClient::makeApiRequest($_POST['parameters']);
+            $parameters = map_deep(wp_unslash($_POST['parameters']), 'sanitize_text_field');
+            $req = SimplyRetsApiClient::makeApiRequest($parameters);
             $con = SimplyRetsRenderer::srResidentialResultsGenerator($req, $settings);
 
             $response = array(

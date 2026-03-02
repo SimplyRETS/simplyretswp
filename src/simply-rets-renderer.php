@@ -1474,22 +1474,22 @@ class SimplyRetsRenderer {
         $markup .= '<input type="hidden" name="sr-cf-listing" value="' . $listing . '" />';
         $markup .= 'Your Name (required) <br/>';
         $markup .= '<input type="text" name="sr-cf-name" value="'
-            . (isset($_POST["sr-cf-name"]) ? esc_attr($_POST["sr-cf-name"]) : '') . '" size="40" />';
+            . (isset($_POST["sr-cf-name"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-name"]))) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Your Email (required) <br/>';
         $markup .= '<input type="email" name="sr-cf-email" value="'
-            . (isset($_POST["sr-cf-email"]) ? esc_attr($_POST["sr-cf-email"]) : '') . '" size="40" />';
+            . (isset($_POST["sr-cf-email"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-email"]))) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Subject (required) <br/>';
         $markup .= '<input type="text" name="sr-cf-subject" value="'
-            . (isset($_POST["sr-cf-subject"]) ? esc_attr($_POST["sr-cf-subject"]) : '') . '" size="40" />';
+            . (isset($_POST["sr-cf-subject"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-subject"]))) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Your Message (required) <br/>';
         $markup .= '<textarea rows="10" cols="35" name="sr-cf-message">'
-            . (isset($_POST["sr-cf-message"]) ? esc_attr($_POST["sr-cf-message"]) : '') . '</textarea>';
+            . (isset($_POST["sr-cf-message"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-message"]))) : '') . '</textarea>';
         $markup .= '</p>';
         $markup .= '<p><input class="btn button btn-submit" type="submit" name="sr-cf-submitted" value="Send"></p>';
         $markup .= '</form>';
@@ -1773,7 +1773,7 @@ class SimplyRetsRenderer {
 
         $config_type = isset($attributes['type']) ? $attributes['type']   : '';
         if ($config_type === '') {
-            $config_type = isset($_GET['sr_ptype']) ? $_GET['sr_ptype'] : '';
+            $config_type = isset($_GET['sr_ptype']) ? map_deep(wp_unslash($_GET['sr_ptype']), 'sanitize_text_field') : '';
         }
 
         if (empty($vendor) && $singleVendor === true && !empty($availableVendors)) {
@@ -1798,13 +1798,13 @@ class SimplyRetsRenderer {
         $adv_status = array_key_exists('status',   $attributes) ? $attributes['status']   : '';
         $lotsize    = array_key_exists('lotsize',  $attributes) ? $attributes['lotsize']  : '';
         $area       = array_key_exists('area',     $attributes) ? $attributes['area']     : '';
-        $adv_features      = isset($_GET['sr_features']) ? $_GET['sr_features'] : array();
-        $adv_neighborhoods = isset($_GET['sr_neighborhoods']) ? $_GET['sr_neighborhoods']     : array();
+        $adv_features      = isset($_GET['sr_features']) ? map_deep(wp_unslash($_GET['sr_features']), 'sanitize_text_field') : array();
+        $adv_neighborhoods = isset($_GET['sr_neighborhoods']) ? map_deep(wp_unslash($_GET['sr_neighborhoods']), 'sanitize_text_field') : array();
 
         // Get the initial values for `cities`. If a query parameter
         // is set, use-that, otherwise check for a 'cities' attribute
         // on the [sr_search_form] short-code
-        $adv_cities = isset($_GET['sr_cities']) ? $_GET['sr_cities'] : array();
+        $adv_cities = isset($_GET['sr_cities']) ? map_deep(wp_unslash($_GET['sr_cities']), 'sanitize_text_field') : array();
         if (empty($adv_cities) && array_key_exists('cities', $attributes)) {
             $adv_cities = explode(";", $attributes['cities']);
         }
@@ -1842,22 +1842,23 @@ class SimplyRetsRenderer {
         }
 
         if ((is_array($config_type) == TRUE) && isset($_GET['sr_ptype'])) {
-            $type_string = join(';', $config_type);
+            $type_string = esc_attr(join(';', $config_type));
             $default_type_option = "<option value='$type_string' selected>Property Type</option>";
             foreach ($available_property_types as $key => $value) {
-                $type_options .= "<option value='$value' />$value</option>";
+                $type_options .= "<option value='" . esc_attr($value) . "' />$value</option>";
             }
         } elseif (strpos($config_type, ";") !== FALSE) {
-            $default_type_option = "<option value='$config_type' selected>Property Type</option>";
+            $config_type_esc = esc_attr($config_type);
+            $default_type_option = "<option value='$config_type_esc' selected>Property Type</option>";
             foreach ($available_property_types as $key => $value) {
-                $type_options .= "<option value='$value' />$value</option>";
+                $type_options .= "<option value='" . esc_attr($value) . "' />$value</option>";
             }
         } else {
             foreach ($available_property_types as $key => $value) {
                 if ($value == $config_type) {
-                    $type_options .= "<option value='$value' selected />$value</option>";
+                    $type_options .= "<option value='" . esc_attr($value) . "' selected />$value</option>";
                 } else {
-                    $type_options .= "<option value='$value' />$value</option>";
+                    $type_options .= "<option value='" . esc_attr($value) . "' />$value</option>";
                 }
             }
         }
