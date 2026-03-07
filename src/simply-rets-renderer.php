@@ -994,7 +994,7 @@ class SimplyRetsRenderer {
 
         /** Build pagination links HTML **/
         $page_count = count($response);
-        $limit = isset($settings['limit']) ? $settings['limit'] : 20;
+        $limit = !empty($settings['limit']) ? $settings['limit'] : 20;
         $pag = SrUtils::buildPaginationLinks($pagination);
         $prev_link = $pag['prev'];
         $next_link = $page_count < $limit ? "" : $pag['next'];
