@@ -28,5 +28,10 @@ services:
       - data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - "8025:8025" # This is the Web UI inbox
+      - "1025:1025" # This is the fake SMTP server port
 volumes:
   data: {}
