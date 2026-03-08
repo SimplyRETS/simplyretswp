@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 6.8
-Stable tag: 3.1.1
+Stable tag: 3.2.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -237,6 +237,11 @@ listing sidebar widget.
 
 == Changelog ==
 
+= 3.2.0 =
+
+* IMPROVE: Refactor code base; no functional changes
+* IMPROVE: Improve form handling, escaping, and sanitization for better security
+
 = 3.1.1 =
 
 * FIX: Fix "Contact us about this listing" link when using custom contact form
@@ -268,31 +273,6 @@ listing sidebar widget.
 
 = 3.0.1 =
 * FIX: Properly escape HTML output in SimplyRETS widgets
-
-= 3.0.0 =
-* ENHANCEMENT: Major syntax and formatting updates to resolve wp plugin-check errors
-
-= 2.11.3 =
-* ADD: Use custom currency code, if provided
-* FIX: Support exteriorFeatures/lotDescription filter on [sr_search_form]
-* FIX: Don't plot listings with IDX address restrictions on maps
-
-= 2.11.2 =
-* FEATURE: Add support for Block Theme templates
-* FEATURE: Add support for lotDescription filter
-* IMPROVE: Use consistent h3 in basic and advanced search form
-* IMPROVE: Normalize CamelCase property types in search form dropdown
-
-= 2.11.1 =
-* ADD: Add CloseDate to closed listing thumbnails
-* IMPROVE: Improve CSS selectors for listing thumbnail status banner
-* IMPROVE: Use sale price on closed listing thumbnails
-
-= 2.11.0 =
-* ADD: Add status banner to results lists
-* ADD: Add support for grid_view on [sr_map_search] shortcode
-* IMPROVE: Improve responsive CSS for grid_view
-* FIX: Fix some options not working after pagination
 
 [**View the complete CHANGELOG here**](https://github.com/SimplyRETS/simplyretswp/blog/master/CHANGELOG)
 

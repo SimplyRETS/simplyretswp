@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.2.0
+
+* IMPROVE: Refactor code base; no functional changes
+* IMPROVE: Improve form handling, escaping, and sanitization for better security
+
 ## 3.1.1
 
 * FIX: Fix "Contact us about this listing" link when using custom contact form
