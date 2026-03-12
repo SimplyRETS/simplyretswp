@@ -142,7 +142,7 @@ class SimplyRetsQueryParser {
          * - Concat them together (eg,&status=Active&status=Closed)
          */
 
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
         $features = isset($_GET['sr_features']) ? map_deep(wp_unslash($_GET['sr_features']), 'sanitize_text_field') : '';
         $features_string = "";
         if (!empty($features)) {
@@ -151,7 +151,6 @@ class SimplyRetsQueryParser {
             }
         }
 
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $amenities = isset($_GET['sr_amenities']) ? map_deep(wp_unslash($_GET['sr_amenities']), 'sanitize_text_field') : '';
         $amenities_string = "";
         if (!empty($amenities)) {
@@ -316,6 +315,7 @@ class SimplyRetsQueryParser {
             "lotDescription",
             $_GET
         );
+        // phpcs:enable WordPress.Security.NonceVerification.Recommended
 
         $lotDescription_att = $lotDescriptionData["att"];
         $lotDescription_query = $lotDescriptionData["query"];
