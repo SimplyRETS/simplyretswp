@@ -215,6 +215,11 @@ class SimplyRetsSetup {
             array("in_footer" => false)
         );
         wp_enqueue_script('simply-rets-client-js');
+        wp_localize_script(
+            'simply-rets-client-js',
+            'sr_ajax_obj',
+            array('nonce' => wp_create_nonce('sr_map_ajax_action'))
+        );
 
         // image gallery js
         wp_register_script(

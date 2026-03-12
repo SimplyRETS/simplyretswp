@@ -199,6 +199,11 @@ class SrSearchMap {
             && $_POST['action'] === "update_int_map_data"
         ) {
 
+            if (!isset($_POST['sr_map_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['sr_map_nonce'])), 'sr_map_ajax_action')) {
+                wp_send_json_error('Invalid nonce');
+                exit;
+            }
+
             $permalink_struct = get_option('sr_permalink_structure', false);
             $showStatusText = get_option('sr_show_mls_status_text', false);
             $showMlsTrademark = get_option('sr_show_mls_trademark_symbol', false);
@@ -207,12 +212,11 @@ class SrSearchMap {
 
             header("Content-Type: application/json");
 
-
-            $settings_ = map_deep(wp_unslash($_POST['settings']), 'sanitize_text_field');
+            $settings_ = isset($_POST['settings']) ? map_deep(wp_unslash($_POST['settings']), 'sanitize_text_field') : array();
             $def_settings = array("show_map" => "false", "vendor" => $vendor);
             $settings = array_merge($settings_, $def_settings);
 
-            $parameters = map_deep(wp_unslash($_POST['parameters']), 'sanitize_text_field');
+            $parameters = isset($_POST['parameters']) ? map_deep(wp_unslash($_POST['parameters']), 'sanitize_text_field') : array();
             $req = SimplyRetsApiClient::makeApiRequest($parameters);
             $con = SimplyRetsRenderer::srResidentialResultsGenerator($req, $settings);
 
