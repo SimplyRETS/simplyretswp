@@ -118,8 +118,8 @@ of the image, use this class.
     background-color: rgba(255, 165, 0, 0.75);
 }
 
-.sr-listing > a:first-child,
-.sr-listing-grid-item > a:first-child {
+.sr-listing>a:first-child,
+.sr-listing-grid-item>a:first-child {
     text-decoration: none !important;
 }
 
@@ -158,11 +158,35 @@ color is a light grey. This is very simply to change by setting:
     width: 69%;
     vertical-align: top;
 }
+
+div#sr-contact-form {
+    padding-top: 15px;
+}
+
+div#sr-contact-form-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+div#sr-contact-form-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
 .sr-primary-data {
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: #eee;
 }
+
 .sr-primary-data h4 {
     padding-left: 15px;
     margin-top: 10px !important;
@@ -331,10 +355,10 @@ without affecting the overall look of the section.
 ```
 */
 .sr-primary-details {
-  display: flex;
-  justify-content: space-between;
-  clear: both;
-  padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    clear: both;
+    padding-top: 15px;
 }
 
 /*
@@ -462,6 +486,7 @@ standard class names like `button` and `btn`.
     margin-top: 5px;
     margin-bottom: -5px;
 }
+
 #sr-listing-wdgt-remarks {
     line-height: 1.5em;
     overflow: hidden;
@@ -604,6 +629,7 @@ Most of these elements also have id's for you to use specifically.
 #sr-search-keywords {
     width: 70%;
 }
+
 #sr-search-keywords input {
     width: 100%;
 }
@@ -612,6 +638,7 @@ Most of these elements also have id's for you to use specifically.
     width: 25%;
     text-align: left;
 }
+
 #sr-search-ptype select {
     width: 90%;
     vertical-align: middle;
@@ -634,6 +661,7 @@ Most of these elements also have id's for you to use specifically.
 #sr-search-maxbeds input {
     width: 85%;
 }
+
 .sr-search-field {
     display: inline-block;
 }
@@ -669,7 +697,7 @@ elsewhere, this should be a breeze.
 ```
 
 */
-.sr-slider{
+.sr-slider {
     max-width: 650px;
     width: 100%;
     position: relative;
@@ -679,7 +707,7 @@ elsewhere, this should be a breeze.
     transition: all 0.5s;
 }
 
-.sr-slider>img{
+.sr-slider>img {
     position: absolute;
     left: 0;
     top: 0;
@@ -713,10 +741,12 @@ elsewhere, this should be a breeze.
     border-color: #666;
     opacity: 1;
 }
-.sr-slider input[name='slide_switch'] ~ img {
+
+.sr-slider input[name='slide_switch']~img {
     opacity: 0;
     transform: scale(1.1);
 }
+
 .sr-slider input[name='slide_switch']:checked+label+img {
     opacity: 1;
     transform: scale(1);
@@ -727,10 +757,12 @@ elsewhere, this should be a breeze.
     margin-top: -15px !important;
     margin-bottom: 0px !important;
 }
+
 #sr-toggle-gallery {
     clear: both;
     cursor: pointer;
 }
+
 .sr-gallery {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -794,9 +826,11 @@ elsewhere, this should be a breeze.
     width: 25%;
     padding: 5px 10px;
 }
+
 .sr-adv-search-part .sr-adv-search-col4 select {
     width: 100%;
 }
+
 .sr-adv-search-part .sr-adv-search-col4 input {
     width: 95%;
 }
@@ -834,27 +868,34 @@ elsewhere, this should be a breeze.
     .sr-adv-search-part li {
         width: 50%;
     }
+
     .sr-adv-search-part #sr-search-keywords {
         width: 100%;
     }
+
     .sr-adv-search-part #sr-search-ptype {
         width: 100%;
         margin-top: 10px;
     }
+
     .sr-adv-search-part #sr-search-ptype select {
         width: 100%;
     }
+
     /* 1/2 Columns Responsiveness */
     .sr-adv-search-part .sr-adv-search-col2 {
         width: 100%;
     }
+
     .sr-adv-search-part .sr-adv-search-col2 input {
         width: 49%;
     }
+
     /* 1/4 Columns Responsiveness */
     .sr-adv-search-part .sr-adv-search-col4 {
         width: 49%;
     }
+
     /* Features checkboxes Responsiveness */
     .sr-adv-search-part .sr-adv-search-option {
         width: 50%;
@@ -971,6 +1012,7 @@ elsewhere, this should be a breeze.
     text-align: center;
     font-size: 18px;
 }
+
 .sr-iw-inner__primary p {
     margin-bottom: 5px !important;
 }
@@ -1039,7 +1081,8 @@ elsewhere, this should be a breeze.
     border-radius: 30px;
 }
 
-.owl-nav, .owl-dots {
+.owl-nav,
+.owl-dots {
     text-align: center;
     font-size: 22px;
     font-weight: 700;
