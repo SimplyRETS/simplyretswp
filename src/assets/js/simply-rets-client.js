@@ -14,14 +14,14 @@ var $_ = jQuery; // reassign jQuery
 
 
 /* Single Listing Details Image Slider (Classic) */
-var classicGalleryToggle = function() {
+var classicGalleryToggle = function () {
 
-    $_(".sr-slider-input").click(function() {
+    $_(".sr-slider-input").click(function () {
 
         var imgSrc = $_("input[name='slide_switch']:checked").val();
         var imgAct = $_(".sr-slider-img-act");
 
-        imgAct.fadeOut("fast", function() {
+        imgAct.fadeOut("fast", function () {
 
             imgAct.attr('src', imgSrc);
             imgAct.fadeIn("fast");
@@ -34,11 +34,11 @@ var classicGalleryToggle = function() {
 
 
 /* Open/Close Listing Image Gallery (Classic) */
-var classicGalleryTextToggle = function() {
+var classicGalleryTextToggle = function () {
 
-    $_('#sr-toggle-gallery').click(function() {
+    $_('#sr-toggle-gallery').click(function () {
         $_('.sr-slider label').toggle(100);
-        if($_(this).text() == 'Hide photos') {
+        if ($_(this).text() == 'Hide photos') {
             $_(this).text('Show more photos');
         } else {
             $_(this).text('Hide photos');
@@ -49,16 +49,16 @@ var classicGalleryTextToggle = function() {
 
 
 /** Hide 'Amenities' in advanced search form when "Land" is selected */
-var advSearchFormToggler = function() {
+var advSearchFormToggler = function () {
 
-    if($_('#sr-search-ptype select').val() == 'Land') {
+    if ($_('#sr-search-ptype select').val() == 'Land') {
         $_('.sr-adv-search-amenities-wrapper').hide();
     }
 
-    $_('#sr-search-ptype select').change(function() {
-        if($_(this).val() == 'Land') {
+    $_('#sr-search-ptype select').change(function () {
+        if ($_(this).val() == 'Land') {
             $_('.sr-adv-search-amenities-wrapper').hide();
-            $_('input[name="sr_features[]"]').each(function() {
+            $_('input[name="sr_features[]"]').each(function () {
                 $_(this).attr('checked', false);
             });
         } else {
@@ -71,9 +71,9 @@ var advSearchFormToggler = function() {
 
 
 /** [sr_listings_slider] default number of items */
-var listingSliderCarousel = function() {
+var listingSliderCarousel = function () {
 
-    $_(".owl-carousel").each(function() {
+    $_(".owl-carousel").each(function () {
         $_(this).owlCarousel({
             items: 4,
             loop: true,
@@ -85,29 +85,29 @@ var listingSliderCarousel = function() {
 }
 
 
-var scrollToAnchor = function(aid) {
-    var aTag = $_("#"+ aid);
-    $_('html,body').animate({scrollTop: aTag.offset().top},'slow');
+var scrollToAnchor = function (aid) {
+    var aTag = $_("#" + aid);
+    $_('html,body').animate({ scrollTop: aTag.offset().top }, 'slow');
 }
 
 
-var buildPrettyLink = function(mlsId, address, root, vendor) {
+var buildPrettyLink = function (mlsId, address, root, vendor) {
     return root
-         + "/listings/"
-         + mlsId + "/"
-         + address
-         + (vendor ? ("?sr_vendor=" + vendor) : "");
+        + "/listings/"
+        + mlsId + "/"
+        + address
+        + (vendor ? ("?sr_vendor=" + vendor) : "");
 }
 
-var buildUglyLink = function(mlsId, address, root, vendor) {
+var buildUglyLink = function (mlsId, address, root, vendor) {
     return root
-         + "?sr-listings=sr-single"
-         + "&listing_id=" + mlsId
-         + "&listing_title=" + address
-         + (vendor ? ("&sr_vendor=" + vendor) : "");
+        + "?sr-listings=sr-single"
+        + "&listing_id=" + mlsId
+        + "&listing_title=" + address
+        + (vendor ? ("&sr_vendor=" + vendor) : "");
 }
 
-var normalizeListingPhotoUrl = function(url) {
+var normalizeListingPhotoUrl = function (url) {
     var forceHttps = document
         .getElementById("sr-map-search")
         .dataset
@@ -121,7 +121,7 @@ var normalizeListingPhotoUrl = function(url) {
 }
 
 
-var genMarkerPopup = function(
+var genMarkerPopup = function (
     listing,
     linkStyle,
     siteRoot,
@@ -133,57 +133,57 @@ var genMarkerPopup = function(
     vendor
 ) {
 
-    var stat  = statusText ? listing.mls.statusText : listing.mls.status;
+    var stat = statusText ? listing.mls.statusText : listing.mls.status;
     var mlsText = Boolean(mlsTrademark) ? "MLS®" : "MLS"
-    var beds  = listing.property.bedrooms  || "n/a";
+    var beds = listing.property.bedrooms || "n/a";
     var baths = getBathroomsDisplay();
-    var style = listing.property.style     || "Res" ;
-    var type  = listing.property.type      || "Res";
-    var sqft  = listing.property.area      || "n/a";
-    var mlnum = listing.listingId          || "n/a";
-    var price = listing.listPrice          || "Unknown";
-    var addr  = listing.address.full       || "Unknown";
+    var style = listing.property.style || "Res";
+    var type = listing.property.type || "Res";
+    var sqft = listing.property.area || "n/a";
+    var mlnum = listing.listingId || "n/a";
+    var price = listing.listPrice || "Unknown";
+    var addr = listing.address.full || "Unknown";
     var photo = listing.photos.length > 1
-              ? normalizeListingPhotoUrl(listing.photos[0])
-              : 'https://s3-us-west-2.amazonaws.com/simplyrets/trial/properties/defprop.jpg';
+        ? normalizeListingPhotoUrl(listing.photos[0])
+        : 'https://s3-us-west-2.amazonaws.com/simplyrets/trial/properties/defprop.jpg';
     var office = officeOnThumbnails && listing.office.name
-               ? listing.office.name
-               : ""
+        ? listing.office.name
+        : ""
     var agent = agentOnThumbnails && listing.agent.firstName
-               ? listing.agent.firstName + ' ' + listing.agent.lastName
-               : ""
+        ? listing.agent.firstName + ' ' + listing.agent.lastName
+        : ""
 
     var link = linkStyle === "pretty" || linkStyle === "pretty_extra"
-             ? buildPrettyLink(listing.mlsId, listing.address.full, siteRoot, vendor)
-             : buildUglyLink(listing.mlsId, listing.address.full, siteRoot, vendor);
+        ? buildPrettyLink(listing.mlsId, listing.address.full, siteRoot, vendor)
+        : buildUglyLink(listing.mlsId, listing.address.full, siteRoot, vendor);
 
     var markup = '' +
-       '<div class="sr-iw-inner">' +
-       '  <h4 class="sr-iw-addr">' + addr + '<small> $' + price + '</small></h4>' +
-       '  <div class="sr-iw-inner__img">' +
-       '    <a href="' + link + '">' +
-       '      <img id="sr-iw-inner__img-img" src="' + photo +'">' +
-       '    </a>' +
-       '  </div>' +
-       '  <div class="sr-iw-inner__primary">' +
-       '    <p>' + beds + ' Beds | ' + baths + ' | ' + stat + '</p>' +
-       '  </div>' +
-       '  <hr>' +
-       '  <div class="sr-iw-inner__secondary">' +
-       '    <p><strong>Price: </strong>$' + price + '</p>' +
-       '    <p><strong>' + mlsText + ' #: </strong>' + mlnum + '</p>' +
-       '    <p><strong>Area: </strong>' + sqft + '</p>' +
-       '    <p><strong>Property Type: </strong>' + type + '</p>' +
-       '    <p><strong>Property Style: </strong>' + style + '</p>' +
-       (office ? '<p><strong>Listing office: </strong>'+ office + '</p>' : '') +
-       (agent ? '<p><strong>Listing agent: </strong>'+ agent + '</p>' : '') +
-       '    <img src="' + idxImg + '"/>' +
-       '  </div>' +
-       '  <hr>' +
-       '  <div class="sr-iw-inner__view-details">' +
-       '    <a class="sr-iw-inner__details-link" href="' + link + '">View Details</a>' +
-       '  </div>' +
-       '</div>';
+        '<div class="sr-iw-inner">' +
+        '  <h4 class="sr-iw-addr">' + addr + '<small> $' + price + '</small></h4>' +
+        '  <div class="sr-iw-inner__img">' +
+        '    <a href="' + link + '">' +
+        '      <img id="sr-iw-inner__img-img" src="' + photo + '">' +
+        '    </a>' +
+        '  </div>' +
+        '  <div class="sr-iw-inner__primary">' +
+        '    <p>' + beds + ' Beds | ' + baths + ' | ' + stat + '</p>' +
+        '  </div>' +
+        '  <hr>' +
+        '  <div class="sr-iw-inner__secondary">' +
+        '    <p><strong>Price: </strong>$' + price + '</p>' +
+        '    <p><strong>' + mlsText + ' #: </strong>' + mlnum + '</p>' +
+        '    <p><strong>Area: </strong>' + sqft + '</p>' +
+        '    <p><strong>Property Type: </strong>' + type + '</p>' +
+        '    <p><strong>Property Style: </strong>' + style + '</p>' +
+        (office ? '<p><strong>Listing office: </strong>' + office + '</p>' : '') +
+        (agent ? '<p><strong>Listing agent: </strong>' + agent + '</p>' : '') +
+        '    <img src="' + idxImg + '"/>' +
+        '  </div>' +
+        '  <hr>' +
+        '  <div class="sr-iw-inner__view-details">' +
+        '    <a class="sr-iw-inner__details-link" href="' + link + '">View Details</a>' +
+        '  </div>' +
+        '</div>';
 
     return markup;
 
@@ -201,7 +201,7 @@ var genMarkerPopup = function(
 }
 
 
-var makeMapMarkers = function(
+var makeMapMarkers = function (
     map,
     listings,
     linkStyle,
@@ -215,18 +215,18 @@ var makeMapMarkers = function(
 ) {
 
     var markers = [];
-    var bounds  = new google.maps.LatLngBounds();
+    var bounds = new google.maps.LatLngBounds();
 
-    $_.each(listings, function(idx, listing) {
+    $_.each(listings, function (idx, listing) {
 
         var lat = listing.geo.lat,
             lng = listing.geo.lng;
 
-        if(lat && lng && listing.internetAddressDisplay !== false) {
+        if (lat && lng && listing.internetAddressDisplay !== false) {
 
-            var bound  = new google.maps.LatLng(listing.geo.lat, listing.geo.lng);
+            var bound = new google.maps.LatLng(listing.geo.lat, listing.geo.lng);
 
-            var popup  = genMarkerPopup(
+            var popup = genMarkerPopup(
                 listing,
                 linkStyle,
                 siteRoot,
@@ -248,8 +248,8 @@ var makeMapMarkers = function(
                 title: listing.address.full
             });
 
-            marker.addListener('click', function() {
-                if(window.getMap()) {
+            marker.addListener('click', function () {
+                if (window.getMap()) {
                     window.close(map, marker);
                 } else {
                     window.open(map, marker);
@@ -263,27 +263,27 @@ var makeMapMarkers = function(
     });
 
     return {
-        bounds:   bounds,
-        markers:  markers,
+        bounds: bounds,
+        markers: markers,
     }
 
 }
 
 
-var replaceListingMarkup = function(markup) {
+var replaceListingMarkup = function (markup) {
     var root = $_('.sr-map-search-list-view');
-    if(root.length)
+    if (root.length)
         root.html(markup);
 }
 
 
-var updatePagination = function(that) {
+var updatePagination = function (that) {
 
     var prevEl = null,
         nextEl = null,
         pagWrapper = $_('.sr-pagination');
 
-    if(pagWrapper.length) {
+    if (pagWrapper.length) {
 
         pagWrapper.empty(); // clear the current pagination elements
 
@@ -291,29 +291,29 @@ var updatePagination = function(that) {
         var next = "<a href=\"#\">Next</a>";
 
         var pag;
-        if(that.offset === 0) {
+        if (that.offset === 0) {
             pag = next;
         } else {
             pag = prev + next;
         }
 
-        if(that.offset === 0 && that.listings.length < that.limit) {
+        if (that.offset === 0 && that.listings.length < that.limit) {
             pag = null;
         }
 
-        if(that.offset > 0 && that.listings.length < that.limit) {
+        if (that.offset > 0 && that.listings.length < that.limit) {
             pag = prev;
         }
 
         pagWrapper.append(pag);
 
         var childs = pagWrapper.children();
-        if(childs.length >= 1) {
-            $_.each(childs, function(c) {
-                if(childs[c].text === "Next") {
+        if (childs.length >= 1) {
+            $_.each(childs, function (c) {
+                if (childs[c].text === "Next") {
                     nextEl = childs[c];
                 }
-                if(childs[c].text === "Prev") {
+                if (childs[c].text === "Prev") {
                     prevEl = childs[c];
                 }
             });
@@ -330,7 +330,7 @@ var updatePagination = function(that) {
 function normalizeParameters(params) {
     var obj = {}
 
-    Object.keys(params).map(function(key) {
+    Object.keys(params).map(function (key) {
         if (key === "subtypetext")
             return obj.subTypeText = params[key]
         if (key === "exteriorfeatures")
@@ -352,17 +352,17 @@ function normalizeParameters(params) {
     return obj
 }
 
-var getSearchFormValues = function() {
+var getSearchFormValues = function () {
 
-    var keyword  = $_('.sr-int-map-search-wrapper #sr-search-keywords > input[type="text"]').val(),
-        ptype    = $_('.sr-int-map-search-wrapper #sr-search-ptype select').val(),
+    var keyword = $_('.sr-int-map-search-wrapper #sr-search-keywords > input[type="text"]').val(),
+        ptype = $_('.sr-int-map-search-wrapper #sr-search-ptype select').val(),
         minprice = $_('.sr-int-map-search-wrapper #sr-search-minprice input').val(),
         maxprice = $_('.sr-int-map-search-wrapper #sr-search-maxprice input').val(),
-        minbeds  = $_('.sr-int-map-search-wrapper #sr-search-minbeds input').val(),
-        maxbeds  = $_('.sr-int-map-search-wrapper #sr-search-maxbeds input').val(),
+        minbeds = $_('.sr-int-map-search-wrapper #sr-search-minbeds input').val(),
+        maxbeds = $_('.sr-int-map-search-wrapper #sr-search-maxbeds input').val(),
         minbaths = $_('.sr-int-map-search-wrapper #sr-search-minbaths input').val(),
         maxbaths = $_('.sr-int-map-search-wrapper #sr-search-maxbaths input').val(),
-        sort     = $_('.sr-int-map-search-wrapper .sr-sort-wrapper select').val();
+        sort = $_('.sr-int-map-search-wrapper .sr-sort-wrapper select').val();
 
     var defParamsData = document.getElementById("sr-map-search").dataset.defaultParameters
     var defLimit = document.getElementById("sr-map-search").dataset.limit
@@ -370,7 +370,7 @@ var getSearchFormValues = function() {
     var defParams;
     try {
         defParams = JSON.parse(defParamsData)
-    } catch(e) {
+    } catch (e) {
         defParams = {}
     }
 
@@ -378,25 +378,25 @@ var getSearchFormValues = function() {
     // user-selected parameters. If the user hasn't selected a value
     // for an input, fallback to the default.
     var params = Object.assign({}, normalizeParameters(defParams), {
-        q:        keyword || defParams.q,
-        type:     ptype || defParams.type,
-        sort:     sort,
+        q: keyword || defParams.q,
+        type: ptype || defParams.type,
+        sort: sort,
         minprice: minprice || defParams.minprice,
         maxprice: maxprice || defParams.maxprice,
-        minbeds:  minbeds || defParams.minbeds,
-        maxbeds:  maxbeds || defParams.maxbeds,
+        minbeds: minbeds || defParams.minbeds,
+        maxbeds: maxbeds || defParams.maxbeds,
         minbaths: minbaths || defParams.minbaths,
         maxbaths: maxbaths || defParams.maxbaths,
     }, { limit: defLimit })
 
     var query = "?";
 
-    Object.keys(params).map(function(key) {
+    Object.keys(params).map(function (key) {
         var p = params[key]
         if (!p) return
 
         if (p.indexOf(";") !== -1) {
-            p.split(";").map(function(v) {
+            p.split(";").map(function (v) {
                 var val = encodeURIComponent(v.trim())
                 query += (key + "=" + val + "&")
             })
@@ -420,23 +420,23 @@ function SimplyRETSMap() {
     var limit = document.getElementById('sr-map-search').dataset.limit
     var settings = document.getElementById("sr-map-search").dataset.defaultSettings
 
-    this.element    = 'sr-map-search';
-    this.bounds     = [];
-    this.markers    = [];
-    this.listings   = [];
-    this.polygon    = null;
-    this.rectangle  = null;
-    this.popup      = null;
-    this.drawCtrl   = null;
-    this.loaded     = false;
-    this.options    = { zoom: 8 }
+    this.element = 'sr-map-search';
+    this.bounds = [];
+    this.markers = [];
+    this.listings = [];
+    this.polygon = null;
+    this.rectangle = null;
+    this.popup = null;
+    this.drawCtrl = null;
+    this.loaded = false;
+    this.options = { zoom: 8 }
     this.pagination = null;
-    this.offset     = 0;
-    this.linkStyle  = 'default';
-    this.siteRoot   = window.location.href
-    this.vendor     = vendor;
-    this.limit      = limit;
-    this.settings   = JSON.parse(settings);
+    this.offset = 0;
+    this.linkStyle = 'default';
+    this.siteRoot = window.location.href
+    this.vendor = vendor;
+    this.limit = limit;
+    this.settings = JSON.parse(settings);
 
     this.map = new google.maps.Map(
         document.getElementById('sr-map-search'), this.options
@@ -457,18 +457,18 @@ function SimplyRETSMap() {
 
 
 /** `rec`: google.maps.OverlayType === RECTANGLE */
-SimplyRETSMap.prototype.getRectanglePoints = function(rec) {
+SimplyRETSMap.prototype.getRectanglePoints = function (rec) {
 
     var latLngs = [];
-    var bounds  = new google.maps.LatLngBounds();
+    var bounds = new google.maps.LatLngBounds();
 
-    var b  = rec.getBounds();
-    var nE = [ b.getNorthEast().lat(), b.getNorthEast().lng() ];
-    var nW = [ b.getNorthEast().lat(), b.getSouthWest().lng() ];
-    var sE = [ b.getSouthWest().lat(), b.getNorthEast().lng() ];
-    var sW = [ b.getSouthWest().lat(), b.getSouthWest().lng() ];
+    var b = rec.getBounds();
+    var nE = [b.getNorthEast().lat(), b.getNorthEast().lng()];
+    var nW = [b.getNorthEast().lat(), b.getSouthWest().lng()];
+    var sE = [b.getSouthWest().lat(), b.getNorthEast().lng()];
+    var sW = [b.getSouthWest().lat(), b.getSouthWest().lng()];
 
-    $_.map([nE, nW, sE, sW], function(o) {
+    $_.map([nE, nW, sE, sW], function (o) {
         latLngs.push({
             name: "points",
             value: o[0] + "," + o[1]
@@ -482,9 +482,9 @@ SimplyRETSMap.prototype.getRectanglePoints = function(rec) {
     return latLngs;
 }
 
-SimplyRETSMap.prototype.getPolygonPoints = function(polygon) {
+SimplyRETSMap.prototype.getPolygonPoints = function (polygon) {
 
-    var paths  = polygon.getPaths();
+    var paths = polygon.getPaths();
     var points = [];
     var bounds = new google.maps.LatLngBounds();
 
@@ -495,7 +495,7 @@ SimplyRETSMap.prototype.getPolygonPoints = function(polygon) {
         for (var i = 0; i < path.getLength(); i++) {
 
             points.push(
-                [ path.getAt(i).lat(), path.getAt(i).lng() ]
+                [path.getAt(i).lat(), path.getAt(i).lng()]
             );
 
             bounds.extend(
@@ -507,7 +507,7 @@ SimplyRETSMap.prototype.getPolygonPoints = function(polygon) {
         }
     }
 
-    var latLngs = $_.map(points, function(o) {
+    var latLngs = $_.map(points, function (o) {
         return {
             name: "points",
             value: o[0] + "," + o[1]
@@ -522,39 +522,39 @@ SimplyRETSMap.prototype.getPolygonPoints = function(polygon) {
 }
 
 
-SimplyRETSMap.prototype.addEventListener = function(source, event, fn) {
+SimplyRETSMap.prototype.addEventListener = function (source, event, fn) {
     return google.maps.event.addListener(source, event, fn);
 }
 
-SimplyRETSMap.prototype.searchFormValues = function() {
+SimplyRETSMap.prototype.searchFormValues = function () {
     return getSearchFormValues();
 };
 
-SimplyRETSMap.prototype.clearMarkers = function() {
-    if(this.markers.length > 0)
+SimplyRETSMap.prototype.clearMarkers = function () {
+    if (this.markers.length > 0)
         this.setMapOnMarkers(null);
 }
 
-SimplyRETSMap.prototype.clearPolygon = function() {
-    if(this.polygon !== null)
+SimplyRETSMap.prototype.clearPolygon = function () {
+    if (this.polygon !== null)
         this.setMapOnPolygon(null);
 }
 
-SimplyRETSMap.prototype.setDrawCtrlOptions = function(opts) {
+SimplyRETSMap.prototype.setDrawCtrlOptions = function (opts) {
     return this.drawCtrl.setOptions(opts);
 }
 
 
-SimplyRETSMap.prototype.handlePolygonDraw = function(that, overlay) {
+SimplyRETSMap.prototype.handlePolygonDraw = function (that, overlay) {
 
     that.clearMarkers();
     that.clearPolygon();
     that.setDrawCtrlOptions({ drawingMode: null });
 
-    var pts   = that.getPolygonPoints(overlay);
+    var pts = that.getPolygonPoints(overlay);
     var query = that.searchFormValues();
 
-    that.shape   = 'polygon';
+    that.shape = 'polygon';
     that.polygon = overlay;
     that.markers = [];
 
@@ -565,16 +565,16 @@ SimplyRETSMap.prototype.handlePolygonDraw = function(that, overlay) {
 }
 
 
-SimplyRETSMap.prototype.handleRectangleDraw = function(that, overlay) {
+SimplyRETSMap.prototype.handleRectangleDraw = function (that, overlay) {
 
     that.clearMarkers();
     that.clearPolygon();
     that.setDrawCtrlOptions({ drawingMode: null });
 
-    var pts   = that.getRectanglePoints(overlay);
+    var pts = that.getRectanglePoints(overlay);
     var query = that.searchFormValues();
 
-    that.shape   = "rectangle";
+    that.shape = "rectangle";
     that.polygon = overlay;
     that.markers = [];
 
@@ -585,27 +585,27 @@ SimplyRETSMap.prototype.handleRectangleDraw = function(that, overlay) {
 }
 
 
-SimplyRETSMap.prototype.handleFormSubmit = function(e) {
+SimplyRETSMap.prototype.handleFormSubmit = function (e) {
     e.preventDefault();
 
     this.clearMarkers();
 
     var params = this.searchFormValues();
     var points = this.shape === "rectangle" ? this.getRectanglePoints(this.polygon)
-               : this.shape === "polygon"   ? this.getPolygonPoints(this.polygon)
-               : [];
+        : this.shape === "polygon" ? this.getPolygonPoints(this.polygon)
+            : [];
 
     return {
-        query:  params,
+        query: params,
         points: points
     }
 
 }
 
 
-SimplyRETSMap.prototype.setMapOnMarkers = function(map) {
+SimplyRETSMap.prototype.setMapOnMarkers = function (map) {
 
-    for(var i = 0; i < this.markers.length; i++) {
+    for (var i = 0; i < this.markers.length; i++) {
         this.markers[i].setMap(map);
     }
 
@@ -613,7 +613,7 @@ SimplyRETSMap.prototype.setMapOnMarkers = function(map) {
 }
 
 
-SimplyRETSMap.prototype.setMapOnPolygon = function(map) {
+SimplyRETSMap.prototype.setMapOnPolygon = function (map) {
 
     this.polygon.setMap(map);
 
@@ -621,14 +621,14 @@ SimplyRETSMap.prototype.setMapOnPolygon = function(map) {
 }
 
 
-SimplyRETSMap.prototype.handleRequest = function(that, data) {
+SimplyRETSMap.prototype.handleRequest = function (that, data) {
 
     // Remove data from map before request
     that.setMapOnMarkers(null);
     that.setLoadMsgMap(null);
 
     // New map data, empty
-    that.bounds   = [];
+    that.bounds = [];
     that.listings = [];
 
     var idxImg = document.getElementById('sr-map-search').dataset.idxImg;
@@ -642,9 +642,9 @@ SimplyRETSMap.prototype.handleRequest = function(that, data) {
     that.linkStyle = linkStyle;
 
     var listings = data.result.response.length > 0
-                 ? data.result.response
-                 : [];
-    var markers  = makeMapMarkers(
+        ? data.result.response
+        : [];
+    var markers = makeMapMarkers(
         that.map,
         listings,
         that.linkStyle,
@@ -657,11 +657,11 @@ SimplyRETSMap.prototype.handleRequest = function(that, data) {
         that.vendor
     );
 
-    that.bounds   = markers.bounds;
-    that.markers  = markers.markers;
+    that.bounds = markers.bounds;
+    that.markers = markers.markers;
     that.listings = listings;
 
-    if(listings.length < 1)
+    if (listings.length < 1)
         that.offset = 0;
 
     if (!this.shape) {
@@ -678,36 +678,36 @@ SimplyRETSMap.prototype.handleRequest = function(that, data) {
 
 }
 
-SimplyRETSMap.prototype.initPaginationEventHandlers = function(that, pag) {
+SimplyRETSMap.prototype.initPaginationEventHandlers = function (that, pag) {
 
-    if(pag.next !== null) {
+    if (pag.next !== null) {
 
-        $_(pag.next).on('click', function(e) {
+        $_(pag.next).on('click', function (e) {
 
             e.preventDefault();
 
             var params = that.handleFormSubmit(e),
                 points = params.points,
-                query  = params.query;
+                query = params.query;
 
-            that.sendRequest(points, query, 'next').done(function(data) {
+            that.sendRequest(points, query, 'next').done(function (data) {
                 that.handleRequest(that, data);
             });
 
         });
     }
 
-    if(pag.prev !== null) {
+    if (pag.prev !== null) {
 
-        $_(pag.prev).on('click', function(e) {
+        $_(pag.prev).on('click', function (e) {
 
             e.preventDefault();
 
             var params = that.handleFormSubmit(e),
                 points = params.points,
-                query  = params.query;
+                query = params.query;
 
-            that.sendRequest(points, query, 'prev').done(function(data) {
+            that.sendRequest(points, query, 'prev').done(function (data) {
                 that.handleRequest(that, data);
             });
 
@@ -717,9 +717,9 @@ SimplyRETSMap.prototype.initPaginationEventHandlers = function(that, pag) {
 }
 
 
-SimplyRETSMap.prototype.setLoadMsgMap = function(map) {
+SimplyRETSMap.prototype.setLoadMsgMap = function (map) {
 
-    if(!this.polygon && !this.rectangle) return;
+    if (!this.polygon && !this.rectangle) return;
 
     this.loadMsg.setPosition(this.map.getCenter());
     this.loadMsg.setMap(map);
@@ -727,17 +727,17 @@ SimplyRETSMap.prototype.setLoadMsgMap = function(map) {
 }
 
 
-SimplyRETSMap.prototype.sendRequest = function(points, params, paginate) {
+SimplyRETSMap.prototype.sendRequest = function (points, params, paginate) {
 
     this.setLoadMsgMap(this.map);
 
     /** Update pagination */
-    if(paginate !== null && paginate !== undefined) {
+    if (paginate !== null && paginate !== undefined) {
 
-        if(paginate === "next") {
+        if (paginate === "next") {
             scrollToAnchor('sr-search-wrapper');
             this.offset = Number(this.offset) + Number(this.limit);
-        } else if(paginate === "prev") {
+        } else if (paginate === "prev") {
             scrollToAnchor('sr-search-wrapper');
             this.offset = Number(this.offset) - Number(this.limit);
         } else if (paginate === "reset") {
@@ -752,9 +752,9 @@ SimplyRETSMap.prototype.sendRequest = function(points, params, paginate) {
     /** URL Encode them all */
     var pointsQ = $_.param(points);
     var query = params
-              + (vendor ? ("vendor=" + vendor + "&") : "")
-              + "offset=" + offset + "&"
-              + pointsQ
+        + (vendor ? ("vendor=" + vendor + "&") : "")
+        + "offset=" + offset + "&"
+        + pointsQ
 
     var req = $_.ajax({
         type: 'post',
@@ -763,7 +763,8 @@ SimplyRETSMap.prototype.sendRequest = function(points, params, paginate) {
             action: 'update_int_map_data', // server controller
             parameters: query,
             settings: settings,
-            vendor: vendor
+            vendor: vendor,
+            sr_map_nonce: sr_ajax_obj.nonce
         },
     });
 
@@ -771,7 +772,7 @@ SimplyRETSMap.prototype.sendRequest = function(points, params, paginate) {
 
 }
 
-SimplyRETSMap.prototype.setDrawingManager = function() {
+SimplyRETSMap.prototype.setDrawingManager = function () {
 
     var that = this;
 
@@ -803,31 +804,31 @@ SimplyRETSMap.prototype.setDrawingManager = function() {
 
     this.drawCtrl = drawingManager;
 
-    this.addEventListener(drawingManager, 'rectanglecomplete', function(overlay) {
+    this.addEventListener(drawingManager, 'rectanglecomplete', function (overlay) {
         var q = that.handleRectangleDraw(that, overlay);
 
-        overlay.addListener("click", function() {
+        overlay.addListener("click", function () {
             that.shape = null
             that.bounds = []
             overlay.setMap(null)
         })
 
-        that.sendRequest(q.points, q.query).done(function(data) {
+        that.sendRequest(q.points, q.query).done(function (data) {
             that.handleRequest(that, data);
         });
 
     });
 
-    this.addEventListener(drawingManager, 'polygoncomplete', function(overlay) {
+    this.addEventListener(drawingManager, 'polygoncomplete', function (overlay) {
         var q = that.handlePolygonDraw(that, overlay);
 
-        overlay.addListener("click", function() {
+        overlay.addListener("click", function () {
             that.shape = null
             that.bounds = []
             overlay.setMap(null)
         })
 
-        that.sendRequest(q.points, q.query).done(function(data) {
+        that.sendRequest(q.points, q.query).done(function (data) {
             that.handleRequest(that, data);
         });
 
@@ -838,16 +839,16 @@ SimplyRETSMap.prototype.setDrawingManager = function() {
 };
 
 
-SimplyRETSMap.prototype.initEventListeners = function() {
+SimplyRETSMap.prototype.initEventListeners = function () {
 
     var that = this;
 
     // fetch initial listings when map is loaded
-    this.addEventListener(this.map, 'idle', function() {
-        if(!that.loaded) {
+    this.addEventListener(this.map, 'idle', function () {
+        if (!that.loaded) {
             var query = that.searchFormValues()
 
-            that.sendRequest([], query).done(function(data) {
+            that.sendRequest([], query).done(function (data) {
                 that.handleRequest(that, data);
                 that.loaded = true;
             });
@@ -856,12 +857,12 @@ SimplyRETSMap.prototype.initEventListeners = function() {
 
 
     // Watch the search form for submission
-    $_('.sr-int-map-search-wrapper form input.submit').on('click', function(e) {
+    $_('.sr-int-map-search-wrapper form input.submit').on('click', function (e) {
         var params = that.handleFormSubmit(e),
             points = params.points,
-            query  = params.query;
+            query = params.query;
 
-        that.sendRequest(points, query, "reset").done(function(data) {
+        that.sendRequest(points, query, "reset").done(function (data) {
             that.handleRequest(that, data);
         });
 
@@ -872,7 +873,7 @@ SimplyRETSMap.prototype.initEventListeners = function() {
 };
 
 
-var startMap = function() {
+var startMap = function () {
 
     var map = new SimplyRETSMap();
     map.setDrawingManager();
@@ -881,16 +882,16 @@ var startMap = function() {
 }
 
 
-$_(document).ready(function() {
+$_(document).ready(function () {
 
     classicGalleryToggle();
     classicGalleryTextToggle();
     advSearchFormToggler();
     listingSliderCarousel();
 
-    if(document.getElementById('sr-map-search')) {
+    if (document.getElementById('sr-map-search')) {
 
-        if(typeof google === 'object' && typeof google.maps === 'object') {
+        if (typeof google === 'object' && typeof google.maps === 'object') {
             // google.maps exists - start map
             startMap();
 
@@ -899,8 +900,8 @@ $_(document).ready(function() {
 
             // if google.maps doesn't exist - load it, then start map
             var url = "https://maps.googleapis.com/maps/api/js?"
-                    + "libraries=drawing&callback=startMap"
-                    + "&key=" + key;
+                + "libraries=drawing&callback=startMap"
+                + "&key=" + key;
 
             var script = document.createElement("script");
 
@@ -912,7 +913,7 @@ $_(document).ready(function() {
         }
     }
 
-    document.querySelectorAll(".utcToLocal").forEach(function(i) {
+    document.querySelectorAll(".utcToLocal").forEach(function (i) {
         i.innerText = new Date(i.innerText).toLocaleString()
     })
 
