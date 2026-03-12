@@ -950,7 +950,6 @@ class SimplyRetsRenderer {
             . '  <script>' . $lh_analytics . '</script>'
             . '</div>';
 
-        $cont .= SimplyRetsContactForm::srContactFormDeliver();
         $cont .= $contact_markup;
 
         // Add disclaimer to the bottom of the page
@@ -1464,31 +1463,40 @@ class SimplyRetsRenderer {
                 . '</div>';
         }
 
+        // Process any form submissions
+        $submission_message = SimplyRetsContactForm::srContactFormDeliver();
+
         // Default lead capture form
         $markup = '';
         $markup .= '<hr>';
         $markup .= '<div id="sr-contact-form">';
+        $markup .= $submission_message;
         $markup .= '<h3>Contact us about this listing</h3>';
-        $markup .= '<form action="' . esc_url($_SERVER['REQUEST_URI']) . '" method="post">';
+        $markup .= '<form action="' . esc_url((isset($_SERVER['REQUEST_URI']) ? sanitize_url(wp_unslash($_SERVER['REQUEST_URI'])) : '')) . '#sr-contact-form-success" method="post">';
+        $markup .= wp_nonce_field('sr_contact_action', 'sr_contact_nonce', true, false);
         $markup .= '<p>';
         $markup .= '<input type="hidden" name="sr-cf-listing" value="' . $listing . '" />';
         $markup .= 'Your Name (required) <br/>';
         $markup .= '<input type="text" name="sr-cf-name" value="'
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             . (isset($_POST["sr-cf-name"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-name"]))) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Your Email (required) <br/>';
         $markup .= '<input type="email" name="sr-cf-email" value="'
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             . (isset($_POST["sr-cf-email"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-email"]))) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Subject (required) <br/>';
         $markup .= '<input type="text" name="sr-cf-subject" value="'
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             . (isset($_POST["sr-cf-subject"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-subject"]))) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Your Message (required) <br/>';
         $markup .= '<textarea rows="10" cols="35" name="sr-cf-message">'
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             . (isset($_POST["sr-cf-message"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-message"]))) : '') . '</textarea>';
         $markup .= '</p>';
         $markup .= '<p><input class="btn button btn-submit" type="submit" name="sr-cf-submitted" value="Send"></p>';
@@ -1773,6 +1781,7 @@ class SimplyRetsRenderer {
 
         $config_type = isset($attributes['type']) ? $attributes['type']   : '';
         if ($config_type === '') {
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $config_type = isset($_GET['sr_ptype']) ? map_deep(wp_unslash($_GET['sr_ptype']), 'sanitize_text_field') : '';
         }
 
@@ -1798,12 +1807,15 @@ class SimplyRetsRenderer {
         $adv_status = array_key_exists('status',   $attributes) ? $attributes['status']   : '';
         $lotsize    = array_key_exists('lotsize',  $attributes) ? $attributes['lotsize']  : '';
         $area       = array_key_exists('area',     $attributes) ? $attributes['area']     : '';
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $adv_features      = isset($_GET['sr_features']) ? map_deep(wp_unslash($_GET['sr_features']), 'sanitize_text_field') : array();
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $adv_neighborhoods = isset($_GET['sr_neighborhoods']) ? map_deep(wp_unslash($_GET['sr_neighborhoods']), 'sanitize_text_field') : array();
 
         // Get the initial values for `cities`. If a query parameter
         // is set, use-that, otherwise check for a 'cities' attribute
         // on the [sr_search_form] short-code
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $adv_cities = isset($_GET['sr_cities']) ? map_deep(wp_unslash($_GET['sr_cities']), 'sanitize_text_field') : array();
         if (empty($adv_cities) && array_key_exists('cities', $attributes)) {
             $adv_cities = explode(";", $attributes['cities']);
@@ -1841,6 +1853,7 @@ class SimplyRetsRenderer {
             );
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         if ((is_array($config_type) == TRUE) && isset($_GET['sr_ptype'])) {
             $type_string = esc_attr(join(';', $config_type));
             $default_type_option = "<option value='$type_string' selected>Property Type</option>";

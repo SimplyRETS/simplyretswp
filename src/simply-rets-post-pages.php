@@ -268,7 +268,7 @@ class SimplyRetsCustomPostPages {
 
     public static function postFilterMetaBoxSave($post_id) {
         if (isset($_POST['sr_meta_box_nonce'])) {
-            $current_nonce = $_POST['sr_meta_box_nonce'];
+            $current_nonce = sanitize_text_field(wp_unslash($_POST['sr_meta_box_nonce']));
         } else {
             $current_nonce = NULL;
         }
@@ -316,7 +316,7 @@ class SimplyRetsCustomPostPages {
 
     public static function postTemplateMetaBoxSave($post_id) {
         if (isset($_POST['sr_template_meta_nonce'])) {
-            $current_nonce = $_POST['sr_template_meta_nonce'];
+            $current_nonce = sanitize_text_field(wp_unslash($_POST['sr_template_meta_nonce']));
         } else {
             $current_nonce = NULL;
         }

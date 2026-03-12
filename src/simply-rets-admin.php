@@ -123,7 +123,8 @@ class SrAdminSettings {
         if (isset($_POST['sr_create_demo_page'])) {
             if (
                 current_user_can('manage_options') &&
-                wp_verify_nonce($_POST[$create_demo_page_nonce_field], $create_demo_page_nonce_action)
+                isset($_POST[$create_demo_page_nonce_field]) &&
+                wp_verify_nonce(sanitize_text_field(wp_unslash($_POST[$create_demo_page_nonce_field])), $create_demo_page_nonce_action)
             ) {
                 $demo_post = array(
                     "post_content" => "[sr_map_search search_form=\"true\" list_view=\"true\"]",
@@ -145,7 +146,8 @@ class SrAdminSettings {
         if (isset($_POST['sr_dismiss_admin_msg'])) {
             if (
                 current_user_can('manage_options') &&
-                wp_verify_nonce($_POST[$dismiss_admin_msg_nonce_field], $dismiss_admin_msg_nonce_action)
+                isset($_POST[$dismiss_admin_msg_nonce_field]) &&
+                wp_verify_nonce(sanitize_text_field(wp_unslash($_POST[$dismiss_admin_msg_nonce_field])), $dismiss_admin_msg_nonce_action)
             ) {
                 update_option("sr_show_admin_message", false);
             }
@@ -160,7 +162,7 @@ class SrAdminSettings {
         $update_meta_nonce_field = 'sr_update_meta_data_nonce_field';
         $update_meta_nonce_action = 'sr_update_meta_data_nonce_action';
         if (isset($_POST['sr_update_meta'])) {
-            if (wp_verify_nonce($_POST[$update_meta_nonce_field], $update_meta_nonce_action)) {
+            if (isset($_POST[$update_meta_nonce_field]) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST[$update_meta_nonce_field])), $update_meta_nonce_action)) {
                 echo '<div id="setting-error-settings_updated" class="updated settings-error notice is-dismissible">' .
                     '<p><strong>Meta Data Updated!</strong></p>' .
                     '<button type="button" class="notice-dismiss">' .

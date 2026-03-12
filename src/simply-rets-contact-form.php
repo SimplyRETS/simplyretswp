@@ -14,12 +14,18 @@ class SimplyRetsContactForm {
         // if the submit button is clicked, send the email
         if (isset($_POST['sr-cf-submitted'])) {
 
+            if (!isset($_POST['sr_contact_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['sr_contact_nonce'])), 'sr_contact_action')) {
+                return '';
+            }
+
             // sanitize form values
-            $listing = sanitize_text_field(wp_unslash($_POST["sr-cf-listing"]));
-            $name    = sanitize_text_field(wp_unslash($_POST["sr-cf-name"]));
-            $email   = sanitize_email(wp_unslash($_POST["sr-cf-email"]));
-            $subject = sanitize_text_field(wp_unslash($_POST["sr-cf-subject"]));
-            $message = esc_textarea(wp_unslash($_POST["sr-cf-message"]))
+            $listing = isset($_POST["sr-cf-listing"]) ? sanitize_text_field(wp_unslash($_POST["sr-cf-listing"])) : '';
+            $name    = isset($_POST["sr-cf-name"]) ? sanitize_text_field(wp_unslash($_POST["sr-cf-name"])) : '';
+            $email   = isset($_POST["sr-cf-email"]) ? sanitize_email(wp_unslash($_POST["sr-cf-email"])) : '';
+            $subject = isset($_POST["sr-cf-subject"]) ? sanitize_text_field(wp_unslash($_POST["sr-cf-subject"])) : '';
+            $message = isset($_POST["sr-cf-message"]) ? sanitize_textarea_field(wp_unslash($_POST["sr-cf-message"])) : '';
+
+            $message = $message
                 . "\r\n" . "\r\n"
                 . "Form submission information: "
                 . "\r\n"
@@ -39,7 +45,7 @@ class SimplyRetsContactForm {
             if (wp_mail($to, $subject, $message, $headers)) {
                 return '<div id="sr-contact-form-success">Your message was delivered successfully.</div>';
             } else {
-                return 'An unexpected error occurred';
+                return '<div id="sr-contact-form-error">An unexpected error occurred</div>';
             }
         }
         return '';

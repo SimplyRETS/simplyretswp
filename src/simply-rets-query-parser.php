@@ -12,6 +12,7 @@ class SimplyRetsQueryParser {
      * query string, and an array of the values.
      */
     public static function parseGetParameter($name, $key, $params) {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $param = isset($_GET[$name]) ? map_deep(wp_unslash($_GET[$name]), 'sanitize_text_field') : "";
         $param_arr = is_array($param) ? $param : explode(";", $param);
         $param_att = is_array($param) ? implode(";", $param) : $param;
@@ -71,6 +72,7 @@ class SimplyRetsQueryParser {
          * empty.  Arrays are concated into multiple type=
          * parameters.
          */
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $p_types = isset($_GET['sr_ptype']) ? map_deep(wp_unslash($_GET['sr_ptype']), 'sanitize_text_field') : '';
         $ptypes_string = '';
         if (!is_array($p_types) && !empty($p_types)) {
@@ -101,6 +103,7 @@ class SimplyRetsQueryParser {
          * is Active and Pending.
          */
         // Ensure $status is also properly sanitized if it was pulled from query var earlier
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $statuses = isset($_GET['sr_status']) ? map_deep(wp_unslash($_GET['sr_status']), 'sanitize_text_field') : sanitize_text_field($status);
         $statuses_string = '';
         $statuses_attribute = '';
@@ -139,6 +142,7 @@ class SimplyRetsQueryParser {
          * - Concat them together (eg,&status=Active&status=Closed)
          */
 
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
         $features = isset($_GET['sr_features']) ? map_deep(wp_unslash($_GET['sr_features']), 'sanitize_text_field') : '';
         $features_string = "";
         if (!empty($features)) {
@@ -311,6 +315,7 @@ class SimplyRetsQueryParser {
             "lotDescription",
             $_GET
         );
+        // phpcs:enable WordPress.Security.NonceVerification.Recommended
 
         $lotDescription_att = $lotDescriptionData["att"];
         $lotDescription_query = $lotDescriptionData["query"];
@@ -323,6 +328,7 @@ class SimplyRetsQueryParser {
          */
         $q_string = '';
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $kws = isset($_GET['sr_q']) ? map_deep(wp_unslash($_GET['sr_q']), 'sanitize_text_field') : '';
         if (!empty($kws)) {
             foreach ((array)$kws as $key => $kw) {
@@ -337,6 +343,7 @@ class SimplyRetsQueryParser {
          * translate them to multiple `q` parameters in the API
          * request.
          */
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $sfq = isset($_GET['sr_keywords']) ? sanitize_text_field(wp_unslash($_GET['sr_keywords'])) : '';
         if (!empty($sfq)) {
             $splitkw = explode(';', $sfq);

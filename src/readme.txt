@@ -1,17 +1,15 @@
 === SimplyRETS Real Estate IDX ===
 Author: SimplyRETS
 Contributors: SimplyRETS
-Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
+Tags: real estate, idx, mls, rets, reso web api
 Requires at least: 3.0.1
 Tested up to: 6.9
 Stable tag: 3.2.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Show your Real Estate listings on your website, simply! SimplyRETS
-makes it easy to search and display MLS listings on your WordPress
-website, and gives you full control over your data. Connect your
-**RETS** or **RESO Web API** feed to get started today.
+Show your MLS listings on your website, simply! We make it easy add your
+listings to your website with full control. Contact us to get started today.
 
 == Description ==
 
@@ -291,12 +289,13 @@ listing sidebar widget.
 
 = 2.0.0 =
 **There are some changes you should be aware of**
-* Permalinks on single listing pages (the web page), will now use 'pretty permalinks' automatically if the rest of your site is using them. If your site is using Default links, the plugin will too.
-* The price on single listing pages is no longer in the title, it is right below, along with the listings' status, for prominence and to allow links to listings to be shared online.
+* Permalink setting now defaults to 'pretty permalinks'.
+* Price on single listing pages is no longer in the page title.
 
 = 1.7.0 =
-* Note that SimplyRETS Page Builder and SimplyRETS Pages are both being deprecated in favor of using short-codes directly. Both of those will still be supported.
-* In this update, there is a change to the MLS ID that the Featured and Random Listing Widgets use. If you are using either of those widgets, be sure to double check them after this update.
+**There are some changes you should be aware of**
+* SimplyRETS Page Builder and SimplyRETS Pages are deprecated.
+* Widgets now use MLS # instead of unique ID.
 
 
 == Documentation ==
@@ -703,103 +702,6 @@ be shown as well.
 
 If you need to add a custom disclaimer to your website, the SimplyRETS
 plugin offers a way for you to do so. On the `Settings -> SimplyRETS
-Settings` page there is an option called "Custom disclaimer". In this
-box, you can paste the text or HTML for your own disclaimer. A few
-notes:
+Settings` page there is an option called "Custom disclaimer".
 
-- Use the `{lastUpdate}` variable to splice in a timestamp for the
-  last time the listings were updated.
-
-- You can use HTML or plain text.
-
-- Disclaimers will be shown at the bottom of the output for every
-  short-code.
-
-
-== Trial Listings ==
-
-You can use the Trial Listings as much as you need before you set up
-your own. They only contain a subset of the options that are available
-from most MLS's, but there is plenty to work with! Here's how to get
-hem set up:
-
-* Navigate to the SimplyRETS Settings page in your Wordpress dashboard
-  `Settings -> SimplyRETS`
-
-* Insert the testing API Keys (Username: simplyrets Password:
-  simplyrets)
-
-The trial listings are activated automatically - so if you're
-installing the plugin for the first time, you don't need to do the
-above steps.
-
-
-== SimplyRETS Pages ==
-
-**Note: SimplyRETS pages are no longer the recommended way of creating**
-**listing pages. Instead, we recommend creating a regular WordPress Page**
-**and using the short-codes directly.**
-
-SimplyRETS pages allow for an easy way to get up and running with new
-pages. Here's a few tips:
-
-* To create a new page, navigate to `SimplyRETS -> Add New Page` in
-  your Wordpress dashboard. (by default these pages will show all of
-  your listings - 25 per page). Name it, publish it, and you're done!
-
-* You can add filters to this page by editing the post and using the
-  **Filter Results on this Page** options.
-
-* You can add filters for price, agent, min/max bed, min/max bath and
-  more.
-
-* SimplyRETS Pages give you the ability to choose from your theme's
-  available templates.
-
-
-*Note*: it is usually recommended to use the shortcodes directly since
-they give you much more control and options, however if you're a
-theme developer then customizing the SimplyRETS pages may be the best
-option.
-
-
-== Customizing the CSS ==
-
-We're are totally OK with you tweaking the CSS and changing it to fit your needs. As a matter of fact, we want you to!
-
-If you need to add any custom styling you can add custom CSS using our
-Style Guide. The Style Guide will show you which classes and id's to
-use to when adding your own css. You can find it here:
-
-[SimplyRETS Style Guide](https://docs.simplyrets.com/simply-rets-client.html)
-
-
-== Support, Contributing, and More Information ==
-
-We want to hear from you! Whether you're an agent or developer, need
-help getting set up, or want to contribute some code - come one come
-all.
-
-
-= Feature Request? =
-
-If you have a suggestion for a new feature to add to the plugin, let
-us know! We're always looking to expand our plugin to give you what
-you need to make the best possible site. Email support@simplyrets.com
-if you have an idea, we'd love to hear it!
-
-= For Developers =
-
-If you're interested in building your own Plugin or Application,
-SimplyRETS offers several different API's specifically geared towards
-developers. We provide a JSON API's to access the same data you see in
-this plugin, as well as other services like Database population and
-analytics, and geocoding.  The API's are simple, and the documentation
-is robust. Try it out and let us know what you think.
-
-Visit the SimplyRETS website for more details and a full list of
-services: [SimplyRETS Features](https://simplyrets.com/services)
-
-There is more documentation for both the SimplyRETS API, and the
-SimplyRETS Wordpress plugin. You can dig into all of that on the
-SimplyRETS Docs website: [SimplyRETS Documentation](https://docs.simplyrets.com)
+This is just the start! Learn more at https://wordpress-demo.simplyrets.com/documentation
