@@ -950,7 +950,6 @@ class SimplyRetsRenderer {
             . '  <script>' . $lh_analytics . '</script>'
             . '</div>';
 
-        $cont .= SimplyRetsContactForm::srContactFormDeliver();
         $cont .= $contact_markup;
 
         // Add disclaimer to the bottom of the page
@@ -1464,12 +1463,17 @@ class SimplyRetsRenderer {
                 . '</div>';
         }
 
+        // Process any form submissions
+        $submission_message = SimplyRetsContactForm::srContactFormDeliver();
+
         // Default lead capture form
         $markup = '';
         $markup .= '<hr>';
         $markup .= '<div id="sr-contact-form">';
+        $markup .= $submission_message;
         $markup .= '<h3>Contact us about this listing</h3>';
-        $markup .= '<form action="' . esc_url($_SERVER['REQUEST_URI']) . '" method="post">';
+        $markup .= '<form action="' . esc_url($_SERVER['REQUEST_URI']) . '#sr-contact-form-success" method="post">';
+        $markup .= wp_nonce_field('sr_contact_action', 'sr_contact_nonce', true, false);
         $markup .= '<p>';
         $markup .= '<input type="hidden" name="sr-cf-listing" value="' . $listing . '" />';
         $markup .= 'Your Name (required) <br/>';
