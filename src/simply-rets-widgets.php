@@ -6,6 +6,9 @@
  * This file provides the logic for the simply-rets sidebar widgets.
  *
 */
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 /*
  * To add new widgets, extend the WP_Widget class  with a constructor,
@@ -43,12 +46,12 @@ class SrWidgetHelper {
             . "&status=ActiveUnderContract";
 
         // Add all available property types to query string
-        foreach ($ptypes as $k=>$type) {
+        foreach ($ptypes as $k => $type) {
             $qs .= "&type={$type}";
         }
 
         // Add configured parameters to query string
-        foreach((array)$params as $key=>$value) {
+        foreach ((array)$params as $key => $value) {
             $qs .= "&{$key}={$value}";
         }
 

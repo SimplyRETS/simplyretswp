@@ -5,6 +5,9 @@
  * This file provides the logic for the SimplyRETS admin panel settings and features pages.
  *
 */
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 
 /* Code starts here */
@@ -132,7 +135,7 @@ class SrAdminSettings {
                 $post_id = wp_insert_post($demo_post);
                 $permalink = get_post_permalink($post_id);
                 update_option("sr_demo_page_created", true);
-                wp_redirect($permalink);
+                wp_safe_redirect($permalink);
                 exit();
             }
         }

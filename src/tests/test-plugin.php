@@ -1,4 +1,7 @@
 <?php
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 class SampleTest extends WP_UnitTestCase {
 
@@ -6,7 +9,7 @@ class SampleTest extends WP_UnitTestCase {
 
     // sample tests
     function testCreatePost() {
-        $this->factory->post->create_many( 5 );
+        $this->factory->post->create_many(5);
     }
 
     function testSingleListingRequest() {

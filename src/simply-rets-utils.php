@@ -6,6 +6,9 @@
  * This file provides general utilities for the SimplyRETS plugin.
  *
 */
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 
 /* Code starts here */
@@ -15,7 +18,7 @@ class SrUtils {
     public static function isSingleVendor() {
         $vendors = (array)get_option('sr_adv_search_meta_vendors', array());
 
-        if(count($vendors) > 1) {
+        if (count($vendors) > 1) {
             return false;
         }
 
@@ -32,11 +35,9 @@ class SrUtils {
         // If vendor ID is provided, return available types for that vendor
         if (!empty($v)) {
             $types = get_option("sr_adv_search_meta_types_$v", $def_types);
-
         } elseif (!empty($vendors[0])) {
             $vendor = $vendors[0];
             $types = get_option("sr_adv_search_meta_types_$vendor", $def_types);
-
         } else {
             $types = $def_types;
         }
@@ -46,7 +47,7 @@ class SrUtils {
 
     public static function srShowListingMeta() {
 
-        if( get_option('sr_show_listingmeta') ) {
+        if (get_option('sr_show_listingmeta')) {
             $show_listing_meta = false;
         } else {
             $show_listing_meta = true;
@@ -61,7 +62,7 @@ class SrUtils {
      */
     public static function showAgentContact() {
 
-        if( get_option('sr_show_agent_contact') ) {
+        if (get_option('sr_show_agent_contact')) {
             $show = false;
         } else {
             $show = true;
@@ -76,7 +77,7 @@ class SrUtils {
     public static function normalizePropertyType($type) {
         $normalized_type = null;
 
-        switch($type) {
+        switch ($type) {
             case "RES":
                 $normalized_type = "Residential";
                 break;
@@ -112,7 +113,6 @@ class SrUtils {
             case "MBL":
                 $normalized_type = "Mobile Home";
                 break;
-
         }
 
         return $normalized_type;
@@ -137,10 +137,10 @@ class SrUtils {
 
         $idxAddress = $listing->internetAddressDisplay;
         $address = $idxAddress === false
-                 ? $idxAddressReplacement = get_option(
-                     "sr_idx_address_display_text",
-                     "Undisclosed address"
-                 ) : $listing->address->full;
+            ? $idxAddressReplacement = get_option(
+                "sr_idx_address_display_text",
+                "Undisclosed address"
+            ) : $listing->address->full;
 
         $city = $listing->address->city;
         $state = $listing->address->state;
@@ -149,7 +149,7 @@ class SrUtils {
         // When `internetAddressDisplay` is false, some feeds may also
         // exclude city, state, and zip. This ensures that commas are
         // only used when these fields exist.
-        $comma1 = ($address AND ($city OR $state OR $zip)) ? ', ' : '';
+        $comma1 = ($address and ($city or $state or $zip)) ? ', ' : '';
         $comma2 = $city ? ', ' : '';
 
         return $address . $comma1 . $city . $comma2 . $state . ' ' . $zip;
@@ -225,32 +225,29 @@ class SrUtils {
             SrUtils::buildFullAddressString($listing)
         );
 
-        if($prettify && $custom_permalink_struct === "pretty_extra") {
+        if ($prettify && $custom_permalink_struct === "pretty_extra") {
 
             $url .= "/listings/$listing_city/$listing_state/$listing_zip/$listing_address_full/$listing_id";
 
-            if(!empty($query)) {
+            if (!empty($query)) {
                 $url .= "?" . $query;
             }
-
-        } elseif($prettify && $custom_permalink_struct === "pretty") {
+        } elseif ($prettify && $custom_permalink_struct === "pretty") {
 
             $url .= "/listings/$listing_id/$listing_address_full";
 
-            if(!empty($query)) {
+            if (!empty($query)) {
                 $url .= "?" . $query;
             }
-
         } else {
 
             $url .= "?sr-listings=sr-single"
-                 .  "&listing_id=$listing_id"
-                 .  "&listing_title=$listing_address_full";
+                .  "&listing_id=$listing_id"
+                .  "&listing_title=$listing_address_full";
 
-            if(!empty($query)) {
+            if (!empty($query)) {
                 $url .= "&" . $query;
             }
-
         }
 
         // URL encode special characters
@@ -261,13 +258,13 @@ class SrUtils {
         return $url;
     }
 
-    public static function buildPaginationLinks( $pagination ) {
+    public static function buildPaginationLinks($pagination) {
         $prevPagination = $pagination["prev"];
         $nextPagination = $pagination["next"];
         $destination = $prevPagination && strpos($prevPagination, "/openhouses") ||
-                       $nextPagination && strpos($nextPagination, "/openhouses")
-                     ? "sr-openhouses"
-                     : "sr-search";
+            $nextPagination && strpos($nextPagination, "/openhouses")
+            ? "sr-openhouses"
+            : "sr-search";
 
         $siteUrl = get_home_url() . "/?sr-listings={$destination}&";
         $paginationLinks = array('prev' => '', 'next' => '');
@@ -277,13 +274,13 @@ class SrUtils {
         );
 
 
-        if($prevPagination !== null && !empty($prevPagination)) {
+        if ($prevPagination !== null && !empty($prevPagination)) {
             $prev = str_replace($apiUrls, $siteUrl, $prevPagination);
             $prev_link = "<a href='{$prev}'>Prev</a>";
             $paginationLinks['prev'] = $prev_link;
         }
 
-        if($nextPagination !== null && !empty($nextPagination)) {
+        if ($nextPagination !== null && !empty($nextPagination)) {
             $next = str_replace($apiUrls, $siteUrl, $nextPagination);
             $maybe_pipe = $prevPagination && !empty($prevPagination) ? "|" : "";
             $next_link = "{$maybe_pipe} <a href='{$next}'>Next</a>";
@@ -317,18 +314,16 @@ class SrUtils {
                 continue;
             }
 
-            list($name,$value) = explode('=', $i, 2);
+            list($name, $value) = explode('=', $i, 2);
 
-            if( isset($arr[$name]) ) {
+            if (isset($arr[$name])) {
 
-                if( is_array($arr[$name]) ) {
+                if (is_array($arr[$name])) {
                     $arr[$name][] = $value;
-                }
-                else {
+                } else {
                     $arr[$name] = array($arr[$name], $value);
                 }
-            }
-            else {
+            } else {
                 $arr[$name] = $value;
             }
         }
@@ -365,11 +360,11 @@ class SrUtils {
     }
 
     public static function ordinalSuffix($number) {
-        $ends = array('th','st','nd','rd','th','th','th','th','th','th');
-        if ((($number % 100) >= 11) && (($number%100) <= 13)) {
-            return $number. 'th';
+        $ends = array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th');
+        if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
+            return $number . 'th';
         } else {
-            return $number. $ends[$number % 10];
+            return $number . $ends[$number % 10];
         }
     }
 
@@ -433,7 +428,6 @@ class SrUtils {
                 . "{$listing_by} {$listing_idx_img_markup}"
                 . "</span>";
         }
-
     }
 
 
@@ -455,11 +449,9 @@ class SrUtils {
             );
 
             return html_entity_decode($built_disclaimer);
-
         } else {
 
             return "This information is believed to be accurate, but without any warranty.";
-
         }
     }
 
@@ -482,7 +474,7 @@ class SrUtils {
 
         if ($agentOfficeAboveTheFoldEnabled) {
 
-            if (!empty($agent) AND !empty($office)) {
+            if (!empty($agent) and !empty($office)) {
 
                 /**
                  * Agent and office are available, show both of them
@@ -492,8 +484,7 @@ class SrUtils {
                 $listing_by .= "<strong>$office</strong>";
                 $listing_by .= "<strong>$listing_by_contact</strong>";
                 return "<p>$listing_by</p>";
-
-            } elseif (empty($agent) AND !empty($office)) {
+            } elseif (empty($agent) and !empty($office)) {
 
                 /**
                  * Only office name is available, show that
@@ -501,8 +492,7 @@ class SrUtils {
                 $listing_by .= "Listing by: <strong>$office</strong>";
                 $listing_by .= "<strong>$listing_by_contact</strong>";
                 return "<p>$listing_by</p>";
-
-            } elseif (!empty($agent) AND empty($office)) {
+            } elseif (!empty($agent) and empty($office)) {
 
                 /**
                  * Only agent name is available, show that
@@ -510,7 +500,6 @@ class SrUtils {
                 $listing_by = "Listing by: <strong>$agent</strong>";
                 $listing_by .= "<strong>$listing_by_contact</strong>";
                 return "<p>$listing_by</p>";
-
             } else {
                 return "";
             }
@@ -533,14 +522,13 @@ class SrUtils {
             return "MLS®";
         }
     }
-
 }
 
 
 class SrListing {
 
     public static $default_photo =
-        "https://s3-us-west-2.amazonaws.com/simplyrets/trial/properties/defprop.jpg";
+    "https://s3-us-west-2.amazonaws.com/simplyrets/trial/properties/defprop.jpg";
 
     public static function normalizeListingPhotoUrl($url) {
         $force_https = get_option("sr_listing_force_image_https", false);
@@ -612,7 +600,7 @@ class SrMessages {
     public static function noResultsMsg($response) {
 
         $response = (array)$response;
-        if(array_key_exists("message", $response)) {
+        if (array_key_exists("message", $response)) {
             return (
                 '<br><p><strong>'
                 . $response['message']
@@ -627,12 +615,11 @@ class SrMessages {
         }
 
         $noResultsMsg = "<p><strong>"
-                      . "0 listings matched your search. "
-                      . "Please try to broaden your search criteria or try again later."
-                      . "</strong></p>";
+            . "0 listings matched your search. "
+            . "Please try to broaden your search criteria or try again later."
+            . "</strong></p>";
         return $noResultsMsg;
     }
-
 }
 
 
@@ -643,20 +630,20 @@ class SrMessages {
  * http://php.net/manual/it/function.http-parse-headers.php
  */
 if (!function_exists('http_parse_headers')) {
-    function http_parse_headers ($raw_headers) {
+    function http_parse_headers($raw_headers) {
         $headers = array(); // $headers = [];
 
         foreach (explode("\n", $raw_headers) as $i => $h) {
             $h = explode(':', $h, 2);
 
             if (isset($h[1])) {
-                if(!isset($headers[$h[0]])) {
+                if (!isset($headers[$h[0]])) {
                     $headers[$h[0]] = trim($h[1]);
-                } else if(is_array($headers[$h[0]])) {
-                    $tmp = array_merge($headers[$h[0]],array(trim($h[1])));
+                } else if (is_array($headers[$h[0]])) {
+                    $tmp = array_merge($headers[$h[0]], array(trim($h[1])));
                     $headers[$h[0]] = $tmp;
                 } else {
-                    $tmp = array_merge(array($headers[$h[0]]),array(trim($h[1])));
+                    $tmp = array_merge(array($headers[$h[0]]), array(trim($h[1])));
                     $headers[$h[0]] = $tmp;
                 }
             }

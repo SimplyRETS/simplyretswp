@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: idx, rets, reso web api, mls, idx plugin, mls listings, reso, real estate, realtor, rets feed, idx feed
 Requires at least: 3.0.1
 Tested up to: 6.9
-Stable tag: 3.2.0
+Stable tag: 3.2.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -236,6 +236,11 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 3.2.1 =
+
+* IMPROVE: Add direct access protection to all files
+* IMPROVE: Use wp_safe_redirect() instead of wp_redirect()
 
 = 3.2.0 =
 

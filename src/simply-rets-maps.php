@@ -6,6 +6,9 @@
  * This file provides the logic for the simply-rets custom post type pages.
  *
 */
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 
 add_action(

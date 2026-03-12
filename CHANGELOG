@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.2.1
+
+* IMPROVE: Add direct access protection to all files
+* IMPROVE: Use wp_safe_redirect() instead of wp_redirect()
+
 ## 3.2.0
 
 * IMPROVE: Refactor code base; no functional changes

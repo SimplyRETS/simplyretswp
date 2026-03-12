@@ -7,6 +7,9 @@
  * data from the remote retsd api.
  *
 */
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 /* Code starts here */
 
