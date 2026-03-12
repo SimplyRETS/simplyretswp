@@ -1472,7 +1472,7 @@ class SimplyRetsRenderer {
         $markup .= '<div id="sr-contact-form">';
         $markup .= $submission_message;
         $markup .= '<h3>Contact us about this listing</h3>';
-        $markup .= '<form action="' . esc_url($_SERVER['REQUEST_URI']) . '#sr-contact-form-success" method="post">';
+        $markup .= '<form action="' . esc_url((isset($_SERVER['REQUEST_URI']) ? sanitize_url(wp_unslash($_SERVER['REQUEST_URI'])) : '')) . '#sr-contact-form-success" method="post">';
         $markup .= wp_nonce_field('sr_contact_action', 'sr_contact_nonce', true, false);
         $markup .= '<p>';
         $markup .= '<input type="hidden" name="sr-cf-listing" value="' . $listing . '" />';
@@ -1777,6 +1777,7 @@ class SimplyRetsRenderer {
 
         $config_type = isset($attributes['type']) ? $attributes['type']   : '';
         if ($config_type === '') {
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $config_type = isset($_GET['sr_ptype']) ? map_deep(wp_unslash($_GET['sr_ptype']), 'sanitize_text_field') : '';
         }
 
@@ -1802,12 +1803,15 @@ class SimplyRetsRenderer {
         $adv_status = array_key_exists('status',   $attributes) ? $attributes['status']   : '';
         $lotsize    = array_key_exists('lotsize',  $attributes) ? $attributes['lotsize']  : '';
         $area       = array_key_exists('area',     $attributes) ? $attributes['area']     : '';
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $adv_features      = isset($_GET['sr_features']) ? map_deep(wp_unslash($_GET['sr_features']), 'sanitize_text_field') : array();
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $adv_neighborhoods = isset($_GET['sr_neighborhoods']) ? map_deep(wp_unslash($_GET['sr_neighborhoods']), 'sanitize_text_field') : array();
 
         // Get the initial values for `cities`. If a query parameter
         // is set, use-that, otherwise check for a 'cities' attribute
         // on the [sr_search_form] short-code
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $adv_cities = isset($_GET['sr_cities']) ? map_deep(wp_unslash($_GET['sr_cities']), 'sanitize_text_field') : array();
         if (empty($adv_cities) && array_key_exists('cities', $attributes)) {
             $adv_cities = explode(";", $attributes['cities']);
@@ -1845,6 +1849,7 @@ class SimplyRetsRenderer {
             );
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         if ((is_array($config_type) == TRUE) && isset($_GET['sr_ptype'])) {
             $type_string = esc_attr(join(';', $config_type));
             $default_type_option = "<option value='$type_string' selected>Property Type</option>";
