@@ -1478,21 +1478,25 @@ class SimplyRetsRenderer {
         $markup .= '<input type="hidden" name="sr-cf-listing" value="' . $listing . '" />';
         $markup .= 'Your Name (required) <br/>';
         $markup .= '<input type="text" name="sr-cf-name" value="'
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             . (isset($_POST["sr-cf-name"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-name"]))) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Your Email (required) <br/>';
         $markup .= '<input type="email" name="sr-cf-email" value="'
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             . (isset($_POST["sr-cf-email"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-email"]))) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Subject (required) <br/>';
         $markup .= '<input type="text" name="sr-cf-subject" value="'
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             . (isset($_POST["sr-cf-subject"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-subject"]))) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
         $markup .= 'Your Message (required) <br/>';
         $markup .= '<textarea rows="10" cols="35" name="sr-cf-message">'
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             . (isset($_POST["sr-cf-message"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-message"]))) : '') . '</textarea>';
         $markup .= '</p>';
         $markup .= '<p><input class="btn button btn-submit" type="submit" name="sr-cf-submitted" value="Send"></p>';

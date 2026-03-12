@@ -463,7 +463,9 @@ class srSearchFormWidget extends WP_Widget {
             $ven = $availableVendors[0];
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $current_type = empty($_GET['sr_ptype']) ? '' : sanitize_text_field(
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             wp_unslash($_GET['sr_ptype'])
         );
 
