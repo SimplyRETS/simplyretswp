@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: real estate, idx, mls, rets, reso web api
 Requires at least: 3.0.1
 Tested up to: 6.9
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -234,6 +234,13 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 3.2.2 =
+
+* FIX: Fix remaining plugin-check warnings / add form nonces
+* FIX: Fix bug in [sr_map_search] when no setting filters are used
+* IMPROVE: Improve pagination link scrolling in [sr_map_search]
+* IMPROVE: Improve Galleria.js loading sequence and compatibility
 
 = 3.2.1 =
 

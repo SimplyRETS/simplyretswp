@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.2.2
+
+* FIX: Fix remaining plugin-check warnings / add form nonces
+* FIX: Fix bug in [sr_map_search] when no setting filters are used
+* IMPROVE: Improve pagination link scrolling in [sr_map_search]
+* IMPROVE: Improve Galleria.js loading sequence and compatibility
+
 ## 3.2.1
 
 * IMPROVE: Add direct access protection to all files
