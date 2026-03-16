@@ -212,11 +212,15 @@ class SrSearchMap {
 
             header("Content-Type: application/json");
 
-            $settings_ = isset($_POST['settings']) ? map_deep(wp_unslash($_POST['settings']), 'sanitize_text_field') : array();
+            $settings_ = (isset($_POST['settings']) && is_array($_POST['settings']))
+                ? map_deep(wp_unslash($_POST['settings']), 'sanitize_text_field')
+                : array();
             $def_settings = array("show_map" => "false", "vendor" => $vendor);
             $settings = array_merge($settings_, $def_settings);
 
-            $parameters = isset($_POST['parameters']) ? map_deep(wp_unslash($_POST['parameters']), 'sanitize_text_field') : array();
+            $parameters = (isset($_POST['parameters']) && is_array($_POST['parameters']))
+                ? map_deep(wp_unslash($_POST['parameters']), 'sanitize_text_field')
+                : array();
             $req = SimplyRetsApiClient::makeApiRequest($parameters);
             $con = SimplyRetsRenderer::srResidentialResultsGenerator($req, $settings);
 
