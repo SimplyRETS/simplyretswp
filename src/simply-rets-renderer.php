@@ -97,7 +97,7 @@ class SimplyRetsRenderer {
                     . "line-height:1.25";
 
                 $more = '';
-                $markup .= '<div class="sr-gallery" id="sr-fancy-gallery">';
+                $markup .= '<div class="sr-gallery" id="sr-fancy-gallery" style="height: 500px; overflow: hidden; opacity: 0; transition: opacity 0.3s ease;">';
 
                 foreach ($photos as $idx => $photo) {
                     $num = $idx + 1;
@@ -726,8 +726,6 @@ class SimplyRetsRenderer {
             $listing_by_contact
         );
 
-        $galleria_theme = plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__);
-
         // Build details link for map marker
         $vendor = get_query_var("sr_vendor", null);
         $link = SrUtils::buildDetailsLink(
@@ -800,20 +798,22 @@ class SimplyRetsRenderer {
             . '   </p>'
             .     $gallery_markup
             . '   <script>'
-            . '     if(document.getElementById("sr-fancy-gallery")) {'
-            . '          Galleria.loadTheme("' . $galleria_theme . '");'
-            . '          Galleria.configure({'
-            . '              height: 500,'
-            . '              width:  "90%",'
-            . '              showinfo: false,'
-            . '              dummy: "' . $default_photo . '",'
-            . '              lightbox: true,'
-            . '              imageCrop: false,'
-            . '              imageMargin: 0,'
-            . '              fullscreenDoubleTap: true'
-            . '          });'
-            . '          Galleria.run(".sr-gallery");'
-            . '     }'
+            . '     window.addEventListener("load", function() {'
+            . '         if(document.getElementById("sr-fancy-gallery")) {'
+            . '              Galleria.configure({'
+            . '                  height: 500,'
+            . '                  width:  "90%",'
+            . '                  showinfo: false,'
+            . '                  dummy: "' . $default_photo . '",'
+            . '                  lightbox: true,'
+            . '                  imageCrop: false,'
+            . '                  imageMargin: 0,'
+            . '                  fullscreenDoubleTap: true'
+            . '              });'
+            . '              Galleria.run(".sr-gallery");'
+            . '              document.getElementById("sr-fancy-gallery").style.opacity = "1";'
+            . '         }'
+            . '     });'
             . '</script>'
             . '<div class="sr-primary-details">'
             . ' <div class="sr-detail" id="sr-primary-details-beds">'
