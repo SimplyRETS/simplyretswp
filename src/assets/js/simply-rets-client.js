@@ -87,7 +87,8 @@ var listingSliderCarousel = function () {
 
 var scrollToAnchor = function (aid) {
     var aTag = $_("#" + aid);
-    $_('html,body').animate({ scrollTop: aTag.offset().top }, 'slow');
+    var offsetPosition = aTag.offset().top - 50;
+    $_('html,body').animate({ scrollTop: offsetPosition }, 'fast');
 }
 
 
@@ -735,10 +736,10 @@ SimplyRETSMap.prototype.sendRequest = function (points, params, paginate) {
     if (paginate !== null && paginate !== undefined) {
 
         if (paginate === "next") {
-            scrollToAnchor('sr-search-wrapper');
+            scrollToAnchor('sr-map-search-wrapper');
             this.offset = Number(this.offset) + Number(this.limit);
         } else if (paginate === "prev") {
-            scrollToAnchor('sr-search-wrapper');
+            scrollToAnchor('sr-map-search-wrapper');
             this.offset = Number(this.offset) - Number(this.limit);
         } else if (paginate === "reset") {
             this.offset = 0
