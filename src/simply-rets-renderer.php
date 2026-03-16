@@ -1729,9 +1729,11 @@ class SimplyRetsRenderer {
                 . '</div>';
         }
 
+        $content .= "<div id='sr-map-search-wrapper'>";
         $content .= $search_form;
         $content .= $map_markup;
         $content .= $list_markup;
+        $content .= "</div>";
 
         return $content;
     }

@@ -218,7 +218,7 @@ class SrSearchMap {
             $def_settings = array("show_map" => "false", "vendor" => $vendor);
             $settings = array_merge($settings_, $def_settings);
 
-            $parameters = (isset($_POST['parameters']) && is_array($_POST['parameters']))
+            $parameters = isset($_POST['parameters'])
                 ? map_deep(wp_unslash($_POST['parameters']), 'sanitize_text_field')
                 : array();
             $req = SimplyRetsApiClient::makeApiRequest($parameters);
