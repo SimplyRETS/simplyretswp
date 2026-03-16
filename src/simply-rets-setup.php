@@ -231,6 +231,15 @@ class SimplyRetsSetup {
         );
         wp_enqueue_script('simply-rets-galleria-js');
 
+        wp_register_script(
+            'simply-rets-galleria-theme-js',
+            plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__),
+            array('simply-rets-galleria-js'),
+            SIMPLYRETSWP_VERSION,
+            array("in_footer" => false)
+        );
+        wp_enqueue_script('simply-rets-galleria-theme-js');
+
         // listings slider js
         wp_register_script(
             'simply-rets-listing-slider-js',
