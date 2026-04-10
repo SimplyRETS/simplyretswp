@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.2.4
+
+* ADD: Render SourceMLS badge when compliance field exists
+* FIX: Fix points parameter formatting in [sr_map_search] shortcode
+
 ## 3.2.3
 
 * FIX: Sanitize page title text on single listing pages.
