@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: real estate, idx, mls, rets, reso web api
 Requires at least: 3.0.1
 Tested up to: 6.9
-Stable tag: 3.2.4
+Stable tag: 3.2.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -234,6 +234,10 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 3.2.5 =
+
+* FIX: Handle corner cases in data handling
 
 = 3.2.4 =
 
