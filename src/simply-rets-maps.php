@@ -218,9 +218,9 @@ class SrSearchMap {
             $def_settings = array("show_map" => "false", "vendor" => $vendor);
             $settings = array_merge($settings_, $def_settings);
 
-            $parameters = isset($_POST['parameters'])
-                ? map_deep(wp_unslash($_POST['parameters']), 'sanitize_text_field')
-                : array();
+            $parameters_raw = isset($_POST['parameters']) ? wp_unslash($_POST['parameters']) : '';
+            $parameters_arr = SrUtils::proper_parse_str(ltrim(urldecode($parameters_raw), "?"));
+            $parameters = map_deep($parameters_arr, 'sanitize_text_field');
             $req = SimplyRetsApiClient::makeApiRequest($parameters);
             $con = SimplyRetsRenderer::srResidentialResultsGenerator($req, $settings);
 
