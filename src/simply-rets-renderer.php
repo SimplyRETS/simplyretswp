@@ -358,8 +358,26 @@ class SimplyRetsRenderer {
 
         // Compliance/compensation data
         $complianceData = $listing->compliance;
+
+        $source_mls_badge = "";
+        if (property_exists($complianceData, "sourceMlsUrl") && !empty($complianceData->sourceMlsUrl)) {
+            $source_url = $complianceData->sourceMlsUrl;
+            $source_mls_badge = '<div class="sr-source-mls-badge" style="text-align: center; margin-top: 15px;">'
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                . '<img src="' . esc_url($source_url . '.png') . '" '
+                . 'width="132" height="60" alt="Source MLS Verified" '
+                . 'onload="navigator.sendBeacon(\'' . esc_js($source_url) . '\', window.location.href)" '
+                . 'onerror="this.style.display=\'none\'" />'
+                . '</div>';
+        }
+
         $complianceExtras = "";
         foreach ($complianceData as $compKey => $compValue) {
+            // Skip the sourceMlsUrl so it doesn't print out as text
+            if ($compKey === 'sourceMlsUrl') {
+                continue;
+            }
+
             // Normalize camelCase keys to words
             $compKey = ucfirst(preg_replace('/(?<=\\w)(?=[A-Z])/', ' $1', $compKey));
             $compKey = preg_replace(['/\bMls\b/', '/\bM L S\b/'], 'MLS', $compKey);
@@ -954,6 +972,7 @@ class SimplyRetsRenderer {
 
         // Add disclaimer to the bottom of the page
         $disclaimer = SrUtils::mkDisclaimerText($last_update);
+        $cont .= $source_mls_badge;
         $cont .= "<br/>{$disclaimer}";
 
         return $cont;
