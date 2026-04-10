@@ -360,13 +360,13 @@ class SimplyRetsRenderer {
         $complianceData = $listing->compliance;
 
         $source_mls_badge = "";
-        if (property_exists($complianceData, "sourceMlsUrl") && !empty($complianceData->sourceMlsUrl)) {
+        if (is_object($complianceData) && property_exists($complianceData, "sourceMlsUrl") && !empty($complianceData->sourceMlsUrl)) {
             $source_url = $complianceData->sourceMlsUrl;
             $source_mls_badge = '<div class="sr-source-mls-badge" style="text-align: center; margin-top: 15px;">'
                 // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 . '<img src="' . esc_url($source_url . '.png') . '" '
                 . 'width="132" height="60" alt="Source MLS Verified" '
-                . 'onload="navigator.sendBeacon(\'' . esc_js($source_url) . '\', window.location.href)" '
+                . 'onload="navigator.sendBeacon(\'' . esc_js(esc_url_raw($source_url)) . '\', window.location.href)" '
                 . 'onerror="this.style.display=\'none\'" />'
                 . '</div>';
         }
