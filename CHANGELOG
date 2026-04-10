@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.5
+
+* FIX: Handle corner cases in data handling
+
 ## 3.2.4
 
 * ADD: Render SourceMLS badge when compliance field exists
