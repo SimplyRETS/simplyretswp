@@ -4,7 +4,7 @@ Contributors: SimplyRETS
 Tags: real estate, idx, mls, rets, reso web api
 Requires at least: 3.0.1
 Tested up to: 6.9
-Stable tag: 3.2.5
+Stable tag: 3.2.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -234,6 +234,10 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= 3.2.6 =
+
+* FIX: Fix [sr_listings_slider] layout when there are < 4 listings
 
 = 3.2.5 =
 
