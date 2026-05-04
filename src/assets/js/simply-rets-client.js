@@ -74,11 +74,23 @@ var advSearchFormToggler = function () {
 var listingSliderCarousel = function () {
 
     $_(".owl-carousel").each(function () {
-        $_(this).owlCarousel({
+        var $carousel = $_(this);
+        var itemCount = $carousel.children().length;
+
+        $carousel.owlCarousel({
             items: 4,
-            loop: true,
+            // Only enable infinite loop if there are more items than the viewport holds
+            loop: itemCount > 4,
             nav: true,
-            slideBy: 4
+            slideBy: 4,
+            onInitialized: function (event) {
+                // If there are fewer than 4 items, center the internal stage wrapper
+                if (itemCount < 4) {
+                    $_(event.target).find('.owl-stage').css({
+                        'margin': '0 auto'
+                    });
+                }
+            }
         })
     });
 
