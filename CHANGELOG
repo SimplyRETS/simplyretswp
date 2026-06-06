@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.7
+
+* FIX: Pin GoogleMaps JS version to support DrawingManager
+
 ## 3.2.6
 
 * FIX: Fix [sr_listings_slider] layout when there are < 4 listings
