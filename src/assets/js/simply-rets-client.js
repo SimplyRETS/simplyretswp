@@ -913,7 +913,8 @@ $_(document).ready(function () {
 
             // if google.maps doesn't exist - load it, then start map
             var url = "https://maps.googleapis.com/maps/api/js?"
-                + "libraries=drawing&callback=startMap"
+                + "v=3.64" // Pin version to support DrawingManager
+                + "&libraries=drawing&callback=startMap"
                 + "&key=" + key;
 
             var script = document.createElement("script");
