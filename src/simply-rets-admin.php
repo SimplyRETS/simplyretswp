@@ -42,7 +42,14 @@ class SrAdminSettings {
         register_setting('sr_admin_settings', 'sr_listing_gallery', $def_setting_opts);
         register_setting('sr_admin_settings', 'sr_show_leadcapture', $def_setting_opts);
         register_setting('sr_admin_settings', 'sr_leadcapture_recipient', array(
-            "sanitize_callback" => "sanitize_email"
+            "sanitize_callback" => function( $value ) {
+                // Split by comma, trim whitespace, and sanitize each email
+                $emails = array_map( 'trim', explode( ',', $value ) );
+                $sanitized_emails = array_map( 'sanitize_email', $emails );
+
+                // Remove any empty values that failed sanitization and join them back
+                return implode( ', ', array_filter( $sanitized_emails ) );
+            }
         ));
         register_setting('sr_admin_settings', 'sr_additional_rooms', $def_setting_opts);
         register_setting('sr_admin_settings', 'sr_listhub_analytics', $def_setting_opts);
