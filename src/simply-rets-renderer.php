@@ -1636,15 +1636,15 @@ class SimplyRetsRenderer {
         $markup_settings_json = wp_json_encode($markup_settings);
 
         $map_markup  = "<div id='sr-map-search'
-                             data-api-key='{$gmaps_key}'
-                             data-idx-img='{$idx_img}'
-                             data-office-on-thumbnails='{$office_on_thumbnails}'
-                             data-agent-on-thumbnails='{$agent_on_thumbnails}'
-                             data-force-image-https='{$force_image_https}'
-                             data-limit='{$limit}'
-                             data-default-settings='{$markup_settings_json}'
-                             data-default-parameters='{$api_parameters_json}'
-                             data-vendor='{$vendor}'></div>";
+                             data-api-key='" . esc_attr($gmaps_key) . "'
+                             data-idx-img='" . esc_attr($idx_img) . "'
+                             data-office-on-thumbnails='" . esc_attr($office_on_thumbnails) . "'
+                             data-agent-on-thumbnails='" . esc_attr($agent_on_thumbnails) . "'
+                             data-force-image-https='" . esc_attr($force_image_https) . "'
+                             data-limit='" . esc_attr($limit) . "'
+                             data-default-settings='" . esc_attr($markup_settings_json) . "'
+                             data-default-parameters='" . esc_attr($api_parameters_json) . "'
+                             data-vendor='" . esc_attr($vendor) . "'></div>";
 
         $list_markup = isset($atts["list_view"]) || isset($atts["grid_view"])
             ? "<div class=\"sr-map-search-list-view\"></div>"

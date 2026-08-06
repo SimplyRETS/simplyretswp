@@ -448,7 +448,9 @@ class SimplyRetsQueryParser {
         $filters_string = '';
         foreach ($next_atts as $param => $att) {
             if (!$att == '') {
-                $filters_string .= ' ' . $param . '=\'' . $att . '\'';
+                // Strip brackets and aggressive escape for shortcode attribute context
+                $safe_att = str_replace(array('[', ']'), '', esc_attr($att));
+                $filters_string .= ' ' . $param . '=\'' . $safe_att . '\'';
             }
         }
 
