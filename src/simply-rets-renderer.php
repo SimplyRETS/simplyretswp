@@ -1052,6 +1052,20 @@ class SimplyRetsRenderer {
             $map->setAutoZoom(true);
         }
 
+        $listing_heading_raw = apply_filters('simplyrets_listing_heading_tag', 'h4');
+        $listing_heading = tag_escape($listing_heading_raw);
+        if (empty($listing_heading)) {
+            $listing_heading = 'h4';
+        }
+
+        $results_heading_raw = apply_filters('simplyrets_results_heading_tag', 'h2');
+        $results_heading = tag_escape($results_heading_raw);
+        if (empty($results_heading)) {
+            $results_heading = 'h2';
+        }
+        $show_results_heading = apply_filters('simplyrets_show_results_heading', false);
+        $results_heading_text = apply_filters('simplyrets_results_heading_text', 'Listings');
+
         $resultsMarkup = "";
         foreach ($response as $listing) {
             $listing_uid        = $listing->mlsId;
@@ -1258,11 +1272,11 @@ class SimplyRetsRenderer {
                     . '  <div class="sr-listing-data-wrapper">'
                     . '    <div class="sr-primary-data">'
                     . '      <a href="' . $link . '">'
-                    . '        <h4>' . $full_address
+                    . '        <' . $listing_heading . ' class="sr-listing-address">' . $full_address
                     . '          <small class="sr-price">'
                     . '            <i> - ' . $price_to_display . '</i>'
                     . '          </small>'
-                    . '        </h4>'
+                    . '        </' . $listing_heading . '>'
                     . '      </a>'
                     . '    </div>'
                     . '    <div class="sr-secondary-data">'
@@ -1280,7 +1294,7 @@ class SimplyRetsRenderer {
                     . '  </div>'
                     . '  <div class="more-details-wrapper">'
                     . '    <span class="more-details-link">'
-                    . '        <a href="' . $link . '">More details</a>'
+                    . '        <a href="' . $link . '" aria-label="' . esc_attr('More details for ' . $full_address) . '">More details<span class="screen-reader-text"> ' . esc_html('for ' . $full_address) . '</span></a>'
                     . '    </span>'
                     . '    <span class="result-compliance-markup">'
                     .        $compliance_markup
@@ -1304,11 +1318,11 @@ class SimplyRetsRenderer {
                     . '  <div class="sr-listing-data-wrapper">'
                     . '    <div class="sr-primary-data">'
                     . '      <a href="' . $link . '">'
-                    . '        <h4>' . $full_address
+                    . '        <' . $listing_heading . ' class="sr-listing-address">' . $full_address
                     . '          <small class="sr-price">'
                     . '            <i> - ' . $price_to_display . '</i>'
                     . '          </small>'
-                    . '        </h4>'
+                    . '        </' . $listing_heading . '>'
                     . '      </a>'
                     . '    </div>'
                     . '    <div class="sr-secondary-data">'
@@ -1326,7 +1340,7 @@ class SimplyRetsRenderer {
                     . '  </div>'
                     . '  <div class="more-details-wrapper">'
                     . '    <span class="more-details-link">'
-                    . '        <a href="' . $link . '">More details</a>'
+                    . '        <a href="' . $link . '" aria-label="' . esc_attr('More details for ' . $full_address) . '">More details<span class="screen-reader-text"> ' . esc_html('for ' . $full_address) . '</span></a>'
                     . '    </span>'
                     . '    <span class="result-compliance-markup">'
                     .        $compliance_markup
@@ -1336,8 +1350,12 @@ class SimplyRetsRenderer {
             }
         }
 
+        $results_heading_markup = ($show_results_heading && !empty($response))
+            ? "<{$results_heading} class='sr-listings-heading screen-reader-text'>" . esc_html($results_heading_text) . "</{$results_heading}>"
+            : "";
         $markupGridViewClass = $grid_view == true ? "sr-listings-grid-view" : "";
         $resultsMarkup = "<div id='sr-listings-results-list' class='{$markupGridViewClass}'>"
+            . $results_heading_markup
             . "{$resultsMarkup}"
             . "</div>";
         $markerCount > 0 ? $mapMarkup = $mapHelper->render($map) : $mapMarkup = '';
@@ -1474,6 +1492,8 @@ class SimplyRetsRenderer {
 
     public static function srContactFormMarkup($listing) {
         $custom_form = get_option('sr_leadcapture_custom_form', false);
+        static $form_instance = 0;
+        $form_id = 'sr-contact-form-' . ++$form_instance;
 
         // Use custom form if configured
         if ($custom_form != false) {
@@ -1485,36 +1505,42 @@ class SimplyRetsRenderer {
         // Process any form submissions
         $submission_message = SimplyRetsContactForm::srContactFormDeliver();
 
+        $contact_heading_raw = apply_filters('simplyrets_contact_heading_tag', 'h3');
+        $contact_heading = tag_escape($contact_heading_raw);
+        if (empty($contact_heading)) {
+            $contact_heading = 'h3';
+        }
+
         // Default lead capture form
         $markup = '';
         $markup .= '<hr>';
         $markup .= '<div id="sr-contact-form">';
         $markup .= $submission_message;
-        $markup .= '<h3>Contact us about this listing</h3>';
+        $markup .= '<' . $contact_heading . '>Contact us about this listing</' . $contact_heading . '>';
         $markup .= '<form action="' . esc_url((isset($_SERVER['REQUEST_URI']) ? sanitize_url(wp_unslash($_SERVER['REQUEST_URI'])) : '')) . '#sr-contact-form-success" method="post">';
         $markup .= wp_nonce_field('sr_contact_action', 'sr_contact_nonce', true, false);
         $markup .= '<p>';
         $markup .= '<input type="hidden" name="sr-cf-listing" value="' . $listing . '" />';
-        $markup .= 'Your Name (required) <br/>';
-        $markup .= '<input type="text" name="sr-cf-name" value="'
+        $markup .= '<label for="' . esc_attr($form_id . '-name') . '">Your Name (required)</label><br/>';
+        $markup .= '<input id="' . esc_attr($form_id . '-name') . '" type="text" name="sr-cf-name" value="'
             // phpcs:ignore WordPress.Security.NonceVerification.Missing
             . (isset($_POST["sr-cf-name"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-name"]))) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
-        $markup .= 'Your Email (required) <br/>';
-        $markup .= '<input type="email" name="sr-cf-email" value="'
+        $markup .= '<label for="' . esc_attr($form_id . '-email') . '">Your Email (required)</label><br/>';
+        $markup .= '<input id="' . esc_attr($form_id . '-email') . '" type="email" name="sr-cf-email" value="'
             // phpcs:ignore WordPress.Security.NonceVerification.Missing
             . (isset($_POST["sr-cf-email"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-email"]))) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
-        $markup .= 'Subject (required) <br/>';
-        $markup .= '<input type="text" name="sr-cf-subject" value="'
+        $markup .= '<label for="' . esc_attr($form_id . '-subject') . '">Subject (required)</label><br/>';
+        $markup .= '<input id="' . esc_attr($form_id . '-subject') . '" type="text" name="sr-cf-subject" value="'
             // phpcs:ignore WordPress.Security.NonceVerification.Missing
             . (isset($_POST["sr-cf-subject"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-subject"]))) : '') . '" size="40" />';
         $markup .= '</p>';
         $markup .= '<p>';
-        $markup .= 'Your Message (required) <br/>';
-        $markup .= '<textarea rows="10" cols="35" name="sr-cf-message">'
+        $markup .= '<label for="' . esc_attr($form_id . '-message') . '">Your Message (required)</label><br/>';
+        $markup .= '<textarea id="' . esc_attr($form_id . '-message') . '" rows="10" cols="35" name="sr-cf-message">'
             // phpcs:ignore WordPress.Security.NonceVerification.Missing
             . (isset($_POST["sr-cf-message"]) ? esc_attr(sanitize_text_field(wp_unslash($_POST["sr-cf-message"]))) : '') . '</textarea>';
         $markup .= '</p>';
@@ -1653,6 +1679,8 @@ class SimplyRetsRenderer {
         $MLS_text = SrUtils::mkMLSText();
 
         if (!empty($atts['search_form'])) {
+            static $form_instance = 0;
+            $form_id = 'sr-map-search-form-' . ++$form_instance;
 
             $single_vendor = SrUtils::isSingleVendor();
             $allVendors    = get_option('sr_adv_search_meta_vendors', array());
@@ -1678,21 +1706,31 @@ class SimplyRetsRenderer {
                 }
             }
 
+            $search_heading_raw = apply_filters('simplyrets_search_heading_tag', 'h3');
+            $search_heading = tag_escape($search_heading_raw);
+            if (empty($search_heading)) {
+                $search_heading = 'h3';
+            }
+
             $search_form =
                 '<div class="sr-int-map-search-wrapper">'
                 . '  <div id="sr-search-wrapper">'
-                . '    <h3>Search Listings</h3>'
+                . '    <' . $search_heading . ' class="sr-search-heading">Search Listings</' . $search_heading . '>'
                 . '    <form method="get" class="sr-search sr-map-search-form">'
                 . '      <input type="hidden" name="sr-listings" value="sr-search">'
                 . '      <div class="sr-minmax-filters">'
                 . '        <div class="sr-search-field" id="sr-search-keywords">'
-                . '          <input name="sr_keywords"'
+                . '          <label for="' . esc_attr($form_id . '-keywords') . '" class="screen-reader-text">Search keywords</label>'
+                . '          <input id="' . esc_attr($form_id . '-keywords') . '"'
+                . '                 name="sr_keywords"'
                 . '                 type="text"'
+                . '                 aria-label="Search keywords"'
                 . '                 placeholder="Subdivision, Zipcode, ' . $MLS_text . ' Area, ' . $MLS_text . ' Number, or Market Area"'
                 . '          />'
                 . '        </div>'
                 . '        <div class="sr-search-field" id="sr-search-ptype">'
-                . '          <select name="sr_ptype">'
+                . '          <label for="' . esc_attr($form_id . '-ptype') . '" class="screen-reader-text">Property Type</label>'
+                . '          <select id="' . esc_attr($form_id . '-ptype') . '" name="sr_ptype" aria-label="Property Type">'
                 . '            <option value="">Property Type</option>'
                 .              $type_options
                 . '          </select>'
@@ -1700,22 +1738,28 @@ class SimplyRetsRenderer {
                 . '      </div>'
                 . '      <div class="sr-minmax-filters">'
                 . '        <div class="sr-search-field" id="sr-search-minprice">'
-                . '          <input name="sr_minprice" step="1000" min="0" type="number" placeholder="Min Price.." />'
+                . '          <label for="' . esc_attr($form_id . '-minprice') . '" class="screen-reader-text">Min Price</label>'
+                . '          <input id="' . esc_attr($form_id . '-minprice') . '" name="sr_minprice" step="1000" min="0" type="number" aria-label="Min Price" placeholder="Min Price.." />'
                 . '        </div>'
                 . '        <div class="sr-search-field" id="sr-search-maxprice">'
-                . '          <input name="sr_maxprice" step="1000" min="0" type="number" placeholder="Max Price.." />'
+                . '          <label for="' . esc_attr($form_id . '-maxprice') . '" class="screen-reader-text">Max Price</label>'
+                . '          <input id="' . esc_attr($form_id . '-maxprice') . '" name="sr_maxprice" step="1000" min="0" type="number" aria-label="Max Price" placeholder="Max Price.." />'
                 . '        </div>'
                 . '        <div class="sr-search-field" id="sr-search-minbeds">'
-                . '          <input name="sr_minbeds" min="0" type="number" placeholder="Min Beds.." />'
+                . '          <label for="' . esc_attr($form_id . '-minbeds') . '" class="screen-reader-text">Min Beds</label>'
+                . '          <input id="' . esc_attr($form_id . '-minbeds') . '" name="sr_minbeds" min="0" type="number" aria-label="Min Beds" placeholder="Min Beds.." />'
                 . '        </div>'
                 . '        <div class="sr-search-field" id="sr-search-maxbeds">'
-                . '          <input name="sr_maxbeds" min="0" type="number" placeholder="Max Beds.." />'
+                . '          <label for="' . esc_attr($form_id . '-maxbeds') . '" class="screen-reader-text">Max Beds</label>'
+                . '          <input id="' . esc_attr($form_id . '-maxbeds') . '" name="sr_maxbeds" min="0" type="number" aria-label="Max Beds" placeholder="Max Beds.." />'
                 . '        </div>'
                 . '        <div class="sr-search-field" id="sr-search-minbaths">'
-                . '          <input name="sr_minbaths" min="0" type="number" placeholder="Min Baths.." />'
+                . '          <label for="' . esc_attr($form_id . '-minbaths') . '" class="screen-reader-text">Min Baths</label>'
+                . '          <input id="' . esc_attr($form_id . '-minbaths') . '" name="sr_minbaths" min="0" type="number" aria-label="Min Baths" placeholder="Min Baths.." />'
                 . '        </div>'
                 . '        <div class="sr-search-field" id="sr-search-maxbaths">'
-                . '          <input name="sr_maxbaths" min="0" type="number" placeholder="Max Baths.." />'
+                . '          <label for="' . esc_attr($form_id . '-maxbaths') . '" class="screen-reader-text">Max Baths</label>'
+                . '          <input id="' . esc_attr($form_id . '-maxbaths') . '" name="sr_maxbaths" min="0" type="number" aria-label="Max Baths" placeholder="Max Baths.." />'
                 . '        </div>'
                 . '      </div>'
                 . '      <input type="hidden" name="sr_vendor"  value="' . $vendor . '" />'
@@ -1726,8 +1770,8 @@ class SimplyRetsRenderer {
                 . '      <div>'
                 . '          <input class="submit button btn" type="submit" value="Search Properties">'
                 . '          <div class="sr-sort-wrapper">'
-                . '              <label for="sr_sort">Sort by: </label>'
-                . '              <select class="select" name="sr_sort">'
+                . '              <label for="' . esc_attr($form_id . '-sort') . '">Sort by: </label>'
+                . '              <select id="' . esc_attr($form_id . '-sort') . '" class="select" name="sr_sort">'
                 . '                  <option value="">Sort Options</option>'
                 . '                  <option value="-modified"> Recently modified</option>'
                 . '                  <option value="-listprice"> Price - High to Low</option>'
@@ -1759,6 +1803,8 @@ class SimplyRetsRenderer {
 
     public static function renderSearchForm($atts) {
         ob_start();
+        static $form_instance = 0;
+        $form_id = 'sr-search-form-' . ++$form_instance;
         $home_url = get_home_url();
         $singleVendor = SrUtils::isSingleVendor();
         $MLS_text = SrUtils::mkMLSText();
@@ -1935,6 +1981,12 @@ class SimplyRetsRenderer {
         $q_placeholder = "Subdivision, Zipcode, "
             . $MLS_text . " area, " . $MLS_text . " #, etc";
 
+        $search_heading_raw = apply_filters('simplyrets_search_heading_tag', 'h3');
+        $search_heading = tag_escape($search_heading_raw);
+        if (empty($search_heading)) {
+            $search_heading = 'h3';
+        }
+
         if (array_key_exists('advanced', $attributes) && ($attributes['advanced'] == 'true' || $attributes['advanced'] == 'True')) {
 ?>
 
@@ -1942,21 +1994,25 @@ class SimplyRetsRenderer {
                 <form method="get" class="sr-search" action="<?php echo esc_url($home_url); ?>">
                     <input type="hidden" name="sr-listings" value="sr-search">
                     <input type="hidden" name="advanced" value="true">
-                    <h3>Advanced Listings Search</h3>
+                    <<?php echo $search_heading; ?> class="sr-search-heading">Advanced Listings Search</<?php echo $search_heading; ?>>
                     <div class="sr-adv-search-minmax sr-adv-search-part">
 
                         <div class="sr-adv-search-col1">
                             <!-- Keyword / Property Type -->
                             <div class="sr-minmax-filters">
                                 <div class="sr-search-field" id="sr-search-keywords">
-                                    <input name="sr_keywords"
+                                    <label for="<?php echo esc_attr($form_id . '-keywords'); ?>" class="screen-reader-text">Search keywords</label>
+                                    <input id="<?php echo esc_attr($form_id . '-keywords'); ?>"
+                                        name="sr_keywords"
                                         type="text"
+                                        aria-label="Search keywords"
                                         placeholder="<?php echo esc_attr($q_placeholder); ?>"
                                         value="<?php echo esc_attr($keywords); ?>" />
                                 </div>
 
                                 <div class="sr-search-field" id="sr-search-ptype">
-                                    <select name="sr_ptype">
+                                    <label for="<?php echo esc_attr($form_id . '-ptype'); ?>" class="screen-reader-text">Property Type</label>
+                                    <select id="<?php echo esc_attr($form_id . '-ptype'); ?>" name="sr_ptype" aria-label="Property Type">
                                         <?php
                                         // phpcs:ignore WordPress.Security.EscapeOutput
                                         echo $default_type_option;
@@ -1971,15 +2027,17 @@ class SimplyRetsRenderer {
                         <div class="sr-minmax-filters">
                             <div class="sr-adv-search-col2 sr-adv-search-price">
                                 <label><strong>Price Range</strong></label>
-                                <input step="1000" min="0" type="number" name="sr_minprice" placeholder="10000" value="<?php echo esc_attr($minprice); ?>" />
-                                <input step="1000" min="0" type="number" name="sr_maxprice" placeholder="1000000" value="<?php echo esc_attr($maxprice); ?>" />
+                                <label for="<?php echo esc_attr($form_id . '-minprice'); ?>" class="screen-reader-text">Min Price</label>
+                                <input id="<?php echo esc_attr($form_id . '-minprice'); ?>" step="1000" min="0" type="number" name="sr_minprice" aria-label="Min Price" placeholder="10000" value="<?php echo esc_attr($minprice); ?>" />
+                                <label for="<?php echo esc_attr($form_id . '-maxprice'); ?>" class="screen-reader-text">Max Price</label>
+                                <input id="<?php echo esc_attr($form_id . '-maxprice'); ?>" step="1000" min="0" type="number" name="sr_maxprice" aria-label="Max Price" placeholder="1000000" value="<?php echo esc_attr($maxprice); ?>" />
                             </div>
 
                             <div class="sr-adv-search-col4" id="sr-adv-minbeds">
-                                <label for="sr_minbeds" id="sr-adv-minbeds-label">
+                                <label for="<?php echo esc_attr($form_id . '-minbeds'); ?>" id="<?php echo esc_attr($form_id . '-minbeds-label'); ?>">
                                     <strong>Bedrooms</strong>
                                 </label>
-                                <select name="sr_minbeds" id="sr-adv-minbeds-select">
+                                <select name="sr_minbeds" id="<?php echo esc_attr($form_id . '-minbeds'); ?>">
                                     <option value="<?php echo esc_attr($minbeds); ?>">
                                         <?php echo esc_html($minbeds); ?>+
                                     </option>
@@ -1995,10 +2053,10 @@ class SimplyRetsRenderer {
                             </div>
 
                             <div class="sr-adv-search-col4" id="sr-adv-minbaths">
-                                <label for="sr_minbaths" id="sr-adv-minbaths-label">
+                                <label for="<?php echo esc_attr($form_id . '-minbaths'); ?>" id="<?php echo esc_attr($form_id . '-minbaths-label'); ?>">
                                     <strong>Bathrooms</strong>
                                 </label>
-                                <select name="sr_minbaths" id="sr-adv-minbaths-select">
+                                <select name="sr_minbaths" id="<?php echo esc_attr($form_id . '-minbaths'); ?>">
                                     <option value="<?php echo esc_attr($minbaths); ?>">
                                         <?php echo esc_attr($minbaths); ?>+
                                     </option>
@@ -2016,10 +2074,10 @@ class SimplyRetsRenderer {
 
                         <div class="sr-minmax-filters">
                             <div class="sr-adv-search-col2" id="sr-adv-status">
-                                <label for="status" id="sr-adv-status-label">
+                                <label for="<?php echo esc_attr($form_id . '-status'); ?>" id="<?php echo esc_attr($form_id . '-status-label'); ?>">
                                     <strong>Status</strong>
                                 </label>
-                                <select name="status" id="sr-adv-status-select">
+                                <select name="status" id="<?php echo esc_attr($form_id . '-status'); ?>">
                                     <option value="">All</option>
                                     <?php
                                     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -2028,20 +2086,20 @@ class SimplyRetsRenderer {
                                 </select>
                             </div>
                             <div class="sr-adv-search-col4" id="sr-adv-lotsize">
-                                <label for="sr_lotsize"><strong>Lot Size</strong></label>
-                                <input type="number" name="sr_lotsize" placeholder="3500" value="<?php echo esc_attr($lotsize); ?>" />
+                                <label for="<?php echo esc_attr($form_id . '-lotsize'); ?>"><strong>Lot Size</strong></label>
+                                <input id="<?php echo esc_attr($form_id . '-lotsize'); ?>" type="number" name="sr_lotsize" placeholder="3500" value="<?php echo esc_attr($lotsize); ?>" />
                             </div>
                             <div class="sr-adv-search-col4" id="sr-adv-area">
-                                <label for="sr_area"><strong>Area (SqFt)</strong></label>
-                                <input type="number" name="sr_area" value="<?php echo esc_attr($area); ?>" placeholder="1500" />
+                                <label for="<?php echo esc_attr($form_id . '-area'); ?>"><strong>Area (SqFt)</strong></label>
+                                <input id="<?php echo esc_attr($form_id . '-area'); ?>" type="number" name="sr_area" value="<?php echo esc_attr($area); ?>" placeholder="1500" />
                             </div>
                         </div>
 
 
                         <div class="sr-minmax-filters">
                             <div class="sr-adv-search-col2" id="sr-adv-cities">
-                                <label><strong>Cities</strong></label>
-                                <select name='sr_cities[]' multiple>
+                                <label for="<?php echo esc_attr($form_id . '-cities'); ?>"><strong>Cities</strong></label>
+                                <select id="<?php echo esc_attr($form_id . '-cities'); ?>" name='sr_cities[]' multiple>
                                     <?php
                                     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                     echo $city_options;
@@ -2050,8 +2108,8 @@ class SimplyRetsRenderer {
                             </div>
 
                             <div class="sr-adv-search-col2" id="sr-adv-neighborhoods">
-                                <label><strong>Locations</strong></label>
-                                <select name="sr_neighborhoods[]" multiple>
+                                <label for="<?php echo esc_attr($form_id . '-neighborhoods'); ?>"><strong>Locations</strong></label>
+                                <select id="<?php echo esc_attr($form_id . '-neighborhoods'); ?>" name="sr_neighborhoods[]" multiple>
                                     <?php
                                     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                     echo $location_options;
@@ -2099,8 +2157,8 @@ class SimplyRetsRenderer {
                     <div>
                         <button class="btn button submit btn-submit" style="display:inline-block;">Search</button>
                         <div class="sr-sort-wrapper">
-                            <label for="sr_sort">Sort by: </label>
-                            <select name="sr_sort">
+                            <label for="<?php echo esc_attr($form_id . '-sort'); ?>">Sort by: </label>
+                            <select id="<?php echo esc_attr($form_id . '-sort'); ?>" name="sr_sort">
                                 <option value="-modified" <?php echo esc_attr($sort_price_mod); ?>> Recently modified</option>
                                 <option value="-listprice" <?php echo esc_attr($sort_price_hl); ?>> Price - High to Low</option>
                                 <option value="listprice" <?php echo esc_attr($sort_price_lh); ?>> Price - Low to High</option>
@@ -2119,20 +2177,24 @@ class SimplyRetsRenderer {
 
         ?>
         <div id="sr-search-wrapper">
-            <h3>Search Listings</h3>
+            <<?php echo $search_heading; ?> class="sr-search-heading">Search Listings</<?php echo $search_heading; ?>>
             <form method="get" class="sr-search" action="<?php echo esc_url($home_url); ?>">
                 <input type="hidden" name="sr-listings" value="sr-search">
 
                 <div class="sr-minmax-filters">
                     <div class="sr-search-field" id="sr-search-keywords">
-                        <input name="sr_keywords"
+                        <label for="<?php echo esc_attr($form_id . '-keywords'); ?>" class="screen-reader-text">Search keywords</label>
+                        <input id="<?php echo esc_attr($form_id . '-keywords'); ?>"
+                            name="sr_keywords"
                             type="text"
+                            aria-label="Search keywords"
                             placeholder="<?php echo esc_attr($q_placeholder); ?>"
                             value="<?php echo esc_attr($keywords); ?>" />
                     </div>
 
                     <div class="sr-search-field" id="sr-search-ptype">
-                        <select name="sr_ptype">
+                        <label for="<?php echo esc_attr($form_id . '-ptype'); ?>" class="screen-reader-text">Property Type</label>
+                        <select id="<?php echo esc_attr($form_id . '-ptype'); ?>" name="sr_ptype" aria-label="Property Type">
                             <?php
                             // phpcs:ignore WordPress.Security.EscapeOutput
                             echo $default_type_option;
@@ -2145,24 +2207,30 @@ class SimplyRetsRenderer {
 
                 <div class="sr-minmax-filters">
                     <div class="sr-search-field" id="sr-search-minprice">
-                        <input name="sr_minprice" step="1000" min="0" type="number" value="<?php echo esc_attr($minprice); ?>" placeholder="Min Price.." />
+                        <label for="<?php echo esc_attr($form_id . '-minprice'); ?>" class="screen-reader-text">Min Price</label>
+                        <input id="<?php echo esc_attr($form_id . '-minprice'); ?>" name="sr_minprice" step="1000" min="0" type="number" aria-label="Min Price" value="<?php echo esc_attr($minprice); ?>" placeholder="Min Price.." />
                     </div>
                     <div class="sr-search-field" id="sr-search-maxprice">
-                        <input name="sr_maxprice" step="1000" min="0" type="number" value="<?php echo esc_attr($maxprice); ?>" placeholder="Max Price.." />
+                        <label for="<?php echo esc_attr($form_id . '-maxprice'); ?>" class="screen-reader-text">Max Price</label>
+                        <input id="<?php echo esc_attr($form_id . '-maxprice'); ?>" name="sr_maxprice" step="1000" min="0" type="number" aria-label="Max Price" value="<?php echo esc_attr($maxprice); ?>" placeholder="Max Price.." />
                     </div>
 
                     <div class="sr-search-field" id="sr-search-minbeds">
-                        <input name="sr_minbeds" min="0" type="number" value="<?php echo esc_attr($minbeds); ?>" placeholder="Min Beds.." />
+                        <label for="<?php echo esc_attr($form_id . '-minbeds'); ?>" class="screen-reader-text">Min Beds</label>
+                        <input id="<?php echo esc_attr($form_id . '-minbeds'); ?>" name="sr_minbeds" min="0" type="number" aria-label="Min Beds" value="<?php echo esc_attr($minbeds); ?>" placeholder="Min Beds.." />
                     </div>
                     <div class="sr-search-field" id="sr-search-maxbeds">
-                        <input name="sr_maxbeds" min="0" type="number" value="<?php echo esc_attr($maxbeds); ?>" placeholder="Max Beds.." />
+                        <label for="<?php echo esc_attr($form_id . '-maxbeds'); ?>" class="screen-reader-text">Max Beds</label>
+                        <input id="<?php echo esc_attr($form_id . '-maxbeds'); ?>" name="sr_maxbeds" min="0" type="number" aria-label="Max Beds" value="<?php echo esc_attr($maxbeds); ?>" placeholder="Max Beds.." />
                     </div>
 
                     <div class="sr-search-field" id="sr-search-minbaths">
-                        <input name="sr_minbaths" min="0" type="number" value="<?php echo esc_attr($minbaths); ?>" placeholder="Min Baths.." />
+                        <label for="<?php echo esc_attr($form_id . '-minbaths'); ?>" class="screen-reader-text">Min Baths</label>
+                        <input id="<?php echo esc_attr($form_id . '-minbaths'); ?>" name="sr_minbaths" min="0" type="number" aria-label="Min Baths" value="<?php echo esc_attr($minbaths); ?>" placeholder="Min Baths.." />
                     </div>
                     <div class="sr-search-field" id="sr-search-maxbaths">
-                        <input name="sr_maxbaths" min="0" type="number" value="<?php echo esc_attr($maxbaths); ?>" placeholder="Max Baths.." />
+                        <label for="<?php echo esc_attr($form_id . '-maxbaths'); ?>" class="screen-reader-text">Max Baths</label>
+                        <input id="<?php echo esc_attr($form_id . '-maxbaths'); ?>" name="sr_maxbaths" min="0" type="number" aria-label="Max Baths" value="<?php echo esc_attr($maxbaths); ?>" placeholder="Max Baths.." />
                     </div>
                 </div>
 
@@ -2170,8 +2238,8 @@ class SimplyRetsRenderer {
                     <input class="submit button btn" type="submit" value="Search Properties">
 
                     <div class="sr-sort-wrapper">
-                        <label for="sr_sort">Sort by: </label>
-                        <select class="select" name="sr_sort">
+                        <label for="<?php echo esc_attr($form_id . '-sort'); ?>">Sort by: </label>
+                        <select id="<?php echo esc_attr($form_id . '-sort'); ?>" class="select" name="sr_sort">
                             <option value="-modified" <?php echo esc_attr($sort_price_mod); ?>> Recently modified</option>
                             <option value="-listprice" <?php echo esc_attr($sort_price_hl); ?>> Price - High to Low</option>
                             <option value="listprice" <?php echo esc_attr($sort_price_lh); ?>> Price - Low to High</option>
@@ -2215,6 +2283,8 @@ class SimplyRetsRenderer {
 
     public static function renderWidgetSearchForm($vendor, $type_options, $home_url) {
         ob_start();
+        static $form_instance = 0;
+        $form_id = 'sr-widget-search-form-' . ++$form_instance;
     ?>
         <div class="sr-search-widget">
             <form
@@ -2224,14 +2294,18 @@ class SimplyRetsRenderer {
                 <input type="hidden" name="sr-listings" value="sr-search">
 
                 <div class="sr-search-field" id="sr-search-keywords">
+                    <label for="<?php echo esc_attr($form_id . '-keywords'); ?>" class="screen-reader-text">Search keywords</label>
                     <input
+                        id="<?php echo esc_attr($form_id . '-keywords'); ?>"
                         name="sr_keywords"
                         type="text"
+                        aria-label="Search keywords"
                         placeholder="Subdivision, Zipcode, or Keywords" />
                 </div>
 
                 <div class="sr-search-field" id="sr-search-ptype">
-                    <select name="sr_ptype">
+                    <label for="<?php echo esc_attr($form_id . '-ptype'); ?>" class="screen-reader-text">Property Type</label>
+                    <select id="<?php echo esc_attr($form_id . '-ptype'); ?>" name="sr_ptype" aria-label="Property Type">
                         <option value="">Property Type</option>
                         <?php
                         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -2242,24 +2316,30 @@ class SimplyRetsRenderer {
 
                 <div class="sr-search-widget-filters">
                     <div class="sr-search-widget-field" id="sr-search-minprice">
-                        <input name="sr_minprice" step="1000" min="0" type="number" placeholder="Min Price.." />
+                        <label for="<?php echo esc_attr($form_id . '-minprice'); ?>" class="screen-reader-text">Min Price</label>
+                        <input id="<?php echo esc_attr($form_id . '-minprice'); ?>" name="sr_minprice" step="1000" min="0" type="number" aria-label="Min Price" placeholder="Min Price.." />
                     </div>
                     <div class="sr-search-widget-field" id="sr-search-maxprice">
-                        <input name="sr_maxprice" step="1000" min="0" type="number" placeholder="Max Price.." />
+                        <label for="<?php echo esc_attr($form_id . '-maxprice'); ?>" class="screen-reader-text">Max Price</label>
+                        <input id="<?php echo esc_attr($form_id . '-maxprice'); ?>" name="sr_maxprice" step="1000" min="0" type="number" aria-label="Max Price" placeholder="Max Price.." />
                     </div>
 
                     <div class="sr-search-widget-field" id="sr-search-minbeds">
-                        <input name="sr_minbeds" min="0" type="number" placeholder="Min Beds.." />
+                        <label for="<?php echo esc_attr($form_id . '-minbeds'); ?>" class="screen-reader-text">Min Beds</label>
+                        <input id="<?php echo esc_attr($form_id . '-minbeds'); ?>" name="sr_minbeds" min="0" type="number" aria-label="Min Beds" placeholder="Min Beds.." />
                     </div>
                     <div class="sr-search-widget-field" id="sr-search-maxbeds">
-                        <input name="sr_maxbeds" min="0" type="number" placeholder="Max Beds.." />
+                        <label for="<?php echo esc_attr($form_id . '-maxbeds'); ?>" class="screen-reader-text">Max Beds</label>
+                        <input id="<?php echo esc_attr($form_id . '-maxbeds'); ?>" name="sr_maxbeds" min="0" type="number" aria-label="Max Beds" placeholder="Max Beds.." />
                     </div>
 
                     <div class="sr-search-widget-field" id="sr-search-minbaths">
-                        <input name="sr_minbaths" min="0" type="number" placeholder="Min Baths.." />
+                        <label for="<?php echo esc_attr($form_id . '-minbaths'); ?>" class="screen-reader-text">Min Baths</label>
+                        <input id="<?php echo esc_attr($form_id . '-minbaths'); ?>" name="sr_minbaths" min="0" type="number" aria-label="Min Baths" placeholder="Min Baths.." />
                     </div>
                     <div class="sr-search-widget-field" id="sr-search-maxbaths">
-                        <input name="sr_maxbaths" min="0" type="number" placeholder="Max Baths.." />
+                        <label for="<?php echo esc_attr($form_id . '-maxbaths'); ?>" class="screen-reader-text">Max Baths</label>
+                        <input id="<?php echo esc_attr($form_id . '-maxbaths'); ?>" name="sr_maxbaths" min="0" type="number" aria-label="Max Baths" placeholder="Max Baths.." />
                     </div>
                 </div>
                 <input
