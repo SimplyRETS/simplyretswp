@@ -1052,10 +1052,10 @@ class SimplyRetsRenderer {
             $map->setAutoZoom(true);
         }
 
-        $listing_heading_raw = apply_filters('simplyrets_listing_heading_tag', 'h3');
+        $listing_heading_raw = apply_filters('simplyrets_listing_heading_tag', 'h4');
         $listing_heading = tag_escape($listing_heading_raw);
         if (empty($listing_heading)) {
-            $listing_heading = 'h3';
+            $listing_heading = 'h4';
         }
 
         $results_heading_raw = apply_filters('simplyrets_results_heading_tag', 'h2');
@@ -1063,7 +1063,7 @@ class SimplyRetsRenderer {
         if (empty($results_heading)) {
             $results_heading = 'h2';
         }
-        $show_results_heading = apply_filters('simplyrets_show_results_heading', true);
+        $show_results_heading = apply_filters('simplyrets_show_results_heading', false);
         $results_heading_text = apply_filters('simplyrets_results_heading_text', 'Listings');
 
         $resultsMarkup = "";
@@ -1706,10 +1706,10 @@ class SimplyRetsRenderer {
                 }
             }
 
-            $search_heading_raw = apply_filters('simplyrets_search_heading_tag', 'h2');
+            $search_heading_raw = apply_filters('simplyrets_search_heading_tag', 'h3');
             $search_heading = tag_escape($search_heading_raw);
             if (empty($search_heading)) {
-                $search_heading = 'h2';
+                $search_heading = 'h3';
             }
 
             $search_form =
@@ -1981,10 +1981,10 @@ class SimplyRetsRenderer {
         $q_placeholder = "Subdivision, Zipcode, "
             . $MLS_text . " area, " . $MLS_text . " #, etc";
 
-        $search_heading_raw = apply_filters('simplyrets_search_heading_tag', 'h2');
+        $search_heading_raw = apply_filters('simplyrets_search_heading_tag', 'h3');
         $search_heading = tag_escape($search_heading_raw);
         if (empty($search_heading)) {
-            $search_heading = 'h2';
+            $search_heading = 'h3';
         }
 
         if (array_key_exists('advanced', $attributes) && ($attributes['advanced'] == 'true' || $attributes['advanced'] == 'True')) {

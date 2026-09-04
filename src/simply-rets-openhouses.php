@@ -110,7 +110,7 @@ class SimplyRetsOpenHouses {
             if (empty($results_heading)) {
                 $results_heading = 'h2';
             }
-            $show_results_heading = apply_filters('simplyrets_show_results_heading', true);
+            $show_results_heading = apply_filters('simplyrets_show_results_heading', false);
             $results_heading_text = apply_filters('simplyrets_openhouses_heading_text', 'Open Houses');
 
             if ($show_results_heading && !empty($res)) {
@@ -203,10 +203,10 @@ class SimplyRetsOpenHouses {
 
         $sqft = !empty($living_area) ? "<strong>SqFt: </strong>{$living_area} sqft<br/>" : "";
 
-        $listing_heading_raw = apply_filters('simplyrets_listing_heading_tag', 'h3');
+        $listing_heading_raw = apply_filters('simplyrets_listing_heading_tag', 'h4');
         $listing_heading = tag_escape($listing_heading_raw);
         if (empty($listing_heading)) {
-            $listing_heading = 'h3';
+            $listing_heading = 'h4';
         }
 
         ob_start();
