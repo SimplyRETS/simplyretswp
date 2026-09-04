@@ -133,6 +133,18 @@ var normalizeListingPhotoUrl = function (url) {
     }
 }
 
+var escapeHtml = function (value) {
+    return String(value).replace(/[&<>"']/g, function (character) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        }[character];
+    });
+}
+
 
 var genMarkerPopup = function (
     listing,
@@ -155,7 +167,7 @@ var genMarkerPopup = function (
     var sqft = listing.property.area || "n/a";
     var mlnum = listing.listingId || "n/a";
     var price = listing.listPrice || "Unknown";
-    var addr = listing.address.full || "Unknown";
+    var addr = escapeHtml(listing.address.full || "Unknown");
     var photo = listing.photos.length > 1
         ? normalizeListingPhotoUrl(listing.photos[0])
         : 'https://s3-us-west-2.amazonaws.com/simplyrets/trial/properties/defprop.jpg';
