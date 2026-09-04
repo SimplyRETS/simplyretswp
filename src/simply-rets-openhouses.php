@@ -105,6 +105,18 @@ class SimplyRetsOpenHouses {
             return SrMessages::noResultsMsg($res);
         } else {
 
+            $results_heading_raw = apply_filters('simplyrets_results_heading_tag', 'h2');
+            $results_heading = tag_escape($results_heading_raw);
+            if (empty($results_heading)) {
+                $results_heading = 'h2';
+            }
+            $show_results_heading = apply_filters('simplyrets_show_results_heading', true);
+            $results_heading_text = apply_filters('simplyrets_openhouses_heading_text', 'Open Houses');
+
+            if ($show_results_heading && !empty($res)) {
+                $markup .= "<{$results_heading} class='sr-listings-heading screen-reader-text'>" . esc_html($results_heading_text) . "</{$results_heading}>";
+            }
+
             // Generate markup for each open house result
             foreach ($res as $idx => $oh) {
                 $markup .= SimplyRetsOpenHouses::openHouseSearchResultMarkup(
@@ -191,6 +203,12 @@ class SimplyRetsOpenHouses {
 
         $sqft = !empty($living_area) ? "<strong>SqFt: </strong>{$living_area} sqft<br/>" : "";
 
+        $listing_heading_raw = apply_filters('simplyrets_listing_heading_tag', 'h3');
+        $listing_heading = tag_escape($listing_heading_raw);
+        if (empty($listing_heading)) {
+            $listing_heading = 'h3';
+        }
+
         ob_start();
 ?>
         <hr>
@@ -207,12 +225,12 @@ class SimplyRetsOpenHouses {
             <div class="sr-listing-data-wrapper">
                 <div class="sr-primary-data">
                     <a href="<?php echo esc_url($details_link); ?>">
-                        <h4>
+                        <<?php echo $listing_heading; ?> class="sr-listing-address">
                             <?php echo esc_html($full_address); ?>
                             <small class="sr-price">
                                 <i> - <?php echo esc_html($list_price_fmtd); ?></i>
                             </small>
-                        </h4>
+                        </<?php echo $listing_heading; ?>>
                     </a>
                 </div>
                 <div class="sr-secondary-data">
@@ -231,7 +249,7 @@ class SimplyRetsOpenHouses {
             <div class="more-details-wrapper">
                 <span style="visibility:hidden">clearfix</span>
                 <span class="more-details-link" style="float:right">
-                    <a href="<?php echo esc_url($details_link); ?>">More details</a>
+                    <a href="<?php echo esc_url($details_link); ?>" aria-label="<?php echo esc_attr('More details for ' . $full_address); ?>">More details<span class="screen-reader-text"> <?php echo esc_html('for ' . $full_address); ?></span></a>
                 </span>
                 <span class="result-compliance-markup">
                     <?php echo wp_kses_post($compliance_markup); ?>

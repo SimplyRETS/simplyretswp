@@ -36,6 +36,24 @@ sizes with this class.
 ```
 
 */
+/*
+Accessibility: Text meant only for screen readers.
+Matches the standard WordPress screen-reader-text class.
+*/
+.screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal !important;
+}
+
 .sr-listing {
     position: relative;
     display: block;
@@ -187,6 +205,8 @@ div#sr-contact-form-error {
     background-color: #eee;
 }
 
+.sr-primary-data h2,
+.sr-primary-data h3,
 .sr-primary-data h4 {
     padding-left: 15px;
     margin-top: 10px !important;
@@ -615,6 +635,7 @@ Most of these elements also have id's for you to use specifically.
     clear: both;
 }
 
+#sr-search-wrapper h2,
 #sr-search-wrapper h3 {
     margin-top: 0px;
 }
@@ -938,6 +959,8 @@ elsewhere, this should be a breeze.
         clear: both;
     }
 
+    .sr-primary-data h2,
+    .sr-primary-data h3,
     .sr-primary-data h4 {
         padding-right: 15px;
     }

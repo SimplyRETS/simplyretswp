@@ -194,7 +194,7 @@ var genMarkerPopup = function (
         '  </div>' +
         '  <hr>' +
         '  <div class="sr-iw-inner__view-details">' +
-        '    <a class="sr-iw-inner__details-link" href="' + link + '">View Details</a>' +
+        '    <a class="sr-iw-inner__details-link" href="' + link + '" aria-label="View details for ' + addr + '">View Details<span class="screen-reader-text"> for ' + addr + '</span></a>' +
         '  </div>' +
         '</div>';
 
