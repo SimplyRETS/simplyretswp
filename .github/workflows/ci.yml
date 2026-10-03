@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          tools: composer:v2
+
+      - name: Validate Composer files
+        working-directory: src
+        run: composer validate --no-check-publish
+
+      - name: Lint PHP
+        run: git ls-files -z '*.php' | xargs -0 -n1 php -l
+
+      - name: Validate Docker Compose configuration
+        run: docker compose config --quiet
+
+  php-syntax:
+    name: PHP ${{ matrix.php }} syntax
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ["7.4", "8.1"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Lint PHP
+        run: git ls-files -z '*.php' | xargs -0 -n1 php -l
+
+  wordpress-tests:
+    name: WordPress ${{ matrix.wordpress }} tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        wordpress: ["6.7", "latest"]
+    services:
+      mariadb:
+        image: mariadb:10.11
+        env:
+          MYSQL_DATABASE: wordpress_test
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          extensions: mysqli
+          tools: composer:v2, phpunit:9.6
+
+      - name: Install Composer dependencies
+        working-directory: src
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Install WordPress test library
+        working-directory: src
+        run: bash tests/install-wp-tests.sh wordpress_test root root 127.0.0.1 ${{ matrix.wordpress }} true
+
+      - name: Run tests
+        working-directory: src
+        run: phpunit

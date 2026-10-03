@@ -164,8 +164,9 @@ class SrSearchMap {
             <div class="sr-iw-inner__view-details">
                 <a
                     href="<?php echo esc_url($link); ?>"
-                    class='sr-iw-inner__details-link'>
-                    View Details
+                    class='sr-iw-inner__details-link'
+                    aria-label="<?php echo esc_attr('View details for ' . $address); ?>">
+                    View Details<span class="screen-reader-text"> <?php echo esc_html('for ' . $address); ?></span>
                 </a>
             </div>
         </div>
