@@ -603,7 +603,7 @@ class SrMessages {
         if (array_key_exists("message", $response)) {
             return (
                 '<br><p><strong>'
-                . $response['message']
+                . esc_html($response['message'])
                 . '</br></p></strong>'
             );
         }
