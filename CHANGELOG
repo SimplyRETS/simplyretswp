@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.3.0
+
+* FIX: Escape API error messages to prevent reflected cross-site scripting on listing pages
+
 ## 3.2.9
 
 * FIX: Improve santization of unescaped attributes
