@@ -263,7 +263,10 @@ class SrAdminSettings {
                                     <strong>API Key</strong>
                                 </td>
                                 <td>
-                                    <input type="password" aria-label="API Key" name="sr_api_name" autocomplete="off" value="<?php echo esc_attr(get_option('sr_api_name')); ?>" />
+                                    <div class="sr-credential-input">
+                                        <input type="password" id="sr_api_name" aria-label="API Key" name="sr_api_name" autocomplete="off" value="<?php echo esc_attr(get_option('sr_api_name')); ?>" />
+                                        <button type="button" class="sr-reveal-credentials" aria-label="Show API Key" title="Show API Key" aria-controls="sr_api_name" aria-pressed="false" hidden><span class="dashicons dashicons-visibility" aria-hidden="true"></span></button>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -271,12 +274,14 @@ class SrAdminSettings {
                                     <strong>API Secret</strong>
                                 </td>
                                 <td>
-                                    <input type="password" aria-label="API Secret" name="sr_api_key" autocomplete="off" value="<?php echo esc_attr(get_option('sr_api_key')); ?>" />
+                                    <div class="sr-credential-input">
+                                        <input type="password" id="sr_api_key" aria-label="API Secret" name="sr_api_key" autocomplete="off" value="<?php echo esc_attr(get_option('sr_api_key')); ?>" />
+                                        <button type="button" class="sr-reveal-credentials" aria-label="Show API Secret" title="Show API Secret" aria-controls="sr_api_key" aria-pressed="false" hidden><span class="dashicons dashicons-visibility" aria-hidden="true"></span></button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" class="button sr-reveal-credentials" aria-pressed="false" hidden>Show credentials</button>
                     <p class="sr-demo-note">
                     <span>
                         <i>Note - to use the SimplyRETS demo data, you can use these API credentials: </i>
@@ -732,7 +737,7 @@ class SrAdminSettings {
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td>
+                                        <td colspan="2">
                                             <label>
                                                 <?php echo
                                                 '<input type="radio" id="sr_search_map_position" name="sr_search_map_position" value="list_only" '
@@ -743,7 +748,7 @@ class SrAdminSettings {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td colspan="2">
                                             <label>
                                                 <?php echo
                                                 '<input type="radio" id="sr_search_map_position" name="sr_search_map_position" value="map_only" '
@@ -754,7 +759,7 @@ class SrAdminSettings {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td colspan="2">
                                             <label>
                                                 <?php echo
                                                 '<input type="radio" id="sr_search_map_position" name="sr_search_map_position" value="map_above" '
@@ -765,7 +770,7 @@ class SrAdminSettings {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td colspan="2">
                                             <label>
                                                 <?php echo
                                                 '<input type="radio" id="sr_search_map_position" name="sr_search_map_position" value="map_below" '

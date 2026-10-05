@@ -134,8 +134,11 @@ jQuery(function($) {
 
   root.find('.sr-reveal-credentials').on('click', function() {
     var reveal = $(this).attr('aria-pressed') !== 'true';
-    form.find('[name="sr_api_name"], [name="sr_api_key"]').attr('type', reveal ? 'text' : 'password');
-    $(this).attr('aria-pressed', reveal ? 'true' : 'false').text(reveal ? 'Hide credentials' : 'Show credentials');
+    var input = $(this).closest('.sr-credential-input').find('input');
+    input.attr('type', reveal ? 'text' : 'password');
+    var label = (reveal ? 'Hide ' : 'Show ') + input.attr('aria-label');
+    $(this).attr({ 'aria-pressed': reveal ? 'true' : 'false', 'aria-label': label, title: label });
+    $(this).find('.dashicons').toggleClass('dashicons-visibility', !reveal).toggleClass('dashicons-hidden', reveal);
   });
 
   // Give legacy text fields accessible names without replacing existing IDs.
