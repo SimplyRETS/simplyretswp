@@ -108,8 +108,8 @@
 .sr-admin-wrap .sr-settings-panel textarea { padding: 12px; font-family: monospace; }
 .sr-admin-wrap .sr-settings-panel small { font-size: 12px; color: #64717b; }
 .sr-admin-wrap .sr-demo-note { padding: 14px 16px; background: #f1f6f5; border-radius: 5px; color: #52666a; }
-.sr-admin-wrap .sr-demo-note span { line-height: 1.8; }
-.sr-admin-wrap .sr-demo-note i { display: block; font-style: normal; }
+.sr-admin-wrap .sr-demo-note > span { display: block; line-height: 1.8; }
+.sr-admin-wrap .sr-demo-note > span + span { margin-top: 10px; }
 .sr-admin-wrap .sr-credential-input { position: relative; width: 100%; max-width: 540px; }
 .sr-admin-wrap .sr-credential-input input { padding-right: 44px; box-sizing: border-box; }
 .sr-admin-wrap .sr-reveal-credentials { position: absolute; right: 1px; top: 1px; bottom: 1px; width: 38px; padding: 0; border: 0; border-radius: 0 4px 4px 0; background: transparent; color: #52666a; cursor: pointer; display: flex; align-items: center; justify-content: center; }
