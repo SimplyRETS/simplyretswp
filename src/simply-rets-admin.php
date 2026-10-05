@@ -281,11 +281,8 @@ class SrAdminSettings {
                         </tbody>
                     </table>
                     <p class="sr-demo-note">
-                    <span>
-                        <i>Note - to use the SimplyRETS demo data, you can use these API credentials: </i>
-                        <strong>API Key: </strong><span>simplyrets</span>
-                        <strong>API Secret: </strong><span>simplyrets</span>
-                    </span>
+                        <span>Completely free demo data is built in. Use the default API Key and API Secret: <code>simplyrets</code> / <code>simplyrets</code>.</span>
+                        <span>Ready for <strong>live data from your MLS</strong>? <a href="https://simplyrets.com/#home-contact" target="_blank" rel="noopener noreferrer">Reach out to our team<span class="screen-reader-text"> (opens in a new tab)</span></a> and we’ll help you get connected!</span>
                     </p>
                 </div>
                         <div class="sr-admin-settings sr-settings-panel" id="sr-section-listings" data-sr-panel="listings">
