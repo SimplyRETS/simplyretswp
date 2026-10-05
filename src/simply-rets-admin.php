@@ -193,7 +193,7 @@ class SrAdminSettings {
             ?>
             <div class="sr-settings-header">
             <img alt="" class="sr-admin-logo" src="<?php echo esc_url($logo_path); ?>">
-            <h1 class="sr-admin-title">SimplyRETS Admin Settings</h1>
+            <h1 class="sr-admin-title">SimplyRETS IDX Plugin - Admin Settings</h1>
             <p class="sr-settings-intro">Make your listings feel at home. Manage your connection, display preferences, and MLS requirements.</p>
             </div>
             <div class="sr-doc-links">
