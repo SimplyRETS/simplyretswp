@@ -181,9 +181,7 @@ class SrAdminSettings {
         if (isset($_POST['sr_update_meta'])) {
             if (isset($_POST[$update_meta_nonce_field]) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST[$update_meta_nonce_field])), $update_meta_nonce_action)) {
                 echo '<div id="setting-error-settings_updated" class="updated settings-error notice is-dismissible">' .
-                    '<p><strong>Meta Data Updated!</strong></p>' .
-                    '<button type="button" class="notice-dismiss">' .
-                    '<span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+                    '<p><strong>Meta Data Updated!</strong></p></div>';
                 SimplyRetsApiClient::srUpdateAdvSearchOptions();
             }
         }
