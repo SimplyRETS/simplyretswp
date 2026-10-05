@@ -110,7 +110,11 @@
 .sr-admin-wrap .sr-demo-note { padding: 14px 16px; background: #f1f6f5; border-radius: 5px; color: #52666a; }
 .sr-admin-wrap .sr-demo-note span { line-height: 1.8; }
 .sr-admin-wrap .sr-demo-note i { display: block; font-style: normal; }
-.sr-admin-wrap .sr-reveal-credentials { margin: 8px 0; }
+.sr-admin-wrap .sr-credential-input { position: relative; width: 100%; max-width: 540px; }
+.sr-admin-wrap .sr-credential-input input { padding-right: 44px; box-sizing: border-box; }
+.sr-admin-wrap .sr-reveal-credentials { position: absolute; right: 1px; top: 1px; bottom: 1px; width: 38px; padding: 0; border: 0; border-radius: 0 4px 4px 0; background: transparent; color: #52666a; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.sr-admin-wrap .sr-reveal-credentials:hover { color: #075c55; background: #e1efec; }
+.sr-admin-wrap .sr-reveal-credentials:focus { outline: 2px solid #08776e; outline-offset: -2px; }
 .sr-admin-wrap .sr-settings-savebar { display: flex; justify-content: space-between; align-items: center; gap: 16px; position: sticky; bottom: 0; z-index: 5; padding: 16px 22px; border: 1px solid #dce2e5; border-radius: 8px; background: #fff; box-shadow: 0 -3px 16px rgba(24, 46, 54, .06); }
 .sr-admin-wrap .sr-settings-savebar strong { display: block; font-size: 13px; }
 .sr-admin-wrap .sr-settings-savebar span { display: block; font-size: 12px; margin-top: 3px; color: #647780; }
@@ -136,6 +140,8 @@
     .sr-admin-wrap .sr-settings-panel td { display: block; width: auto; padding: 8px 0; }
     .sr-admin-wrap .sr-settings-panel td + td { width: auto; padding-left: 0; }
     .sr-admin-wrap .sr-settings-panel td > div[style] { max-width: none !important; }
+    .sr-admin-wrap .sr-credential-input input { min-height: 46px; padding-right: 48px; }
+    .sr-admin-wrap .sr-reveal-credentials { width: 44px; }
     .sr-admin-wrap .sr-settings-panel textarea { max-width: 100%; box-sizing: border-box; }
     .sr-admin-wrap #sr_leadcapture_custom_form { margin-left: 0 !important; }
     .sr-admin-wrap .sr-settings-savebar { padding: 12px; gap: 8px; border-radius: 6px; }
