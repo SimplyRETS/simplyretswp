@@ -96,7 +96,7 @@ class SimplyRetsCustomPostPages {
             'simply-rets-admin-js',
             plugins_url('assets/js/simply-rets-admin.js', __FILE__),
             array('jquery'),
-            SIMPLYRETSWP_VERSION,
+            SIMPLYRETSWP_VERSION . '.' . filemtime(__DIR__ . '/assets/js/simply-rets-admin.js'),
             array("in_footer" => false)
         );
         wp_enqueue_script('simply-rets-admin-js');
@@ -107,7 +107,7 @@ class SimplyRetsCustomPostPages {
             'simply-rets-admin-css',
             plugins_url('assets/css/simply-rets-admin.css', __FILE__),
             array(),
-            SIMPLYRETSWP_VERSION
+            SIMPLYRETSWP_VERSION . '.' . filemtime(__DIR__ . '/assets/css/simply-rets-admin.css')
         );
         wp_enqueue_style('simply-rets-admin-css');
     }

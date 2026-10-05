@@ -162,8 +162,18 @@ class SrAdminSettings {
     }
 
     public static function sr_admin_page() {
-        global $wpdb;
         $logo_path = plugin_dir_url(__FILE__) . 'assets/img/logo_button.png';
+
+        $sections = array(
+            'account' => array('Account', 'API credentials', 'admin-network'),
+            'listings' => array('Listing pages', 'Contact forms & display', 'admin-home'),
+            'maps' => array('Maps', 'Search layout & API key', 'location-alt'),
+            'compliance' => array('MLS compliance', 'Attribution & IDX rules', 'shield'),
+            'open-houses' => array('Open houses', 'Dates & timezone', 'calendar-alt'),
+            'permalinks' => array('Permalinks', 'Listing URLs', 'admin-links'),
+            'analytics' => array('Analytics', 'ListHub tracking', 'chart-bar'),
+            'messages' => array('Custom messages', 'Disclaimers & empty results', 'editor-alignleft')
+        );
 
         // If meta data refresh action was posted, verify nonce and perform action
         $update_meta_nonce_field = 'sr_update_meta_data_nonce_field';
@@ -183,8 +193,11 @@ class SrAdminSettings {
             <h2 id="message"></h2>
             <?php // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage 
             ?>
-            <img class="sr-admin-logo" src="<?php echo esc_url($logo_path); ?>">
+            <div class="sr-settings-header">
+            <img alt="" class="sr-admin-logo" src="<?php echo esc_url($logo_path); ?>">
             <h1 class="sr-admin-title">SimplyRETS Admin Settings</h1>
+            <p class="sr-settings-intro">Make your listings feel at home. Manage your connection, display preferences, and MLS requirements.</p>
+            </div>
             <div class="sr-doc-links">
                 <p>
                     <a target="_blank" href="http://simplyrets.com">
@@ -199,6 +212,8 @@ class SrAdminSettings {
                     <a target="_blank" href="https://simplyrets.com/account">
                         Support Request
                     </a>
+                </p>
+                <div class="sr-settings-tools">
                 <form method="post" action="options-general.php?page=simplyrets-admin.php" style="display:inline-block;">
                     <?php
                     wp_nonce_field($update_meta_nonce_action, $update_meta_nonce_field);
@@ -211,13 +226,32 @@ class SrAdminSettings {
                     submit_button("Create Demo Page", "submit", "sr_create_demo_page", 0);
                     ?>
                 </form>
-                </p>
+                </div>
             </div>
-            <hr>
-            <form method="post" action="options.php">
+            <div class="sr-settings-toolbar" hidden>
+                <label for="sr-settings-search">Find a setting</label>
+                <div class="sr-settings-search-box">
+                    <span class="dashicons dashicons-search" aria-hidden="true"></span>
+                    <input id="sr-settings-search" type="search" placeholder="Try “gallery”, “IDX”, or “timezone”" aria-controls="sr-settings-form" />
+                    <button type="button" class="button sr-clear-search" hidden>Clear search</button>
+                </div>
+                <p class="sr-search-status" role="status" aria-live="polite"></p>
+            </div>
+            <div class="sr-settings-layout">
+                <nav class="sr-settings-nav" aria-label="Settings sections" hidden>
+                    <p class="sr-nav-heading">SETTINGS</p>
+                    <?php foreach ($sections as $section_id => $section) { ?>
+                        <a href="#sr-section-<?php echo esc_attr($section_id); ?>" data-sr-section="<?php echo esc_attr($section_id); ?>">
+                            <span class="dashicons dashicons-<?php echo esc_attr($section[2]); ?>" aria-hidden="true"></span>
+                            <span><strong><?php echo esc_html($section[0]); ?></strong><small><?php echo esc_html($section[1]); ?></small></span>
+                        </a>
+                    <?php } ?>
+                    <a href="#sr-settings-form" data-sr-section="all"><span class="dashicons dashicons-menu" aria-hidden="true"></span><span><strong>All settings</strong><small>View everything together</small></span></a>
+                </nav>
+            <form id="sr-settings-form" class="sr-settings-form" method="post" action="options.php">
                 <?php settings_fields('sr_admin_settings'); ?>
                 <?php do_settings_sections('sr_admin_settings'); ?>
-                <div class="sr-admin-api">
+                <div class="sr-admin-api sr-settings-panel" id="sr-section-account" data-sr-panel="account">
                     <h2>Account Credentials</h2>
                     <p>
                         Enter your SimplyRETS API credentials in the fields below.
@@ -229,7 +263,7 @@ class SrAdminSettings {
                                     <strong>API Key</strong>
                                 </td>
                                 <td>
-                                    <input type="text" name="sr_api_name" value="<?php echo esc_attr(get_option('sr_api_name')); ?>" />
+                                    <input type="password" aria-label="API Key" name="sr_api_name" autocomplete="off" value="<?php echo esc_attr(get_option('sr_api_name')); ?>" />
                                 </td>
                             </tr>
                             <tr>
@@ -237,22 +271,21 @@ class SrAdminSettings {
                                     <strong>API Secret</strong>
                                 </td>
                                 <td>
-                                    <input type="text" name="sr_api_key" value="<?php echo esc_attr(get_option('sr_api_key')); ?>" />
+                                    <input type="password" aria-label="API Secret" name="sr_api_key" autocomplete="off" value="<?php echo esc_attr(get_option('sr_api_key')); ?>" />
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <div style="margin-top: 15px;">
+                    <button type="button" class="button sr-reveal-credentials" aria-pressed="false" hidden>Show credentials</button>
+                    <p class="sr-demo-note">
                     <span>
                         <i>Note - to use the SimplyRETS demo data, you can use these API credentials: </i>
                         <strong>API Key: </strong><span>simplyrets</span>
                         <strong>API Secret: </strong><span>simplyrets</span>
                     </span>
-                    <div>
-                        <?php submit_button(); ?>
-                        <hr>
-                        <div class="sr-admin-settings">
+                    </p>
+                </div>
+                        <div class="sr-admin-settings sr-settings-panel" id="sr-section-listings" data-sr-panel="listings">
                             <h2>Single Listing Page Settings</h2>
                             <h3>Contact Form Lead Capture</h3>
                             <table>
@@ -270,7 +303,7 @@ class SrAdminSettings {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p><strong>Send Lead Capture forms submissions to:<p></strong>
+                                            <p><strong>Send Lead Capture forms submissions to:</strong></p>
                                                 <input
                                                     type="email"
                                                     name="sr_leadcapture_recipient"
@@ -446,10 +479,8 @@ class SrAdminSettings {
                                 </tbody>
                             </table>
                         </div>
-                        <?php submit_button(); ?>
-                        <hr>
 
-                        <div class="sr-admin-open-house-settings">
+                        <div class="sr-admin-open-house-settings sr-settings-panel" id="sr-section-open-houses" data-sr-panel="open-houses">
                             <h2>Open house settings</h2>
                             <h3 style="margin-bottom:5px;">
                                 Default timezone
@@ -482,10 +513,8 @@ class SrAdminSettings {
                                 timestamps, select "None".
                             </p>
                         </div>
-                        <?php submit_button(); ?>
-                        <hr>
 
-                        <div class="sr-admin-settings">
+                        <div class="sr-admin-settings sr-settings-panel" id="sr-section-compliance" data-sr-panel="compliance">
                             <h2>Listing Compliance Settings</h2>
                             <h3>Show listing agent and office information</h3>
                             <table>
@@ -652,9 +681,7 @@ class SrAdminSettings {
                                 </tbody>
                             </table>
                         </div>
-                        <?php submit_button(); ?>
-                        <hr>
-                        <div class="sr-admin-settings-permalinks">
+                        <div class="sr-admin-settings-permalinks sr-settings-panel" id="sr-section-permalinks" data-sr-panel="permalinks">
                             <h2>Permalink Structure</h2>
                             <p>
                                 If you're using Wordpress' pretty permalinks, we have
@@ -681,7 +708,7 @@ class SrAdminSettings {
                                                 '<input type="radio" id="sr_permalink_structure" name="sr_permalink_structure" value="pretty_extra" '
                                                     . checked('pretty_extra', get_option('sr_permalink_structure'), false) . '/>'
                                                 ?>
-                                                Pretty Links Extra <i>(Ex: "/listings/{city}/{state}/{zip}/{address}/{id}
+                                                Pretty Links Extra <i>(Ex: "/listings/{city}/{state}/{zip}/{address}/{id}")</i>
                                             </label>
                                         </td>
                                     </tr>
@@ -699,9 +726,7 @@ class SrAdminSettings {
                                 </tbody>
                             </table>
                         </div>
-                        <?php submit_button(); ?>
-                        <hr>
-                        <div class="sr-admin-settings-map">
+                        <div class="sr-admin-settings-map sr-settings-panel" id="sr-section-maps" data-sr-panel="maps">
                             <h2>Map Settings</h2>
                             <p>On pages with multiple results, how would you like to show the map and list views?</p>
                             <table>
@@ -764,9 +789,7 @@ class SrAdminSettings {
                                 </tbody>
                             </table>
                         </div>
-                        <?php submit_button(); ?>
-                        <hr>
-                        <div class="sr-admin-settings-lh">
+                        <div class="sr-admin-settings-lh sr-settings-panel" id="sr-section-analytics" data-sr-panel="analytics">
                             <h2>Listhub Analytics Settings</h2>
                             <table>
                                 <tbody>
@@ -803,8 +826,8 @@ class SrAdminSettings {
                                 </tbody>
                             </table>
                         </div>
-                        <?php submit_button(); ?>
-                        <div>
+                        <div class="sr-settings-panel" id="sr-section-messages" data-sr-panel="messages">
+                            <h2>Custom messages</h2>
                             <h3>Custom disclaimer</h3>
                             <p>Custom disclaimer to be shown with all short-codes</p>
                             <textarea
@@ -821,11 +844,8 @@ class SrAdminSettings {
                                     - You can use HTML or plain text.
                                 </li>
                             </ul>
-                        </div>
-                        <?php submit_button(); ?>
-                        <div>
                             <h3>No search results message</h3>
-                            <p>The messasge shown when a search doesn't return results.</p>
+                            <p>The message shown when a search doesn't return results.</p>
                             <textarea
                                 id="sr_custom_no_results_message"
                                 name="sr_custom_no_results_message"
@@ -838,36 +858,15 @@ class SrAdminSettings {
                                     try again later.
                                 </i>
                             </div>
-                            <?php submit_button(); ?>
                         </div>
+                <div class="sr-settings-empty" hidden><h2>No matching settings</h2><p>Try a different keyword, or clear the search to browse all sections.</p></div>
+                <div class="sr-settings-savebar">
+                    <div class="sr-settings-savebar-info" hidden><strong class="sr-save-status" role="status" aria-live="polite">No unsaved changes</strong><span>Save applies to all sections.</span></div>
+                    <?php submit_button('Save Changes', 'primary large', 'submit', false); ?>
+                </div>
             </form>
+            </div>
         </div>
-        <script type="text/javascript">
-            document.addEventListener('DOMContentLoaded', function() {
-                // Get the elements
-                const toggleCheckbox = document.getElementById('sr_enable_custom_lead_form_toggle');
-                const customFormRow = document.getElementById('sr_custom_lead_form_row');
-                const customFormTextarea = document.getElementById('sr_leadcapture_custom_form');
-
-                // Ensure all elements exist before adding listener
-                if (toggleCheckbox && customFormRow && customFormTextarea) {
-
-                    toggleCheckbox.addEventListener('change', function() {
-                        if (this.checked) {
-                            // Show the textarea row
-                            customFormRow.style.display = ''; // Defaults to 'table-row'
-                            // Enable the textarea so it gets saved
-                            customFormTextarea.disabled = false;
-                        } else {
-                            // Hide the textarea row
-                            customFormRow.style.display = 'none';
-                            // Disable the textarea so it is not submitted
-                            customFormTextarea.disabled = true;
-                        }
-                    });
-                }
-            });
-        </script>
 <?php
     }
 } ?>

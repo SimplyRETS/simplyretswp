@@ -16,10 +16,9 @@
 
 .sr-admin-wrap .sr-admin-logo {
     display: inline-block;
-    max-height: 50px;
-    margin-bottom: 5px;
-    margin-right: 5px;
     vertical-align: bottom;
+    max-height: 42px;
+    margin: 0 12px 5px 0;
 }
 
 .sr-admin-wrap .sr-admin-title {
@@ -29,6 +28,9 @@
     line-height: 50px;
     margin-top: 0px;
     margin-bottom: 5px;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -.5px;
 }
 
 .sr-admin-msg-btn {
@@ -45,3 +47,100 @@
     display: inline-block;
 
 }
+/* Settings styles stay inside the plugin admin page. */
+.sr-admin-wrap {
+    max-width: 1180px;
+    color: #25343c;
+    padding-bottom: 24px;
+}
+.sr-admin-wrap [hidden] { display: none !important; }
+.sr-admin-wrap .sr-settings-header { margin: 26px 0 18px; }
+.sr-admin-wrap .sr-settings-intro { margin: 6px 0 0; color: #596971; font-size: 14px; }
+.sr-admin-wrap .sr-doc-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #dce2e5;
+    margin-bottom: 22px;
+}
+.sr-admin-wrap .sr-doc-links p { margin: 0; color: #c2cccf; }
+.sr-admin-wrap a { color: #096c65; }
+.sr-admin-wrap .sr-doc-links a { margin-right: 6px; text-decoration: none; }
+.sr-admin-wrap .sr-doc-links a:hover { text-decoration: underline; }
+.sr-admin-wrap .sr-settings-tools { display: flex; flex-wrap: wrap; gap: 8px; }
+.sr-admin-wrap .sr-settings-tools .button { margin: 0; }
+.sr-admin-wrap .sr-settings-toolbar { margin: 0 0 24px; max-width: 620px; }
+.sr-admin-wrap .sr-settings-toolbar > label { display: block; font-weight: 600; margin-bottom: 8px; }
+.sr-admin-wrap .sr-settings-search-box { display: flex; align-items: center; gap: 8px; }
+.sr-admin-wrap .sr-settings-search-box .dashicons { position: absolute; margin-left: 12px; color: #73838a; pointer-events: none; }
+.sr-admin-wrap #sr-settings-search { width: 100%; min-height: 42px; padding-left: 40px; border-color: #b9c6cc; border-radius: 6px; }
+.sr-admin-wrap .sr-clear-search { flex-shrink: 0; }
+.sr-admin-wrap .sr-search-status { margin: 8px 0 0; color: #596971; }
+.sr-admin-wrap .sr-search-status:empty { display: none; }
+.sr-admin-wrap.sr-settings-enhanced .sr-settings-layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 24px; align-items: start; }
+.sr-admin-wrap .sr-settings-nav { position: sticky; top: 52px; }
+.sr-admin-wrap .sr-nav-heading { padding-left: 14px; margin: 0 0 10px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: #728087; }
+.sr-admin-wrap .sr-settings-nav a { display: flex; align-items: center; gap: 12px; padding: 12px 14px; margin-bottom: 4px; border-radius: 6px; text-decoration: none; color: #43545d; border: 1px solid transparent; }
+.sr-admin-wrap .sr-settings-nav a strong { display: block; font-size: 13px; font-weight: 600; }
+.sr-admin-wrap .sr-settings-nav a small { display: block; font-size: 11px; margin-top: 3px; color: #647780; }
+.sr-admin-wrap .sr-settings-nav a:hover { background: #e7edee; }
+.sr-admin-wrap .sr-settings-nav a[aria-current] { background: #e1efec; color: #075c55; border-color: #bfd9d2; }
+.sr-admin-wrap .sr-settings-nav a:last-child { border-top: 1px solid #dce2e5; border-radius: 0; margin-top: 16px; padding-top: 18px; }
+.sr-admin-wrap .sr-settings-form { min-width: 0; }
+.sr-admin-wrap .sr-settings-panel, .sr-admin-wrap .sr-settings-empty { background: #fff; border: 1px solid #dce2e5; border-radius: 8px; padding: 28px 30px; margin: 0 0 20px; box-shadow: 0 2px 4px rgba(24, 46, 54, .03); }
+.sr-admin-wrap .sr-settings-panel > h2 { margin: 0 0 10px; font-size: 21px; line-height: 1.4; letter-spacing: -.3px; }
+.sr-admin-wrap .sr-settings-panel h3 { font-size: 14px; margin: 26px 0 12px; padding-top: 22px; border-top: 1px solid #edf0f2; }
+.sr-admin-wrap .sr-settings-panel > h2 + h3 { padding-top: 14px; margin-top: 14px; }
+.sr-admin-wrap .sr-settings-panel p, .sr-admin-wrap .sr-settings-panel li { line-height: 1.7; }
+.sr-admin-wrap .sr-settings-panel table { width: 100%; border-collapse: collapse; }
+.sr-admin-wrap .sr-settings-panel td { padding: 10px 0; vertical-align: top; line-height: 1.65; }
+.sr-admin-wrap .sr-settings-panel td + td { padding-left: 18px; width: 55%; }
+.sr-admin-wrap .sr-settings-panel label { display: block; cursor: pointer; }
+.sr-admin-wrap .sr-settings-panel input[type="checkbox"], .sr-admin-wrap .sr-settings-panel input[type="radio"] { margin-top: 2px; }
+.sr-admin-wrap .sr-settings-panel input[type="text"],
+.sr-admin-wrap .sr-settings-panel input[type="password"],
+.sr-admin-wrap .sr-settings-panel input[type="email"],
+.sr-admin-wrap .sr-settings-panel select,
+.sr-admin-wrap .sr-settings-panel textarea { width: 100%; max-width: 540px; min-height: 38px; border-color: #b9c6cc; border-radius: 5px; }
+.sr-admin-wrap .sr-settings-panel textarea { padding: 12px; font-family: monospace; }
+.sr-admin-wrap .sr-settings-panel small { font-size: 12px; color: #64717b; }
+.sr-admin-wrap .sr-demo-note { padding: 14px 16px; background: #f1f6f5; border-radius: 5px; color: #52666a; }
+.sr-admin-wrap .sr-demo-note span { line-height: 1.8; }
+.sr-admin-wrap .sr-demo-note i { display: block; font-style: normal; }
+.sr-admin-wrap .sr-reveal-credentials { margin: 8px 0; }
+.sr-admin-wrap .sr-settings-savebar { display: flex; justify-content: space-between; align-items: center; gap: 16px; position: sticky; bottom: 0; z-index: 5; padding: 16px 22px; border: 1px solid #dce2e5; border-radius: 8px; background: #fff; box-shadow: 0 -3px 16px rgba(24, 46, 54, .06); }
+.sr-admin-wrap .sr-settings-savebar strong { display: block; font-size: 13px; }
+.sr-admin-wrap .sr-settings-savebar span { display: block; font-size: 12px; margin-top: 3px; color: #647780; }
+.sr-admin-wrap .sr-settings-savebar.sr-is-dirty { border-color: #9cc8ba; }
+.sr-admin-wrap .sr-is-dirty .sr-save-status { color: #08665d; }
+.sr-admin-wrap .sr-settings-savebar .button-primary { background: #08776e; border-color: #08776e; padding: 2px 20px; min-height: 38px; }
+.sr-admin-wrap .sr-settings-savebar .button-primary:hover { background: #065e57; border-color: #065e57; }
+.sr-admin-wrap .sr-search-match { background: #edf6f2; outline: 4px solid #edf6f2; }
+@media (max-width: 1100px) {
+    .sr-admin-wrap.sr-settings-enhanced .sr-settings-layout { grid-template-columns: 200px minmax(0, 1fr); gap: 16px; }
+    .sr-admin-wrap .sr-settings-panel { padding: 22px; }
+}
+@media (max-width: 782px) {
+    .sr-admin-wrap .sr-admin-title { height: auto; line-height: 1.35; font-size: 23px; }
+    .sr-admin-wrap .sr-admin-logo { display: none; }
+    .sr-admin-wrap.sr-settings-enhanced .sr-settings-layout { display: block; }
+    .sr-admin-wrap .sr-settings-nav { position: static; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; margin-bottom: 20px; }
+    .sr-admin-wrap .sr-nav-heading { display: none; }
+    .sr-admin-wrap .sr-settings-nav a { padding: 10px; margin: 0; }
+    .sr-admin-wrap .sr-settings-nav a small { display: none; }
+    .sr-admin-wrap .sr-settings-nav a:last-child { margin: 0; border: 1px solid transparent; padding-top: 10px; border-radius: 6px; }
+    .sr-admin-wrap .sr-settings-panel { padding: 20px 16px; }
+    .sr-admin-wrap .sr-settings-panel td { display: block; width: auto; padding: 8px 0; }
+    .sr-admin-wrap .sr-settings-panel td + td { width: auto; padding-left: 0; }
+    .sr-admin-wrap .sr-settings-panel td > div[style] { max-width: none !important; }
+    .sr-admin-wrap .sr-settings-panel textarea { max-width: 100%; box-sizing: border-box; }
+    .sr-admin-wrap #sr_leadcapture_custom_form { margin-left: 0 !important; }
+    .sr-admin-wrap .sr-settings-savebar { padding: 12px; gap: 8px; border-radius: 6px; }
+    .sr-admin-wrap .sr-settings-savebar .button-primary { padding: 4px 12px; flex-shrink: 0; }
+    .sr-admin-wrap .sr-settings-search-box { flex-wrap: wrap; }
+}
+
+.sr-admin-wrap .sr-settings-panel { scroll-margin-top: 54px; }
