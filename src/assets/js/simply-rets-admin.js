@@ -24,7 +24,9 @@ jQuery(function($) {
   $('#sr-filter-select').on('change', function() {
     var selector = filterInputs[$(this).val()];
     if (!selector) return;
-    $('.current-filters').append($(selector).show());
+    var input = $(selector);
+    $('.current-filters').append(input);
+    input.show();
     $(this).find('option:selected').remove();
   });
 
