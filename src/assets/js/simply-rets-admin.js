@@ -97,9 +97,20 @@ jQuery(function($) {
   }
 
   try { active = window.sessionStorage.getItem(storageKey) || active; } catch (error) { /* Use the account section. */ }
+  function linkedSection() {
+    var prefix = '#sr-section-';
+    if (window.location.hash.indexOf(prefix) !== 0) return null;
+    var section = window.location.hash.slice(prefix.length);
+    return panels.filter(function() { return $(this).attr('data-sr-panel') === section; }).length ? section : null;
+  }
+  active = linkedSection() || active;
   root.addClass('sr-settings-enhanced');
   root.find('.sr-settings-toolbar, .sr-settings-nav, .sr-settings-savebar-info, .sr-reveal-credentials').prop('hidden', false);
   showSection(active, false);
+  $(window).on('hashchange', function() {
+    var section = linkedSection();
+    if (section) showSection(section, true);
+  });
 
   nav.on('click', 'a', function(event) {
     event.preventDefault();

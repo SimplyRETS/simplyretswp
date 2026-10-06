@@ -14,8 +14,62 @@ if (! defined('ABSPATH')) {
 
 add_action("wp_loaded", array("SrAdminSettings", "createDemoPage"));
 add_action("admin_notices", array("SrAdminSettings", "adminMessages"));
+add_action('admin_notices', array('SrAdminSettings', 'legacyPagesNotice'));
+add_action('admin_post_sr_dismiss_legacy_pages_notice', array('SrAdminSettings', 'dismissLegacyPagesNotice'));
 
 class SrAdminSettings {
+
+    public static function canManageLegacyPages() {
+        $post_type = get_post_type_object('sr-listings');
+        return $post_type && current_user_can('manage_options') && current_user_can($post_type->cap->edit_posts);
+    }
+
+    public static function hasLegacyPages() {
+        global $wpdb;
+        // Look for persisted posts only, including drafts, private pages and trash.
+        // Automatic drafts are editor placeholders; dynamic routes are not stored.
+        return $wpdb->get_var($wpdb->prepare(
+            "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status NOT IN (%s, %s) LIMIT 1",
+            'sr-listings', 'auto-draft', 'inherit'
+        )) !== null;
+    }
+
+    public static function legacyPagesSettingsUrl() {
+        return admin_url('options-general.php?page=simplyrets-admin.php') . '#sr-section-legacy-pages';
+    }
+
+    public static function legacyPagesNotice() {
+        if ((defined('DOING_AJAX') && DOING_AJAX) ||
+            (defined('IFRAME_REQUEST') && IFRAME_REQUEST) ||
+            (function_exists('is_network_admin') && is_network_admin()) ||
+            !self::canManageLegacyPages() || !self::hasLegacyPages() ||
+            get_user_option('sr_legacy_pages_transition_dismissed')) {
+            return;
+        }
+        ?>
+        <div class="notice notice-info updated sr-legacy-pages-notice">
+            <p><strong>SimplyRETS Pages are now legacy pages.</strong> Your existing pages continue to work. For new pages, use SimplyRETS shortcodes on ordinary WordPress pages.</p>
+            <p><a href="<?php echo esc_url(self::legacyPagesSettingsUrl()); ?>">Find your existing pages in Settings → SimplyRETS → Legacy Pages</a>.</p>
+            <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+                <input type="hidden" name="action" value="sr_dismiss_legacy_pages_notice" />
+                <?php wp_nonce_field('sr_dismiss_legacy_pages_notice'); ?>
+                <p><button type="submit" class="button">Dismiss this notice</button></p>
+            </form>
+        </div>
+        <?php
+    }
+
+    public static function dismissLegacyPagesNotice() {
+        if (!self::canManageLegacyPages()) {
+            wp_die('You do not have permission to dismiss this notice.');
+        }
+        check_admin_referer('sr_dismiss_legacy_pages_notice');
+        // Keep dismissal specific to this user and this site on multisite installs.
+        update_user_option(get_current_user_id(), 'sr_legacy_pages_transition_dismissed', 1, false);
+        $redirect = wp_get_referer();
+        wp_safe_redirect($redirect ? $redirect : self::legacyPagesSettingsUrl());
+        exit;
+    }
 
     public static function add_to_admin_menu() {
         add_options_page(
@@ -174,6 +228,10 @@ class SrAdminSettings {
             'analytics' => array('Analytics', 'ListHub tracking', 'chart-bar'),
             'messages' => array('Custom messages', 'Disclaimers & empty results', 'editor-alignleft')
         );
+        $show_legacy_pages = self::canManageLegacyPages() && self::hasLegacyPages();
+        if ($show_legacy_pages) {
+            $sections['legacy-pages'] = array('Legacy Pages', 'Manage existing pages', 'admin-page');
+        }
 
         // If meta data refresh action was posted, verify nonce and perform action
         $update_meta_nonce_field = 'sr_update_meta_data_nonce_field';
@@ -859,6 +917,15 @@ class SrAdminSettings {
                                 </i>
                             </div>
                         </div>
+                <?php if ($show_legacy_pages) { ?>
+                <div class="sr-settings-panel" id="sr-section-legacy-pages" data-sr-panel="legacy-pages">
+                    <h2>Legacy Pages</h2>
+                    <p>The custom SimplyRETS page editor is deprecated. Your existing pages are still supported and continue to work, including their filters, templates, and URLs.</p>
+                    <p>For new listing pages, add SimplyRETS shortcodes to ordinary WordPress pages. For example, use <code>[sr_map_search search_form="true" list_view="true"]</code> for a map and listing search.</p>
+                    <p><a href="https://wordpress-demo.simplyrets.com/" target="_blank" rel="noopener noreferrer">Explore shortcode examples<span class="screen-reader-text"> (opens in a new tab)</span></a></p>
+                    <p><a class="button" href="<?php echo esc_url(admin_url('edit.php?post_type=sr-listings')); ?>">Manage existing pages</a></p>
+                </div>
+                <?php } ?>
                 <div class="sr-settings-empty" hidden><h2>No matching settings</h2><p>Try a different keyword, or clear the search to browse all sections.</p></div>
                 <div class="sr-settings-savebar">
                     <div class="sr-settings-savebar-info" hidden><strong class="sr-save-status" role="status" aria-live="polite">No unsaved changes</strong><span>Save applies to all sections.</span></div>
