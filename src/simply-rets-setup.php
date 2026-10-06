@@ -94,6 +94,8 @@ class SimplyRetsSetup {
         );
         $args = array(
             'public'          => true,
+            // Keep saved pages and their editor/routes available through settings.
+            'show_in_menu'    => false,
             'has_archive'     => false,
             'labels'          => $labels,
             'description'     => 'SimplyRETS property listings pages',
