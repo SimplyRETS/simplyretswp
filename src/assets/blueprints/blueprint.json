@@ -1,0 +1,49 @@
+{
+    "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+    "landingPage": "/simplyrets-listings/",
+    "features": {
+        "networking": true
+    },
+    "phpExtensionBundles": ["kitchen-sink"],
+    "preferredVersions": {
+        "php": "8.2",
+        "wp": "latest"
+    },
+    "steps": [
+        {
+            "step": "login",
+            "username": "admin",
+            "password": "password"
+        },
+        {
+            "step": "setSiteOptions",
+            "options": {
+                "permalink_structure": "/%postname%/"
+            }
+        },
+        {
+            "step": "installTheme",
+            "themeZipFile": {
+                "resource": "wordpress.org/themes",
+                "slug": "astra"
+            },
+            "options": {
+                "activate": true
+            }
+        },
+        {
+            "step": "installPlugin",
+            "pluginZipFile": {
+                "resource": "wordpress.org/plugins",
+                "slug": "simply-rets"
+            },
+            "options": {
+                "activate": true
+            }
+        },
+        {
+            "step": "runPHP",
+            "code": "<?php require_once 'wordpress/wp-load.php'; wp_insert_post(array('post_title' => 'SimplyRETS Demo Page', 'post_status' => 'publish', 'post_content' => '[sr_search_form][sr_listings show_map=\"false\"]', 'post_type' => 'page', 'post_name' => 'simplyrets-listings')); ?>"
+        }
+    ]
+}
