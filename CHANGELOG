@@ -3,6 +3,8 @@
 ## 3.3.0
 
 * FIX: Escape API error messages to prevent reflected cross-site scripting on listing pages
+* IMPROVE: Upgrade the admin settings page with section navigation, settings search, and clearer controls
+* DEPRECATE: Deprecate SimplyRETS Pages in favor of shortcodes on ordinary WordPress pages; existing pages remain supported and can be managed under Settings → SimplyRETS → Legacy Pages
 
 ## 3.2.9
 
