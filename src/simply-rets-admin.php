@@ -16,8 +16,15 @@ add_action("wp_loaded", array("SrAdminSettings", "createDemoPage"));
 add_action("admin_notices", array("SrAdminSettings", "adminMessages"));
 add_action('admin_notices', array('SrAdminSettings', 'legacyPagesNotice'));
 add_action('admin_post_sr_dismiss_legacy_pages_notice', array('SrAdminSettings', 'dismissLegacyPagesNotice'));
+add_action('clean_post_cache', array('SrAdminSettings', 'invalidateLegacyPageCounts'));
 
 class SrAdminSettings {
+
+    public static function invalidateLegacyPageCounts() {
+        // Core clears counts on status transitions, but not every deletion or
+        // post-type change. Follow post cache invalidation for both cases.
+        wp_cache_delete('posts-sr-listings', 'counts');
+    }
 
     public static function canManageLegacyPages() {
         $post_type = get_post_type_object('sr-listings');
@@ -25,13 +32,14 @@ class SrAdminSettings {
     }
 
     public static function hasLegacyPages() {
-        global $wpdb;
         // Look for persisted posts only, including drafts, private pages and trash.
         // Automatic drafts are editor placeholders; dynamic routes are not stored.
-        return $wpdb->get_var($wpdb->prepare(
-            "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status NOT IN (%s, %s) LIMIT 1",
-            'sr-listings', 'auto-draft', 'inherit'
-        )) !== null;
+        foreach (wp_count_posts('sr-listings') as $status => $count) {
+            if ($status !== 'auto-draft' && $status !== 'inherit' && $count > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static function legacyPagesSettingsUrl() {

@@ -7,6 +7,13 @@ require_once dirname(__FILE__) . '/../simply-rets-admin.php';
 
 class LegacyPagesTest extends WP_UnitTestCase {
 
+    public function set_up() {
+        parent::set_up();
+        // Admin code loads during test discovery, after the framework snapshots
+        // startup hooks. Restore its cache hook when WordPress resets filters.
+        add_action('clean_post_cache', array('SrAdminSettings', 'invalidateLegacyPageCounts'));
+    }
+
     private function signIn($role) {
         $user_id = $this->factory->user->create(array('role' => $role));
         wp_set_current_user($user_id);
@@ -98,6 +105,34 @@ class LegacyPagesTest extends WP_UnitTestCase {
             }
         } finally {
             $wp_query = $original_query;
+        }
+    }
+
+    public function testCachedCountsFollowStatusChangesAndCustomStatuses() {
+        global $wp_post_statuses;
+        register_post_status('sr-custom', array('public' => true));
+        try {
+            $this->assertFalse(SrAdminSettings::hasLegacyPages());
+            $post_id = $this->factory->post->create(array('post_type' => 'sr-listings', 'post_status' => 'auto-draft'));
+            $this->assertFalse(SrAdminSettings::hasLegacyPages());
+            foreach (array('sr-custom', 'draft', 'private', 'trash') as $status) {
+                wp_update_post(array('ID' => $post_id, 'post_status' => $status));
+                $this->assertTrue(SrAdminSettings::hasLegacyPages(), $status);
+                // Repeated reads exercise WordPress's cached counts.
+                $this->assertTrue(SrAdminSettings::hasLegacyPages(), $status . ' cached');
+            }
+            wp_update_post(array('ID' => $post_id, 'post_status' => 'inherit'));
+            $this->assertFalse(SrAdminSettings::hasLegacyPages());
+            wp_update_post(array('ID' => $post_id, 'post_status' => 'publish'));
+            $this->assertTrue(SrAdminSettings::hasLegacyPages());
+            wp_update_post(array('ID' => $post_id, 'post_type' => 'page'));
+            $this->assertFalse(SrAdminSettings::hasLegacyPages());
+            wp_update_post(array('ID' => $post_id, 'post_type' => 'sr-listings'));
+            $this->assertTrue(SrAdminSettings::hasLegacyPages());
+            wp_delete_post($post_id, true);
+            $this->assertFalse(SrAdminSettings::hasLegacyPages());
+        } finally {
+            unset($wp_post_statuses['sr-custom']);
         }
     }
 
