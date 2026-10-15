@@ -2,16 +2,13 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-require_once ABSPATH . 'wp-admin/includes/template.php';
-require_once dirname(__FILE__) . '/../simply-rets-admin.php';
 
 class LegacyPagesTest extends WP_UnitTestCase {
 
     public function set_up() {
         parent::set_up();
-        // Admin code loads during test discovery, after the framework snapshots
-        // startup hooks. Restore its cache hook when WordPress resets filters.
-        add_action('clean_post_cache', array('SrAdminSettings', 'invalidateLegacyPageCounts'));
+        require_once ABSPATH . 'wp-admin/includes/template.php';
+        require_once dirname(__FILE__) . '/../simply-rets-admin.php';
     }
 
     private function signIn($role) {

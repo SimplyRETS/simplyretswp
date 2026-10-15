@@ -16,14 +16,11 @@ add_action("wp_loaded", array("SrAdminSettings", "createDemoPage"));
 add_action("admin_notices", array("SrAdminSettings", "adminMessages"));
 add_action('admin_notices', array('SrAdminSettings', 'legacyPagesNotice'));
 add_action('admin_post_sr_dismiss_legacy_pages_notice', array('SrAdminSettings', 'dismissLegacyPagesNotice'));
-add_action('clean_post_cache', array('SrAdminSettings', 'invalidateLegacyPageCounts'));
 
 class SrAdminSettings {
 
     public static function invalidateLegacyPageCounts() {
-        // Core clears counts on status transitions, but not every deletion or
-        // post-type change. Follow post cache invalidation for both cases.
-        wp_cache_delete('posts-sr-listings', 'counts');
+        SimplyRetsSetup::invalidateLegacyPageCounts();
     }
 
     public static function canManageLegacyPages() {

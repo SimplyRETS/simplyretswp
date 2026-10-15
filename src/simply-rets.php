@@ -38,6 +38,8 @@ require_once(plugin_dir_path(__FILE__) . 'simply-rets-setup.php');
 require_once(plugin_dir_path(__FILE__) . 'simply-rets-contact-form.php');
 require_once(plugin_dir_path(__FILE__) . 'simply-rets-analytics.php');
 
+// Post counts must also stay fresh for cron, REST and command-line writes.
+add_action('clean_post_cache', array('SimplyRetsSetup', 'invalidateLegacyPageCounts'));
 
 if (is_admin()) {
     require_once(plugin_dir_path(__FILE__) . 'simply-rets-admin.php');
