@@ -5,6 +5,8 @@ Plugin URI: https://simplyrets.com/wordpress-idx-plugin
 Description: Show your Real Estate listings on your Wordpress site. SimplyRETS provides a very simple set up and full control over your listings.
 Author: SimplyRETS
 Version: 3.3.0
+Requires at least: 4.7
+Requires PHP: 7.0.27
 License: GNU General Public License v3 or later
 
 Copyright (c) SimplyRETS 2014 - 2026
@@ -36,6 +38,8 @@ require_once(plugin_dir_path(__FILE__) . 'simply-rets-setup.php');
 require_once(plugin_dir_path(__FILE__) . 'simply-rets-contact-form.php');
 require_once(plugin_dir_path(__FILE__) . 'simply-rets-analytics.php');
 
+// Post counts must also stay fresh for cron, REST and command-line writes.
+add_action('clean_post_cache', array('SimplyRetsSetup', 'invalidateLegacyPageCounts'));
 
 if (is_admin()) {
     require_once(plugin_dir_path(__FILE__) . 'simply-rets-admin.php');

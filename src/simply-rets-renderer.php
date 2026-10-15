@@ -1994,7 +1994,7 @@ class SimplyRetsRenderer {
                 <form method="get" class="sr-search" action="<?php echo esc_url($home_url); ?>">
                     <input type="hidden" name="sr-listings" value="sr-search">
                     <input type="hidden" name="advanced" value="true">
-                    <<?php echo $search_heading; ?> class="sr-search-heading">Advanced Listings Search</<?php echo $search_heading; ?>>
+                    <<?php echo tag_escape($search_heading); ?> class="sr-search-heading">Advanced Listings Search</<?php echo tag_escape($search_heading); ?>>
                     <div class="sr-adv-search-minmax sr-adv-search-part">
 
                         <div class="sr-adv-search-col1">
@@ -2177,7 +2177,7 @@ class SimplyRetsRenderer {
 
         ?>
         <div id="sr-search-wrapper">
-            <<?php echo $search_heading; ?> class="sr-search-heading">Search Listings</<?php echo $search_heading; ?>>
+            <<?php echo tag_escape($search_heading); ?> class="sr-search-heading">Search Listings</<?php echo tag_escape($search_heading); ?>>
             <form method="get" class="sr-search" action="<?php echo esc_url($home_url); ?>">
                 <input type="hidden" name="sr-listings" value="sr-search">
 

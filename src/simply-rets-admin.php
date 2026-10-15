@@ -19,19 +19,24 @@ add_action('admin_post_sr_dismiss_legacy_pages_notice', array('SrAdminSettings',
 
 class SrAdminSettings {
 
+    public static function invalidateLegacyPageCounts() {
+        SimplyRetsSetup::invalidateLegacyPageCounts();
+    }
+
     public static function canManageLegacyPages() {
         $post_type = get_post_type_object('sr-listings');
         return $post_type && current_user_can('manage_options') && current_user_can($post_type->cap->edit_posts);
     }
 
     public static function hasLegacyPages() {
-        global $wpdb;
         // Look for persisted posts only, including drafts, private pages and trash.
         // Automatic drafts are editor placeholders; dynamic routes are not stored.
-        return $wpdb->get_var($wpdb->prepare(
-            "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status NOT IN (%s, %s) LIMIT 1",
-            'sr-listings', 'auto-draft', 'inherit'
-        )) !== null;
+        foreach (wp_count_posts('sr-listings') as $status => $count) {
+            if ($status !== 'auto-draft' && $status !== 'inherit' && $count > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static function legacyPagesSettingsUrl() {

@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+* FIX: Resolve Plugin Check findings while preserving existing markup and customization hooks
+* FIX: Support open-house timezone conversion on WordPress 4.7 through 5.2
+* IMPROVE: Bundle the existing fallback listing photo and use cached WordPress counts for Legacy Pages
+* REQUIRE: WordPress 4.7 or later; PHP 7.0.27 or later remains supported
+
 ## 3.3.0
 
 * FIX: Escape API error messages to prevent reflected cross-site scripting on listing pages

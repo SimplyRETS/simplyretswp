@@ -9,6 +9,12 @@
 
 class SimplyRetsSetup {
 
+    public static function invalidateLegacyPageCounts() {
+        // Core clears counts on status transitions, but not every deletion or
+        // post-type change. Follow post cache invalidation for both cases.
+        wp_cache_delete('posts-sr-listings', 'counts');
+    }
+
     public static function srActivate() {
         SimplyRetsSetup::srRegisterPostType();
         SimplyRetsApiClient::srUpdateAdvSearchOptions();

@@ -527,8 +527,7 @@ class SrUtils {
 
 class SrListing {
 
-    public static $default_photo =
-    "https://s3-us-west-2.amazonaws.com/simplyrets/trial/properties/defprop.jpg";
+    public static $default_photo = '';
 
     public static function normalizeListingPhotoUrl($url) {
         $force_https = get_option("sr_listing_force_image_https", false);
@@ -594,6 +593,9 @@ class SrListing {
     }
 }
 
+
+// Initialize the public URL once so existing integrations can still override it.
+SrListing::$default_photo = plugins_url('assets/img/default-property.jpg', __FILE__);
 
 class SrMessages {
 

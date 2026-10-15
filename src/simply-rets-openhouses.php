@@ -12,6 +12,28 @@
 
 class SimplyRetsOpenHouses {
 
+    /** Get the site's timezone on WordPress versions before and after 5.3. */
+    private static function siteTimezone() {
+        if (function_exists('wp_timezone')) {
+            return wp_timezone();
+        }
+
+        $timezone_string = get_option('timezone_string');
+        if (!$timezone_string) {
+            $offset = (float) get_option('gmt_offset');
+            $hours = (int) $offset;
+            $minutes = ($offset - $hours) * 60;
+            $timezone_string = sprintf(
+                '%s%02d:%02d',
+                $offset < 0 ? '-' : '+',
+                abs($hours),
+                abs($minutes)
+            );
+        }
+
+        return new DateTimeZone($timezone_string);
+    }
+
     /**
      * Get open house data for a listingId.
      * Return an empty array if no openhouses exist.
@@ -41,7 +63,8 @@ class SimplyRetsOpenHouses {
          */
 
         // 1. Get the setting.
-        $timezone_setting = get_option("sr_date_default_timezone", wp_timezone());
+        $site_timezone = self::siteTimezone();
+        $timezone_setting = get_option("sr_date_default_timezone", $site_timezone);
         $timezone_name_string = '';
 
         // 2. Reliably get the timezone *string* name
@@ -50,7 +73,7 @@ class SimplyRetsOpenHouses {
         } elseif (is_string($timezone_setting) && !empty($timezone_setting)) {
             $timezone_name_string = $timezone_setting;
         } else {
-            $timezone_name_string = wp_timezone_string();
+            $timezone_name_string = timezone_name_get($site_timezone);
         }
 
         // 3. Create a DateTimeZone object from the string
@@ -59,7 +82,7 @@ class SimplyRetsOpenHouses {
         // 4. Validation
         if ($display_time_zone_object === false) {
             // Fall back to the default WP timezone object
-            $display_time_zone_object = wp_timezone();
+            $display_time_zone_object = $site_timezone;
         }
 
         // 5. Create DateTime objects FROM the UTC string.
@@ -225,12 +248,12 @@ class SimplyRetsOpenHouses {
             <div class="sr-listing-data-wrapper">
                 <div class="sr-primary-data">
                     <a href="<?php echo esc_url($details_link); ?>">
-                        <<?php echo $listing_heading; ?> class="sr-listing-address">
+                        <<?php echo tag_escape($listing_heading); ?> class="sr-listing-address">
                             <?php echo esc_html($full_address); ?>
                             <small class="sr-price">
                                 <i> - <?php echo esc_html($list_price_fmtd); ?></i>
                             </small>
-                        </<?php echo $listing_heading; ?>>
+                        </<?php echo tag_escape($listing_heading); ?>>
                     </a>
                 </div>
                 <div class="sr-secondary-data">
