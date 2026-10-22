@@ -2,8 +2,9 @@
 Author: SimplyRETS
 Contributors: SimplyRETS
 Tags: real estate, idx, mls, rets, reso web api
-Requires at least: 3.0.1
-Tested up to: 7.0
+Requires at least: 4.7
+Requires PHP: 7.0.27
+Tested up to: 7.1
 Stable tag: 3.3.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -234,6 +235,13 @@ listing sidebar widget.
 
 
 == Changelog ==
+
+= Unreleased =
+
+* FIX: Resolve Plugin Check findings while preserving existing markup and customization hooks
+* FIX: Support open-house timezone conversion on WordPress 4.7 through 5.2
+* IMPROVE: Bundle the existing fallback listing photo and use cached WordPress counts for Legacy Pages
+* REQUIRE: WordPress 4.7 or later; PHP 7.0.27 or later remains supported
 
 = 3.3.0 =
 
