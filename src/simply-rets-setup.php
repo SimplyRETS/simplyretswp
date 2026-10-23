@@ -237,8 +237,6 @@ class SimplyRetsSetup {
             SIMPLYRETSWP_VERSION,
             array("in_footer" => false)
         );
-        wp_enqueue_script('simply-rets-galleria-js');
-
         wp_register_script(
             'simply-rets-galleria-theme-js',
             plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__),
@@ -246,7 +244,11 @@ class SimplyRetsSetup {
             SIMPLYRETSWP_VERSION,
             array("in_footer" => false)
         );
-        wp_enqueue_script('simply-rets-galleria-theme-js');
+
+        // Load Galleria JS if fancy image gallery is enabled
+        if (get_option('sr_listing_gallery') == 'fancy') {
+            wp_enqueue_script('simply-rets-galleria-theme-js');
+        }
 
         // listings slider js
         wp_register_script(
