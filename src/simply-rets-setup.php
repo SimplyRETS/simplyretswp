@@ -202,7 +202,8 @@ class SimplyRetsSetup {
         );
         wp_enqueue_style('simply-rets-listing-slider-theme-css');
 
-        if (get_option('sr_listing_gallery') == 'fancy') {
+        // Match the renderer: every mode except classic uses Fancy Gallery.
+        if (get_option('sr_listing_gallery') != 'classic') {
             wp_register_style(
                 'simply-rets-galleria-classic-theme-css',
                 plugins_url('assets/galleria/themes/classic/galleria.classic.css', __FILE__),
@@ -237,8 +238,6 @@ class SimplyRetsSetup {
             SIMPLYRETSWP_VERSION,
             array("in_footer" => false)
         );
-        wp_enqueue_script('simply-rets-galleria-js');
-
         wp_register_script(
             'simply-rets-galleria-theme-js',
             plugins_url('assets/galleria/themes/classic/galleria.classic.min.js', __FILE__),
@@ -246,7 +245,11 @@ class SimplyRetsSetup {
             SIMPLYRETSWP_VERSION,
             array("in_footer" => false)
         );
-        wp_enqueue_script('simply-rets-galleria-theme-js');
+
+        // Match the renderer: every mode except classic uses Fancy Gallery.
+        if (get_option('sr_listing_gallery') != 'classic') {
+            wp_enqueue_script('simply-rets-galleria-theme-js');
+        }
 
         // listings slider js
         wp_register_script(
