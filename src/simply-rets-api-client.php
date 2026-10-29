@@ -107,6 +107,11 @@ class SimplyRetsApiClient {
             curl_setopt($ch, CURLOPT_URL, $url);
             // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            // Request gzip only when cURL can automatically decode the response.
+            if ($curl_info['features'] & CURL_VERSION_LIBZ) {
+                // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
+                curl_setopt($ch, CURLOPT_ENCODING, 'gzip');
+            }
             // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt($ch, CURLOPT_USERAGENT, $ua_string . " cURL/{$curl_version}");
             // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
@@ -228,6 +233,11 @@ class SimplyRetsApiClient {
             curl_setopt($ch, CURLOPT_URL, $url);
             // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            // Request gzip only when cURL can automatically decode the response.
+            if ($curl_info['features'] & CURL_VERSION_LIBZ) {
+                // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
+                curl_setopt($ch, CURLOPT_ENCODING, 'gzip');
+            }
             // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
             curl_setopt($ch, CURLOPT_USERAGENT, $ua_string . " cURL/{$curl_version}");
             // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
